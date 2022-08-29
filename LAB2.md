@@ -10,6 +10,7 @@
 4. Run the image from your account and test it.
 5. Create a commit with your changes and push it to your repository.
 6. Update README.md in your root folder. Add the `Docker` section that describes your changes.
+7. Review PRs of your teammates. Check if it works. Provide your suggestions.
 
 To get **4 more points** you need to make your app production ready:
 
@@ -20,7 +21,7 @@ To get **4 more points** you need to make your app production ready:
 
 ## Bonus
 
-To get 5 extra points:
+To get **4 extra points**:
 
 1. Create a `Dockerfile` for the app that you created in the previous lab.
 2. Follow all steps and suggestions from the main task.

@@ -24,16 +24,18 @@ Grading is based on PRs with your solution to the corresponding branch of this r
 4. Push the code to your repository.
 5. Create a PR to the lab1 branch on this repository from your fork's lab1 branch.
 6. Create an archive with the current version of your code and submit a zip file to Moodle.
-7. Wait for your grade.
+7. Create a team with with your classmates, 6 people max.
+8. Each student must review PRs of all teammates.
+9. Wait for your grade.
 
 ## Grading
 
 ### Points distribution for the course
 
 ```
-60 - labs
+70 - labs
 20 - final exam
-20 - 
+10 - attendance on lectures
 ```
 
 ### Grade ranges
@@ -49,9 +51,9 @@ Grading is based on PRs with your solution to the corresponding branch of this r
 
 Each lab is marked out of 10. All labs have a set of main tasks and a set of extra tasks.
 
-Completing main tasks correctly will give you 10 points out of 10. Completing extra tasks correctly will give you 5 additional points. Your points for main and extra tasks will be summed up and will help you to get a better grade.
+Completing main tasks correctly will give you 10 points out of 10. Completing extra tasks correctly will give you some additional points, depends on the bonus task difficulty. Your points for main and extra tasks will be summed up and will help you to get a better grade.
 
-If you finish all bonus tasks correctly the permission to skip the exam will be granted to you + 10 extra points. If you finish not all of them you will must pass the exam, but it can save you from the exam's failure.
+If you finish all bonus tasks correctly the **permission to skip the exam will be granted to you + 10 extra points**. If you finish not all of them you will must pass the exam, but it can save you from the exam's failure.
 
 ## Deadlines and labs distribution
 

@@ -1,0 +1,20 @@
+# bad.
+.idea
+
+# VS Code.
+.vscode
+
+# Environments.
+env
+.env
+venv
+.venv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs
+logs/
+*.log

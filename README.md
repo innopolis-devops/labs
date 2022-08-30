@@ -7,13 +7,22 @@ You can learn what time it is now in other places, too.
 
 ## How to Build and Run
 
-> It is required to use Python 3.10 or newer.
+You have to have Docker installed, and Docker daemon running.
+
+### Build locally
 
 1. Clone this repository.
-2. In root folder, run `python -m venv venv` to create virtual environment.
-3. On Windows, run `./venv/Scripts/pip install -r requirements.txt` to install dependencies.
-For Linux, the command is `./venv/bin/pip install -r requirements.txt`.
-4. Run `./run.sh` script.
+2. In its root folder, simply execute `build_and_run.sh` script.
+
+It will build an image locally and run a container with it.
+
+### Simple run
+
+Execute the `run.sh` script. It will pull the already built repository and run it.
+
+### Stop the container
+
+To stop and delete the container, execute `stop.sh` script.
 
 ## Usage
 

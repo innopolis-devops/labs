@@ -11,7 +11,8 @@ You can learn what time it is now in other places, too.
 
 1. Clone this repository.
 2. In root folder, run `python -m venv venv` to create virtual environment.
-3. Run `./venv/Scripts/pip install -r requirements.txt` to install dependencies.
+3. On Windows, run `./venv/Scripts/pip install -r requirements.txt` to install dependencies.
+For Linux, the command is `./venv/bin/pip install -r requirements.txt`.
 4. Run `./run.sh` script.
 
 ## Usage

@@ -1,0 +1,24 @@
+FROM python:3.9-slim
+
+ENV PROD=true \
+  PYTHONFAULTHANDLER=1 \
+  PYTHONUNBUFFERED=1 \
+  PYTHONHASHSEED=random \
+  PIP_NO_CACHE_DIR=off \
+  PIP_DISABLE_PIP_VERSION_CHECK=on \
+  PIP_DEFAULT_TIMEOUT=100
+
+RUN python -m pip install poetry
+
+WORKDIR /app
+COPY poetry.lock pyproject.toml /app/
+
+
+RUN python -m poetry config virtualenvs.create false \
+  && python -m poetry install $(test "$PROD" == true && echo "--no-dev") --no-interaction --no-ansi \
+  && python -m poetry shell
+
+COPY . /app
+
+EXPOSE 4444
+ENTRYPOINT ["gunicorn", "app:app", "-b", "0.0.0.0:4444"]

@@ -1,6 +1,6 @@
 import { NTPClient } from 'ntpclient';
 
-const time_diff = new NTPClient().getNetworkTime().then(
+const time_diff = new NTPClient('time.google.com').getNetworkTime().then(
   date => Date.now() - date.getTime()
 );
 

@@ -1,1 +1,1 @@
-from .current_time_in_timezone import CurrentTimeInTimeZoneUseCase
+from app_python.use_case.current_time_in_timezone import CurrentTimeInTimeZoneUseCase

@@ -1,1 +1,1 @@
-from .invalid_time_zone import InvalidTimeZoneError
+from app_python.errors.invalid_time_zone import InvalidTimeZoneError

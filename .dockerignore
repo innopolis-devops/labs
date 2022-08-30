@@ -1,0 +1,10 @@
+# Environments.
+env
+venv
+.env
+.venv
+
+# Everything I love/hate so much.
+.mypy_cache
+.idea
+.vscode

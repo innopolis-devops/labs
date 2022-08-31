@@ -10,6 +10,8 @@ This application can be set up/run manually or as a docker container
 
 ### Docker run guide
 
+If you have docker compose installed, you can just write `docker compose up`. Otherwise, do it as follows:
+
 #### Build
 
 To build docker image you need to

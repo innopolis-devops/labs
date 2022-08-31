@@ -24,8 +24,7 @@ RUN set -ex \
     && pip install poetry \
     && poetry config virtualenvs.create false
 
-COPY poetry.lock poetry.lock
-COPY pyproject.toml pyproject.toml
+COPY pyproject.toml poetry.lock /opt/app/
 
 RUN poetry install --no-dev
 

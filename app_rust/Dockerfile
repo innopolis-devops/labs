@@ -1,16 +1,16 @@
-FROM rust:1.63-bullseye as build-container
+# syntax = docker/dockerfile:1.2
 
-WORKDIR /build
+FROM clux/muslrust:stable as build
 
-COPY . .
-RUN cargo build --release
-RUN ls ./target/release/
-RUN mv ./target/release/rustapp /app
-RUN rm -rf .
+COPY . /volume
+RUN --mount=type=cache,target=/root/.cargo/registry --mount=type=cache,target=/volume/target \
+    cargo b --release --target x86_64-unknown-linux-musl && \
+    cp target/x86_64-unknown-linux-musl/release/rustapp rustapp
 
-FROM debian:bullseye-slim
+FROM gcr.io/distroless/static
 
-WORKDIR app
-COPY --from=build-container /app/rustapp ./
+EXPOSE 8080
+
+COPY --from=build /volume/rustapp /app/rustapp
 
 ENTRYPOINT [ "ROCKET_ENV=production", "./app/rustapp" ]

@@ -1,0 +1,5 @@
+*
+!poetry.lock
+!pyproject.toml
+!superclock
+**/__pycache__

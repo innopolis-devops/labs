@@ -1,8 +1,9 @@
 <div align="center">
-  <img src=".github/logo.png" height="128px"/><br/>
+  <img src="https://raw.githubusercontent.com/Markovvn1/devops-labs/lab1/app_python/.github/logo.png" height="128px"/><br/>
   <h1>Superclock</h1>
   <p>Simple Python web application, that shows current time in Moscow</a></p>
 </div>
+
 
 
 
@@ -14,8 +15,9 @@ The repository contains a simple python web application which shows the server t
 The application is written using the [FastAPI](https://fastapi.tiangolo.com/) framework. [Uvicorn](https://www.uvicorn.org/) (ASGI web server) is used to run the application. [Poetry](https://python-poetry.org/) is used for the dependency management. In addition, the application can be run inside a [Docker](https://www.docker.com/) container.
 
 <div align="center">
-  <img src=".github/web_demo.png" width="600px"/>
+  <img src="https://raw.githubusercontent.com/Markovvn1/devops-labs/lab1/app_python/.github/web_demo.png" width="600px"/>
 </div>
+
 
 
 ## ⚡️ Quick start (for Linux only)
@@ -23,7 +25,7 @@ The application is written using the [FastAPI](https://fastapi.tiangolo.com/) fr
 1. Download the repository and change the current directory:
 
    ```bash
-   git clone git@github.com:Markovvn1/devops-labs.git && cd devops-labs
+   git clone https://github.com/Markovvn1/devops-labs.git && cd devops-labs
    ```
 
 2. Switch to lab1 branch and open project's directory:

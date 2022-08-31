@@ -1,8 +1,9 @@
 <div align="center">
-  <img src=".github/logo.svg" height="128px"/><br/>
+  <img src="https://raw.githubusercontent.com/Markovvn1/devops-labs/lab1/app_php/.github/logo.svg" height="128px"/><br/>
   <h1>Rabbit counter</h1>
   <p>Simple PHP web application that helps you to count rabbits</a></p>
 </div>
+
 
 
 ## 📝 About The Project
@@ -13,8 +14,9 @@ The app is easy to use. Open the browser and go to the app website (see Quick st
 The repository contains a docker container with simple php web application that helps you to count rabbits.  The application is written using the [php](https://www.php.net/) and can be run inside a [Docker](https://www.docker.com/) container.
 
 <div align="center">
-  <img src=".github/web_demo.png" width="600px"/>
+  <img src="https://raw.githubusercontent.com/Markovvn1/devops-labs/lab1/app_php/.github/web_demo.png" width="600px"/>
 </div>
+
 
 
 ## ⚡️ Quick start
@@ -24,7 +26,7 @@ Before proceeding, make sure you have installed [Docker](https://docs.docker.com
 1. Download the repository and change the current directory:
 
    ```bash
-   git clone git@github.com:Markovvn1/devops-labs.git && cd devops-labs
+   git clone https://github.com/Markovvn1/devops-labs.git && cd devops-labs
    ```
 
 2. Switch to lab1 branch and open project's directory:

@@ -4,6 +4,7 @@ from pytz import timezone
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def hello_world():
     moscow_dt = datetime.now(timezone("Europe/Moscow"))

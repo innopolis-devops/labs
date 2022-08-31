@@ -18,7 +18,7 @@ The application is written using the [FastAPI](https://fastapi.tiangolo.com/) fr
 </div>
 
 
-## ⚡️ Quick start
+## ⚡️ Quick start (for Linux only)
 
 1. Download the repository and change the current directory:
 
@@ -32,7 +32,7 @@ The application is written using the [FastAPI](https://fastapi.tiangolo.com/) fr
    git checkout lab1 && cd app_python
    ```
 
-3. Configure virtual environment. Make sure you have installed python [venv module](https://docs.python.org/3/library/venv.html) before proceeding. This command should create the `.venv` folder with python virtual environment.
+3. Configure virtual environment. Before proceeding, make sure you have installed [build-essential](https://packages.debian.org/en/sid/build-essential) (to be able to use `make` command) and python [venv module](https://docs.python.org/3/library/venv.html). This command should create the `.venv` folder with python virtual environment.
 
    ```bash
    make venv

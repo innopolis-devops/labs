@@ -21,9 +21,7 @@ To build docker image you need to
 
 To run the image you can use `sudo docker run -p 8000:8000 --rm <image ID>`.
 
-Everything should be ready! You can open [localhost:8000](localhost:8000) and you should see current Moscow time.
-
-### Manual way
+### Manual run
 
 #### Preparation (set up)
 
@@ -35,3 +33,7 @@ Everything should be ready! You can open [localhost:8000](localhost:8000) and yo
 #### Run
 
 Start the server with `gunicorn app:app -b 0.0.0.0:8000`
+
+### Usage
+
+When the server is running, you can open [localhost:8000](localhost:8000) and you should see current Moscow time.

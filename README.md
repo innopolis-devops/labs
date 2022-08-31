@@ -12,7 +12,7 @@ This application can be set up/run manually or as a docker container
 
 #### Docker way
 
-* First you need to open project folder and build docker image with 
+* First you need to open project folder and build docker image with
  `docker build .`
 * then you can run the image with
 `sudo docker run -p 8000:8000 --rm <image ID>`
@@ -25,4 +25,3 @@ This application can be set up/run manually or as a docker container
 * Activate the venv with `. venv/bin/activate`
 * Install requirements with `pip3 install -r requirements.txt`
 * Run the server with `gunicorn app:app -b 0.0.0.0:8000`
-

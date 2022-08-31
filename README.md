@@ -37,3 +37,7 @@ Start the server with `gunicorn app:app -b 0.0.0.0:8000`
 ### Usage
 
 When the server is running, you can open [localhost:8000](localhost:8000) and you should see current Moscow time.
+
+## Rust 🦀 memory-safe 🛡️ blazing fast 🚀 implementation
+
+Rust implementation together with corresponding `RUST.md` is located in `app_rust` folder.

@@ -2,11 +2,14 @@ anyio==3.6.1
 autopep8==1.7.0
 click==8.1.3
 fastapi==0.81.0
+flake8==5.0.4
 h11==0.13.0
 httptools==0.4.0
 idna==3.3
+mccabe==0.7.0
 pycodestyle==2.9.1
 pydantic==1.10.0
+pyflakes==2.5.0
 python-dotenv==0.20.0
 PyYAML==6.0
 sniffio==1.2.0

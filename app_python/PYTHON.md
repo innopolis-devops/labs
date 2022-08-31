@@ -1,0 +1,54 @@
+# Road to production ready application
+
+## Best pracices applied
+
+Best practices were retrieved from <https://data-flair.training/blogs/python-best-practices/> and <https://docs.python-guide.org/writing/style/>
+
+1. Version Control System
+2. Readable documentation
+3. Following code style guidelines - PEP8
+4. Use the PyPI instead of doing it yourself
+5. Following The Zen of Python
+6. Readable code
+7. Using virtual environment
+
+## Why FastAPI?
+
+The FastAPI framework was chosen because of its simplicity, high development speed, extensive and detailed documentation, and also because of my experience of working with it.
+
+It is production ready framework:
+
+1. 100% test coverage
+2. Used by Microsoft, Uber, Netflix, etc.
+3. Constantly improving framework
+4. Constantly growing community
+
+Pros of FastAPI:
+
+1. Everything stated above in the section
+2. Speed of work
+3. Async support
+4. Auto documentation
+5. Open Source
+
+Cons of FastAPI:
+
+1. Relatively new framework, so a smaller community and less learning material compared to Django and Flask
+
+## Linters and formatters
+
+For Python code were used:
+
+1. Linter Flake8:
+
+   ``$ flake8 <file_name>``
+
+2. Formatter autopep8:
+
+   ``$ autopep8 --in-place --aggressive --aggressive <filename>``
+
+For Markdown were used:
+
+1. VSCode Markdown Linter markdownlint:
+
+   ``code --install-extension DavidAnson.vscode-markdownlint``

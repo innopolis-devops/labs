@@ -36,10 +36,37 @@ To run the image you can use `sudo docker run -p 8000:8000 --rm <image ID>`.
 
 Start the server with `gunicorn app:app -b 0.0.0.0:8000`
 
-### Usage
-
-When the server is running, you can open [localhost:8000](localhost:8000) and you should see current Moscow time.
-
 ## Rust 🦀 memory-safe 🛡️ blazing fast 🚀 implementation
 
 Rust implementation together with corresponding `RUST.md` is located in `app_rust` folder.
+
+This application can be set up/run manually or as a docker container.
+
+### Docker run guide
+
+If you have docker compose installed, you can just write `docker compose up`. Otherwise, do it as follows:
+
+#### Build
+
+To build docker image you need to
+
+* Open project folder
+* Run `DOCKER_BUILDKIT=1 docker build .` (notice env variable, won't work without it)
+
+#### Run
+
+To run the image you can use `sudo docker run -p 8000:8000 --rm <image ID>`.
+
+### Manual run
+
+#### Configuration
+
+You can update webserver configuration in `Rocket.toml` file. Documentation on the config can be found [here](https://rocket.rs/v0.5-rc/guide/configuration/).
+
+#### Run
+
+To run use `cargo run`
+
+## Usage
+
+When any of the servers is up and running, you can open [localhost:8000](localhost:8000) and you should see current Moscow time.

@@ -1,0 +1,5 @@
+# We build from scratch for now (and don't copy artifacts)
+target/
+
+# We don't want to invalidate cache on each dockerfile change
+Dockerfile

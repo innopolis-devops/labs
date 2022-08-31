@@ -50,21 +50,15 @@ The application is written using the [FastAPI](https://fastapi.tiangolo.com/) fr
 
 ### :whale: Docker-way to quick start
 
-Before proceeding, make sure you have installed [Docker](https://docs.docker.com/engine/install/), and completed the first two steps from the previous section.
+Before proceeding, make sure you have installed [Docker](https://docs.docker.com/engine/install/).
 
-1. Build docker image:
-
-   ```bash
-   docker build -t devops/lab2_python .
-   ```
-
-2. Run docker container:
+1. Run docker container:
 
    ```bash
-   docker run -it --rm -p 8080:80 devops/lab2_python
+   docker run -it --rm -p 8080:80 markovvn1/devops-lab2-python
    ```
 
-3. Open the website `http://localhost:8080/` to view the server time in Moscow.
+2. Open the website `http://localhost:8080/` to view the server time in Moscow.
 
 ## ⚙️ Developing
 
@@ -85,6 +79,12 @@ Run linters and formaters:
 ```bash
 make lint  # check code quality
 make format  # beautify code
+```
+
+Build docker image:
+
+```bash
+make build_docker
 ```
 
 ## :computer: Contributors

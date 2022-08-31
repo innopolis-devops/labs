@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Markovvn1/devops-labs/lab1/app_python/.github/logo.png" height="128px"/><br/>
+  <img src=".github/logo.png" height="128px"/><br/>
   <h1>Superclock</h1>
   <p>Simple Python web application, that shows current time in Moscow</a></p>
 </div>
@@ -15,7 +15,7 @@ The repository contains a simple python web application which shows the server t
 The application is written using the [FastAPI](https://fastapi.tiangolo.com/) framework. [Uvicorn](https://www.uvicorn.org/) (ASGI web server) is used to run the application. [Poetry](https://python-poetry.org/) is used for the dependency management. In addition, the application can be run inside a [Docker](https://www.docker.com/) container.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Markovvn1/devops-labs/lab1/app_python/.github/web_demo.png" width="600px"/>
+  <img src=".github/web_demo.png" width="600px"/>
 </div>
 
 

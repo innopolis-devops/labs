@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Markovvn1/devops-labs/lab1/app_php/.github/logo.svg" height="128px"/><br/>
+  <img src=".github/logo.svg" height="128px"/><br/>
   <h1>Rabbit counter</h1>
   <p>Simple PHP web application that helps you to count rabbits</a></p>
 </div>
@@ -14,7 +14,7 @@ The app is easy to use. Open the browser and go to the app website (see Quick st
 The repository contains a docker container with simple php web application that helps you to count rabbits.  The application is written using the [php](https://www.php.net/) and can be run inside a [Docker](https://www.docker.com/) container.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Markovvn1/devops-labs/lab1/app_php/.github/web_demo.png" width="600px"/>
+  <img src=".github/web_demo.png" width="600px"/>
 </div>
 
 

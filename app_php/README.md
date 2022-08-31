@@ -1,7 +1,7 @@
 <div align="center">
   <img src=".github/logo.svg" height="128px"/><br/>
   <h1>Rabbit counter</h1>
-  <p>Simple Python web application that helps you to count rabbits</a></p>
+  <p>Simple PHP web application that helps you to count rabbits</a></p>
 </div>
 
 
@@ -10,7 +10,7 @@ Everyone knows that rabbits multiply very quickly, so it is important to be able
 
 The app is easy to use. Open the browser and go to the app website (see Quick start). To increase the rabbit counter by 1, click on the picture of the rabbit.
 
-The repository contains a docker container with simple python web application that helps you to count rabbits.  The application is written using the [php](https://www.php.net/) and can be run inside a [Docker](https://www.docker.com/) container.
+The repository contains a docker container with simple php web application that helps you to count rabbits.  The application is written using the [php](https://www.php.net/) and can be run inside a [Docker](https://www.docker.com/) container.
 
 <div align="center">
   <img src=".github/web_demo.png" width="600px"/>

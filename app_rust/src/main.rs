@@ -1,10 +1,9 @@
-use rocket::{ get, launch, routes };
 use chrono::{DateTime, FixedOffset, Local};
-
+use rocket::{get, launch, routes};
 
 fn get_time_moscow() -> DateTime<FixedOffset> {
     let hour = 3600;
-    Local::now().with_timezone(&FixedOffset::east(3*hour))
+    Local::now().with_timezone(&FixedOffset::east(3 * hour))
 }
 
 #[get("/")]

@@ -1,0 +1,4 @@
+fastAPI>=0.81.0
+uvicorn>=0.18.3
+pytz>=2022.2.1
+flake8>=5.0.4

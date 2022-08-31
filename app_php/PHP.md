@@ -4,5 +4,5 @@
 
 I chose PHP because:
 
-* I already have experience with this framework
+* I already have experience with it
 * It is simple, fast

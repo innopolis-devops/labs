@@ -4,13 +4,15 @@ FROM clux/muslrust:stable as build
 
 COPY . /volume
 RUN --mount=type=cache,target=/root/.cargo/registry --mount=type=cache,target=/volume/target \
-    cargo b --release --target x86_64-unknown-linux-musl && \
-    cp target/x86_64-unknown-linux-musl/release/rustapp rustapp
+    cargo b --target x86_64-unknown-linux-musl && \
+    cp target/x86_64-unknown-linux-musl/release/app_rust app_rust
 
 FROM gcr.io/distroless/static
 
-EXPOSE 8080
+EXPOSE 8000
 
-COPY --from=build /volume/rustapp /app/rustapp
+WORKDIR /app
+COPY --from=build /volume/app_rust ./app_rust
+COPY ./Rocket.toml .
 
-ENTRYPOINT [ "ROCKET_ENV=production", "./app/rustapp" ]
+ENTRYPOINT [ "./app_rust" ]

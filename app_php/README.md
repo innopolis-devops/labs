@@ -1,0 +1,66 @@
+<div align="center">
+  <img src=".github/logo.svg" height="128px"/><br/>
+  <h1>Rabbit counter</h1>
+  <p>Simple PHP web application that helps you to count rabbits</a></p>
+</div>
+
+
+
+## 📝 About The Project
+Everyone knows that rabbits multiply very quickly, so it is important to be able to count the number of rabbits quickly. This project provides a web application to help solve this problem. The app will be useful for people who work on a rabbit farm and need to count the number of rabbits on a daily basis.
+
+The app is easy to use. Open the browser and go to the app website (see Quick start). To increase the rabbit counter by 1, click on the picture of the rabbit.
+
+The repository contains a docker container with simple php web application that helps you to count rabbits.  The application is written using the [php](https://www.php.net/) and can be run inside a [Docker](https://www.docker.com/) container.
+
+<div align="center">
+  <img src=".github/web_demo.png" width="600px"/>
+</div>
+
+
+
+## ⚡️ Quick start
+
+Before proceeding, make sure you have installed [Docker](https://docs.docker.com/engine/install/).
+
+1. Download the repository and change the current directory:
+
+   ```bash
+   git clone https://github.com/Markovvn1/devops-labs.git && cd devops-labs
+   ```
+
+2. Switch to lab2 branch and open project's directory:
+
+   ```bash
+   git checkout lab2 && cd app_php
+   ```
+
+3. Run the project using Docker:
+
+   ```bash
+   docker run -it --rm -v "`pwd`/nginx.conf:/etc/nginx/nginx.conf" -v "`pwd`/site:/var/www/html" -p 8080:80 trafex/alpine-nginx-php7
+   ```
+
+   Alternatively, you can use [docker-compose](https://docs.docker.com/compose/) to run the project:
+
+   ```bash
+   docker-compose up
+   ```
+
+5. Open the website `http://localhost:8080/` to start count rubbits.
+
+## ⚙️ Developing
+
+The changes are displayed when the page is refreshed. Therefore, to contribute, simply download and run the project as described in the previous section.
+
+## :computer: Contributors
+
+<p>
+
+  :mortar_board: <i>All participants in this project are undergraduate students in the <a href="https://apply.innopolis.university/en/bachelor/">Department of Computer Science</a> <b>@</b> <a href="https://innopolis.university/">Innopolis University</a></i> <br> <br>
+
+  :boy: <b>Vladimir Markov</b> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email: <a>Markovvn1@gmail.com</a> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GitLab: <a href="https://gitlab.com/markovvn1">@markovvn1</a> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Githab: <a href="https://github.com/markovvn1">@markovvn1</a> <br>
+</p>

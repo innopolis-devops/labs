@@ -1,0 +1,72 @@
+[tool.poetry]
+name = "superclock"
+version = "0.1.0"
+description = "Web application that shows current time in Moscow"
+authors = ["Vladimir Markov <markovvn1@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.79.0"
+uvicorn = "^0.18.2"
+Jinja2 = "^3.1.2"
+pytz = "^2022.2.1"
+
+[tool.poetry.dev-dependencies]
+isort = "^5.10.1"
+black = "^22.3.0"
+flake8 = "^4.0.1"
+pylint = "^2.14.0"
+mypy = "^0.961"
+pyproject-autoflake = "^1.0.1"
+types-pytz = "^2022.2.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pylint]
+generated-members = "cv2.*"
+max-module-lines = 300
+output-format = "colorized"
+max-line-length = 120
+disable = [
+    "C0111", # Missing module docstring (missing-docstring)
+    "R0901", # Too many ancestors (m/n) (too-many-ancestors)
+    "R0903", # Too few public methods (m/n) (too-few-public-methods)
+    "R0914", # Too many local variables (m/n) (too-many-locals)
+    "R0801", # Similar lines in files (duplicate-code)
+    "C0103", # Class constant doesn't conform to UPPER_CASE naming style (invalid-name)
+    "W0223", # Method is abstract in class but is not overridden (abstract-method)
+    "W0212", # Access to a protected member of a client class (protected-access)
+]
+extension-pkg-whitelist = ["cv2"]
+extension-pkg-allow-list = ["pydantic"]
+
+[tool.black]
+line_length = 120
+
+[tool.isort]
+default_section = "THIRDPARTY"
+profile = "black"
+line_length = 120
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+no_implicit_optional = true
+
+[tool.pytest.ini_options]
+addopts = "--cov=superclock --cov-fail-under=90"
+
+[tool.coverage.run]
+branch = true
+source = ["superclock"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 90
+exclude_lines = ["pragma: no cover", "def __repr__", "def __str__", "@overload"]

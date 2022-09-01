@@ -30,3 +30,18 @@ mostly on practicing DevOps methods, rather than writing complex web application
 
 Same as above, this is a great tool for my small and simple project.
 
+## Gunicorn
+
+**[Gunicorn](https://gunicorn.org/#quickstart)** is simple WSGI server.
+
+Although, Flask could be natively started as web application, this is not recommended way for the production, 
+and used only for debugging.
+Official documentation suggests to use other WSGI server and my choice is to use _Gunicorn_.
+
+### Pros
+ - Simple
+ - Small
+ - Production ready
+### Cons
+ - Not much configuration parameters
+ - Not secure (usually requires "reverse proxy" server on top of it)

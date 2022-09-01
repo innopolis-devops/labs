@@ -6,7 +6,29 @@
 
 An app that allows to receive the current time in Moscow by a web request. Makes sure the time is correct by synchronizing it to the Google's NTP server at the startup.
 
-## Installation
+## Docker image
+
+### From Docker Hub
+
+The app has a [docker image](https://hub.docker.com/r/ntdesmond/iu-devops-python) in Docker Hub.
+
+To fetch it, use `docker pull ntdesmond/iu-devops-python` command.
+
+### Building locally
+
+Run `docker build -t ntdesmond/iu-devops-python .` in the current directory to build the app locally.
+
+### Start the app
+
+Here is a sample command to run the image:
+
+```sh
+docker run --rm -p 8000:8000 ntdesmond/iu-devops-python
+```
+
+You may want to change the port binding (`-p` option). Within the container, the app uses `8000` port.
+
+## Local installation
 
 ### Requirements
 
@@ -45,3 +67,5 @@ For testing purposes, you may also want to add `--reload` flag the the command a
 ## See also
 
 Check out [PYTHON.md](./PYTHON.md) for implementation details.
+
+See [DOCKER.md](./DOCKER.md) for details on the Docker configuration.

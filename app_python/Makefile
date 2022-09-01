@@ -24,6 +24,8 @@ prod:
 	TAG=prod NAMESPACE=${NAMESPACE} make _server
 
 local:
+	touch .env
+	touch .env.priority
 	AWS_ECR_SERVICE_URL=${AWS_ECR_SERVICE_URL} TAG=dev \
 		docker compose -f docker-compose-base.yml -f docker-compose-local.yml up -d
 dev-local:

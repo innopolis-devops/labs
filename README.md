@@ -23,7 +23,7 @@ Grading is based on PRs with your solution to the corresponding branch of this r
 3. Complete lab1 tasks.
 4. Push the code to your repository.
 5. Create a PR to the lab1 branch on this repository from your fork's lab1 branch.
-6. Create an archive with the current version of your code and submit a zip file to Moodle.
+6. Submit the PR link to Moodle.
 7. Create a team with with your classmates, 6 people max.
 8. Each student must review PRs of all teammates.
 9. Wait for your grade.
@@ -59,7 +59,8 @@ If you finish all bonus tasks correctly the **permission to skip the exam will b
 
 Participants have 2 new labs every week simultaneously and 1 week to submit solutions. Moodle will contain presentations and deadlines.
 
-You are required to submit a zip file with your source code to corresponding assignment in moodle. This is required for the university as a proof of work.
+You are required to submit a link to pull request to corresponding assignment in moodle. This is required for the university as a proof of work.
+
 
 ## Submission policy
 

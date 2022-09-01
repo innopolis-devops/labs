@@ -2,19 +2,20 @@
 
 # Overview
 
-A python web application for getting time in Moscow.
-Time returned as a JSON in ISO 8601 format.
+A python web app for getting time in Moscow.
+Time returned as a JSON in standard ISO 8601 format.
 
 # Build
 
 ## Prerequisites
 
-- Python 3.9+
-- pip
+- [Python 3.9+](https://www.python.org/downloads/)
+- [pip](https://pip.pypa.io/en/stable/cli/pip_download/)
+- [Vale](https://vale.sh/docs/vale-cli/installation/)
 
 ## Local installation and usage
 
-1. Clone GitHub repository and move in repo root directory:
+1. Clone GitHub repository
 
     ```bash
     git clone https://github.com/Ziucay/labs.git
@@ -34,13 +35,13 @@ Time returned as a JSON in ISO 8601 format.
     pip install -r requirements.txt
     ```
 
-4. Run Application
+4. Run app
    
    ```bash
    uvicorn moscow_time.main:app
    ```
    
-Application will be accessed on http://localhost:8000/
+You can access app on http://localhost:8000/
 
 For debug purposes add `--reload` flag, to make server
 reloading on code changes
@@ -51,4 +52,4 @@ reloading on code changes
 
 ## Contact
 
-In case of questions and suggestions, write in Telegram: @ziucay
+For questions and suggestions, write in [Telegram](https://web.telegram.org/): [@ziucay](https://t.me/Ziucay)

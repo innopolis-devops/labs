@@ -1,44 +1,55 @@
 # Framework
+This projects uses FastAPI
 
-## FastAPI
+### Advantages
 
-### Pros
+- Fast to learn, good documentation, big community.
 
-Here is the most important features for this 
-project, complete list can be found on
-https://fastapi.tiangolo.com/
+- Production-ready code.
 
-Easy - no need a lot of time to study it, 
-good documentation, a lot of information about it 
-due to big popularity
+- Automatic documentation.
 
-Robust - get production-ready code, with automatic
-documentation
+- Fully compatible with the open standards for APIs.
 
-Standards-based - based on (and fully compatible with) the open standards for APIs
+You can find complete list on https://fastapi.tiangolo.com/.
 
-### Cons
+### Disadvantages
 
-Crowded main file - as everything tied to FastAPI app, the main file
-tend to be crowded
+- As all tied to FastAPI app, the main file
+tend to crowd.
 
-Relatively new framework - it is a popular framework, but since it
-is much newer than, for example, Django and Flask, it may have less
-community, tutorials, books, or courses
+- It may have fewer study materials, than older frameworks, like Django
+or Flask.
 
-# Additional packages
+# Packages
 
-## pytz
+## `pytz`
 
-This library allows accurate and cross-platform timezone calculations.
-it is used to ensure that application is showing correct time. If we
-would simply return `datetime.now()`, when it would work incorrectly on 
-computers with system time in other timezone
+This library allows accurate and cross-platform timezone calculations. 
 
-# Linter - flask8
+# Linter for code - flask8
 
 ## Usage
 
 Type
 
-`flake8 app_python/main.py` in terminal
+   ```bash
+   flake8 app_python/main.py
+   ```
+
+# Linter for docs - vale
+
+## Usage
+
+On the first usage and after `.vale.ini` change,
+type
+
+```bash
+   vale sync
+   ```
+
+When you can check documents
+
+   ```bash
+   vale <path to document>
+   ```

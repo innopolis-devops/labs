@@ -3,7 +3,7 @@ from datetime import datetime
 from fastapi import FastAPI, Depends
 from fastapi.responses import PlainTextResponse
 
-from dependencies import get_real_time
+from .dependencies import get_real_time
 
 app = FastAPI()
 

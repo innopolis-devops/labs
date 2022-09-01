@@ -4,7 +4,7 @@
 + use wsgi for production, not flask dev server
 + use docker for your application for easy production run
 + use ready .gitignore file from [here](https://github.com/github/gitignore/blob/main/Python.gitignore)
-+ use EVN variables to configure your app without rebuilding
++ use ENV variables to configure your app without rebuilding
 + use simple and fast linter - **Black**
 + use Jinja2 templates, not hard code html code
 

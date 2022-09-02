@@ -2,7 +2,9 @@
 
 ## Best pracices applied
 
-Best practices were retrieved from <https://data-flair.training/blogs/python-best-practices/> and <https://docs.python-guide.org/writing/style/>
+Best practices were retrieved from
+<https://data-flair.training/blogs/python-best-practices/> and
+<https://docs.python-guide.org/writing/style/>
 
 1. Version Control System
 2. Readable documentation
@@ -14,7 +16,10 @@ Best practices were retrieved from <https://data-flair.training/blogs/python-bes
 
 ## Why FastAPI?
 
-The FastAPI framework was chosen because of its simplicity, high development speed, extensive and detailed documentation, and also because of my experience of working with it.
+The FastAPI framework was chosen because of its simplicity,
+high development speed,
+extensive and detailed documentation,
+and also because of my experience of working with it.
 
 It is production ready framework:
 
@@ -33,22 +38,24 @@ Pros of FastAPI:
 
 Cons of FastAPI:
 
-1. Relatively new framework, so a smaller community and less learning material compared to Django and Flask
+1. Relatively new framework,
+so a smaller community and less learning material compared to Django and Flask
 
 ## Linters and formatters
 
 For Python code were used:
 
-1. Linter Flake8:
+1. Linter [Flake8](https://pypi.org/project/flake8/):
 
    ``$ flake8 <file_name>``
 
-2. Formatter autopep8:
+2. Formatter [autopep8](https://pypi.org/project/autopep8/):
 
    ``$ autopep8 --in-place --aggressive --aggressive <filename>``
 
 For Markdown were used:
 
-1. VSCode Markdown Linter markdownlint:
+1. [markdownlint](https://github.com/igorshubovych/markdownlint-cli)
+and respective [VSCode plugin](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint):
 
-   ``code --install-extension DavidAnson.vscode-markdownlint``
+   ``markdownlint <filename>``

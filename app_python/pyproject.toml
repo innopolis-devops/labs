@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "currenTTime"
+name = "currenttime"
 version = "0.1.0"
 description = ""
 authors = ["Lymarenko Lev <lymarenko.lev@gmail.com>"]

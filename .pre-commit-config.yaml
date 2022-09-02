@@ -1,4 +1,6 @@
 repos:
+  # app_python
+
   - repo: https://github.com/timothycrosley/isort
     rev: "5.10.1"
     hooks:
@@ -24,3 +26,17 @@ repos:
       - id: mypy
         args: ["--ignore-missing-imports"]
         additional_dependencies: ["types-pytz"]
+
+  # app_haskell
+
+  - repo: https://github.com/bwbaugh/haskell-pre-commit-hooks
+    rev: "v0.2.1"
+    hooks:
+      - id: hlint
+      - id: stylish-haskell
+        exclude: Setup\.hs
+
+  - repo: https://github.com/hadolint/hadolint
+    rev: "v2.10.0"
+    hooks:
+      - id: hadolint

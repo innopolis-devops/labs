@@ -1,0 +1,12 @@
+[[remove]]
+directory = "target/"
+
+[[check]]
+type = "Exclude"
+directory = "test"
+filter = "all"
+
+[[check]]
+type = "Exclude"
+directory = ".stack-work"
+filter = "all"

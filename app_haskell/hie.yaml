@@ -1,0 +1,16 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "app-haskell:lib"
+
+    - path: "./app/Main.hs"
+      component: "app-haskell:exe:app-haskell-exe"
+
+    - path: "./app/Paths_app_haskell.hs"
+      component: "app-haskell:exe:app-haskell-exe"
+
+    - path: "./test"
+      component: "app-haskell:test:doctests"
+
+    - path: "./test"
+      component: "app-haskell:test:spec"

@@ -1,11 +1,15 @@
-.idea
+# My
 tmp
 **.env
 **/__pycache__/
 .dmypy.json
 **/.mypy_cache
+target/
+temp/
 
-# ==================================================================
+# IDEs
+.vscode
+.idea
 
 # Created by https://www.gitignore.io
 
@@ -95,3 +99,27 @@ __pycache__/
 local_settings.py
 
 db.sqlite3
+
+# Haskell
+.hie
+.stack-work/
+*.cabal
+*~
+dist
+dist-*
+cabal-dev
+*.o
+*.hi
+*.chi
+*.chs.h
+*.dyn_o
+*.dyn_hi
+.hpc
+.hsenv
+.cabal-sandbox/
+cabal.sandbox.config
+*.prof
+*.aux
+*.hp
+*.eventlog
+cabal.project.local

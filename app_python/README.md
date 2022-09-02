@@ -4,12 +4,8 @@
   <p>Simple Python web application, that shows current time in Moscow</a></p>
 </div>
 
-
-
-
-
-
 ## 📝 About The Project
+
 The repository contains a simple python web application which shows the server time in Moscow. Time is updated when you refresh the page.
 
 The application is written using the [FastAPI](https://fastapi.tiangolo.com/) framework. [Uvicorn](https://www.uvicorn.org/) (ASGI web server) is used to run the application. [Poetry](https://python-poetry.org/) is used for the dependency management. In addition, the application can be run inside a [Docker](https://www.docker.com/) container.
@@ -17,8 +13,6 @@ The application is written using the [FastAPI](https://fastapi.tiangolo.com/) fr
 <div align="center">
   <img src=".github/web_demo.png" width="600px"/>
 </div>
-
-
 
 ## ⚡️ Quick start (for Linux only)
 
@@ -40,7 +34,7 @@ The application is written using the [FastAPI](https://fastapi.tiangolo.com/) fr
    make venv
    ```
 
-4. Run the project: 
+4. Run the project:
 
    ```bash
    make up
@@ -76,6 +70,7 @@ make up_dev
 ```
 
 Run linters and formaters:
+
 ```bash
 make lint  # check code quality
 make format  # beautify code

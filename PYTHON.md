@@ -7,15 +7,26 @@
 
 ## Flask Framework
 
-Flask Framework is one of the first python frameworks.
+Flask Framework is a python microframework. A good Flask
+example is it is used by LinkedIn and Pinterest.
 
 Pros:
-1. It is simple
+* It includes a built-in development server, and unit-testing support.
+* It is also fully Unicode-enabled with RESTful request-dispatching and 
+WSGI compliance.
+* Easy to manage due to its size. It does not need any tools or libraries.
+Flask will be useful when you want to develop small, simple applications.
+* With it, you can operate your database however you like- using SQLAlchemy or whatever.
+* I have experience working with Flask.
 
 Cons:
-2. It does not have big functionality
+* Not rich functionality.
+* It has no database abstraction layer or form validation. Can be added
+as extensions.
 
 
 ## Linter
 
-Basic linter - codecov
+Basic linter - GitHub Super-Linter
+
+I chose it due to the number of steps it takes to be initiated  

@@ -1,4 +1,4 @@
-## Best practices
+## Python best practices
 
 * Use virtual environment for the development: allows you to install the correct versions of the libraries and avoid conflicts with the main python environment
 * Use [poetry](https://python-poetry.org/) - the dependency manager: guarantee of reproducibility of the project on other computers, separate environment to production and development.

@@ -1,5 +1,9 @@
 FROM python:3.8-slim
 
+LABEL \
+    maintainer="Vladimir Markov <Markovvn1@gmail.com>" \
+    description="Web application that shows current time in Moscow"
+
 ENV \
     TERM=xterm-256color \
     \
@@ -29,7 +33,7 @@ RUN set -ex \
 
 COPY pyproject.toml poetry.lock /opt/app/
 
-RUN poetry install --no-dev
+RUN poetry install --only main
 
 USER python
 

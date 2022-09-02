@@ -46,6 +46,18 @@ Before proceeding, make sure you have installed [Docker](https://docs.docker.com
 
 4. Open the website `http://localhost:8080/` to start count rubbits.
 
+### :whale: Docker-way to quick start
+
+Before proceeding, make sure you have installed [Docker](https://docs.docker.com/engine/install/).
+
+1. Run docker container:
+
+   ```bash
+   docker run -it --rm -p 8080:80 markovvn1/iu-devops:lab2-php
+   ```
+
+2. Open the website `http://localhost:8080/` to view the server time in Moscow.
+
 ## ⚙️ Developing
 
 The changes are displayed when the page is refreshed. Therefore, to contribute, simply download and run the project as described in the previous section.

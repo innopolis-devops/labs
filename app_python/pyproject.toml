@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "app_python"
+version = "0.1.0"
+description = ""
+authors = ["Abuzyar Tazetdinov <tazetdinov9925@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+aiohttp = {extras = ["speedups"], version = "^3.8.1"}
+pytz = "^2022.2.1"
+
+[tool.poetry.dev-dependencies]
+mypy = "==0.971"
+flake8 = "==5.0.4"
+isort = "==5.10.1"
+black = "==22.8.0"
+types-pytz = "^2022.2.1"
+pre-commit = "^2.20.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+ignore_missing_imports = true

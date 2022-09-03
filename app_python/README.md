@@ -20,3 +20,6 @@ FLASK_APP=app.py FLASK_ENV=productiom FLASK_DEBUG=0 flask run --host=0.0.0.0
 flake8 --max-line-length=80
 ```
 
+## Python best practices
+
+See [this](PYTHON.md) file

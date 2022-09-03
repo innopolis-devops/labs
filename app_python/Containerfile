@@ -1,0 +1,21 @@
+FROM docker.io/library/python:3.9
+
+ENV FLASK_APP=app.py
+ENV FLASK_ENV=productiom
+ENV FLASK_DEBUG=0
+
+WORKDIR /app
+
+COPY . /app
+
+RUN useradd -ms /bin/bash nonroot
+
+RUN chown -R nonroot:nonroot /app
+
+RUN pip install -r requirements.txt
+
+USER nonroot
+
+EXPOSE 5000
+
+ENTRYPOINT [ "flask", "run", "--host=0.0.0.0" ]

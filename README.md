@@ -12,6 +12,7 @@ Time returned as a JSON in standard ISO 8601 format.
 - [Python 3.9+](https://www.python.org/downloads/)
 - [pip](https://pip.pypa.io/en/stable/cli/pip_download/)
 - [Vale](https://vale.sh/docs/vale-cli/installation/)
+- [virtualenv](https://virtualenv.pypa.io/en/latest/installation.html#)
 
 ## Local installation and usage
 
@@ -21,26 +22,31 @@ Time returned as a JSON in standard ISO 8601 format.
     git clone https://github.com/Ziucay/labs.git
     cd labs
     ```
+2. Switch to lab1 branch
 
-2. Create virtual environment
+   ```bash
+   git checkout lab1
+   ```
+
+3. Create virtual environment
 
     ```bash
     python3 -m virtualenv venv
     source venv/bin/activate
     ```
 
-3. Install requirements
-    
+4. Install requirements
+
    ```bash
-    pip install -r requirements.txt
+    pip install -r app_python/requirements.txt
     ```
 
-4. Run app
-   
+5. Run app
+
    ```bash
-   uvicorn moscow_time.main:app
+   uvicorn app_python.main:app
    ```
-   
+
 You can access app on http://localhost:8000/
 
 For debug purposes add `--reload` flag, to make server

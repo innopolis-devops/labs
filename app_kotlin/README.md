@@ -10,10 +10,11 @@ in a standard ISO format, written in Kotlin with Spring Boot.
 ### Prerequisites
 
 - Java 17+
+- Maven
 
 ### Local installation and usage
 
-`./mvnw spring-boot:run`
+`./app_kotlin/mvnw spring-boot:run`
 
 You can see the app on `http://localhost:8080/moscow/time`
 

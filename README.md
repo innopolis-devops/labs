@@ -7,7 +7,8 @@ Clock-clock
 1. [Description](#description)
 > * [Project description](#project-description)
 > * [Demo](#demo)
-2. [Project requirements](#project-requirements)
+2. [Build](#build)
+3. [Project requirements](#project-requirements)
 > * [User Stories](#user-stories)
 > * [Required Features](#required-features)
 > * [Non-functional Requirements](#non-functional-requirements)
@@ -27,6 +28,12 @@ Clock-clock follows the next business goals:
 
 ### Demo
 ![](https://github.com/Amirka-Kh/devops-labs/blob/lab1/demo.gif)
+
+## Build
+1. Clone the repository.
+2. Initialize virtual enviroment.
+3. Install the requirements.
+4. Start the app by `python <path_to_file>/main.py`
 
 ## Project requirements
 ### User Stories

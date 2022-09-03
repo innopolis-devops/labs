@@ -1,0 +1,90 @@
+
+# Moscow Time Web Application
+
+## About The Project
+
+This is a simple web application that shows current time in Moscow.\
+_Note_: the time updates only when page refreshes.
+
+![](https://i.imgur.com/Ss5BmUi.gif)
+
+### Built With
+
+* ![](https://img.shields.io/badge/python-3.8-blue?style=for-the-badge&logo=python)
+* ![](https://img.shields.io/badge/flask-2.2.2-blue?style=for-the-badge&logo=flask)
+* ![](https://img.shields.io/badge/jinja2-3.1.2-blue?style=for-the-badge&logo=jinja)
+* ![](https://img.shields.io/badge/Gunicorn-20.1.0-blue?style=for-the-badge&logo=Gunicorn)
+
+## Getting Started
+
+This is a small guide how to prepare and install my project.
+
+### Prerequisites
+
+First of all you will need Python interpreter. I will recommend to
+install the latest one or 3.8 version at least.\
+For detailed instructions, see [Official Python Website](https://www.python.org).
+
+Optionally, you could prepare virtual environment to isolate this web application.
+
+```shell
+python3 -m venv /path/to/new/venv
+# or pyvenv /path/to/new/venv
+cd /path/to/new/venv
+. bin/activate
+```
+
+Now you are ready to proceed with installation.
+
+### Installation
+
+* Clone this project, checkout **lab1** branch, go to the `app_python` folder.
+
+```shell
+git clone https://github.com/Ilya-Kolomin/DevOps.git
+cd DevOps
+git checkout lab1
+cd app_python
+```
+
+* Install needed dependencies.\
+ You can do it manually or via command
+
+```shell
+pip3 install -r requirements.txt
+```
+
+## Usage
+
+Now you are ready to start the WSGI server.
+In my project I use **Gunicorn**, however, since it is written on _Flask_,
+the project is compatible with any other WSGI
+server.
+
+* **For production server start**:
+
+```shell
+gunicorn app:app
+# or python3 -m gunicorn app:app
+```
+
+* **For development server start**:
+
+```shell
+flask --app app run
+# or flask run
+# or python3 -m flask run
+```
+
+In production the server will start serving on http://127.0.0.1:8000,
+while in development it will listen on http://127.0.0.1:5000.
+
+So that is how my simple web application for showing current Moscow
+time can be started and used.
+
+## Contact
+
+Ilya Kolomin - @Ilya-Kolomin - i.kolomin@innopolis.university\
+BS19-CS-01 group at Innopolis University
+
+Project Link: https://github.com/Ilya-Kolomin/DevOps/tree/lab1

@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 @RestController
 public class Controller {
-    private static final String TIME_PATTERN = "HH:mm:ss";
+    private static final String TIME_PATTERN = "yyyy/MM/dd HH:mm:ss";
 
     @GetMapping
     public String getTime() {
@@ -21,8 +21,9 @@ public class Controller {
     private String wrapTime(final String time) {
         return """
                 <body>
-                <h2>Hello, my user</h2>
-                <h3>Time in Moscow: %s</h3>
+                <h2>Hello there, my user</h2>
+                <img src="https://media.giphy.com/media/Nx0rz3jtxtEre/giphy.gif" width="250" />
+                <h3>By the way, the time in Moscow during the last update was: %s</h3>
                 </body>
                 """.formatted(time);
     }

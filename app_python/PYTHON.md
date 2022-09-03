@@ -79,3 +79,7 @@ _Result_
 
 ### Markdown linter (mdl)
 
+[MarkdownLint](https://github.com/markdownlint/markdownlint)
+
+![](https://i.imgur.com/ZIXXb9O.png)
+_Result for both PYTHON.md and README.md_

@@ -5,8 +5,8 @@ WORKDIR /build_app
 # cache dependencies
 RUN cargo init
 COPY ./Cargo.toml ./
-RUN cargo build --release
-RUN rm -rf ./src
+RUN cargo build --release \
+    && rm -rf ./src
 
 # build
 COPY ./ ./
@@ -14,7 +14,8 @@ RUN cargo build --release
 
 FROM ubuntu:20.04 as run
 
-RUN apt-get update && apt-get install -y libssl1.1 libssl-dev ca-certificates
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libssl1.1 libssl-dev ca-certificates
 
 WORKDIR /app
 COPY --from=build /build_app/target/release/currenttime /app/currenttime

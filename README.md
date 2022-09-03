@@ -28,6 +28,12 @@ docker build . -t currenttime
 docker run --rm -p 4444:4444 currenttime
 ```
 
+3. Using docker-compose
+
+```bash
+docker-compose up
+```
+
 ## Linter
 
 assume that poetry and packages already installed
@@ -39,5 +45,15 @@ black .
 ## Usage
 
 ```bash
-curl localhost:4444
+$ curl localhost:4444
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Innopolis DevOps</title>
+</head>
+<body>
+    <center><p>Hello from Python app!</p></center>
+    <center><p>MSK time: 13:56:33</p></center>
+</body>
+</html>
 ```

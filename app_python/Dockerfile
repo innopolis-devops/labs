@@ -8,7 +8,7 @@ ENV PROD=true \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
   PIP_DEFAULT_TIMEOUT=100
 
-RUN python -m pip install poetry
+RUN python -m pip install --no-cache-dir poetry==1.2.0
 
 WORKDIR /app
 COPY poetry.lock pyproject.toml /app/

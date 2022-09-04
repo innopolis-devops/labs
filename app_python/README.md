@@ -32,15 +32,9 @@ All you need to run the application is [Docker](https://docs.docker.com/engine/i
 
 ## Usage
 
-In terms of usage, two options are possible:
+In terms of usage, the single option is possible:
 
-- If you want to view the application, just open the address 127.0.0.1:80 in your browser.
-
-- If you want to stop a running application, type the following command in the terminal:
-
-    ```bash
-    docker stop flask
-    ```
+- If you want to view the application, just open the address `127.0.0.1:8080` in your browser.
 
 ## Contribution
 

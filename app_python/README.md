@@ -5,7 +5,7 @@ This is a simple web application to show the current time for Moscow time zone (
 
 The correctness of time depends on local system time no matter the system timezone.
 
-(screenshot.png)
+![Screenshot](screenshot.png)
 The web page user interface
 
 ## Requirements

@@ -1,6 +1,6 @@
 # Cupertino Time Monitor
 
-Cupertino Time Monitor is a web application that allows you to see the actual Moscow time no matter where you are.
+Cupertino Time Monitor is a web application that allows you to see the actual Cupertino time no matter where you are.
 
 ## Contents
 

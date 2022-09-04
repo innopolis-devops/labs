@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "markdownlint": "^0.26.2",
+    "prettier": "2.7.1"
+  }
+}

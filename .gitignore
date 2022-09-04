@@ -70,6 +70,8 @@ dist/
 downloads/
 eggs/
 .eggs/
+bin/
+.pyenv.cfg
 lib/
 lib64/
 parts/

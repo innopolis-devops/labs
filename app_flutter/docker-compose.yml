@@ -1,0 +1,8 @@
+version: '2'
+services:
+  web:
+    build: moscow_time/
+    ports:
+      - "8080:80"
+    volumes:
+      - .moscow_time:/moscow_time

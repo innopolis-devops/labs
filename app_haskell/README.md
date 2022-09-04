@@ -20,7 +20,8 @@ You can either run binary file generated after build or simply run
 
 ## Development
 
-For the development you will need to use `stack` ([link](https://docs.haskellstack.org/en/stable/README/)).
+For the development you will need to use `stack`
+([link](https://docs.haskellstack.org/en/stable/README/)).
 
 ### Install pre-commit hooks
 
@@ -50,13 +51,18 @@ For the development you will need to use `stack` ([link](https://docs.haskellsta
 
     hlint .
 
+### Run markdownlint (done in pre-commit)
+
+    pre-commit run -a markdownlint-fix
+
 ## CI
 
 ### stylish-haskell
 
 You can quickly download the latest binary `stylish-haskell` like so:
 
-    curl -sL https://raw.github.com/haskell/stylish-haskell/master/scripts/latest.sh > stylish-haskell
+    url=https://raw.github.com/haskell/stylish-haskell/master/scripts/latest.sh
+    curl -sL "$url" > stylish-haskell
 
 ### hlint
 

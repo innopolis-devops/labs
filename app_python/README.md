@@ -53,3 +53,7 @@ Web application that displays current time in Moscow.
 ### Run mypy
 
     mypy .
+
+### Run markdownlint (done in pre-commit)
+
+    pre-commit run -a markdownlint-fix

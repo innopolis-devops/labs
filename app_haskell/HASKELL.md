@@ -14,7 +14,8 @@
     * Pros
       * Type safe library, which checks your API against it's type.
       * Auto tests can be generated for your implementation.
-      * Supports streaming, automatic de/serialization and other usual things for web library.
+      * Supports streaming, automatic de/serialization and other usual things
+        for web library.
       * Can automatically generate clients for your API.
     * Cons
       * Extending library functionality (for example, writing new combinators)

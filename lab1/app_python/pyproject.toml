@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "app_python"
+version = "0.1.0"
+description = "A simple app that shows current time"
+authors = ["Alexander a.kurmazov@innopolis.university"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.81"
+uvicorn = "^0.18"
+pytz = "^2022.2"
+types-pytz = "^2022.2.1"
+pydantic = "^1.10"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^5.0"
+isort = "^5.10"
+mypy = "^0.971"
+
+[build-system]
+requires = ["poetry>=1.2.0"]
+build-backend = "poetry.masonry.api"

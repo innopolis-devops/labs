@@ -15,4 +15,16 @@
   * isort  - sort imports
   * mypy   - type checker
 * Use production ready libraries
-  * Aiohttp - is asynchronous library which provides server and client functionality. Used by large companies ([link](https://docs.aiohttp.org/en/stable/powered_by.html)).
+  * Aiohttp - is asynchronous library which provides web-server and web-client functionality.
+    Used by large companies ([link](https://docs.aiohttp.org/en/stable/powered_by.html)).
+    * Pros:
+      * This is one of most permonant Python web frameworks for IO bound tasks
+        (if you are looking for CPU-bound tasks, why you are using Python?),
+        because uses fastest event-loop written in plain C.
+      * Contains small set of required functionality which can be extended by plugins,
+        so modularity principles applied and your app can use only necessary dependencies.
+      * No dictating "right way" for developers, your application can be designed
+        as you want, not as "framework wants".
+    * Cons
+      * Because library in lower level comparing to others,
+        requires more experience from developer.

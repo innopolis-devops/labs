@@ -54,16 +54,12 @@ For the development you will need to use `stack` ([link](https://docs.haskellsta
 
 ### stylish-haskell
 
-You can quickly download the latest binary and run `stylish-haskell` like so:
+You can quickly download the latest binary `stylish-haskell` like so:
 
-    curl -sL https://raw.github.com/haskell/stylish-haskell/master/scripts/latest.sh | sh -s .
-
-Where the `.` can be replaced with the arguments you pass to stylish-haskell.
+    curl -sL https://raw.github.com/haskell/stylish-haskell/master/scripts/latest.sh > stylish-haskell
 
 ### hlint
 
-You can quickly download the latest binary and run `hlint` like so:
+You can quickly download the latest binary `hlint` like so:
 
-    curl -sSL https://raw.github.com/ndmitchell/hlint/master/misc/run.sh | sh -s .
-
-The arguments after `-s` are passed to hlint, so modify the final `.` if you want other arguments. This command works on Windows, Mac and Linux.
+    curl -sSL https://raw.github.com/ndmitchell/hlint/master/misc/run.sh > hlint

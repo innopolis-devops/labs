@@ -30,4 +30,4 @@ To run the application follow the instructions below:
 
 Email: d.livitin@innopolis.university
 
-Tg: @Dablup
+Tg: [@Dablup](https://t.me/Dablup)

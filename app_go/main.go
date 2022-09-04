@@ -12,7 +12,7 @@ func main() {
 	r := gin.Default()
 	location, err := time.LoadLocation("Europe/Moscow")
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	r.GET("/", func(ctx *gin.Context) {
 		in := time.Now().In(location)

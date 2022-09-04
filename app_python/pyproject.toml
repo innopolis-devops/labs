@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "app_python"
+name = "moscow-time-app"
 version = "0.1.0"
 description = ""
 authors = ["Abuzyar Tazetdinov <tazetdinov9925@gmail.com>"]

@@ -1,4 +1,4 @@
-# app_haskell
+# Moscow time app
 
 ## Overview
 

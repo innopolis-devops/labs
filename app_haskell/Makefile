@@ -1,5 +1,5 @@
 BIN_PATH=target
-EXE=app-haskell-exe
+EXE=moscow-time-app-exe
 EXEC=${BIN_PATH}/${EXE}
 
 build:

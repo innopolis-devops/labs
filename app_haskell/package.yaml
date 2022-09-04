@@ -1,4 +1,4 @@
-name: app-haskell
+name: moscow-time-app
 version: 0.1.0.0
 author: "Abuzyar Tazetdinov"
 maintainer: "tazetdinov9925@gmail.com"
@@ -39,7 +39,7 @@ library:
   source-dirs: src
 
 executables:
-  app-haskell-exe:
+  moscow-time-app-exe:
     main: Main.hs
     source-dirs: app
     ghc-options:
@@ -48,7 +48,7 @@ executables:
       - -with-rtsopts=-N
       - -Werror
     dependencies:
-      - app-haskell
+      - moscow-time-app
 
 tests:
   spec:
@@ -59,7 +59,7 @@ tests:
       - -rtsopts
       - -with-rtsopts=-N
     dependencies:
-      - app-haskell
+      - moscow-time-app
       - hspec
       - HUnit
       - QuickCheck

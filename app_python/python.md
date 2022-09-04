@@ -5,11 +5,9 @@ The following is a list of best practices for Python that are being followed in 
 
 ## Coding
 
-- Using Flask since it is a mature web development framework, and it allowed us to complete this simple application in a minimal amount of code.
-- Follow the [PEP 8](https://www.python.org/dev/peps/pep-0008/) coding style guide.
+- Using Flask since it is a mature web development framework, and it allowed us to complete this simple application in a minimal amount of code, eventhough it's not suitable for big applications, but it's flexible to use in our application 
 - Use a linter/formatter such as [black](https://pypi.python.org/pypi/black) to enforce consistent, PEP8-conforming styles.
 - Use `if __name__ == "__main__":` to ensure that the code is only executed when the module is run directly.
-- Follow the appropriate design patterns to avoid repetitions and tight-coupling.
 - Use virtual enviroments (created using `python -m venv`) to isolate dependencies.
 - Save the dependencies in a `requirements.txt` file (using the output from `pip freeze`).
 - Use lowercase (snake_case) for all identifiers.
@@ -23,6 +21,6 @@ The following is a list of best practices for Python that are being followed in 
 
 
 ### References
-
+- https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-python-and-flask-development-environment
 - https://www.python.org/dev/peps/pep-0008/
 - https://www.nerdwallet.com/blog/engineering/5-pytest-best-practices/

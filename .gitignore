@@ -1,3 +1,4 @@
 .vscode
 .pytest_cache
 /app_rust/target
+__pycache__

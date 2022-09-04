@@ -14,7 +14,7 @@ Moscow Time Monitor is a web application that allows you to see the actual Mosco
 
 ## Requirements
 
-All you need to run the application is [Docker](https://docs.docker.com/engine/install/) installed.
+All you need to run the application is [Docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/install/) installed.
 
 ## Build
 
@@ -22,19 +22,13 @@ All you need to run the application is [Docker](https://docs.docker.com/engine/i
 
 2. Using a terminal open the application root folder.
 
-3. Build Docker image using the following command:
+3. Run the application container using the following command:
 
     ```bash
-    docker build . -t flask_image
+    docker-compose up
     ```
 
-4. Run Docker container using the image from the previous step and following command:
-
-    ```bash
-    docker run --name flask -d -p 80:80 flask_image
-    ```
-
-5. At this point everything is ready. Now you can open the web application at the local address 127.0.0.1:80 in the browser.
+4. At this point everything is ready. Now you can open the web application at the local address `127.0.0.1:8080` in the browser.
 
 ## Usage
 

@@ -29,7 +29,7 @@
 
 ```python moscow_time.py```
 
-Application will be accessed on http://localhost:8000/
+Application will be accessed on http://localhost:8080/
 
 # Contact
 Contact me in Telegram if you have any questions: @NiosZ

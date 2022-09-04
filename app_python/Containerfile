@@ -33,4 +33,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY --chown=user:user ./app /app/app
 
 USER user
-CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-w", "4", "--bind", "0.0.0.0:8080", "app:app"]
+ENTRYPOINT ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "-w", "4", "--bind", "0.0.0.0:8080", "app:app"]

@@ -1,0 +1,31 @@
+# builder
+FROM rust:1.63-alpine as builder
+
+RUN apk add --no-cache musl-dev
+RUN adduser -D user
+
+WORKDIR /app
+USER user
+
+# dependencies
+COPY --chown=user:user ./Cargo.lock /app/Cargo.lock
+COPY --chown=user:user ./Cargo.toml /app/Cargo.toml
+RUN mkdir /app/src \
+    && echo 'fn main() { println!("Dummy!"); }' > /app/src/main.rs \
+    && cargo build --release \
+    && cargo build --tests
+RUN rm -rf /app/src/ /app/target/*/deps/app_rust*
+
+# the app
+COPY --chown=user:user ./src /app/src
+RUN cargo test && cargo build --release
+
+# image
+FROM busybox:1.35-musl
+
+RUN adduser -D user
+COPY --from=builder /app/target/release/app_rust /app_rust
+COPY ./Rocket.toml /Rocket.toml
+USER user
+
+ENTRYPOINT [ "/app_rust" ]

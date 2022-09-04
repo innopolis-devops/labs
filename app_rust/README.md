@@ -7,33 +7,33 @@
 1. Build
 
    ```bash
-   podman build . -t app_python
+   podman build . -t app_rust
    ```
 
 2. Run
 
    ```bash
-   podman run -p 8080:8080 app_python
+   podman run -p 8080:8080 app_rust
    ```
 
 ### Run locally without containers
 
-1. Install dependencies
+1. Build the app
 
    ```bash
-   poetry install
+   cargo build
    ```
 
 2. Test it
 
    ```bash
-   poetry run python -m pytest
+   cargo test
    ```
 
 3. Run
 
    ```bash
-   poetry run uvicorn app:app --port 8080
+   cargo run
    ```
 
 ## Usage

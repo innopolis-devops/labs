@@ -1,15 +1,21 @@
+x-pyton-files: &python-files
+  files: 'app_python/.*\.py$'
+
+x-rust-files: &rust-files
+  files: 'app_rust/.*\.rs$'
+
 repos:
   - repo: https://github.com/psf/black
     rev: 22.8.0
     hooks:
       - id: black
-        files: 'app_python/.*\.py'
+        <<: *python-files
 
   - repo: https://github.com/pycqa/isort
     rev: 5.10.1
     hooks:
       - id: isort
-        files: 'app_python/.*\.py'
+        <<: *python-files
 
   - repo: https://github.com/pycqa/flake8
     rev: 5.0.4
@@ -17,4 +23,22 @@ repos:
       - id: flake8
         additional_dependencies:
           - flake8-type-checking~=2.1.3
-        files: 'app_python/.*\.py'
+        <<: *python-files
+
+  - repo: https://github.com/doublify/pre-commit-rust
+    rev: v1.0
+    hooks:
+      - id: fmt
+        <<: *rust-files
+        entry: >
+          sh -c "cd app_rust &&
+          for i in $@; do
+            cargo fmt -- "${i#app_rust/}"
+          done
+          "
+      - id: cargo-check
+        entry: sh -c "cd app_rust && cargo check $@"
+        <<: *rust-files
+      - id: clippy
+        entry: sh -c "cd app_rust && cargo clippy -- -D warnings $@"
+        <<: *rust-files

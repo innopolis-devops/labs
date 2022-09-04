@@ -1,10 +1,11 @@
 import pytz
 
+
 class TimeFormatter:
     def __init__(self, time_zone):
         self.time_zone = pytz.timezone(time_zone)
         self._format = '%Y:%m:%d %H:%M:%S %Z %z'
-    
+
     @property
     def format(self):
         return self._format

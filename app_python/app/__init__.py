@@ -9,6 +9,7 @@ app = Flask(__name__)
 formatter = TimeFormatter('Europe/Moscow')
 formatter.format = '%H:%M:%S'
 
+
 @app.route('/')
 def moscow_time():
     time = formatter.get_string(datetime.now)

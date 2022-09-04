@@ -12,7 +12,6 @@ Moscow Time Monitor is a web application that allows you to see the actual Mosco
   - [Contribution](#contribution)
   - [License](#license)
 
-
 ## Requirements
 
 All you need to run the application is [Docker](https://docs.docker.com/engine/install/) installed.
@@ -24,11 +23,13 @@ All you need to run the application is [Docker](https://docs.docker.com/engine/i
 2. Using a terminal open the application root folder.
 
 3. Build Docker image using the following command:
+
     ```bash
     docker build . -t flask_image
     ```
 
 4. Run Docker container using the image from the previous step and following command:
+
     ```bash
     docker run --name flask -d -p 80:80 flask_image
     ```
@@ -51,15 +52,15 @@ In terms of usage, two options are possible:
 
 To contribute, use the follow "fork-and-pull" git workflow:
 
-1.  Fork the repository on github
+1. Fork the repository on github
 
-2.  Clone the project to your own machine
+2. Clone the project to your own machine
 
-3.  Commit changes to your own branch
+3. Commit changes to your own branch
 
-4.  Push your work back up to your fork
+4. Push your work back up to your fork
 
-5.  Submit a pull request so that I can review your changes
+5. Submit a pull request so that I can review your changes
 
 *NOTE: Be sure to merge the latest from "upstream" before making a pull request!*
 

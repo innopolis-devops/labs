@@ -1,0 +1,9 @@
+[default]
+port = 8080
+limits = { form = "64 kB", json = "1 MiB" }
+
+[debug]
+address = "localhost"
+
+[release]
+address = "0.0.0.0"

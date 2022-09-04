@@ -11,7 +11,7 @@ GreetingsApp is simple web-application, which greets people in the format `Hello
 
 ## How to use:
 
-Run the application, make get request in the form of `http://host:8080/hello/name`
+Run the application, make `get` request in the form of `http://host:8080/hello/name`
 
 ## :pencil: Contacts
 

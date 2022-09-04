@@ -6,13 +6,14 @@ Best practices were retrieved from
 <https://data-flair.training/blogs/python-best-practices/> and
 <https://docs.python-guide.org/writing/style/>
 
-1. Version Control System
-2. Readable documentation
+1. Version Control System - Git
+2. Readable documentation - README, code comments
 3. Following code style guidelines - PEP8
 4. Use the PyPI instead of doing it yourself
 5. Following The Zen of Python
 6. Readable code
 7. Using virtual environment
+8. Using linters - flake8
 
 ## Why FastAPI?
 
@@ -31,7 +32,7 @@ It is production ready framework:
 Pros of FastAPI:
 
 1. Everything stated above in the section
-2. Speed of work
+2. Speed of work in comparison to other Python frameworks
 3. Async support
 4. Auto documentation
 5. Open Source

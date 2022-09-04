@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask import Flask, render_template
 import requests
+from pytz import timezone
 
 app = Flask(__name__)
 
@@ -11,9 +12,6 @@ def get_msc_time():
     Shows current Moscow time
     :return: html page
     """
-    response = requests.get("http://worldtimeapi.org/api/timezone/Europe/Moscow", timeout=60)
-    if response.ok:
-        date = datetime.strptime(response.json()["datetime"], "%Y-%m-%dT%H:%M:%S.%f%z")
-        return render_template("index.html", date=date)
+    date = datetime.now(timezone('Europe/Moscow')).strftime('%H:%M:%S')
 
-    return render_template("error.html", code=response.status_code)
+    return render_template("index.html", date=date)

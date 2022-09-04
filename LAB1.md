@@ -16,6 +16,7 @@ To get **4 more points** you need to make your app production ready:
 3. Update a `PYTHON.md` file and describe all best practices that you applied, then explain why you chose your framework and its pros and cons.
 4. Use linters for Python and Markdown. Update a `PYTHON.md` file and describe which of them did you use.
 5. Research and use any good template for `README.md` file that you like that suits our case. Example:
+lab1
     1. The name
     2. Overview
     3. Build
@@ -30,4 +31,3 @@ To get **4 extra points**:
 1. Create `app_*` folder in the main project, replace `*` with language that you choose (not python). Put new `*.md` inside that folder.
 2. Create your own web app, it's up to you what it will show or do, use your imagination (it can just show time).
 3. Follow all suggestions and steps from the main task.
-

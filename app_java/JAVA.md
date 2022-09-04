@@ -31,3 +31,5 @@ The cons of framework:
 I used `SonarLint`. I chose this linter because I like that it shows not only the place with mistake,
 but also shows rules with good and bad example of code style. Also, I like the way it classifies all code mistakes to
 Bugs, Code Smells & Security Vulnerabilities. 
+
+I used `markdownlint` for Markdown style checking. 

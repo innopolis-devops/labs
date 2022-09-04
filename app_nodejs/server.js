@@ -1,9 +1,10 @@
 const http = require('http');
+const {getCurrentTime} = require("./utils");
 
-const server = http.createServer((req, res)=>{
-    console.log(req.url)
+const requestListener = function (req, res) {
     res.writeHead(200);
-    res.write('hello')
-    res.end('Hello, World!');
-});
+    res.end('Current time in Moscow:',getCurrentTime());
+}
+
+const server = http.createServer(requestListener);
 server.listen(8080);

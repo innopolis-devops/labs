@@ -1,6 +1,8 @@
 # Lab 1
+## Overview
 The current program launches local server which shows Moscow time.
-## How to install the program
+
+## Build
 1. Clone the repo
 ```
 git clone https://github.com/Homa3030/labs
@@ -13,7 +15,8 @@ cd ./devops/app_python
 ```
 pip install -r /path/to/requirements.txt
 ```
-## How to execute the program
+
+## Usage
 1. Execute program
 ```
 python -m flask run

@@ -2,7 +2,23 @@
 
 ## Web application in Swift
 
+### Framework
+
 It did not take me long to choose a framework for a web application, because the strongest and most stable Swift framework is [Vapor](https://vapor.codes).
+
+So here are the **advantages** of the Vapor framework:
+
+- it has non-blocking, event-driven architecture;
+
+- it is written in Swift;
+
+- it has expressive and protocol-oriented design with a focus on type-safety.
+
+And **disadvantages**:
+
+- The main tool to work with is the Swift Package Manager (SPM), which is still a bit buggy.
+
+### Best practices
 
 Here are some best practices that have come in handy for me when developing a web application in Swift:
 

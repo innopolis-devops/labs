@@ -17,12 +17,9 @@ jobs: # list of things to do
  
       - name: Code Checkout
         uses: actions/checkout@v2
- 
-      - name: Install Dependencies
-        run: pwd
- 
-      - name: Install Dependencies
-        run: rm package-lock.json
+
+      - name: rm package lock
+        run: rm /home/runner/work/devops-fork/devops-fork/package-lock.json
  
       - name: Install Dependencies
         run: npm install

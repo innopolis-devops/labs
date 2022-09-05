@@ -1,4 +1,6 @@
 from datetime import datetime
+import pytz
 
 def get_current_time_formatted():
-    return datetime.now().strftime("%H:%M:%S")
+    tz = pytz.timezone(config.TIMEZONE)
+    return datetime.now(tz)

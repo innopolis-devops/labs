@@ -24,17 +24,17 @@ A web application that gets you the current time in Moscow when you need it the 
 * [Python](https://www.python.org/downloads/)
 
 ### Installation
-1. Install dependencies:
-    ```Bash
-    pip install -r requirements.txt
-    ```
-2. Clone the repository
+1. Clone the repository
     ```bash
     git clone https://github.com/Sh1co/DevOps-Labs
     ```
-3. Go to app directory
+2. Go to app directory
     ```bash
     cd app_python
+    ```
+3. Install dependencies:
+    ```Bash
+    pip install -r requirements.txt
     ```
 4. Run the app
     ```bash

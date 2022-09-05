@@ -1,7 +1,7 @@
 Clock-clock
 =======================
 
-[![GitHub Super-Linter](https://github.com/Amirka-Kh/devops-labs/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
+[!Flake8](https://github.com/Amirka-Kh/devops-labs/workflows/Lint%20with%20flake8/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 ## Content
 1. [Description](#description)

@@ -38,6 +38,6 @@ $ docker-compose run server make lint
 I used the built-in PyCharm Markdown linter
 
 ## Contacts
-``
+
 * Telegram: @AKurmazov
 * Email: a.kurmazov@innopolis.university

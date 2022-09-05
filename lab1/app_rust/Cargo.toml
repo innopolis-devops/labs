@@ -6,3 +6,4 @@ authors = ["Alexander a.kurmazov@innopolis.university"]
 [dependencies]
 rocket = "0.4.7"
 chrono = "0.4"
+clippy = "0.0.302"

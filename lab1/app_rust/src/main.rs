@@ -17,9 +17,7 @@ fn index() -> Html<String> {
             &chrono::FixedOffset::east(utils::MSC_TZ_OFFSET))
         .to_rfc3339();
 
-    let html_response = Html(
-        format!("<h1>{}</h1>", msc_now));
-    return html_response;
+    Html(format!("<h1>{}</h1>", msc_now))
 }
 
 fn main() {

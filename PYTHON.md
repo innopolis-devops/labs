@@ -27,6 +27,9 @@ as extensions.
 
 ## Linter
 
-Basic linter - GitHub Super-Linter
+Basic linter - python-app linter
 
-I chose it due to the number of steps it takes to be initiated  
+check dependencies and code style by flake8
+
+I chose it because nothing needs to be configured in yml file, by that I mean
+github already suplies with ready template

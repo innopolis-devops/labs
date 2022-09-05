@@ -15,7 +15,7 @@ To run the application follow the instructions below:
      ```
  3. Run the application. Will be opened at [http://localhost:5000/](http://localhost:5000/).
      ```
-     flask -app time.py run
+     flask --app time_app.py run
      ```
     
 ## Usage

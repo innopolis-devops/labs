@@ -1,7 +1,7 @@
 # Python Best Practicies
 
-* Follow style guidlines - refer to the [PEP8]
-(<https://peps.python.org/pep-0008/>) convetions when writing code.
+* Follow style guidlines - refer to the
+ [PEP8](<https://peps.python.org/pep-0008/>) convetions when writing code.
 
 * Write Readable Code:
 
@@ -32,7 +32,9 @@ It is used primarily to develop minimalistic web applications and Rest APIs.
 
 ## Linters
 
-Lint checks are automated in github actions. They are made on each push and pull requests.
+Lint checks are automated in github actions. They are made on each push and
+pull requests.
 
 1. For Python was used the [flake8](https://pypi.org/project/flake8/) linter.
-1. For Markdown files the [markdownlint](https://github.com/markdownlint/markdownlint) tool was used.
+1. For Markdown files the
+[markdownlint](https://github.com/markdownlint/markdownlint) tool was used.

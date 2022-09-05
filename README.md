@@ -29,8 +29,8 @@ To run from the master branch, follow the instructions below:
     pip install -r requirements.txt
     ```
 
-1. Run the application. Web app will be open at [http://localhost:5000/]
-(<http://localhost:5000/>):
+1. Run the application. Web app will be open at
+ [http://localhost:5000/](<http://localhost:5000/>):
 
     ``` bash
     cd moscow_time
@@ -39,5 +39,5 @@ To run from the master branch, follow the instructions below:
 
 ## Contacts
 
-If you have any questions or ideas, write me in Telegram: [@seytkalievm]
-(<https://t.me/seytkalievm/>)
+If you have any questions or ideas, write me in Telegram:
+ [@seytkalievm](<https://t.me/seytkalievm/>)

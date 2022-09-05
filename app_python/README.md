@@ -55,7 +55,7 @@ You can run the application following the next steps:
     flask run --host=127.0.0.1 --port=5000
     ```
 
-### Usage
+## Usage
 
 There are two ways to see the web page:
 

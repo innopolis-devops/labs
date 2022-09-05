@@ -58,7 +58,7 @@ The application written using two different technologies:
 
 3. Setup all requirements
 
-    ``$ go mod tidy``
+    ``$ go mod download``
 
 4. Start the application
 

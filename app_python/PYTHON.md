@@ -36,5 +36,6 @@ Lint checks are automated in github actions. They are made on each push and
 pull requests.
 
 1. For Python was used the [flake8](https://pypi.org/project/flake8/) linter.
+
 1. For Markdown files the
 [markdownlint](https://github.com/markdownlint/markdownlint) tool was used.

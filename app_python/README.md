@@ -1,3 +1,5 @@
+[![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/PyCQA/pylint)
+
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -10,7 +12,7 @@
   <p align="center">
     Best specific watch you have ever had!
     <br />
-    
+
   </p>
 </div>
 
@@ -21,33 +23,44 @@ A web application that gets you the current time in Moscow when you need it the 
 ## Getting started
 
 ### Prerequisites
+
 * [Python](https://www.python.org/downloads/)
 
 ### Installation
+
 1. Clone the repository
+
     ```bash
     git clone https://github.com/Sh1co/DevOps-Labs
     ```
+
 2. Go to app directory
+
     ```bash
     cd app_python
     ```
+
 3. Install dependencies:
+
     ```Bash
     pip install -r requirements.txt
     ```
+
 4. Run the app
+
     ```bash
     flask run
     ```
+
 ## Usage
-To use the app just open your browser then go to http://127.0.0.1:5000/get_time
+
+To use the app just open your browser then go to <http://127.0.0.1:5000/get_time>
 
 ## Roadmap
 
-- [x] Get time in Moscow
-- [ ] Get weather in Moscow
-- [ ] Get directions to Moscow
+* [x] Get time in Moscow
+* [ ] Get weather in Moscow
+* [ ] Get directions to Moscow
 
 <!-- CONTACT -->
 ## Contact
@@ -55,4 +68,3 @@ To use the app just open your browser then go to http://127.0.0.1:5000/get_time
 Sherif Nafee - [Sh1co](https://github.com/Sh1co) - [s.nafee@innopolis.university](s.nafee@innopolis.university)
 
 Project Link: [https://github.com/Sh1co/DevOps-Labs](https://github.com/Sh1co/DevOps-Labs)
-

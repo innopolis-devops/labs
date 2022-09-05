@@ -1,11 +1,13 @@
 # Python
 
 ## Flask
+
 ```
 I used flask because it is simple framework with HTML code support
 ```
 
-###Advantages:
+### Advantages
+
 ```
 1) Scalable
 2) Simpler Development
@@ -14,7 +16,8 @@ I used flask because it is simple framework with HTML code support
 5) Modularity
 ```
 
-###Disadvantages:
+### Disadvantages
+
 ```
 1) Not standardized
 2) Bad developers will write worse code
@@ -22,10 +25,14 @@ I used flask because it is simple framework with HTML code support
 4) Community
 5) Single source of truth
 ```
+
 ## Best Practices
+
 ```
 1) Gunicorn as Python WSGI server
 2) Ninja2 as template language
-3) Flake8 as linter
+3) Flake8 as linter for python
 4) .gitignore for git
+
+Also, I used [this linter](https://github.com/markdownlint/markdownlint) for markdown
 ```

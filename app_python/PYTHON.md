@@ -7,7 +7,7 @@
 * Write requirement.txt file with versions
 * Use virtual environment
 
-## Framework choice
+## Framework choice - Flask
 
 ### Pros
 * Simple for our goal
@@ -19,4 +19,4 @@
 ## Linters choice
 
 * For python: [Black](https://github.com/psf/black)
-* Fpr markdown: [Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+* For markdown: [Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)

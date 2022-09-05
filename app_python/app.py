@@ -1,12 +1,20 @@
+"""Module gets time is Moscow and sets up flask webserver."""
 from datetime import datetime
 from flask import Flask
-import pytz
+from pytz import timezone
 
 
-MSK = pytz.timezone('Europe/Moscow')
+MSK = timezone("Europe/Moscow")
 app = Flask(__name__)
 
-@app.route("/GetTime")
+
+@app.route("/get_time")
 def index():
+    """Returns the moscow time page"""
+    return f"<p>{get_moscow_time()}</p>"
+
+
+def get_moscow_time():
+    """Returns a string containing the current Moscow time"""
     datetime_msk = datetime.now(MSK)
-    return f"<p>{datetime_msk.strftime('%Y:%m:%d %H:%M:%S %Z %z')}</p>"
+    return datetime_msk.strftime("%Y:%m:%d %H:%M:%S %Z %z")

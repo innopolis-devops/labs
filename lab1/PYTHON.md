@@ -12,7 +12,7 @@
 5. Use linters to improve code quality, for example:
     * [**Pylint**](https://pylint.org)
     * [PyFlakes](https://github.com/PyCQA/pyflakes)
-    * [pycodestyle](https://github.com/PyCQA/pycodestyle)(formerly pep8)
+    * [pycodestyle](https://github.com/PyCQA/pycodestyle) (formerly pep8)
 6. Use static code analysers to detect vulnerabilities, for example:
     * [**Pylint**](https://pylint.org)
     * [PyFlakes](https://github.com/PyCQA/pyflakes)

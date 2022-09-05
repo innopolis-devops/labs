@@ -39,3 +39,4 @@ pull requests.
 
 1. For Markdown files the
 [markdownlint](https://github.com/markdownlint/markdownlint) tool was used.
+

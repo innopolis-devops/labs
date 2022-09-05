@@ -11,7 +11,7 @@ I used `Spring Boot` framework. It is  a tool for developing web application and
 The pros of framework:
 
 - Spring Boot can help developer to quickly build any applications without having to worry about their safe and correct configuration.
-- Spring Boot is multi-threaded. This is useful when performing long or repetitive operations. When the main thread is consumed, others are used concurrently. 
+- Spring Boot is multi-threaded. This is useful when performing long or repetitive operations. When the main thread is consumed, others are used concurrently.
 - Reduces the time spent on development and increases the overall efficiency of the development team.
 - Helps to autoconfigure all components for a production-grade Spring app.
 - Facilitates the creation and testing of Java-based applications by providing a default setup for unit and integration tests.
@@ -21,7 +21,6 @@ The pros of framework:
 - Provides many plugins that developers can use to work with embedded and in-memory databases smoothly and readily.
 - Allows for easily connecting with database and queue services like Oracle, PostgreSQL, MySQL, MongoDB, Redis, Solr, ElasticSearch, Rabbit MQ, ActiveMQ, and many more.
 
-
 The cons of framework:
 
 - Lack of control. The opinionated style installs many additional dependencies (that often go unused) which increases the deployment file size.
@@ -30,6 +29,6 @@ The cons of framework:
 
 I used `SonarLint`. I chose this linter because I like that it shows not only the place with mistake,
 but also shows rules with good and bad example of code style. Also, I like the way it classifies all code mistakes to
-Bugs, Code Smells & Security Vulnerabilities. 
+Bugs, Code Smells & Security Vulnerabilities.
 
-I used `markdownlint` for Markdown style checking. 
+I used `markdownlint` for Markdown style checking.

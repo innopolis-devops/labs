@@ -9,9 +9,13 @@ GreetingsApp is simple web-application, which greets people in the format `Hello
 - Spring Boot
 - Java 8
 
-## How to use:
+## How to run
 
-Run the application, make `get` request in the form of `http://host:8080/hello/name`
+1. Clone the project `https://github.com/yadariya/labs.git`
+2. `git checkout lab1`
+3. `cd app_java`
+4. Download `maven` and Run `mvn spring-boot::run`
+5. Make `get` request in the form of `http://host:8080/hello/yourname`
 
 ## :pencil: Contacts
 
@@ -20,8 +24,3 @@ Dariya Vakhitova, project creator : d.vakhitova@innopolis.university
 ## :tada: Illustrations
 
 ![img_1.png](img_1.png)
-
-
-
-
-

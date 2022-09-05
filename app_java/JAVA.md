@@ -1,11 +1,13 @@
 # Python
 
 ## Flask
+
 ```
 I used flask because it is simple framework with HTML code support
 ```
 
-###Advantages:
+### Advantages
+
 ```
 1) Flexibility
 2) Portability
@@ -16,7 +18,8 @@ I used flask because it is simple framework with HTML code support
 7) AOP module
 ```
 
-###Disadvantages:
+### Disadvantages
+
 ```
 1) Fewer guidelines
 2) Complexity
@@ -24,9 +27,13 @@ I used flask because it is simple framework with HTML code support
 4) Uses XML
 5) Parallel mechanism
 ```
+
 ## Best Practices
+
 ```
 1) Thymeleaf for HTML code
 2) SonarLint as linter
 3) .gitignore for git
+
+ Also, I used [this linter](https://github.com/markdownlint/markdownlint) for markdown
 ```

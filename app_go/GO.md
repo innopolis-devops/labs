@@ -18,3 +18,18 @@ Cons
 
 * Not well-suited for large/enterprise apps
 
+## Linters
+
+### Golangci-lint
+
+[Link](https://github.com/golangci/golangci-lint)
+
+Result - 0 issues
+![](https://i.imgur.com/Brcc9ho.png)
+
+### Markdown Lint
+
+[Link](https://github.com/markdownlint/markdownlint)
+
+Result - bare URLs in `README.md` (these are localhost ones)
+![](https://i.imgur.com/Qgo6oBI.png)

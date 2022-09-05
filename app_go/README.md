@@ -47,18 +47,23 @@ go mod verify
 ```
 
 * Build the source code by yourself
+
 ```shell
 go build main.go
 ```
+
 So now you have the binary to start your web server.
 
 ## Usage
+
 Start the built server by executing the `main` binary.
+
 ```shell
 ./main
 ```
 
-The server will start and listen on 8080 port. You can visit http://127.0.0.1:8080/ in order to check how it works.
+The server will start and listen on 8080 port. You can visit
+http://127.0.0.1:8080/ in order to check how it works.
 
 So that is how my simple web application for showing current Moscow
 time can be started and used.

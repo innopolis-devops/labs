@@ -40,8 +40,14 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Text('Time in Moscow, Russia',
                     style: Theme.of(context).textTheme.headline3),
-                Text(DateFormat('MM/dd/yyyy hh:mm:ss').format(DateTime.now()),
-                    style: Theme.of(context).textTheme.headline1),
+                Text(DateFormat('HH:mm:ss').format(
+
+                        /// account for moscow timezone
+                        DateTime.now().toUtc().add(const Duration(hours: 3))),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1
+                        ?.copyWith(color: Colors.black)),
               ],
             ),
           );

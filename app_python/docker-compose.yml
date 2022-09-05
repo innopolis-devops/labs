@@ -3,6 +3,5 @@ services:
   web:
     build: .
     ports:
-      - "8000:5000"
-    volumes:
-      - .:/code
+      - "1337:5000"
+    restart: always

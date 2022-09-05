@@ -19,7 +19,7 @@ docker-compose up
 
 To use the application, open the following URL in your browser:
 
-<http://localhost:8000>
+<http://localhost:1337>
 
 ## Contact
 

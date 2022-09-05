@@ -16,7 +16,7 @@ There are several best practices I applied
 ### Overview
 
 I chose FastAPI because it is probably the most well-known framework out there.
-It supports async (this app is asynchronous), and offers the auto-generated swagger documentation out-of-the-box (you can check it at `/docs`)
+It supports async (this app is asynchronous), and offers the auto-generated swagger documentation out-of-the-box (you can check it at `/docs`).
 Also, I have most experience in this particular framework, so it was an easy choice
 
 ### Pros

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h2>{{ the_title }}</h2>
+
+<form method="post" action="/entry">
+  <table>
+    <tr>
+      <td>Time</td>
+      <td>{{ the_time }}</td>
+    </tr>
+  </table>
+  <p>Probably this time is expired, press this button to see new</p>
+  <p><input type="submit" value="Update"></p>
+</form>
+
+{% endblock %}

@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
+def show_moscow_time():
     offset = datetime.timezone(datetime.timedelta(hours=3))
     moscow_time = datetime.datetime.now(offset)
     print(type(moscow_time))

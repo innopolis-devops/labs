@@ -26,7 +26,7 @@ To run from the master branch, follow the instructions below:
 
     ```bash
     python -m venv ./venv/
-    .\\venv\\Scripts\\activate
+    .\venv\Scripts\activate
     ```
 
 3. Install packages.

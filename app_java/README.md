@@ -6,8 +6,8 @@ Now you can easily run this app, go to http://localhost:8080 and see Moscow time
 
 ## 📝 How to run
 ### Main dependencies
-- Java - 15 or more
-- Maven - 3.6.3 or more
+- Java - 15 or higher
+- Maven - 3.6.3 or higher
 ### Building
 Go to ``app_java`` directory\
 For building the project, write this command in terminal into the ``app_java`` directory.

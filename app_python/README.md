@@ -10,10 +10,10 @@ Firstly, you have to clone current project via command:
 `$ git clone https://github.com/Maxkoz777/devops.git`  
 Secondly, you have to change working directory by command:  
 `$ cd app_python`  
-After that you should install [Flask](https://phoenixnap.com/kb/install-flask)  
+After that you should install [Flask](https://phoenixnap.com/kb/install-flask) and [Gunicorn](https://flask.palletsprojects.com/en/2.2.x/deploying/gunicorn/)  
 Then you have to execute command in the project root in terminal:  
-`$ flask --app app run`  
-Finally, the application will be up and running [here](http://127.0.0.1:5000)
+`$ gunicorn -w 4 'app:app'`  
+Finally, the application will be up and running [here](http://127.0.0.1:8000)
 
 ## Contact
 

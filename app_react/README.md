@@ -5,7 +5,7 @@ This project is a simple react js web application to show the current date and t
 
 # Execution 
 
-##Install
+## Install
 To install dependencies, run:
 
 ```
@@ -17,9 +17,9 @@ npm install
 To run the application for development, run:
 
 ```
-npm run dev
+npm start
 ```
-##Build
+## Build
 To build the application for production, run:
 
 ```

@@ -2,7 +2,6 @@ package com.example.app_java.controller;
 
 import com.example.app_java.service.TimeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class TimeController {
 
-    @Autowired
     private final TimeService timeService;
 
     @GetMapping

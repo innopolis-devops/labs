@@ -1,6 +1,9 @@
 name: Lint
 
-on: [push, pull_request]
+on:
+  push:
+    paths-ignore:
+      - 'app_javascript/app_js/node_modules/**'
 
 jobs:
   flake8-lint:

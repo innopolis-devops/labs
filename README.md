@@ -33,7 +33,7 @@ git clone https://github.com/Kamila-Khamidullina/devops
 cd devops/app_python/moscow_time_app
 ```
 
-2. Run the app with. The app will open at http://localhost:5000/
+1. Run the app with. The app will open at <http://localhost:5000/>
 
 ```
 flask run

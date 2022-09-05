@@ -70,8 +70,8 @@ Lint checks are automated in github actions.
 They are made on each push and pull requests.
 
 - For JavaScript was used the
-[eslint](https://eslint.org/) linter.
+  [eslint](https://eslint.org/) linter.
 
 - For Markdown files the
-[markdownlint](https://github.com/markdownlint/markdownlint)
-tool was used.
+  [markdownlint](https://github.com/markdownlint/markdownlint)
+  tool was used.

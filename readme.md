@@ -18,7 +18,7 @@ To run from the master branch, follow the instructions below:
 1. Clone web application repository locally.
 
     ```bash
-    clone 
+    clone https://github.com/ease-ln/labs.git
     cd devOps/app_python/
     ```
 

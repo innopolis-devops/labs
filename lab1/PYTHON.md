@@ -10,10 +10,9 @@
 
     I used **poetry** to keep track on dependencies
 5. Use linters to improve code quality, for example:
-    1. **Pylint**
-    2. PyFlakes
-    3. pycodestyle (formerly pep8)
-    4. Mccabe
+    * [**Pylint**](https://pylint.org)
+    * [PyFlakes](https://github.com/PyCQA/pyflakes)
+    * [pycodestyle](https://github.com/PyCQA/pycodestyle)(formerly pep8)
 6. Use static code analysers to detect vulnerabilities, for example:
-    1. **Pylint**
-    2. PyFlakes
+    * [**Pylint**](https://pylint.org)
+    * [PyFlakes](https://github.com/PyCQA/pyflakes)

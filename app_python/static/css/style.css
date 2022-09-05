@@ -1,0 +1,20 @@
+h1 {
+    border: 2px #eee solid;
+    color: brown;
+    text-align: center;
+    padding: 10px;
+}
+
+p {
+    text-align: center;
+    color: black;
+    font-weight: 600;
+}
+
+p.date {
+    font-size: 24px;
+}
+
+p.time {
+    font-size: 48px;
+}

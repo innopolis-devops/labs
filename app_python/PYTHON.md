@@ -1,6 +1,7 @@
 # Python application best practices
 
 * Use version control system (git)
+* Add license information
 * Use dependency management tool (poetry)
 * Follow style guidelines (PEP8)
 * Use libraries from PyPI

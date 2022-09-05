@@ -1,6 +1,7 @@
 # Haskell application best practices
 
 * Use version control system (git)
+* Add license information
 * Use dependency management tool (stack)
 * Follow style guidelines (hlint)
 * Use libraries from Hackage

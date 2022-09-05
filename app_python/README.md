@@ -2,6 +2,7 @@
 ## Student: Bektleuov Talgat, CS-01
 # Overview and Usage
 This web application shows the current date and time in Moscow. The time updates when a user refreshes the page
+![img.png](img.png)
 # Build
 Application was built by Production Ready Web Framework Django
 ## Why Django?
@@ -20,7 +21,7 @@ Made by the world’s best web developers, this framework leaves a very small po
 
 `pip install django`
 
-### 2. Run the server:
+### 2. Run the server in /DevOpsLabs/app_python/mysite folder:
 
 `python manage.py runserver`
 

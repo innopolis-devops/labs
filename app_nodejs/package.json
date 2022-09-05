@@ -1,0 +1,22 @@
+{
+  "name": "app_nodejs",
+  "version": "1.0.0",
+  "description": "Web app displays current Moscow Time",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "ease_ln",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.23.0",
+    "prettier": "2.7.1"
+  }
+}

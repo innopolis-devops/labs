@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Asap');
+
+* {
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #d99595;
+}
+
+h1 {
+    color: #fffbf1;
+    text-align: center;
+    font-family: Asap, sans-serif;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}

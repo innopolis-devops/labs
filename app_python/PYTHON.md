@@ -1,8 +1,9 @@
 # Python Best Practicies
 
-* Follow style guidlines - refer to the [PEP8](https://peps.python.org/pep-0008/) convetions when writing code.
+* Follow style guidlines - refer to the [PEP8]
+(<https://peps.python.org/pep-0008/>) convetions when writing code.
 
-* Write Readable Code:  
+* Write Readable Code:
 
   * Use line breaks and indentations.
   * Use naming conventions for identifiers.

@@ -44,7 +44,7 @@ To use the app just open your browser then go to http://127.0.0.1:5000/get_time
 
 - [x] Get time in Moscow
 - [ ] Get weather in Moscow
-- [ ] Get Directions to Moscow
+- [ ] Get directions to Moscow
 
 <!-- CONTACT -->
 ## Contact
@@ -53,4 +53,3 @@ Sherif Nafee - [Sh1co](https://github.com/Sh1co) - [s.nafee@innopolis.university
 
 Project Link: [https://github.com/Sh1co/DevOps-Labs](https://github.com/Sh1co/DevOps-Labs)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>

@@ -19,7 +19,13 @@ jobs: # list of things to do
         uses: actions/checkout@v2
  
       - name: Install Dependencies
+        run: rm package-lock.json
+ 
+      - name: Install Dependencies
         run: npm install
+ 
+      - name: update npm
+        run: npm update
  
       - name: Code Linting
         run: npm run lint

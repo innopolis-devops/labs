@@ -6,12 +6,65 @@
 ![](./images/ui-image.png)
 
 ## 1. Overview
+
+This is a simple web app that displays current time in Moscow or any of your location. The server copies the OS time to a file called `time.txt`. The time that is saved in `time.txt` is copied to a variable `time-zone` and `time` then displayed in `index.html`. 
+
 ## 2. Built with
+
+This app server is built with a Production ready web-framework `Flask`.
+
+<img src="./images/flask-logo.png" width="100"/>
+
 ## 3. How To Run
-## 3. Usage
-## 4. License
+
+1. Install `virtualenv`:
+```
+$ pip install virtualenv
+```
+
+> Or for Updated version of pip
+
+```
+$ pip3 install virtualenv
+```
+
+2. Open a terminal in the project root directory and run:
+```
+$ virtualenv env
+```
+
+3. Then run the command:
+```
+Windows: $ .\env\Scripts\activate
+Unix: $ source env/bin/activate
+```
+
+4. Then install the dependencies:
+```
+$ (env) pip install -r requirements.txt
+```
+
+5. Finally start the web server:
+```
+$ (env) python app.py
+```
+
+This server will start on port 5001. You can change this in `app.py` by changing the following line to this:
+
+```python
+if __name__ == "__main__":
+    app.run(port=<desired port> , debug=True)
+```
+
+## 4. Usage
+
+This app is straight-foward. After app is running property, the time will be displayed. You can refresh you page to make sure the time is still showing correctly.
+
+## 5. License
+
 Distributed under the MIT License. See `LICENSE.txt` for more information.
-## 5. Contact
+
+## 6. Contact
 
 - For Contact: Igor Mpore - [Contact Email](i.mpore@innopolis.university)
 - Project Link: [https://github.com/desmigor/devops-labs](https://github.com/desmigor/devops-labs)

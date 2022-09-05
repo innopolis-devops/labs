@@ -45,23 +45,23 @@ Here are the main of them:
 - Use the setup.py file for properly setting up your project in a new environment.
 - Add the requirements.txt for describing the dependencies that are needed.
 
-# Flask Framework
+## Flask Framework
 
 For this app I used flask framework
 because it is simple prod ready framework
 suitable for small applications.
 
-## Pros:
+## Pros
 
 - Easy to understand: good for beginners and small projects.
 - Flexible and easy: almosts all parts of flask are open to change.
 
-## Cons:
+## Cons
 
 - Scale: handles only one request at a time.
 - Modules: modular work can create security risks.
 
-# Linters
+## Linters
 
 Lint checks are automated in github actions. They are made on each push and pull requests.
 

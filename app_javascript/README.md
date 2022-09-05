@@ -27,14 +27,14 @@ To run the application you need to:
 
 1. Clone the repository and go to it
 
-```
+``` bash
 git clone https://github.com/Kamila-Khamidullina/devops
 cd devops/app_js/app_js
 ```
 
-2. Run the app with. The app will open at http://localhost:3000/
+1. Run the app with. The app will open at <http://localhost:3000/>
 
-```
+``` bash
 npm start
 ```
 

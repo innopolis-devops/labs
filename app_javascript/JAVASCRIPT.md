@@ -29,7 +29,7 @@ Nesting code explains its logic and
 makes it much easier to read, however nesting it too far
 can also make it hard to follow what you are trying to do.
 
-# React pros and cons
+## React pros and cons
 
 ## Pros
 
@@ -64,7 +64,7 @@ the new ways of doing things regularly.
 
 It is another cons which are common for constantly updating technologies.
 
-# Linters
+## Linters
 
 Lint checks are automated in github actions.
 They are made on each push and pull requests.

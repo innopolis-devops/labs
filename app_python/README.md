@@ -10,6 +10,8 @@ Firstly, you have to clone current project via command:
 `$ git clone https://github.com/Maxkoz777/devops.git`  
 Secondly, you have to change working directory by command:  
 `$ cd app_python`  
+Install requirements.txt file with dependencies:  
+`$ pip install -r requirements.txt`  
 After that you should install [Flask](https://phoenixnap.com/kb/install-flask) and [Gunicorn](https://flask.palletsprojects.com/en/2.2.x/deploying/gunicorn/)  
 Then you have to execute command in the project root in terminal:  
 `$ gunicorn -w 4 'app:app'`  

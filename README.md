@@ -1,7 +1,7 @@
 Clock-clock
 =======================
 
-[!Flake8](https://github.com/Amirka-Kh/devops-labs/workflows/Lint%20with%20flake8/badge.svg)]
+![py test](https://github.com/Amirka-Kh/devops-labs/actions/workflows/python-app.yml/badge.svg?style=for-the-badge)
 
 ## Content
 1. [Description](#description)

@@ -22,18 +22,21 @@ A web application that gets you the current time in Moscow when you need it the 
 
 ### Prerequisites
 * [Python](https://www.python.org/downloads/)
-* [Flask](https://flask.palletsprojects.com/en/2.2.x/installation/)
-* [pytz](https://pypi.org/project/pytz/#:~:text=see%20PEP%2D431\).-,Installation,-This%20package%20can)
+
 ### Installation
-1. Clone the repository
+1. Install dependencies:
+    ```Bash
+    pip install -r requirements.txt
+    ```
+2. Clone the repository
     ```bash
     git clone https://github.com/Sh1co/DevOps-Labs
     ```
-2. Go to app directory
+3. Go to app directory
     ```bash
     cd app_python
     ```
-3. Run the app
+4. Run the app
     ```bash
     flask run
     ```

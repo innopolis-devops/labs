@@ -1,7 +1,7 @@
 # Time show web application
 
 ## Overview
-The is simple application that show current MSK time.
+The is simple application that shows current MSK time.
 
 ## Build
 To run the application follow the instructions below:

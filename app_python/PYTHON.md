@@ -15,23 +15,23 @@
   * Include a README file for describing your project.
   * Add the requirements.txt for describing the dependencies that are needed.
 
-# Flask Framework
+## Flask Framework
 
 It is used primarily to develop minimalistic web applications and Rest APIs.
 
-## Pros
+### Pros
 
-- Easy to build scalable applications.
-- Has great flexibility.
+* Easy to build scalable applications.
+* Has great flexibility.
 
-## Cons
+### Cons
 
-- Lack of support for asynchronicity - third party libraries are used
-- Usage of the third-party modules increases risk of security breaches
+* Lack of support for asynchronicity - third party libraries are used
+* Usage of the third-party modules increases risk of security breaches
 
-# Linters
+## Linters
 
 Lint checks are automated in github actions. They are made on each push and pull requests.
 
 1. For Python was used the [flake8](https://pypi.org/project/flake8/) linter.
-2. For Markdown files the [markdownlint](https://github.com/markdownlint/markdownlint) tool was used.
+1. For Markdown files the [markdownlint](https://github.com/markdownlint/markdownlint) tool was used.

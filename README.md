@@ -22,13 +22,13 @@ To run from the master branch, follow the instructions below:
     cd devops_labs/app_python/
     ```
 
-2. Install packages.
+1. Install packages.
 
     ```bash
     pip install -r requirements.txt
     ```
 
-3. Run the application. Web app will be open at [http://localhost:5000/](http://localhost:5000/):
+1. Run the application. Web app will be open at [http://localhost:5000/](http://localhost:5000/):
 
     ``` bash
     cd moscow_time

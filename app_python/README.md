@@ -13,7 +13,7 @@ Secondly, you have to change working directory by command:
 After that you should install [Flask](https://phoenixnap.com/kb/install-flask)  
 Then you have to execute command in the project root in terminal:  
 `$ flask --app app run`  
-Finally, the application will be up and running [here](http://127.0.0.1:8080)
+Finally, the application will be up and running [here](http://127.0.0.1:5000)
 
 ## Contact
 

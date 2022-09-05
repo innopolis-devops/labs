@@ -19,6 +19,7 @@ It shows current Moscow time in browser.
 ### Local install
 
 Before using the application you need to install:
+
 - [Python 3](https://www.python.org/downloads/)
 - [pip](https://pip.pypa.io/en/stable/installation/)
 - [flask](https://pypi.org/project/Flask/)
@@ -27,13 +28,16 @@ To run the application you need to:
 
 1. Clone the repository and go to it
 
-    git clone https://github.com/Kamila-Khamidullina/devops
-    
-    cd devops/app_python/moscow_time_app
+```
+git clone https://github.com/Kamila-Khamidullina/devops
+cd devops/app_python/moscow_time_app
+```
 
 2. Run the app with. The app will open at http://localhost:5000/
 
-    flask run
+```
+flask run
+```
 
 ## Contacts
 

@@ -1,4 +1,4 @@
-#  JavaScript best practicies
+# JavaScript best practicies
 
 ## 1. Avoid globals
 
@@ -33,17 +33,20 @@ can also make it hard to follow what you are trying to do.
 
 ## Pros
 
-- Easy to Learn and USe
-ReactJS is much easier to learn and use. 
+- Easy to Learn and Use
+
+ReactJS is much easier to learn and use.
 It comes with a good supply of documentation,
 tutorials, and training resources.
 
 - Creating Dynamic Web Applications Becomes Easier
+
 To create a dynamic web application specifically
 with HTML strings was tricky because it requires a complex coding,
 but React JS solved that issue and makes it easier.
 
 - Performance Enhancement
+
 ReactJS improves performance due to virtual DOM.
 The DOM is a cross-platform and programming API
 which deals with HTML, XML or XHTML.
@@ -51,17 +54,24 @@ which deals with HTML, XML or XHTML.
 ## Cons
 
 - The high pace of development
+
 The high pace of development has an advantage and disadvantage both.
 In case of disadvantage, since the environment continually changes so fast,
 some of the developers not feeling comfortable to relearn
 the new ways of doing things regularly.
 
 - Poor Documentation
+
 It is another cons which are common for constantly updating technologies.
 
 # Linters
 
-Lint checks are automated in github actions. They are made on each push and pull requests.
+Lint checks are automated in github actions.
+They are made on each push and pull requests.
 
-1. For JavaScript was used the [eslint](https://eslint.org/) linter.
-2. For Markdown files the [markdownlint](https://github.com/markdownlint/markdownlint) tool was used.
+- For JavaScript was used the
+[eslint](https://eslint.org/) linter.
+
+- For Markdown files the
+[markdownlint](https://github.com/markdownlint/markdownlint)
+tool was used.

@@ -19,6 +19,7 @@ It shows current Moscow time in browser.
 ### Local install
 
 Before using the application you need to install:
+
 - [java](https://phoenixnap.com/kb/install-java-windows)
 - [npm](https://phoenixnap.com/kb/install-node-js-npm-on-windows)
 
@@ -26,13 +27,16 @@ To run the application you need to:
 
 1. Clone the repository and go to it
 
-    git clone https://github.com/Kamila-Khamidullina/devops
-    
-    cd devops/app_js/app_js
+```
+git clone https://github.com/Kamila-Khamidullina/devops
+cd devops/app_js/app_js
+```
 
 2. Run the app with. The app will open at http://localhost:3000/
 
-    npm start
+```
+npm start
+```
 
 ## Contacts
 

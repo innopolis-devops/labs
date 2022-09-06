@@ -9,3 +9,5 @@
 - Use minimal busybox image as base image for rust
 - Use `.dockerignore` to exclude files form containers
 - Minimize the number of layers (e.g. group together apt install && pip install)
+- Remove caches from package managers
+- Use COPY instead of ADD if not using the network

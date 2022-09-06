@@ -2,6 +2,7 @@
 
 - Use podman instead of docker:
   - It does not require root to run it
+  - Does not require daemon for running
 - Use rootless containers
 - Cache dependencies in different docker step
 - Use multi-stage builds to reduce the size of the image

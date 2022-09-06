@@ -12,11 +12,19 @@ The repository consists of 2 apps: python app and rust app
 
 Image: <https://hub.docker.com/repository/docker/chermnyx/inno-devops-python>
 
-1. Build
+1. Build or Pull
 
-   ```bash
-   podman build . -t chermnyx/inno-devops-python
-   ```
+   1. Build
+
+      ```bash
+      podman build . -t chermnyx/inno-devops-python
+      ```
+
+   2. Pull
+
+      ```bash
+      podman pull chermnyx/inno-devops-python
+      ```
 
 2. Run
 
@@ -56,11 +64,19 @@ Navigate to our app and see current time in ISO format
 
 Image: <https://hub.docker.com/repository/docker/chermnyx/inno-devops-rust>
 
-1. Build
+1. Build or Pull
 
-   ```bash
-   podman build . -t chermnyx/inno-devops-rust
-   ```
+   1. Build
+
+      ```bash
+      podman build . -t chermnyx/inno-devops-rust
+      ```
+
+   2. Pull
+
+      ```bash
+      podman pull chermnyx/inno-devops-rust
+      ```
 
 2. Run
 

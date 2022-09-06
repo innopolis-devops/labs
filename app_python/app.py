@@ -1,5 +1,6 @@
-import pytz
 from datetime import datetime, timezone
+
+import pytz
 from flask import Flask
 
 app = Flask(__name__)

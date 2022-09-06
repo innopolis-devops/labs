@@ -11,7 +11,7 @@
 
 ## Framework choice
 
-I chose Rocket Rust framework because Rust is a go-to option for network applications (memory safety, strict compiler policy, etc.) and Rocket is a framework that gets needed work done.
+I chose Rocket Rust framework because Rust is very suitable option for network applications (memory safety, strict compiler policy, etc.) and Rocket is a framework that gets needed work done.
 
 ### Pros
 

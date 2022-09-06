@@ -1,4 +1,4 @@
-FROM flutter_web as flutter
+FROM glebosotov/app_flutter_web:latest as flutter
 # Copy files to container and build
 RUN mkdir /app/
 COPY . /app/

@@ -15,4 +15,5 @@
   * Chaining commands instead of creating new layers
   * Used linter `hadolint` and fixed a problem:
     * Added `--no-cache-dir` to requirements installation since we don't need the cache after the image is built
-  * 
+  * Used `docker scan` that uses `Snyk` to scan image for vulnerabilities. It showed lots of them, therefore I decided to switch to even more lighter base image `python:3.10-alpine`. Now it shows zero vulnerabilities and resulting image size is 61.3 MB.
+  * Added `HEALTHCHECK` to detect not only termination of webserver process but also other problems

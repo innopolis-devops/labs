@@ -6,5 +6,8 @@ COPY src/* requirements.txt /app/
 
 RUN pip install -r requirements.txt
 
+RUN useradd webserver_user && chown -R webserver_user /app
+USER webserver_user
+
 ENTRYPOINT [ "gunicorn", "app:app" ]
 CMD [ "-b", "0.0.0.0:8000" ]

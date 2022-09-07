@@ -7,6 +7,8 @@ RUN --mount=type=cache,target=/root/.cargo/registry --mount=type=cache,target=/v
     cargo b --target x86_64-unknown-linux-musl && \
     cp target/x86_64-unknown-linux-musl/release/app_rust app_rust
 
+# Tags for distroless are pretty weird :/
+# hadolint ignore=DL3006
 FROM gcr.io/distroless/static
 
 EXPOSE 8000

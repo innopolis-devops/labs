@@ -13,3 +13,6 @@
   * Not using wildcard copy `COPY . ./` to avoid unnecesary inlcusion of secrets or just redundant data.
   * Using `CMD` as default arguments for `ENTRYPOINT` for running the server. This also allows to change bind address without having to rebuild the image.
   * Chaining commands instead of creating new layers
+  * Used linter `hadolint` and fixed a problem:
+    * Added `--no-cache-dir` to requirements installation since we don't need the cache after the image is built
+  * 

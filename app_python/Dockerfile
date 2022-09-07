@@ -1,13 +1,13 @@
-FROM python:3.10-slim
+FROM python:3.10-alpine
 
 WORKDIR /app
 # Copying only necessary stuff
 COPY src/* requirements.txt /app/
 # Install reqs & use user to have rootless container
-RUN pip install -r requirements.txt && \
-    useradd webserver_user && \
-    chown webserver_user /app
-USER webserver_user
+RUN addgroup -S appgroup && \
+    adduser -S appuser -G appgroup && \
+    pip install --no-cache-dir -r requirements.txt
+USER appuser
 
 EXPOSE 8000
 

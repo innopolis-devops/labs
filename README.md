@@ -41,6 +41,32 @@ The application written using two different technologies:
 
 6. The application will run on <http://127.0.0.1:8000>
 
+### [Python] - Usage with Docker
+
+1. Clone the repository
+
+2. Enter application directory
+
+    ``$ cd app_python``
+
+3. Build the image
+
+    `` $ docker build -t app_python . ``
+
+    OR
+
+    install image from Docker hub [TODO]
+
+    `` $ docker pull danmory/python_kremlin_chimes ``
+
+4. Run the container based on the image
+
+    `` $ docker run -d --rm -p 8000:8000 --name fastapi_server <image_name> ``
+
+    where *image_name* either *app_python* or *danmory/python_kremlin_chimes*
+
+5. The application will run on <http://127.0.0.1:8000>
+
 ## GO version of the application
 
 ### [GO] - Requirements

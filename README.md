@@ -3,7 +3,7 @@
 ## Overview
 
 Simple Python web application showing current Moscow time.
-Written using [Flask](https://flask.palletsprojects.com/en/2.2.x/) and [WorldTimeAPI](http://worldtimeapi.org)
+Written using [Flask](https://flask.palletsprojects.com/en/2.2.x/)
 
 ## Getting Started
 
@@ -40,4 +40,27 @@ To run locally:
 
     ```bash
     gunicorn msctime.app:app --reload
+    ```
+
+### Build and run with Docker
+
+1. Pull or build
+
+    * Pull
+
+        ```bash
+        docker pull feydrauth/msctime
+        ```
+
+    * Build locally
+
+        ```bash
+        cd app_python
+        docker build -t feydrauth/msctime . 
+        ```
+
+2. Run
+
+    ```bash
+    docker run -p 8000:8000 feydrauth/msctime
     ```

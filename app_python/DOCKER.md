@@ -13,10 +13,6 @@ Best practices were retrieved from <https://sysdig.com/blog/dockerfile-best-prac
 7. Run as non root
 8. Include health checks
 
-I tried to use multi staged build but the result was worse than original one.
-
-The multi staged Dockerfile is available
-
 ## Linter for Dockerfile
 
 In the project [Hadolint](https://github.com/hadolint/hadolint) linter was used.

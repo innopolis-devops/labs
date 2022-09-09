@@ -28,14 +28,13 @@ in development:
 
 ## :whale: Docker
 
-I have used Docker for containerization 
+I have used Docker for containerization
 
 Image available on docker hub repository yadariya/devops
 
 1. pull from repository: `docker pull yadariya/devops:latest`
 2. run image: `docker run -p=1337:5000 yadariya/devops:latest`
 3. go to `http://0.0.0.0:1337` to test it
-
 
 ## :pencil: Contacts
 

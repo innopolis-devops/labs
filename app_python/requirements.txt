@@ -1,0 +1,4 @@
+virtualenv
+flask
+datetime
+requests

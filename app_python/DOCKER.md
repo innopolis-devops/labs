@@ -5,13 +5,13 @@
 Best practices were retrieved from <https://sysdig.com/blog/dockerfile-best-practices/>
 
 1. Use the minimal required base container
-2. Use trusted base images
+2. Use trusted base images - official image of python on DockerHub
 3. COPY instead of ADD
 4. Use Dockerignore
-5. Place the commands that are less likely to change, and easier to cache, first.
+5. Place the commands that are less likely to change, and easier to cache, first
 6. Linting - hadolint
 7. Run as non root
-8. Include health checks
+8. Include health checks(in Dockerfile)
 
 ## Linter for Dockerfile
 

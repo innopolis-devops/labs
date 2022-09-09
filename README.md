@@ -10,17 +10,13 @@ This application can be set up/run manually or as a docker container
 
 ### Docker run guide
 
-First you need to enter project folder.
+#### With `docker compose`
 
-Then if you have docker compose installed, you can just write `docker compose up`. Otherwise, do it as follows:
+If you have docker compose installed, you can just write `docker compose up` inside project folder.
 
-#### Build
+#### Without `docker compose`
 
-To build docker image you need to run `docker build .`
-
-#### Run
-
-To run the image you can use `docker run -p 8000:8000 --rm <image ID>`.
+Without `compose` you can use `docker run -p 8000:8000 --rm bragov4ik/time_web_app:latest`.
 
 ### Manual run
 

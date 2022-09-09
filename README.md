@@ -55,7 +55,7 @@ The application written using two different technologies:
 
     OR
 
-    install image from Docker hub [TODO]
+    install image from Docker hub
 
     `` $ docker pull danmory/python_kremlin_chimes ``
 
@@ -91,6 +91,32 @@ The application written using two different technologies:
     DEBUG mode - ``$ go run .``
 
     PRODUCTION mode - ``$ GIN_MODE=release go run .``
+
+5. The application will run on <http://127.0.0.1:8080>
+
+### [GO] - Usage with Docker
+
+1. Clone the repository
+
+2. Enter application directory
+
+    ``$ cd app_go``
+
+3. Build the image
+
+    `` $ docker build --file Dockerfile.multistage -t app_go . ``
+
+    OR
+
+    install image from Docker hub
+
+    `` $ docker pull danmory/go_kremlin_chimes ``
+
+4. Run the container based on the image
+
+    `` $ docker run -d --rm -p 8080:8080 --name gin_server <image_name> ``
+
+    where *image_name* either *app_go* or *danmory/go_kremlin_chimes*
 
 5. The application will run on <http://127.0.0.1:8080>
 

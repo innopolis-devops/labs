@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  app:
+    image: app_flask:latest
+    build:
+      context: .
+    ports:
+      - '8080:80'

@@ -1,5 +1,9 @@
-# We build from scratch for now (and don't copy artifacts)
+# We have separate build cache (and for sure we don't want to
+# copy a few GB as build context without need)
 target/
 
-# We don't want to invalidate cache on each dockerfile change
+# Other files we won't need inside
 Dockerfile
+docker-compose.yml
+DOCKER.md
+RUST.md

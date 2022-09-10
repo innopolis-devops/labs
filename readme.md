@@ -19,7 +19,7 @@ To run from the master branch, follow the instructions below:
 
     ```bash
     clone https://github.com/ease-ln/labs.git
-    cd devOps/app_python/
+    cd labs/app_python/
     ```
 
 2. Create virtual environment.
@@ -47,11 +47,11 @@ Before running the application, please install its prerequisites:
 
 * [Docker 20.10.17+](https://www.docker.com/products/docker-desktop/)
 
-1. Clone web application repository locally.
+1. Clone web application repository locally and launch docker.
 
     ```bash
     clone https://github.com/ease-ln/labs.git
-    cd devOps/app_python/
+    cd labs
     ```
 
 2. Build the image.

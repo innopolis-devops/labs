@@ -28,13 +28,13 @@ All you need to run the application is [Docker](https://docs.docker.com/engine/i
     docker-compose up
     ```
 
-4. At this point everything is ready. Now you can open the web application at the local address `127.0.0.1:8080` in the browser.
+4. At this point everything is ready. Now you can open the web application at the local address `127.0.0.1:1337` in the browser.
 
 ## Usage
 
 In terms of usage, the single option is possible:
 
-- If you want to view the application, just open the address `127.0.0.1:8080` in your browser.
+- If you want to view the application, just open the address `127.0.0.1:1337` in your browser.
 
 ## Contribution
 

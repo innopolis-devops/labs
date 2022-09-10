@@ -1,9 +1,14 @@
 version: '3.7'
 
 services:
-  app:
-    image: app_flask:latest
-    build:
-      context: .
+  web:
+    build: ./web
+    command: uwsgi --ini uwsgi.ini
+    expose:
+      - 5000
+  nginx:
+    build: ./nginx
     ports:
-      - '8080:80'
+      - 1337:80
+    depends_on:
+      - web

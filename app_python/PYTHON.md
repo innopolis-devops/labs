@@ -31,7 +31,7 @@
 - [pyflakes](https://github.com/PyCQA/pyflakes)
 - [pycodestyle](https://github.com/PyCQA/pycodestyle)
 
-### Use static analysis tools to easily detect vulnerabilities or some problems:
+### Use static analysis tools to easily detect vulnerabilities or some problems
 
 - [pylint](https://pypi.org/project/pylint/)
 - [pyflakes](https://github.com/PyCQA/pyflakes)

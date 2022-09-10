@@ -17,6 +17,7 @@ If you have docker compose installed, you can just write `docker compose up` ins
 #### Without `docker compose`
 
 Without `compose` you can use `docker run -p 8000:8000 --rm bragov4ik/time_web_app:latest`.
+*Note that building the image by yourself requires docker buildkit enabled*
 
 ### Manual run
 
@@ -43,17 +44,14 @@ You can update webserver configuration in `Rocket.toml` file. Documentation on t
 
 ### Docker run guide
 
-First you need to enter project folder.
+#### With `docker compose`
 
-Then if you have docker compose installed, you can just write `docker compose up`. Otherwise, do it as follows:
+If you have docker compose installed, you can just write `docker compose up` inside project folder.
 
-#### Build
+#### Without `docker compose`
 
-To build docker image you need to run `DOCKER_BUILDKIT=1 docker build .` (notice env variable, won't work without it)
-
-#### Run
-
-To run the image you can use `sudo docker run -p 8000:8000 --rm <image ID>`.
+Without `compose` you can use `docker run -p 8000:8000 --rm bragov4ik/time_rust_web_app:latest`.
+*Note that building the image by yourself requires docker buildkit enabled*
 
 ### Manual run
 

@@ -41,13 +41,13 @@ Before running the application, please install its prerequisites:
     git clone https://github.com/justmark0/DevOpsIU.git
     cd DevOpsIUCourse/app_python/
     ```
-2. Build Docker image.
+2. [Optional] Build Docker image.
    ```bash
-      docker build -t app_python .
+      docker build -t justmark0/devopsiu .
    ```
 3. Run the application. Web app will open at [http://localhost:8000/](http://localhost:8000/). 
    ```bash
-      docker run -v $(pwd):/src -it -p 8000:8000 task
+      docker run -p 8000:8000 justmark0/devopsiu
    ```
 
 ## Usage

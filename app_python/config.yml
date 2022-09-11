@@ -1,0 +1,6 @@
+flask:
+  host: '0.0.0.0'
+  port: 8080
+  timezone: 'Europe/Moscow'
+
+project_name: Python app

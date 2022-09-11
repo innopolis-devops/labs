@@ -2,6 +2,7 @@ Clock-clock
 =======================
 
 ![py test](https://github.com/Amirka-Kh/devops-labs/actions/workflows/python-app.yml/badge.svg?style=for-the-badge)
+![docker](https://github.com/Amirka-Kh/devops-labs/actions/workflows/lint.yml/badge.svg?style=for-the-badge)
 
 ## Content
 1. [Description](#description)

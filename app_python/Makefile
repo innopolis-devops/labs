@@ -1,5 +1,4 @@
 run:
-    docker run -p 3000:8000 -d --rm --name pythonapp pythonapp
-
+	docker run -d -p 8000:8000 --rm --name pythonapp ziucay/pythonapp:latest
 build:
 	docker build -t pythonapp:0.0.1 .

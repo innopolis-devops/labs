@@ -1,4 +1,4 @@
-# 1. Best practices
+# 1. Flask Best practices
 - Use Production ready web-framework - `Flask`
 - Use popular python linter - `pylint`
 - List all dependencies and their version for reproducible builds - detailed in `requirements.txt`

@@ -15,7 +15,7 @@ This app server is built with a Production ready web-framework `Flask`.
 
 <img src="./images/flask-logo.png" width="100"/>
 
-## 3. How To Run
+## 3. How To Run Locally
 
 1. Install `virtualenv`:
 ```
@@ -56,15 +56,24 @@ if __name__ == "__main__":
     app.run(port=<desired port> , debug=True)
 ```
 
-## 4. Usage
+## 4. Docker Containerization
+
+Running the image on an `ARM64 architecture`
+
+```
+docker run -p 8080:8080  migorr/time-app-devops:arm64 
+```
+
+## 5. Usage
 
 This app is straight-foward. After app is running property, the time will be displayed. You can refresh you page to make sure the time is still showing correctly.
 
-## 5. License
+
+## 6. License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-## 6. Contact
+## 7. Contact
 
-- For Contact: Igor Mpore - [Contact Email](i.mpore@innopolis.university)
+- For Contact: Igor Mpore - [Contact Email](mailto:i.mpore@innopolis.university)
 - Project Link: [https://github.com/desmigor/devops-labs](https://github.com/desmigor/devops-labs)

@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  server:
+    image: akurmazov/server:latest
+    command: python -m poetry run uvicorn server.app:app --host 0.0.0.0
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000

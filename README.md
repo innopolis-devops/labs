@@ -43,6 +43,9 @@ Clock-clock follows the next business goals:
 2. Build an image `docker build --tag clock-clock:v1.0.0 .`
 or pull an image from docker hub `docker pull 254689393895236/clock-clock:v1.0.0`
 3. Create and run a container from the built image
+if you pulled an image then type the following:
+`docker run -d --publish 8000:5000 --name clock-server 254689393895236/clock-clock:v1.0.0`
+if you build it locally type next:
 `docker run -d --publish 8000:5000 --name clock-server clock-clock:v1.0.0`
 4. Access the website `localhost:8000`
 

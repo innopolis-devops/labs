@@ -1,4 +1,6 @@
 # Moscow Time app
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 This is a simple web application that shows the current time in Moscow.
 
@@ -12,19 +14,69 @@ You can get the json containing Moscow time by going to the root of the web page
 ```
 
 ## Installing
-Install dependencies:
-```
-pip install -r requirements.txt
-```
+
+### Local installation
+
+1) Clone repository:
+    ```
+    git clone https://github.com/boggda/inno_devops
+    cd inno_devops/app_python/
+    ```
+2) Install dependencies:
+    ```
+    pip install -r requirements.txt
+    ```
+
+### Docker installation
+
+Make sure docker is already installed.
+
+1) Clone repository:
+    ```
+    git clone https://github.com/boggda/inno_devops
+    cd inno_devops/app_python/
+    ```
+2) Build image
+    ```
+    docker build . -t moscow_app
+    ```
+    or pull image from docker hub
+    ```
+    docker pull boggda1337/moscow_app:ver_1
+    ```
 
 ## Running
-Enter the directory with the application and run web server:
-```
-cd moscow_time
-uvicorn main:app --host 127.0.0.1 --port 8000
-```
+
+### Local installation
+
+1) Enter the directory with the application
+    ```
+    cd moscow_time
+    ```
+2) Run web server
+    ```
+    uvicorn main:app --host 127.0.0.1 --port 8000
+    ```
+
+### Docker installation
+
+1) Run docker container:
+    ```
+    docker run -p 8000:8000 -d --rm --name moscow_app moscow_app
+    ```
+    or if you pulled image from docker-hub
+    ```
+    docker run -p 8000:8000 -d --rm --name moscow_app boggda1337/moscow_app:ver_1
+    ```
+2) And to stop server:
+    ```
+    docker kill moscow_app
+    ```
 
 ## Implementation
+
 This simple web application was implemented using the FastAPI framework due to its simplicity and speed of development.
 The application receives data from ```https://timeapi.io/api/Time/current/zone?timeZone=Europe/Moscow```. This API makes it easy to get the time for any time zone.
+
 You get application documentation by accessing the ```/docs``` endpoint.
+

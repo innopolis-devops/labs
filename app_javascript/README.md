@@ -41,6 +41,31 @@ If you want to change the address, you can do it in `app.js` in the `Config` sec
 
 ![img_10.png](img_10.png)
 
+## Docker
+
+I containerized this application and uploaded the final image to the docker hub.
+
+The application runs on port 8081 (by default), so you should forward this port when running
+
+### Prerequisites:
+
+1. [Download docker](https://docs.docker.com/engine/install/)
+2. Install it
+
+### Build from local image:
+
+`cd app_javascript/`
+
+`docker build -t wtiiim_app .`
+
+`docker run -p 8081:8081 -d wtiiim_app`
+
+### Build from docker hub:
+
+`docker pull aladdinych/devops_labs_js`
+
+`docker run -p 8081:8081 -d aladdinych/devops_labs_js`
+
 ## Contact
 
 This application has been written and is being maintained by [@al1ych](https://github.com/al1ych)

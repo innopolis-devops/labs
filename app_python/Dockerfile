@@ -1,5 +1,5 @@
 FROM python:3.9-alpine
-MAINTAINER Timur Nugaev t.nugaev@innopolis.university
+LABEL maintainer="Timur Nugaev t.nugaev@innopolis.university"
 
 WORKDIR /app_python
 
@@ -9,7 +9,10 @@ WORKDIR /app_python
 
 COPY . .
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+RUN adduser -D myuser && chown -R myuser /myapp-data
+USER myuser
 
 # делаем ентрипоинт ENTRYPOINT["/usr/bin/python3", "./hello.py"] чтобы не меняли
 # делаем CMD для всех последующих аргументов которые другие разрабы могут менять

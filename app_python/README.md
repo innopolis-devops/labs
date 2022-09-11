@@ -41,12 +41,14 @@ If you want to change the ip address and/or the port, you can do it in `config.y
 
 ## Docker
 
+I containerized this application and uploaded the final image to the docker hub.
+
+The application runs on port 8081 (by default), so you should forward this port when running
+
 ### Prerequisites:
 
 1. [Download docker](https://docs.docker.com/engine/install/)
 2. Install it
-
-The application runs on port 8081 (by default), so you should forward this port when running
 
 ### Build from local image:
 

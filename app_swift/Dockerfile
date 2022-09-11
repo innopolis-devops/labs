@@ -2,7 +2,7 @@ FROM swift:5.6-focal as build
 
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
     && apt-get -q update \
-    && apt-get -q dist-upgrade -y \
+    && apt-get -q upgrade -y \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build
@@ -27,7 +27,7 @@ FROM ubuntu:focal
 
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
     && apt-get -q update \
-    && apt-get -q dist-upgrade -y \
+    && apt-get -q upgrade -y \
     && apt-get -q install -y \
       ca-certificates \
       tzdata \

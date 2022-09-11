@@ -24,6 +24,22 @@ To run the application follow the instructions below:
 2. It will show time.
 3. When you update page, time is also will be updated.
 
+## Docker
+
+If you want to use Docker with that project you need follow several steps:
+1) [Install docker](https://docs.docker.com/engine/install/).
+
+If you want to build an image locally then:
+1) Navigate to the root folder of the project (in our case it is app_python)
+2) Run command `docker build -t time_flask_app:v0.2 .`
+3) Run commnad `docker run -p 5000:5000 -d time_flask_app:v0.2` (First 5000 is port of local machine and second 5000 is a port where application will be running inside container)
+4) Now application is running inside container and forwarded to the http://localhost:5000
+
+If you want to use image from Docker Hub Repository:
+1) Run command `docker run -p 5000:5000 -d dablup/devops_labs:devops_labs`
+2) Now application is running inside container and forwarded to the http://localhost:5000
+
+
 ## Contacts 
 
 [Daniil Livitin](https://github.com/Dablup)

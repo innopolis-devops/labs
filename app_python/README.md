@@ -45,6 +45,8 @@ I containerized this application and uploaded the final image to the docker hub.
 
 The application runs on port 8081 (by default), so you should forward this port when running
 
+I've looked at multi-staging and believe it's unnecessary for a project this size.
+
 ### Prerequisites:
 
 1. [Download docker](https://docs.docker.com/engine/install/)

@@ -45,7 +45,9 @@ If you want to change the address, you can do it in `app.js` in the `Config` sec
 
 I containerized this application and uploaded the final image to the docker hub.
 
-The application runs on port 8081 (by default), so you should forward this port when running
+The application runs on port 8082 (by default), so you should forward this port when running.
+
+I've looked at multi-staging and believe it's unnecessary for a project this size.
 
 ### Prerequisites:
 
@@ -56,15 +58,15 @@ The application runs on port 8081 (by default), so you should forward this port 
 
 `cd app_javascript/`
 
-`docker build -t wtiiim_app .`
+`docker build -t wtiiim_app_js .`
 
-`docker run -p 8081:8081 -d wtiiim_app`
+`docker run -p 8082:8082 -d wtiiim_app_js`
 
 ### Build from docker hub:
 
 `docker pull aladdinych/devops_labs_js`
 
-`docker run -p 8081:8081 -d aladdinych/devops_labs_js`
+`docker run -p 8082:8082 -d aladdinych/devops_labs_js`
 
 ## Contact
 

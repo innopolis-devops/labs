@@ -30,6 +30,26 @@ To run from the master branch, follow the instructions below:
     export FLASK_APP=app
     flask run --host 0.0.0.0 -p 8000
     ```
+
+## Run via Docker
+Before running the application, please install its prerequisites:
+
+[Docker](https://docs.docker.com/get-docker/)
+
+1. Clone web application repository locally.
+    ```bash
+    git clone https://github.com/justmark0/DevOpsIU.git
+    cd DevOpsIUCourse/app_python/
+    ```
+2. Build Docker image.
+   ```bash
+      docker build -t app_python .
+   ```
+3. Run the application. Web app will open at [http://localhost:8000/](http://localhost:8000/). 
+   ```bash
+      docker run -v $(pwd):/src -it -p 8000:8000 task
+   ```
+
 ## Usage
 Actually this app is useless, you can just google time :)
 

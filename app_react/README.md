@@ -32,7 +32,7 @@ npm run build
 
 - Dockerfile: dockerizing the app by building image contains the app and the requirments to run it.
 - The application is hosted by npm
-Our application is available through a Docker container at mkhalil99/react_app. To run the image execute
+- Our application is available through a Docker container at mkhalil99/react_app. To run the image execute
 ```
 docker run --publish 3000:3000 mkhalil99/react_app
 ```

@@ -9,8 +9,8 @@ WORKDIR /app
 RUN apt-get update && apt-get -y install make
 
 # Restricting running as root
-RUN adduser --disabled-password app_python_user && chown -R app_python_user /app
-USER app_python_user
+RUN adduser --disabled-password protected_user && chown -R protected_user /app
+USER protected_user
 
 # Installing poetry and project dependencies
 COPY poetry.lock .
@@ -20,4 +20,5 @@ RUN python -m pip install --user --no-cache-dir poetry==1.2.0 && \
     python -m poetry install
 
 # Copying the necessary project sources
+COPY Makefile .
 COPY /server server

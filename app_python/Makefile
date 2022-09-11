@@ -6,7 +6,7 @@ run := python -m poetry run
 
 .PHONY: isort
 isort:
-	$(run) isort $(CODE)
+	$(run) isort --check-only $(CODE)
 
 .PHONY: flake8
 flake8:

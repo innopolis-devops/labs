@@ -1,10 +1,12 @@
 FROM python:3.9.14-alpine3.16
 
+ENV PORT 8000
+
 WORKDIR /app
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE $PORT
 
 RUN pip3 install -r requirements.txt
 

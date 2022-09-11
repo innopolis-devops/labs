@@ -56,6 +56,21 @@ reloading on code changes
    uvicorn moscow_time.main:app --reload
    ```
 
+
+## Run via Docker
+
+1. Pull image from docker hub
+
+   ```bash
+   docker pull ziucay/pythonapp:latest
+   ```
+   
+2. Run containers
+
+   ```bash
+   docker run -d -p 8000:8000 --rm --name pythonapp ziucay/pythonapp:0.1
+   ```
+
 ## Contact
 
 For questions and suggestions, write in [Telegram](https://web.telegram.org/): [@ziucay](https://t.me/Ziucay)

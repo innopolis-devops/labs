@@ -58,6 +58,12 @@ if __name__ == "__main__":
 
 ## 4. Docker Containerization
 
+Running the image on an `AMD64 architecture`
+
+```
+docker run -p 8080:8080 migorr/time-app-devops:amd64
+```
+
 Running the image on an `ARM64 architecture`
 
 ```

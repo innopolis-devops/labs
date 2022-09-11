@@ -1,6 +1,5 @@
 astroid==2.12.5
-backports.zoneinfo==0.2.1
-click==4.1
+click==8.0
 dill==0.3.5.1
 Flask==2.2.2
 importlib-metadata==4.12.0

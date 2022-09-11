@@ -35,9 +35,30 @@ Once you've started the server
 
 To see the web page, navigate to http://localhost:8081 in your browser
 
-If you want to change the address, you can do it in `config.yml`:
+If you want to change the ip address and/or the port, you can do it in `config.yml`:
 
 ![img_1.png](img_1.png)
+
+## Docker
+
+### Prerequisites:
+
+1. [Download docker](https://docs.docker.com/engine/install/)
+2. Install it
+
+The application runs on port 8081 (by default), so you should forward this port when running
+
+### Build from local image:
+
+`cd app_python/`
+
+`docker build -t wtiiim_app .`
+
+`docker run -p 8081:8081 -d wtiiim_app`
+
+### Build from docker hub:
+
+`docker run -p 8081:8081 -d aladdinych/devops_labs`
 
 ## Contact
 

@@ -58,6 +58,8 @@ The application runs on port 8081 (by default), so you should forward this port 
 
 ### Build from docker hub:
 
+`docker pull aladdinych/devops_labs`
+
 `docker run -p 8081:8081 -d aladdinych/devops_labs`
 
 ## Contact

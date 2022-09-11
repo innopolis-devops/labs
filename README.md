@@ -40,6 +40,7 @@ Clock-clock follows the next business goals:
 ### With Docker
 1. Clone the repository.
 2. Build an image `docker build --tag clock-clock:v1.0.0 .`
+or pull an image from docker hub `docker pull 254689393895236/clock-clock:v1.0.0`
 3. Create and run a container from the built image
 `docker run -d --publish 8000:5000 --name clock-server clock-clock:v1.0.0`
 4. Access the website `localhost:8000`

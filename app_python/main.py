@@ -5,7 +5,7 @@ import datetime
 app = Flask(__name__)
 
 
-@app.route('/v1/current_time')
+@app.route('/')
 def index():
     url = "http://worldtimeapi.org/api/timezone/Europe/Moscow"
     response = requests.get(url)

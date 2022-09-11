@@ -26,7 +26,7 @@ This application created for showing current time from [WorldTimeAPI](http://wor
   ```
 - Open link to see current time:
   ```
-  http://127.0.0.1:5000/v1/current_time
+  http://127.0.0.1:5000
   ```
 
 ## Contact

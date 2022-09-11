@@ -58,6 +58,19 @@ if __name__ == "__main__":
 
 ## 4. Docker Containerization
 
+### 4.1 Steps Followed to Create a Public Docker Image
+
+1. Create a `Dockerfile` with instrunctions
+2. Created a new `public` repository on my Docker Hub account
+2. Built the image for `AMD64` on a Linux Machine  using `docker build -t migorr/time-app-devops:amd64 .`
+3. Tested the image locally using `docker run migorr/time-app-devops:amd64`
+4. Pushed the image `docker push migorr/time-app-devops:amd64`
+5. Built the image for `ARM64` on a M1 Mac Machine  using `docker build -t migorr/time-app-devops:arm64 .`
+6. Tested the image locally using `docker run migorr/time-app-devops:arm64`
+7. Pushed the image `docker push migorr/time-app-devops:arm64`
+
+### 4.2 Running the Docker image
+
 Running the image on an `AMD64 architecture`
 
 ```

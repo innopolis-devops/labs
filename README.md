@@ -24,6 +24,20 @@
      ```
      flask -app time_app.py run
      ```
-    
+
+## Docker
+To use docker image follow steps below:
+ 1)  First, install [docker](https://docs.docker.com/engine/install/).
+
+Building image locally:
+ 1) change the directory to the app_python folder
+ 2) then use `docker build -t time_application`
+ 3) then use `docker run -p 5000:5000 -d time_application`
+ 4) Navigate to the following [link](127.0.0.1:5000) to check
+
+Build from docker hub image
+ 1) Run command `docker run -p 5000:5000 -d mikhailmarch/time_application'
+ 2) Navigate to the following [link](127.0.0.1:5000) to check
+
 ## Contacts
 Any question? telegram me @mikhailh

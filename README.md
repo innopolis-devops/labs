@@ -1,5 +1,12 @@
 # Current Moscow Time application
 
+## Table of content
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Docker](#docker)
+- [Contact](#contact)
+
 ## Description
 
 This application created for showing current time from [WorldTimeAPI](http://worldtimeapi.org/). Application written with using **Python** + **Flask**

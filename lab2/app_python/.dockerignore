@@ -1,0 +1,18 @@
+# Python base
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+.cache
+
+# Python third-party
+.mypy_cache
+
+# Git
+.git
+.gitignore
+
+# Docs
+*.md

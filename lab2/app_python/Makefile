@@ -1,6 +1,6 @@
 CODE := server
 
-run := poetry run
+run := python -m poetry run
 
 # Linters
 

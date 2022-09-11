@@ -10,18 +10,27 @@ The web page user interface
 
 ## Requirements
 - The Python 3.9 or newer version is required to run the application. 
-- UNIX-like or Windows system with with the correct time set (the timezone can be different from Europe/Moscow)
+- UNIX-like or Windows system with the correct time set (the timezone can be different from Europe/Moscow)
 - Access to network or Internet (or only localhost address is available) 
 
 ## Build
 No building is required for this source code since Python is an interpreted language.
 
 ## Usage
-0. Before the first start please run `prepare.sh` for virtual environment and dependancies installation.
-1. Enter the `app_python` folder (folder with this README.md file) and open **Terminal** there
-2. Start the virtual environment with `../Scripts/Activation` command (be sure about execution rights)
-3. Start the application with `python main.py` or `python3 main.py` command
-4. Access the webpage via printed address (`localhost:5000` by default)
+There are 2 ways for running this application:
+### Docker (preferable)
+1. Download the code to your local machine - to be more specific, `main.py` & `requirements.txt` are required
+2. Download `Dockerfile` and use `docker build -t andrew174194/msc_time_py .` to build container by yourself OR
+    use pre-build container with command `docker pull andrew174194/msc_time_py` ([Link to image on Docker Hub](https://hub.docker.com/r/andrew174194/msc_time_py))
+3. Run container by `docker run -p 80:5000 andrew174194/msc_time_py`, the web-application will be available on `localhost` or `localhost:80`. You can change 80 port to other port you like.
+
+### By hands
+1. Enter the base folder and clone `app_python` folder there
+2. Run `python -m venv venv` to create a virtual environment
+3. Start the virtual environment with `./Scripts/Activate` command (be sure about execution rights)
+4. Change directory to `app_python` and install requirements by `pip install -r requirements.py`
+5. Start the application with `python main.py` or `python3 main.py` command
+6. Access the webpage via printed address (`localhost:5000` by default)
 
 To finish the server press `Ctrl + C` buttons
 

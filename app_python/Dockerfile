@@ -1,11 +1,11 @@
 FROM python:3.9.14-alpine3.16
 
-WORKDIR /pythonapp
+WORKDIR /app
 
-COPY . /pythonapp
+COPY . .
 
-EXPOSE 3000
+EXPOSE 8000
 
-CMD ["python3 -m virtualenv venv", "source venv/bin/activate",
-"pip install -r app_python/requirements.txt",
-"uvicorn app_python.main:app"]
+RUN pip3 install -r requirements.txt
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

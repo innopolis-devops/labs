@@ -57,3 +57,21 @@ Web application that displays current time in Moscow.
 ### Run markdownlint (done in pre-commit)
 
     pre-commit run -a markdownlint-fix
+
+### Run hadolint (done in pre-commit)
+
+    pre-commit run -a hadolint-docker
+
+## Docker
+
+### Build image locally
+
+    docker build -t grommash99/moscow-time-py:latest -f Dockerfile .
+
+### Pull from Docker Hub
+
+    docker pull grommash99/moscow-time-py
+
+### Run container with application
+
+    docker run -d --rm -p "8080:8080" --name moscow-time-py grommash99/moscow-time-py

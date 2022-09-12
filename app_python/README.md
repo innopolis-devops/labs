@@ -62,13 +62,13 @@ reloading on code changes
 1. Pull image from docker hub
 
    ```bash
-   docker pull ziucay/pythonapp:latest
+   docker pull ziucay/pythonapp:0.2
    ```
    
 2. Run containers
 
    ```bash
-   docker run -d -p 8000:8000 --rm --name pythonapp ziucay/pythonapp:0.1
+   docker run -d -p 8000:8000 --rm --name pythonapp ziucay/pythonapp:0.2
    ```
 
 ## Contact

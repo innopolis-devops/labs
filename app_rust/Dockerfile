@@ -12,14 +12,12 @@ RUN cargo build --release \
 COPY ./ ./
 RUN cargo build --release
 
-FROM ubuntu:20.04 as run
+# https://github.com/GoogleContainerTools/distroless/blob/main/examples/rust/Dockerfile
+FROM gcr.io/distroless/cc
+USER nonroot
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends libssl1.1 libssl-dev ca-certificates
-
-WORKDIR /app
-COPY --from=build /build_app/target/release/currenttime /app/currenttime
+COPY --from=build /build_app/target/release/currenttime /
 COPY templates ./templates
 COPY Rocket.toml ./Rocket.toml
-EXPOSE 4444
-ENTRYPOINT ["/app/currenttime"]
+
+CMD ["./currenttime"]

@@ -15,10 +15,13 @@ COPY poetry.lock pyproject.toml /app/
 
 
 RUN python -m poetry config virtualenvs.create false \
-  && python -m poetry install $(test "$PROD" == true && echo "--no-dev") --no-interaction --no-ansi \
+  && python -m poetry install --no-interaction --no-ansi \
   && python -m poetry shell
 
 COPY . /app
 
-EXPOSE 4444
-ENTRYPOINT ["gunicorn", "app:app", "-b", "0.0.0.0:4444"]
+
+RUN useradd -m appuser
+USER appuser
+ENTRYPOINT ["gunicorn", "app:app"] 
+CMD ["-b", "0.0.0.0:4444"]

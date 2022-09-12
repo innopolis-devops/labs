@@ -24,4 +24,4 @@
 
 ## Linter
 
-I used [https://github.com/hadolint/hadolint](hadolint) linter
+I used [hadolint](https://github.com/hadolint/hadolint) linter

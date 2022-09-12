@@ -24,6 +24,9 @@ Now you are ready to run with
 uvicorn main:app --reload
 ```
 
+## Docker
+You can use a docker image which has the app and all its dependencies installed. The image is [nihon/moscower](https://hub.docker.com/repository/docker/nihon/moscower)
+
 ## Tests
 
 Make sure you are inside the app's directory

@@ -3,7 +3,26 @@
 This app will help you to get current time in Europe/Moscow timezone.
 This project is written using Django framework.
 
-## How to run?
+## Docker
+Link to the [image on docker hub](https://hub.docker.com/repository/docker/mcflydesigner/django-iu-lab)
+
+The build is multistage and described in `./Dockerfile`.
+
+### How to run?
+* Pull the image from docker hub
+```shell
+docker pull mcflydesigner/django-iu-lab:latest
+```
+* Run the image binding your port 8000 to container's port 8000(application will be listening this port). 
+```shell
+docker run -p 8000:8000 mcflydesigner/django-iu-lab:latest
+```
+If everything is great, you will see the following message in your console:
+![docker-run.png](images/docs/docker-run.png)
+To see the webpage, open the following [link in your browser](http://localhost:8000/time/now).
+
+
+## How to run without Docker?
 * You should have pre-installed Python 3.10 and pip.
 * Navigate to working dir ```/app_python/django_app```
 * Run in your terminal:
@@ -24,5 +43,5 @@ python manage.py runserver
 ```
 * The server will be started by default on port 8000. Open the following [link in your browser](http://localhost:8000/time/now).
 If everything is correct, you will see the page similar to the following one:
-![img.png](images/docs/web-page-time.png)
+![web-page-time.png](images/docs/web-page-time.png)
 * Great! Everything works!

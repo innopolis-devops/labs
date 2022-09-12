@@ -2,7 +2,9 @@
 
 ## Rootless containers
 
-1. There are very few use cases where the container needs to execute as root, so don’t forget to include the USER instruction to change the default effective UID to a non-root user.
+1. There are very few use cases where the container needs to execute as root,
+   so don’t forget to include the USER instruction to change the default
+   effective UID to a non-root user.
 
 1. Don’t bind to a specific UID
 Run the container as a non-root user, but don’t make that user UID a requirement.

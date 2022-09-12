@@ -51,7 +51,7 @@ To run from the master branch, follow the instructions below:
     docker pull seytkalievm/devops_lab
     ```
 
-2. Run the container. Web app will open at [http://localhost:5000/](http://localhost:5000/).
+1. Run the container. Web app will open at [http://localhost:5000/](http://localhost:5000/).
 
     ```bash
     docker run -p 5000:5000 seytkalievm/devops_lab

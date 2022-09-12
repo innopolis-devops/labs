@@ -1,0 +1,8 @@
+.hie
+LICENSE
+.stan.toml
+.stylish-haskell.yaml
+**/*.md
+!README.md
+.stack-work
+target

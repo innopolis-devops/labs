@@ -19,7 +19,11 @@ docker-compose up
 
 To use the application, open the following URL in your browser:
 
-<http://localhost:8080>
+<http://localhost:1338>
+
+## Docker
+
+I have used Docker from the start in this project. The `docker-compose.yml` points to remote brebuilt image. Refer to Usage and Build sections for more details.
 
 ## Contact
 

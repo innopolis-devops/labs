@@ -21,6 +21,10 @@ To use the application, open the following URL in your browser:
 
 <http://localhost:1337>
 
+## Docker
+
+I have used Docker from the start in this project. The `docker-compose.yml` points to remote brebuilt image. Refer to Usage and Build sections for more details.
+
 ## Contact
 
 You can message me using this link <https://glebosotov.t.me>

@@ -1,6 +1,6 @@
 version: '2'
 services:
   web:
-    build: moscow_time/
+    image: glebosotov/inno-devops-labs-app-flutter:latest
     ports:
-      - "8080:80"
+      - "1338:80"

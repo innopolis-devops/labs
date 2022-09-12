@@ -29,7 +29,7 @@ For this particular project I have chosen **Spring** framework with its project 
 
 ## Linting
 
-### Python code
+### Java code
 
 For this project I used **Sonarlint** linter which can be added as a plugin to all popular java IDEs
 

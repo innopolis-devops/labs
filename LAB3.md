@@ -14,7 +14,7 @@
 2. Set up Git Actions CI
 
    * Create a continuous integration (CI) workflow to [build and test your Python project](https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python).
-   * It must have at least 3 steps Deps, Linter and Tests.
+   * It must have at least 3 steps Dependencies, Linter and Tests.
    * Add [Docker related steps](https://docs.docker.com/ci-cd/github-actions/) into your workflow.
    * It must have at least 2 steps Login, Build & Push.
    * Update a README.md ﬁle.
@@ -42,7 +42,6 @@
 2. Improve your CI workflows:
    1. the Python app CI should run only if there are changes in the `app_python` folder
    2. the extra `<language> app` CI should run only if there are changes in the `app_<language>` folder
-
 
 ## Out of the bonus
 

@@ -13,5 +13,11 @@ Now you are ready to run the app:
 uvicorn main:app
 ```
 To make sure everything works fine, go to http://127.0.0.1:8000
+## Docker
+Alternatively, you can pull and run [docker hub](https://hub.docker.com/repository/docker/e2xen/devops-pythonapp/general) image of this app:
+```
+docker run -d -p 80:80 e2xen/devops-pythonapp:latest
+```
+To make sure everything works fine, go to http://127.0.0.1:80
 ## Contact
 Telegram: @wheatendinosaur

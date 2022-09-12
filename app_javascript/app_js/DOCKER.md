@@ -7,7 +7,12 @@ And runs as it user.
 The only thing is that running the requirements
 (installation) can be done only by the root user.
 
-## 2. Using linter to awoid some mistakes
+## 2. Layer sanity
+
+Group multiple command together to reduce
+the number of layers.
+
+## 3. Using linter to awoid some mistakes
 
 For checking Dockerfile the
 [hadolint](https://github.com/hadolint/hadolint) linter was used.

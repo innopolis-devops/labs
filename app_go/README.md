@@ -15,9 +15,11 @@ _Note_: the time updates only when page refreshes.
 
 ## Getting Started
 
-This is a small guide how to prepare and install my project.
+This is a small guide how to prepare and install my project in two ways: manual and using docker.
 
-### Prerequisites
+## Manual
+
+#### Prerequisites
 
 First of all you will need Go compiler. I will recommend to
 install the latest one or 1.17.6 version at least.\
@@ -25,7 +27,7 @@ For detailed instructions, see [Official Go Website](https://go.dev).
 
 Now you are ready to proceed with installation.
 
-### Installation
+#### Installation
 
 * Clone this project, checkout **lab1** branch, go to the `app_go` folder.
 
@@ -54,7 +56,7 @@ go build main.go
 
 So now you have the binary to start your web server.
 
-## Usage
+#### Usage
 
 Start the built server by executing the `main` binary.
 
@@ -67,6 +69,42 @@ http://127.0.0.1:8080/ in order to check how it works.
 
 So that is how my simple web application for showing current Moscow
 time can be started and used.
+
+### Using Docker
+
+#### Prerequisites
+
+Installed Docker on your machine. For details visit **[this](https://www.docker.com/get-started/)**.
+
+#### Installation
+
+You could either pull already built Docker image or build it by yourself.
+
+```shell
+# pull image
+docker pull ilyakolomin/devops_app_go
+
+# or build it by yourself
+
+git clone https://github.com/Ilya-Kolomin/DevOps.git
+cd DevOps
+git checkout lab2
+cd app_go
+docker build . devops_app_go
+```
+
+#### Usage
+
+Now you could run the container with the following commands.
+
+```shell
+docker run -p 8080:8080 -d devops_app_go
+# or
+docker run -p 8080:8080 -d ilyakolomin/devops_app_go:<tag>
+```
+
+Congratulations, now you could visit http://127.0.0.1:8080 to see current Moscow time.
+
 
 ## Contact
 

@@ -122,6 +122,6 @@ Congratulations, now you could visit http://127.0.0.1:8000 to see current Moscow
 ## Contact
 
 Ilya Kolomin - @Ilya-Kolomin - i.kolomin@innopolis.university\
-BS19-CS-01 group at Innopolis University
+B19-CS-01 group at Innopolis University
 
 Project Link: https://github.com/Ilya-Kolomin/DevOps/tree/lab1

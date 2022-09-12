@@ -65,7 +65,7 @@ reloading on code changes
    docker pull ziucay/pythonapp:0.2
    ```
    
-2. Run containers
+2. Run container
 
    ```bash
    docker run -d -p 8000:8000 --rm --name pythonapp ziucay/pythonapp:0.2

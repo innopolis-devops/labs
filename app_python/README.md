@@ -32,7 +32,7 @@ in terminal into the ``app_python`` directory.
 ``` python
 python show_time.py
 ```
-## Docker 🐳
+## 🐳 Docker
 
 ### Build image locally
 

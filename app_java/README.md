@@ -30,7 +30,7 @@ in terminal into the ``app_java`` directory.
 mvn spring-boot:run
 ```
 
-## Docker 🐳
+## 🐳 Docker
 
 ### Build image locally
 

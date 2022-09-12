@@ -17,9 +17,11 @@ _Note_: the time updates only when page refreshes.
 
 ## Getting Started
 
-This is a small guide how to prepare and install my project.
+This is a small guide how to prepare and install my project in two ways: manual and using docker.
 
-### Prerequisites
+### Manual
+
+#### Prerequisites
 
 First of all you will need Python interpreter. I will recommend to
 install the latest one or 3.8 version at least.\
@@ -36,14 +38,14 @@ cd /path/to/new/venv
 
 Now you are ready to proceed with installation.
 
-### Installation
+#### Installation
 
-* Clone this project, checkout **lab1** branch, go to the `app_python` folder.
+* Clone this project, checkout **lab2** branch, go to the `app_python` folder.
 
 ```shell
 git clone https://github.com/Ilya-Kolomin/DevOps.git
 cd DevOps
-git checkout lab1
+git checkout lab2
 cd app_python
 ```
 
@@ -54,7 +56,7 @@ cd app_python
 pip3 install -r requirements.txt
 ```
 
-## Usage
+#### Usage
 
 Now you are ready to start the WSGI server.
 In my project I use **Gunicorn**, however, since it is written on _Flask_,
@@ -81,6 +83,41 @@ while in development it will listen on http://127.0.0.1:5000.
 
 So that is how my simple web application for showing current Moscow
 time can be started and used.
+
+### Using Docker
+
+#### Prerequisites
+
+Installed Docker on your machine. For details visit **[this](https://www.docker.com/get-started/)**.
+
+#### Installation
+
+You could either pull already built Docker image or build it by yourself.
+
+```shell
+# pull image
+docker pull ilyakolomin/devops_app_python
+
+# or build it by yourself
+
+git clone https://github.com/Ilya-Kolomin/DevOps.git
+cd DevOps
+git checkout lab2
+cd app_python
+docker build . devops_app_python
+```
+
+#### Usage
+
+Now you could run the container with the following commands.
+
+```shell
+docker run -p 8000:8000 -d devops_app_python
+# or
+docker run -p 8000:8000 -d ilyakolomin/devops_app_python:<tag>
+```
+
+Congratulations, now you could visit http://127.0.0.1:8000 to see current Moscow time.
 
 ## Contact
 

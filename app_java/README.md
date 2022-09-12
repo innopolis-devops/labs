@@ -30,19 +30,19 @@ in terminal into the ``app_java`` directory.
 mvn spring-boot:run
 ```
 
-## Docker
+## Docker 🐳
 
 ### Build image locally
 
-    docker build -t inforest/app_java:latest -f Dockerfile .
+    docker build -t inforest/app_java:app_java -f Dockerfile .
 
 ### Pull from Docker Hub
 
-    docker pull inforest/app_java
+    docker pull inforest/app_java:app_java
 
 ### Run container with application
 
-    docker run -p 8080:8080 --name app_java inforest/app_java
+    docker run -p 8080:8080 --name app_java inforest/app_java:app_java
 
 ## 📪 Contacts
 

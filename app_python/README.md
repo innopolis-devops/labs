@@ -32,19 +32,19 @@ in terminal into the ``app_python`` directory.
 ``` python
 python show_time.py
 ```
-## Docker
+## Docker 🐳
 
 ### Build image locally
 
-    docker build -t inforest/app_python:latest -f Dockerfile .
+    docker build -t inforest/app_python:app_python -f Dockerfile .
 
 ### Pull from Docker Hub
 
-    docker pull inforest/app_java
+    docker pull inforest/app_python:app_python
 
 ### Run container with application
 
-    docker run -p 8080:8080 --name app_python inforest/app_java
+    docker run -p 5000:5000 --name app_python inforest/app_python:app_python
 
 ## 📪 Contacts
 

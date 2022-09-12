@@ -7,7 +7,7 @@
    effective UID to a non-root user.
 
 1. Don’t bind to a specific UID
-Run the container as a non-root user, but don’t make that user UID a requirement.
+   Run the container as a non-root user, but don’t make that user UID a requirement.
 
 ## Linting
 

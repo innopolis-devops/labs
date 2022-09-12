@@ -13,3 +13,7 @@ def show_time():
     moscow_time = datetime.now(pytz.timezone(TIMEZONE)).strftime(TIME_FORMAT)
     html = "<center>" + moscow_time + "</center>"
     return html
+
+
+if __name__ == "__main__":
+    app.run()

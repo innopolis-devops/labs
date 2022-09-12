@@ -8,7 +8,7 @@ RUN mkdir -p $PROJECT_DIR
 WORKDIR $PROJECT_DIR
 
 RUN python -m pip install --upgrade pip
-RUN pip install --no-cache-dir -r $PROJECT_DIR/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . $PROJECT_DIR
 

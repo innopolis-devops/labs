@@ -1,4 +1,4 @@
 run:
-	docker run -d -p 8000:8000 --rm --name pythonapp ziucay/pythonapp:0.2
+	docker run -d -p 8080:8080 --rm --name kotlinapp ziucay/kotlinapp:0.1
 build:
-	docker build -t ziucay/pythonapp:0.2 .
+	docker build -t ziucay/kotlinapp:0.1 .

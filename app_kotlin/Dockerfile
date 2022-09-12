@@ -2,14 +2,14 @@
 
 FROM maven:3.8.6-openjdk-18
 
-ENV PORT 8080
-
 WORKDIR /app
 
 COPY . .
 
-EXPOSE $PORT
+EXPOSE 8080
 
-RUN mvnw spring-boot:install
+RUN chmod +x ./mvnw
 
-CMD mvnw spring-boot:run
+RUN mvn install
+
+CMD ./mvnw spring-boot:run

@@ -1,0 +1,7 @@
+version: "2"
+services:
+  web:
+    image: maxkoz777/moscow_time_python:latest
+    ports:
+      - "8081:8081"
+    restart: always

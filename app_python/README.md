@@ -52,7 +52,9 @@ If you want to change the timezone, simply change it in the `.env` file (try *Eu
 
 All the changes related to Docker are documented within this file above
 
-## Code linting
+## Linting
+
+#### Code
 Additionally, you can run linters (flake8, isort, and mypy) over the project code with the aid of the following commands
 
 Via `docker-compose run`
@@ -65,9 +67,13 @@ Via `docker run`
 $ docker run akurmazov/server:latest make lint
 ```
 
-## Markdown linting
-
+#### Markdown
 I used the built-in PyCharm Markdown linter
+
+#### Dockerfile
+I used the `hadolint/hadolint` linter (more on it in **DOCKER.md**)
+
+You can run it via `hadolint docker/server/Dockerfile` being in the `app_python` directory (assuming it is installed)
 
 ## Contacts
 

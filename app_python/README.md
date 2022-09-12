@@ -30,6 +30,7 @@ A docker image for the Python Application.
 ### Building an image
 
 1. Install Docker by following the [instructions](https://docs.docker.com/engine/install/)
+
 2. Go to the `app_python` directory
 
 ```sh

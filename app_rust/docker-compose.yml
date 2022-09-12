@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   server:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: akurmazov/app_rust-server:latest
     command: cargo run
     volumes:
       - .:/app

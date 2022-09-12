@@ -9,4 +9,4 @@
 - Run container: `docker run -d -p 8080:8080 app_python`
 
 ## What this app does
-- The application runs server at your localhost on 8000 port and shows current time in Moscow in index page
+- The application runs server at your localhost on 8080 port and shows current time in Moscow in index page

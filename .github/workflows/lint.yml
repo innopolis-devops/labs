@@ -1,0 +1,30 @@
+name: Pylint
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pylint
+    - name: Analysing the code with pylint
+      run: |
+        find . -name '*.py' -exec pylint {} \;
+
+
+  delivery:
+    runs-on: ubuntu-latest
+    name: Markdown Lint
+    steps:
+      - name: Check out source repository
+        uses: actions/checkout@v2
+      - name: Run mdl
+        uses: actionshub/markdownlint@main

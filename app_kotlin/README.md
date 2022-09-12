@@ -18,6 +18,10 @@ in a standard ISO format, written in Kotlin with Spring Boot.
 
 You can see the app on `http://localhost:8080/moscow/time`
 
+### Build via Docker
+
+
+
 ## Software quality
 
 You can run `mvn verify` to run `ktlint` linter.

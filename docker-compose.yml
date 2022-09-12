@@ -5,7 +5,7 @@ services:
     build: app_python
     ports:
       - 4444:4444
-  app_golang:
+  app_rust:
     image: lymarenkolev/currenttime-rust:latest
     build: app_rust
     ports:

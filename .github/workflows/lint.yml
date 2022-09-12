@@ -19,6 +19,12 @@ jobs:
       run: |
         find . -name '*.py' -exec pylint {} \;
 
+    -name: Hadolint Action    
+      uses: hadolint/hadolint-action@v2.0.0
+      with:
+        dockerfile: app_python/Dockerfile
+
+
 
   delivery:
     runs-on: ubuntu-latest

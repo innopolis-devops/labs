@@ -37,6 +37,26 @@ To run from the master branch, follow the instructions below:
     flask run
     ```
 
+## Docker Installation
+
+Before running the application, please install its prerequisites:
+
+* [Docker 20.10.7+](<https://docs.docker.com/get-docker/>)
+
+To run from the master branch, follow the instructions below:
+
+1. Pull docker image with web application:
+
+    ```bash
+    docker pull seytkalievm/devops_lab
+    ```
+
+2. Run the container. Web app will open at [http://localhost:5000/](http://localhost:5000/).
+
+    ```bash
+    docker run -p 5000:5000 seytkalievm/devops_lab
+    ```
+
 ## Contacts
 
 If you have any questions or ideas, write me in Telegram:

@@ -2,15 +2,15 @@
 name = "app-python"
 version = "0.1.0"
 description = ""
-authors = ["nailya <nailyavaliull1409@gmail.com>"]
+authors = ["Your Name <you@example.com>"]
 readme = "README.md"
-packages = [{include = "app_python"}]
+
 
 [tool.poetry.dependencies]
 python = "^3.10"
 Flask = "^2.2.2"
-requests = "^2.28.1"
 pytz = "^2022.2.1"
+
 
 [build-system]
 requires = ["poetry-core"]

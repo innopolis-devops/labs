@@ -30,6 +30,39 @@ To run from the master branch, follow the instructions below:
     export FLASK_APP=app
     flask run
     ```
+## Docker
+To run app via docker (without logging in docker hub):
+1. Build docker image
+    ```
+    docker build -t <image name> .
+    ```
+2. Run the app. It will be open at port 5000
+    ```
+    docker run -p 5000:5000 <image name>
+    ```
+    
+To run app via docker (with logging in docker hub):
+1. Build docker image
+    ```
+    docker build -t nailyav/lab2 .
+    ```
+2. Run the app. It will be open at port 5000
+    ```
+    docker run -p 5000:5000 <image name>
+    ```
+3. Login to docker hub account
+    ```
+    docker login
+    ```
+4. Tag the image
+    ```
+    docker tag nailyav/lab2 nailyav/lab2:1.0
+    ```
+5. Push the image to docker hub
+    ```
+    docker image nailyav/lab2 push
+    ```
+
 ## Usage
 You can view Moscow time using this web app, just run it and open [http://localhost:5000/](http://localhost:5000/).
 

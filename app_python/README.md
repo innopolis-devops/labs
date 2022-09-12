@@ -52,15 +52,15 @@ You can run the application following the next steps:
 4. Run the following command to start the application
 
     ```bash
-    flask run --host=127.0.0.1 --port=5000
+    flask run --host=0.0.0.0 --port=5000
     ```
 
 ## Usage
 
 There are two ways to see the web page:
 
-1. Enter the url inside the browser: <http://127.0.0.1:5000>
-2. Run the command: `$ curl 127.0.0.1:5000`
+1. Enter the url inside the browser: <http://0.0.0.0:5000>
+2. Run the command: `$ curl 0.0.0.0:5000`
    Then you will see the page with current time in Moscow.
 
 ## Contact

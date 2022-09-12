@@ -15,6 +15,25 @@ This is python application for displaying current Moscow time.
 5. Run `gunicorn --bind 127.0.0.1:8080 'app:app'`
 6. Check `127.0.0.1:8080`
 
+### Docker
+
+Docker file was added to project. Now you can run application in container.
+
+Follow steps to run:
+1. Run `docker run -d -p 8080:8080 noneword/app_python`
+2. Check `127.0.0.1:8080`
+
+Follow steps to stop:
+1. Run `docker stop <name_of_container>`
+
+Another way to run application:
+1. Run `cd ..`
+2. Run `docker-compose up`
+3. Check `127.0.0.1:4567`
+
+Follow steps to stop:
+1. Run `docker-compose down`
+
 ### Contact
 
 Email: g.kostarev@innopolis.university  

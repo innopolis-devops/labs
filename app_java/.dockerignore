@@ -1,0 +1,7 @@
+*.iml
+.idea
+/Dockerfile
+/JAVA.md
+/README.md
+target
+/DOCKER.md

@@ -21,19 +21,19 @@ Image: <https://hub.docker.com/repository/docker/chermnyx/inno-devops-python>
    1. Build
 
       ```bash
-      podman build . -t chermnyx/inno-devops-python
+      podman build . -t docker.io/chermnyx/inno-devops-python
       ```
 
    2. Pull
 
       ```bash
-      podman pull chermnyx/inno-devops-python
+      podman pull docker.io/chermnyx/inno-devops-python
       ```
 
 2. Run
 
    ```bash
-   podman run -p 8080:8080 chermnyx/inno-devops-python
+   podman run -p 8080:8080 docker.io/chermnyx/inno-devops-python
    ```
 
 #### Run locally without containers
@@ -77,19 +77,19 @@ Image: <https://hub.docker.com/repository/docker/chermnyx/inno-devops-rust>
    1. Build
 
       ```bash
-      podman build . -t chermnyx/inno-devops-rust
+      podman build . -t docker.io/chermnyx/inno-devops-rust
       ```
 
    2. Pull
 
       ```bash
-      podman pull chermnyx/inno-devops-rust
+      podman pull docker.io/chermnyx/inno-devops-rust
       ```
 
 2. Run
 
    ```bash
-   podman run -p 8080:8080 chermnyx/inno-devops-rust
+   podman run -p 8080:8080 docker.io/chermnyx/inno-devops-rust
    ```
 
 #### Run locally without containers

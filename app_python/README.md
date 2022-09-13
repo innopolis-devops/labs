@@ -9,11 +9,20 @@ It is written in Python using Flask framework. The application can be run using 
 
 [Install Docker if you don't have it already.](https://docs.docker.com/get-docker/)
 
-To build and run the application, run the following command:
+To build and run the application on arm64 systems, run the following command:
 
 ```bash
 docker-compose up
 ```
+
+On the amd64 systems use tag `amd64`.
+For using the application on other architectures, build the image yourself using
+
+```bash
+docker build -t my-name .
+```
+
+Then change the image name in `docker-compose.yml` file.
 
 ## Usage
 

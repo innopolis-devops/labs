@@ -8,6 +8,10 @@ The repository consists of 2 apps: python app and rust app
 
 ### Build and Run
 
+### Unit tests
+
+Run ``
+
 #### Build with Podman (or Docker)
 
 Image: <https://hub.docker.com/repository/docker/chermnyx/inno-devops-python>
@@ -59,6 +63,10 @@ Navigate to our app and see current time in ISO format
 ## Rust app
 
 ### Build and Run
+
+### Unit tests
+
+Run `poetry run python -m pytest`
 
 #### Build with Podman Podman (or Docker)
 

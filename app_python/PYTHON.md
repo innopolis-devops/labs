@@ -27,3 +27,6 @@
 - Do not run production code from root
 - Run unit tests doing build time
   - It simplifies the development pipeline
+- Use pytest for unittest
+  - It's easier to use
+  - It allows to collect coverage

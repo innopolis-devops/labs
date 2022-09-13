@@ -24,12 +24,8 @@ jobs:
           toolchain: stable
           components: clippy,rustfmt
       - uses: Swatinem/rust-cache@v2
-
-      # Currently actions-rs/cargo does not support changing
-      # working directory so we need to use this hack for
-      # rocket to find its config
-      - run: ln -s app_rust/Rocket.toml ./
-        working-directory: .
+        with:
+          workspaces: app_rust -> target
 
       - name: rustfmt
         uses: actions-rs/cargo@v1

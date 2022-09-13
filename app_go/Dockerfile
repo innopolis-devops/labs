@@ -9,5 +9,5 @@ RUN go mod download
 COPY . $PROJECT_DIR
 
 
-EXPOSE 5000
+EXPOSE 3000
 CMD [ "go", "run", "app.go" ]

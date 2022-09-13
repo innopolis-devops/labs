@@ -61,7 +61,7 @@ You can run the application using the docker:
 2. Run container:
 
    ```bash
-   docker run -p 5000:5000 johndenkis/simple_python_go
+   docker run -p 3000:3000 johndenkis/simple_python_go
    ```
 
 ## Usage

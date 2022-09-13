@@ -10,12 +10,16 @@ Application was built by Production Ready Web Framework Django
 ### 1. After downloading the project, enter the project:
 
 `cd DevOpsLabs`
+### 2. You can run the project using the command:
 
-### 2. Run the server in Docker using the command:
+`python manage.py runserver`
+
+# Docker
+### 1. Run the server in Docker using the command:
 
 `docker-compose up`
 
-### 3. Now you should see the website by going to http://0.0.0.0:8000/
+### 2. Now you should see the website by going to http://0.0.0.0:8000/
 
 # Contact
 

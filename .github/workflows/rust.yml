@@ -20,16 +20,16 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: fmt
-          args: --all -- --check
+          args: --all --manifest-path app_rust/Cargo.toml -- --check
 
       - name: clippy
         uses: actions-rs/clippy-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          args: --all-features
+          args: --all-features --manifest-path app_rust/Cargo.toml
 
       - name: Tests
         uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --all-features
+          args: --all-features --manifest-path app_rust/Cargo.toml

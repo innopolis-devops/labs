@@ -78,6 +78,8 @@ A web application that gets you the current time in Moscow when you need it the 
     docker run -d -p 5000:5000 python-app
     ```
 
+Or use the docker image on dockerhub : [Link](https://hub.docker.com/layers/sh1co/devopslab/1.2/images/sha256:deea8f0434ebfb0b97090aec1852828a7cbcde1f635aa317bece06eb618c8716)
+
 ## Usage
 
 To use the app just open your browser then go to <http://127.0.0.1:5000/get_time>

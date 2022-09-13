@@ -2,6 +2,7 @@ on:
   push:
     paths:
       - app_python/**
+      - .github/workflows/python.yml
 
 name: app_python
 

@@ -2,6 +2,7 @@ on:
   push:
     paths:
       - app_rust/**
+      - .github/workflows/rust.yml
 
 name: app_rust
 

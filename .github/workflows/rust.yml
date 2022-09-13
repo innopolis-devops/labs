@@ -27,6 +27,7 @@ jobs:
       # working directory so we need to use this hack for
       # rocket to find its config
       - run: ln -s app_rust/Rocket.toml ./
+        working-directory: .
 
       - name: rustfmt
         uses: actions-rs/cargo@v1

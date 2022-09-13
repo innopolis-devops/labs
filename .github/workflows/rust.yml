@@ -1,7 +1,9 @@
 on: push
 
+name: app_rust
+
 jobs:
-  rust_test:
+  test:
     name: Rust project
     runs-on: ubuntu-latest
     defaults:

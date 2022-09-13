@@ -1,0 +1,24 @@
+# Date and Time Viewer Web App 
+## Student: Bektleuov Talgat, CS-01
+# Overview and Usage
+This web application shows the current date and time in Moscow. The time updates when a user refreshes the page
+![img.png](img.png)
+# Build
+Application was built by Production Ready Web Framework Django
+
+# Run the project
+### 1. After downloading the project, install django using the following command:
+
+`pip install django`
+
+### 2. Run the server in /DevOpsLabs/app_python/mysite folder:
+
+`python manage.py runserver`
+
+### 3. Now you should see the website by going to http://127.0.0.1:8000/
+
+# Contact
+
+### Project link: https://github.com/TalgatBektleuov/DevOpsLabs
+
+

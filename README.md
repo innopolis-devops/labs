@@ -32,4 +32,3 @@ If you update the page, the time will update too.
 
 You can also go to `127.0.0.1:8000/Asia/Krasnoyarsk` to see the current time in Krasnoyarsk.
 It works with other IANA timezones in the similar fashion.
-

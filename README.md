@@ -23,6 +23,7 @@ The aim of the project is to get acquainted with the Python best practices and f
 [![Flask][Flask.com]][Flask-url]
 [![Pylint][Pylint.com]][Pylint-url]
 [![markdownlint][markdownlint.com]][markdownlint-url]
+[![Docker][docker.com]][docker-url]
 
 ## Getting Started
 
@@ -30,13 +31,15 @@ Following the instructions below, you can create a local copy of the project and
 
 ### Prerequisites
 
-My main development environment is Visual Studio Code, so all further steps will be determined to work in this particular IDE. If you do not have VS Code installed, then you can download it from this [!link](https://code.visualstudio.com) or use [!this tutorial](https://www.digitalocean.com/community/tutorials/) to get started with Flask if you want to use any other development environment.
+My main development environment is Visual Studio Code, so all further steps will be determined to work in this particular IDE. If you do not have VS Code installed, then you can download it from this [!link](https://code.visualstudio.com) or use [this tutorial](https://www.digitalocean.com/community/tutorials/) to get started with Flask if you want to use any other development environment.
 
 1. Install the [Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python) to VS Code.
 
 1. Make sure that you have. You can download from [python.org](https://www.python.org/downloads/).
 
 1. On Windows, make sure the location of your Python interpreter is included in your PATH environment variable. You can check the location by running `path` at the command prompt. If the Python interpreter's folder isn't included, open Windows Settings, search for "environment", select **Edit environment variables for your account**, then edit the **Path** variable to include that folder.
+
+1. Make sure you have already installed both [Docker Engine](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/). You don’t need to install Python or Redis, as both are provided by Docker images.
 
 ### Installation
 
@@ -102,6 +105,26 @@ At this point, you will activate your Python environment and install Flask using
 
 1. Stop the app by using `Ctrl+C` in the terminal.
 
+## Getting Started With Docker
+
+Before running the application, please install all the prerequisites:
+
+### Docker installation
+
+1. Make sure you have already installed both [Docker Engine](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/). You don’t need to install Python or Flusk, as both are provided by Docker images.
+
+1. Run this command in your Terminal to clone the repository:
+
+    ```bash
+    git clone https://github.com/Amina19058/app_python
+    ```
+
+1. In the project directory open the Terminal and start up the application by running:
+
+    ```bash
+    docker compose up
+    ```
+
 ## Usage
 
 You can use this project for educational purposes.
@@ -110,6 +133,8 @@ All the steps above allow you to launch an application that shows the current ti
 During their execution, you will learn how to create and activate a virtual environment, install Flask and develop simple web applications.
 
 Also, in the PYTHON.md file you can find information about the best Python practices, the advantage of Flask, why to use linters.
+
+And in the DOCKER.md file you can find information about the best Dockerfile practices, what linters to use.
 
 ## Contributing
 
@@ -149,3 +174,5 @@ Project Link: [https://github.com/Amina19058/app_python](https://github.com/Amin
 [Pylint-url]: https://pylint.pycqa.org/en/latest/
 [markdownlint.com]: https://img.shields.io/badge/%20-markdownlint-red
 [markdownlint-url]: https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint
+[docker.com]: https://img.shields.io/badge/-docker-blue
+[docker-url]: https://hub.docker.com

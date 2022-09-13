@@ -64,8 +64,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: app_python
-          file: app_python/Containerfile
+          context: app_rust
+          file: app_rust/Containerfile
           push: true
           tags: chermnyx/inno-devops-rust:latest
           cache-from: type=registry,ref=chermnyx/inno-devops-rust:buildcache

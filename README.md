@@ -1,66 +1,151 @@
-# Labs
+# Time Web Application
 
-## Introduction
+## Table of Contents
 
-Welcome to DevOps course labs. All labs are practical and will be built on each other. You will implement simple application, containerize it, implement simple tests, prepare an infrastructure and CI/CD processes, collect metrics, logs, etc.
+* [About The Project](#about-the-project)
+    1. [Built With](#built-with)
+* [Getting Started](#getting-started)
+    1. [Prerequisites](#prerequisites)
+    1. [Installation](#installation)
+    1. [Activate the project environment](#activate-the-project-environment)
+* [Usage](#usage)
+* [Contributing](#contributing)
+* [Contact](#contact)
+* [Acknowledgments](#acknowledgments)
 
-## Architecture
+## About The Project
 
-This repository contains a master branch with introduction and one branch with instructions for each lab.
+This project is the part of the Innopolis University DevOps course.
+The aim of the project is to get acquainted with the Python best practices and frameworks for developing web applications using the example of a small web application that shows the current time in Moscow.
 
-## Rules
+### Built With
 
-Each labs requires the participant to finish all previous labs, therefore **participants are required to submit each lab and get at least 6/10 points for each lab to pass the course**.
+[![Flask][Flask.com]][Flask-url]
+[![Pylint][Pylint.com]][Pylint-url]
+[![markdownlint][markdownlint.com]][markdownlint-url]
 
-Grading is based on PRs with your solution to the corresponding branch of this repository. This repository is read-only for all participants, therefore to be able to create a pull request, a participant should fork this repository to his own workspace and solve the lab there. It is recommended to build a solution of a lab N upon a solution of lab N-1, so choose workflow in your fork of this repository wisely. Structure of your repository will not affect your grade, only state of your repository from which the PR is created will be checked and graded (state after last commit in your PR on corresponding lab).
+## Getting Started
 
-### Recommended workflow
+Following the instructions below, you can create a local copy of the project and run the Time web application, which will show the current time in Moscow.
 
-#### For the first lab
+### Prerequisites
 
-1. Fork this repository.
-2. Checkout to lab1 branch.
-3. Complete lab1 tasks.
-4. Push the code to your repository.
-5. Create a PR to the lab1 branch on this repository from your fork's lab1 branch.
-6. Create an archive with the current version of your code and submit a zip file to Moodle.
-7. Create a team with with your classmates, 6 people max.
-8. Each student must review PRs of all teammates.
-9. Wait for your grade.
+My main development environment is Visual Studio Code, so all further steps will be determined to work in this particular IDE. If you do not have VS Code installed, then you can download it from this [!link](https://code.visualstudio.com) or use [!this tutorial](https://www.digitalocean.com/community/tutorials/) to get started with Flask if you want to use any other development environment.
 
-## Grading
+1. Install the [Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python) to VS Code.
 
-### Points distribution for the course
+1. Make sure that you have. You can download from [python.org](https://www.python.org/downloads/).
 
+1. On Windows, make sure the location of your Python interpreter is included in your PATH environment variable. You can check the location by running `path` at the command prompt. If the Python interpreter's folder isn't included, open Windows Settings, search for "environment", select **Edit environment variables for your account**, then edit the **Path** variable to include that folder.
+
+### Installation
+
+Run this command in your Terminal to clone the repository:
+
+```bash
+git clone https://github.com/Amina19058/app_python
 ```
-70 - labs
-20 - final exam
-10 - attendance on lectures
-```
 
-### Grade ranges
+### Activate the project environment
 
-```
-[90;100] - A
-[75;90)  - B
-[60;75)  - C
-[0;60)   - D
-```
+At this point, you will activate your Python environment and install Flask using the `pip` package installer.
 
-### Labs grading
+1. Open VS Code, make sure that you are in the project directory.
 
-Each lab is marked out of 10. All labs have a set of main tasks and a set of extra tasks.
+1. Open the Command Palette (**View** > **Command Palette**. Then select the **Python: Select Interpreter** command. From the presented list, select the virtual environment in your project folder that starts with `./.venv` or `.\.venv`.
 
-Completing main tasks correctly will give you 10 points out of 10. Completing extra tasks correctly will give you some additional points, depends on the bonus task difficulty. Your points for main and extra tasks will be summed up and will help you to get a better grade.
+1. Run **Terminal: Create New Terminal** from the Command Palette.
 
-If you finish all bonus tasks correctly the **permission to skip the exam will be granted to you + 10 extra points**. If you finish not all of them you will must pass the exam, but it can save you from the exam's failure.
+1. Use the following command to create and activate a virtual environment named `.venv` based on your current interpreter:
 
-## Deadlines and labs distribution
+    ```bash
+    # Linux
+    sudo apt-get install python3-venv 
+    python3 -m venv .venv
+    source .venv/bin/activate
 
-Participants have 2 new labs every week simultaneously and 1 week to submit solutions. Moodle will contain presentations and deadlines.
+    # macOS
+    python3 -m venv .venv
+    source .venv/bin/activate
 
-You are required to submit a zip file with your source code to corresponding assignment in moodle. This is required for the university as a proof of work.
+    # Windows
+    py -3 -m venv .venv
+    .venv\scripts\activate
+    ```
 
-## Submission policy
+1. Also in the Terminal, run the following command to update `pip`:
 
-**Submitting results after the deadline will result in maximum of 6 points for the corresponding lab. As stated before, all labs must be submitted to pass the course.**
+    ```bash
+    python -m pip install --upgrade pip
+    ```
+
+1. Then, run this to install the requirements:
+
+    ```bash
+    python3 -m pip install -r requirements.txt
+    ```
+
+1. Run the app.py by `python -m flask run`, which runs the Flask development server. The development server looks for `app.py` by default. When you run Flask, you should see output similar to the following:
+
+    ```bash
+    (.venv) D:\py\\hello_flask>python -m flask run
+     * Environment: production
+       WARNING: Do not use the development server in a production environment.
+       Use a production WSGI server instead.
+     * Debug mode: off
+     * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+    ```
+
+    If you see an error that the Flask module cannot be found, make sure you've run `python -m pip install flask` in your virtual environment as described at the end of the previous section.
+
+1. See the result on `http://127.0.0.1:5000/`. You also can use the Live Server in VSCode.
+
+1. Stop the app by using `Ctrl+C` in the terminal.
+
+## Usage
+
+You can use this project for educational purposes.
+All the steps above allow you to launch an application that shows the current time in Moscow.
+
+During their execution, you will learn how to create and activate a virtual environment, install Flask and develop simple web applications.
+
+Also, in the PYTHON.md file you can find information about the best Python practices, the advantage of Flask, why to use linters.
+
+## Contributing
+
+I will gladly accept any contributions you make, as we will be able to make this project better together. Moreover, each of us will gain incredible experience in creating web applications and the correct design of the project.
+
+If you have a suggestion that would make this project better, do not hesitate to contact me or fork the repo and create a pull request.
+
+## Contact
+
+Amina Khusnutdinova - a.khusnutdinova@innopolis.university
+
+Project Link: [https://github.com/Amina19058/app_python](https://github.com/Amina19058/app_python)
+
+## Acknowledgments
+
+* [5 Python Best Practices That Every Programmer Should Follow](https://towardsdatascience.com/5-python-best-practices-every-python-programmer-should-follow-3c92971ed370)
+* [Python Best Practices](https://data-flair.training/blogs/python-best-practices/)
+* [Code Style](https://docs.python-guide.org/writing/style/)
+* [Python Best Practices](https://aglowiditsolutions.com/blog/python-best-practices/)
+* [Flask Tutorial](https://www.tutorialspoint.com/flask/flask_static_files.htm)
+* [Best Practices for Flask](https://auth0.com/blog/best-practices-for-flask-api-development/)
+* [A Guide to Python Good Practices](https://towardsdatascience.com/a-guide-to-python-good-practices-90598529da35)
+* [PEP 8 – Style Guide for Python Code](https://peps.python.org/pep-0008/)
+* [Best-README-Template](https://github.com/othneildrew/Best-README-Template/blob/master/README.md)
+* [README Templates](https://www.readme-templates.com)
+* [How to Write Beautiful Python Code With PEP 8](https://realpython.com/python-pep8/)
+* [Flask Tutorial in Visual Studio Code](https://github.com/microsoft/vscode-docs/blob/main/docs/python/tutorial-flask.md?ysclid=l7fuhexcp9496302051)
+* [Создание веб-приложения с помощью Flask в Python 3](https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3-ru)
+* [shields.io](https://shields.io)
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[Flask.com]: https://img.shields.io/badge/%20-Flask-brightgreen
+[Flask-url]: https://flask.palletsprojects.com/en/latest/
+[Pylint.com]: https://img.shields.io/badge/%20-Pylint-orange
+[Pylint-url]: https://pylint.pycqa.org/en/latest/
+[markdownlint.com]: https://img.shields.io/badge/%20-markdownlint-red
+[markdownlint-url]: https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint

@@ -38,7 +38,7 @@ jobs:
 
       - name: Build the image
         id: build-image
-        uses: redhat-actions/buildah-build@v2
+        uses: redhat-actions/buildah-build@v2.10
         with:
           image: chermnyx/inno-devops-python
           tags: latest

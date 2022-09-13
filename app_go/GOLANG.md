@@ -2,30 +2,14 @@
 
 ## Technology Stack
 
-I used **FastAPI** - production-level framework because:
+I used **net/http** as library for web server as:
 
-- It's lightweignt and easy to use and deploy. This is a good chocie for this small web application
-- You can generate Swagger autodocumentation
-- We use it in our company and we know that this framework works well in practice
-
-I used **Uvicorn** as ASGI server because
-
-- It is lightweight and easy-to-use
-  
-## Other Decisions
-
-I've  used requirements.txt file to manage all project dependencies
-
-I've used virtual environments (using venv) to make sure that all dependencies will work on any machine
+- It's from the bof without any installation
+- Yet it is powerful enough to create good web applications
+- No need to use any WSGI/ASGi as in python
 
 ## Linters
 
-I use **Flake8** linter because it is the most popular and used one.
-
-I used this command to run the linter:
-
-```python
-flake8 main.py
-```
+Golang has enabled a lot of linters by default.[Check this link to see all enabled linters](https://golangci-lint.run/usage/linters/)
 
 For Markdow I decided to use markdownlint as an extension in VSCode

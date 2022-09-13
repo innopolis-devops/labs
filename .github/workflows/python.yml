@@ -28,3 +28,29 @@ jobs:
       - run: poetry install --no-interaction
       - name: Run tests
         run: poetry run python -m pytest
+
+  container:
+    name: Container
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build the image
+        id: build-image
+        uses: redhat-actions/buildah-build@v2
+        with:
+          image: chermnyx/inno-devops-python
+          tags: latest
+          context: app_python
+          containerfiles: ./app_python/Containerfile
+          layers: true
+
+      - name: Push the container
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: docker.io
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}

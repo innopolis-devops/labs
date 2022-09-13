@@ -52,21 +52,21 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build the image
-        id: build-image
-        uses: redhat-actions/buildah-build@v2.10
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
         with:
-          image: chermnyx/inno-devops-python
-          tags: latest
-          context: app_rust
-          containerfiles: ./app_rust/Containerfile
-          layers: true
-
-      - name: Push the container
-        uses: redhat-actions/push-to-registry@v2
-        with:
-          image: ${{ steps.build-image.outputs.image }}
-          tags: ${{ steps.build-image.outputs.tags }}
-          registry: docker.io
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: app_python
+          file: app_python/Containerfile
+          push: true
+          tags: chermnyx/inno-devops-rust:latest
+          cache-from: type=registry,ref=chermnyx/inno-devops-rust:buildcache
+          cache-to: type=registry,ref=chermnyx/inno-devops-rust:buildcache,mode=max

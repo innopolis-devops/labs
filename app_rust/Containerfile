@@ -4,8 +4,8 @@ FROM rust:1.63-alpine as builder
 RUN apk add --no-cache musl-dev
 RUN adduser -D user
 
-WORKDIR /app
 USER user
+WORKDIR /app
 
 # dependencies
 COPY --chown=user:user ./Cargo.lock /app/Cargo.lock

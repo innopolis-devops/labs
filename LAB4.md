@@ -24,7 +24,7 @@
    *  Finish the tutorial and provide the output of the `terraform output` command in the `TF.md`.
 
 5. Follow [the AWS tutorial](https://learn.hashicorp.com/tutorials/terraform/aws-build?in=terraform/aws-get-started) and all points from the previous step.
-6. Create a PR to the forked repo lab3 branch, ask your teammates to review it and review PRs of your teammates.
+6. Create a PR to the forked repo lab4 branch, ask your teammates to review it and review PRs of your teammates.
 7. **Create a PR in your own repository from the lab4 branch to the lab3 one.** It will help us with grading.
 
 ### 4 more points

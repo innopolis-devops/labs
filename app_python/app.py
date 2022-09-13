@@ -1,12 +1,10 @@
-from bottle import route, run
+from flask import Flask
 from datetime import datetime
 from pytz import timezone
 
+app = Flask(__name__)
 
-@route('/')
+@app.route('/')
 def hello():
     tz = timezone('Europe/Moscow')
     return 'Now in Moscow: ' + datetime.now(tz).strftime('%d-%m-%Y %H:%M:%S')
-
-
-run(host='localhost', port=8080, debug=True)

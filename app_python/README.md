@@ -17,19 +17,39 @@
    
 ```source venv/bin/activate``` for Linux/MacOS
 
-3. Install dependencies:
+4. Install dependencies:
 
-```pip install bottle```
+```pip install -r requirements.txt```
 
-```pip install pytz```
-
-```python -m pip install flake8```
-
-4. Run application: 
+5. Run application: 
 
 ```python moscow_time.py```
 
 Application will be accessed on http://localhost:8080/
+
+# Docker
+
+Using Docker containerization we can make sure that application is isolated from unnecessary environment that can affect performance and functionality of the application.
+
+So, I wrote Dockerfile that is used to create images from which you can then run Docker containers.
+
+What Dockerfile does?
+
+So, via Dockerfile in image I setup environment of Python 3.10, make directory where app is working to be /app, copy all necessary files,
+let port 3000 be accessed and run application itself.
+
+To build an image and run container there are following steps:
+
+1. Run
+```docker build .```
+
+2. Then find your newly created image in list of Docker images
+```docker images```
+
+3. Then run container via the following command
+```docker run -d -p 3000:3000 <image_id>```
+
+You can get image from my [Docker Hub repo](https://hub.docker.com/layers/draeston/moscow_time/latest/images/sha256:ff7ab12d9eb6934b9f7465ea13d53a294468cbf3008472efecc83cc29abbdd11)
 
 # Contact
 Contact me in Telegram if you have any questions: @NiosZ

@@ -19,17 +19,17 @@ The project inside this folder is a simple python web application that shows cur
 * Python
 * Flask framework
 
-## Getting Started
+## Getting Started (manually)
 
-You can run the application following the next steps:
+You can run the application manually following the next steps:
 
-1. Clone the code:
+1. Clone the code from repository:
 
     ```bash
     git clone https://github.com/pminina01/Innopolis_DevOps2022
     ```
 
-2. Enter the folder with application
+2. Enter the folder with application:
 
     ```bash
     cd Innopolis_DevOps2022/app_python
@@ -41,7 +41,7 @@ You can run the application following the next steps:
     pip install -r requirements.txt       
     ```
 
-   Alternatively, you can firstly set virtual environment and then install packages
+   Alternatively, you can firstly set virtual environment and then install packages:
 
     ```bash
     python3 -m venv <myenvname>  
@@ -49,18 +49,41 @@ You can run the application following the next steps:
     pip install -r requirements.txt  
     ```
 
-4. Run the following command to start the application
+4. Run the following command to start the application:
 
     ```bash
     flask run --host=0.0.0.0 --port=5000
     ```
+   
+## Getting Started (docker)
 
+You can run the application using the docker:
+
+1. Build or pull image:
+   
+   ```bash
+   # Build image
+   cd app_python
+   docker build . -t johndenkis/simple_python_app
+   ```
+   
+   ```bash
+   # Pull image
+   docker pull johndenkis/simple_python_app
+   ```
+
+2. Run container:
+
+   ```bash
+   docker run -p 5000:5000 johndenkis/simple_python_app
+   ```
+   
 ## Usage
 
 There are two ways to see the web page:
 
-1. Enter the url inside the browser: <http://0.0.0.0:5000>
-2. Run the command: `$ curl 0.0.0.0:5000`
+1. Enter the url inside the browser: <http://127.0.0.1:5000>
+2. Run the command: `$ curl 127.0.0.1:5000`
    Then you will see the page with current time in Moscow.
 
 ## Contact

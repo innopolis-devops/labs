@@ -1,8 +1,11 @@
 on:
-  push:
+  pull_request:
     paths:
       - app_python/**
       - .github/workflows/python.yml
+  push:
+    branches:
+      - master
 
 name: app_python
 

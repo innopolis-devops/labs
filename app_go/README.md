@@ -40,6 +40,29 @@ You can run the application following the next steps:
    ```bash
    go run app.go
    ```
+   
+## Getting Started (docker)
+
+You can run the application using the docker:
+
+1. Build or pull image:
+
+   ```bash
+   # Build image
+   cd app_go
+   docker build . -t johndenkis/simple_python_go
+   ```
+
+   ```bash
+   # Pull image
+   docker pull johndenkis/simple_python_go
+   ```
+
+2. Run container:
+
+   ```bash
+   docker run -p 5000:5000 johndenkis/simple_python_go
+   ```
 
 ## Usage
 

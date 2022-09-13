@@ -31,13 +31,13 @@ repos:
       - id: fmt
         <<: *rust-files
         entry: >
-          sh -c "cd app_rust &&
+          bash -c 'cd app_rust &&
           files=() &&
           for i in $@; do
             files+=("${i#app_rust/}")
           done &&
           cargo fmt -- $files
-          "
+          '
       - id: cargo-check
         entry: >
           sh -c "cd app_rust &&

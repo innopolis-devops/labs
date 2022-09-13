@@ -30,3 +30,7 @@
 - Use pytest for unittest
   - It's easier to use
   - It allows to collect coverage
+
+## Unit tests
+
+- Tests that the app returns the current time in ISO format

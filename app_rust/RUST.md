@@ -16,3 +16,7 @@
 - Use pre-commit hooks to lint the files
 - Perform unit tests for the app
   - Use `cargo test`
+
+## Unit tests
+
+- Tests that the app returns the current time in ISO format

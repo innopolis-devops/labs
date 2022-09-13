@@ -1,5 +1,9 @@
 # Innopolis DevOps course fall 2022
 
+![python workflow](https://github.com/chermnyx/devops/actions/workflows/python.yml/badge.svg?branch=lab3)
+![rust workflow](https://github.com/chermnyx/devops/actions/workflows/rust.yml/badge.svg?branch=lab3)
+![pre-commit](https://github.com/chermnyx/devops/actions/workflows/pre-commit.yml/badge.svg?branch=lab3)
+
 ## Overview
 
 The repository consists of 2 apps: python app and rust app

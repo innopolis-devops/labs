@@ -12,5 +12,5 @@
 
 * For docker: [hadolint](https://github.com/hadolint/hadolint)
     ```bash
-    docker run --rm -i hadolint/hadolint < Dockerfele
+    docker run --rm -i hadolint/hadolint < Dockerfile
     ```

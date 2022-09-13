@@ -1,5 +1,3 @@
-# 1
-
 ## Web application
 
 **To get 6/10**:

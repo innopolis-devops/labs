@@ -36,7 +36,7 @@ Building image locally:
  4) Navigate to the following [link](127.0.0.1:5000) to check
 
 Build from docker hub image
- 1) Run command `docker run -p 5000:5000 -d mikhailmarch/time_application'
+ 1) Run command `docker run -p 5000:5000 -d mikhailmarch/time_application`
  2) Navigate to the following [link](127.0.0.1:5000) to check
 
 ## Contacts

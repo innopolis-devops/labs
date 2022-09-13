@@ -70,3 +70,16 @@ jobs:
           tags: chermnyx/inno-devops-rust:latest
           cache-from: type=registry,ref=chermnyx/inno-devops-rust:buildcache
           cache-to: type=registry,ref=chermnyx/inno-devops-rust:buildcache,mode=max
+
+  synk:
+    runs-on: ubuntu-latest
+    needs: [container]
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Run Snyk to check Docker image for vulnerabilities
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: chermnyx/inno-devops-rust:latest

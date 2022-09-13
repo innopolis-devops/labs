@@ -1,0 +1,4 @@
+.markdownlint.json
+.venv
+__pycache__
+venv

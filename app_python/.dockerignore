@@ -1,0 +1,9 @@
+/.idea/*
+# we don't need anything with node.js as it's only for linter to work (for dev stage)
+/node_modules/*
+/package.json
+/package-lock.json
+PYTHON.md
+README.md
+.prettierrc.json
+img*

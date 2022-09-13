@@ -1,0 +1,6 @@
+.idea/*
+README.md
+JAVASCRIPT.md
+node_modules/*
+.eslintrc.json
+img*

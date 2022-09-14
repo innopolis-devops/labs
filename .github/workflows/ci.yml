@@ -24,6 +24,13 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r app_python/requirements.txt
+          
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python-3.8@master
+        with:
+          args: app_python --file=app_python/requirements.txt
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       
       - name: Lint with flake8
         run: |
@@ -52,10 +59,3 @@ jobs:
           file: app_python/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops_lab:latest
-
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python-3.8@master
-        with:
-          args: app_python
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

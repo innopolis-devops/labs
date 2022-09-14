@@ -22,3 +22,14 @@ I chose Flask framework with Gunicorn HTTP server because consensus of all devel
 ### Cons
 
 * None for this purpose (and compared to other frameworks)
+
+## (✨New✨) Unit tests
+
+### Description
+
+Since it is a simple one-page web app, there is not a lot of code (thus we won't have lots of tests). Viable functionality to test are time formatting and page render. Since render can vary a lot, I only check if it at least contains the required time.
+
+### Best practices
+
+* Repeatable tests
+* Test one small functionality

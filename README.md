@@ -1,5 +1,7 @@
 # Time Checker
 
+![badge](https://github.com/ParfenovIgor/labs/actions/workflows/ci.yml/badge.svg?branch=lab3)
+
 ## Author
 
 Igor Parfenov

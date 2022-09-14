@@ -54,8 +54,8 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops_lab:latest
       
       - name: Run Snyk to check for vulnerabilities
-        run: |
-          cd app_python
-          ../snyk/actions/python-3.8@master test
+        uses: snyk/actions/python-3.8@master
+        with:
+          command: test app_python
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

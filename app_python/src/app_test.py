@@ -18,6 +18,11 @@ def init_test_data():
             "London",
             "London time: 00:00:00",
         ),
+        (
+            datetime.fromtimestamp(0, timezone.utc),
+            "",
+            " time: 00:00:00",
+        ),
     ]
 
 def test_format():
@@ -33,7 +38,8 @@ def test_page_render_arbitrary_strings():
     sample_strings = [
         "It's devops time!",
         "Doomsday clock time: 23:58:20",
-        format_time(datetime.fromtimestamp(86300, timezone.utc), "Doomsday clock")
+        format_time(datetime.fromtimestamp(86300, timezone.utc), "Doomsday clock"),
+        ""
     ]
     for s in sample_strings:
         assert s in render_time_page(s)

@@ -32,4 +32,6 @@ Since it is a simple one-page web app, there is not a lot of code (thus we won't
 ### Best practices
 
 * Repeatable tests
-* Test one small functionality
+* Functions that are tested do one small thing (kind of like Unix's "do one thing well" :P)
+* Test one function at a time
+* Test with various inputs (including edge cases)

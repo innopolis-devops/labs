@@ -28,7 +28,7 @@ jobs:
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.8@master
         with:
-          args: docker run --name snyksnykpython38_10e56a --label 817f70 --workdir /github/workspace/app_python --rm  snyk/snyk:python-3.8
+          args: pip install -r app_python/requirements.txt
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       

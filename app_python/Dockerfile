@@ -5,7 +5,7 @@ COPY requirements/prod.txt /app/requirements.txt
 # Install reqs & use user to have rootless container
 RUN addgroup -S appgroup && \
     adduser -S appuser -G appgroup && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir -r /app/requirements.txt
 COPY src/* /app/
 USER appuser
 

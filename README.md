@@ -6,7 +6,8 @@
 ## Author
 
 Igor Parfenov
-Contact: @Igor_Parfenov
+
+Contact: [@Igor_Parfenov](https://t.me/Igor_Parfenov)
 
 ## Overview
 

@@ -49,10 +49,8 @@ jobs:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the repo
+      - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
       
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -79,11 +77,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./app_python
-          builder: ${{ steps.buildx.outputs.name }}
+          file: ./Dockerfile
           push: true
-          tags: |
-            ${{ env.REGISTRY }}/${{ github.event.repository.name }}:ci-${{ github.sha }}
-            ${{ env.REGISTRY }}/${{ github.event.repository.name }}:latest
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
-      
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/app_python:latest

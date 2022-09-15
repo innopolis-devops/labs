@@ -1,6 +1,7 @@
 # Time Checker
 
-![badge](https://github.com/ParfenovIgor/labs/actions/workflows/ci.yml/badge.svg?branch=lab3)
+![badge](https://github.com/ParfenovIgor/labs/actions/workflows/app_python.yml/badge.svg?branch=lab3)
+![badge](https://github.com/ParfenovIgor/labs/actions/workflows/app_php.yml/badge.svg?branch=lab3)
 
 ## Author
 

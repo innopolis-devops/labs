@@ -1,0 +1,24 @@
+name: Lint markdown files
+
+on:
+  push:
+    branches:
+      - 'lab*'
+      - master
+  pull_request:
+    branches:
+      - 'lab*'
+      - master
+
+jobs:
+  lint-changelog:
+    name: Lint markdown
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Lint changelog file
+      uses: docker://avtodev/markdown-lint:v1 # fastest way
+      with:
+        args: '.'

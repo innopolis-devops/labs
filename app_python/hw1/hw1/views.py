@@ -1,6 +1,7 @@
-from django.http import HttpResponse 
+from django.http import HttpResponse
 from django.template import loader
 from . import utils
+
 
 def index(request):
     time = utils.get_moscow_time()

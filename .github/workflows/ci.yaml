@@ -45,22 +45,46 @@ jobs:
         run: cd ${{ env.working_dir }} && pytest tests --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml
 
       -
-        name: Checkout 
+  push_to_registry:
+    needs: [ "build" ]
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
         uses: actions/checkout@v2
-      -
-        name: Login to Docker Hub
+        with:
+          fetch-depth: 1
+      
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      
+      - name: Log in to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Build and push
+      
+      - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./app_python
+          builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app_python:latest
+          tags: |
+            ${{ env.REGISTRY }}/${{ github.event.repository.name }}:ci-${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ github.event.repository.name }}:latest
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+      

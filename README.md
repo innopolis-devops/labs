@@ -67,6 +67,16 @@ The application written using two different technologies:
 
 5. The application will run on <http://127.0.0.1:8000>
 
+### [Python] - Unit Tests
+
+1. Setup all requirements
+
+    ``$ pip install -r requirements.txt``
+
+2. Run
+
+    ``$ pytest app_python``
+
 ## GO version of the application
 
 ### [GO] - Requirements

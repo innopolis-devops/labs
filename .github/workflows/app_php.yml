@@ -1,16 +1,36 @@
-name: App PHP
-
-on: [push]
-
+# GitHub Action for CodeIgniter
+name: Testing CodeIgniter
+on: [push, pull_request]
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - name: Setup PHP with PCOV
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.1'
-        ini-values: pcov.directory=api
-        coverage: pcov
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Docs: https://github.com/shivammathur/setup-php
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          extensions: mbstring, intl, curl, dom
+          coverage: xdebug
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          # Use composer.json for key, if composer.lock is not committed.
+          # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Test with phpunit
+        run: vendor/bin/phpunit --coverage-text

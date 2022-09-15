@@ -35,3 +35,9 @@ Since it is a simple one-page web app, there is not a lot of code (thus we won't
 * Functions that are tested do one small thing (kind of like Unix's "do one thing well" :P)
 * Test one function at a time
 * Test with various inputs (including edge cases)
+* Testing data initialized in separate function
+* Avoid global variables
+* Use mock implementations where applicable (not in our case)
+* Descriptive names of test functions
+* Automated tests
+* Test cases are easily extendable

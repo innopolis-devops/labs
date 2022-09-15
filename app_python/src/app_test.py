@@ -25,11 +25,11 @@ def init_test_data():
         ),
     ]
 
-def test_format():
+def test_format_time():
     for (time, tz_name, result) in init_test_data():
         assert format_time(time, tz_name) == result
 
-def test_page_render_formatted():
+def test_page_render_autoformatted_time():
     for (time, tz_name, result) in init_test_data():
         ft = format_time(time, tz_name)
         assert result in render_time_page(ft)

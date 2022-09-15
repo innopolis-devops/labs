@@ -32,6 +32,12 @@ Without `compose` you can use `docker run -p 8000:8000 --rm bragov4ik/time_web_a
 
 Start the server with `gunicorn app:app -b 0.0.0.0:8000`
 
+### Unit tests
+
+To test you first need to install requirements for test environment `pip3 install -r requirements/test.txt`
+
+With `pytest` and other requirements installed you simply need to type `pytest` inside python project folder.
+
 ## Rust 🦀 memory-safe 🛡️ blazing fast 🚀 implementation
 
 Rust implementation together with corresponding `RUST.md` is located in `app_rust` folder.

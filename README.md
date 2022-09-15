@@ -43,3 +43,30 @@ written in output of `Flask` in terminal.
 ## Docker Hub Image
 
 * `sudo docker run -p 80:8080 igorparfenov/devops_lab2:app_python`
+
+## Unit Tests
+
+The program `pytest` was used.
+
+Installation `python3 -m pip install pytest`
+
+Usage `pytest main.py`
+
+## Github Actions CI
+
+The Github Actions CI was set. The result of last push testing can be checked by badges on the top.
+
+CI runs:
+
+* Linter
+* Unit Testing
+* Vulnerability Testing
+* Docker Image Building
+
+CI uses cache to accelerate build.
+
+## CI Best Practices
+
+* Set automated build and testing
+* Build and test every push
+* Make build and testing fast

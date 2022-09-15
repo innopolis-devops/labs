@@ -37,3 +37,23 @@ written in output of `Apache2` in terminal.
 ## Docker Hub Image
 
 * `sudo docker run -p 80:8080 igorparfenov/devops_lab2:app_php`
+
+## PHP Linter
+
+The linter `phplint` was used.
+
+Installation: `composer install`
+
+Usage: `./vendor/bin/phplint *.php`
+
+## Unit Tests
+
+The program `phpunit` was used.
+
+Installation `composer install`
+
+Usage `./vendor/bin/phpunit *.py`
+
+Tests:
+
+* `validate_number`: check, that function for checking, if its string argument is an integer, is correct, using several tests.

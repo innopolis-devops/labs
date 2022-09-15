@@ -1,5 +1,7 @@
 # Moscow time zone web application
 
+[![Lint markdown files](https://github.com/bragov4ik/devops/actions/workflows/markdown-lint.yml/badge.svg)](https://github.com/bragov4ik/devops/actions/workflows/markdown-lint.yml) [![Python package](https://github.com/bragov4ik/devops/actions/workflows/python-build.yml/badge.svg)](https://github.com/bragov4ik/devops/actions/workflows/python-build.yml)
+
 This application launches a web server that runs on port 8000 and responds with current time in UTC/GMT +3 timezone.
 
 ## Python implementation

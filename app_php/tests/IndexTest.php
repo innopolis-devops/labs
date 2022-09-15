@@ -1,5 +1,5 @@
 <?php
-include 'index.php';
+include 'app_php/index.php';
 use PHPUnit\Framework\TestCase;
 
 final class IndexTest extends TestCase {

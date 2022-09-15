@@ -1,5 +1,6 @@
 {
     "require": {
+        "overtrue/phplint": "7.4.x-dev",
         "phpunit/phpunit": "9.*"
     }
 }

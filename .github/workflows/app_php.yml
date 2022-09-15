@@ -32,5 +32,8 @@ jobs:
       - name: Install dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader --working-dir=app_php
 
+      - name: Lint with phplint
+        run: app_php/vendor/bin/phplint app_php/*.php app_php/tests/*.php
+
       - name: Test with phpunit
-        run: app_php/vendor/bin/phpunit app_php/tests/* --coverage-text
+        run: app_php/vendor/bin/phpunit app_php/tests/*.php

@@ -9,10 +9,14 @@ echo "<input type='text' name='number2'><br>";
 echo "<button type='submit' name='calculate' class='button'>Calculate</button>";
 echo "</form>";
 
+function validate_number($number) {
+    return filter_var($number, FILTER_VALIDATE_INT);
+}
+
 if (isset($_POST["calculate"])) {
-    if (!filter_var($_POST["number1"], FILTER_VALIDATE_INT))
+    if (!Index::validate_number($_POST["number1"]))
         echo "<p style='color: red'>First field contains not integer</p>";
-    else if (!filter_var($_POST["number2"], FILTER_VALIDATE_INT))
+    else if (!Index::validate_number($_POST["number2"]))
         echo "<p style='color: red'>Second field contains not integer</p>";
     else {
         $res = intval($_POST["number1"]) + intval($_POST["number2"]);

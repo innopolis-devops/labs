@@ -38,6 +38,12 @@ To test you first need to install requirements for test environment `pip3 instal
 
 With `pytest` and other requirements installed you simply need to type `pytest` inside python project folder.
 
+### Docker hub integration
+
+To publish a new version to docker hub create a tag corresponding to the (semver) version of expected image. For example `v1.2.3`.
+
+When the tag appears in the repo, workflow will build the image and push it to docker hub.
+
 ## Rust 🦀 memory-safe 🛡️ blazing fast 🚀 implementation
 
 Rust implementation together with corresponding `RUST.md` is located in `app_rust` folder.

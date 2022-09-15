@@ -1,11 +1,11 @@
 FROM python:3.10-alpine
 
 WORKDIR /app
-COPY requirements/prod.txt /app/requirements.txt
+COPY requirements /app/requirements
 # Install reqs & use user to have rootless container
 RUN addgroup -S appgroup && \
     adduser -S appuser -G appgroup && \
-    pip install --no-cache-dir -r /app/requirements.txt
+    pip install --no-cache-dir -r /app/requirements/prod.txt
 COPY src/* /app/
 USER appuser
 

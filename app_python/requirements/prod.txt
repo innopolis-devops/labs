@@ -1,1 +1,1 @@
--r prod.txt
+-r common.txt

@@ -44,7 +44,6 @@ jobs:
       - name: Test with pytest
         run: cd ${{ env.working_dir }} && pytest tests --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml
 
-      -
   push_to_registry:
     needs: [ "build" ]
     name: Push Docker image to Docker Hub

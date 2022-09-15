@@ -32,6 +32,5 @@ jobs:
         run: flake8 app_python
         continue-on-error: true
       - name: Test with pytest
-        run: |
-        cd ${{ env.working_dir }} && pytest tests --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml
+        run: cd ${{ env.working_dir }} && pytest tests --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml
 

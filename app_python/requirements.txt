@@ -2,3 +2,4 @@ virtualenv
 flask
 datetime
 requests
+pytest

@@ -42,8 +42,10 @@ Then installs requirements from `requirements.txt` and copies whole Django app i
 ```docker pull aldeeyar/lab2```
 - Run container:
 ```docker run -p 80:80 aldeeyar/lab2```
+## Unit Testing
+In order to run unit tests run this command `python manage.py test` in `app_python/hw1/` directory
 ## To-do
 
-- [ ] Add unit tests
-- [ ] Add linter
+- [x] Add unit tests
+- [x] Add linter
 - [x] Use API

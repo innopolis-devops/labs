@@ -1,12 +1,12 @@
 FROM python:3.10-alpine
 
 WORKDIR /app
-# Copying only necessary stuff
-COPY src/* requirements.txt /app/
+COPY requirements/prod.txt /app/requirements.txt
 # Install reqs & use user to have rootless container
 RUN addgroup -S appgroup && \
     adduser -S appuser -G appgroup && \
     pip install --no-cache-dir -r requirements.txt
+COPY src/* /app/
 USER appuser
 
 HEALTHCHECK --interval=1m --timeout=3s \

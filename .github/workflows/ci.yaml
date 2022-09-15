@@ -12,8 +12,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-      env:
-        working_dir: app_python
+    env:
+      working_dir: app_python
     strategy:
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10"]
@@ -24,8 +24,6 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: virtual environment
-        run: python -m venv ./venv/ && .\venv\Scripts\activate
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip

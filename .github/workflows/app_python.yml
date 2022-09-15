@@ -28,7 +28,7 @@ jobs:
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.8@master
         with:
-          args: --org=org --file=app_python/requirements.txt --allow-missing
+          args: --org=org --file=app_python/requirements.txt -- --allow-missing
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       

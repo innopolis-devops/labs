@@ -1,14 +1,16 @@
-# GitHub Action for CodeIgniter
-name: Testing CodeIgniter
-on: [push, pull_request]
+name: App PHP
+
+on: [push]
+
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # Docs: https://github.com/shivammathur/setup-php
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -37,3 +39,20 @@ jobs:
 
       - name: Test with phpunit
         run: app_php/vendor/bin/phpunit app_php/tests/*.php
+        
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: app_php
+          file: app_php/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops_lab:app_php_latest

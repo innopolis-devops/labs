@@ -1,9 +1,6 @@
 name: App PHP
 
-on:
-  push:
-    paths:
-      - 'app_php/**'
+on: [push]
 
 jobs:
   build:
@@ -36,6 +33,13 @@ jobs:
 
       - name: Install dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader --working-dir=app_php
+      
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/php@master
+        with:
+          args: app_php
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Lint with phplint
         run: app_php/vendor/bin/phplint app_php/*.php app_php/tests/*.php

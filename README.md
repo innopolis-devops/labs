@@ -37,7 +37,6 @@ To run from the master branch, follow the instructions below:
     flask run
     ```
 
-<<<<<<< HEAD
 ## Docker Installation
 
 Before running the application, please install its prerequisites:
@@ -60,9 +59,5 @@ To run from the master branch, follow the instructions below:
 
 ## Contacts
 
-=======
-## Contacts
-
->>>>>>> b6ea7544c805635b43b8c84be5461be6bd66b55b
 If you have any questions or ideas, write me in Telegram:
  [@seytkalievm](<https://t.me/seytkalievm/>)

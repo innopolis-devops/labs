@@ -1,0 +1,17 @@
+h1 {
+    border: 2px #eee solid;
+    color: rgb(126, 0, 0);
+    text-align: center;
+    padding: 10px;
+}
+
+p {
+    text-align: center;
+    color: rgb(255, 230, 0);
+    font-weight: 600;
+    font-size: 48px;
+}
+
+body{
+    background-image: url(../img/background.jpg);
+}

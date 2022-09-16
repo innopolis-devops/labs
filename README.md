@@ -1,4 +1,5 @@
 # Moscow current time application
+![python workflow](https://github.com/Feyd-Rauth/labs/actions/workflows/python.yml/badge.svg?branch=lab3)
 
 ## Overview
 

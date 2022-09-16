@@ -23,10 +23,8 @@ jobs:
           poetry install
       - name: Lint with pylint
         run: |
-          pip install pylint
           pylint $(git ls-files '*.py')
         continue-on-error: true
       # - name: Test with pytest
       #   run: |
-      #     pip install pytest
       #     pytest

@@ -1,6 +1,6 @@
 # DevOps course at IU
 
-[![python ci](https://github.com/ease-ln/labs/actions/workflows/ci.yaml/badge.svg)](https://github.com/ease-ln/labs/actions/workflows/ci.yaml)
+[![python ci](https://github.com/ease-ln/labs/actions/workflows/ci.yaml/badge.svg?branch=lab3)](https://github.com/ease-ln/labs/actions/workflows/ci.yaml)
 
 ## Overview
 

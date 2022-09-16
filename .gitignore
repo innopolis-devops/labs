@@ -4,6 +4,7 @@
 # Python
 venv/
 __pycache__/
+.pytest_cache/
 
 # Node.js
 node_modules

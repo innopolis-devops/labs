@@ -11,13 +11,12 @@ RUN python -m venv .venv && \
 # Non-root user creation
 RUN groupadd app && useradd app -g app
 
-# Copy app files and configs
+# Copy app files
 COPY ./app ./app
-COPY ./config ./config
 
 # Use a newly created user
 USER app
 EXPOSE 8000
 
 # Run gunicorn from venv 
-ENTRYPOINT ["./.venv/bin/gunicorn", "--config", "./config/gunicorn.conf.py", "app:app"]
+ENTRYPOINT ["./.venv/bin/gunicorn", "--config", "./app/config/gunicorn.conf.py", "app.api:app"]

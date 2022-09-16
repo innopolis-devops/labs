@@ -74,7 +74,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./app_python
-          file: ./Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/app_python:latest
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/app_python:buildcache

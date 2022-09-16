@@ -1,5 +1,7 @@
 # DevOps course at IU
 
+[![python ci](https://github.com/ease-ln/labs/actions/workflows/ci.yaml/badge.svg)](https://github.com/ease-ln/labs/actions/workflows/ci.yaml)
+
 ## Overview
 
 This is Python web application written using [Flask framework](https://flask.palletsprojects.com/en/2.2.x/) and [WorldTimeAPI](http://worldtimeapi.org) showing Moscow time.

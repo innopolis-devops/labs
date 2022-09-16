@@ -22,4 +22,3 @@ class TimeService:
 
     async def get_real_time(self) -> datetime:
         return await self.get_system_time() - timedelta(seconds=self.offset)
-

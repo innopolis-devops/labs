@@ -31,4 +31,3 @@ async def test_non_existent_route():
 @pytest.mark.asyncio
 async def test_unsupported_method():
     assert client.post("/").status_code == 405
-

@@ -12,6 +12,18 @@ The app is written in [FastAPI](https://github.com/tiangolo/fastapi), which is a
 
 I also like its thorough [documentation](https://fastapi.tiangolo.com) a lot.
 
+### Testing
+
+I'm using [`pytest`](https://github.com/pytest-dev/pytest/) for testing, it is quite simple yet powerful framework for testing.
+
+All the tests (there are a few) are stored in the [`tests`](./tests) folder. They cover a separate time-providing component, as well as the app as a whole (without reaching out to the global network).
+
+The best practices applied, namely:
+
+- Tests are written detailedly, so are easy to understand
+- They run quite fast — it won't take much time to test the app
+- Tests don't depend on any external services, so can be run repeatedly as much as it needed
+
 ## Markdown
 
 ### Markdown linting

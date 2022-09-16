@@ -34,12 +34,20 @@ You may want to change the port binding (`-p` option). Within the container, the
 
 - Python 3 (tested at 3.10)
 
----
+### Dependencies for running the app
 
 All the installation is just to setup the required Python packages:
 
 ```sh
 pip install -r requirements.txt
+```
+
+### Development dependencies
+
+If you wish to install development packages as well (for code formatting and testing), use [`requirements-dev.txt`](./requirements-dev.txt) instead:
+
+```sh
+pip install -r requirements-dev.txt
 ```
 
 ## Usage
@@ -51,7 +59,7 @@ App is configured to run with [Gunicorn](https://github.com/benoitc/gunicorn), w
 Use the following commmand to start the app:
 
 ```sh
-gunicorn --config .\gunicorn.conf.py app:app
+gunicorn --config .\gunicorn.conf.py app.api:app
 ```
 
 ### Uvicorn
@@ -59,13 +67,33 @@ gunicorn --config .\gunicorn.conf.py app:app
 Gunicorn runs only on UNIX systems. For Windows, you may use Uvicorn directly:
 
 ```sh
-uvicorn app:app
+uvicorn app.api:app
 ```
 
 For testing purposes, you may also want to add `--reload` flag the the command above.
 
+## Unit tests
+
+To run tests, use either of these commands after installing [dev requirements](#development-dependencies):
+
+### Run all the tests
+
+This will show a verbose output only if a test fails.
+
+```sh
+pytest
+```
+
+### Run tests more verbosely
+
+This will show the name of each test run and the output of the logger, if any.
+
+```sh
+pytest tests/
+```
+
 ## See also
 
-Check out [PYTHON.md](./PYTHON.md) for implementation details.
+Check out [PYTHON.md](./PYTHON.md) for implementation details about Python, unit tests and Markdown.
 
 See [DOCKER.md](./DOCKER.md) for details on the Docker configuration.

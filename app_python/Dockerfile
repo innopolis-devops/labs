@@ -1,15 +1,20 @@
-FROM python:3.10
+FROM python:3.10-slim as builder
 WORKDIR /app
 
-# Requirements installation (to the newly created venv)
+# Requirements installation
 COPY ./requirements.txt /tmp
 RUN python -m venv .venv && \
     ./.venv/bin/python -m pip install --no-cache-dir --upgrade pip setuptools wheel && \
-    ./.venv/bin/python -m pip install --no-cache-dir -r /tmp/requirements.txt && \
-    rm /tmp/requirements.txt
+    ./.venv/bin/python -m pip install --no-cache-dir -r /tmp/requirements.txt
+
+FROM python:3.10-alpine as runner
+WORKDIR /app
+
+# Copy venv with packages
+COPY --from=builder /app/.venv ./.venv
 
 # Non-root user creation
-RUN groupadd app && useradd app -g app
+RUN addgroup -S app && adduser -S app -G app
 
 # Copy app files
 COPY ./app ./app
@@ -19,4 +24,4 @@ USER app
 EXPOSE 8000
 
 # Run gunicorn from venv 
-ENTRYPOINT ["./.venv/bin/gunicorn", "--config", "./app/config/gunicorn.conf.py", "app.api:app"]
+CMD ["./.venv/bin/gunicorn", "--config", "./app/config/gunicorn.conf.py", "app.api:app"]

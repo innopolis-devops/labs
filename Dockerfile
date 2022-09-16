@@ -12,8 +12,8 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 COPY . /app
 
-RUN pip install --upgrade pip poetry==1.1.11 && poetry config virtualenvs.create false
-RUN poetry install
+# RUN pip install --upgrade pip poetry==1.1.11 && poetry config virtualenvs.create false
+# RUN poetry install
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
 # For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers

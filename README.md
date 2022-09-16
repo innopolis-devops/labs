@@ -1,21 +1,57 @@
-# Labs
+# Current Moscow Time application
 
-## Introduction
+## Table of content
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Docker](#docker)
+- [Contact](#contact)
 
-Welcome to DevOps course labs. All labs are practical and will be built on each other. You will implement simple application, containerize it, implement simple tests, prepare an infrastructure and CI/CD processes, collect metrics, logs, etc.
+## Description
 
-## Architecture
+This application created for showing current time from [WorldTimeAPI](http://worldtimeapi.org/). Application written with using **Python** + **Flask**
 
-This repository contains a master branch with introduction and one branch with instructions for each lab.
+## Installation
 
-## Rules
+- Install [Python](https://python.org)
+- Create virtual environment: \
+  `python3 -m venv venv`
+- Activate it using commands: \
+  **Windows**: \
+  `venv\Scripts\activate.bat` \
+  **Linux&MacOS**: \
+  `source venv/bin/activate`
+- Install requirements: \
+  `pip install -r requirements.txt`
 
-Each labs requires the participant to finish all previous labs, therefore **participants are required to submit each lab and get at least 6/10 points for each lab to pass the course**.
+## Usage
 
-Grading is based on PRs with your solution to the corresponding branch of this repository. This repository is read-only for all participants, therefore to be able to create a pull request, a participant should fork this repository to his own workspace and solve the lab there. It is recommended to build a solution of a lab N upon a solution of lab N-1, so choose workflow in your fork of this repository wisely. Structure of your repository will not affect your grade, only state of your repository from which the PR is created will be checked and graded (state after last commit in your PR on corresponding lab).
+- Go to app_python directory \\
+- Write:
+  ```
+  python main.py
+  ```
+- Open link to see current time:
+  ```
+  http://127.0.0.1:5000
+  ```
 
-### Recommended workflow
+## Docker
+#### Building on local machine
+- Install [Docker](https://www.docker.com/products/docker-desktop/) for your platform
+- Clone or download repo
+- Go to **app_python** folder
+- Use `docker build ./ moscow_time` for building docker image
+- Use `docker run -d -p 5000:5000 moscow_time:latest` for starting application
+- Go to `http://127.0.0.1:5000` and look at current Moscow time
+#### Start from ready image
+- Install [Docker](https://www.docker.com/products/docker-desktop/) for your platform
+- Use `docker pull alexdestdev/moscow_time:0.1` to get builded image
+- Use `docker run -d -p 5000:5000 alexdestdev/moscow_time:0.1` for starting application
+- Go to `http://127.0.0.1:5000` and look at current Moscow time
+## Contact
 
+<<<<<<< HEAD
 #### For the first lab
 
 1. Fork this repository.
@@ -64,3 +100,7 @@ You are required to submit a zip file with your source code to corresponding ass
 ## Submission policy
 
 **Submitting results after the deadline will result in maximum of 6 points for the corresponding lab. As stated before, all labs must be submitted to pass the course.**
+=======
+Alexey Rakov, BS19-SD-01 \
+email: a.rakov@innopolis.university
+>>>>>>> lab2

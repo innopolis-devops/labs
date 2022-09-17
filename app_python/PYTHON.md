@@ -6,7 +6,7 @@
 * Added [.gitignore](https://github.com/github/gitignore/blob/main/Python.gitignore) file recommended for python
 * Created requirements.txt so that users can install the requirements in order to run the app
 * Wrote configuration for docker image, so that users won't need to create venv, install dependencies, etc. manually
-* Used `gunicorn` WSGI server (as adviced for production use with flask)
+* Used `gunicorn` WSGI server (as adviced for production use with flask) 
 * Passed the code through [Black](https://github.com/psf/black) python linter and `.md` files through [Markdown linter](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
 
 ## Framework choice

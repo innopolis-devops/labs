@@ -1,5 +1,7 @@
 # Innopolis DevOps labs
 
+![app_python](https://github.com/sevenzing/devops/actions/workflows/python.release.yml/badge.svg)
+
 Here you can find devops labs project. It is simple web application that returns current moscow time
 
 ## Build & run

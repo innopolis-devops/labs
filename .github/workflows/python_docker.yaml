@@ -3,7 +3,24 @@ name: Python docker image upload
 on: [push]
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      python: ${{ steps.filter.outputs.python }}
+      flutter: ${{ steps.filter.outputs.flutter }}
+    steps:
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        python: |
+          backend:
+            - 'app_python/**'
+          flutter:
+            - 'app_flutter/**'
+
   build:
+    needs: changes
+    if: ${{ needs.changes.outputs.python == 'true' }}
     runs-on: ubuntu-latest
     steps:
     -

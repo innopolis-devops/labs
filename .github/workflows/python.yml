@@ -12,6 +12,7 @@ concurrency:
 
 jobs:
   changes:
+    name: Changes
     runs-on: ubuntu-latest
     outputs:
       python: ${{ steps.filter.outputs.python }}
@@ -43,6 +44,9 @@ jobs:
   security:
     name: Snyk
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app_python/web
     steps:
       - uses: actions/checkout@v3
       - uses: snyk/actions/setup@master
@@ -51,7 +55,6 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Check for vulnerabilities
-        working-directory: app_python/web
         run: snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

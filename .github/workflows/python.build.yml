@@ -40,8 +40,10 @@ jobs:
           src: "app_python/src"
           version: "22.6.0"
 
-      - uses: actionshub/markdownlint@main
+      - uses: docker://avtodev/markdown-lint:v1
         name: Markdown lint
+        with:
+          rules: '/.markdownlint.json'
 
       - uses: hadolint/hadolint-action@v1.5.0
         name: Dockerfile lint
@@ -87,7 +89,7 @@ jobs:
       #----------------------------------------------
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
+        run: poetry install --no-interaction
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------

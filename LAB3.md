@@ -23,7 +23,6 @@
    > If you didn't join any team, please do, we will provide extra points for good reviews. And something special for the best team. But as it's extra it is not mandatory.
 4. **Create a PR in your own repository from the lab3 branch to the lab2 one.** It will help us with grading.
 
-
 ### 4 more points
 
 1. Improvements:

@@ -1,5 +1,7 @@
 # GOVORIT MOSKVA
 
+[![lint and test](https://github.com/glebosotov/inno-devops-labs/actions/workflows/python_lint_test.yaml/badge.svg)](https://github.com/glebosotov/inno-devops-labs/actions/workflows/python_lint_test.yaml)
+
 ## Overview
 
 This simple web appllication shows the current time in Moscow. Time is updated with each page refresh.

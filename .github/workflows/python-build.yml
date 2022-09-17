@@ -11,14 +11,12 @@ on:
 
 jobs:
   build:
-
+    # To avoid multiple runs on single commit
+    # It is still checked by push trigger, so no worries.
+    if: contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master')
     runs-on: ubuntu-latest
 
     steps:
-    # To avoid multiple runs on single commit
-    - name: Exit if it's a pull request from 'lab*' to master
-      if: contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master')
-      run: exit 0
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
       uses: actions/setup-python@v3

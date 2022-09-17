@@ -12,8 +12,8 @@ jobs:
     - uses: dorny/paths-filter@v2
       id: filter
       with:
-        python: |
-          backend:
+        filters: |
+          python:
             - 'app_python/**'
           flutter:
             - 'app_flutter/**'

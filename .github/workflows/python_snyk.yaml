@@ -5,8 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - uses: actions/setup-go@v1
       - name: Run Snyk to check for vulnerabilities
-        working-directory: ./app_python
-        uses: snyk/actions/python-3.8@master
+        working-directory: app_python
+        run: snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

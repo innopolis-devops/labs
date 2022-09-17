@@ -20,7 +20,7 @@ jobs:
   lint:
     # To avoid multiple runs on single commit
     # It is still checked by push trigger, so no worries.
-    if: ${{ env.SKIP_WORKFLOW }}
+    if: ${{ github.env.SKIP_WORKFLOW }}
     timeout-minutes: 30
     runs-on: ubuntu-latest
 
@@ -39,7 +39,7 @@ jobs:
   test:
     # To avoid multiple runs on single commit
     # It is still checked by push trigger, so no worries.
-    if: ${{ env.SKIP_WORKFLOW }}
+    if: ${{ github.env.SKIP_WORKFLOW }}
     timeout-minutes: 30
     runs-on: ubuntu-latest
 
@@ -68,7 +68,7 @@ jobs:
   security:
     # To avoid multiple runs on single commit
     # It is still checked by push trigger, so no worries.
-    if: ${{ env.SKIP_WORKFLOW }}
+    if: ${{ github.env.SKIP_WORKFLOW }}
     needs: [test, lint]
     timeout-minutes: 30
     runs-on: ubuntu-latest

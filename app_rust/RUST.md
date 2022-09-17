@@ -24,6 +24,14 @@ docker build . -t currenttime-rust
 docker run --rm -p 4444:4444 currenttime-rust
 ```
 
+## Test & lint check
+
+```bash
+cargo test
+cargo fmt --all -- --check --config imports_granularity=Crate
+cargo clippy --all --all-features -- -D warnings
+```
+
 ## Usage
 
 ```bash

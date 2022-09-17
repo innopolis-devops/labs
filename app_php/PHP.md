@@ -36,7 +36,7 @@ written in output of `Apache2` in terminal.
 
 ## Docker Hub Image
 
-* `sudo docker run -p 80:8080 igorparfenov/devops_lab2:app_php`
+* `sudo docker run -p 80:8080 igorparfenov/devops_lab:app_php`
 
 ## PHP Linter
 

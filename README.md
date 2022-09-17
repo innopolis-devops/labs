@@ -46,6 +46,8 @@ To publish a new version to docker hub create a tag corresponding to the (semver
 
 When the tag appears in the repo, workflow will build the image and push it to docker hub.
 
+Note that the tag must belong to some branch in GitHub otherwise the job will fail.
+
 ## Rust 🦀 memory-safe 🛡️ blazing fast 🚀 implementation
 
 Rust implementation together with corresponding `RUST.md` is located in `app_rust` folder.

@@ -10,7 +10,7 @@ on:
       - master
 
 permissions:
-  contents: read|write
+  contents: write
 
 jobs:
   lint-test:

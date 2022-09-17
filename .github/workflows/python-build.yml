@@ -9,9 +9,6 @@ on:
     branches:
       - master
 
-env:
-  SKIP_WORKFLOW: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
-
 permissions:
   contents: read
   security-events: write
@@ -20,7 +17,7 @@ jobs:
   lint:
     # To avoid multiple runs on single commit
     # It is still checked by push trigger, so no worries.
-    if: ${{ github.env.SKIP_WORKFLOW }}
+    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
     timeout-minutes: 30
     runs-on: ubuntu-latest
 
@@ -39,7 +36,7 @@ jobs:
   test:
     # To avoid multiple runs on single commit
     # It is still checked by push trigger, so no worries.
-    if: ${{ github.env.SKIP_WORKFLOW }}
+    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
     timeout-minutes: 30
     runs-on: ubuntu-latest
 
@@ -68,7 +65,7 @@ jobs:
   security:
     # To avoid multiple runs on single commit
     # It is still checked by push trigger, so no worries.
-    if: ${{ github.env.SKIP_WORKFLOW }}
+    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
     needs: [test, lint]
     timeout-minutes: 30
     runs-on: ubuntu-latest

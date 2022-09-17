@@ -21,7 +21,7 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f app_python/requirements.txt ]; then pip install -r app_python/requirements.txt; fi
       - name: Lint with pylint
-        uses: ricardochaves/python-lint@v1.4.0
+        uses: quentinguidee/pep8-action@v1
       - name: Test with unittest
         run: |
           python -m unittest discover -s app_python/tests -p "*_test.py"

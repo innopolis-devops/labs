@@ -3,7 +3,7 @@ name: App Python
 on:
   push:
     paths:
-      - 'app_php/**'
+      - 'app_python/**'
 
 jobs:
   build:

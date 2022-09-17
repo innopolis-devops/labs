@@ -6,10 +6,14 @@ on:
     tags:
       - v[0-9]+.[0-9]+.[0-9]+
 
+permissions:
+  contents: read
+
 jobs:
   docker-publish:
 
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     
     steps:
       # `docker/build-push-action` can work without checking out repo first

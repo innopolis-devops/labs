@@ -5,7 +5,12 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read
+
 jobs:
+  timeout-minutes: 5
+
   lint-changelog:
     name: Lint markdown
     runs-on: ubuntu-latest

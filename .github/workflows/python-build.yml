@@ -9,11 +9,15 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read
+
 jobs:
   build:
     # To avoid multiple runs on single commit
     # It is still checked by push trigger, so no worries.
     if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
+    timeout-minutes: 30
     runs-on: ubuntu-latest
 
     steps:

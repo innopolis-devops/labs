@@ -47,7 +47,6 @@ jobs:
       run: |
         pytest
   
-  jobs:
     security:
       # To avoid multiple runs on single commit
       # It is still checked by push trigger, so no worries.
@@ -68,7 +67,7 @@ jobs:
           uses: github/codeql-action/upload-sarif@v2
           with:
             # Path to SARIF file relative to the root of the repository
-            sarif_file: results.sarif
+            sarif_file: snyk.sarif
             # Optional category for the results
             # Used to differentiate multiple results for one commit
             category: snyk-python-analysis

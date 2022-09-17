@@ -15,11 +15,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
     # To avoid multiple runs on single commit
     - name: Exit if it's a pull request from 'lab*' to master
-      if: endsWith(github.ref, 'lab*') == true && endsWith(github.base_ref, 'master')
+      if: contains(github.ref, 'lab') == true && endsWith(github.base_ref, 'master')
       run: exit 1
+    - uses: actions/checkout@v3
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:

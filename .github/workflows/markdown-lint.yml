@@ -9,11 +9,13 @@ permissions:
   contents: read
 
 jobs:
-  timeout-minutes: 5
 
   lint-changelog:
     name: Lint markdown
+
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    
     steps:
     - name: Check out code
       uses: actions/checkout@v2

@@ -1,9 +1,6 @@
 name: app_python
 
-on:
-  push:
-    paths:
-      - 'app_python/**'
+on: [push]
 
 defaults:
   run:

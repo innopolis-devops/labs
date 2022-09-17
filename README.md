@@ -42,6 +42,13 @@ assume that poetry and packages already installed
 black .
 ```
 
+## Tests
+
+```bash
+cd app_python
+pytest .
+```
+
 ## Usage
 
 ```bash

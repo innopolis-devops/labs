@@ -34,6 +34,24 @@ To use the application, open the following URL in your browser:
 
 I have used Docker from the start in this project. The `docker-compose.yml` points to remote brebuilt image. Refer to Usage and Build sections for more details.
 
+## Unit tests
+
+If you do not have `unittest` module installed, install it using
+
+```bash
+pip install unittest
+```
+
+To run unit tests, run the following command:
+
+```bash
+python3 app_test.py
+```
+
+## CI
+
+I am using GitHub Actions to run unit tests and build the image. The workflows are defined in `.github/workflows/` folder.
+
 ## Contact
 
 You can message me using this link <https://glebosotov.t.me>

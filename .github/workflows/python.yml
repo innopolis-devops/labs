@@ -40,8 +40,18 @@ jobs:
         with:
           dockerfile: app_python/web/Dockerfile
   
+  security:
+    name: Snyk
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check for vulnerabilities
+        uses: snyk/actions/python-3.8@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
   test-python:
-    needs: changes
+    needs: [changes, security]
     name: Run tests
     if: ${{ needs.changes.outputs.python == 'true' }}
     runs-on: ubuntu-latest

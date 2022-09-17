@@ -9,15 +9,37 @@ on:
     branches:
       - master
 
+env:
+  SKIP_WORKFLOW: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
+
 permissions:
   contents: read
   security-events: write
 
 jobs:
-  lint-test:
+  lint:
     # To avoid multiple runs on single commit
     # It is still checked by push trigger, so no worries.
-    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
+    if: $SKIP_WORKFLOW
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Lint with black
+      uses: psf/black@stable
+      with:
+        options: "--check --verbose"
+        src: "app_python/src"
+    - name: Lint Dockerfile
+      uses: hadolint/hadolint-action@v1.5.0
+      with:
+        dockerfile: 'app_python/Dockerfile'
+
+  test:
+    # To avoid multiple runs on single commit
+    # It is still checked by push trigger, so no worries.
+    if: $SKIP_WORKFLOW
     timeout-minutes: 30
     runs-on: ubuntu-latest
 
@@ -39,11 +61,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install -r app_python/requirements/test.txt
-    - name: Lint with black
-      uses: psf/black@stable
-      with:
-        options: "--check --verbose"
-        src: "app_python/src"
     - name: Test with pytest
       run: |
         pytest
@@ -51,19 +68,21 @@ jobs:
   security:
     # To avoid multiple runs on single commit
     # It is still checked by push trigger, so no worries.
-    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
+    if: $SKIP_WORKFLOW
+    needs: [test, lint]
     timeout-minutes: 30
     runs-on: ubuntu-latest
     
     steps:
       - uses: actions/checkout@master
+      - uses: snyk/actions/setup@master
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python@master
-        continue-on-error: true # To make sure that SARIF upload gets called
+      - name: Snyk monitor
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --sarif-file-output=snyk.sarif
+        continue-on-error: true # To make sure that SARIF upload gets called
+        working-directory: ./app_python
+        run: snyk test --sarif-file-output=snyk.sarif
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
         with:

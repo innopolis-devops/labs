@@ -47,27 +47,27 @@ jobs:
       run: |
         pytest
   
-    security:
-      # To avoid multiple runs on single commit
-      # It is still checked by push trigger, so no worries.
-      if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
-      timeout-minutes: 30
-      runs-on: ubuntu-latest
-      
-      steps:
-        - uses: actions/checkout@master
-        - name: Run Snyk to check for vulnerabilities
-          uses: snyk/actions/python@master
-          continue-on-error: true # To make sure that SARIF upload gets called
-          env:
-            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-          with:
-            args: --sarif-file-output=snyk.sarif
-        - name: Upload SARIF file
-          uses: github/codeql-action/upload-sarif@v2
-          with:
-            # Path to SARIF file relative to the root of the repository
-            sarif_file: snyk.sarif
-            # Optional category for the results
-            # Used to differentiate multiple results for one commit
-            category: snyk-python-analysis
+  security:
+    # To avoid multiple runs on single commit
+    # It is still checked by push trigger, so no worries.
+    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python@master
+        continue-on-error: true # To make sure that SARIF upload gets called
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk.sarif
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: snyk.sarif
+          # Optional category for the results
+          # Used to differentiate multiple results for one commit
+          category: snyk-python-analysis

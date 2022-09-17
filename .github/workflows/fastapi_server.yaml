@@ -14,7 +14,7 @@ jobs:
       - name: Lint Dockerfile
         uses: hadolint/hadolint-action@v2.0.0
         with:
-          dockerfile: Dockerfile
+          dockerfile: 'app_python/Dockerfile'
       - name: Lint Markdown
         uses: nosborn/github-action-markdown-cli@v3.0.1
         with:
@@ -56,7 +56,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: app_python
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/python_kremlin_chimes:latest

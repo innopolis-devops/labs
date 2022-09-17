@@ -2,6 +2,7 @@
 
 ![badge](https://github.com/ParfenovIgor/labs/actions/workflows/app_python.yml/badge.svg?branch=lab3)
 ![badge](https://github.com/ParfenovIgor/labs/actions/workflows/app_php.yml/badge.svg?branch=lab3)
+![badge](https://github.com/ParfenovIgor/labs/actions/workflows/markdown_lint.yml/badge.svg?branch=lab3)
 
 ## Author
 

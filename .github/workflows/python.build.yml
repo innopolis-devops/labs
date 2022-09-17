@@ -2,9 +2,19 @@ name: lint and run tests
 
 on:
   push:
-    branches:
-      - 'lab*'
-      - 'master'
+    branches: 
+      - master
+  pull_request:
+    branches: 
+      - master
+      - lab*
+    paths:
+      - app_python/**
+      - .github/workflows/python.yml
+
+defaults:
+  run:
+    working-directory: app_python
 
 env:
   REGISTRY: ghcr.io
@@ -27,7 +37,7 @@ jobs:
         name: Black lint
         with:
           options: "--check --verbose"
-          src: "./src"
+          src: "app_python/src"
           version: "22.6.0"
 
       - uses: actionshub/markdownlint@main

@@ -1,4 +1,4 @@
-name: FastAPI server
+name: app_python
 
 on: [push]
 

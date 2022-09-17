@@ -1,5 +1,7 @@
 # Kremlin chimes
 
+![app_python](https://github.com/danmory/devops_labs/actions/workflows/app_python.yaml/badge.svg)
+
 ## Description
 
 The application shows the current Moscow time.

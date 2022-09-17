@@ -42,7 +42,7 @@ written in output of `Flask` in terminal.
 
 ## Docker Hub Image
 
-* `sudo docker run -p 80:8080 igorparfenov/devops_lab2:app_python`
+* `sudo docker run -p 80:8080 igorparfenov/devops_lab:app_python`
 
 ## Unit Tests
 

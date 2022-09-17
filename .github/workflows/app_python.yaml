@@ -53,8 +53,8 @@ jobs:
         uses: snyk/actions/python@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:          
-          args: app_python
+        run: |
+          snyk test --file requirements.txt
 
   deploy:
     timeout-minutes: 15

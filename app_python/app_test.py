@@ -24,5 +24,6 @@ class TestTimeApp(unittest.TestCase):
         milliseconds = parser.parse(time_str).timestamp()
         self.assertAlmostEqual(milliseconds, time(), delta=1)
 
+
 if __name__ == "__main__":
     unittest.main()

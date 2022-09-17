@@ -11,6 +11,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      python: ${{ steps.filter.outputs.python }}
+    steps:
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            python:
+              - "app_python/**"
+
   lint-files:
     name: Lint files
     runs-on: ubuntu-latest
@@ -29,7 +41,9 @@ jobs:
           dockerfile: app_python/web/Dockerfile
   
   test-python:
+    needs: changes
     name: Run tests
+    if: ${{ needs.changes.outputs.python == 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -52,6 +66,7 @@ jobs:
   publish:
     needs: [lint-files, test-python]
     name: Publish image
+    if: ${{ needs.changes.outputs.python == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

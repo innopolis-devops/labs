@@ -67,3 +67,10 @@ The code is tested with 2 scenarios:
 
 1. Correct response with correct time to correct request
 2. 404 Error to invalid request
+
+## Unit tests best practices
+
+1. Tests Should Be Fast
+2. Tests Should Be Readable
+3. Tests Should Be Deterministic (I have used pytest.mark.freeze_time to freeze the time)
+4. Parametrize the same behavior (I have used pytest.mark.parametrize)

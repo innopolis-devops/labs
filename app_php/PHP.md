@@ -52,7 +52,7 @@ The program `phpunit` was used.
 
 Installation `composer install`
 
-Usage `./vendor/bin/phpunit *.py`
+Usage `./vendor/bin/phpunit *.php`
 
 Tests:
 

@@ -12,5 +12,5 @@ formatter.format = '%H:%M:%S'
 
 @app.route('/')
 def moscow_time():
-    time = formatter.get_string(datetime.now)
+    time = formatter.get_string(datetime.now())
     return render_template('time.html', time=time)

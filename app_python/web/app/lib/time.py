@@ -15,5 +15,5 @@ class TimeFormatter:
         self._format = new_format
 
     def get_string(self, date):
-        datetime_tz = date(self.time_zone)
+        datetime_tz = date.astimezone(self.time_zone)
         return datetime_tz.strftime(self._format)

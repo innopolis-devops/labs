@@ -39,6 +39,15 @@ then check the localhost in port:8000
 docker run --publish 8000:8000 mkhalil99/py_app
 ```
 
+## Testing
+
+The unit tests use the `pytest` library to define test cases.
+First, run `pip install -r test_requirements.txt` to install the test (and other dev) dependencies.
+Then, run the tests using the entrypoint:
+
+```
+python3 run_test.py
+```
 
 ## Author 
 This project is created by Mohammad Khalil 

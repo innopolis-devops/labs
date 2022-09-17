@@ -20,7 +20,22 @@ The following is a list of best practices for Python that are being followed in 
   - Local application/library specific imports
 
 
+
+## Testing
+
+- Use [pytest](https://docs.pytest.org/en/latest/) to test the application.
+- Create a `tests` directory and a `test_` file for each test.
+- Follow the [Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html) style of writing tests.
+- Separate between unit and functional tests.
+- Try to maximize test code coverage to ensure that the application is tested thoroughly.
+- Do not modify the application code in tests.
+- Parametrize when asserting the same behavior with various inputs and expected outputs (do not depend on global state).
+- Never manually create `Response` objects for tests.
+
+
 ### References
 - https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-python-and-flask-development-environment
 - https://www.python.org/dev/peps/pep-0008/
+- https://flask.palletsprojects.com/en/2.0.x/testing/
+- https://testdriven.io/blog/flask-pytest/
 - https://www.nerdwallet.com/blog/engineering/5-pytest-best-practices/

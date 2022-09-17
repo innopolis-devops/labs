@@ -1,4 +1,4 @@
-name: lint and run tests
+name: Build
 
 on:
   push:
@@ -83,12 +83,11 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          key: currenttime-venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('app_python/poetry.lock') }}
       #----------------------------------------------
       # install dependencies if cache does not exist
       #----------------------------------------------
       - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction
       #----------------------------------------------
       #              run test suite

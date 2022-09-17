@@ -16,7 +16,9 @@ test:
 
 .PHONY: lint
 lint:
-	$(VENV)/bin/flake8 --jobs 4 --statistics --show-source $(CODE)
+	$(VENV)/bin/poetry lock --check
+	# python linters
+	$(VENV)/bin/pflake8 --jobs 4 --statistics --show-source $(CODE)
 	$(VENV)/bin/pylint --jobs 4 $(CODE)
 	$(VENV)/bin/mypy --show-error-codes $(CODE)
 	$(VENV)/bin/black --skip-string-normalization --check $(CODE)

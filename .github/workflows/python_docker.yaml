@@ -23,7 +23,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./app_python
-        file: ./Dockerfile
+        file: Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/inno-devops-labs-app-python:latest
   

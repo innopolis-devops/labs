@@ -76,7 +76,6 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: snyk/actions/setup@master
-      - name: Run Snyk to check for vulnerabilities
       - name: Snyk monitor
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

@@ -31,7 +31,8 @@ Usage `pytest *.py`
 
 Tests:
 
-* `datetime_format`: check if the output of function, which gets current datetime, has datetime format.
+* `datetime_format`: check if the output of function, which gets current datetime,
+has datetime format.
 
 ## Best Practices
 

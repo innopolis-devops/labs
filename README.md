@@ -54,7 +54,8 @@ Usage `pytest main.py`
 
 ## Github Actions CI
 
-The Github Actions CI was set. The result of last push testing can be checked by badges on the top.
+The Github Actions CI was set. The result of last push testing can be checked by
+badges on the top.
 
 CI runs:
 

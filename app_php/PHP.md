@@ -56,4 +56,5 @@ Usage `./vendor/bin/phpunit *.php`
 
 Tests:
 
-* `validate_number`: check, that function for checking, if its string argument is an integer, is correct, using several tests.
+* `validate_number`: check, that function for checking, if its string argument is
+an integer, is correct, using several tests.

@@ -24,4 +24,4 @@ jobs:
       - name: Lint changelog file
         uses: docker://avtodev/markdown-lint:v1
         with:
-          args: '.'
+          args: 'app_python'

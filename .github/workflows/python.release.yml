@@ -1,0 +1,43 @@
+name: Build
+
+on:
+  push:
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+
+
+
+defaults:
+  run:
+    working-directory: app_python
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: currenttime
+
+jobs:
+ build:
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get tag number
+        run: echo ::set-output name=VERSION::${GITHUB_REF#*/*/v}
+        id: get-version
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: app_python
+          pull: true
+          push: true
+          tags: |
+            ${{ github.actor }}/currenttime:latest,
+            ${{ github.actor }}/currenttime:${{steps.get-version.outputs.VERSION}}

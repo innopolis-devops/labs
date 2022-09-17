@@ -15,16 +15,35 @@ jobs:
     name: "Lint files"
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Markdown
         uses: docker://avtodev/markdown-lint:v1
         with:
-          config: 'lint/markdown.json'
-          args: 'app_python'
+          config: "lint/markdown.json"
+          args: "app_python"
       - name: Python
         uses: quentinguidee/pep8-action@v1
       - name: Dockerfile
         uses: hadolint/hadolint-action@v1.5.0
         with:
           dockerfile: app_python/web/Dockerfile
+  
+  test-python:
+    name: "Run tests"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app_python/web
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Test with pytest
+        run: pytest

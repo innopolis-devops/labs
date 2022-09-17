@@ -10,10 +10,6 @@ concurrency:
   group: python-${{ github.head_ref }}
   cancel-in-progress: true
 
-defaults:
-  run:
-    working-directory: app_python
-
 jobs:
   lint-markdown:
     name: "Lint Markdown files"
@@ -24,5 +20,5 @@ jobs:
       - name: Lint changelog file
         uses: docker://avtodev/markdown-lint:v1
         with:
-          config: '/.markdown.json'
+          config: 'lint/config.json'
           args: 'app_python'

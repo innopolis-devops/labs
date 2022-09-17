@@ -41,3 +41,15 @@ Here are some best practices that have come in handy for me when developing a we
 - As a linter for Python, I chose `pycodestyle`, which is essentially PEP8. The reason I chose it is because the PEP8 specifications were created directly by the Python community, so I trust it more.
 
 - As a linter for markdown, I chose `markdownlint`, which has a handy extension for my development environment and is very popular.
+
+## Unit Tests
+
+I used the well-known [pytest](http://pytest.org) framework to write unit tests. Basically, I wrote only one test for the time parser, but still, here are the best practices I followed:
+
+- Parameterize the input data and similar behavior.
+
+- Use [pytest conventions](https://docs.pytest.org/en/7.1.x/explanation/goodpractices.html#conventions-for-python-test-discovery) in the naming of test files and functions.
+
+- Use a separate `tests` directory with `__init__.py` file to easily run tests outside of it.
+
+- Import only the modules, objects and functions you need for testing.

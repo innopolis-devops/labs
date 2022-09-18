@@ -1,4 +1,4 @@
-name: Build and test
+name: Build and test (Python)
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 # Allow one concurrent build for each branch
 concurrency:
-  group: build-test-${{ github.ref }}
+  group: build-test-py-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:

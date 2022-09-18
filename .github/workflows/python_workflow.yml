@@ -74,7 +74,7 @@ jobs:
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif
+          sarif_file: app_python/snyk.sarif
 
   snyk-docker:
     timeout-minutes: 30
@@ -94,7 +94,7 @@ jobs:
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif
+          sarif_file: app_python/snyk.sarif
 
   container:
     timeout-minutes: 20

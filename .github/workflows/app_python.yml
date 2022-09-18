@@ -17,7 +17,7 @@ jobs:
       - name: Check vulnerabilities in Python
         uses: snyk/actions/python-3.8@master
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: ${{ secrets.CI.SNYK_TOKEN }}
         with:
           args: severity-threshold=high
 

@@ -22,7 +22,9 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --severity-threshold=high --file=pyproject.toml
+          args: |
+            --severity-threshold=high
+            --file=pyproject.toml
 
   build:
     runs-on: ubuntu-latest

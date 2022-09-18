@@ -39,7 +39,13 @@ If you want to use image from Docker Hub Repository:
 1) Run command `docker run -p 5000:5000 -d dablup/devops_labs:devops_labs`
 2) Now application is running inside container and forwarded to the http://localhost:5000
 
+## Unit test 
+Unit test is a software development process in which the smallest testable parts of an application, called units, are individually and independently scrutinized for proper operation.
 
+In my application for unit testing I used [pytest](https://docs.pytest.org/en/7.1.x/).
+To run it you need:
+1) Install pytest using command `pip install -r requirements.txt`
+2) Run command `pytest test.py` inside `app_python` directory
 ## Contacts 
 
 [Daniil Livitin](https://github.com/Dablup)

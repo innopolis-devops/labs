@@ -52,7 +52,7 @@ jobs:
     - name: Run tests
       run: cargo test --verbose --target-dir ../target
     - name: Run clippy check
-      run: cargo clippy --all-features --target-dir ../target -- -D warnings
+      run: "cargo clippy --all-features --target-dir ../target -- -D warnings"
     - name: Snyk monitor
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

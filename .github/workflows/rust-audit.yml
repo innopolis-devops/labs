@@ -20,4 +20,4 @@ jobs:
       - uses: actions/checkout@v1
       - run: cargo install cargo-audit
       - name: Run audit
-        run: cargo audit --color always --file app_rust/Cargo.lock
+        run: cargo audit --color always --file Cargo.lock

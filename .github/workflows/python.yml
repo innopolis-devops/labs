@@ -1,9 +1,7 @@
 name: app_python
 
 
-defaults:
-  run:
-    working-directory: ./app_python
+
 
 on:   
   pull_request:
@@ -13,6 +11,10 @@ on:
   push:
     branches:
       - master
+
+defaults:
+  run:
+    working-directory: ./app_python
 
 jobs:
   build:

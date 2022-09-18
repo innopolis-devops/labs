@@ -1,0 +1,53 @@
+name: devops
+channels:
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - _openmp_mutex=5.1=1_gnu
+  - astroid=2.11.7=py310h06a4308_0
+  - bzip2=1.0.8=h7b6447c_0
+  - ca-certificates=2022.07.19=h06a4308_0
+  - certifi=2022.6.15=py310h06a4308_0
+  - click=8.0.4=py310h06a4308_0
+  - dataclasses=0.8=pyh6d0b6a4_7
+  - dill=0.3.4=pyhd3eb1b0_0
+  - flask=2.1.3=py310h06a4308_0
+  - isort=5.9.3=pyhd3eb1b0_0
+  - itsdangerous=2.0.1=pyhd3eb1b0_0
+  - jinja2=3.0.3=pyhd3eb1b0_0
+  - lazy-object-proxy=1.6.0=py310h7f8727e_0
+  - ld_impl_linux-64=2.38=h1181459_1
+  - libffi=3.3=he6710b0_2
+  - libgcc-ng=11.2.0=h1234567_1
+  - libgomp=11.2.0=h1234567_1
+  - libstdcxx-ng=11.2.0=h1234567_1
+  - libuuid=1.0.3=h7f8727e_2
+  - markupsafe=2.1.1=py310h7f8727e_0
+  - mccabe=0.7.0=pyhd3eb1b0_0
+  - mypy=0.910=pyhd3eb1b0_0
+  - mypy_extensions=0.4.3=py310h06a4308_0
+  - ncurses=6.3=h5eee18b_3
+  - openssl=1.1.1q=h7f8727e_0
+  - pip=22.1.2=py310h06a4308_0
+  - platformdirs=2.5.2=py310h06a4308_0
+  - psutil=5.9.0=py310h5eee18b_0
+  - pylint=2.14.5=py310h06a4308_0
+  - python=3.10.4=h12debd9_0
+  - readline=8.1.2=h7f8727e_1
+  - setuptools=63.4.1=py310h06a4308_0
+  - sqlite=3.39.2=h5082296_0
+  - tk=8.6.12=h1ccaba5_0
+  - toml=0.10.2=pyhd3eb1b0_0
+  - tomli=2.0.1=py310h06a4308_0
+  - tomlkit=0.11.1=py310h06a4308_0
+  - typing_extensions=4.3.0=py310h06a4308_0
+  - tzdata=2022c=h04d1e81_0
+  - werkzeug=2.0.3=pyhd3eb1b0_0
+  - wheel=0.37.1=pyhd3eb1b0_0
+  - wrapt=1.14.1=py310h5eee18b_0
+  - xz=5.2.5=h7f8727e_1
+  - zlib=1.2.12=h5eee18b_3
+variables:
+  FLASK_APP: app
+  FLASK_ENV: development
+prefix: /home/eyjafjallajokull/miniconda3/envs/devops

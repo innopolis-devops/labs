@@ -20,8 +20,8 @@ To get **4 more points** you need to make your app production ready:
    2. Overview
    3. Build
    4. Usage
-   5.  Contact
-   6.  Etc.
+   5. Contact
+   6. Etc.
 
 ## Bonus
 

@@ -9,5 +9,6 @@ inconsistencies being introduced and means you cannot be confident that all prev
 same build artifact should be promoted through each stage of the CI/CD pipeline and ultimately released to live.
 4. **Clean your environments.**
 5. **Monitor and measure your pipeline.** Alert about troubles with CI.
+6. Include Snyk for automatic vulnerability checking.
 
 sources: https://www.jetbrains.com/teamcity/ci-cd-guide/ci-cd-best-practices/

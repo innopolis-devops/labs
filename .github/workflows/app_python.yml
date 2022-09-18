@@ -1,9 +1,11 @@
 name: App Python CI
 on:
   push:
-    branches:
-      - master
-  pull_request:
+    paths:
+      - app_python/**
+
+env:
+  TIMEZONE: 'Europe/Moscow'
 
 jobs:
   build:

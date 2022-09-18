@@ -25,8 +25,8 @@ jobs:
             ${{ runner.os }}-pip-
       - name: Dependencies
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt
+          pip install --upgrade pip
+          pip install -r requirements.txt
       - name: Pylint
         run: pylint $(git ls-files '*.py')
         continue-on-error: true
@@ -102,5 +102,5 @@ jobs:
           file: app_python/Dockerfile
           push: true
           tags: aladdinych/devops_labs:latest
-          cache-from: type=registry,ref=aladdinych/devops_labs:buildcache
-          cache-to: type=registry,ref=aladdinych/devops_labs:buildcache,mode=max
+          cache-from: type=registry,ref=aladdinych/devops_labs:cache
+          cache-to: type=registry,ref=aladdinych/devops_labs:cache,mode=max

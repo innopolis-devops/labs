@@ -57,6 +57,7 @@ jobs:
       - 
         name: Snyk vulnerablities check
         uses: snyk/actions/python-3.8@master
+        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
          

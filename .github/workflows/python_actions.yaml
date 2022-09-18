@@ -1,0 +1,38 @@
+name: Run tests on push
+on:
+  push:
+    tags:
+      - '!refs/tags/*'
+    branches:
+      - '*'
+jobs:
+  run_tests:
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-python@v1
+        with:
+          python-version: '3.8'
+          architecture: 'x64'
+      - name: Install requirements
+        run: pip install -r app_python/requirements.txt
+      - name: flake8 Linter
+        uses: py-actions/flake8@v2
+      - name: Run tests
+        run: coverage run app_python/src/test.py
+      - name: Tests report
+        run: coverage report
+  build_and_pub:
+    needs: [run_tests]
+    runs-on: [ubuntu-latest]
+    env:
+      LOGIN: ${{ secrets.DOCKER_LOGIN }}
+      NAME: ${{ secrets.DOCKER_NAME }}
+    steps:
+      - name: Login to docker.io
+        run:  echo ${{ secrets.DOCKER_PWD }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
+      - uses: actions/checkout@master
+      - name: Build image
+        run: docker build -t $LOGIN/$NAME:app_python app_python
+      - name: Push image to docker.io
+        run: docker push $LOGIN/$NAME:app_python

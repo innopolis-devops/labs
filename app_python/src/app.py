@@ -5,8 +5,10 @@ import os
 
 app = Flask(__name__)
 
+
 @app.route('/')
-def hello():
+def getMoscowTime():
+
     tz = pytz.timezone('Europe/Moscow')
     moscow_time = datetime.now(tz)
     return "Moscow time - " + moscow_time.strftime("%m/%d/%Y, %H:%M:%S")

@@ -6,7 +6,7 @@ WORKDIR /app_python
 
 RUN pip install -r requirements.txt
 
-COPY app.py app_python/app.py
+COPY src/app.py app_python/app.py
 
 EXPOSE 5011
 

@@ -1,6 +1,7 @@
 # Continuous Integration best practices
 
 ##Github Actions
+
 - Keep the Actions (pipelines) minimal.
 - Don't install unnecessary packages.
 - Don't expose sensitive information or hardcode secrets.

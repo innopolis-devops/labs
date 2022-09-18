@@ -1,5 +1,7 @@
 # Moscow time webpage
 
+[![CI](https://github.com/Andrew174194/DevOps_labs_F22/actions/workflows/main.yaml/badge.svg)](https://github.com/Andrew174194/DevOps_labs_F22/actions/workflows/main.yaml)
+
 ## Description of product
 This is a simple web application to show the current time for Moscow time zone (UTC+3). It does not update the time after the page load though. 
 

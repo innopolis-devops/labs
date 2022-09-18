@@ -88,6 +88,8 @@ Via `docker run`
 $ docker run akurmazov/server:latest make test
 ```
 
+## GitHub Actions CI
+
 ## Contacts
 
 * Telegram: @AKurmazov

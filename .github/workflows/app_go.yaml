@@ -58,6 +58,7 @@ jobs:
         with:
           go-version: '1.13'
       - name: Snyk monitor
+        continue-on-error: true
         run: |
           snyk test --sarif-file-output=snyk.sarif
         env:

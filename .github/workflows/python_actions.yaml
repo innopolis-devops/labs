@@ -1,7 +1,5 @@
 name: Run tests on push
 on:
-  changes:
-    - app_python/*
   push:
     tags:
       - '!refs/tags/*'
@@ -9,6 +7,9 @@ on:
       - '*'
 jobs:
   run_tests:
+    rules:
+      - changes:
+          - app_python/*
     runs-on: [ubuntu-latest]
     steps:
       - uses: actions/checkout@master

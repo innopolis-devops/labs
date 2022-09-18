@@ -41,10 +41,9 @@ jobs:
       # update latest version
       - name: Build and push
         uses: docker/build-push-action@v2
-        if: ${{ inputs.publish }}
         with:
           context: "{{defaultContext}}:app_python"
-          push: true
+          push: ${{ inputs:publish }}
           tags: |
             ${{ secrets.DOCKER_HUB_USERNAME }}/${{ inputs.docker_repo_name }}:latest,
             ${{ secrets.DOCKER_HUB_USERNAME }}/${{ inputs.docker_repo_name }}:${{ inputs.image_tag }}

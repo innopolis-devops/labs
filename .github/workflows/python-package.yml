@@ -8,6 +8,8 @@ on:
     paths:
       - 'app_python/**'
       - '.github/workflows/python-package.yml'
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+
   pull_request:
     branches:
       - $default-branch 
@@ -18,6 +20,9 @@ on:
 permissions:
   contents: read
   security-events: write
+
+env:
+  DOCKER_REPO_NAME: time_web_app
 
 jobs:
   lint:
@@ -105,3 +110,25 @@ jobs:
           # Optional category for the results
           # Used to differentiate multiple results for one commit
           category: snyk-python-analysis
+  
+  docker-publish:
+
+    needs: [test, lint]
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    
+    steps:
+      # We extract only version numbers from tag
+      # refs/tag/v1.2.3 -> 1.2.3
+      # The pattern should be correct since we've already filtered tag
+      # with 'on' trigger
+      - name: Prepare tag number
+        run: echo ::set-output name=VERSION::${GITHUB_REF#*/*/v}
+        id: version-extractor
+      - uses: ./.github/workflows/docker-release.yml
+        secrets: inherit
+        with:
+          image_tag: ${{ steps.version-extractor.outputs.VERSION }}
+          docker_repo_name: ${{ env.DOCKER_REPO_NAME }}
+          project_folder: app_python
+          publish: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags') }}

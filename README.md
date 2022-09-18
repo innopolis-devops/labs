@@ -1,4 +1,5 @@
 # Current Moscow Time application
+![CI workflow](https://github.com/AlexDest-Dev/devops/actions/workflows/python.yaml/badge.svg?style=for-the-badge)
 
 ## Table of content
 - [Description](#description)

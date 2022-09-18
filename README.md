@@ -68,6 +68,17 @@ Refresh your browser page to update time
 
 To run tests, run ``pytest`` command
 
+## CI
+
+I use Github Actions to automate following processes:
+
+- Dependencies resolving
+- Linting
+- Running tests
+- Updating docker public image
+
+I am using cache to speed up pipeline. To login into Docker, I use github secrets storage.
+
 ## Contact
 
 ---------------

@@ -1,6 +1,6 @@
 from datetime import datetime
+from .controllers.time_controller import moscow_time
 import pytz
-from controllers.time_controller import moscow_time
 
 
 def test_dateformat():

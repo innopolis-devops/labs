@@ -36,12 +36,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Install stable toolchain
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        components: rustfmt, clippy
-        override: true
+    - run: rustup toolchain install stable --profile minimal
     # It's better configured for rust thus not default
     - uses: Swatinem/rust-cache@v1
       with:
@@ -52,9 +47,11 @@ jobs:
       run: cargo check --target-dir ../target
     - name: Run tests
       run: cargo test --verbose --target-dir ../target
+    - run: rustup component add clippy
     - name: Run clippy check
       run: cargo clippy --all-features --target-dir ../target -- -D warnings
       
+    - uses: snyk/actions/setup@master
     - name: Snyk monitor
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

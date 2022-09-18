@@ -12,3 +12,8 @@ What about cons of Flask, it is microframework, so it do not have a lot of tools
 
 ## Flake8
 I use flake8, because it is fast to install and use. Just one command to show all style errors.
+
+## Unit tests
+1. Add unit test that get from web application time, and check it with datetime library that it is same as moscow time.
+2. Not used to many tests in one module
+3. Test does not take too much time to execute

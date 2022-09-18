@@ -2,6 +2,12 @@ CODE := server
 
 run := python -m poetry run
 
+# Tests
+
+.PHONY: test
+test:
+	$(run) pytest ./
+
 # Linters
 
 .PHONY: isort

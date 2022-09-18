@@ -22,9 +22,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: |
-            --file=./app_python/pyproject.toml
-            --package-manager=poetry
+          args: --file="./app_python/pyproject.toml" --package-manager="poetry"
 
   build:
     runs-on: ubuntu-latest

@@ -1,4 +1,4 @@
-name: Python release
+name: Rust release
 
 # Trigger on any tag that is a semver version
 on:
@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 env:
-  DOCKER_REPO_NAME: time_web_app
+  DOCKER_REPO_NAME: time_rust_web_app
 
 jobs:
   docker-publish:

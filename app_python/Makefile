@@ -6,7 +6,7 @@ run := python -m poetry run
 
 .PHONY: test
 test:
-	$(run) pytest ./
+	PYTHONPATH=./ $(run) pytest --cov --verbosity=2 --showlocals --strict
 
 # Linters
 

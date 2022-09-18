@@ -22,3 +22,4 @@ RUN python -m pip install --user --no-cache-dir poetry==1.2.0 && \
 # Copying the necessary project sources
 COPY Makefile .
 COPY /server server
+COPY /tests tests

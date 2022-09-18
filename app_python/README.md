@@ -1,3 +1,7 @@
+![Docker build](https://github.com/Khalil19-99/Devops-labs/actions/workflows/docker.yml/badge.svg)
+![Lints and unit tests](https://github.com/Khalil19-99/Devops-labs/actions/workflows/lint_and_test.yml/badge.svg)
+
+
 # App Title
 
 Flask Application to show time in Moscow
@@ -48,6 +52,13 @@ Then, run the tests using the entrypoint:
 ```
 python3 run_test.py
 ```
+
+## Workflows
+
+continuous integration (CI) workflow to build and test the Python project.
+It contains steps for Dependencies, Linter, Tests and Docker (Login, Build, Push)
+It runs if there is any push for any change in the folder app_python
+
 
 ## Author 
 This project is created by Mohammad Khalil 

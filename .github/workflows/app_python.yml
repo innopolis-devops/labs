@@ -40,7 +40,8 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: actions/cache@v2
+      - name: Cache dependencies
+        uses: actions/cache@v2
         with:
           path: ~/.cache/pypoetry
           key: ${{ hashFiles('${{ WORKDIR }}/poetry.lock') }}-${{ hashFiles('${{ WORKDIR }}/pyproject.toml') }}

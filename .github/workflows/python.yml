@@ -7,14 +7,13 @@ defaults:
     working-directory: ./app_python
 
 jobs:
-
   build:
 
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.8", "3.9", "3.10"]
-        
+
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
@@ -55,7 +54,7 @@ jobs:
           file: app_python/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/lab2_python_app:latest
-       - 
+      - 
         name: Snyk vulnerablities check
         uses: snyk/actions/python-${{ matrix.python-version }}@master
          

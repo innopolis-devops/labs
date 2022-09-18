@@ -22,7 +22,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --file=poetry.lock
+          args: --file=./app_python/poetry.lock
 
   build:
     runs-on: ubuntu-latest

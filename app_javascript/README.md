@@ -71,7 +71,7 @@ I've looked at multi-staging and believe it's unnecessary for a project this siz
 
 ## Testing
 
-### Unit tests for this application:
+### Unit tests
 
 I chose [Jest](https://jestjs.io) for testing as it's used by
 most of the companies for NodeJS like Facebook and Airbnb.

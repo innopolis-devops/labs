@@ -3,6 +3,7 @@
 [![Lint markdown files](https://github.com/bragov4ik/devops/actions/workflows/markdown-lint.yml/badge.svg)](https://github.com/bragov4ik/devops/actions/workflows/markdown-lint.yml) [![Python package](https://github.com/bragov4ik/devops/actions/workflows/python-package.yml/badge.svg)](https://github.com/bragov4ik/devops/actions/workflows/python-package.yml) [![Rust](https://github.com/bragov4ik/devops/actions/workflows/rust-package.yml/badge.svg)](https://github.com/bragov4ik/devops/actions/workflows/rust-package.yml) [![Rust audit](https://github.com/bragov4ik/devops/actions/workflows/rust-audit.yml/badge.svg)](https://github.com/bragov4ik/devops/actions/workflows/rust-audit.yml)
 
 This application launches a web server that runs on port 8000 and responds with current time in UTC/GMT +3 timezone.
+
 ## Python implementation
 
 You can find implementation written in Python language in folder `app_python`. Also there is `PYTHON.md` file in the directory that lists some best practices used in the project and reasoning behind framework choice.

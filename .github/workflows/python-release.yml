@@ -31,3 +31,4 @@ jobs:
         with:
           image_tag: ${{ steps.version-extractor.outputs.VERSION }}
           docker_repo_name: ${{ env.DOCKER_REPO_NAME }}
+          project_folder: app_rust

@@ -10,6 +10,13 @@ on:
       docker_repo_name:
         required: true
         type: string
+      project_folder:
+        required: true
+        type: string
+      publish:
+        required: true
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -34,9 +41,12 @@ jobs:
       # update latest version
       - name: Build and push
         uses: docker/build-push-action@v2
+        if: ${{ inputs.publish }}
         with:
           context: "{{defaultContext}}:app_python"
           push: true
           tags: |
             ${{ secrets.DOCKER_HUB_USERNAME }}/${{ inputs.docker_repo_name }}:latest,
             ${{ secrets.DOCKER_HUB_USERNAME }}/${{ inputs.docker_repo_name }}:${{ inputs.image_tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

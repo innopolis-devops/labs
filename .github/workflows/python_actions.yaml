@@ -1,5 +1,7 @@
 name: Run tests on push
 on:
+  changes:
+    - app_python/*
   push:
     tags:
       - '!refs/tags/*'

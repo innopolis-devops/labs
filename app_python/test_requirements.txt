@@ -1,2 +1,2 @@
-black
+black==22.1.0
 pytest==6.2.4

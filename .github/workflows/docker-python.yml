@@ -1,4 +1,4 @@
-name: Build and push to Docker
+name: Build and push Python app to Docker
 
 
 on:
@@ -6,12 +6,12 @@ on:
     branches:
       - master
     paths:
-      - 'app_*/*'
+      - 'app_python/*'
   # Allow to trigger the workflow manually
   workflow_dispatch:
 
 # Allow one concurrent build
-concurrency: build-for-docker
+concurrency: build-py-for-docker
 
 jobs:
   build:

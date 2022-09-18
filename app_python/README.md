@@ -35,6 +35,21 @@ There are 2 ways for running this application:
 
 To finish the server press `Ctrl + C` buttons
 
+## Unit testing
+In Docker container unit tests start automatically after the start of service
+
+To run tests manually, use `python test.py` inside `app_python` folder
+
+## GitHub Actions
+On every push or pull request to labs branches the CI workflow starts. 
+
+Workflow steps:
+1) Set up Python 3.9
+2) Install dependencies
+3) Linker for Python code
+4) Unit tests
+5) Login to Docker Hub & push new image (pay attention to set `DOCKER_HUB_USERNAME` and `DOCKER_HUB_ACCESS_TOKEN` secrets)
+
 ## Author
 Andrey Khoroshavin
 

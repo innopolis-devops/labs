@@ -36,6 +36,7 @@ then check the localhost in port:8000
 
 ## Docker
 
+
 - Dockerfile: dockerizing the app by building image contains the app and the requirments to run it.
 - The application is hosted on a WSGI server using Gunicorn
 - Our application is available through a Docker container at mkhalil99/py_app. To run the image execute

@@ -10,6 +10,7 @@
 - Test on as many platforms as possible.
 - Use an access key (stored in the repos secrets) instead of a password to access Docker.
 
+
 ## Jenkins
 
 - Store the Jenkinsfile in version control.

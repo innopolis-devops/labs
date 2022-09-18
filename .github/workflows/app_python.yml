@@ -39,13 +39,15 @@ jobs:
       - name: Checkout 
         uses: actions/checkout@v3
 
+        # Use tmpfs in order to build arm/v7 and linux/386 images
+        # https://github.com/JonasAlfredsson/docker-nginx-certbot/issues/109
+      - name: Run Docker on tmpfs
+        uses: JonasAlfredsson/docker-on-tmpfs@v1
+        with:
+          tmpfs_size: 12
+
       - name: Set up QEMU        
         uses: docker/setup-qemu-action@v1
-
-      - name: Setup build-essential
-        run: |
-          sudo apt-get -y update
-          sudo apt-get -y install build-essential gcc
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -63,6 +65,6 @@ jobs:
           file: ./app_python/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:latest
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64,linux/386,linux/arm64,linux/arm/v7
           cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:buildcache,mode=max

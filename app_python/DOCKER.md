@@ -20,15 +20,15 @@ In my container, all files owned by root (including executable files). The `pyth
 
 **2.1. Multistage builds**
 
-Python is an interpreted language, so all source files are required for the program to work correctly. Thus, there is no advantage of multistage builds.
+To ensure stability in docker builds on different architectures, I use a multi-stage build. In the first step I use a full `python:3.9` image. I create a virtual environment, install all needed dependencies (I build them using `gcc` if needed). On the second stage I copy all built dependencies into `python:3.9-slim` - python image with minimal tools (without `gcc`)
 
 **2.2. Distroless, from scratch**
 
-I use the minimal required base container - `python:3.8-slim` (not just `python:3.8`). The **-slim** image is a paired down version of the full image. This image has only the minimum packages to run python.
+I use the minimal required base container - `python:3.9-slim` (not just `python:3.9`). The **-slim** image is a paired down version of the full image. This image has only the minimum packages to run python.
 
 **2.3. Use trusted base images**
 
-I use the official image `python:3.8-slim`.
+I use the official image `python:3.9-slim`.
 
 **2.5. Exposed ports**
 

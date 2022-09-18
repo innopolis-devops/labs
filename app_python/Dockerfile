@@ -1,3 +1,24 @@
+FROM python:3.9 AS compile-image
+
+WORKDIR /opt/app
+
+# Install Rust to compile cryptography for ARMv7
+RUN set -ex \
+    && apt-get -qq update \
+    && apt-get -qq install cargo \
+    && rustc --version
+
+COPY . /opt/app/
+
+# Install package
+RUN set -ex \
+    && pip install --no-cache-dir poetry==1.2.0 \
+    && python -m venv .venv \
+    && poetry install --only main \
+    && poetry build \
+    && .venv/bin/pip install --no-deps dist/*.whl
+
+
 FROM python:3.9-slim
 
 LABEL \
@@ -24,21 +45,13 @@ STOPSIGNAL SIGINT
 
 WORKDIR /opt/app
 
-RUN set -ex \
-    # Install and configure poetry
-    && pip install --no-cache-dir poetry==1.2.0 \
-    && poetry config virtualenvs.create false \
-    # Create non-root user
-    && useradd -s /bin/bash python
+COPY --from=compile-image /opt/app/.venv /opt/app/.venv
 
-COPY pyproject.toml poetry.lock /opt/app/
-
-RUN poetry install --only main
+# Create non-root user
+RUN useradd -s /bin/bash python
 
 USER python
 
-COPY . /opt/app/
-
 EXPOSE 80
 
-ENTRYPOINT ["uvicorn", "--host", "0.0.0.0", "--port", "80", "superclock:app"]
+ENTRYPOINT [".venv/bin/uvicorn", "--host", "0.0.0.0", "--port", "80", "superclock:app"]

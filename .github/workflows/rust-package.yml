@@ -36,17 +36,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    # https://github.com/actions/cache/blob/main/examples.md#rust---cargo
-    - name: Cache dependencies & build artifacts
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.cargo/bin/
-          ~/.cargo/registry/index/
-          ~/.cargo/registry/cache/
-          ~/.cargo/git/db/
-          ./target/
-        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+    # It's better configured for rust thus not default
+    - name: Rust Cache
+      uses: Swatinem/rust-cache@v1
+        with:
+          cache-on-failure: true
     - name: Code style check
       run: cargo fmt --all --verbose --check
     - name: Build

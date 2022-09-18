@@ -1,5 +1,7 @@
 # GMT+3 time web appliction
 
+![Python workflow](https://github.com/tsaplyadmitriy/devopslabs/actions/workflows/python.yml/badge.svg)
+
 ## Overview
 
 ---------------

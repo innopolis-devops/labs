@@ -15,3 +15,4 @@
 * Complete quick checks first. If it fails, we won't need to run long and heavy ones unnecessary.
 * Use [rust-cache](https://github.com/marketplace/actions/rust-cache) action that's far easier to use with Rust effectively compared to default cache.
 * Reuseable workflows to avoid code duplication
+* Trigger on changes to appropriate files/folders

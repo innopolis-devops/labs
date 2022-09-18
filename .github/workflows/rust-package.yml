@@ -37,7 +37,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - run: rustup toolchain install stable --profile minimal
     - name: update cache on every commit
       uses: actions/cache@v3
       with:
@@ -73,42 +72,46 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - run: rustup toolchain install stable --profile minimal
-    # It's better configured for rust thus not default
-    - uses: Swatinem/rust-cache@v1
+    - name: update cache on every commit
+      uses: actions/cache@v3
       with:
-        cache-on-failure: true
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+        # We want to update the cache as we build
+        key: primes-${{ runner.os }}-${{ github.run_id }}
+        restore-keys: |
+          primes-${{ runner.os }}
     - name: Run tests
       run: cargo test --verbose --target-dir ../target
 
-  security:
+  # security:
 
-    # To avoid multiple runs on single commit
-    # It is still checked by push trigger, so no worries.
-    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
-    needs: [tests, lints]
-    timeout-minutes: 30
-    runs-on: ubuntu-latest
+  #   # To avoid multiple runs on single commit
+  #   # It is still checked by push trigger, so no worries.
+  #   if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
+  #   needs: [tests, lints]
+  #   timeout-minutes: 30
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v3
-    - run: rustup toolchain install stable --profile minimal
-    # It's better configured for rust thus not default
-    - uses: Swatinem/rust-cache@v1
-      with:
-        cache-on-failure: true
-
-    - uses: snyk/actions/setup@master
-    - name: Snyk monitor
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      continue-on-error: true # To make sure that SARIF upload gets called
-      run: snyk test --sarif-file-output=snyk.sarif
-    - name: Upload SARIF file
-      uses: github/codeql-action/upload-sarif@v2
-      with:
-        # Path to SARIF file relative to the root of the repository
-        sarif_file: ./app_rust/snyk.sarif
-        # Optional category for the results
-        # Used to differentiate multiple results for one commit
-        category: snyk-rust-analysis
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: update cache on every commit
+  #     uses: actions/cache@v3
+  #     with:
+  #       path: |
+  #         ~/.cargo/bin/
+  #         ~/.cargo/registry/index/
+  #         ~/.cargo/registry/cache/
+  #         ~/.cargo/git/db/
+  #         target/
+  #       # We want to update the cache as we build
+  #       key: primes-${{ runner.os }}-${{ github.run_id }}
+  #       restore-keys: |
+  #         primes-${{ runner.os }}
+  #   - run: cargo install cargo-audit
+  #   - 
+    

@@ -22,7 +22,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --file=pyproject.toml
+          args: --file=./app_python/pyproject.toml
 
   build:
     runs-on: ubuntu-latest

@@ -126,7 +126,7 @@ jobs:
         run: echo ::set-output name=VERSION::${GITHUB_REF#*/*/v}
         id: version-extractor
       - uses: ./.github/workflows/docker-release.yml
-        secrets: inherit
+        #secrets: inherit
         with:
           image_tag: ${{ steps.version-extractor.outputs.VERSION }}
           docker_repo_name: ${{ env.DOCKER_REPO_NAME }}

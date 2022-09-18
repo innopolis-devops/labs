@@ -16,7 +16,6 @@ on:
       publish:
         required: true
         type: boolean
-        default: false
 
 permissions:
   contents: read

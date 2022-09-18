@@ -7,13 +7,13 @@ on:
       - $default-branch
     paths:
       - 'app_rust/**'
-      - '.github/workflows/rust**'
+      - '.github/workflows/rust-package.yml'
   pull_request:
     branches:
       - $default-branch 
     paths:
       - 'app_rust/**'
-      - '.github/workflows/rust**'
+      - '.github/workflows/rust-package.yml'
 
 defaults:
   run:

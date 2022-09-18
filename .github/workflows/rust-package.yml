@@ -37,8 +37,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     # It's better configured for rust thus not default
-    - name: Rust Cache
-      uses: Swatinem/rust-cache@v1
+    - uses: Swatinem/rust-cache@v1
       with:
         cache-on-failure: true
     - name: Code style check

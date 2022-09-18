@@ -1,4 +1,4 @@
-## Overview
+## Overview ![App Python CI](https://github.com/AKurmazov/labs/actions/workflows/app_python.yml/badge.svg)
 A simple FastAPI/Uvicorn app that shows current time. Default timezone is *Europe/Moscow*
 
 ## Build

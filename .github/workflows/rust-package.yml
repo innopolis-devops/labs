@@ -49,15 +49,15 @@ jobs:
       run: cargo fmt --all --verbose --check
     - name: Build
       run: cargo check --target-dir ../target
-    # - name: Run tests
-    #   run: cargo test --verbose --target-dir ../target
-    # - name: Run clippy check
-    #   run: cargo clippy --all-features --target-dir ../target -- -D warnings
-    # - name: Snyk monitor
-    #   env:
-    #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-    #   continue-on-error: true # To make sure that SARIF upload gets called
-    #     run: snyk test --sarif-file-output=snyk.sarif
+    - name: Run tests
+      run: cargo test --verbose --target-dir ../target
+    - name: Run clippy check
+      run: cargo clippy --all-features --target-dir ../target -D warnings
+    - name: Snyk monitor
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      continue-on-error: true # To make sure that SARIF upload gets called
+        run: snyk test --sarif-file-output=snyk.sarif
     - name: Upload SARIF file
       uses: github/codeql-action/upload-sarif@v2
       with:

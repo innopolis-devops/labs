@@ -1,5 +1,7 @@
 # Moscow Time Monitor
 
+[![Python](https://github.com/igooor-bb/devops-labs/actions/workflows/python.yml/badge.svg)](https://github.com/igooor-bb/devops-labs/actions/workflows/python.yml)
+
 Moscow Time Monitor is a web application that allows you to see the actual Moscow time no matter where you are.
 
 ## Contents

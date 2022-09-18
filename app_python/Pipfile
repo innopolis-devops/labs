@@ -14,6 +14,8 @@ werkzeug = "==2.2.2"
 zipp = "==3.8.1"
 pylint = "*"
 pytz = "*"
+pytest = "*"
+flake8 = "*"
 
 [dev-packages]
 

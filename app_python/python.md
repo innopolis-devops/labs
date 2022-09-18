@@ -27,3 +27,11 @@ For this excercise, I've chosen Flask. My choice was motivated by both the volum
 ## Linter choice
 
 I have chosen Pylint because it is a well-developed linter with wide functionality which allows to detect and correct a lot of things in my code, which can be useful in case this project will scale up.
+
+# Testing 
+
+Since I have unit tests, I refactored the code a little and put the logic of getting Moscow time into `time_controller.py`. I will test the resulting function (`time_controller.get_moscow_time()`) in my unit tests. I will use the `pytest` library. 
+
+## Best practices I used
+
+For my unit test I did not have much opportunity to use a lot of practices, however I created a scalable directory structure for tests, with the division of test into units and unit-tests inside, however in the future I'll be able to create other tests, such as route or stress tests in the same `tests/` directory. Also, I followed the practice of testing a single thing in a test, so I created two tests: first checks that my date string is in ISO format, second checks that the date created is correct by comparing it against Moscow timezone date.

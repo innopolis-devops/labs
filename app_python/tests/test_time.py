@@ -17,4 +17,4 @@ async def test_time_offsets():
         delta = datetime.timedelta(seconds=offset)
         real_time = await service.get_real_time()
         system_time = datetime.datetime.now(timezone)
-        assert delta == system_time - real_time, "Time difference does not match"
+        assert -0.01 < (system_time - real_time - delta).seconds < 0.01, "Time difference does not match"

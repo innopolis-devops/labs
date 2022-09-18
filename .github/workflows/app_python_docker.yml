@@ -1,6 +1,11 @@
 name: app_python_docker
 
-on: [push]
+on: 
+  push:
+    paths:
+      - 'app_python/**'
+      - '.github/workflows/app_python.yml'
+      - '.github/workflows/app_python_docker.yml'
 
 jobs:
   build_docker_image:

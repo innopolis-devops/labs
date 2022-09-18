@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'app_*/*'
   # Allow to trigger the workflow manually
   workflow_dispatch:
 

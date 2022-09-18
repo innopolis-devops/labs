@@ -1,6 +1,9 @@
 name: Build and test
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'app_python/*'
 
 # Allow one concurrent build for each branch
 concurrency:

@@ -2,6 +2,8 @@
 
 A web app to get Moscow time
 
+![app_python](https://github.com/Anatolay/devops/actions/workflows/python.yml/badge.svg)
+
 ## Usage
 
 ### Run locally

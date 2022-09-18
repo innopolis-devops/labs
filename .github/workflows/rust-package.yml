@@ -15,9 +15,9 @@ on:
       - 'app_rust/**'
       - '.github/workflows/rust**'
 
-defaults:
-  run:
-    working-directory: ./app_rust
+# defaults:
+#   run:
+#     working-directory: ./app_rust
 
 env:
   CARGO_TERM_COLOR: always
@@ -47,8 +47,10 @@ jobs:
       run: cargo fmt --all --verbose --check
     - name: Build
       run: cargo check --target-dir ../target
+      working-directory: ./app_rust
     - name: Run clippy check
       run: cargo clippy --all-features --target-dir ../target -- -D warnings
+      working-directory: ./app_rust
 
   tests:
 

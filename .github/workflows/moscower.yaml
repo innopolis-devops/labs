@@ -59,12 +59,11 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r app_python/requirements.txt
+          python -m pip install -r requirements.txt
       - name: Snyk monitor
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TK }}
         continue-on-error: true
-        working-directory: ./app_python
         run: snyk test --sarif-file-output=snyk.sarif
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2

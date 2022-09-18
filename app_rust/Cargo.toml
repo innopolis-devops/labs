@@ -1,5 +1,5 @@
 [package]
-name = "Moscow time web application"
+name = "time-rust-web-app"
 version = "0.1.1"
 edition = "2021"
 

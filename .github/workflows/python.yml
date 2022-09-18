@@ -2,10 +2,6 @@ name: Deploy python app
 
 on: push
 
-defaults:
-  run:
-    working-directory: ./app_python
-
 jobs:
   build:
 

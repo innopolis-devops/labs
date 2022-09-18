@@ -7,7 +7,8 @@ defaults:
     working-directory: ./app_python
 
 jobs:
-  Run linter:
+  lint:
+    name: Run linter
     timeout-minutes: 20
     runs-on: ubuntu-latest
     steps:
@@ -31,7 +32,8 @@ jobs:
         run: pylint $(git ls-files '*.py')
         continue-on-error: true
 
-  Run tests:
+  test:
+    name: Run tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -54,7 +56,8 @@ jobs:
         run: |
           pytest test.py
 
-  Push to Docker Hub:
+  docker:
+    name: Push to Docker Hub
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

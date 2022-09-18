@@ -8,6 +8,7 @@ on:
     paths:
       - 'app_rust/**'
       - '.github/workflows/rust-package.yml'
+      - '.github/workflows/docker-release.yml'
     tags:
       - v[0-9]+.[0-9]+.[0-9]+
   pull_request:
@@ -16,6 +17,7 @@ on:
     paths:
       - 'app_rust/**'
       - '.github/workflows/rust-package.yml'
+      - '.github/workflows/docker-release.yml'
 
 defaults:
   run:

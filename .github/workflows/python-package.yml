@@ -5,9 +5,15 @@ on:
     branches:
       - 'lab*'
       - $default-branch
+    paths:
+      - 'app_python/**'
+      - '.github/**'
   pull_request:
     branches:
-      - $default-branch
+      - $default-branch 
+    paths:
+      - 'app_python/**'
+      - '.github/**'
 
 permissions:
   contents: read

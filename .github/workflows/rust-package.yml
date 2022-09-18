@@ -5,9 +5,15 @@ on:
     branches:
       - 'lab*'
       - $default-branch
+    paths:
+      - 'app_rust/**'
+      - '.github/**'
   pull_request:
     branches:
       - $default-branch 
+    paths:
+      - 'app_rust/**'
+      - '.github/**'
 
 env:
   CARGO_TERM_COLOR: always

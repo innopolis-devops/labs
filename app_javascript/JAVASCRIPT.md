@@ -14,12 +14,61 @@
 11. Dev mode (npm run dev) while developing. Dev mode in NodeJS is implemented using nodemon extension, for example.
     It watches and restarts server on file changes, also does not allow to restart server until you fix the issue.
 12. SOLID, DRY, KISS (ideally)
+13. Testing, TDD
 
 Fine project architecture I found on the internet:
 https://github.com/RaddyTheBrand/Node.js-News-Website/tree/master/public/css
 
 Otherwise, if I decide not to include something in this,
 it probably coincides with what I did for Flask or I just forgot to put it here :)
+
+## Testing
+
+### Unit tests for this application:
+
+I chose [Jest](https://jestjs.io) for testing as it's used by
+most of the companies for NodeJS like Facebook and Airbnb.
+
+Run `npm test` to start the tests
+
+- gets current time for Moscow timezone, en-US locale
+
+This test checks that if someone changes the algorithm of obtaining the current time,
+the implementation will give the same result as the implementation we have in the first iteration
+(e.g. the correct result). It is checking that we obtain the current time for Moscow timezone with en-US with
+the locale parameter set to en-US.
+
+- gets current time for Moscow timezone, ru-RU locale
+
+We need this test because in the business requirements it's stated that we will have to add Russian localization
+for our application so we also have to always check (with a test) that we're getting correct results with
+the locale set to ru-RU. So I added this test in advance.
+
+- gets current time for Chicago timezone
+
+We need this test because in the business requirements it's stated that our incredibly popular app will 
+extend outside the Russian market into the US market, so we need to be ready to have support for the US time,
+specifically, Chicago timezone. So we have to always check (with a test) that 
+we're getting correct results for Chicago timezone as well.
+
+- gets correct home route
+
+As we currently have only one route (home, '/'), we have only one test for one endpoint.
+This test checks if we successfully retrieved the home page. 
+
+### Best practices applied:
+
+1. Test-driven development (test for Chicago timezone, ru-RU locale)
+2. Write Readable, Simple Tests.
+3. Write Deterministic Tests.
+4. Test One Scenario Per Test.
+5. Unit Tests Should Be Automated.
+6. Write Isolated Tests.
+7. Avoid Test Interdependence.
+8. Avoid Active API Calls.
+9. Combine Unit and Integration Testing.
+
+sources: https://brightsec.com/blog/unit-testing-best-practices/
 
 ## Why Express?
 
@@ -48,11 +97,11 @@ it probably coincides with what I did for Flask or I just forgot to put it here 
    additional non-transferable knowledge (when you change jobs for example it may not be applicable at the new job)
 2. Not security oriented: Again, responsibility for security is up to the programmer to implement and care for.
 3. Not the greatest error messages: From one of the Express programmers:
-`I've run into situations before where debugging has meant that
-I've needed to place console logs at various different levels
-of my routing hierarchy to find the source of bugs. This ties
-in somewhat to Express being unopinionated. If you're experiencing
-hard to debug issues, well that's not the concern of Express..`
+   `I've run into situations before where debugging has meant that
+   I've needed to place console logs at various different levels
+   of my routing hierarchy to find the source of bugs. This ties
+   in somewhat to Express being unopinionated. If you're experiencing
+   hard to debug issues, well that's not the concern of Express..`
 
 ## Sources:
 

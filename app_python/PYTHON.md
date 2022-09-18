@@ -18,6 +18,7 @@
 12. Debug mode while developing. Debug mode in Flask watches and restarts server on file changes
     automatically which increases productivity
 13. SOLID, DRY, KISS (ideally)
+14. Tests
 
 Also, I found
 [this](https://auth0.com/blog/best-practices-for-flask-api-development/)
@@ -33,7 +34,28 @@ building and shipping production-grade APIs with Python:
 - Folder structure (I do not fully agree on this with the author, so I used some design from there and came up with
   the optimal architecture so that the project could scale up and not be too complex)
 - Build your documentation from the code
-- Testing (we will do it later in the course but i added a folder in advance : `test`)
+- Testing
+
+## Testing
+
+### Unit tests for this application:
+
+I chose Pytest for testing as it's more popular and easier to use than unittest.
+
+- 
+
+### Best practices applied:
+
+1. Write Readable, Simple Tests.
+2. Write Deterministic Tests.
+3. Test One Scenario Per Test.
+4. Unit Tests Should Be Automated.
+5. Write Isolated Tests.
+6. Avoid Test Interdependence.
+7. Avoid Active API Calls.
+8. Combine Unit and Integration Testing.
+
+sources: https://brightsec.com/blog/unit-testing-best-practices/
 
 ## Why Flask?
 
@@ -127,3 +149,4 @@ researching this topic:
 Even though, FastAPI is probably faster and uses cutting-edge technology,
 it is still not as established as Flask
 and has less community support, so I'll go with Flask for this project.
+

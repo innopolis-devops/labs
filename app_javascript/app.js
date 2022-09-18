@@ -6,6 +6,9 @@ const path = require("path")
 const app = express()
 const port = 8082
 
+// Testing
+module.exports = {app}
+
 // Paths
 const dirname = path.resolve() // because __dirname may or may not be declared
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1663519065721" clover="3.2.0">
+  <project timestamp="1663519065721" name="All files">
+    <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0" elements="5" coveredelements="1" complexity="0" loc="3" ncloc="3" packages="1" files="1" classes="1"/>
+    <file name="time.js" path="/Users/tanugayev/WebstormProjects/devops-fork/app_javascript/src/features/time.js">
+      <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <line num="8" count="0" type="stmt"/>
+      <line num="15" count="1" type="stmt"/>
+      <line num="23" count="0" type="stmt"/>
+    </file>
+  </project>
+</coverage>

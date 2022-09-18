@@ -13,6 +13,8 @@ function getCurrentTime(locales, options) {
  * @type {{getMskTime(): string}}
  */
 module.exports = {
+    getCurrentTime, // added to exports for testing framework
+
     /**
      * use-case: current time specifically in moscow getting function
      * @returns {string}

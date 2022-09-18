@@ -7,13 +7,13 @@ on:
       - $default-branch
     paths:
       - 'app_python/**'
-      - '.github/**'
+      - '.github/workflows/python**'
   pull_request:
     branches:
       - $default-branch 
     paths:
       - 'app_python/**'
-      - '.github/**'
+      - '.github/workflows/python**'
 
 permissions:
   contents: read

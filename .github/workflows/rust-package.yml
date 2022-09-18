@@ -7,13 +7,13 @@ on:
       - $default-branch
     paths:
       - 'app_rust/**'
-      - '.github/rust**'
+      - '.github/workflows/rust**'
   pull_request:
     branches:
       - $default-branch 
     paths:
       - 'app_rust/**'
-      - '.github/rust**'
+      - '.github/workflows/rust**'
 
 env:
   CARGO_TERM_COLOR: always

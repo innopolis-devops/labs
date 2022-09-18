@@ -16,6 +16,14 @@ After that, just run `flask run` and you good to go.
 
 To get time in Moscow timezone, just send GET request to `http://localhost:5000/time/moscow`
 
+## Usage (Docker)
+
+If you want to run this app in Docker container, just use this:
+
+```
+docker run -p 5000:5000 zyymee/moscow-time-web-app:0.0.4
+```
+
 ## Contact
 
 If you have any questions or ideas on how to improve this application, feel free to write me on here.

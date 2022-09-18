@@ -39,5 +39,11 @@ Build from docker hub image
  1) Run command `docker run -p 5000:5000 -d mikhailmarch/time_application`
  2) Navigate to the following [link](127.0.0.1:5000) to check
 
+## Unit tests
+
+To test the application first run `pip install -r requirements.txt`
+
+Then execute `pytest` inside the app_python folder and see the results
+
 ## Contacts
 Any question? telegram me @mikhailh

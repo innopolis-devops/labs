@@ -44,6 +44,16 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
+## Docker
+
+---------------
+
+You also can run GMT+3 application using this [Docker image](https://hub.docker.com/repository/docker/tsaplyadmitriy/lab2_python_app)
+
+```bash
+docker run -d -p 80:80 tsaplyadmitriy/lab2_python_app:latest
+```
+
 ## Usage
 
 ---------------

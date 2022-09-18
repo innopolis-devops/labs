@@ -1,4 +1,4 @@
-ame: Lint and test on push
+name: Lint and test on push
 
 on:
   push:

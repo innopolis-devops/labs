@@ -1,5 +1,7 @@
 # What Time Is It In Moscow? (WTIIIM?)
 
+![ci badge](https://github.com/al1ych/devops-fork/actions/workflows/python_workflow.yml/badge.svg)
+
 ## Overview
 
     Have you ever thought to yourself: "Man, only if I knew what time it is right now"?

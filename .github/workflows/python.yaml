@@ -18,7 +18,7 @@ jobs:
 
       - uses: actions/cache@v2
         with:
-          path: !/.cache/pip
+          path: ~/.cache/pip
           key: ${{ hashFiles('app_python/requirements.txt') }}
 
       - name: Install dependencies

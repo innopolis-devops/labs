@@ -43,9 +43,9 @@ jobs:
     - name: Code style check
       run: cargo fmt --all --verbose --check
     - name: Build
-      run: cargo check
+      run: cargo check --target-dir ../target
     - name: Run tests
-      run: cargo test --verbose
+      run: cargo test --verbose --target-dir ../target
     - run: rustup component add clippy
     - name: Run clippy check
-      run: cargo clippy --all-features -- -D warnings
+      run: cargo clippy --all-features --target-dir ../target -- -D warnings

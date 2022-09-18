@@ -8,6 +8,21 @@ env:
   TIMEZONE: 'Europe/Moscow'
 
 jobs:
+  snyk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check vulnerabilities
+        uses: snyk/actions/python@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: severity-threshold=high
+
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 10

@@ -4,10 +4,10 @@ on:
   push:
     branches:
       - 'lab*'
-      - master
+      - $default-branch
   pull_request:
     branches:
-      - master
+      - $default-branch
 
 permissions:
   contents: read

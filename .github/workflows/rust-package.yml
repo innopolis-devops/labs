@@ -1,0 +1,34 @@
+name: Rust
+
+on:
+  push:
+    branches:
+      - 'lab*'
+      - $default-branch
+  pull_request:
+    branches:
+      - $default-branch 
+
+env:
+  CARGO_TERM_COLOR: always
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  checks:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Code style check
+      run: cargo fmt --all --verbose --check
+    - name: Build
+      run: cargo check --verbose
+    - name: Run tests
+      run: cargo test --verbose
+    - run: rustup component add clippy
+    - name: Run clippy check
+      run: cargo clippy --all-features -- -D warnings

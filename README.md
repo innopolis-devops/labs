@@ -133,6 +133,20 @@ The application written using two different technologies:
 
 5. The application will run on <http://127.0.0.1:8080>
 
+### [GO] - Unit Tests
+
+1. Enter application directory
+
+    ``$ cd app_go``
+
+2. Setup all requirements
+
+    ``$ go mod download``
+
+3. Run tests
+
+    `` $ go test . ``
+
 ## Authors and contacts
 
 Danila Moriakov(d.moriakov@innopolis.university)

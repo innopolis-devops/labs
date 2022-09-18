@@ -53,13 +53,10 @@ jobs:
 
     - name: Code style check
       run: cargo fmt --all --verbose --check
-      working-directory: ./app_rust
     - name: Build
       run: cargo check --target-dir ../target
-      working-directory: ./app_rust
     - name: Run clippy check
       run: cargo clippy --all-features --target-dir ../target -- -D warnings
-      working-directory: ./app_rust
 
   tests:
 
@@ -87,31 +84,3 @@ jobs:
           primes-${{ runner.os }}
     - name: Run tests
       run: cargo test --verbose --target-dir ../target
-
-  security:
-
-    # To avoid multiple runs on single commit
-    # It is still checked by push trigger, so no worries.
-    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
-    needs: [tests, lints]
-    timeout-minutes: 30
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: update cache on every commit
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.cargo/bin/
-          ~/.cargo/registry/index/
-          ~/.cargo/registry/cache/
-          ~/.cargo/git/db/
-          target/
-        # We want to update the cache as we build
-        key: primes-${{ runner.os }}-${{ github.run_id }}
-        restore-keys: |
-          primes-${{ runner.os }}
-    - run: cargo install cargo-audit
-    - 
-    

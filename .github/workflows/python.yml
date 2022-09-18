@@ -56,6 +56,6 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/lab2_python_app:latest
       - 
         name: Snyk vulnerablities check
-        uses: snyk/actions/python-${{ matrix.python-version }}@master
+        uses: snyk/actions/python-3.8@master
          
         

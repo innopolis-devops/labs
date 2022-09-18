@@ -2,6 +2,8 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
+![python_app](https://github.com/boggda/inno_devops/actions/workflows/python_ci.yaml/badge.svg)
+
 This is a simple web application that shows the current time in Moscow.
 
 ## Usage

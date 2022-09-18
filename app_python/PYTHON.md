@@ -31,3 +31,21 @@ To avoid wasting a lot of time formatting code manually, we use 3 auto-formatter
 * **isort** - sort imports alphabetically, and automatically separated into sections and by type
 * **Black** - fix most of the errors related to whitespace and line breaks
 * **Autoflake** - remove unused imports
+
+## Unit tests
+
+In order to test, I needed to do some refactoring: I needed to separate the logic from the presentation, and to divide the program into small modules that could be tested individually.
+For testing I used the [pytest](https://pytest.org/) module, which is actively being developed and allows easy and simple testing of python applications. Since the application is very simple, to test the whole application well I needed to write 3 unit tests to test all the modules individually and 1 integrated test to test the whole program as a whole.
+
+Best practices (from [brightsec.com](https://brightsec.com/blog/unit-testing-best-practices/)):
+
+* Write Readable, Simple Tests - My tests are very simple and readable (due to the use of parametrization)
+* Write Deterministic Tests - All my tests are deterministic and predictable. When testing time, I have taken into account that time zones in countries can change
+* Test One Scenario Per Test - Each of my tests only tests one scenario per test. I use parametrization to test multiple scenarios.
+* Unit Tests Should Be Automated - All tests are run with a single command. In addition, I plan to set up a CI
+* Write Isolated Tests - Each unit test only tests one specific function/module
+* Avoid Test Interdependence - All my tests are independent of each other. For this, I use the [pytest-mock](https://pypi.org/project/pytest-mock/) library, which allows you to mock functionality that should not be tested in a given test
+* Avoid Active API Calls - To avoid using the API, I use the [starlette](https://www.starlette.io/), which allows you to test the API without having to call it
+* Combine Unit and Integration Testing - That's exactly what I'm doing. I use 3 unit tests to test individual modules, then use one test to test the whole functionality
+* Ensure Unit Tests are Repeatable and Scalable - All my tests are readable and scalable. All thanks to pytest's use of parametrization, which allows you to reuse one simple test to test different scenarios
+* Test for Security Issues as Part of Your Unit Tests - Added to CI

@@ -69,11 +69,12 @@ Run the project in developing mode (with auto reloading):
 make up_dev
 ```
 
-Run linters and formaters:
+Run linters, formaters and tests:
 
 ```bash
 make lint  # check code quality
 make format  # beautify code
+make test  # run unit and integrated tests
 ```
 
 Build docker image:

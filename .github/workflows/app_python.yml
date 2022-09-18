@@ -1,5 +1,4 @@
 name: app_python
-author: Markovvn1
 
 on: [push]
 
@@ -28,24 +27,21 @@ jobs:
           poetry install
 
       - name: Run linters
-        run: |
-          make lint
+        run: make lint
 
       - name: Run tests
-        run: |
-          make test
+        run: make test
 
   snyk:
     runs-on: ubuntu-latest
+    container: snyk/snyk:python-3.9
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v3
 
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python-3.9@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --sarif-file-output=snyk.sarif
+        run: snyk test --sarif-file-output=../snyk.sarif
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2

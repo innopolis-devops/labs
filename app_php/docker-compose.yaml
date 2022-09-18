@@ -2,7 +2,7 @@ version: '3.1'
 services:
   website:
     build: .
-    container_name: "lab2_php"
+    container_name: "lab3_php"
     restart: always
     ports:
       - 8080:80

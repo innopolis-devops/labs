@@ -26,10 +26,10 @@ Before proceeding, make sure you have installed [Docker](https://docs.docker.com
    git clone https://github.com/Markovvn1/devops-labs.git && cd devops-labs
    ```
 
-2. Switch to lab2 branch and open project's directory:
+2. Switch to lab3 branch and open project's directory:
 
    ```bash
-   git checkout lab2 && cd app_php
+   git checkout lab3 && cd app_php
    ```
 
 3. Run the project using Docker:
@@ -50,10 +50,10 @@ Before proceeding, make sure you have installed [Docker](https://docs.docker.com
 
 Before proceeding, make sure you have installed [Docker](https://docs.docker.com/engine/install/).
 
-1. Run docker container:
+1. Run docker container (support linux/amd64, linux/arm64, linux/arm/v7, linux/arm/v6):
 
    ```bash
-   docker run -it --rm -p 8080:80 markovvn1/iu-devops:lab2-php
+   docker run -it --rm -p 8080:80 markovvn1/iu-devops:lab3-php
    ```
 
 2. Open the website `http://localhost:8080/` to view the server time in Moscow.

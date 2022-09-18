@@ -1,6 +1,11 @@
 name: app_python
 
-on: [push]
+on: 
+  push:
+    paths:
+      - 'app_python/**'
+      - '.github/workflows/app_python'
+      - '.github/workflows/app_python_docker'
 
 defaults:
   run:

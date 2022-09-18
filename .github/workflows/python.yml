@@ -1,16 +1,6 @@
-name: app_python
+name: Deploy python app
 
-
-
-
-on:   
-  pull_request:
-    paths:
-      - app_python/**
-      - .github/workflows/python.yml
-  push:
-    branches:
-      - master
+on: push
 
 defaults:
   run:

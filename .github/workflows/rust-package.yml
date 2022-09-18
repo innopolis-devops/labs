@@ -19,7 +19,14 @@ permissions:
 jobs:
   checks:
 
+    # To avoid multiple runs on single commit
+    # It is still checked by push trigger, so no worries.
+    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
+    timeout-minutes: 30
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./app_rust
 
     steps:
     - uses: actions/checkout@v3

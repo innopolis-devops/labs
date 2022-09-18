@@ -16,7 +16,7 @@ In this lab you need to get familiar with a CD tool - Ansible. Then use it to de
    |   |   `-- default_aws_ec2.yml
    |   |-- playbooks
    |   |   `-- dev
-   |   |       `-- main.yaml
+   |   |       `-- mail.yaml
    |   |-- roles
    |   |   |-- docker
    |   |   |   |-- defaults

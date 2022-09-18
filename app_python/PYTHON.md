@@ -23,7 +23,7 @@ I chose Flask framework with Gunicorn HTTP server because consensus of all devel
 
 * None for this purpose (and compared to other frameworks)
 
-## (✨New✨) Unit tests
+## Unit tests
 
 ### Description
 

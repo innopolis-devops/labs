@@ -22,3 +22,17 @@ I chose Rocket Rust framework because Rust is very suitable option for network a
 ### Cons
 
 * Version used is a "Release candidate", which is not the best option for production server. However, we are not expected to maintain the server (it's basically hello world), so it should work for us.
+
+## Unit test best practices
+
+* Repeatable tests
+* Functions that are tested do one small thing (kind of like Unix's "do one thing well" :P)
+* Test one function at a time
+* Test with various inputs (including edge cases)
+* Testing data initialized in separate function
+* Avoid global variables
+* Use mock implementations where applicabe (not in our case)
+* Descriptive names of test functions
+* Automated tests
+* Test cases are easily extendable
+* Concise tests: test cases parsing and other technical stuff is moved to other functions so that reading the test does not distract from the cases, functionality tested, and validation logic.

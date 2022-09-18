@@ -10,3 +10,4 @@
 * Use official/trusted actions
 * Restrict workflows with permissions (least privelege)
 * Disabled "Allow edits and access to secrets by maintainers" in third-party repo's PR in order to avoid revealing my docker hub token to the maintainers :)
+* Automatically upload security reports to GitHub

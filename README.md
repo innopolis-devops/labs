@@ -1,6 +1,7 @@
 # Kremlin chimes
 
 ![app_python](https://github.com/danmory/devops_labs/actions/workflows/app_python.yaml/badge.svg)
+![app_go](https://github.com/danmory/devops_labs/actions/workflows/app_go.yaml/badge.svg)
 
 ## Description
 

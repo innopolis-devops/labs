@@ -27,7 +27,7 @@
 ### To run the server:
 
 - `pip install -r requirements.txt`
-- `python app.py`
+- `flask run --port=8081`
 
 ## Usage
 

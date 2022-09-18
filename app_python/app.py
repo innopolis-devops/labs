@@ -1,3 +1,4 @@
+
 """
 Author: Timur Nugaev, BS19-SD01
 This module is the main module of the server
@@ -10,29 +11,22 @@ import yaml
 
 from business_logic.time_logic import get_time
 
+app = Flask(__name__, static_folder='static')
+app.config["JSON_AS_ASCII"] = False
 
-def create_app():
-    app = Flask(__name__, static_folder='static')
-    app.config["JSON_AS_ASCII"] = False
 
-    @app.route('/')
-    def get_home_page():
-        """
-        endpoint that returns a rendered html template with
-        dynamic data (time) in the timezone of Moscow.
+@app.route('/')
+def get_home_page():
+    """
+    endpoint that returns a rendered html template with
+    dynamic data (time) in the timezone of Moscow.
+    :return: rendered template for home page
+    """
+    return render_template('index.html', time_msk=get_time("Europe/Moscow"))
 
-        :return: rendered template for home page
-        """
-        return render_template('index.html', time_msk=get_time("Europe/Moscow"))
 
+if __name__ == '__main__':
     with open("config.yml", "r", encoding="utf-8") as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
     HOST = config["flask"]["host"]
     PORT = config["flask"]["port"]  # pylint: disable=invalid-name
-
-    return app, HOST, PORT
-
-
-if __name__ == '__main__':
-    app, host, port = create_app()
-    app.run(host=host, port=port, debug=False)

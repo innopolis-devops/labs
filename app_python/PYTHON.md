@@ -42,18 +42,32 @@ building and shipping production-grade APIs with Python:
 
 I chose Pytest for testing as it's more popular and easier to use than unittest.
 
-- 
+Run 'python3 -m pytest tests/' to start the tests.
+
+- gets current time for Moscow timezone
+
+This test checks that if someone changes the algorithm of obtaining the current time,
+the implementation will give the same result as the implementation we have in the first iteration
+(e.g. the correct result). It is checking that we obtain the current time for Moscow timezone with en-US with
+the locale parameter set to en-US.
+
+- gets correct home route
+
+As we currently have only one route (home, '/'), we have only one test for one endpoint.
+This test checks if we successfully retrieved the home page. 
+
 
 ### Best practices applied:
 
-1. Write Readable, Simple Tests.
-2. Write Deterministic Tests.
-3. Test One Scenario Per Test.
-4. Unit Tests Should Be Automated.
-5. Write Isolated Tests.
-6. Avoid Test Interdependence.
-7. Avoid Active API Calls.
-8. Combine Unit and Integration Testing.
+1. Test-driven development (test for Chicago timezone, ru-RU locale)
+2. Write Readable, Simple Tests.
+3. Write Deterministic Tests.
+4. Test One Scenario Per Test.
+5. Unit Tests Should Be Automated.
+6. Write Isolated Tests.
+7. Avoid Test Interdependence.
+8. Avoid Active API Calls.
+9. Combine Unit and Integration Testing.
 
 sources: https://brightsec.com/blog/unit-testing-best-practices/
 

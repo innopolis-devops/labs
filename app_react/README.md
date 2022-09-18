@@ -1,3 +1,6 @@
+
+![React build](https://github.com/Khalil19-99/Devops-labs/actions/workflows/react_app.yml/badge.svg)
+
 # Overview
 
 This project is a simple react js web application to show the current date and time, the data can be updated by refreshing the page

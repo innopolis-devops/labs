@@ -1,0 +1,46 @@
+name: Publish React app
+
+on:
+  push:
+    branches: [lab3]
+    paths:
+      - "app_react/**"
+
+jobs:
+  build-and-publish:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app_react
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Set up Node 14 📦
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies 🧰
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Build 🔧
+        run: npm run build
+
+      - name: Publish 🚀
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: app_react/dist

@@ -4,7 +4,7 @@ on: push
 
 defaults:
   run:
-    working-directory: ./app_python/app
+    working-directory: ./app_python
 
 jobs:
   build:

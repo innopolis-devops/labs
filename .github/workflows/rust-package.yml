@@ -45,6 +45,7 @@ jobs:
 
     - name: Code style check
       run: cargo fmt --all --verbose --check
+      working-directory: ./app_rust
     - name: Build
       run: cargo check --target-dir ../target
       working-directory: ./app_rust

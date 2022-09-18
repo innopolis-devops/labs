@@ -36,12 +36,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-      with:
-        override: true
-        toolchain: stable
-        components: rustfmt, clippy
     - name: Install stable toolchain
       uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        components: rustfmt, clippy
+        override: true
     # It's better configured for rust thus not default
     - uses: Swatinem/rust-cache@v1
       with:

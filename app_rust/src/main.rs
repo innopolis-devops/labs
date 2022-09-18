@@ -20,29 +20,31 @@ fn rocket() -> _ {
     rocket::build().mount("/", routes![index])
 }
 
-
 #[cfg(test)]
 mod tests {
-    use rocket::{local::blocking::Client, http::Status};
     use super::*;
+    use rocket::{http::Status, local::blocking::Client};
 
     #[test]
     fn it_responds() {
         // Setting up
         let rocket = rocket::build().mount("/", routes![index]);
         let client = Client::tracked(rocket).unwrap();
-        let req = client.get("/");    
+        let req = client.get("/");
 
         let response = req.dispatch();
         assert_eq!(response.status(), Status::Ok);
     }
-    
+
     fn prepare_test_cases<'a, 'b, I>(inputs: I) -> Vec<(DateTime<FixedOffset>, &'a str, String)>
     where
-        I: Iterator<Item = (&'b str, &'a str)> {
-        inputs.into_iter()
+        I: Iterator<Item = (&'b str, &'a str)>,
+    {
+        inputs
+            .into_iter()
             .map(|(time, tz_name)| {
-                let dt = DateTime::parse_from_str(time, "%Y %b %d %H:%M:%S%.3f %z").expect("Should parse");
+                let dt = DateTime::parse_from_str(time, "%Y %b %d %H:%M:%S%.3f %z")
+                    .expect("Should parse");
                 let time_only_string = dt.format("%H:%M:%S").to_string();
                 (dt, tz_name, time_only_string)
             })

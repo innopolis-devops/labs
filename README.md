@@ -76,3 +76,7 @@ To run use `cargo run`
 ## Usage
 
 When any of the servers is up and running, you can open [localhost:8000](localhost:8000) and you should see current Moscow time.
+
+### Unit tests
+
+To run tests write `cargo test` inside `app_rust` folder.

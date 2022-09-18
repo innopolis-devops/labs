@@ -1,6 +1,6 @@
 import pytest
 from flask import testing
-from app_python.moscow_time import main
+from moscow_time import main
 
 
 client = testing.FlaskClient(main.app)

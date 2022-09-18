@@ -36,6 +36,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        override: true
+        components: rustfmt, clippy
+    - name: Install stable toolchain
+      uses: actions-rs/toolchain@v1
     # It's better configured for rust thus not default
     - uses: Swatinem/rust-cache@v1
       with:
@@ -46,6 +51,56 @@ jobs:
       run: cargo check --target-dir ../target
     - name: Run tests
       run: cargo test --verbose --target-dir ../target
-    - run: rustup component add clippy
     - name: Run clippy check
       run: cargo clippy --all-features --target-dir ../target -- -D warnings
+    - name: Snyk monitor
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      continue-on-error: true # To make sure that SARIF upload gets called
+        run: snyk test --sarif-file-output=snyk.sarif
+    - name: Upload SARIF file
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        # Path to SARIF file relative to the root of the repository
+        sarif_file: ./snyk.sarif
+        # Optional category for the results
+        # Used to differentiate multiple results for one commit
+        category: snyk-rust-analysis
+  
+  security:
+    # To avoid multiple runs on single commit
+    # It is still checked by push trigger, so no worries.
+    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
+    needs: [checks]
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@master
+      - uses: snyk/actions/setup@master
+      - uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          # Not explicitly choosing requirements so that we won't break
+          # everything if we change/restructure them it later
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements/*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r app_python/requirements/prod.txt
+      - name: Snyk monitor
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        continue-on-error: true # To make sure that SARIF upload gets called
+        working-directory: ./app_python
+        run: snyk test --sarif-file-output=snyk.sarif
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: ./app_python/snyk.sarif
+          # Optional category for the results
+          # Used to differentiate multiple results for one commit
+          category: snyk-python-analysis

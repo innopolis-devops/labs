@@ -70,11 +70,11 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
           pip install -r requirements.txt
-          snyk test --sarif-file-output=snyk.sarif
+          snyk test --sarif-file-output=result.sarif
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: app_python/snyk.sarif
+          sarif_file: app_python/result.sarif
 
   snyk-docker:
     timeout-minutes: 30
@@ -84,17 +84,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       - name: Run Snyk to check Docker image for vulnerabilities
-        continue-on-error: true
         uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: mikhailmarch/time_application:latest
-          args: --file=app_python/Dockerfile --sarif-file-output=snyk.sarif
+          args: --file=Dockerfile --sarif-file-output=result.sarif
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: app_python/snyk.sarif
+          sarif_file: result.sarif
 
   container:
     timeout-minutes: 20

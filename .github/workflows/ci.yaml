@@ -42,7 +42,7 @@ jobs:
       name: Test with pytest
       run: |
         cd app_python
-        python -m pytest --vv
+        python -m pytest
 
     -
       name: Login to Docker Hub

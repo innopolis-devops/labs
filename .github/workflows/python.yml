@@ -27,6 +27,7 @@ jobs:
   lint-files:
     name: Lint files
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
       - name: Markdown
@@ -44,12 +45,19 @@ jobs:
   security:
     name: Snyk
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     defaults:
       run:
         working-directory: app_python/web
     steps:
       - uses: actions/checkout@v3
       - uses: snyk/actions/setup@master
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       - name: "Install dependencies"
         run: |
           python -m pip install --upgrade pip
@@ -62,6 +70,7 @@ jobs:
   test-python:
     needs: [changes, security]
     name: Run tests
+    timeout-minutes: 15
     if: ${{ needs.changes.outputs.python == 'true' }}
     runs-on: ubuntu-latest
     defaults:
@@ -73,6 +82,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.8"
+          cache: "pip"
       - name: "Install dependencies"
         run: |
           python -m pip install --upgrade pip
@@ -85,6 +95,7 @@ jobs:
   publish:
     needs: [lint-files, test-python]
     name: Publish image
+    timeout-minutes: 15
     if: ${{ needs.changes.outputs.python == 'true' }}
     runs-on: ubuntu-latest
     steps:

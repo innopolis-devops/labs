@@ -29,6 +29,7 @@ jobs:
           python -m pip install -r requirements.txt
       - name: Apply pylint
         run: pylint $(git ls-files '*.py')
+        continue-on-error: true
 
   test:
     timeout-minutes: 20

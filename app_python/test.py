@@ -24,7 +24,7 @@ def test1(web):
 
 
 def test2(web):
-    assert 'Current time is' in requests.get("http://127.0.0.1:80").text
+    assert 'Current time is' in requests.get("http://localhost/").text
 
 
 if __name__ == '__main__':

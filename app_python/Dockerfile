@@ -2,19 +2,24 @@ FROM python:3.9 AS compile-image
 
 WORKDIR /opt/app
 
-# Install Rust to compile cryptography for ARMv7
+# Install Rust to compile cryptography for ARMv7 and i386
 RUN set -ex \
     && apt-get -qq update \
     && apt-get -qq install cargo \
     && rustc --version
 
-COPY . /opt/app/
+COPY poetry.lock pyproject.toml /opt/app/
 
-# Install package
+# Install project dependencies
 RUN set -ex \
     && pip install --no-cache-dir poetry==1.2.0 \
     && python -m venv .venv \
-    && poetry install --only main \
+    && poetry install --only main
+
+COPY . /opt/app/
+
+# Install current project
+RUN set -ex \
     && poetry build \
     && .venv/bin/pip install --no-deps dist/*.whl
 

@@ -1,6 +1,11 @@
 name: app_python
+author: Markovvn1
 
 on: [push]
+
+defaults:
+  run:
+    working-directory: ./app_python
 
 jobs:
   lint_and_test:
@@ -14,7 +19,6 @@ jobs:
           python-version: "3.9"
 
       - name: Install dependencies
-        working-directory: ./app_python
         run: |
           python -V
           python -m venv .venv
@@ -24,11 +28,26 @@ jobs:
           poetry install
 
       - name: Run linters
-        working-directory: ./app_python
         run: |
           make lint
 
       - name: Run tests
-        working-directory: ./app_python
         run: |
           make test
+
+  snyk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python-3.9@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk.sarif
+
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif

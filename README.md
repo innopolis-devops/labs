@@ -2,7 +2,7 @@
 
 A web app to get Moscow time
 
-![app_python](https://github.com/Anatolay/devops/actions/workflows/python.yml/badge.svg)
+![app_python](https://github.com/Anatolay/devops/actions/workflows/moscower.yaml/badge.svg)
 
 ## Usage
 

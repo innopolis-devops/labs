@@ -62,6 +62,10 @@ Open  <http://127.0.0.1:8000> in your browser to see the current GMT+3 time.
 
 Refresh your browser page to update time
 
+## Unit tests
+
+To run tests, run ``pytest`` command
+
 ## Contact
 
 ---------------

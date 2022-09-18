@@ -18,6 +18,16 @@ I've  used requirements.txt file to manage all project dependencies
 
 I've used virtual environments (using venv) to make sure that all dependencies will work on any machine
 
+## Tests
+
+1. I used built-in TestClient for FastAPi
+2. I used fixtures from pytest
+3. Nothing specific is written for the tests
+
+I recieve response from server, assert that format is correct and then assert that difference between current local time and time returned by server is less than 10 seconds.
+
+To run tests, just run ``pytest`` command
+
 ## Linters
 
 I use **Flake8** linter because it is the most popular and used one.
@@ -28,4 +38,4 @@ I used this command to run the linter:
 flake8 main.py
 ```
 
-For Markdow I decided to use markdownlint as an extension in VSCode
+For Markdown I decided to use markdownlint as an extension in VSCode

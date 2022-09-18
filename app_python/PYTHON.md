@@ -51,6 +51,13 @@ the implementation will give the same result as the implementation we have in th
 (e.g. the correct result). It is checking that we obtain the current time for Moscow timezone with en-US with
 the locale parameter set to en-US.
 
+- gets current time for Chicago timezone
+
+We need this test because in the business requirements it's stated that our incredibly popular app will 
+extend outside the Russian market into the US market, so we need to be ready to have support for the US time,
+specifically, Chicago timezone. So we have to always check (with a test) that 
+we're getting correct results for Chicago timezone as well.
+
 - gets correct home route
 
 As we currently have only one route (home, '/'), we have only one test for one endpoint.

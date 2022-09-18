@@ -66,6 +66,33 @@ I've looked at multi-staging and believe it's unnecessary for a project this siz
 
 `docker run -p 8081:8081 -d aladdinych/devops_labs`
 
+## Testing
+
+### Unit tests
+
+I chose Pytest for testing as it's more popular and easier to use than unittest.
+
+Run 'python3 -m pytest tests/' to start the tests.
+
+- gets current time for Moscow timezone
+
+This test checks that if someone changes the algorithm of obtaining the current time,
+the implementation will give the same result as the implementation we have in the first iteration
+(e.g. the correct result). It is checking that we obtain the current time for Moscow timezone with en-US with
+the locale parameter set to en-US.
+
+- gets current time for Chicago timezone
+
+We need this test because in the business requirements it's stated that our incredibly popular app will
+extend outside the Russian market into the US market, so we need to be ready to have support for the US time,
+specifically, Chicago timezone. So we have to always check (with a test) that
+we're getting correct results for Chicago timezone as well.
+
+- gets correct home route
+
+As we currently have only one route (home, '/'), we have only one test for one endpoint.
+This test checks if we successfully retrieved the home page.
+
 ## Contact
 
 This application has been written and is being maintained by [@al1ych](https://github.com/al1ych)

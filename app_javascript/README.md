@@ -68,6 +68,41 @@ I've looked at multi-staging and believe it's unnecessary for a project this siz
 
 `docker run -p 8082:8082 -d aladdinych/devops_labs_js`
 
+
+## Testing
+
+### Unit tests for this application:
+
+I chose [Jest](https://jestjs.io) for testing as it's used by
+most of the companies for NodeJS like Facebook and Airbnb.
+
+Run `npm test` to start the tests
+
+- gets current time for Moscow timezone, en-US locale
+
+This test checks that if someone changes the algorithm of obtaining the current time,
+the implementation will give the same result as the implementation we have in the first iteration
+(e.g. the correct result). It is checking that we obtain the current time for Moscow timezone with en-US with
+the locale parameter set to en-US.
+
+- gets current time for Moscow timezone, ru-RU locale
+
+We need this test because in the business requirements it's stated that we will have to add Russian localization
+for our application so we also have to always check (with a test) that we're getting correct results with
+the locale set to ru-RU. So I added this test in advance.
+
+- gets current time for Chicago timezone
+
+We need this test because in the business requirements it's stated that our incredibly popular app will
+extend outside the Russian market into the US market, so we need to be ready to have support for the US time,
+specifically, Chicago timezone. So we have to always check (with a test) that
+we're getting correct results for Chicago timezone as well.
+
+- gets correct home route
+
+As we currently have only one route (home, '/'), we have only one test for one endpoint.
+This test checks if we successfully retrieved the home page.
+
 ## Contact
 
 This application has been written and is being maintained by [@al1ych](https://github.com/al1ych)

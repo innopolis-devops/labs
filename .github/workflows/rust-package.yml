@@ -59,7 +59,7 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       continue-on-error: true # To make sure that SARIF upload gets called
-        run: snyk test --sarif-file-output=snyk.sarif
+      run: snyk test --sarif-file-output=snyk.sarif
     - name: Upload SARIF file
       uses: github/codeql-action/upload-sarif@v2
       with:

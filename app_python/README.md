@@ -1,4 +1,5 @@
 # Time show web application
+![example workflow](https://github.com/Dablup/devops_labs/actions/workflows/python_app_workflow.yml/badge.svg)
 
 ## Overview
 The is simple application that shows current MSK time.
@@ -46,6 +47,14 @@ In my application for unit testing I used [pytest](https://docs.pytest.org/en/7.
 To run it you need:
 1) Install pytest using command `pip install -r requirements.txt`
 2) Run command `pytest test.py` inside `app_python` directory
+
+## GitHub Actions CI
+
+In this project I used Github Actions to run linter, tests and publish a docker image to docker hub. 
+Actions allow me to automate my build, test, and deployment pipeline.
+
+You can check settings of project's github actions inside directory `.github/workflows`
+
 ## Contacts 
 
 [Daniil Livitin](https://github.com/Dablup)

@@ -6,7 +6,7 @@ RUN adduser user
 
 COPY ./ ./
 
-RUN pip install -r requirements.txt && flake8 ./app
+RUN pip install -r requirements.txt && flake8 ./app && python -m pytest
 
 WORKDIR /app/app
 
@@ -14,4 +14,4 @@ RUN chown -R user /app
 
 USER user
 
-CMD [ "python", "main.py" ]
+CMD [ "python", "-m", "app" ]

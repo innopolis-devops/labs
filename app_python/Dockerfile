@@ -8,7 +8,7 @@ RUN pip3 install --no-cache-dir --upgrade -r /server/requirements.txt
 
 COPY ./app /server/app
 
-RUN adduser -D timeapp && chown -R timeapp /server
+RUN adduser --disabled-login timeapp && chown -R timeapp /server
 
 USER timeapp
 

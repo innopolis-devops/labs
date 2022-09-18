@@ -24,6 +24,10 @@ If you want to run this app in Docker container, just use this:
 docker run -p 5000:5000 zyymee/moscow-time-web-app:0.0.4
 ```
 
+## Unit tests
+
+To run unit tests just use `pytest` command.
+
 ## Contact
 
 If you have any questions or ideas on how to improve this application, feel free to write me on here.

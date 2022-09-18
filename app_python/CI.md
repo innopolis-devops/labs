@@ -6,4 +6,4 @@
 - Cache the dependencies and results of expensive operations.
 - Use a consistent version of the tools.
 - Test on as many platforms as possible.
-- Use an access key (stored in the repo secrets) instead of a password to access Docker.
+- Use an access key (stored in the repos secrets) instead of a password to access Docker.

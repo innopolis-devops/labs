@@ -6,7 +6,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-#get the time 
+# get the time
 def get_moscow_time():
     time_zone = pytz.timezone("Europe/Moscow")
     moscow_time = datetime.now(time_zone)

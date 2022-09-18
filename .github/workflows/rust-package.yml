@@ -15,6 +15,10 @@ on:
       - 'app_rust/**'
       - '.github/workflows/rust**'
 
+defaults:
+  run:
+    working-directory: ./app_rust
+
 env:
   CARGO_TERM_COLOR: always
 
@@ -23,16 +27,13 @@ permissions:
   security-events: write
 
 jobs:
-  checks:
+  lints:
 
     # To avoid multiple runs on single commit
     # It is still checked by push trigger, so no worries.
     if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./app_rust
 
     steps:
     - uses: actions/checkout@v3
@@ -41,16 +42,48 @@ jobs:
     - uses: Swatinem/rust-cache@v1
       with:
         cache-on-failure: true
+
     - name: Code style check
       run: cargo fmt --all --verbose --check
     - name: Build
       run: cargo check --target-dir ../target
-    - name: Run tests
-      run: cargo test --verbose --target-dir ../target
-    - run: rustup component add clippy
     - name: Run clippy check
       run: cargo clippy --all-features --target-dir ../target -- -D warnings
-      
+
+  tests:
+
+    # To avoid multiple runs on single commit
+    # It is still checked by push trigger, so no worries.
+    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - run: rustup toolchain install stable --profile minimal
+    # It's better configured for rust thus not default
+    - uses: Swatinem/rust-cache@v1
+      with:
+        cache-on-failure: true
+    - name: Run tests
+      run: cargo test --verbose --target-dir ../target
+
+  security:
+
+    # To avoid multiple runs on single commit
+    # It is still checked by push trigger, so no worries.
+    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - run: rustup toolchain install stable --profile minimal
+    # It's better configured for rust thus not default
+    - uses: Swatinem/rust-cache@v1
+      with:
+        cache-on-failure: true
+
     - uses: snyk/actions/setup@master
     - name: Snyk monitor
       env:
@@ -61,7 +94,7 @@ jobs:
       uses: github/codeql-action/upload-sarif@v2
       with:
         # Path to SARIF file relative to the root of the repository
-        sarif_file: ./snyk.sarif
+        sarif_file: ./app_rust/snyk.sarif
         # Optional category for the results
         # Used to differentiate multiple results for one commit
         category: snyk-rust-analysis

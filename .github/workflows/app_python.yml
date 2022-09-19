@@ -37,6 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: snyk/actions/setup@master
 
       - name: Set up Python 3.x
         uses: actions/setup-python@v4
@@ -49,12 +50,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install --no-cache-dir -r requirements.txt
 
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python-3.8@master
+      - name: Snyk test
+        continue-on-error: true
+        working-directory: ./app_python
+        run: snyk test --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
         with:
-          args: --file=./app_python/requirements.txt
+          sarif_file: ./app_python/snyk.sarif
 
 
   push:

@@ -1,5 +1,5 @@
 # Timing app
-![PYTHON APP](https://github.com/github/docs/actions/workflows/main.yml/badge.svg?event=push)
+[![Python App](https://github.com/e2xen/innopolis-devops-labs/actions/workflows/app_python.yml/badge.svg)](https://github.com/e2xen/innopolis-devops-labs/actions/workflows/app_python.yml)
 
 A simple toy app that shows current Moscow time.
 ## Build

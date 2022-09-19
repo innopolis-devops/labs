@@ -35,4 +35,4 @@ For this project I used **Sonarlint** linter which can be added as a plugin to a
 
 ### Markdown
 
-As **Markdown linter** I used pycharm plugin **Markdown**
+As **Markdown linter** I used pycharm plugin **Markdown**  

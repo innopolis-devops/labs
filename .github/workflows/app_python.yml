@@ -34,9 +34,6 @@ jobs:
         if: always()
         run: |
           pylint app_python
-      - name: Markdown lint
-        if: always()
-        uses: actionshub/markdownlint@main
       - name: Dockerfile lint
         if: always()
         uses: hadolint/hadolint-action@v1.5.0

@@ -2,18 +2,7 @@ name: Python package
 
 on:
   push:
-    branches:
-      - $default-branch
-    paths:
-      - 'app_python/**'
-      - '.github/workflows/python-package.yml'
   pull_request:
-    branches:
-      - lab*
-      - $default-branch
-    paths:
-      - 'app_python/**'
-      - '.github/workflows/python-package.yml'
 
 
 jobs:

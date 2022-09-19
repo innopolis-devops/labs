@@ -79,9 +79,8 @@ jobs:
       - name: Run Snyk to check for vulnerabilities
         continue-on-error: true # To make sure that SARIF upload gets called
         run: |
+          snyk auth ${{ secrets.SNYK_TOKEN }}
           snyk test --all-projects --sarif-file-output=snyk.sarif
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:

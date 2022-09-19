@@ -5,6 +5,7 @@
 - [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Tests](#tests)
 - [Docker](#docker)
 - [Contact](#contact)
 

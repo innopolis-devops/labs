@@ -24,6 +24,6 @@ jobs:
       with:
         context: "{{defaultContext}}:app_python"
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops:latest
+        tags: ${{ secrets.DOCKER_HUB_USERNAM }}/devops:latest
         cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAM }}/devops:buildcache
         cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAM }}/devops:buildcache,mode=max

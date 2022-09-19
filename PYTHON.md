@@ -3,6 +3,13 @@
 * Write modular and non-repetitive code
 * Proper documentation
 * Using venv and requirements.txt
+## Best practises of Unit testing
+* Parametrize the same behavior
+* Prefer responses over mocking outbound HTTP requests
+* Fast and simple tests
+* Tests don't duplicate business logic
+* Readable tests
+* Deterministic tests
 ## Framework
 For this application I chose framework Flask because it is one of the most famous frameworks for Python and it is relatively simple and small - it is perfect solution for such small applications (and not only).
 * Pros

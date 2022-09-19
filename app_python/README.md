@@ -19,5 +19,11 @@ Alternatively, you can pull and run [docker hub](https://hub.docker.com/reposito
 docker run -d -p 80:80 e2xen/devops-pythonapp:latest
 ```
 To make sure everything works fine, go to http://127.0.0.1:80
+## Testing
+If you want to make sure that your installation is completely functional, just run the unit tests!
+```
+pytest
+```
+*pytest is included in the requirements file
 ## Contact
 Telegram: @wheatendinosaur

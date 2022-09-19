@@ -33,3 +33,14 @@ pylint main.py
 ## Markdown Linter
 
 I used [markdownlint](https://github.com/markdownlint/markdownlint). This file is formatted according to the linter.
+
+## Unit Tests
+I put a single test in `test_main.py` file. This test checks that the `get_current_time()` method (which is the only method in the app) is functioning and returns a successful response.
+
+I used `pytest` library for unit testing.
+
+### Best practices
+1. Simple tests. The test is very simple and verbose: it just checks that the response is successful and that the required field is present in the response.
+2. Test one functional unit per each test. It's rather simple to follow, as the application has *only* one functionality :)
+3. Test should not duplicate implementation. That is why I did not check the correctness of the time in the response.
+4. Integrate automated testing to CI/CD pipeline. I run unit tests on every push to the target branch to ensure code correctness.

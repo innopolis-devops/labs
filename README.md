@@ -74,7 +74,7 @@ docker build -t timeweb --network=host .
 
 ### Unit tests
 
-There are 2 tests that check datetime module correct usage and 1 test for checking web application answers to requests. Go to `./app_python/tests` and run them:
+There are 2 tests that check datetime module correct usage and 3 test for checking web application answers to requests. Go to `./app_python/tests` and run them:
 
 ```
 cd ./app_python/tests

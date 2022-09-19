@@ -44,7 +44,7 @@ jobs:
       - name: Cache
         uses: actions/cache@v2
         with:
-          path: ~/target/debug
+          path: ./target/debug
           key: ${{ hashFiles('$WORKDIR/cargo.lock') }}-${{ hashFiles('$WORKDIR/cargo.toml') }}
 
       - name: Check

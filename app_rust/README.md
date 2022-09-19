@@ -1,4 +1,4 @@
-## Overview
+## Overview ![App Rust CI](https://github.com/AKurmazov/labs/actions/workflows/app_rust.yml/badge.svg)
 A simple Rust/Rocket app that shows current time. The timezone is *Europe/Moscow*
 
 ## Build
@@ -70,6 +70,30 @@ I used the built-in PyCharm Markdown linter
 I used the `hadolint/hadolint` linter (more on it in **DOCKER.md**)
 
 You can run it via `hadolint Dockerfile` being in the `app_rust` directory (assuming it is installed)
+
+
+## Testing
+Furthermore, you can run unit tests, and check the coverage of the project
+
+Via `docker-compose run`
+```bash
+$ docker-compose run server make test
+```
+
+Via `docker run`
+```bash
+$ docker run akurmazov/app_rust-server:latest make test
+```
+
+## GitHub Actions CI
+
+The GitHub Actions configuration used in this project has three jobs: Snyk, Build, and Publish
+
+* Snyk — checks the Docker image for vulnerabilities
+* Build — installs the dependencies, lints and tests the code
+* Publish — builds an image and tags it :latest, pushes the image to the docker hub
+
+The workflow is triggered only on changes in the ./app_rust directory or in the workflow configuration itself
 
 ## Contacts
 

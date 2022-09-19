@@ -40,3 +40,18 @@ In spite of using only one linter, it fulfills all the needs. Probably, due to t
 A general-purpose linter (in fact, a collection of them) that checks whether your code follows some defined rules
 
 You can check the list of the lints used by Clippy here: https://rust-lang.github.io/rust-clippy/master/index.html
+
+
+## Tests
+
+I used the standard rust testing library to write the unit tests for my project
+
+There is only one endpoint that requires testing, that is the logic within the **current_time** endpoint. Using a mock client,
+I have requested the resource, and checked that the response matching the expected pattern
+
+Also, I followed these best practices
+
+1. No "overtesting" — I did not test the libraries' logic, only the one I wrote myself
+2. Adding a testing stage to the Github Actions workflow
+3. Adding a testing command to the Makefile configuration
+4. Writing it in Rust :)

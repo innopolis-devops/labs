@@ -26,8 +26,7 @@ jobs:
         # try to use cached dependencies
       - name: Install dependencies
         run: |
-          cd app_go
-          go get .
+          go get app_go
 
         # linting
       - name: golangci-lint

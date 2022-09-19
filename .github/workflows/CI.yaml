@@ -1,4 +1,4 @@
-name: Python package
+name: moscow_time
 
 on: [push]
 

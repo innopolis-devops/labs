@@ -1,5 +1,6 @@
-
 # Moscow Time
+
+![CI workflow](https://github.com/SmetaninGleb/devops/actions/workflows/CI.yaml/badge.svg?style=for-the-badge)
 
 ## Description
 Application shows the current Moscow time

@@ -90,6 +90,14 @@ $ docker run akurmazov/server:latest make test
 
 ## GitHub Actions CI
 
+The GitHub Actions configuration used in this project has three jobs: Snyk, Build, and Publish
+
+* Snyk — checks the dependencies for vulnerabilities
+* Build — installs the dependencies, lints and tests the code
+* Publish — builds an image and tags it :latest, pushes the image to the docker hub
+
+The workflow is triggered only on changes in the ./app_python directory or in the workflow configuration itself
+
 ## Contacts
 
 * Telegram: @AKurmazov

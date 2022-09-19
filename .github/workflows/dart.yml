@@ -3,17 +3,17 @@ name: Dart build
 on:
   push:
     paths:
-      - app_dart/**
+      - 'app_dart/**'
   pull_request:
     paths:
-      - app_dart/**
+      - 'app_dart/**'
 
 defaults:
   run:
     working-directory: ./app_dart
 
 jobs:
-  build:
+  check:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:

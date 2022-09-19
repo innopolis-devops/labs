@@ -3,10 +3,10 @@ name: Python build
 on:
   push:
     paths:
-      - app_pyton/**
-  pull_request:
+      - 'app_pyton/**'
+ pull_request:
     paths:
-      - app_python/**
+      - 'app_python/**'
 
 defaults:
   run:

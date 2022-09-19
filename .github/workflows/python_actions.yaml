@@ -14,7 +14,8 @@ jobs:
         id: changed
         uses: tj-actions/changed-files@v29.0.7
           with:
-            files: app_python/**
+            files: |
+              app_python/**
   run_tests:
     needs: [check_changes]
     runs-on: [ubuntu-latest]

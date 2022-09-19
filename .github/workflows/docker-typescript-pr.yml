@@ -17,6 +17,7 @@ env:
 
 jobs:
   build:
+    timeout-minutes: 5
     runs-on: ubuntu-latest
 
     # Use app_typescript directory for all steps

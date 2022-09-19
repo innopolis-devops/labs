@@ -17,32 +17,29 @@ void main() async {
           ),
         ),
       );
+      final start =
+          tz.TZDateTime.now(zone).subtract(const Duration(seconds: 1));
       await tester.pump(const Duration(milliseconds: 600));
-      final now = tz.TZDateTime.now(zone);
-      final range = DateTimeRange(
-        start: now.subtract(const Duration(seconds: 2)),
-        end: now.add(const Duration(seconds: 2)),
-      );
+      final end = tz.TZDateTime.now(zone);
       final time = find.byType(Text).at(1).evaluate().first.widget;
       expect(find.byType(Text), findsNWidgets(2));
       expect(find.text('Current Time in Europe/Moscow'), findsOneWidget);
       if (time is Text) {
         final string = time.data!.split(':');
         final dataToCompare = DateTime(
-          now.year,
-          now.month,
-          now.day,
+          end.year,
+          end.month,
+          end.day,
           int.parse(string[0]),
           int.parse(string[1]),
           int.parse(string[2]),
-          now.millisecond,
         );
+        debugPrint(start.toString());
         debugPrint(dataToCompare.toString());
-        debugPrint(range.start.toString());
-        debugPrint(range.end.toString());
+        debugPrint(end.toString());
         expect(
-          dataToCompare.isAfter(range.start) &&
-              dataToCompare.isBefore(range.end),
+          dataToCompare.isAfter(start) &&
+              dataToCompare.isBefore(end),
           true,
         );
       }

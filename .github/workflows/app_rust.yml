@@ -41,11 +41,11 @@ jobs:
           components: clippy
           override: true
 
-#      - name: Cache dependencies
-#        uses: actions/cache@v2
-#        with:
-#          path: ~/.cache/pypoetry
-#          key: ${{ hashFiles('$WORKDIR/cargo.lock') }}-${{ hashFiles('$WORKDIR/cargo.toml') }}
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/target/debug
+          key: ${{ hashFiles('$WORKDIR/cargo.lock') }}-${{ hashFiles('$WORKDIR/cargo.toml') }}
 
       - name: Check
         run: cargo check

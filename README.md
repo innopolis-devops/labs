@@ -1,5 +1,7 @@
 # MoscowTimeDisplayer
 
+[![Dependencies, Linter and Tests](https://github.com/yadariya/labs/blob/lab3/.github/workflows/python.yaml/badge.svg)](https://github.com/yadariya/labs/blob/lab3/.github/workflows/python.yaml)
+
 ## :bulb: Overview
 
 MoscowTimeDisplayer is simple web-application, which shows current time in Moscow in the format `HH:MM:SS`
@@ -40,6 +42,12 @@ Image available on docker hub repository yadariya/devops
 
 1. unittest is a standard module, which you don't need to install. 
 2. run the tests `python app_test.py`
+
+
+## Continuous integration
+
+I implement Continuous integration using GitHub Actions. I build application, do linting, run tests and build docker image. 
+The workflows located in `.github/workflows/` folder.
 
 ## :pencil: Contacts
 

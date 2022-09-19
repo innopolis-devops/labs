@@ -6,11 +6,6 @@ on:
       - '.github/**'
       - 'app_python/**'
       - '!app_python/**.md'
-  pull_request:
-    paths:
-      - '.github/**'
-      - 'app_python/**'
-      - '!app_python/**.md'
 
 jobs:
   build_lint_test:
@@ -43,7 +38,15 @@ jobs:
       - name: Test with pytest
         run: |
           cd app_python
-          python -m unittest test.py -v
+          touch unittest_report.txt
+          python -m unittest test.py -v > unittest_report.txt
+      - name: Upload unit test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: unit-test-report
+          path: app_python/unittest_report.txt
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
   build_docker:
     if: ${{ github.event_name }} == 'push' # do not trigger building docker on pull requests
     needs: build_lint_test

@@ -9,4 +9,4 @@
 3. Using secrets
 4. Using cache
 5. Using timeouts
-6. Using triggers 
+6. Using triggers

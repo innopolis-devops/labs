@@ -17,7 +17,7 @@
     * [**Pylint**](https://pylint.org)
     * [PyFlakes](https://github.com/PyCQA/pyflakes)
 
-## Unit Tests
+# Best Practices of Writing Unit Tests
 1. Write readable, simple tests
 2. Make your tests as small as possible
 3. Write deterministic tests, that is a test that presents the same behavior as long as the code remains unchanged

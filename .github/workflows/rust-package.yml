@@ -93,8 +93,8 @@ jobs:
   docker-publish:
 
     needs: [lints, tests]
-    runs-on: ubuntu-latest
     timeout-minutes: 40
+    runs-on: ubuntu-latest
     
     steps:
       # We extract only version numbers from tag
@@ -105,8 +105,7 @@ jobs:
         run: echo ::set-output name=VERSION::${GITHUB_REF#*/*/v}
         id: version-extractor
       - uses: ./.github/workflows/docker-release.yml
-        secrets: inherit
-        working-directory: .
+        # secrets: inherit
         with:
           image_tag: ${{ steps.version-extractor.outputs.VERSION }}
           docker_repo_name: ${{ env.DOCKER_REPO_NAME }}

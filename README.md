@@ -1,5 +1,6 @@
 # DevOps project
-![DevOps CI\CD](https://github.com/dizzzu/labs/actions/workflows/python_actions.yaml/badge.svg?event=push)
+![CI](https://github.com/DiazzzU/labs/actions/workflows/python_actions.yaml/badge.svg?branch=lab3)   
+
 My name is Dias Usenov.  
 This is simple web application made for DevOps course in Innopolis University.
 

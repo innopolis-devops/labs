@@ -18,9 +18,9 @@ void main() async {
         ),
       );
       final start =
-          tz.TZDateTime.now(zone).subtract(const Duration(seconds: 1));
+          tz.TZDateTime.now(zone).subtract(const Duration(seconds: 2));
       await tester.pump(const Duration(milliseconds: 600));
-      final end = tz.TZDateTime.now(zone);
+      final end = tz.TZDateTime.now(zone).add(const Duration(seconds: 2));
       final time = find.byType(Text).at(1).evaluate().first.widget;
       expect(find.byType(Text), findsNWidgets(2));
       expect(find.text('Current Time in Europe/Moscow'), findsOneWidget);
@@ -38,8 +38,7 @@ void main() async {
         debugPrint(dataToCompare.toString());
         debugPrint(end.toString());
         expect(
-          dataToCompare.isAfter(start) &&
-              dataToCompare.isBefore(end),
+          dataToCompare.isAfter(start) && dataToCompare.isBefore(end),
           true,
         );
       }

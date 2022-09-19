@@ -95,6 +95,18 @@ cd app_python
 pytest .
 ```
 
+## GitHub Actions
+
+Project have github workflow, some useful features you can see below:
+* Lint job is implemented
+* Test and install dependencies job is implemented
+* Docker Login, Build & Push job is implemented
+* Snyk check job is implemented
+* Added a workflow status badge to README
+* Build cache is used
+* CI runs only if there are changes in the app_python folder
+
+
 ## Contact
 
 Polina Minina

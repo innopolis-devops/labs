@@ -47,6 +47,9 @@ jobs:
 #          path: ~/.cache/pypoetry
 #          key: ${{ hashFiles('$WORKDIR/cargo.lock') }}-${{ hashFiles('$WORKDIR/cargo.toml') }}
 
+      - name: Check
+        run: cargo check
+
       - name: Lint
         run: make lint
 

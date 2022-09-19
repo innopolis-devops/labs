@@ -1,5 +1,9 @@
 # Lab 1: Web Application
 
+![python workflow](https://github.com/emileyray/devops-labs/actions/workflows/python.yml/badge.svg)
+
+![docker workflow](https://github.com/emileyray/devops-labs/actions/workflows/docker.yml/badge.svg)
+
 ## Overview
 
 This is a simple web application that shows current time in Moscow. Time is updated whenever the page is refreshed

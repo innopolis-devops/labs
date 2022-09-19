@@ -6,6 +6,8 @@
 
 ![Python package](https://github.com/seytkalievm/devops_labs/actions/workflows/build_test.yml/badge.svg)
 
+![SNYK](https://github.com/seytkalievm/devops_labs/actions/workflows/snyk.yml/badge.svg)
+
 ## Overview
 
 This is Python web application written using [FlaskAPI framework]

@@ -10,9 +10,6 @@ jobs:
   build:
     timeout-minutes: 10
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.8"]
     defaults:
       run:
         working-directory: "./app_java"

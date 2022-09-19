@@ -26,7 +26,8 @@ jobs:
           flake8
       - name: Test with pytest
         run: |
-          pytest base_tests.py
+          ls
+          python -m pytest base_tests.py
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:

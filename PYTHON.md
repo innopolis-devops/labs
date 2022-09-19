@@ -61,3 +61,33 @@ PYTHON.md:51: MD013 Line length
 ```
 
 All mistakes were fixed as it was possible
+
+## Unit tests
+
+There are 2 tests that check datetime module correct usage:
+
+* `test_moscow_timezone` checks that the code used returns time in Moscow timezone
+
+* `test_strftime` checks the correct usage of `strftime` datetime functions
+
+And 3 tests to check the web application answers to requests:
+
+* `test_endpoint_works` asserts that the returned HTTP code is 200
+
+* `test_time_returned_same` checks that the current Moscow time is equal to returned one by the endpoint
+
+* `test_time_returned_different` saves current time, waits for 1 second and asserts that the returned time from the endpoint is different than it was 1 second ago
+
+### Best practices
+
+* Write simple and readable tests
+
+* Automate unit testing. For example, include it in CI/CD pipeline
+
+* Do not write interdependent tests, check only specific part of code
+
+* Test for security issues, setup vulnerabilities scanner and include it in CI/CD pipeline
+
+* Make sure that all the tests are repeatable and scalable
+
+* Test one scenario per test, do not include different situations emulation in one test

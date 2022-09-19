@@ -72,9 +72,9 @@ If you want to build the image from Dockerfile:
 docker build -t timeweb --network=host .
 ```
 
-### Tests
+### Unit tests
 
-Go to `./app_python/tests` and run tests:
+There are 2 tests that check datetime module correct usage and 1 test for checking web application answers to requests. Go to `./app_python/tests` and run them:
 
 ```
 cd ./app_python/tests

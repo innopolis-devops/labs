@@ -72,7 +72,7 @@ jobs:
 
       - name: Run snyk
         continue-on-error: true # To make sure that SARIF upload gets called
-        run: snyk container test --sarif-file-output=snyk.sarif ${{ secrets.DOCKER_HUB_USERNAME }}/moscow-time-py:latest
+        run: snyk container test ${{ secrets.DOCKER_HUB_USERNAME }}/moscow-time-py:latest --file app_python/Dockerfile --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 

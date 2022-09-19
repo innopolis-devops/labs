@@ -6,8 +6,8 @@ USER appuser
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
-COPY package.json ./
-COPY package-lock.json ./
+COPY app_javascript/app_js/package.json ./
+COPY app_javascript/app_js/package-lock.json ./
 
 USER  root
 

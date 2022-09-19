@@ -1,15 +1,15 @@
 import pytest
 
-from app import hello_world
+from app import start
 
 
 def test_not_none_response():
-    assert hello_world() is not None
+    assert start() is not None
 
 
 def test_if_string_response():
-    assert type(hello_world()) is str
+    assert type(start()) is str
 
 
 def test_center_in_response():
-    assert 'center' in hello_world()
+    assert 'center' in start()

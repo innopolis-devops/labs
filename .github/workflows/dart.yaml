@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: browser-actions/setup-chrome@latest
       - name: Setup Flutter SDK
         uses: flutter-actions/setup-flutter@v2
         with:
@@ -31,6 +32,7 @@ jobs:
         run: flutter test --platform chrome
 
   container:
+    needs: test 
     name: Container
     runs-on: ubuntu-latest
 

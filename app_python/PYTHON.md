@@ -14,3 +14,11 @@
         - Short: Minimize code duplication. Multiple features from each parameter declaration. Fewer bugs.
         - Robust: Get production-ready code. With automatic interactive documentation.
         - Standards-based: Based on (and fully compatible with) the open standards for APIs: OpenAPI (previously known as Swagger) and JSON Schema.
+
+# Unit test best practices
+
+* A testing unit should focus on one tiny bit of functionality and prove it correct.
+* Tests Should Be Fast
+* Tests Should Be Simple
+* Tests Should Be Readable
+* Tests Should Be Deterministic

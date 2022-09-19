@@ -30,7 +30,7 @@ jobs:
         run: poetry install --no-interaction
 
       - name: Run tests using pytest
-        run: pytest . -v
+        run: poetry run python3 -m pytest . -v
 
   security:
     runs-on: ubuntu-latest
@@ -63,7 +63,7 @@ jobs:
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif
+          sarif_file: app_python/snyk.sarif
 
   security-docker:
     runs-on: ubuntu-latest
@@ -80,7 +80,7 @@ jobs:
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: snyk.sarif
+          sarif_file: app_python/snyk.sarif
 
   deploy:
     timeout-minutes: 30

@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def show_time():
-    return 'Current time in Moscow is: ' + datetime.now(pytz.timezone("Europe/Moscow")).strftime("%H:%M:%S")
+    return datetime.now(pytz.timezone("Europe/Moscow")).strftime("%H:%M:%S")
 
 
 if __name__ == '__main__':

@@ -36,6 +36,11 @@ Image available on docker hub repository yadariya/devops
 2. run image: `docker run -p=1337:5000 yadariya/devops:latest`
 3. go to `http://0.0.0.0:1337` to test it
 
+## Unit tests
+
+1. install unittest module `pip install unittest`
+2. run the tests `python app_tests.py`
+
 ## :pencil: Contacts
 
 Dariya Vakhitova, project creator : d.vakhitova@innopolis.university

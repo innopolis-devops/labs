@@ -1,0 +1,28 @@
+name: Python add build-linter-test
+
+on:
+  push:
+    paths:
+      - 'app_python/**'
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+      - name: Dependencies installing
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r app_python/requirements.txt
+
+      - name: Linting with pylint
+            uses: quentinguidee/pep8-action@v1
+
+      - name: Testing with unittest
+            run: |
+              python -m unittest discover -s app_python/ -p "*_tests.py"

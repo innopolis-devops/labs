@@ -1,3 +1,5 @@
+[![app_python](https://github.com/desmigor/devops-labs/actions/workflows/app_python.yml/badge.svg)](https://github.com/desmigor/devops-labs/actions/workflows/app_python.yml)
+
 # Time Displayer Simple Web App
 > Innopolis University, F22
 >

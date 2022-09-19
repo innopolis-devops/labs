@@ -32,3 +32,14 @@ For this project I configured and used **Pylint** module as it is one of the sim
 ### Markdown
 
 As **Markdown linter** I used pycharm plugin **Markdown**
+
+## Testing
+
+For this application I used [PyUnit](https://docs.python.org/3/library/unittest.html) which is a 
+Python’s built-in unit testing framework and Python’s version of the corresponding JUnit testing framework for Java.
+
+### Best Practices
+
+* **tests** directory added with separate `__init__.py` file to run tests from outside of current folder
+* only necessary imports are present inside tests
+* no _"overtesting"_ as only single `current_time()` method was tested for proper work

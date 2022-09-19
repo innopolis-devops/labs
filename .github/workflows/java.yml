@@ -60,6 +60,4 @@ jobs:
           file: app_javascript/app_js/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops_lab3:latest
-          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/devops_lab3:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/devops_lab3:buildcache,mode=max
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops_java:latest

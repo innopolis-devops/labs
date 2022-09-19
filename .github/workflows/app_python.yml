@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10"]
+        python-version: [ "3.10" ]
     steps:
       - uses: actions/checkout@v3
 
@@ -30,6 +30,37 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
+      - name: Intalling linter (pylint)
+        uses: cclauss/GitHub-Action-for-pylint@0.7.0
+
+      - name: Running linter (pylint)
+        run: |
+          find . -name '*.py' -exec pylint {} \;
+
       - name: Running tests
         run: |
           python manage.py test
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: app_python
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/django-iu-lab:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/django-iu-lab:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/django-iu-lab:buildcache,mode=max

@@ -27,18 +27,19 @@ jobs:
         if [ -f app_python/timeweb/requirements.txt ]; then pip install -r app_python/timeweb/requirements.txt; fi
     - name: Lint with flake8
       run: |
+        cd app_python/timeweb
         # stop the build if there are Python syntax errors or undefined names
-        cd app_python/timeweb && flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Build docker and run
       run: |
-        docker build -t timeweb . app_python/timeweb/.
+        docker build -t timeweb app_python/timeweb/.
         docker run -p 127.0.0.1:50000:50000 timeweb
     - name: Test with unittest
       run: |
-        cd app_python/tests && ./check.py
+        cd app_python/tests
+        bash check.sh
     - name: Stop the container
       run: |
         docker rm $(docker stop $(docker ps -a -q --filter="ancestor=timeweb"))
-

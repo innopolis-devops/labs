@@ -60,7 +60,7 @@ App is configured to run with [Gunicorn](https://github.com/benoitc/gunicorn), w
 Use the following commmand to start the app:
 
 ```sh
-gunicorn --config .\gunicorn.conf.py app.api:app
+gunicorn --config ./gunicorn.conf.py app.api:app
 ```
 
 ### Uvicorn
@@ -95,6 +95,4 @@ pytest tests/
 
 ## See also
 
-Check out [PYTHON.md](./PYTHON.md) for implementation details about Python, unit tests and Markdown.
-
-See [DOCKER.md](./DOCKER.md) for details on the Docker configuration.
+Check out [PYTHON.md](./PYTHON.md) for implementation details about Python and unit tests.

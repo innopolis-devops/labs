@@ -23,9 +23,3 @@ The best practices applied, namely:
 - Tests are written detailedly, so are easy to understand
 - They run quite fast — it won't take much time to test the app
 - Tests don't depend on any external services, so can be run repeatedly as much as it needed
-
-## Markdown
-
-### Markdown linting
-
-Using [`vscode-markdownlint`](https://github.com/DavidAnson/vscode-markdownlint) in VS Code with format-on-save feature. Great thing!

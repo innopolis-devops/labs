@@ -54,4 +54,4 @@ For testing purposes, you may use `npm run dev`, which uses [`ts-node-dev`](http
 
 ## See also
 
-Check out [TYPESCRIPT.md](./TYPESCRIPT.md) for implementation details.
+Check out [TYPESCRIPT.md](./TYPESCRIPT.md) for implementation details on the app and its tests.

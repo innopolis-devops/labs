@@ -1,4 +1,4 @@
-name: app_php_docker
+name: app_php
 
 on: 
   push:

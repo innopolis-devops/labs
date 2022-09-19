@@ -1,4 +1,4 @@
-![](https://github.com/markovvn1/devops-labs/actions/workflows/app_python.yml/badge.svg?branch=lab3) ![](https://github.com/markovvn1/devops-labs/actions/workflows/app_python_docker.yml/badge.svg?branch=lab3)
+![](https://github.com/markovvn1/devops-labs/actions/workflows/app_python.yml/badge.svg?branch=lab3) ![](https://github.com/markovvn1/devops-labs/actions/workflows/app_php.yml/badge.svg?branch=lab3)
 
 
 

@@ -23,10 +23,7 @@ jobs:
           mv ./stylish-haskell /usr/local/bin/
 
       - name: Install hlint
-        run: |
-          ./scripts/download-hlint.sh
-          chmod +x ./hlint
-          mv ./hlint /usr/local/bin/
+        run: ./scripts/download-hlint.sh
 
       - uses: actions/setup-python@v3
 

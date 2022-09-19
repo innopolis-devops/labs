@@ -43,3 +43,22 @@ jobs:
     - name: Stop the container
       run: |
         docker rm $(docker stop $(docker ps -a -q --filter="ancestor=timeweb"))
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Login
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+    - name: Build & Push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./app_python/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/timeweb:latest
+        cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/timeweb:buildcache
+        cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/timeweb:buildcache,mode=max

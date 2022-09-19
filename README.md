@@ -37,6 +37,13 @@ This application created for showing current time from [WorldTimeAPI](http://wor
   http://127.0.0.1:5000
   ```
 
+## Tests
+- Install Pytest: \ 
+  `pip install pytest`
+- Go to project directory
+- Start test using: \
+  `pytest ./app_python/test/test_main.py`
+
 ## Docker
 #### Building on local machine
 - Install [Docker](https://www.docker.com/products/docker-desktop/) for your platform

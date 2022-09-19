@@ -59,7 +59,10 @@ jobs:
       - name: Install make and aws cli.
         run: sudo apt-get update -y && sudo apt-get install make awscli
       - name: Build
-        run: make build-prod
+        run: |
+          make ecr_login
+          make pull-prod
+          make build-prod
 
   push:
     needs: build
@@ -77,6 +80,9 @@ jobs:
       - name: Install make and aws cli.
         run: sudo apt-get update -y && sudo apt-get install make awscli
       - name: Build
-        run: make build-prod
+        run: |
+          make ecr_login
+          make pull-prod
+          make build-prod
       - name: Push
         run: make push-prod

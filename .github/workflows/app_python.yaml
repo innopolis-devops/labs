@@ -112,7 +112,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: app_python
-          file: Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/moscow-time-py:latest
           cache-from: type=local,src=/tmp/.buildx-cache

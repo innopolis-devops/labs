@@ -24,6 +24,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install flake8 unittest2
+        ls && pwd
         if [ -f app_python/timeweb/requirements.txt ]; then pip install -r app_python/timeweb/requirements.txt; fi
     - name: Lint with flake8
       run: |

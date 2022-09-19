@@ -1,6 +1,5 @@
 /app_python/.idea/
 HELP.md
-target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 

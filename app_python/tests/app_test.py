@@ -5,15 +5,15 @@ from datetime import datetime
 from app_python.app import get_time
 
 testdata_format = [
-    ('Europe/Moscow', '%Y-%m-%d %H:%M:%S.%f %z'),
-    ('Europe/London', '%Y-%m-%d %H:%M:%S'),
-    ('America/New_York', '%d.%m.%Y %H:%M:%S.%f')
+    ("Europe/Moscow", "%Y-%m-%d %H:%M:%S.%f %z"),
+    ("Europe/London", "%Y-%m-%d %H:%M:%S"),
+    ("America/New_York", "%d.%m.%Y %H:%M:%S.%f"),
 ]
 
 testdata_update = [
-    ('Europe/Moscow', '%Y-%m-%d %H:%M:%S.%f %z', 3),
-    ('Europe/London', '%Y-%m-%d %H:%M:%S', 5),
-    ('America/New_York', '%d.%m.%Y %H:%M:%S.%f', 10)
+    ("Europe/Moscow", "%Y-%m-%d %H:%M:%S.%f %z", 3),
+    ("Europe/London", "%Y-%m-%d %H:%M:%S", 5),
+    ("America/New_York", "%d.%m.%Y %H:%M:%S.%f", 10),
 ]
 
 

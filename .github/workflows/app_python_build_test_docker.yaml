@@ -3,13 +3,13 @@ name: Build, test, and push to Docker
 on:
   push:
     paths:
-      - '.github/workflows/'
-      - 'app_python/'
+      - '.github/**'
+      - 'app_python/**'
       - '!app_python/**.md'
   pull_request:
     paths:
-      - '.github/workflows'
-      - 'app_python/'
+      - '.github/**'
+      - 'app_python/**'
       - '!app_python/**.md'
 
 jobs:

@@ -61,7 +61,7 @@ jobs:
           pip install -r app_python/requirements.test.txt -r app_python/requirements.txt
       - name: test
         run: |
-          pytest
+          pytest app_python
   
   build:
     runs-on: ubuntu-latest

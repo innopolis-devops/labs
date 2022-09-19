@@ -35,7 +35,7 @@ jobs:
           npm install
       - name: Test
         run: npm test
-  build:
+  build_push:
     needs: check_changes
     runs-on: [ubuntu-latest]
     if: needs.check_changes.outputs.status == 'true'

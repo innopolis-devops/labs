@@ -52,8 +52,10 @@ jobs:
       - name: Install dependencies
         run: poetry install --no-interaction
 
-      - name: Run Snyk to check for vulnerabilities
+      - name: Install Snyk
         uses: snyk/actions/setup@master
+
+      - name: Run snyk
         continue-on-error: true # To make sure that SARIF upload gets called
         run: snyk test --sarif-file-output=snyk.sarif
         env:

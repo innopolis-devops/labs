@@ -1,5 +1,12 @@
 # DevOps Labs
 
+[![CI Python](https://github.com/Kamila-Khamidullina/devops/actions/workflows/python_docker.yml/badge.svg)]
+(<https://github.com/Kamila-Khamidullina/devops/actions/workflows/python_docker.yml>)
+[![Markdown Lint](https://github.com/Kamila-Khamidullina/devops/actions/workflows/markdown.yml/badge.svg)]
+(<https://github.com/Kamila-Khamidullina/devops/actions/workflows/markdown.yml>)
+[![Python Check](https://github.com/Kamila-Khamidullina/devops/actions/workflows/python.yml/badge.svg)]
+(<https://github.com/Kamila-Khamidullina/devops/actions/workflows/python.yml>)
+
 ## About
 
 This is a python web application on flask framework.

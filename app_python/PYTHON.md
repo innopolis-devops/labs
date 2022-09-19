@@ -77,7 +77,7 @@ They are made on each push and pull requests.
 Python app has two unit tests both run from __init__.py file.
 
 1. test_page.py file tests the connection to the server.
-2. test_time.py file checks if the app shows the Moscow time.
+1. test_time.py file checks if the app shows the Moscow time.
 
 ### Best pracricies
 
@@ -86,8 +86,8 @@ Python app has two unit tests both run from __init__.py file.
    Their names start with ```test_``` and then goes
    the tested feature.
 
-2. Tests should not execute for a long time
+1. Tests should not execute for a long time
    Tests execution takes less than 0.1 seconds
 
-3. Test one scenario per test
+1. Test one scenario per test
    Each test checks only one feature

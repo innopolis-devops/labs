@@ -1,4 +1,4 @@
-name: Python package
+name: Python check
 
 on: [push]
 
@@ -26,4 +26,4 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Unit tests
         run: |
-          app_python/tests/__init__.py
+          coverage run app_python/tests/__init__.py

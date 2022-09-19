@@ -67,6 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [deploy]
     steps:
+      - uses: actions/checkout@v3
       - uses: snyk/actions/setup@master
 
       - name: Run snyk

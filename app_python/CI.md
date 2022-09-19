@@ -2,7 +2,7 @@
 
 Here is the list:
 
-- Separate testing code and building docker image into different jobs
+- Separate testing code and building docker image into different jobs to isolate them
 - Docker image is not built unless code is tested and checked
 - Do not trigger CI on changing documentation files
 - Use caching for dependencies

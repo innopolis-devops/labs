@@ -20,6 +20,7 @@ jobs:
       - name: Install stylish-haskell
         run: |
           pwd
+          ls -lah
           scripts/download-latest-stylish-haskell.sh
           chmod +x ./stylish-haskell
           mv ./stylish-haskell /usr/local/bin/

@@ -70,11 +70,11 @@ if __name__ == "__main__":
 6. Built the image for `ARM64` on a M1 Mac Machine  using `docker build -t migorr/time-app-devops:arm64 .`
 7. Tested the image locally using `docker run migorr/time-app-devops:arm64`
 8. Pushed the image `docker push migorr/time-app-devops:arm64`
-9. Images are build using Github workflow
+9. Images are built using Github workflow
 
 ### 4.2 Running the Docker image
 
-Running the image on an using the command:
+For Running the image, use the command:
 
 ```
 docker run -p 8080:8080 migorr/time-app-devops:latest

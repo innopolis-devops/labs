@@ -2,7 +2,7 @@ name: workflow for Python using Snyk
 on: [push]
 
 jobs:
- changes:
+  changes:
     runs-on: ubuntu-latest
     outputs:
       python: ${{ steps.filter.outputs.python }}

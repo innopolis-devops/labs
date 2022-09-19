@@ -33,12 +33,11 @@ I used `markdownlint` for Markdown style checking.
 
 I took best practices from the book "The Hitchhiker’s Guide to Python"
 
-- A testing unit should focus on one tiny bit of functionality and prove it correct. - I have isolated tests. 
-- Use long and descriptive names for testing functions. - I named methods descriptively. 
-- Make test readable and simple. 
+- A testing unit should focus on one tiny bit of functionality and prove it correct. - I have isolated tests.
+- Use long and descriptive names for testing functions. - I named methods descriptively.
+- Make test readable and simple.
 
-I use `unittest` module for testing. Its Api is simple and simular to libraries that I have already used (Junit). I also 
-find about it from the book. 
+I use `unittest` module for testing. Its Api is simple and simular to libraries that I have already used (Junit). I also
+find about it from the book.
 
-I have one test , which checks that time displayed at website is current time in Moscow. 
-
+I have one test , which checks that time displayed at website is current time in Moscow.

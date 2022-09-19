@@ -40,15 +40,14 @@ Image available on docker hub repository yadariya/devops
 2. run image: `docker run -p=1337:5000 yadariya/devops:latest`
 3. go to `http://0.0.0.0:1337` to test it
 
-## Unit tests
+## :pushpin: Unit tests
 
-1. `unittest` is a standard module, which you don't need to install. 
+1. `unittest` is a standard module, which you don't need to install.
 2. run the tests `python app_test.py`
 
+## :cyclone: Continuous integration
 
-## Continuous integration
-
-I implement Continuous integration using GitHub Actions. I build application, do linting, run tests and build docker image. 
+I implement Continuous integration using GitHub Actions. I build application, do linting, run tests and build docker image.
 The workflows located in `.github/workflows/` folder.
 
 ## :pencil: Contacts

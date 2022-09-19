@@ -24,7 +24,7 @@ jobs:
   run_tests:
     needs: check_changes
     runs-on: [ubuntu-latest]
-    if: needs.check_changes.outputs.status == 'true'
+    #if: needs.check_changes.outputs.status == 'true'
     steps:
       - name: Lint Code Base
         uses: github/super-linter@v4

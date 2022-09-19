@@ -14,6 +14,8 @@ and working (because of tests).
 
 5. Hide tokens (AWS in my case) into repository secrets.
 
-6. You can pull images before building to be able to use cache from it.
+6. You can pull images before building to be able to use cache from it, but you need to use buildx and some additional
+steps (because I use makefile instead of github-actions). Better to use your own runner, and save cache locally.
+It's more secure and faster.
 
-7. You can use Snyk directly from ECR (as I know), so I do not use it in CI/CD.
+8. You can use Snyk directly from ECR (as I know), so I do not use it in CI/CD.

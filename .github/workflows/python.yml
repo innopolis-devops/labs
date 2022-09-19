@@ -53,7 +53,7 @@ jobs:
         with:
           python-version: '3.10'
           architecture: 'x64'
-      - name: Install make and aws cli.
+      - name: Install make and aws cli
         run: sudo apt-get update -y && sudo apt-get install make awscli
       - name: Setup AWS CLI
         run: |
@@ -64,7 +64,6 @@ jobs:
         # Line with 'make pull-prod' can be added to enable caching and improve long buildings.
         run: |
           make ecr_login
-          make pull-prod
           make build-prod
 
   push:
@@ -81,7 +80,7 @@ jobs:
         with:
           python-version: '3.10'
           architecture: 'x64'
-      - name: Install make and aws cli.
+      - name: Install make and aws cli
         run: sudo apt-get update -y && sudo apt-get install make awscli
       - name: Setup AWS CLI
         run: |
@@ -91,7 +90,6 @@ jobs:
       - name: Build
         run: |
           make ecr_login
-          make pull-prod
           make build-prod
       - name: Push
         run: make push-prod

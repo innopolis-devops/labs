@@ -1,6 +1,6 @@
-import datetime
 from uuid import UUID
 from typing import Any, Literal, TypeVar
+from datetime import datetime
 
 import orjson
 from pydantic import Extra, Field, BaseModel
@@ -38,7 +38,7 @@ class TimeResponse(FastPydanticBaseModel):
     Represents API response.
     """
 
-    time: datetime.time = Field(title='Current time.')
+    time: datetime = Field(title='Current time.')
 
 
 class StatusResponse(FastPydanticBaseModel):

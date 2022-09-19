@@ -10,5 +10,5 @@ router = APIRouter(tags=['system'])
     description='Returns current system status.',
     response_model=StatusResponse
 )
-def _status() -> StatusResponse:
+async def _status() -> StatusResponse:
     return StatusResponse()

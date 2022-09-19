@@ -19,11 +19,11 @@ router = APIRouter(tags=['time'])
             status.HTTP_200_OK: {
                 'description': 'Returns current time.',
                 'examples': {
-                    'Success': TimeResponse(time=datetime.now().time())
+                    'Success': TimeResponse(time=datetime.now())
                 }
             }
         }
     )
 )
-def time(*, zone: str = 'Europe/Moscow') -> TimeResponse:
-    return TimeResponse(time=datetime.now(ZoneInfo(zone)).time())
+async def time(*, zone: str = 'Europe/Moscow') -> TimeResponse:
+    return TimeResponse(time=datetime.now(ZoneInfo(zone)))

@@ -1,12 +1,35 @@
 name: Docker
 
 on:
-  push
-
+  push:
+    tags:
+      - '!refs/tags/*'
+    branches:
+      - '*'
+    paths-ignore:
+      - '**.md'
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  check_changes:
+    runs-on: [ubuntu-latest]
+    name: Check changes in python app
+    outputs:
+      status: ${{ steps.changed.outputs.any_changed }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Check changed files
+        id: changed
+        uses: tj-actions/changed-files@v29.0.7
+        with:
+          files: |
+            app_python/**
 
+  build:
+    needs: check_changes
+    runs-on: [ubuntu-latest]
+    if: needs.check_changes.outputs.status == 'true'
+    timeout-minutes: 10
     steps:
       -
         name: Checkout 

@@ -1,10 +1,15 @@
 name: Python package
 
-on: [push]
+on:
+  push:
+    branches:
+      -'**'
+    paths-ignore:
+      - '**.md'
 
 jobs:
   build:
-
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     strategy:
       matrix:

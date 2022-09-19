@@ -1,0 +1,79 @@
+name: Lab3 CI pipeline
+
+on:
+   push:
+     paths:
+       - app_java/**
+       - .github/workflows/pipeline_java.yml
+
+jobs:
+  build:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8"]
+    defaults:
+      run:
+        working-directory: "./app_java"
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots package
+
+  
+  security:
+     name: Snyk
+     runs-on: ubuntu-latest
+     timeout-minutes: 10
+     defaults:
+       run:
+         working-directory: "./app_java"
+     steps:
+       - uses: actions/checkout@v3
+       - uses: snyk/actions/setup@master
+       - uses: actions/cache@v2
+         with:
+           path: ~/.cache/pip
+           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+           restore-keys: |
+             ${{ runner.os }}-pip-
+       - name: Install dependencies
+         run: |
+           python -m pip install --upgrade pip
+           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+       - name: Vulnerabilities check
+         run: snyk test
+         env:
+           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: "./app_java"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: "{{defaultContext}}:app_java"
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/moscow_time_java:latest

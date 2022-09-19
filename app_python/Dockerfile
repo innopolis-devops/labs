@@ -4,7 +4,7 @@ RUN groupadd -r user && useradd -r -g user user
 
 USER user
 
-WORKDIR /
+WORKDIR /app_python
 
 COPY requirements.txt requirements.txt
 

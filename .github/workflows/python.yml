@@ -18,6 +18,7 @@ defaults:
     working-directory: ./app_python
 
 env:
+  AWS_REGION: eu-north-1
   AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
   AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
 
@@ -60,6 +61,7 @@ jobs:
         run: sudo apt-get update -y && sudo apt-get install make awscli
       - name: Build
         run: |
+          echo $AWS_REGION
           make ecr_login
           make pull-prod
           make build-prod

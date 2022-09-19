@@ -43,7 +43,7 @@ This application created for showing current time from [WorldTimeAPI](http://wor
   `pip install pytest`
 - Go to project directory
 - Start test using: \
-  `pytest ./app_python/test/test_main.py`
+  `pytest ./app_python/tests/test_main.py`
 
 ## Docker
 #### Building on local machine

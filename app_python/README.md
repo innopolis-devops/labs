@@ -1,6 +1,12 @@
 # DevOps Lab #1
 Simple python web app that allows to get current time.
 
+# CI/CD
+![Build Status](https://github.com/smthngslv/iu-devops-labs/actions/workflows/python.yml/badge.svg)
+1. On every push lint and test are run.
+2. On every pull request docker image are build but not pushed, additionally to lint and test.
+3. When merge request it merged to `master` branch, docker image are published to AWS ECR.
+
 # Overview.
 1. Build it via
 ```shell
@@ -16,6 +22,7 @@ make local
 
 # Contact
 If you have any questions just ask them here --> https://smthngslv.t.me
+
 
 # Makefile commands
 
@@ -98,4 +105,9 @@ to specify namespace for environment variables use NAMESPACE argument.
 ```shell
 TAG=dev make env
 TAG=dev NAMESPACE=innopolis make env
+```
+
+11. Unit tests.
+```shell
+make test
 ```

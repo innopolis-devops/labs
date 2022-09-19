@@ -1,4 +1,4 @@
-name: Lint
+name: CI/CD
 
 on:
   push:
@@ -31,13 +31,14 @@ jobs:
             architecture: 'x64'
       - name: Install requirements
         run: |
+          sudo apt-get update -y && sudo apt-get install make
           pip install --no-cache-dir --upgrade pip setuptools wheel
           pip install --no-cache-dir -r requirements.txt
           pip install --no-cache-dir -r requirements-test.txt
       - name: Lint
         run: make lint
       - name: Test
-        run: pytest tests/
+        run: make test
 
   build:
     needs: test
@@ -63,6 +64,7 @@ jobs:
         # Line with 'make pull-prod' can be added to enable caching and improve long buildings.
         run: |
           make ecr_login
+          make pull-prod
           make build-prod
 
   push:
@@ -87,9 +89,9 @@ jobs:
           aws configure set aws_secret_access_key ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws configure set region ${{secrets.AWS_REGION}}
       - name: Build
-        # Line with 'make pull-prod' can be added to enable caching and improve long buildings.
         run: |
           make ecr_login
+          make pull-prod
           make build-prod
       - name: Push
         run: make push-prod

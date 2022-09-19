@@ -46,3 +46,19 @@ basic auth.
 
 9. Create healthcheck endpoints to be able to check healthiness of the service. It will help when you will scale your
 application.
+
+
+# Unit Tests
+
+1. I use pytest, because I've experience with it. It's powerfully and well-known in community. You can find a lot of 
+plugins and extensions and do different things.
+
+2. To be able to run tests of async functions (and api is mostly async when you add DB etc), I use AnyIO plugin with 
+HTTPX AsyncClient. This allows to test code directly without running application.
+
+3. Pytest has a lot of tools to run tests with dependencies, in different order, with different backends (asyncio, 
+uvloop etc.) and can easily provide mocks by using fixtures.
+
+4. Better to split tests into multiple files, i.e. by endpoints.
+
+5. 

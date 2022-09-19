@@ -1,12 +1,13 @@
 module.exports = {
   env: {
     node: true,
+    jest: true,
   },
   parser: '@typescript-eslint/parser',
   plugins: [
     '@typescript-eslint',
   ],
-  "extends": [
+  extends: [
     "eslint:recommended",
   ],
   overrides: [
@@ -16,13 +17,15 @@ module.exports = {
         "plugin:@typescript-eslint/recommended",
       ],
       parserOptions: {
-        project: './app_typescript/tsconfig.json',
+        project: ['./tsconfig.json', './tests/tsconfig.json'],
       },
     },
   ],
   rules: {
+    "semi": ["error", "always"],
     "indent": ["error", 2],
     "object-curly-spacing": ["error", "always"],
     "comma-dangle": ["error", "always-multiline"],
+    "eol-last": ["error", "always"],
   },
 };

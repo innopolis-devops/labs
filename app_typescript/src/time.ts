@@ -1,9 +1,22 @@
 import { NTPClient } from 'ntpclient';
 
-const time_diff = new NTPClient('time.google.com').getNetworkTime().then(
-  date => Date.now() - date.getTime()
-);
+class TimeService {
+  private offset: number;
 
-const getTime = async () => new Date(Date.now() - await time_diff);
+  constructor(offset: number) {
+    this.offset = offset;
+  }
 
-export default getTime;
+  static async fromNTP(server: string) {
+    const offset = await new NTPClient(server).getNetworkTime().then(
+      date => Date.now() - date.getTime()
+    );
+    return new TimeService(offset);
+  }
+
+  async getTime() {
+    return new Date(Date.now() - this.offset);
+  } 
+}
+
+export default TimeService;

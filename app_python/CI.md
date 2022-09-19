@@ -4,4 +4,4 @@
 - Avoid using hardcorded secrets.
 - Split jobs between stages.
 - Display status badges to show what tests are passing easily.
-- Use custom base image with all necessary tools already installed
+- Use custom base image with all necessary tools already installed.

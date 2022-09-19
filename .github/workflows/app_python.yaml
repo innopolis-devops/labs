@@ -58,9 +58,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: snyk/actions/setup@master
-      - uses: actions/setup-go@v1
+      - uses: actions/setup-python@v4
         with:
-          go-version: '1.13'
+          python-version: 3.10
       - name: Snyk monitor
         run: |
           pip install -r requirements.txt

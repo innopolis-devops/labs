@@ -1,11 +1,28 @@
 name: workflow for Python using Snyk
 on: push
+
+jobs:
+ changes:
+    runs-on: ubuntu-latest
+    outputs:
+      python: ${{ steps.filter.outputs.python }}
+    steps:
+    - uses: actions/checkout@v2
+      id: filter
+      with:
+        filters: |
+          python:
+            - 'app_python/**'
+
 jobs:
   security:
+    needs: changes
+    if: ${{ needs.changes.outputs.python == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.8@master
+        working-directory: app_python
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_AUTH }}

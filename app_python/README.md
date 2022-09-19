@@ -1,6 +1,6 @@
 # Python WebApp Moscow Time
 
-## Table of Contents
+![Python](https://github.com/pminina01/Innopolis_DevOps2022/actions/workflows/python-package.yml/badge.svg)
 
 * [About The Project](#about-the-project)
 

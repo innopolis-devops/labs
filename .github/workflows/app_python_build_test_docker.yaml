@@ -3,7 +3,12 @@ name: Build, test, and push to Docker
 on:
   push:
     paths:
-      - '.github/' # needed if actions also got updated
+      - '.github/workflows/'
+      - 'app_python/'
+      - '!app_python/**.md'
+  pull_request:
+    paths:
+      - '.github/workflows'
       - 'app_python/'
       - '!app_python/**.md'
 
@@ -40,6 +45,7 @@ jobs:
           cd app_python
           python -m unittest test.py -v
   build_docker:
+    if: ${{ github.event_name }} == 'push' # do not trigger building docker on pull requests
     needs: build_lint_test
     runs-on: ubuntu-latest
     steps:

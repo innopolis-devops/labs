@@ -24,7 +24,7 @@ class TimeControllerTest {
 
     @Test
     void getMoscowTimeNegativeTest() throws Exception {
-        mockMvc.perform(get("/time")
+        mockMvc.perform(get("/ttime")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }

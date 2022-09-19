@@ -1,6 +1,17 @@
 name: Lint
 
-on: [push]
+on:
+  push:
+    paths:
+      - app_python/**
+      - .github/workflows/python.yml
+  pull_request:
+    branches:
+      - master
+      - lab*
+    paths:
+      - app_python/**
+      - .github/workflows/python.yml
 
 defaults:
   run:

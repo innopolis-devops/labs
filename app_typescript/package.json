@@ -1,13 +1,15 @@
 {
   "name": "time-web-app",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "An app telling the current time in Moscow",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
     "test": "jest",
     "start": "node build/index.js",
-    "dev": "ts-node-dev src/index.ts"
+    "dev": "ts-node-dev src/index.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "repository": {
     "type": "git",

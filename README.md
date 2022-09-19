@@ -50,10 +50,24 @@ Before running the application, please install its prerequisites:
       docker run -p 8000:8000 justmark0/devopsiu
    ```
 
+## Unit tests:
+1. Make sure that you are in the application directory:
+    ```bash
+    cd devops/app_python
+    ```
+2. Run the tests:
+    ```bash
+    pytest
+    ```
+
 ## Usage
 Actually this app is useless, you can just google time :)
 
 But if you want to view time in Moscow in this web app, you can run app and open [http://localhost:8000/](http://localhost:8000/).
+
+
+## CI
+I had configured CI for this project. It runs tests and builds docker image. You can see it in `.github/workflows/ci.yml` file.
 
 ## Development
 Use following command to set up pre-commmit hook:

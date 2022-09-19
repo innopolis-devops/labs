@@ -2,7 +2,7 @@ FROM python:3.10.7-buster
 LABEL maintainer="i@justmark0.me"
 
 ENV PYTHONDONTWRITEBYTECODE=1
-ENV FLASK_APP=app.py
+ENV FLASK_APP=msk_time/app.py
 
 RUN useradd -ms /bin/bash app
 WORKDIR /home/app

@@ -14,3 +14,16 @@ But do not create them in docker containers, because it is waste of resources.
 6. Use formatting tools:
 * [black](https://github.com/psf/black)
 * [isort](https://github.com/PyCQA/isort)
+
+# Best practices for writing Unit tests
+
+1. Parametrize your tests. Don't use the same test copy-pasted many times with different inputs. With Pytest you can reduce it to only one test.
+2. Make your unit test as small as possible, in a way that the minimum possible piece of code is involved. This way, when an error appears, you will be able to quickly assess where it originated.
+3. Try to use Test Driven Development in the project.
+4. Treat test code as core code. Make your test code readable, use docstrings and comments and respect style, almost as if it were a part of the functional code base.
+
+## References:
+* https://dzone.com/articles/7-best-python-code-review-tools-recommended-by-dev
+* https://medium.com/worldsensing-techblog/tips-and-tricks-for-unit-tests-b35af5ba79b1
+* https://realpython.com/python-code-quality/
+* https://luminousmen.com/post/python-static-analysis-tools

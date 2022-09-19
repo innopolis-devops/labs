@@ -63,7 +63,7 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Checkoud code
+      - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Login to Docker Hub

@@ -1,16 +1,16 @@
 cradle:
-  stack:
-    - path: "./src"
-      component: "app-haskell:lib"
+  cabal:
+    - path: "src"
+      component: "lib:moscow-time-app"
 
-    - path: "./app/Main.hs"
-      component: "app-haskell:exe:app-haskell-exe"
+    - path: "app/Main.hs"
+      component: "moscow-time-app:exe:moscow-time-app-exe"
 
-    - path: "./app/Paths_app_haskell.hs"
-      component: "app-haskell:exe:app-haskell-exe"
+    - path: "app/Paths_moscow_time_app.hs"
+      component: "moscow-time-app:exe:moscow-time-app-exe"
 
-    - path: "./test"
-      component: "app-haskell:test:doctests"
+    - path: "test"
+      component: "moscow-time-app:test:doctests"
 
-    - path: "./test"
-      component: "app-haskell:test:spec"
+    - path: "test"
+      component: "moscow-time-app:test:spec"

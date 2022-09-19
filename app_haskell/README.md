@@ -1,5 +1,7 @@
 # Moscow time app
 
+![app_haskell](https://github.com/ezio-42/devops-labs/actions/workflows/app_haskell.yaml/badge.svg)
+
 ## Overview
 
 Web application that displays current time in Moscow.
@@ -59,6 +61,20 @@ For the development you will need to use `stack`
 
     pre-commit run -a hadolint-docker
 
+### Unit tests
+
+#### Run tests
+
+    make test
+
+#### Best practices
+
+1. Tests are short and readable, so developers will not waste long time on them
+2. Tests are parametrized, so testing same behaviour for different endpoints is
+   not a problem
+3. Tests are deterministic (no side effects, everything is controlled by test
+   itself)
+
 ## Docker
 
 ### Build image locally
@@ -79,8 +95,7 @@ For the development you will need to use `stack`
 
 You can quickly download the latest binary `stylish-haskell` like so:
 
-    url=https://raw.github.com/haskell/stylish-haskell/master/scripts/latest.sh
-    curl -sL "$url" > stylish-haskell
+    ../scripts/scripts/download-stylish-haskell.sh
 
 ### hlint
 

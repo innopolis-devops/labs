@@ -53,7 +53,9 @@ executables:
 tests:
   spec:
     main: Spec.hs
-    source-dirs: test
+    source-dirs:
+      - src
+      - test
     ghc-options:
       - -threaded
       - -rtsopts
@@ -61,8 +63,14 @@ tests:
     dependencies:
       - moscow-time-app
       - hspec
+      - hspec-wai
       - HUnit
       - QuickCheck
+      - servant-client
+      - wreq
+      - microlens
+      - http-client
+      - bytestring
 
   doctests:
     source-dirs: test

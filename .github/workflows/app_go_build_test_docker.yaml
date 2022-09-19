@@ -33,7 +33,6 @@ jobs:
         # testing
       - name: Test with Go
         run: |
-          cd app_go
           go test -json *.go > TestResults-Go.1.17.json
       - name: Upload Go test results
         uses: actions/upload-artifact@v3
@@ -53,7 +52,6 @@ jobs:
       - uses: snyk/actions/setup@master
       - name: Snyk test for vulnerabilities
         run: | 
-          cd app_go
           snyk test --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

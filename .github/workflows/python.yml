@@ -50,17 +50,6 @@ jobs:
         run: |
           python -m unittest discover ./
 
-      - uses: snyk/actions/python-3.8@master
-      - uses: snyk/actions/setup@master
-
-      - name: Run Snyk to check for vulnerabilities
-        working-directory: ./app_python
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: |
-          pip install -r requirements.txt
-          snyk test --sarif-file-output=result.sarif
-
 
   container:
     timeout-minutes: 10
@@ -86,5 +75,23 @@ jobs:
           file: app_python/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/flask:latest
+
+  snyk:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: snyk/actions/setup@master
+
+      - name: Check vulnerabilities
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          pip install -r requirements.txt
+          snyk test --sarif-file-output=result.sarif
+      - name: Upload to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: app_python/result.sarif
           
           

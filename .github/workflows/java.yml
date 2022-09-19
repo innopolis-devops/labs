@@ -34,4 +34,6 @@ jobs:
           npm rm -rf node_modules && rm package-lock.json
           npm install
       - name: Run ESLint
-        run: npm run lint
+        run: |
+          cd app_javascript/app_js
+          npm run lint

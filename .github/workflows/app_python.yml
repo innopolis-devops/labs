@@ -27,7 +27,7 @@ jobs:
           pip install --no-cache-dir -r requirements.txt
 
       - name: Run linter
-        run: pylint ./app
+        run: pylint --fail-under=7 ./app
 
       - name: Run tests
         run: pytest ./app

@@ -62,6 +62,7 @@ jobs:
             cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/moscow_time:buildcache
             cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/moscow_time:buildcache,mode=max
   snyk_check:
+      needs: ["build_and_test"]
       name: Make Snyk checking
       runs-on: ubuntu-latest
       steps:

@@ -33,6 +33,7 @@ jobs:
         run: pytest ./app
 
   push:
+    needs: build
     runs-on: ubuntu-latest
     defaults:
       run:

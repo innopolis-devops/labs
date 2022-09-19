@@ -1,4 +1,6 @@
 # Timing app
+![PYTHON APP](https://github.com/github/docs/actions/workflows/main.yml/badge.svg?event=push)
+
 A simple toy app that shows current Moscow time.
 ## Build
 To install the app, make sure python3 is installed. You are free to use any virtual environment as well.

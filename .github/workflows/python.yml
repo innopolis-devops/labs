@@ -43,6 +43,8 @@ jobs:
           python -m unittest discover ./
 
       - name: Run Snyk to check for vulnerabilities
+        working-directory: ./python_app
         uses: snyk/actions/python-3.8@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          

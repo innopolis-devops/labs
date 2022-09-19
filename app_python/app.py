@@ -6,8 +6,6 @@ import pytz
 
 app = Flask(__name__)
 
-# Adding this to see if only python folder will be continiously integraded!!!
-
 
 def get_time(time_format, timezone=pytz.timezone('UTC')):
     """Returns current time for timezone in needed format"""
@@ -19,6 +17,11 @@ def get_moscow_time():
     timezone = pytz.timezone('Europe/Moscow')
     time_format = "%b %d %Y %H:%M:%S"
     return get_time(time_format, timezone)
+
+
+def test_ci():
+    """Adding this to check if only python part will be CI'ed"""
+    return True
 
 
 @app.route('/')

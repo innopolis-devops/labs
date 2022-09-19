@@ -12,6 +12,12 @@ on:
 # Allow one concurrent build
 concurrency: build-py-for-docker
 
+env:
+  IMAGE_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops-python
+
+permissions:
+  contents: read
+
 jobs:
   build:
     timeout-minutes: 5
@@ -43,5 +49,5 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops-python:latest
           builder: ${{ steps.buildx.outputs.name }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops-python:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops-python:buildcache,mode=max
+          cache-from: type=registry,ref=${{ env.IMAGE_NAME }}:buildcache
+          cache-to: type=registry,ref=${{ env.IMAGE_NAME }}:buildcache,mode=max

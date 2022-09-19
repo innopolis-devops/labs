@@ -10,6 +10,9 @@ concurrency:
   group: build-test-py-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   build:
     timeout-minutes: 5

@@ -9,7 +9,7 @@ on:
 
 # Cancel the previous run in a new commit is added
 concurrency:
-  group: docker-${{ github.ref }}
+  group: test-ts-docker-${{ github.ref }}
   cancel-in-progress: true
 
 env:

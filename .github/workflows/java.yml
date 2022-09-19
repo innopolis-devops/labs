@@ -36,7 +36,6 @@ jobs:
       - name: Test
         run: |
           npm run build --if-present
-          npm test
   build_push:
     needs: check_changes
     runs-on: [ubuntu-latest]

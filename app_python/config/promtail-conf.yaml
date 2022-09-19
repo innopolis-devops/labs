@@ -1,0 +1,36 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: ${APP_API_LOKI_URL}
+
+scrape_configs:
+  - job_name: app-log
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: app-log
+          group: production
+          __path__: /var/log/app/main.log
+
+    pipeline_stages:
+      - regex:
+          expression: '^(?P<dt>\d+-\d+-\d+ \d+:\d+:\d+,\d+) \(?P<level>\w+\)\ \w+.(?P<module>\w+).(?P<endpoint>\w+).(?P<function>\w+): (?P<content>.*)$'
+      - template:
+          source: dt
+          template: '{{ Replace .Value "," "." -1 }}'
+      - timestamp:
+          source: dt
+          format: "2020-10-22 15:04:05.000"
+      - output:
+          source: content
+      - labels:
+          level:
+          module:
+          endpoint:
+          function:

@@ -3,6 +3,8 @@
 This app will help you to get current time in Europe/Moscow timezone.
 This project is written using Django framework.
 
+[![app_python](https://github.com/mcflydesigner/iu-devops-labs/actions/workflows/app_python.yml/badge.svg?branch=lab3)](https://github.com/mcflydesigner/iu-devops-labs/actions/workflows/app_python.yml)
+
 ## Docker
 Link to the [image on docker hub](https://hub.docker.com/repository/docker/mcflydesigner/django-iu-lab)
 
@@ -61,3 +63,13 @@ The tests are written for 2 modules of the application: *core django_app* and *t
 * Tests are fast
 * Tests are grouped within different modules
 * Tests are documented
+
+## CI/CD
+
+For CI/CD I am using Github Actions. For python application, 
+the workflow in described in [.github/workflows/app_python.yml](../.github/workflows/app_python.yml) 
+
+### How does pipeline work?
+
+The CI/CD pipeline consists of the following stages:
+* 

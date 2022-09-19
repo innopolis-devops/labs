@@ -27,6 +27,8 @@ jobs:
         # linting
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
+        with:
+          working-directory: app_go
 
         # testing
       - name: Test with Go

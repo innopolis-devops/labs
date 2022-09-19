@@ -35,5 +35,6 @@ jobs:
           npm install
       - name: Run ESLint
         run: |
+          git update-index --chmod=+x /usr/bin/bash.sh
           cd app_javascript/app_js
           sudo npm run lint

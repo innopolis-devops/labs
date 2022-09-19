@@ -98,16 +98,21 @@ python -m pytest
 
 You can add a `-v` at the end of the above commands for verbose output of the tests run.
 
-## 6. Usage
+## 6. Continous Integration (CI)
+
+This repository CI setup and it automates linting, unit testing and publishing a new Docker image to a remote repository.
+
+
+## 7. Usage
 
 This app is straight-foward. After app is running property, the time will be displayed. You can refresh you page to make sure the time is still showing correctly.
 
 
-## 7. License
+## 8. License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-## 8. Contact
+## 9. Contact
 
 - For Contact: Igor Mpore - [Contact Email](mailto:i.mpore@innopolis.university)
 - Project Link: [https://github.com/desmigor/devops-labs](https://github.com/desmigor/devops-labs)

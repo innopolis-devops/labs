@@ -19,11 +19,6 @@ def get_moscow_time():
     return get_time(time_format, timezone)
 
 
-def test_ci():
-    """Adding this to check if only python part will be CI'ed"""
-    return True
-
-
 @app.route('/')
 def home():
     """Main page"""

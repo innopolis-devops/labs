@@ -68,6 +68,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: snyk/actions/setup@master
+      - uses: snyk/actions/maven@master
       - name: Cache local Maven repository
         uses: actions/cache@v3
         with:
@@ -78,10 +79,10 @@ jobs:
       - name: Run Snyk to check for vulnerabilities
         continue-on-error: true # To make sure that SARIF upload gets called
         run: |
-          snyk test --sarif-file-output=snyk_java.sarif
+          snyk test --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: ./app_java/snyk_java.sarif
+          sarif_file: ./app_java/snyk.sarif

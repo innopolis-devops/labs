@@ -33,33 +33,33 @@ To run from the master branch, follow the instructions below:
 ## Docker
 To run app via docker (without logging in docker hub):
 1. Build docker image
-    ```
+    ```bash
     docker build -t <image name> .
     ```
 2. Run the app. It will be open at port 5000
-    ```
+    ```bash
     docker run -p 5000:5000 <image name>
     ```
     
 To run app via docker (with logging in docker hub):
 1. Build docker image
-    ```
+    ```bash
     docker build -t nailyav/lab2 .
     ```
 2. Run the app. It will be open at port 5000
-    ```
+    ```bash
     docker run -p 5000:5000 <image name>
     ```
 3. Login to docker hub account
-    ```
+    ```bash
     docker login
     ```
 4. Tag the image
-    ```
+    ```bash
     docker tag nailyav/lab2 nailyav/lab2:1.0
     ```
 5. Push the image to docker hub
-    ```
+    ```bash
     docker image nailyav/lab2 push
     ```
 

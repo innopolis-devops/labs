@@ -25,9 +25,9 @@ jobs:
         run: |
           pylint $(git ls-files '*.py')
         continue-on-error: true
-      # - name: Test with pytest
-      #   run: |
-      #     pytest
+      - name: Test with pytest
+        run: |
+          pytest
 
   production:
     needs: [ "build" ]

@@ -17,11 +17,6 @@ defaults:
   run:
     working-directory: ./app_python
 
-env:
-  AWS_REGION: eu-north-1
-  AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
-  AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-
 jobs:
   test:
     # Use ubuntu-20.04 LTS.
@@ -61,9 +56,9 @@ jobs:
         run: sudo apt-get update -y && sudo apt-get install make awscli
       - name: Setup AWS CLI.
         run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-          aws configure set region $AWS_REGION
+          aws configure set aws_access_key_id ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws configure set aws_secret_access_key ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws configure set region ${{secrets.AWS_REGION}}
       - name: Build
         run: |
           make ecr_login
@@ -88,9 +83,9 @@ jobs:
         run: sudo apt-get update -y && sudo apt-get install make awscli
       - name: Setup AWS CLI.
         run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-          aws configure set region $AWS_REGION
+          aws configure set aws_access_key_id ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws configure set aws_secret_access_key ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws configure set region ${{secrets.AWS_REGION}}
       - name: Build
         run: |
           make ecr_login

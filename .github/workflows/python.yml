@@ -59,9 +59,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           snyk test --sarif-file-output=result.sarif
-          
-        with:
-          args: --severity-threshold=high
+
 
   container:
     timeout-minutes: 10

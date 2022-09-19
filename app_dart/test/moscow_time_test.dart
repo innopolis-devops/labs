@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:timezone/data/latest.dart';
 
 void main() {
-  test('Counter value should be incremented', () async {
+  test('Time should be correct', () async {
     initializeTimeZones();
     var before = MoscowTime.moscowTimeFormatted;
     await Future.delayed(const Duration(seconds: 1));

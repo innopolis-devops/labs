@@ -35,11 +35,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Update toolchain
-        run: |
-          rustup update
-          rustup component add clippy
-          rustup install nightly
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: nightly
+          override: true
 
 #      - name: Cache dependencies
 #        uses: actions/cache@v2

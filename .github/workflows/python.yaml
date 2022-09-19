@@ -39,7 +39,7 @@ jobs:
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.8@master
         with:
-          args: app_python
+          args: ./app_python --allow-missing
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
   push_to_registry:

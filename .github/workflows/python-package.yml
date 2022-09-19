@@ -2,6 +2,9 @@ name: Python package
 
 on:
   push:
+    branches:
+      - master
+      - lab*
     paths:
       - 'app_python/**'
       - '.github/workflows/python-package.yml'

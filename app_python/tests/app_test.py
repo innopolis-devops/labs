@@ -11,7 +11,7 @@ testdata_format = [
 ]
 
 testdata_update = [
-    ("Europe/Moscow", "%Y-%m-%d %H:%M:%S.%f %z", 1),
+    ("Europe/Moscow", "%Y-%m-%d %H:%M:%S.%f %z", 3),
     ("Europe/London", "%Y-%m-%d %H:%M:%S", 5),
     ("America/New_York", "%d.%m.%Y %H:%M:%S.%f", 10),
 ]

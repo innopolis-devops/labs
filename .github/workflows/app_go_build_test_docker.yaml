@@ -22,11 +22,7 @@ jobs:
         with:
           go-version: 1.17
           cache: true
-
-        # try to use cached dependencies
-      - name: Install dependencies
-        run: |
-          go get app_go
+          cache-dependency-path: app_go/go.sum
 
         # linting
       - name: golangci-lint

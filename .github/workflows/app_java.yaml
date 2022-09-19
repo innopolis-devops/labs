@@ -67,16 +67,7 @@ jobs:
         working-directory: "./app_java"
     steps:
       - uses: actions/checkout@master
-      - name: Cache local Maven repository
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**./app_java/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/maven@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high

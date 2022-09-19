@@ -1,5 +1,8 @@
 # DevOps lab 2
 
+![python workflow](https://github.com/zZzwat4er/devops_labs/actions/workflows/python.yaml/badge.svg?branch=lab3)
+![rust workflow](https://github.com//zZzwat4er/devops_labs/actions/workflows/dart.yaml/badge.svg?branch=lab3)
+
 ___
 
 ## Overview
@@ -80,8 +83,8 @@ docker run --network="host" --name="web" wat4er/inno_devops:python
 On local macine:
 
 ```bash
-cd ./app_python/app
-python3 ./main.py
+cd ./app_python
+python3 -m app
 ```
 
 after this you can access web app in your browser by url : `localhos:5000`

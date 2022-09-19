@@ -44,7 +44,10 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ./
           file: app_python/Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops_lab2:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops_lab3:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/devops_lab3:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/devops_lab3:buildcache,mode=max

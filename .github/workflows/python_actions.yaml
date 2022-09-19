@@ -38,7 +38,11 @@ jobs:
         with:
           files: |
             app_python/**
-      - if: steps.changed.outputs.any_changed == 'true'
+      - name: Run step if any file(s) in the docs folder change
+        if: steps.changed.outputs.any_changed == 'true'
+        run: |
+          echo "One or more files in the docs folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed.outputs.all_changed_files }}"
       - uses: actions/checkout@master
       - uses: actions/setup-python@v1
         with:

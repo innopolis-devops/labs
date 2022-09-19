@@ -1,6 +1,6 @@
 # MoscowTimeDisplayer
 
-[![Dependencies, Linter and Tests](https://github.com/yadariya/labs/blob/lab3/.github/workflows/python.yaml/badge.svg)](https://github.com/yadariya/labs/actions/workflows/python.yaml)
+[![Dependencies, Linter and Tests](https://github.com/yadariya/labs/actions/workflows/python.yaml/badge.svg)](https://github.com/yadariya/labs/actions/workflows/python.yaml)
 
 ## :bulb: Overview
 

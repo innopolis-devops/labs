@@ -2,10 +2,16 @@ from datetime import datetime
 from flask import Flask, render_template
 
 app = Flask(__name__)
-
+year = 0
+month = 0
+number = 0
+hour = 0
+minute = 0
+second = 0
 
 @app.route('/')
 def index():
+    global year, month, number, hour, minute, second
     date = datetime.now()
     date = str(date).split(' ')
     day = date[0].split('-')

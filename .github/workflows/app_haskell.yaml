@@ -24,7 +24,9 @@ jobs:
           key: ${{ runner.os }}-store-${{ hashFiles('stack.yaml.lock') }}
 
       - name: Install hpack
-        run: stack install hpack
+        run: |
+          apt install -y jq
+          ./scripts/download-hpack.sh
 
       - name: Test
         run: make test

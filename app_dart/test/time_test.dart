@@ -37,6 +37,8 @@ void main() async {
         debugPrint(start.toString());
         debugPrint(dataToCompare.toString());
         debugPrint(end.toString());
+        debugPrint(dataToCompare.isAfter(start).toString());
+        debugPrint(dataToCompare.isBefore(end).toString());
         expect(
           dataToCompare.isAfter(start) && dataToCompare.isBefore(end),
           true,

@@ -66,7 +66,7 @@ jobs:
         run: pip install -r ${{ env.working_dir }}/requirements.txt
         
       - name: Snyk monitor
-        run: snyk test app_python --sarif-file-output=snyk.sarif
+        run: snyk test ${{ env.working_dir }} --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 

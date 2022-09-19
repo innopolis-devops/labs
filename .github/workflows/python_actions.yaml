@@ -6,11 +6,19 @@ on:
     branches:
       - '*'
 jobs:
-  run_tests:
-    rules:
-      - changes:
-          - app_python/*
+  check_changes:
     runs-on: [ubuntu-latest]
+    name: Check changes in app_python
+    steps:
+      - name: Get changed files
+        id: changed
+        uses: tj-actions/changed-files@v29.0.7
+          with:
+            files: app_python/**
+  run_tests:
+    needs: [check_changes]
+    runs-on: [ubuntu-latest]
+    if: needs.check_changes.changed.any_changed == 'true'
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-python@v1

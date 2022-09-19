@@ -34,7 +34,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Build docker and run
       run: |
-        docker build -t timeweb app_python/timeweb/.
+        docker build -t timeweb app_python/.
         docker run -p 127.0.0.1:50000:50000 timeweb
     - name: Test with unittest
       run: |

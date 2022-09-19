@@ -36,6 +36,12 @@ jobs:
       - name: Test with pytest
         run: |
           pytest
+      - name: Run Snyk to check for vulnerabilities
+          uses: snyk/actions/python-3.8@master
+          with:
+            args: app_python
+          env:
+            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
   push_to_registry:
       needs: ["build_and_test"]
       name: Push Docker image to DockerHub
@@ -61,15 +67,3 @@ jobs:
             tags: ${{ secrets.DOCKER_HUB_USERNAME }}/moscow_time:latest
             cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/moscow_time:buildcache
             cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/moscow_time:buildcache,mode=max
-  snyk_check:
-      needs: ["build_and_test"]
-      name: Make Snyk checking
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@master
-        - name: Run Snyk to check for vulnerabilities
-          uses: snyk/actions/python-3.8@master
-          with:
-            args: app_python
-          env:
-            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

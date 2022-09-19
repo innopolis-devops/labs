@@ -10,7 +10,8 @@ class Test(unittest.TestCase):
 
     def moscow_time_test(self):
         msc_time = app.show_time()
-        self.assertAlmostEqual(parser.parse(msc_time).timestamp(), time(), delta=1)
+        time_to_seconds = parser.parse(msc_time).timestamp()
+        self.assertAlmostEqual(time_to_seconds, time(), delta=1)
 
 
 if __name__ == "__main__":

@@ -18,7 +18,7 @@ on Windows or
 on MacOS/Linux
 
 * Enter command to launch application:  
-```$ flask --app main run```  
+```$ flask --app app_python\main_app\main run```  
 
 ## Usage
 * Go to [localhost](http://127.0.0.1:5000/) to check if the application is working:
@@ -28,6 +28,10 @@ on MacOS/Linux
 * Install Docker
 * Do ```docker pull glebsmetanin/moscow_time```
 * Do ```docker run -d -p 5000:5000 glebsmetanin/moscow_time```
+
+## Unit tests
+* Install pytest with: ```pip install pytest```\
+* Run test with: ```pytest app_python/tests/test_request.py```
 
 ## Contact
 Gleb Smetanin, BS19-SD-01 \

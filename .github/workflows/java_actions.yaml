@@ -26,13 +26,7 @@ jobs:
     runs-on: [ubuntu-latest]
     #if: needs.check_changes.outputs.status == 'true'
     steps:
-      - uses: actions/checkout@v2
-      - name: Lint Code Base
-        uses: dbelyaev/action-checkstyle@v0.5.1
-        with:
-          github_token: ${{ secrets.LINTER_TOKEN }}
-          reporter: github-pr-review
-          level: warning
+      - run: echo 'OK'
   build_and_pub:
     needs: [run_tests]
     runs-on: [ubuntu-latest]

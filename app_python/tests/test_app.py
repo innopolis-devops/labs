@@ -15,8 +15,3 @@ def test_get_moscow_time(client):
     with freeze_time("2001-09-21 21:00:00", tz_offset=-3):
         response = client.get("/")
         assert response.text.find('<p>22:00:00</p>') != -1
-
-# ToDo: Update  a PYTHON.md ﬁle and describe your unit tests and best practices that you applied.
-# ToDo: Update a README.md ﬁle, add a "Unit tests" part.
-# ToDo: Add a workﬂow status badge.
-# ToDO: Create a CI.md and provide best practices that you applied.

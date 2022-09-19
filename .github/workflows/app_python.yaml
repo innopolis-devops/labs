@@ -10,6 +10,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     strategy:
       matrix:
         python-version: ["3.8"]
@@ -45,6 +46,7 @@ jobs:
   push:
 
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: "./app_python"
@@ -70,6 +72,7 @@ jobs:
   snyk:
 
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: "./app_python"
@@ -85,7 +88,7 @@ jobs:
       - name: Snyk monitor
         run: |
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          snyk test --sarif-file-output=snyk.sarif
+          snyk test --sarif-file-output=./app_python/snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Upload result to GitHub Code Scanning

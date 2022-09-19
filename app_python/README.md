@@ -34,6 +34,11 @@ Another way to run application:
 Follow steps to stop:
 1. Run `docker-compose down`
 
+### Tests
+
+Follow step:
+1. Run `pytest app_python`
+
 ### Contact
 
 Email: g.kostarev@innopolis.university  

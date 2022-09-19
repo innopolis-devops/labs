@@ -35,7 +35,7 @@ jobs:
     - name: Build docker and run
       run: |
         docker build -t timeweb app_python/.
-        docker run -p 127.0.0.1:50000:50000 timeweb
+        docker run -p 127.0.0.1:50000:50000 -d timeweb
     - name: Test with unittest
       run: |
         cd app_python/tests

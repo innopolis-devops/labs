@@ -25,7 +25,7 @@ jobs:
 
       - name: Install hpack
         run: |
-          apt install -y jq
+          sudo apt install -yqq jq
           ./scripts/download-hpack.sh
 
       - name: Test

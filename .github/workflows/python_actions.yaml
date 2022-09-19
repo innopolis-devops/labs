@@ -5,6 +5,7 @@ on:
       - '!refs/tags/*'
     branches:
       - '*'
+
 jobs:
   check_changes:
     runs-on: [ubuntu-latest]

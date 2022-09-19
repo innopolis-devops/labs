@@ -1,5 +1,11 @@
 # DevOps course labs at Innopolis University
 
+![Docker](https://github.com/seytkalievm/devops_labs/actions/workflows/docker.yml/badge.svg)
+
+![Pylint](https://github.com/seytkalievm/devops_labs/actions/workflows/lint.yml/badge.svg)
+
+![Python package](https://github.com/seytkalievm/devops_labs/actions/workflows/build_test.yml/badge.svg)
+
 ## Overview
 
 This is Python web application written using [FlaskAPI framework]

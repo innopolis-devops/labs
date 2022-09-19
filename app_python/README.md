@@ -83,16 +83,31 @@ Running the image on an `ARM64 architecture`
 docker run -p 8080:8080  migorr/time-app-devops:arm64 
 ```
 
-## 5. Usage
+## 5. Unit Tests
+
+For running unit tests, use this command:
+
+```
+pytest
+```
+Or
+
+```
+python -m pytest
+```
+
+You can add a `-v` at the end of the above commands for verbose output of the tests run.
+
+## 6. Usage
 
 This app is straight-foward. After app is running property, the time will be displayed. You can refresh you page to make sure the time is still showing correctly.
 
 
-## 6. License
+## 7. License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-## 7. Contact
+## 8. Contact
 
 - For Contact: Igor Mpore - [Contact Email](mailto:i.mpore@innopolis.university)
 - Project Link: [https://github.com/desmigor/devops-labs](https://github.com/desmigor/devops-labs)

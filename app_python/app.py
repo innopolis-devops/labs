@@ -20,7 +20,7 @@ def index():
     hour, minute, second = time[0], time[1], time[2].split('.')[0]
     return render_template(
         'index.html',
-        year = year,
+        year=year,
         month=month,
         number=number,
         hour=hour,

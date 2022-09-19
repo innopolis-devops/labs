@@ -27,7 +27,7 @@ jobs:
   run_tests:
     needs: [check_changes]
     runs-on: [ubuntu-latest]
-    if: needs.check_changes.changed.any_changed == 'true'
+    if: needs.check_changes.changed.outputs.any_changed == 'true'
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-python@v1

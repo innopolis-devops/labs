@@ -59,16 +59,21 @@ jobs:
           architecture: 'x64'
       - name: Install make and aws cli.
         run: sudo apt-get update -y && sudo apt-get install make awscli
+      - name: Setup AWS CLI.
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+          aws configure set region $AWS_REGION
       - name: Build
         run: |
-          echo $AWS_REGION
           make ecr_login
           make pull-prod
           make build-prod
 
   push:
     needs: build
-    if: ${{github.ref == 'refs/heads/master'}}
+    # if: ${{github.ref == 'refs/heads/master'}}  # To be used in real production.
+    if: ${{github.event_name == 'pull_request'}}
     # Use ubuntu-20.04 LTS.
     runs-on: ubuntu-20.04
     steps:
@@ -81,6 +86,11 @@ jobs:
           architecture: 'x64'
       - name: Install make and aws cli.
         run: sudo apt-get update -y && sudo apt-get install make awscli
+      - name: Setup AWS CLI.
+        run: |
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+          aws configure set region $AWS_REGION
       - name: Build
         run: |
           make ecr_login

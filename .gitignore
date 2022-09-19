@@ -1,7 +1,6 @@
 /app_python/.idea/
 HELP.md
 target/
-/app_java/.mvn/
 !**/src/main/**/target/
 !**/src/test/**/target/
 

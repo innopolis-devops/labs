@@ -50,17 +50,14 @@ jobs:
         run: |
           python -m unittest discover ./
 
+      - uses: snyk/actions/python-3.8@master
+
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python-3.8@master
+        working-directory: ./app_python
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --severity-threshold=high
-
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: app_python/result.sarif
 
   container:
     timeout-minutes: 10

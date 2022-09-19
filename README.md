@@ -5,6 +5,7 @@
 ![Python Check](https://github.com/Kamila-Khamidullina/devops/actions/workflows/python.yml/badge.svg)
 ![JavaScript Check](https://github.com/Kamila-Khamidullina/devops/actions/workflows/java.yml/badge.svg)
 ![JavaScript Linter](https://github.com/Kamila-Khamidullina/devops/actions/workflows/java_lint.yml/badge.svg)
+![Snyk](https://github.com/Kamila-Khamidullina/devops/actions/workflows/snyk.yml/badge.svg)
 
 ## About
 

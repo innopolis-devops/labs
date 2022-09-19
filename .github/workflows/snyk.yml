@@ -1,0 +1,14 @@
+name: Snyk Python
+on: push
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: snyk/actions/python-3.8@master
+      - name: Run Snyk to check for vulnerabilities
+        working-directory: app_python
+        run: snyk test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

@@ -33,3 +33,16 @@ https://github.com/python/mypy
 
 Tool For Style Guide Enforcement
 https://github.com/PyCQA/flake8
+
+# Unit tests
+
+I use `pytest` to test the app
+
+I wrote a test that checks whether the main page was displayed correctly
+
+## Best Practices
+
+- Simple
+- Isolated
+- No API calls
+- One scenario per test

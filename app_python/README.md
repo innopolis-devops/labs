@@ -11,6 +11,19 @@ A web application that shows the current time in the city of Innopolis
 3. Run `docker run -p 9000:5000 timurbl/devops_labs`
 4. Open page on http://127.0.0.1:9000
 
+## Tests
+
+### Unit tests
+
+To test the app run `cd app_python && pytest .`
+
+## CI GitHub Actions
+
+- Dependencies
+- Linter
+- Tests
+- Updating docker public image
+
 ## Contact
 
 Timur Belov, BS19-SD-01

@@ -83,3 +83,24 @@ _Result_
 
 ![](https://i.imgur.com/ZIXXb9O.png)
 _Result for both PYTHON.md and README.md_
+
+## Testing
+
+### Unit tests
+
+For unit tests I have used standard python library - unittest.
+
+This is simple and lightweight built-in framework for unit-testing which does not require additional dependencies.
+
+Applied **best practices**:
+
+- Usage of framework (do not reimplement the wheel)
+- Set up stage for tests that require this step
+- Each test is responsible only for tiny functionality 
+(so that each test is fast, simple and helps to find exact reason of failure)
+- Used both positive and negative tests (more coverage)
+- Usage of test-client provided by **Flask** framework
+
+The **first test** checks the formatting of `get_current_moscow_time` output.\
+The **second one** checks reachability of main page.\
+The **third test** checks unreachability of some missing page/path.

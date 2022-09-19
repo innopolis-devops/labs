@@ -119,6 +119,22 @@ docker run -p 8000:8000 -d ilyakolomin/devops_app_python:<tag>
 
 Congratulations, now you could visit http://127.0.0.1:8000 to see current Moscow time.
 
+## Testing
+
+In order to run the unit tests for my project you will need to proceed with these commands
+
+```shell
+# for normal run
+python3 -m unittest test.py
+
+# for showing additional details
+python3 -m unittest test.py -v
+
+# for running particular test
+python3 -m unittest test.<Class>.<TestCase>
+python3 -m unittest test.AppTests.test_main_page # example
+```
+
 ## Contact
 
 Ilya Kolomin - @Ilya-Kolomin - i.kolomin@innopolis.university\

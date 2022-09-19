@@ -1,4 +1,4 @@
-name: Python build
+name: Docker build
 
 on: [push, pull_request]
 

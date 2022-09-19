@@ -94,6 +94,24 @@ The test runs the function with an interval of one second and compares the resul
 * The test does not depend on the environment
 * The test is readable
 
+## Workflow
+
+### Python workflow
+
+The project contains a Github Actions workflow for the python app.
+What it does:
+
+* Installs dependencies
+* Lint checks
+* Runs tests
+
+There is also a workflow for docker in the python project.
+What it does:
+
+* Logs in to my account
+* Builds the app
+* Pushes to my DockerHub
+
 ## Contact
 
 * Emil Khabibullin

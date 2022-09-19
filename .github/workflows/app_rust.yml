@@ -9,21 +9,6 @@ env:
   WORKDIR: ./app_rust
 
 jobs:
-#  snyk:
-#    runs-on: ubuntu-latest
-#    timeout-minutes: 10
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-#
-#      - name: Check vulnerabilities in Python
-#        uses: snyk/actions/python-3.8@master
-#        env:
-#          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-#        with:
-#          args: --file=${{ env.WORKDIR }}/poetry.lock
-
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -84,3 +69,19 @@ jobs:
           file: ${{ env.WORKDIR }}/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app_rust-server:latest
+
+  snyk:
+    needs: publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check vulnerabilities in Docker image (server)
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: akurmazov/app_rust-server:latest

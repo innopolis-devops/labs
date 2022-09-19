@@ -15,13 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
 
       - name: Install stylish-haskell
         run: |
-          pwd
-          ls -lah
-          scripts/download-latest-stylish-haskell.sh
+          ./scripts/download-stylish-haskell.sh
           chmod +x ./stylish-haskell
           mv ./stylish-haskell /usr/local/bin/
 
@@ -30,5 +27,7 @@ jobs:
           curl -sSL https://raw.github.com/ndmitchell/hlint/master/misc/run.sh > hlint
           chmod +x ./hlint
           mv ./hlint /usr/local/bin/
+
+      - uses: actions/setup-python@v3
 
       - uses: pre-commit/action@v3.0.0

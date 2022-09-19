@@ -14,6 +14,12 @@ so I suppose that there are some tools and practices which helps to control the 
 - Use gitignore
 - Use yaml file for configurations
 
+## Unit tests
+- A testing unit should focus on one tiny bit of functionality and prove it correct.
+- Whenever the api endpoint appears - write api test
+- Usage py.test - is a no-boilerplate alternative to Python’s standard unittest module.
+- Despite being a fully-featured and extensible test tool, it boasts a simple syntax.
+
 ## Why Python
 - I don't know, I hate it :/
 ## Why Flask

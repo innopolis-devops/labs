@@ -10,3 +10,7 @@
 
 ## What this app does
 - The application runs server at your localhost on 8080 port and shows current time in Moscow in index page
+
+## Unit tests
+- The py.test library is used for testing app functionality - is a no-boilerplate alternative to Python’s standard unittest module.
+- The tests cover utility functions and api calls

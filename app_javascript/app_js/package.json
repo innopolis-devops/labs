@@ -12,11 +12,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "lint": "eslint . --ext js,jsx,ts,tsx --fix",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "vue-cli-service lint --no-fix --max-warnings 0"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

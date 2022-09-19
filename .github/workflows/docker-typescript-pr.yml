@@ -1,25 +1,28 @@
-name: Build and push Python app to Docker Hub
+name: Test the Docker build for Typescript app
 
 on:
-  push:
+  pull_request:
     branches:
       - master
     paths:
-      - "app_python/*"
-  # Allow to trigger the workflow manually
-  workflow_dispatch:
+      - "app_typescript/*"
 
-# Allow one concurrent build
-concurrency: build-py-for-docker
+# Cancel the previous run in a new commit is added
+concurrency:
+  group: docker-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  IMAGE_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops-ts
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    # Use app_python directory for all steps
+    # Use app_typescript directory for all steps
     defaults:
       run:
-        working-directory: ./app_python
+        working-directory: ./app_typescript
 
     steps:
       - uses: actions/checkout@v3
@@ -39,8 +42,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops-python:latest
+          tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}
           builder: ${{ steps.buildx.outputs.name }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops-python:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops-python:buildcache,mode=max
+          cache-from: type=registry,ref=${{ env.IMAGE_NAME }}:buildcache
+          cache-to: type=registry,ref=${{ env.IMAGE_NAME }}:buildcache,mode=max

@@ -1,8 +1,13 @@
 name: Python build
 
-on: [push, pull_request]
-  path:
-    ./python_dart
+on:
+  push:
+    path:
+      ./app_python
+  pull_request:
+    path:
+      ./app_python
+
 
 defaults:
   run:

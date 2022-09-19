@@ -1,8 +1,12 @@
 name: Dart build
 
-on: [push, pull_request]
-  path:
-    ./app_dart
+on:
+  push:
+    path:
+      ./app_dart
+  pull_request:
+    path:
+      ./app_dart
 
 defaults:
   run:

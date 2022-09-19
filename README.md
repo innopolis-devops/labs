@@ -116,6 +116,26 @@ What it does:
 * Builds the app
 * Pushes to my DockerHub
 
+Also, the Python app CI should run only if there are changes in the `app_python` folder
+
+### Dart workflow
+
+The project contains a Github Actions workflow for the python app.
+What it does:
+
+* Installs dependencies
+* Lint checks
+* Runs tests
+
+There is also a workflow for docker in the dart project.
+What it does:
+
+* Logs in to my account
+* Builds the app
+* Pushes to my DockerHub
+
+Also, the Dart app CI should run only if there are changes in the `app_dart` folder
+
 ## Contact
 
 * Emil Khabibullin

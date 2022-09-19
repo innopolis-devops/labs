@@ -2,6 +2,7 @@
 
 [![Dependencies, Linter and Tests](https://github.com/yadariya/labs/actions/workflows/python.yaml/badge.svg)](https://github.com/yadariya/labs/actions/workflows/python.yaml)
 [![Docker](https://github.com/yadariya/labs/actions/workflows/docker_python.yaml/badge.svg)](https://github.com/yadariya/labs/actions/workflows/docker_python.yaml)
+[![Snyk](https://github.com/yadariya/labs/actions/workflows/snyk.yaml/badge.svg)](https://github.com/yadariya/labs/actions/workflows/snyk.yaml)
 
 ## :bulb: Overview
 
@@ -41,7 +42,7 @@ Image available on docker hub repository yadariya/devops
 
 ## Unit tests
 
-1. unittest is a standard module, which you don't need to install. 
+1. `unittest` is a standard module, which you don't need to install. 
 2. run the tests `python app_test.py`
 
 

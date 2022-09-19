@@ -54,7 +54,7 @@ jobs:
           architecture: 'x64'
       - name: Install make and aws cli.
         run: sudo apt-get update -y && sudo apt-get install make awscli
-      - name: Setup AWS CLI.
+      - name: Setup AWS CLI
         run: |
           aws configure set aws_access_key_id ${{secrets.AWS_ACCESS_KEY_ID}}
           aws configure set aws_secret_access_key ${{secrets.AWS_SECRET_ACCESS_KEY}}
@@ -81,7 +81,7 @@ jobs:
           architecture: 'x64'
       - name: Install make and aws cli.
         run: sudo apt-get update -y && sudo apt-get install make awscli
-      - name: Setup AWS CLI.
+      - name: Setup AWS CLI
         run: |
           aws configure set aws_access_key_id ${{secrets.AWS_ACCESS_KEY_ID}}
           aws configure set aws_secret_access_key ${{secrets.AWS_SECRET_ACCESS_KEY}}

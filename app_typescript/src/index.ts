@@ -1,18 +1,16 @@
-import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
-import getTime from './time';
+import create_app from './app';
+import TimeService from './time';
 
 dotenv.config();
 
-const app = express();
 const port = process.env.PORT;
+const address = `http://localhost:${port}`;
 
-app.get('/', (req: Request, res: Response) => {
-  getTime().then(date => res.send(
-    date.toLocaleString("en-US", { timeZone: "Europe/Moscow" })
-  ));
-});
-
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+TimeService.fromNTP('time.google.com').then(create_app).then(
+  (app) => (
+    app.listen(port, () => {
+      console.log(`Server is running at ${address}`);
+    })
+  )
+);

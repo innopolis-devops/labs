@@ -5,15 +5,22 @@ import pytz
 TIMEZONE = "Europe/Moscow"
 TIME_FORMAT = "%d.%m.%Y %H:%M:%S"
 
-app = Flask(__name__)
+
+def get_time(tz, tf):
+    return datetime.now(pytz.timezone(tz)).strftime(tf)
 
 
-@app.route("/")
-def show_time():
-    moscow_time = datetime.now(pytz.timezone(TIMEZONE)).strftime(TIME_FORMAT)
-    html = "<center>" + moscow_time + "</center>"
-    return html
+def create_app():
+    app = Flask(__name__)
+
+    @app.route("/")
+    def show_time():
+        moscow_time = get_time(TIMEZONE, TIME_FORMAT)
+        html = "<center>" + moscow_time + "</center>"
+        return html
+
+    return app
 
 
 if __name__ == "__main__":
-    app.run()
+    create_app().run()

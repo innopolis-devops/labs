@@ -4,7 +4,9 @@
 
 * [About The Project](#about-the-project)
 
-* [How To Build](#getting-started)
+* [Getting Started (manually)](#getting-started-manually)
+
+* [Getting Started (docker)](#getting-started-docker)
 
 * [Usage](#usage)
 
@@ -85,6 +87,13 @@ There are two ways to see the web page:
 1. Enter the url inside the browser: <http://127.0.0.1:5000>
 2. Run the command: `$ curl 127.0.0.1:5000`
    Then you will see the page with current time in Moscow.
+
+## Unit tests
+There is unit test for project built with pytest module. You can run them using the following commands:
+```bash
+cd app_python
+pytest .
+```
 
 ## Contact
 

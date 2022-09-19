@@ -23,6 +23,7 @@ jobs:
         run: |
           pip install pylint pytest
           pip install --upgrade pip poetry==1.1.11 && poetry config virtualenvs.create false
+          cd app_python
           poetry install
       - name: Lint code
         run: |

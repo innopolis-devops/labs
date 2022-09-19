@@ -26,6 +26,7 @@ jobs:
         run: |
           pip install pylint
           pylint $(git ls-files '*.py')
-      - name: Test with pytest
+      - name: Test with unittest
         run: |
-          pytest
+          pip install unittest
+          python -m unittest discover ./app_python

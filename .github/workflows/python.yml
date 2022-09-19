@@ -1,0 +1,76 @@
+name: Lint
+
+on: [push]
+
+defaults:
+  run:
+    working-directory: ./app_python
+
+jobs:
+  test:
+    # Use ubuntu-20.04 LTS.
+    runs-on: ubuntu-20.04
+    steps:
+      # Setup python3.10, x64.
+      - uses: actions/checkout@v2
+      - name: Set up python3.10, x64
+        uses: actions/setup-python@v2
+        with:
+            python-version: '3.10'
+            architecture: 'x64'
+      - name: Install requirements
+        run: |
+          apt-get update -y && apt-get install make
+          pip install --no-cache-dir --upgrade pip setuptools wheel
+          pip install --no-cache-dir -r requirements.txt
+          pip install --no-cache-dir -r requirements-test.txt
+      - name: Lint
+        run: make lint
+      - name: Test
+        run: pytest tests/
+
+  build:
+    needs: test
+    if: ${{github.event_name == 'pull_request'}}
+    # Use ubuntu-20.04 LTS.
+    runs-on: ubuntu-20.04
+    steps:
+      # Setup python3.10, x64.
+      - uses: actions/checkout@v2
+      - name: Set up python3.10, x64
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+          architecture: 'x64'
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1
+      - name: Build
+        run: make build-prod
+
+  push:
+    needs: build
+    if: ${{github.ref == 'refs/heads/master'}}
+    # Use ubuntu-20.04 LTS.
+    runs-on: ubuntu-20.04
+    steps:
+      # Setup python3.10, x64.
+      - uses: actions/checkout@v2
+      - name: Set up python3.10, x64
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+          architecture: 'x64'
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1
+      - name: Build
+        run: make build-prod
+      - name: Push
+        run: make push-prod

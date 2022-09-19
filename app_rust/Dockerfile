@@ -6,7 +6,7 @@ COPY Cargo.toml Cargo.lock /volume/
 COPY src /volume/src
 RUN --mount=type=cache,target=/root/.cargo/registry --mount=type=cache,target=/volume/target \
     cargo b --release --target x86_64-unknown-linux-musl && \
-    cp target/x86_64-unknown-linux-musl/release/app_rust app_rust
+    cp target/x86_64-unknown-linux-musl/release/time-rust-web-app app_rust
 
 # Tags for distroless are pretty weird :/
 # hadolint ignore=DL3006

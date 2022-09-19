@@ -1,6 +1,10 @@
 name: Lab3 CI pipeline
 
-on: [push]
+on:
+   push:
+     paths:
+       - app_python/**
+       - .github/workflows/pipeline.yml
 
 jobs:
   build:
@@ -29,5 +33,4 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Test with pytest
         run: |
-          pip install pytz
           pytest

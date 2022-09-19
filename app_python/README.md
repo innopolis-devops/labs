@@ -89,7 +89,11 @@ Run the server by command `python python_app/hw1/manage.py runserver 0.0.0.0:80`
 2. Enter the Virtual Environment with `source venv/bin/activate`
 3. Start testing with `pytest`
  
+## GitHub Actions CI
+This repo is utilizing the GitHub Action workflow to automatically test the application.
+Also it can be builded and uploaded the Docker image of application to Docker Hub.
 
+The both actions are triggered on push events to the `master` and`lab_3` branches and by pull_requests to the `master` and`lab_3`.
 
 
 

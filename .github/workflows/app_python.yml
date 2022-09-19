@@ -44,7 +44,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/pypoetry
-          key: ${{ hashFiles('$WORKDIR/poetry.lock') }}-${{ hashFiles('$WORKDIR/pyproject.toml') }}
+          key: ${{ hashFiles('**/poetry.lock') }}-${{ hashFiles('**/pyproject.toml') }}
 
       - name: Install dependencies
         run: |

@@ -1,5 +1,9 @@
 # Typescript Time Web App
 
+[![Testing CI status](https://github.com/ntdesmond/iu-devops-labs/actions/workflows/test-typescript.yml/badge.svg)](https://github.com/ntdesmond/iu-devops-labs/actions/workflows/test-typescript.yml)
+
+---
+
 An app that allows to receive the current time in Moscow by a web request. Makes sure the time is correct by synchronizing it to the Google's NTP server at the startup.
 
 ## Docker image

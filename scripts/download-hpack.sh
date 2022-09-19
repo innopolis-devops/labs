@@ -8,7 +8,7 @@ hpack="$dst/hpack"
 
 mkdir -p "$dst"
 
-os="${1:-${TRAVIS_OS_NAME:-linux}}"
+os=linux
 url=$(curl -sSL https://api.github.com/repos/sol/hpack/releases/latest | jq -r ".assets[] | select(.name | test(\"$os\")) | .browser_download_url")
 
 echo "Downloading $url"

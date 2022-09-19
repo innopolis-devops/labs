@@ -101,4 +101,4 @@ You can quickly download the latest binary `stylish-haskell` like so:
 
 You can quickly download the latest binary `hlint` like so:
 
-    curl -sSL https://raw.github.com/ndmitchell/hlint/master/misc/run.sh > hlint
+    ../scripts/download-hlint.sh

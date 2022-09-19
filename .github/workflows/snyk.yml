@@ -1,4 +1,4 @@
-name: Snyk Python
+name: Snyk check Python
 on: push
 
 jobs:

@@ -34,7 +34,7 @@ jobs:
           npm rm -rf node_modules && rm package-lock.json
           npm install
       - name: Test
-        run: npm test
+        run: npm run test
   build_push:
     needs: check_changes
     runs-on: [ubuntu-latest]

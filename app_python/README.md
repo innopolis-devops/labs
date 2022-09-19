@@ -11,6 +11,8 @@ Moscow Time Monitor is a web application that allows you to see the actual Mosco
   - [Requirements](#requirements)
   - [Build](#build)
   - [Usage](#usage)
+  - [Unit Tests](#unit-tests)
+  - [Continuous Integration (CI)](#continuous-integration-ci)
   - [Contribution](#contribution)
   - [License](#license)
 
@@ -37,6 +39,14 @@ All you need to run the application is [Docker](https://docs.docker.com/engine/i
 In terms of usage, the single option is possible:
 
 - If you want to view the application, just open the address `127.0.0.1:1337` in your browser.
+
+## Unit Tests
+
+Project contains unit tests which are executed on creation or changes in pull-request related to `app_python` files. There is a single unit test which checks that time parser works correctly on different time zones.
+
+## Continuous Integration (CI)
+
+Project contains CI workflow which automates the linter check, unit tests and publishing of a new Docker image with the service to the remote repository.
 
 ## Contribution
 

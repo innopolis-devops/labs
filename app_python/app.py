@@ -6,6 +6,8 @@ import pytz
 
 app = Flask(__name__)
 
+# Adding this to see if only python folder will be continiously integraded
+
 
 def get_time(time_format, timezone=pytz.timezone('UTC')):
     """Returns current time for timezone in needed format"""

@@ -8,7 +8,6 @@ env = Environment(
     loader=PackageLoader("app"),
     autoescape=select_autoescape()
 )
-
 app = Flask(__name__)
 
 

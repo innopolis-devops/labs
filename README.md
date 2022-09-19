@@ -64,7 +64,7 @@ To run app via docker (with logging in docker hub):
     ```
 
 ## Unit tests
-To run unit tests with pytest run in terminal:
+To run unit tests with `pytest` run in terminal:
 
 ```bash
 pytest .

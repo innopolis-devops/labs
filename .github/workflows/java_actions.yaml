@@ -1,0 +1,44 @@
+name: Run tests on push
+on:
+  push:
+    tags:
+      - '!refs/tags/*'
+    branches:
+      - '*'
+jobs:
+  check_changes:
+    runs-on: [ubuntu-latest]
+    name: Check changes in app_python
+    outputs:
+      status: ${{ steps.changed.outputs.any_changed }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Get changed files
+        id: changed
+        uses: tj-actions/changed-files@v29.0.7
+        with:
+          files: |
+            app_java/**
+  run_tests:
+    needs: check_changes
+    runs-on: [ubuntu-latest]
+    if: needs.check_changes.outputs.status == 'true'
+    steps:
+      - name: Lint Code Base
+        uses: github/super-linter@v4
+  build_and_pub:
+    needs: [run_tests]
+    runs-on: [ubuntu-latest]
+    env:
+      LOGIN: ${{ secrets.DOCKER_LOGIN }}
+      NAME: ${{ secrets.DOCKER_NAME }}
+    steps:
+      - name: Login to docker.io
+        run:  echo ${{ secrets.DOCKER_PWD }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
+      - uses: actions/checkout@master
+      - name: Build image
+        run: docker build -t $LOGIN/$NAME:app_java app_java
+      - name: Push image to docker.io
+        run: docker push $LOGIN/$NAME:app_java

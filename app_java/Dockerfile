@@ -1,6 +1,12 @@
 FROM maven:3.8.2-jdk-11-slim AS build
 COPY src /app_java/src
 COPY pom.xml /app_java/pom.xml
+
+RUN addgroup --system app
+RUN adduser --system --group app
+RUN chown app:app app_java
+USER app
+
 RUN mvn -f /app_java/pom.xml clean package
 
 FROM openjdk:11-jre-slim

@@ -41,7 +41,8 @@ pull requests.
 
 ## Tests
 
- Added unit test compares actual time in moscow and the time that application displays. If difference is more than 3 seconds, test is failed
+Added unit test compares actual time in moscow and the time that application
+displays. If difference is more than 3 seconds, test is failed
 
 ### Best practices
 

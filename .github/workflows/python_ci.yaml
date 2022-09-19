@@ -32,6 +32,7 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
+
       - name: Install dependencies 
         run: pip install -r ${{ env.working_dir }}/requirements.txt
         
@@ -50,6 +51,17 @@ jobs:
 
       - name: Setup snyk
         uses: snyk/actions/setup@master
+        
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies 
+        run: pip install -r ${{ env.working_dir }}/requirements.txt
         
       - name: Snyk monitor
         run: snyk test app_python --sarif-file-output=snyk.sarif

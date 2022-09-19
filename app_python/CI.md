@@ -10,3 +10,4 @@ the workflow in described in [.github/workflows/app_python.yml](../.github/workf
 * No usage of self-hosted runners in the public repository
 * Use of build cache while building docker image
 * Keep actions minimal to save time
+* Docker push stage is performed only if build & tests and security stages are passed

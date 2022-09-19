@@ -71,5 +71,7 @@ the workflow in described in [.github/workflows/app_python.yml](../.github/workf
 
 ### How does pipeline work?
 
-The CI/CD pipeline consists of the following stages:
-* 
+The CI/CD pipeline consists of the following jobs:
+* `linter_and_tests` - installing dependencies, running linter and tests
+* `security` - running Snyk
+* `docker-container` - creating docker image and pushing it to docker hub (run only iff 2 previous are successfully passed)

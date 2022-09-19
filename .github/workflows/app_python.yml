@@ -12,7 +12,7 @@ defaults:
 
 jobs:
 
-  build:
+  linter_and_tests:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
@@ -79,7 +79,7 @@ jobs:
   docker-container:
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    needs: ["build", "security"]
+    needs: ["linter_and_tests", "security"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3

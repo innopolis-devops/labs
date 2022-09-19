@@ -24,7 +24,7 @@ jobs:
   build:
     needs: check_changes
     runs-on: [ubuntu-latest]
-    #if: needs.check_changes.outputs.status == 'true'
+    if: needs.check_changes.outputs.status == 'true'
     steps:
       - uses: actions/checkout@v2
       - name: Install modules
@@ -33,7 +33,7 @@ jobs:
           npm cache clean --force
           npm rm -rf node_modules && rm package-lock.json
           npm install
-      - name: Test
+      - name: Run
         run: |
           npm run build --if-present
   build_push:

@@ -2,12 +2,11 @@ name: Python build
 
 on:
   push:
-    path:
-      ./app_python
+    paths:
+      - app_pyton/**
   pull_request:
-    path:
-      ./app_python
-
+    paths:
+      - app_python/**
 
 defaults:
   run:

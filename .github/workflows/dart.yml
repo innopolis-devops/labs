@@ -2,11 +2,11 @@ name: Dart build
 
 on:
   push:
-    path:
-      ./app_dart
+    paths:
+      - app_dart/**
   pull_request:
-    path:
-      ./app_dart
+    paths:
+      - app_dart/**
 
 defaults:
   run:

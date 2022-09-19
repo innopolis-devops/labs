@@ -1,3 +1,6 @@
+"""
+Moscow time server
+"""
 import os
 from datetime import datetime
 from pytz import timezone
@@ -7,12 +10,15 @@ FILE_NAME = "./files/time.txt"
 
 
 def create_app():
-    app = Flask(__name__, template_folder='./templates')
+    """
+    Create app function
+    """
+    flask_app = Flask(__name__, template_folder='./templates')
     zone = os.environ.get('TIMEZONE', 'Europe/Moscow')
     time_format = os.environ.get('TIME_FORMAT', '%H:%M:%S')
     zone = timezone(zone)
 
-    @app.route("/")
+    @flask_app.route("/")
     def index():
         time = datetime.now(zone).strftime(time_format)
         directory = os.path.dirname(FILE_NAME)
@@ -21,7 +27,7 @@ def create_app():
         with open(FILE_NAME, "a", encoding='utf-8') as file:
             file.write(str(datetime.now(zone)) + '</br>')
         return render_template('index.html', timezone_name=zone, time=time)
-    return app
+    return flask_app
 
 
 if __name__ == "__main__":

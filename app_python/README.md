@@ -45,3 +45,19 @@ python manage.py runserver
 If everything is correct, you will see the page similar to the following one:
 ![web-page-time.png](images/docs/web-page-time.png)
 * Great! Everything works!
+
+## Unit tests
+
+The tests are written for 2 modules of the application: *core django_app* and *timeapp*.
+
+### Testing scenarios:
+* Correct time 
+* Correct time when refresh page
+* Not found page
+
+### Best practices applied
+* Each test checks 1 scenario
+* Tests are simple
+* Tests are fast
+* Tests are grouped within different modules
+* Tests are documented

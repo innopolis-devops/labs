@@ -61,7 +61,7 @@ python manage.py migrate
 ```
 * Run unit tests
 ```shell
-python manage.py test timeapp
+python manage.py test
 ```
 * Run application
 ```shell

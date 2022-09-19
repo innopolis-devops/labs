@@ -14,7 +14,6 @@ jobs:
           python:
             - 'app_python/**'
 
-jobs:
   security:
     needs: changes
     if: ${{ needs.changes.outputs.python == 'true' }}

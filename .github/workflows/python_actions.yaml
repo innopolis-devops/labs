@@ -9,6 +9,8 @@ jobs:
   check_changes:
     runs-on: [ubuntu-latest]
     name: Check changes in app_python
+    outputs:
+      status: ${{ steps.changed.outputs.any_changed }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -27,7 +29,7 @@ jobs:
   run_tests:
     needs: check_changes
     runs-on: [ubuntu-latest]
-    if: needs.check_changes.steps.changed.outputs.any_changed == 'true'
+    if: needs.check_changes.outputs.status == 'true'
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-python@v1

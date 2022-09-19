@@ -82,3 +82,16 @@ The application receives data from ```https://timeapi.io/api/Time/current/zone?t
 
 You get application documentation by accessing the ```/docs``` endpoint.
 
+## Unit Tests
+
+1) Install dependencies.
+2) Run unit tests:
+    ```
+    cd app_python && pytest moscow_time
+    ```
+
+## Author
+
+Bogdan Kondratev
+
+

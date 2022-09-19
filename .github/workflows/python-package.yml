@@ -2,15 +2,10 @@ name: Python package
 
 on:
   push:
-    branches:
-      - master
-      - lab*
     paths:
       - 'app_python/**'
       - '.github/workflows/python-package.yml'
   pull_request:
-    branches:
-      - master
     paths:
       - 'app_python/**'
       - '.github/workflows/python-package.yml'

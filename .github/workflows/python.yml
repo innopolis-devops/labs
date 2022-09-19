@@ -1,20 +1,29 @@
-name: Python build
+name: Python check
 
-on:
-  push:
-    paths:
-      - 'app_pyton/**'
-  pull_request:
-    paths:
-      - 'app_python/**'
+on: [push, pull_request]
 
 defaults:
   run:
     working-directory: ./app_python
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      frontend: ${{ steps.filter.outputs.frontend }}
+    steps:
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          app_python:
+            - 'app_python/**'
+
   check:
     timeout-minutes: 10
+    needs: changes
+    if: ${{ needs.changes.outputs.app_python == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: dorny/paths-filter@v2
@@ -59,6 +68,8 @@ jobs:
 
   container:
     timeout-minutes: 10
+    needs: changes
+    if: ${{ needs.changes.outputs.app_python == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: dorny/paths-filter@v2
@@ -87,6 +98,8 @@ jobs:
 
   snyk:
     timeout-minutes: 10
+    needs: changes
+    if: ${{ needs.changes.outputs.app_python == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: dorny/paths-filter@v2

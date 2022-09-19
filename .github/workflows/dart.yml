@@ -1,20 +1,29 @@
 name: Dart build
 
-on:
-  push:
-    paths:
-      - 'app_dart/**'
-  pull_request:
-    paths:
-      - 'app_dart/**'
+on: [push, pull_request]
 
 defaults:
   run:
     working-directory: ./app_dart
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      frontend: ${{ steps.filter.outputs.frontend }}
+    steps:
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          app_dart:
+            - 'app_dart/**'
+
   check:
     timeout-minutes: 10
+    needs: changes
+    if: ${{ needs.changes.outputs.app_dart == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: dorny/paths-filter@v2
@@ -24,6 +33,7 @@ jobs:
             app_dart:
               - 'app_dart/**'
 
+      - if: steps.changes.outputs.src == 'true'
       - uses: actions/checkout@v3
 
       - uses: actions/setup-java@v1
@@ -52,6 +62,8 @@ jobs:
   
   container:
     timeout-minutes: 10
+    needs: changes
+    if: ${{ needs.changes.outputs.app_dart == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: dorny/paths-filter@v2

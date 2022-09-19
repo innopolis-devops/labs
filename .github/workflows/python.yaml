@@ -61,3 +61,12 @@ jobs:
             tags: ${{ secrets.DOCKER_HUB_USERNAME }}/moscow_time:latest
             cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/moscow_time:buildcache
             cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/moscow_time:buildcache,mode=max
+    snyk_check:
+        name: Make Snyk checking
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@master
+          - name: Run Snyk to check for vulnerabilities
+            uses: snyk/actions/python-3.8@master
+            env:
+              SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

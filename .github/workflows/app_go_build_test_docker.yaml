@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: TestResults-Go.1.17
-          path: TestResults-Go.1.17.json
+          path: app_go/TestResults-Go.1.17.json
 
 
   security:

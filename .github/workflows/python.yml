@@ -60,9 +60,9 @@ jobs:
           aws configure set aws_secret_access_key ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws configure set region ${{secrets.AWS_REGION}}
       - name: Build
+        # Line with 'make pull-prod' can be added to enable caching and improve long buildings.
         run: |
           make ecr_login
-          make pull-prod
           make build-prod
 
   push:
@@ -87,9 +87,9 @@ jobs:
           aws configure set aws_secret_access_key ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws configure set region ${{secrets.AWS_REGION}}
       - name: Build
+        # Line with 'make pull-prod' can be added to enable caching and improve long buildings.
         run: |
           make ecr_login
-          make pull-prod
           make build-prod
       - name: Push
         run: make push-prod

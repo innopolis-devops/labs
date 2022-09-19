@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 import yaml
 
-from datetime import datetime
 from utils.main import get_current_time_formatted
 
 app = Flask(__name__)

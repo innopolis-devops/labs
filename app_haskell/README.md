@@ -67,14 +67,6 @@ For the development you will need to use `stack`
 
     make test
 
-#### Best practices
-
-1. Tests are short and readable, so developers will not waste long time on them
-2. Tests are parametrized, so testing same behaviour for different endpoints is
-   not a problem
-3. Tests are deterministic (no side effects, everything is controlled by test
-   itself)
-
 ## Docker
 
 ### Build image locally

@@ -1,4 +1,6 @@
-# Python application best practices
+# Python
+
+## Python application best practices
 
 * Use version control system (git)
 * Add license information
@@ -29,3 +31,11 @@
     * Cons
       * Because library in lower level comparing to others,
         requires more experience from developer.
+
+## Unit tests best practices
+
+1. Tests are short and readable, so developers will not waste long time on them
+2. Tests are parametrized, so testing same behaviour for different endpoints is
+   not a problem
+3. Tests are deterministic (no side effects, everything is controlled by test
+   itself)

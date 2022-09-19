@@ -1,4 +1,6 @@
-# Haskell application best practices
+# Haskell
+
+## Haskell application best practices
 
 * Use version control system (git)
 * Add license information
@@ -24,3 +26,11 @@
         be not so easy.
 * Use Makefile
 * Turn all warnings to errors
+
+## Unit tests best practices
+
+1. Tests are short and readable, so developers will not waste long time on them
+2. Tests are parametrized, so testing same behaviour for different endpoints is
+   not a problem
+3. Tests are deterministic (no side effects, everything is controlled by test
+   itself)

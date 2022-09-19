@@ -84,4 +84,5 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: akurmazov/app_rust-server:latest
+          image: akurmazov/app_rust-server:latest
+          args: --severity-threshold=high

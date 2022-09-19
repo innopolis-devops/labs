@@ -21,3 +21,19 @@ Cons:
 ## Linters
 I use Pycharm embedded linter for Python.
 Also, I use Stackedit.io for Markdown.
+
+
+# Unit tests 
+## Description
+-   First test checks main entrypoint return something (not  `None`)
+-   Second test checks main entrypoint return type is string
+-   Third test checks main entrypoint contain word  `"center"`  in the response
+
+
+## Best practices
+-   Small tests 
+-   Organize files and folders properly
+-   Use proper namings for files and functions
+-   Test each small piece of software independently
+
+

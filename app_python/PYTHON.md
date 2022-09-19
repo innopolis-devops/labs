@@ -14,4 +14,9 @@ As there is almpst nothing to do there are only a few practices I could addopt
 
 Here I used flake8 since it is first lint I could find
 
+### 2. Tests
+
+- use tests for each unit
+- don't compare time directly but through delta
+
 ## Conclusion

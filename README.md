@@ -19,13 +19,35 @@ There are some requirements to run this apps
 ### Python
 
 - You have to have python
-- You need to download 2 libs: flask() and pytz (venv would work fine)
+- You need to download 4 libs:
+  - flask
+  - flake8
+  - pytz
+  - pytest
 
 ### Dart
 
 - install flutter [link](https://docs.flutter.dev/get-started/install/linux)
 - install chrome if you do not have it allready
 - make sure with `flutter doctor` that you have "Chrome - develop for the web" checked (otherwise try to set CHROME_EXECUTABLE to your chrome executable with `export CHROME_EXECUTABLE=<path/to/chrome/executable>` and check one more time it should work)
+
+___
+
+## Tests
+
+### Python
+
+```bash
+cd ./app_python
+python -m pytest 
+```
+
+### Dart
+
+```bash
+cd ./app_dart
+flutter test --platform chrome
+```
 
 ___
 

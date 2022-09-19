@@ -52,6 +52,10 @@ Flutter project has already build in lint and it should be turned on (and it is)
 
 I use vscode extention that does formatting for me
 
+### 7. Test
+
+do a widget tests with provided functionality and check the time in a range
+
 ## Conclusion
 
 Use packege for everything in flutter. The main packages for this app are Riverpod and GoRouter

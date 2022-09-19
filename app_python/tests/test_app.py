@@ -16,5 +16,5 @@ def test_get_moscow_time(client):
         response = client.get("/")
         assert response.text.find('<p>22:00:00</p>') != -1
 
-# ToDo: Update  a PYTHON.md ﬁle and describe your unit tests and best practices that you applied.
+# ToDo: Update a PYTHON.md ﬁle and describe your unit tests and best practices that you applied.
 # ToDo: Update a README.md ﬁle, add a "Unit tests" part.

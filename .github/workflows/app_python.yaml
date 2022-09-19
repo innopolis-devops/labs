@@ -72,14 +72,14 @@ jobs:
 
       - name: Run snyk
         continue-on-error: true # To make sure that SARIF upload gets called
-        run: snyk container test ${{ secrets.DOCKER_HUB_USERNAME }}/moscow-time-py:latest --file=app_python/Dockerfile --sarif-file-output=snyk.sarif
+        run: snyk container test ${{ secrets.DOCKER_HUB_USERNAME }}/moscow-time-py:latest --file=Dockerfile --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: app_python/snyk.sarif
+          sarif_file: snyk.sarif
 
   deploy:
     timeout-minutes: 30

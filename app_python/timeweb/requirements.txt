@@ -8,3 +8,4 @@ Werkzeug==2.2.2
 zipp==3.8.1
 gunicorn
 pytz
+requests

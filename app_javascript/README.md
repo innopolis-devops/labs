@@ -15,6 +15,7 @@ It shows current Moscow time in browser.
   - [Docker](#docker)
     - [Build with local image](#build-with-local-image)
     - [Building from image on DockerHub](#building-from-image-on-dockerhub)
+  - [Git Actions CI](#git-actions-ci)
   - [Contacts](#contacts)
 
 ## Build
@@ -96,6 +97,14 @@ docker run --publish 3000:3000 kamilakhamidullina/devops_lab2_bonus
 ![run](/assets/build-run-js.jpg)
 
 The app will open at <http://localhost:3000/>.
+
+## Git Actions CI
+
+This app is integrated with github actions.
+
+- java_lint.yml - used to lint check the javascript files
+- java.yml - installs the dependencies, builds the app, logins to the docker,
+  builds the image and pushes it.
 
 ## Contacts
 

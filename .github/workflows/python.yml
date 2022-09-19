@@ -51,12 +51,12 @@ jobs:
           python -m unittest discover ./
 
       - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python-3.8@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: |
-          pip install -r requirements.txt
-          snyk test --sarif-file-output=result.sarif
-          
+        with:
+          args: --severity-threshold=high
+
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:

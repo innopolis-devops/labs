@@ -26,9 +26,9 @@ jobs:
     runs-on: [ubuntu-latest]
     #if: needs.check_changes.outputs.status == 'true'
     steps:
-      - name: Lint Code Base
       - uses: actions/checkout@v2
-      - uses: dbelyaev/action-checkstyle@v0.5.1
+      - name: Lint Code Base
+        uses: dbelyaev/action-checkstyle@v0.5.1
         with:
           github_token: ${{ secrets.LINTER_TOKEN }}
           reporter: github-pr-review

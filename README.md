@@ -1,3 +1,5 @@
+![CI](https://github.com/PassKeyRa/labs/actions/workflows/timeweb.yml/badge.svg)
+
 # TimeWeb
 
 ## About the appliction

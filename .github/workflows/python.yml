@@ -23,7 +23,7 @@ jobs:
   check:
     timeout-minutes: 10
     needs: changes
-    if: ${{ needs.changes.outputs.app_python == 'true' }}
+    if: needs.changes.outputs.app_python == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: dorny/paths-filter@v2
@@ -69,7 +69,7 @@ jobs:
   container:
     timeout-minutes: 10
     needs: changes
-    if: ${{ needs.changes.outputs.app_python == 'true' }}
+    if: needs.changes.outputs.app_python == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: dorny/paths-filter@v2
@@ -99,7 +99,7 @@ jobs:
   snyk:
     timeout-minutes: 10
     needs: changes
-    if: ${{ needs.changes.outputs.app_python == 'true' }}
+    if: needs.changes.outputs.app_python == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: dorny/paths-filter@v2

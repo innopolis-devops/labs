@@ -57,6 +57,20 @@ To run from the master branch, follow the instructions below:
     docker run -p 5000:5000 seytkalievm/devops_lab
     ```
 
+## Unit Testing
+
+To run test, first navigate to the test directory:
+
+```bash
+cd app_python/test
+```
+
+then run test:
+
+```bash
+python unit_test.py
+```
+
 ## Contacts
 
 If you have any questions or ideas, write me in Telegram:

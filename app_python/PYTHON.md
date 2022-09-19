@@ -38,3 +38,12 @@ pull requests.
 * For Python was used the [flake8](https://pypi.org/project/flake8/) linter.
 * For Markdown files the
   [markdownlint](https://github.com/markdownlint/markdownlint) tool was used.
+
+## Tests
+
+ Added unit test compares actual time in moscow and the time that application displays. If difference is more than 3 seconds, test is failed
+
+### Best practices
+
+* Make tests run fast
+* Run a single test case

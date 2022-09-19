@@ -38,8 +38,8 @@ Image available on docker hub repository yadariya/devops
 
 ## Unit tests
 
-1. install unittest module `pip install unittest`
-2. run the tests `python app_tests.py`
+1. unittest is a standard module, which you don't need to install. 
+2. run the tests `python app_test.py`
 
 ## :pencil: Contacts
 

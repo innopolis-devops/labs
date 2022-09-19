@@ -23,4 +23,4 @@ jobs:
         uses: quentinguidee/pep8-action@v1
       - name: Testing with unittest
         run: |
-          python -m unittest discover -s app_python/ -p "*_tests.py"
+          python -m unittest discover -s app_python/ -p "*_test.py"

@@ -1,6 +1,7 @@
-from venv import create
+"""
+Test Fixtures
+"""
 import pytest
-import app
 from app import create_app
 
 @pytest.fixture
@@ -8,6 +9,6 @@ def client():
     '''Creating a test client'''
     app = create_app()
 
-    with app.test_client() as client:
+    with app.test_client() as testing_client:
         with app.app_context():
-            yield client
+            yield testing_client

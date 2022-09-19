@@ -4,7 +4,6 @@ This file (test_main_page.py) contains the unit tests for the app.py file.
 
 import time
 import re
-from app import create_app
 
 def test_main_page(client):
     """
@@ -24,3 +23,4 @@ def test_main_page(client):
     assert t_1 is not None
     assert t_2 is not None
     assert t_1 != t_2
+    

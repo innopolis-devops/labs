@@ -35,17 +35,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - uses: actions-rs/toolchain@v1
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: cargo-${{ hashFiles('$WORKDIR/Cargo.lock') }} }}
+
+      - name: Install
+        uses: actions-rs/toolchain@v1
         with:
           toolchain: nightly
           components: clippy
           override: true
-
-      - name: Cache
-        uses: actions/cache@v2
-        with:
-          path: ./target
-          key: ${{ hashFiles('$WORKDIR/Cargo.lock') }}-${{ hashFiles('$WORKDIR/Cargo.toml') }}
 
       - name: Check
         run: cargo check

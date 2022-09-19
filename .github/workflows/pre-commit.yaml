@@ -19,17 +19,14 @@ jobs:
 
       - name: Install stylish-haskell
         run: |
-          url=https://raw.github.com/haskell/stylish-haskell/master/scripts/latest.sh
-          curl -sL "$url" > stylish-haskell
-          chmod +x stylish-haskell
+          ./scripts/download-latest-stylish-haskell.sh
+          chmod +x ./stylish-haskell
           mv ./stylish-haskell /usr/local/bin/
-          echo $PATH
 
       - name: Install hlint
         run: |
           curl -sSL https://raw.github.com/ndmitchell/hlint/master/misc/run.sh > hlint
-          chmod +x hlint
+          chmod +x ./hlint
           mv ./hlint /usr/local/bin/
-          echo $PATH
 
       - uses: pre-commit/action@v3.0.0

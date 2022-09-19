@@ -1,3 +1,5 @@
+import sys
+sys.path.append("../")
 from utils.main import get_current_time_formatted
 from datetime import datetime
 

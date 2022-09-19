@@ -20,7 +20,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
       -
         name: Build image
-        run: docker build -t $username/$password:app_python app_python
+        run: docker build -t $username/$password:devops_lab2
       -
         name: Push image
-        run: docker push $username/$password:app_python
+        run: docker push $username/$password:devops_lab2

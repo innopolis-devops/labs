@@ -116,7 +116,7 @@ What it does:
 * Builds the app
 * Pushes to my DockerHub
 
-Also, the Python app CI should run only if there are changes in the `app_python` folder
+Also, the Python app CI runs only if there are changes in the `app_python` folder
 
 ### Dart workflow
 
@@ -134,7 +134,7 @@ What it does:
 * Builds the app
 * Pushes to my DockerHub
 
-Also, the Dart app CI should run only if there are changes in the `app_dart` folder
+Also, the Dart app CI runs only if there are changes in the `app_dart` folder
 
 ## Contact
 

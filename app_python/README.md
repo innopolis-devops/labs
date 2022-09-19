@@ -1,6 +1,8 @@
 
 # Moscow Time Web Application
 
+![](https://img.shields.io/github/workflow/status/Ilya-Kolomin/DevOps/Build,%20test,%20and%20push%20to%20Docker?style=for-the-badge)
+
 ## About The Project
 
 This is a simple web application that shows current time in Moscow.\
@@ -134,6 +136,11 @@ python3 -m unittest test.py -v
 python3 -m unittest test.<Class>.<TestCase>
 python3 -m unittest test.AppTests.test_main_page # example
 ```
+
+## CI/CD
+
+Currently, there is a CI pipeline that checks for tests and linters.
+Also, it builds docker container and pushes it to [my hub repository](https://hub.docker.com/r/ilyakolomin/devops_app_python).
 
 ## Contact
 

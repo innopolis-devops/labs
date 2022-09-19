@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -47,6 +47,7 @@ jobs:
   security:
      name: Snyk
      runs-on: ubuntu-latest
+     timeout-minutes: 10
      defaults:
        run:
          working-directory: "./app_python"
@@ -71,6 +72,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: "./app_python"

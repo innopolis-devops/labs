@@ -1,3 +1,4 @@
 *.md
 .idea
 Dockerfile
+**/*_test.go

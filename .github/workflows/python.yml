@@ -52,7 +52,8 @@ jobs:
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.8@master
-        working-directory: ./app_python
+        run:
+          working-directory: ./app_python
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 

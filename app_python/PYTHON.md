@@ -16,6 +16,7 @@ But do not create them in docker containers, because it is waste of resources.
 * [isort](https://github.com/PyCQA/isort)
 
 # Best practices for writing Unit tests
+My unit tests send request to check is server responds with 200 status code on root page and 404 otherwise.
 
 1. Parametrize your tests. Don't use the same test copy-pasted many times with different inputs. With Pytest you can reduce it to only one test.
 2. Make your unit test as small as possible, in a way that the minimum possible piece of code is involved. This way, when an error appears, you will be able to quickly assess where it originated.

@@ -15,6 +15,9 @@ on:
       - 'app_python/**'
       - '.github/workflows/python-package.yml'
 
+defaults:
+  run:
+    working-directory: app_python
 
 jobs:
   lint:

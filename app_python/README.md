@@ -64,25 +64,20 @@ if __name__ == "__main__":
 
 1. Create a `Dockerfile` with instrunctions
 2. Created a new `public` repository on my Docker Hub account
-2. Built the image for `AMD64` on a Linux Machine  using `docker build -t migorr/time-app-devops:amd64 .`
-3. Tested the image locally using `docker run migorr/time-app-devops:amd64`
-4. Pushed the image `docker push migorr/time-app-devops:amd64`
-5. Built the image for `ARM64` on a M1 Mac Machine  using `docker build -t migorr/time-app-devops:arm64 .`
-6. Tested the image locally using `docker run migorr/time-app-devops:arm64`
-7. Pushed the image `docker push migorr/time-app-devops:arm64`
+3. Built the image for `AMD64` on a Linux Machine  using `docker build -t migorr/time-app-devops:amd64 .`
+4. Tested the image locally using `docker run migorr/time-app-devops:amd64`
+5. Pushed the image `docker push migorr/time-app-devops:amd64`
+6. Built the image for `ARM64` on a M1 Mac Machine  using `docker build -t migorr/time-app-devops:arm64 .`
+7. Tested the image locally using `docker run migorr/time-app-devops:arm64`
+8. Pushed the image `docker push migorr/time-app-devops:arm64`
+9. Images are build using Github workflow
 
 ### 4.2 Running the Docker image
 
-Running the image on an `AMD64 architecture`
+Running the image on an using the command:
 
 ```
-docker run -p 8080:8080 migorr/time-app-devops:amd64
-```
-
-Running the image on an `ARM64 architecture`
-
-```
-docker run -p 8080:8080  migorr/time-app-devops:arm64 
+docker run -p 8080:8080 migorr/time-app-devops:latest
 ```
 
 ## 5. Unit Tests

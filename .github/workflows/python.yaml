@@ -18,7 +18,7 @@ jobs:
       - name: Installing dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f app_python/requirenments.txt ]; then pip install -r app_python/requirenments.txt; fi
+          if [ -f app_python/requirements.txt ]; then pip install -r app_python/requirements.txt; fi
       - name: Linting with pylint
         uses: quentinguidee/pep8-action@v1
       - name: Testing with unittest

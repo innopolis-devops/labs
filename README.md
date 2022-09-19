@@ -19,7 +19,7 @@ MoscowTimeDisplayer is simple web-application, which shows current time in Mosco
 3. cd app_python
 
 4. install required dependencies:
-`pip install -r requirenments.txt`
+`pip install -r requirements.txt`
 
 5. run the app
 

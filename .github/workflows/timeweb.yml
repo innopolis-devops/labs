@@ -59,7 +59,7 @@ jobs:
     - name: Build & Push
       uses: docker/build-push-action@v2
       with:
-        context: .
+        context: ./app_python
         file: ./app_python/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/timeweb:latest

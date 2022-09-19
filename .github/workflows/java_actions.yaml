@@ -8,7 +8,7 @@ on:
 jobs:
   check_changes:
     runs-on: [ubuntu-latest]
-    name: Check changes in app_python
+    name: Check changes in app_java
     outputs:
       status: ${{ steps.changed.outputs.any_changed }}
     steps:
@@ -28,6 +28,10 @@ jobs:
     steps:
       - name: Lint Code Base
         uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: master
+          GITHUB_TOKEN: ${{ secrets.LINTER_TOKEN }}
   build_and_pub:
     needs: [run_tests]
     runs-on: [ubuntu-latest]

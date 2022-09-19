@@ -1,5 +1,7 @@
 # Moscow time app
 
+![app_python](https://github.com/ezio-42/devops-labs/actions/workflows/app_python.yaml/badge.svg)
+
 ## Overview
 
 Web application that displays current time in Moscow.
@@ -26,7 +28,11 @@ Web application that displays current time in Moscow.
 
     pre-commit install
 
-### Run black
+### black
+
+#### Install black (in case of separate usage)
+
+    pip install black
 
 #### Check formatting
 
@@ -36,11 +42,23 @@ Web application that displays current time in Moscow.
 
     black .
 
-### Run flake8
+### flake8
+
+#### Install flake8 (in case of separate usage)
+
+    pip install flake8
+
+#### Check formatting and errors (done in pre-commit)
+
+Ignore some rules due to conflict with black.
 
     flake8 --verbose --max-line-length=80 --ignore="E203,W503"
 
-### Run isort
+### isort
+
+#### Install isort (in case of separate usage)
+
+    pip install isort
 
 #### Check unsorted imports
 
@@ -50,7 +68,13 @@ Web application that displays current time in Moscow.
 
     isort .
 
-### Run mypy
+### mypy
+
+#### Install mypy (in case of separate usage)
+
+    pip install mypy
+
+#### Check type errors (done in pre-commit)
 
     mypy .
 
@@ -61,6 +85,20 @@ Web application that displays current time in Moscow.
 ### Run hadolint (done in pre-commit)
 
     pre-commit run -a hadolint-docker
+
+### Unit tests
+
+#### Run tests
+
+    pytest . -v
+
+#### Best practices
+
+1. Tests are short and readable, so developers will not waste long time on them
+2. Tests are parametrized, so testing same behaviour for different endpoints is
+   not a problem
+3. Tests are deterministic (no side effects, everything is controlled by test
+   itself)
 
 ## Docker
 

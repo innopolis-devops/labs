@@ -6,6 +6,7 @@ tmp
 **/.mypy_cache
 target/
 temp/
+**/.pytest_cache
 
 # IDEs
 .vscode

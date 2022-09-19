@@ -32,8 +32,17 @@ jobs:
       - name: Run tests
         run: pytest ./app
 
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python-3.8@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
   push:
-    needs: build
+    needs: [build, security]
     runs-on: ubuntu-latest
     defaults:
       run:

@@ -1,6 +1,11 @@
 name: Build, test, and push to Docker
 
-on: [push]
+on:
+  push:
+    paths:
+      - '.github/' # needed if actions also got updated
+      - 'app_python/'
+      - '!app_python/**.md'
 
 jobs:
   build_lint_test:

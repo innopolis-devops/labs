@@ -65,15 +65,17 @@ To run app via docker (with logging in docker hub):
 
 ## Unit tests
 To run unit tests with pytest run in terminal:
-    ```bash
-    pytest .
-    ```
+
+```bash
+pytest .
+```
 
 ## Continuous Integration Workflow
 CI allows automating the integration of code changes from multiple contributors into a single software project, linting, testing and building and push a docker image to Docker Hub. To run the created image run the following command:
-    ```bash
-    docker run -p 5000:5000 nailyav/lab2
-    ```
+
+```bash
+docker run -p 5000:5000 nailyav/lab2
+```
 The app will be open at port 5000.
 
 ## Usage

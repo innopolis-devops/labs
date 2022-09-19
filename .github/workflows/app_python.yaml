@@ -88,10 +88,10 @@ jobs:
       - name: Snyk monitor
         run: |
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          snyk test --sarif-file-output=./app_python/snyk.sarif
+          snyk test --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: ./app_python/snyk.sarif
+          sarif_file: snyk.sarif

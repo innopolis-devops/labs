@@ -28,4 +28,4 @@ jobs:
           pylint $(git ls-files '*.py')
       - name: Test with unittest
         run: |
-          python -m unittest discover ./app_python
+          python -m unittest discover ./

@@ -1,6 +1,8 @@
 name: Python build
 
 on: [push, pull_request]
+  path:
+    ./python_dart
 
 defaults:
   run:

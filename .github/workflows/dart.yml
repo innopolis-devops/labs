@@ -1,6 +1,8 @@
-name: Docker build
+name: Dart build
 
 on: [push, pull_request]
+  path:
+    ./app_dart
 
 defaults:
   run:

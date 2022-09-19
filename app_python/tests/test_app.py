@@ -18,3 +18,5 @@ def test_get_moscow_time(client):
 
 # ToDo: Update  a PYTHON.md ﬁle and describe your unit tests and best practices that you applied.
 # ToDo: Update a README.md ﬁle, add a "Unit tests" part.
+# ToDo: Add a workﬂow status badge.
+# ToDO: Create a CI.md and provide best practices that you applied.

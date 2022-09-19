@@ -37,3 +37,17 @@ I used spring and java because it is very powerful framework
 
  Also, I used [this linter](https://github.com/markdownlint/markdownlint) for markdown
 ```
+
+## Unit tests
+
+```
+Tests: 
+1) Check response codes correctness
+2) Check time in template correctness (using time freezing)
+
+Best practives:
+1) Tests are clear (Readable, etc)
+2) Full coverage
+3) Unchangeble result after several starts
+4) Adding to GitHub Actions
+```

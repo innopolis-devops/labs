@@ -23,6 +23,6 @@ jobs:
           pip install -r app_python/requirements.txt
       - name: Tests
         run: |
-          cd test
+          cd app_python/test
           python unit_test.py
     

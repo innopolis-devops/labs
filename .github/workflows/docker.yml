@@ -51,3 +51,5 @@ jobs:
           file: app_python/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/simplewhale:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:buildcache,mode=max

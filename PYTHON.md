@@ -22,3 +22,8 @@
 2. Make your tests as small as possible
 3. Write deterministic tests, that is a test that presents the same behavior as long as the code remains unchanged
 4. Parametrize your tests. Don't use the same test copy-pasted many times with different inputs
+
+## Description of unit tests in this project
+I have two unit tests:
+1. send request to check if server responds with 200 status code
+2. check if server responds with 404 status code

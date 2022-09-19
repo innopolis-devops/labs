@@ -80,6 +80,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Check vulnerabilities in Docker image (server)
+        continue-on-error: true
         uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

@@ -67,8 +67,6 @@ jobs:
         working-directory: "./app_java"
     steps:
       - uses: actions/checkout@master
-      - uses: snyk/actions/setup@master
-      - uses: snyk/actions/maven@master
       - name: Cache local Maven repository
         uses: actions/cache@v3
         with:
@@ -77,8 +75,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Run Snyk to check for vulnerabilities
-        continue-on-error: true # To make sure that SARIF upload gets called
-        run: |
-          snyk test
+        uses: snyk/actions/maven@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high

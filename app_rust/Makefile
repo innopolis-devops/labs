@@ -1,5 +1,11 @@
 run := cargo
 
+# Tests
+
+.PHONY: test
+test:
+	$(run) test
+
 # Linters
 
 .PHONY: clippy

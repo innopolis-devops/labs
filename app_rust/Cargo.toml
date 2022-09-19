@@ -7,3 +7,4 @@ authors = ["Alexander a.kurmazov@innopolis.university"]
 rocket = "0.4.7"
 chrono = "0.4"
 clippy = "0.0.302"
+assert_matches = "1.5"

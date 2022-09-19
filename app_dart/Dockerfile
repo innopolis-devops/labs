@@ -4,9 +4,9 @@ WORKDIR /app_dart
 
 COPY ./ ./
 
-RUN flutter create . \
+RUN flutter create . --platforms web  \
     && flutter pub get \
-    && rm -rf ./test \
+    && rm -f ./test/widget_test.dart \
     && flutter analyze . \
     && flutter build web --release
 

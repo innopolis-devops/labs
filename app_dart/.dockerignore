@@ -3,5 +3,6 @@
 !./data
 !./lib
 !./web
+!./test
 !./analysis_options.yaml
 !./pubspec.yaml

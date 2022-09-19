@@ -2,8 +2,7 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-RUN ["addgroup", "-S", "moscowergroup"]
-RUN ["adduser", "-S", "moscower", "-G", "moscowergroup"]
+RUN ["adduser", "--system", "--group", "moscower"]
 
 USER moscower
 

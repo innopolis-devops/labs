@@ -14,6 +14,7 @@ concurrency:
 
 env:
   IMAGE_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops-python
+  DOCKER_WORKDIR: ./app_python
 
 permissions:
   contents: read
@@ -44,8 +45,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
-          file: ./Dockerfile
+          context: ${{ env.DOCKER_WORKDIR }}
           tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=registry,ref=${{ env.IMAGE_NAME }}:buildcache

@@ -90,7 +90,6 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: snyk/actions/setup@master
-    - uses: actions/setup-go@v1
       with:
         go-version: '1.13'
     - name: Snyk monitor
@@ -112,7 +111,6 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - uses: snyk/actions/setup@master
-    - uses: actions/setup-go@v1
       with:
         go-version: '1.13'
     - name: Snyk monitor

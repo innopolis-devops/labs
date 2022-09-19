@@ -3,7 +3,7 @@ name: Build and test (Python)
 on:
   push:
     paths:
-      - 'app_python/*'
+      - "app_python/*"
 
 # Allow one concurrent build for each branch
 concurrency:
@@ -13,7 +13,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     # Use app_python directory for all steps
     defaults:
       run:
@@ -43,3 +43,11 @@ jobs:
       - name: Test with pytest
         run: |
           pytest
+
+      # No Python 3.10 in https://github.com/snyk/actions/, so doing manually:
+      - uses: snyk/actions/setup@master
+
+      - name: Run Snyk to check for vulnerabilities
+        run: snyk test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

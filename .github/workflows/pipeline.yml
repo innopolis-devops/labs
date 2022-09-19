@@ -6,6 +6,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app_python
     strategy:
       matrix:
         python-version: ["3.7", "3.8"]

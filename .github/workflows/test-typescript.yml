@@ -40,12 +40,10 @@ jobs:
       - name: Run Jest tests
         run: npm run test
 
-  security:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
+      # Snyk didn't want to work as a separate Node action, bruh
+      - uses: snyk/actions/setup@master
 
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
+        run: snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

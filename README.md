@@ -83,6 +83,17 @@ If you want to use a remote image:
 * Go to [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser
 * Enjoy!
 
+## Unit Tests
+
+### Python unit tests
+
+The test tests a function that is supposed to return current time
+The test runs the function with an interval of one second and compares the results
+
+* Test is as small as possible
+* The test does not depend on the environment
+* The test is readable
+
 ## Contact
 
 * Emil Khabibullin

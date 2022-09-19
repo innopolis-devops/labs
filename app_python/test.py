@@ -14,6 +14,7 @@ class TestStringMethods(unittest.TestCase):
         before_sec = before.split(':')[-1]
         after_sec = after.split(':')[-1]
 
+        # the num of seconds before should be one second less that the seconds after
         self.assertEqual((int(before_sec) + 1) % 60, int(after_sec))
 
 

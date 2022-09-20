@@ -88,3 +88,17 @@ So I could easily analyze and correct them:
 As for Markdown, I chose the most appropriate one - the markdownlint. It is an extension for the Visual Studio Code editor, so the installation was very easy for me.
 markdownlint includes a library of rules to encourage standards and consistency for Markdown files. Any lines that violate one of markdownlint's rules trigger a Warning in the editor:
 ![markdownlint](images/markdownlint.png)
+
+## Unit Tests Best Practices I Applied
+
+1. Write Simple Tests (make tests as simple as possible: test as least as possible in one test)
+1. Write Deterministic Tests
+1. Test One Scenario Per Test (test one particular part in one test)
+1. Don't Modify The App Code In Tests
+1. Write Isolated Tests
+1. Write Readable Tests (make tests as simple as possible: make comments)
+1. Use pytest
+1. Create The `tests` Folder
+1. Name Each Test Starting With `test_`
+1. Maximize Test Code Coverage
+1. Parametrize The Same Behavior (`pytest.mark.parametrize`)

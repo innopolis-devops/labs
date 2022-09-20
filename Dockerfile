@@ -32,5 +32,8 @@ EXPOSE 8000
 # Copy the current directory . in the project to the workdir .
 COPY . .
 
+# Set the working directory to /app/src
+WORKDIR /app/src
+
 # Set the default command for the container
 CMD [ "python3", "-m" , "flask", "run", "--host", "0.0.0.0", "--port", "8000"]

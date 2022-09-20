@@ -8,6 +8,11 @@
     1. [Prerequisites](#prerequisites)
     1. [Installation](#installation)
     1. [Activate the project environment](#activate-the-project-environment)
+    1. [Run the app](#run-the-app)
+* [Getting Started With Docker](#getting-started-with-docker)
+    1. [Docker installation](#docker-installation)
+    1. [Run docker](#run-docker)
+* [Unit Testing](#unit-testing)
 * [Usage](#usage)
 * [Contributing](#contributing)
 * [Contact](#contact)
@@ -46,7 +51,9 @@ My main development environment is Visual Studio Code, so all further steps will
 Run this command in your Terminal to clone the repository:
 
 ```bash
-git clone https://github.com/Amina19058/app_python
+git clone https://github.com/Amina19058/DevOps.git
+cd DevOps
+git checkout lab3
 ```
 
 ### Activate the project environment
@@ -65,21 +72,21 @@ At this point, you will activate your Python environment and install Flask using
     # Linux
     sudo apt-get install python3-venv 
     python3 -m venv .venv
-    source .venv/bin/activate
+    source venv/bin/activate
 
     # macOS
     python3 -m venv .venv
-    source .venv/bin/activate
+    source venv/bin/activate
 
     # Windows
     py -3 -m venv .venv
-    .venv\scripts\activate
+    venv\scripts\activate
     ```
 
 1. Also in the Terminal, run the following command to update `pip`:
 
     ```bash
-    python -m pip install --upgrade pip
+    python3 -m pip install --upgrade pip
     ```
 
 1. Then, run this to install the requirements:
@@ -88,20 +95,27 @@ At this point, you will activate your Python environment and install Flask using
     python3 -m pip install -r requirements.txt
     ```
 
-1. Run the app.py by `python -m flask run`, which runs the Flask development server. The development server looks for `app.py` by default. When you run Flask, you should see output similar to the following:
+### Run the app
+
+1. Move to code directory:
 
     ```bash
-    (.venv) D:\py\\hello_flask>python -m flask run
-     * Environment: production
-       WARNING: Do not use the development server in a production environment.
-       Use a production WSGI server instead.
-     * Debug mode: off
-     * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+    cd src
     ```
 
-    If you see an error that the Flask module cannot be found, make sure you've run `python -m pip install flask` in your virtual environment as described at the end of the previous section.
+1. Run the app.py by `python3 -m flask run`, which runs the Flask development server. The development server looks for `app.py` by default. When you run Flask, you should see output similar to the following:
 
-1. See the result on `http://127.0.0.1:5000/`. You also can use the Live Server in VSCode.
+    ```bash
+    (venv) amina@Aminas-MacBook-Air src % python3 -m flask run         
+    * Debug mode: off
+    WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+    * Running on http://127.0.0.1:5000
+    Press CTRL+C to quit
+    ```
+
+    If you see an error that the Flask module cannot be found, make sure you've run `python3 -m pip install flask` in your virtual environment as described at the end of the previous section.
+
+1. See the result on `http://127.0.0.1:5000`. You also can use the Live Server in VSCode.
 
 1. Stop the app by using `Ctrl+C` in the terminal.
 
@@ -115,15 +129,40 @@ Before running the application, please install all the prerequisites:
 
 1. Run this command in your Terminal to clone the repository:
 
-    ```bash
-    git clone https://github.com/Amina19058/app_python
-    ```
+```bash
+git clone https://github.com/Amina19058/DevOps.git
+cd DevOps
+git checkout lab3
+```
+
+### Run docker
 
 1. In the project directory open the Terminal and start up the application by running:
 
     ```bash
-    docker compose up
+    docker-compose build
+    docker-compose up
     ```
+
+1. See the result on `http://127.0.0.1:8000`.
+
+1. Stop the app by using `Ctrl+C` in the terminal.
+
+## Unit Testing
+
+1. Make sure that you are in the application directory:
+
+    ```bash
+    cd DevOps
+    ```
+
+1. Run the tests:
+
+    ```bash
+    pytest .
+    ```
+
+Best practices of Unit Testing are also described in PYTHON.md
 
 ## Usage
 
@@ -132,7 +171,7 @@ All the steps above allow you to launch an application that shows the current ti
 
 During their execution, you will learn how to create and activate a virtual environment, install Flask and develop simple web applications.
 
-Also, in the PYTHON.md file you can find information about the best Python practices, the advantage of Flask, why to use linters.
+Also, in the PYTHON.md file you can find information about the best Python and Unit Testing practices, the advantage of Flask, why to use linters.
 
 And in the DOCKER.md file you can find information about the best Dockerfile practices, what linters to use.
 

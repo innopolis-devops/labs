@@ -95,6 +95,6 @@ jobs:
           context: app_python/
           file: app_python/Dockerfile
           push: true
-          tags: ${{secrets.DOCKER_HUB_USERNAME}}/$IMAGE_NAME:$TAG
-          cache-from: type=registry,ref=${{secrets.DOCKER_HUB_USERNAME}}/$IMAGE_NAME:$TAG
+          tags: ${{secrets.DOCKER_HUB_USERNAME}}/app_python:latest
+          cache-from: type=registry,ref=${{secrets.DOCKER_HUB_USERNAME}}/app_python:latest
           cache-to: type=inline

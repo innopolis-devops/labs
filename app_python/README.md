@@ -27,7 +27,7 @@ Either run the app directly from the command line:
 you can also run the application through docker using 
 
 ```
- docker run -p 8080:8080 -d tasneemtoolba/app_python
+    docker run -p 8080:8080 -d tasneemtoolba/app_python
 ```
 
 ## Testing 
@@ -35,5 +35,5 @@ you can also run the application through docker using
 run the tests using the entrypoint:
 
 ```
- python3 -m pytest
+    python3 -m pytest
 ```

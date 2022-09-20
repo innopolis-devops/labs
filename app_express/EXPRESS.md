@@ -13,3 +13,13 @@ Especially while making projects, you must include a README file for describing 
 ## Linters
 
 ESLint is used for identifying and reporting on patterns found in ECMAScript/JavaScript code, with the goal of making code more consistent and avoiding bugs. In many ways, it is similar to JSLint and JSHint with a few exceptions: ESLint uses Espree for JavaScript parsing.
+
+## Testing
+
+Having a directory called __test__ and inside of it, files saved as nameyouwant.test.js.
+
+Separating every function that we use to render the page
+
+Using Jest and supertest for testing 
+
+Using TDD(Test-Driven Development)

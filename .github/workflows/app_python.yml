@@ -1,4 +1,4 @@
-ame: app_python
+name: app_python
 on:
   push:
     paths:

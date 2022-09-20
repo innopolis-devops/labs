@@ -16,7 +16,11 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 EXPOSE 8000
 
 # Copy the source code into the working directory
-COPY . .
+COPY /app .
+
+# Add and use non root user
+RUN adduser --system --no-create-home server
+USER server
 
 # Set a command to run uvicorn server
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0"]

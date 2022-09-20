@@ -1,9 +1,9 @@
-package ru.innopolis.devops.app_kotlin
+package ru.innopolis.devops.appkotlin.service
 
 import org.springframework.stereotype.Service
 
 @Service
-class HtmlService {
+class HtmlRendererService {
     fun renderHtml(zone: String, time: String) = """
     <html>
         <head>

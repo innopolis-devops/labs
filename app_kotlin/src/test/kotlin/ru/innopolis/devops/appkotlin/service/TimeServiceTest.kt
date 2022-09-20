@@ -1,4 +1,4 @@
-package ru.innopolis.devops.app_kotlin
+package ru.innopolis.devops.appkotlin.service
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -14,6 +14,12 @@ class TimeServiceTest {
     private lateinit var timeService: TimeService
 
     @Test
+    fun `Header is Moscow test`() {
+        val page = timeService.showMoscowTime()
+        Assertions.assertTrue(page.contains("Moscow"))
+    }
+
+    @Test
     fun `Time changes each second test`() {
         val time1 = timeService.getMoscowTime()
         Thread.sleep(1000L)
@@ -23,12 +29,6 @@ class TimeServiceTest {
         val dateTime2 = stringToLocalDateTime(time2)
 
         Assertions.assertTrue(dateTime2.minusSeconds(1) == dateTime1)
-    }
-
-    @Test
-    fun `Header is Moscow test`() {
-        val page = timeService.showMoscowTime()
-        Assertions.assertTrue(page.contains("Moscow"))
     }
 
     private fun stringToLocalDateTime(time: String) =

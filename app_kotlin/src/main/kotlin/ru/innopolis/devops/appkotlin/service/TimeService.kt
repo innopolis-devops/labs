@@ -1,4 +1,4 @@
-package ru.innopolis.devops.app_kotlin
+package ru.innopolis.devops.appkotlin.service
 
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter
 
 @Service
 class TimeService(
-    private val htmlService: HtmlService
+    private val htmlService: HtmlRendererService
 ) {
     fun showMoscowTime(): String {
         val zone = "Moscow"

@@ -22,6 +22,7 @@
 - Use `COPY` over `ADD`. `COPY` is more predictable and less error-prone.
 - Optimize caching image layers. So, place the commands that are less likely
   to change, and easier to cache, first.
+- Run as a non-root user.
 - Use the `.dockerignore` file to exclude unnecessary files.
 - Try not to use `.` to avoid accidentally copying unwanted files.
   E.g. use `docker build -t app_python_image app_python` instead of

@@ -12,6 +12,7 @@
 - Use `COPY` over `ADD`. `COPY` is more predictable and less error-prone.
 - Optimize caching image layers. So, place the commands that are less likely
   to change, and easier to cache, first.
+- Run as a non-root user.
 - Use the `.dockerignore` file to exclude unnecessary files.
 - Try not to use `.` to avoid accidentally copying unwanted files.
   E.g. use `docker build -t app_kotlin_image app_kotlin` instead of
@@ -30,5 +31,5 @@ Most of these practices I took from [here](https://sysdig.com/blog/dockerfile-be
   file
 - The `build` stage includes compilation, linters check, running tests
   and creating the .jar file.
-- For this Dockerfile I used this
+- For this Dockerfile, I used this
   [reference](https://codefresh.io/docs/docs/learn-by-example/java/gradle/)

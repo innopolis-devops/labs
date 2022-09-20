@@ -24,5 +24,9 @@ RUN mkdir /app
 # Copy .jar file into 'app' folder
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/app_kotlin-0.0.1-SNAPSHOT.jar
 
+# Add and use non root user
+RUN adduser --system --no-create-home server
+USER server
+
 # Entrypoint for running .jar file which is actually our web application
 ENTRYPOINT ["java","-jar","/app/app_kotlin-0.0.1-SNAPSHOT.jar"]

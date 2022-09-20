@@ -30,11 +30,6 @@
 * Maintenance costs
   * Because it is so versatile in terms of which technologies it can interface with, quite often extra costs will be incurred of supporting those technologies when using Flask.
 
-## Linters
-
-### Python : [PyLint](https://pypi.org/project/pylint/)
-
-### Markdown : [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
 
 ## Testing best practices
 
@@ -50,3 +45,9 @@
 * Do not modify the application code in tests.
 * Do not modify fixtures in other fixtures.
 * Never manually create `Response` objects for tests.
+
+## Linters
+
+### Python : [PyLint](https://pypi.org/project/pylint/)
+
+### Markdown : [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)

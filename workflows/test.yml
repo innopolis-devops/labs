@@ -24,7 +24,10 @@ jobs:
       continue-on-error: true
 
     - name: Build docker image
-      run: docker build -t app-python-test ./app_python -f ./app_python/Test.Dockerfile
+      run: docker build -t app-python
 
     - name: Run tests
-      run: docker run app-python-test
+      run: docker run -p8080:8080 app_python
+    
+    - name: Push
+      run: docker push app_python

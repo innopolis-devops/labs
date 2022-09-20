@@ -1,6 +1,7 @@
 # Lab 1
 
-[![Test](https://github.com/Homa3030/labs/actions/workflows/test.yml/badge.svg)](https://github.com/Homa3030/labs/actions/workflows/test.yml)
+[![Build and push docker](https://github.com/Homa3030/labs/actions/workflows/docker.yml/badge.svg)](https://github.com/Homa3030/labs/actions/workflows/docker.yml)
+[![Launch linter](https://github.com/Homa3030/labs/actions/workflows/linter.yml/badge.svg)](https://github.com/Homa3030/labs/actions/workflows/linter.yml)
 
 ## Overview
 The current program launches local server which shows Moscow time.

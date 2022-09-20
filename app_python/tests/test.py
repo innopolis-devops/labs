@@ -1,6 +1,6 @@
 import pytest
 from flask import testing
-from App import app
+from app import app
 
 client = testing.FlaskClient(app.app)
 

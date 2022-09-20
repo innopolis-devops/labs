@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from time_utils import get_current_time, format_time
 
 import pytz
 from flask import Flask
@@ -8,6 +8,5 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    tz_msk = pytz.timezone('Europe/Moscow')
-    current_time = str(datetime.now(tz_msk))
-    return current_time
+    current_time = get_current_time()
+    return format_time(current_time)

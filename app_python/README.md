@@ -52,6 +52,16 @@ docker build . -t app_python .
 docker run -p8080:8080 homa3030/app_python
 ```
 
+## Unit Tests
+
+The project contains a test suite for the Python App. The suite relies on the `unittest` module.
+
+To run tests locally, executes the following command from the `app_python` folder:
+
+```sh
+python test.py
+```
+
 ## Contact
 Telegram: [@homchanski](https://t.me/homchanski)
 

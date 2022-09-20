@@ -5,8 +5,8 @@ RUN mkdir -p $PROJECT_DIR
 WORKDIR $PROJECT_DIR
 COPY . $PROJECT_DIR
 
-RUN useradd -m appuser
-USER appuser
+RUN adduser -S userapp
+USER userapp
 
 EXPOSE 3000
 CMD [ "go", "run", "app.go" ]

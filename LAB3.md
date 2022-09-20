@@ -1,6 +1,8 @@
-# Lab 3 - Continuous integration
+# 3
 
-### To get 6 points
+## Continuous integration
+
+### 6 points
 
 1. Code testing
 
@@ -22,7 +24,7 @@
 4. **Create a PR in your own repository from the lab3 branch to the lab2 one.** It will help us with grading.
 
 
-### To get 4 more points
+### 4 more points
 
 1. Improvements:
 
@@ -48,3 +50,4 @@ This task is not required to skip the exam, but can provide you more points.
 ### 6 extra points
 
 Set up a CI process via any another CI tool.
+

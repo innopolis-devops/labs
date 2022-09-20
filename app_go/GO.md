@@ -24,3 +24,12 @@
 
 * For go: [golangci-lint](https://golangci-lint.run/usage/install/)
 * For markdown: [Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+
+## Unit tests
+**Description**: There is unit test in projects implemented using pytest. I checked correctness of updating.
+
+**Best practises**:
+
+* Go testing files are always located in the same folder, or package, where the code they are testing resides
+* Use interface for testing
+* Use beautiful tool for showing test coverage

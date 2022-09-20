@@ -1,4 +1,5 @@
 # Golang WebApp Moscow Time
+![Golang](https://github.com/pminina01/Innopolis_DevOps2022/actions/workflows/go.yml/badge.svg)
 
 ## Table of Contents
 
@@ -7,6 +8,10 @@
 * [How To Build](#getting-started)
 
 * [Usage](#usage)
+
+* [Unit tests](#unit-tests)
+
+* [GitHub Actions](#github-actions)
 
 * [Contact](#contact)
 
@@ -71,6 +76,25 @@ There are two ways to see the web page:
 1. Enter the url inside the browser: <http://localhost:3000/>
 2. Run the command: `$ curl localhost:3000`
    Then you will see the page with current time in Moscow.
+
+## Unit tests
+There is unit test for project built with pytest module. You can run them using the following commands:
+```bash
+cd app_go
+go test --coverprofile=c.out
+go tool cover --func=c.out
+```
+
+## GitHub Actions
+
+Project have github workflow, some useful features you can see below:
+* Lint job is implemented
+* Test and install dependencies job is implemented
+* Docker Login, Build & Push job is implemented
+* Snyk check job is implemented
+* Added a workflow status badge to README
+* Build cache is used
+* CI runs only if there are changes in the app_go folder
 
 ## Contact
 

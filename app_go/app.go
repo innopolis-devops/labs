@@ -6,9 +6,14 @@ import (
         "time"
 )
 
+func getTime(tz string) string{
+    loc, _ := time.LoadLocation(tz)
+    now := time.Now().In(loc).String()
+    return now
+}
+
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-        loc, _ := time.LoadLocation("Europe/Moscow")
-        now := time.Now().In(loc).String()
+        now := getTime("Europe/Moscow")
         w.Write([]byte(fmt.Sprintf("<h1>Moscow time is %s</h1>", now)))
 }
 

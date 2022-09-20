@@ -8,6 +8,10 @@
 
 * [Getting Started (docker)](#getting-started-docker)
 
+* [Unit tests](#unit-tests)
+
+* [GitHub Actions](#github-actions)
+
 * [Usage](#usage)
 
 * [Contact](#contact)

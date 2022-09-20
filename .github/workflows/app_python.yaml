@@ -46,7 +46,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
             ${{ runner.os }}-
-
+      - name: Install dependencies
+        run: |
+          pip install -r app_python/requirements-dev.txt -r app_python/requirements.txt
       - name: Python lint
         if: always()
         run: |
@@ -72,6 +74,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
             ${{ runner.os }}-
+      - name: Install dependencies
+        run: |
+          pip install -r app_python/requirements-dev.txt -r app_python/requirements.txt
       - name: test
         run: |
           pytest

@@ -1,3 +1,6 @@
+"""
+An Application to show Current time in Moscow
+"""
 from datetime import datetime
 from flask import Flask
 from waitress import serve

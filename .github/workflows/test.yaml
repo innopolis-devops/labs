@@ -24,7 +24,7 @@ jobs:
       continue-on-error: true
 
     - name: Build docker image
-      run: docker build -t app_python
+      run: docker build . -t app_python
 
     - name: Tag
       run: docker tag app_python homa3030/app_python

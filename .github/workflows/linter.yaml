@@ -1,0 +1,20 @@
+name: Linter
+on: [push, pull_request]
+
+jobs:
+  docker:
+    name: Run linter
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install linter
+      run: python -m pip install flake8
+
+    - name: App.py Linter
+      run: flake8 app_python/app.py
+
+    - name: Test.py Linter
+      run: flake8 app_python/test.py

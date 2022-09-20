@@ -31,9 +31,3 @@ jobs:
     
     - name: Push
       run: docker push homa3030/app_python
-
-    - name: App.py Linter
-      run: flake8 app_python/app.py
-
-    - name: Test.py Linter
-      run: flake8 app_python/test.py

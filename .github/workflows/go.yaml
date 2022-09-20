@@ -40,5 +40,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: ./lab1/app_go
+          context: .
           tags: ghcr.io/semior001/innopolis-devops-labs:latest,ghcr.io/semior001/innopolis-devops-labs:${{github.sha}}

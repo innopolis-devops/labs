@@ -13,10 +13,10 @@ WORKDIR /srv
 
 ENV GOFLAGS="-mod=vendor"
 
-COPY ./app /srv/app
-COPY ./vendor /srv/vendor
-COPY ./go.mod /srv/go.mod
-COPY ./go.sum /srv/go.sum
+COPY ./lab1/app_go/app /srv/app
+COPY ./lab1/app_go/vendor /srv/vendor
+COPY ./lab1/app_go/go.mod /srv/go.mod
+COPY ./lab1/app_go/go.sum /srv/go.sum
 
 COPY ./.git/ /srv/.git
 

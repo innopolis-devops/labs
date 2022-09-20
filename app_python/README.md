@@ -80,6 +80,15 @@ A web application that gets you the current time in Moscow when you need it the 
 
 Or use the docker image on dockerhub : [Link](https://hub.docker.com/layers/sh1co/devopslab/1.2/images/sha256:deea8f0434ebfb0b97090aec1852828a7cbcde1f635aa317bece06eb618c8716)
 
+## Testing
+
+First, run `pip install -r requirements-dev.txt` to install the test (and other dev) dependencies.
+Then, run the tests:
+
+```bash
+pytest run_tests.py
+```
+
 ## Usage
 
 To use the app just open your browser then go to <http://127.0.0.1:5000/get_time>

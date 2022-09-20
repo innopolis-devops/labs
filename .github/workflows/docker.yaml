@@ -35,5 +35,5 @@ jobs:
     - name: App.py Linter
       run: flake8 app_python/app.py
 
-    - - name: Test.py Linter
+    - name: Test.py Linter
       run: flake8 app_python/test.py

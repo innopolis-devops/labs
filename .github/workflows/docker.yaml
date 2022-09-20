@@ -1,9 +1,9 @@
-name: Test
+name: Docker
 on: [push, pull_request]
 
 jobs:
-  test:
-    name: Run test suite
+  docker:
+    name: Build and push docker image
     runs-on: ubuntu-latest
     env:
       DOCKER_USER: ${{ secrets.DOCKER_USER }}

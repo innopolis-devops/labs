@@ -1,7 +1,12 @@
 {
     "python.pythonPath": ".venv\\Scripts\\python.exe",
+    "python.linting.pylintArgs": [
+        "--disable=C0114",
+        "--disable=C0115",
+        "--disable=C0116",
+    ],
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
     "python.linting.flake8Enabled": false,
-    "python.linting.banditEnabled": false
+    "python.linting.banditEnabled": false,    
 }

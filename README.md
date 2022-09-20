@@ -140,6 +140,7 @@ the following command in the VS Code Terminal:
     ```bash
     python3 -m pip install `some_requirement`
     ```
+
     Upd: the requirements will be installed with the use of the Docker.
 
 1. Run the app.py by "Run code" and see the result at 127.0.0.1, port 5000.
@@ -154,13 +155,16 @@ You know the environment is activated when the command prompt shows
 ## Docker
 
 Before running the application, please install the
-[Docker](https://docs.docker.com/get-docker/). 
+[Docker](https://docs.docker.com/get-docker/).
 It will also preinstall the requirements from requirements.txt.
-1. Clone web application repository locally.  
+
+1. Clone web application repository locally.
+
     ```bash
     git clone https://github.com/KsEv13/devops
     cd devops/app_python/
     ```  
+
 1. Then you can build the image using the Docker Plugin for
 VSCode. After installing the Docker Plugin, in VS Code open the
 Command Palette (**View** > **Command Palette**).
@@ -168,6 +172,29 @@ Then select the **Docker Images: Build Image** command.
 1. Run the container. Again, you can use Command Palette with the
 command **Docker containers: Start**. Web app will open at
 [http://localhost:5002/](http://localhost:5002/).
+
+The alternative way is using the following command after the 1st step:
+
+  ```bash
+  docker pull ksev13/apppython
+  ```
+
+## Unit Tests
+
+In order to run the Unit Tests, you need to go
+to the devops_forked folder and then run the command:
+
+```bash
+python tests/test.py
+```
+
+## GitHub Actions. CI
+
+In this project by action "push" we can automate some actions, such as installing
+all of the dependencies, launching the flake8 linter, the process of
+Login to DockerHub, then building an image and pushing there,
+and after all, checking for vulnerabilities with Snyk.
+
 ---------
 <!-- USAGE EXAMPLES -->
 

@@ -2,7 +2,7 @@
 
 ## The list of used practices
 
-###  Avoid unnecessary privileges
+### Avoid unnecessary privileges
 
 1. **Use root-less containers**. Firstly, it will
 help to reduce security risks. Secondly, your
@@ -14,7 +14,7 @@ UID defined on the host system, this can break the
 service inside the container when it tries to read
 something from the container's file system.
 
-###  Reduce the attack surface
+### Reduce the attack surface
 
 This practice is dedicated to minimizing the size of
 your Dockerfile. Therefore, to minimization of the
@@ -36,7 +36,8 @@ generating .pyc files in the container
 
 ### Other categories of important practices
 
-1. **Include metadata labels** when building your image. This action will help in image management.
+1. **Include metadata labels** when building your image. This action will help\
+in image management.
 1. **Linting for Dockerfile**. It is needed to detect
 bad practices in the Dockerfile. I have used *Haskell
 Dockerfile Linter (Hadolint)* for this project.
@@ -48,3 +49,5 @@ COPY is more predictable and less error-prone.
 official Python image that already has all the tools
 and packages that we need to run a Python
 application. And that already has been tested.
+1. **The gpg key generation**: I have added an extra layer of security by using
+the gpg key generation.

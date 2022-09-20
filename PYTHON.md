@@ -16,10 +16,12 @@ or dangerous logic in python and markdown files
 (the sections dedicated to them are listed below).
 1. **Use static analysis tools** to easily detect
 vulnerabilities or some problems. For instance, I have used:
-* [pylint](https://pylint.org)
-* [pyflakes](https://github.com/PyCQA/pyflakes)
-* [prospector](https://prospector.landscape.io/en/master/)
-7. **Use pre-commit hooks** to automatically check
+
+    * [pylint](https://pylint.org)
+    * [pyflakes](https://github.com/PyCQA/pyflakes)
+    * [prospector](https://prospector.landscape.io/en/master/)
+
+1. **Use pre-commit hooks** to automatically check
 for errors before committing.
 1. **Use separate "static" folder for styles using Flask**.
 1. **Use templates folder for html templates using Flask**.
@@ -54,31 +56,31 @@ it has support for unit testing.
 
 ### Pros of Flask
 
-+ Extremely flexible
-+ Minimalist without sacrificing power
-+ Simple to learn and use
-+ Easy to build prototypes
-+ Routing URLs is easy
-+ Small core and easily extensible
-+ Smaller application sizes due to the smaller codebase
+* Extremely flexible
+* Minimalist without sacrificing power
+* Simple to learn and use
+* Easy to build prototypes
+* Routing URLs is easy
+* Small core and easily extensible
+* Smaller application sizes due to the smaller codebase
 
 ### Cons of Flask
 
-- Not async-friendly (and therefore, next point)
-- Time-consuming in handling multiple requests
-- Limited support and documentation
-- Lack of database/ORM/forms
-- Truly limited in features
-- Security breach (Less number of tools need
+* Not async-friendly (and therefore, next point)
+* Time-consuming in handling multiple requests
+* Limited support and documentation
+* Lack of database/ORM/forms
+* Truly limited in features
+* Security breach (Less number of tools need
 more installation of modules that increases
 the number of third-party tools.
 This could pose security challenges)
-- Expensive for complex systems
 
+* Expensive for complex systems
 
 ## Linters for Python
 
-- **flake8**  
+* **flake8**  
 
 Flake8, combines the best practices from pep8,
 pyflakes and circular complexity for detecting
@@ -87,7 +89,7 @@ errors.
 It also has a low rate of false positives.  
 My app.py was formatted by the flake8 standarts.
 
-- **pylint**  
+* **pylint**  
 
 Then I have used pylint and slightly modified
 the code: added the docstring at the beginning
@@ -108,7 +110,7 @@ the formulated purpouse of the app.
 
 ## Linters for Markdown
 
-- **markdownlint**  
+* **markdownlint**  
 
 It is highly ranked for
 the formatting in the
@@ -116,7 +118,7 @@ the formatting in the
 
 ![Markdownlinter](images/markdownlinter.png)
 
-- **textdown**  
+* **textdown**  
 
 Textdown linter is highly ranked in the premise article
 for its ability to detect
@@ -125,3 +127,40 @@ As the screenshot shows, all of the problems
 were fixed before the Lab submission.  
 
 ![Markdownlinter](images/textdown.png)
+
+## Unit Tests
+
+I have created 3 tests for checking the status code of the app
+(should be equal to 200), the correctness of the time format and
+the last one is about the presense of confetti pieces.
+If the app is not responding in 20 seconds, the timeout exception
+is raised.  
+As it is shown on the picture below, all of the tests were successfully passed.
+
+![Tests](images/tests.png)
+
+### Best practices for Unit Tests
+
+* **Fast**.  
+For instance, the Mocha testing framework, by default,
+considers any test that takes more than 75ms to run as a slow test.
+My tests are ran in 8ms.
+* **As simple as possible**.  
+McCabe complexity is not excessed.
+* **Don't depend on other tests**.  
+Each of my tests is responsible
+for the single feature.
+* **Test shouldn’t duplicate implementation logic**.
+* **Tests are readable**.  
+For example, I am using 1 assertion per method.
+Also, all of the variables are properly named.
+* **Tests are deterministic**.  
+They don't depend on other test cases,
+environmental values (such as the current time, or language settings
+of the computer it’s running on), external dependencies (such as
+the file system, network, APIs, etc).
+* **Sound Naming Convention for Your Tests**.  
+The tests are regarded
+as the part of the documentation.
+Therefore, the names of the functions are quite specific.
+* **The explicit folder with tests**

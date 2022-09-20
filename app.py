@@ -1,3 +1,4 @@
+# pylint: disable=missing-function-docstring
 '''Render main page'''
 from datetime import datetime
 from flask import Flask

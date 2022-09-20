@@ -58,6 +58,13 @@ and respective [VSCode plugin](https://marketplace.visualstudio.com/items?itemNa
 
    ``markdownlint <filename>``
 
+## Unit tests
+
+The code is tested with 2 scenarios:
+
+1. Correct response with correct time to correct request
+2. 404 Error to invalid request
+
 ## Unit tests best practices
 
 1. Tests Should Be Fast

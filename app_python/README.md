@@ -32,6 +32,17 @@ in terminal into the ``app_python`` directory.
 ``` python
 python show_time.py
 ```
+
+### Unit Tests
+
+1. Install requirements
+
+   ``$ pip install pytest``
+
+2. Run
+
+   ``$ pytest app_python``
+
 ## 🐳 Docker
 
 ### Build image locally

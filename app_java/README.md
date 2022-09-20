@@ -12,7 +12,7 @@ Now you can easily run this app, go to <http://localhost:8080> and see Moscow ti
 - Java - 15 or higher
 - Maven - 3.6.3 or higher
 
-### Building
+### Building and testing
 
 Go to ``app_java`` directory\
 For building the project, write this command in terminal into the ``app_java`` directory.
@@ -20,6 +20,7 @@ For building the project, write this command in terminal into the ``app_java`` d
 ``` java
 mvn clean install
 ```
+This command also run tests after building
 
 ### Run in one command
 

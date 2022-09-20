@@ -14,12 +14,18 @@ func getTime(tz string) string{
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
         now := getTime("Europe/Moscow")
-        w.Write([]byte(fmt.Sprintf("<h1>Moscow time is %s</h1>", now)))
+        res := w.Write([]byte(fmt.Sprintf("<h1>Moscow time is %s</h1>", now)))
+        if res != nil {
+            _ = fmt.Errorf("Some error occured")
+        }
 }
 
 func main() {
         port := "3000"
         mux := http.NewServeMux()
         mux.HandleFunc("/", indexHandler)
-        http.ListenAndServe(":"+port, mux)
+        res := http.ListenAndServe(":"+port, mux)
+        if res != nil {
+            _ = fmt.Errorf("Some error occured")
+        }
 }

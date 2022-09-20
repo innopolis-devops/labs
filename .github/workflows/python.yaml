@@ -34,7 +34,11 @@ jobs:
       - name: Test with pytest
         run: |
           pytest
-
+  snyk:
+    runs-on: ubuntu-latest
+    container: snyk/snyk:python-3.9
+    steps:
+      - uses: actions/checkout@v3
       - name: Test with snyk
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

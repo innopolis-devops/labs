@@ -1,4 +1,4 @@
-name: Build, test, and push to Docker app_go
+name: GO_APP_CI
 
 on:
   push:

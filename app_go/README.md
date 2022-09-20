@@ -1,6 +1,8 @@
 
 # Moscow Time Web Application
 
+![](https://img.shields.io/github/workflow/status/Ilya-Kolomin/DevOps/GO_APP_CI?style=for-the-badge)
+
 ## About The Project
 
 This is a simple web application that shows current time in Moscow.\
@@ -105,6 +107,10 @@ docker run -p 8080:8080 -d ilyakolomin/devops_app_go:<tag>
 
 Congratulations, now you could visit http://127.0.0.1:8080 to see current Moscow time.
 
+## CI/CD
+
+Currently, there is a CI pipeline that checks for tests and linters.
+Also, it builds docker container and pushes it to [my hub repository](https://hub.docker.com/r/ilyakolomin/devops_app_go).
 
 ## Contact
 

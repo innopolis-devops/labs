@@ -1,7 +1,7 @@
 
 # Moscow Time Web Application
 
-![](https://img.shields.io/github/workflow/status/Ilya-Kolomin/DevOps/Build,%20test,%20and%20push%20to%20Docker?style=for-the-badge)
+![](https://img.shields.io/github/workflow/status/Ilya-Kolomin/DevOps/PYTHON_APP_CI?style=for-the-badge)
 
 ## About The Project
 

@@ -33,3 +33,19 @@ Result - 0 issues
 
 Result - bare URLs in `README.md` (these are localhost ones)
 ![](https://i.imgur.com/Qgo6oBI.png)
+
+## Testing
+
+### Unit tests
+
+For unit tests I have used standard go library for testing.
+
+Applied **best practices**:
+
+- Usage of framework (do not reimplement the wheel)
+- Each test is responsible only for tiny functionality 
+(so that each test is fast, simple and helps to find exact reason of failure)
+- Used both positive and negative tests (more coverage)
+
+The **first test** checks reachability of main page.\
+The **second test** checks unreachability of some missing page/path.

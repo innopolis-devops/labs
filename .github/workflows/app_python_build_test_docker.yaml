@@ -1,4 +1,4 @@
-name: Build, test, and push to Docker
+name: PYTHON_APP_CI
 
 on:
   push:

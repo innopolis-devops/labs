@@ -1,6 +1,10 @@
 name: Python App
 
-on: [push]
+on:
+  push:
+    paths:
+      - "app_python/**"
+      - ".github/workflows/app_python.yaml"
 
 env:
   DOCKER_HUB_PROJECT: devops-pythonapp

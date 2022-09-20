@@ -5,6 +5,10 @@ on:
     paths:
       - "app_python/*"
 
+defaults:
+  run:
+    working-directory: ./app_python
+
 jobs:
   lint_and_test:
     runs-on: ubuntu-latest

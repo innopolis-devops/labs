@@ -1,0 +1,35 @@
+name: Go
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.19
+
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: v1.42.1
+          skip-go-installation: true
+
+      - name: Run tests and extract coverage
+        run: |
+          cd $GITHUB_WORKSPACE/lab1/app_go
+          go test -timeout=60s -covermode=count -coverprofile=$GITHUB_WORKSPACE/profile.cov_tmp ./...
+          cat $GITHUB_WORKSPACE/profile.cov_tmp | grep -v "mock_" > $GITHUB_WORKSPACE/profile.cov
+        env:
+          CGO_ENABLED: 0

@@ -1,3 +1,4 @@
+// Package main contains the entrypoint to application.
 package main
 
 import (
@@ -41,8 +42,9 @@ func main() {
 	defer stop()
 
 	srv := &http.Server{
-		Addr:    cfg.Host,
-		Handler: handler(time.Now),
+		Addr:              cfg.Host,
+		Handler:           handler(time.Now),
+		ReadHeaderTimeout: 5 * time.Second,
 	}
 
 	go func() {

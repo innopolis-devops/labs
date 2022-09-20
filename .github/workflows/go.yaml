@@ -22,13 +22,13 @@ jobs:
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v2
         with:
-          working-directory: lab1/app_go
+          working-directory: lab1/app_go/app
           version: v1.42.1
           skip-go-installation: true
 
       - name: Run tests and extract coverage
         run: |
-          cd $GITHUB_WORKSPACE/lab1/app_go
+          cd $GITHUB_WORKSPACE/lab1/app_go/app
           go test -timeout=60s -covermode=count -coverprofile=$GITHUB_WORKSPACE/profile.cov_tmp ./...
           cat $GITHUB_WORKSPACE/profile.cov_tmp | grep -v "mock_" > $GITHUB_WORKSPACE/profile.cov
         env:

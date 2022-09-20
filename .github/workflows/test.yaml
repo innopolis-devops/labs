@@ -24,10 +24,7 @@ jobs:
       continue-on-error: true
 
     - name: Build docker image
-      run: docker build -t app-python
-
-    - name: Run tests
-      run: docker run -p8080:8080 app_python
+      run: docker build -t homa3030/app-python
     
     - name: Push
-      run: docker push app_python
+      run: docker push homa3030/app_python

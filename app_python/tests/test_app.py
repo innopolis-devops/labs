@@ -1,5 +1,6 @@
 import re
-from app import app
+
+from app_python.app import app
 
 def test_home_page():
     """

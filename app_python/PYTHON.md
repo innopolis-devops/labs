@@ -22,4 +22,12 @@ The coding style that `pylint` applies to the code is known as PEP8.
 
 Other options were to use `black`, or `flake8`.
 
+## Testing 
 
+Use pytest to test the application.
+
+Create a tests directory and a test_ file for each test, mimicking the directory structure of the application.
+
+Follow the Given-When-Then style of writing tests.
+
+Do not modify the application code in tests.

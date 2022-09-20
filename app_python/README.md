@@ -1,4 +1,6 @@
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/PyCQA/pylint)
+[![Test and Lint](https://github.com/Sh1co/DevOps-Labs/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/Sh1co/DevOps-Labs/actions/workflows/build_and_test.yml)
+[![Docker build and push](https://github.com/Sh1co/DevOps-Labs/actions/workflows/docker_build.yml/badge.svg)](https://github.com/Sh1co/DevOps-Labs/actions/workflows/docker_build.yml)
 
 <!-- PROJECT LOGO -->
 <br />

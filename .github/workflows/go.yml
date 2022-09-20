@@ -1,4 +1,4 @@
-name: Goland App
+name: Golang App
 
 on:
   push:

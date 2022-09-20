@@ -2,6 +2,9 @@ name: Python App
 
 on: [push]
 
+env:
+  DOCKER_HUB_PROJECT: devops-pythonapp
+
 jobs:
 
   build:
@@ -88,4 +91,6 @@ jobs:
           context: ./app_python
           file: ./app_python/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops-pythonapp:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.DOCKER_HUB_PROJECT }}:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.DOCKER_HUB_PROJECT }}:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.DOCKER_HUB_PROJECT }}:buildcache,mode=max

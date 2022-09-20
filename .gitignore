@@ -1,0 +1,13 @@
+/bin
+.DS_STORE
+/.idea
+/.vscode
+/internal/config/config-dev.go
+/internal/config/config.go.dev
+/internal/config/config.go.local
+/internal/config/config.go.repo
+manifestos/overlays/*/secret.yaml
+.env
+/vendor
+!/cmd/product-catalog
+/cmd/*

@@ -58,6 +58,15 @@
     docker run -d -p 5000:5000 python-app
     ```
 
+## Testing
+
+First, run `pip install -r requirements-dev.txt` to install the test (and other dev) dependencies.
+Then, run the tests:
+
+```bash
+pytest run_tests.py
+```
+
 ## Usage
 
 To use the app just open your browser then go to <http://127.0.0.1:5000/get_time>

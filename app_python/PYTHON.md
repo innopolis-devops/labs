@@ -35,8 +35,23 @@ For server side, I used Gunicorn
 
 I used:
 
-- `pymarkdown` for MarkDown linting
-- `isort` for linting imports in .py files
-- `black` for linting .py files after isort
+- `pymarkdown` for MarkDown linting.
+- `isort` to lint imports in .py files locally.
+- `black` for fixng .py files after isort locally.
+- `flake8` to lint and manually fix remaining issues.
 
 Isort and Black are useful as they are not only linters, but also formatters.
+
+### Unit test
+
+I used `pytest` for running tests. For now, I didn't use any other packages.
+
+Now, there is only one test. It tests whether currently rendered time in the app matches time in Moscow timezone.
+
+Best practices:
+
+- Isolated tests (in a separate directory).
+- Fixtures for tests.
+- Good and self-secribing names.
+- Simple tests.
+- Test only one unit of functionality.

@@ -1,0 +1,30 @@
+name: Test
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Run test suite
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_USER: ${{ secrets.DOCKER_USER }}
+      DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to DockerHub
+      run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+    # In this step, this action saves a list of existing images,
+    # the cache is created without them in the post run.
+    # It also restores the cache if it exists.
+    - uses: satackey/action-docker-layer-caching@v0.0.11
+      # Ignore the failure of a step and avoid terminating the job.
+      continue-on-error: true
+
+    - name: Build docker image
+      run: docker build -t app-python-test ./app_python -f ./app_python/Test.Dockerfile
+
+    - name: Run tests
+      run: docker run app-python-test

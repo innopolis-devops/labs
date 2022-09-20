@@ -1,3 +1,5 @@
+[![app_python](https://github.com/desmigor/devops-labs/actions/workflows/app_python.yml/badge.svg)](https://github.com/desmigor/devops-labs/actions/workflows/app_python.yml)
+
 # Time Displayer Simple Web App
 > Innopolis University, F22
 >
@@ -62,37 +64,52 @@ if __name__ == "__main__":
 
 1. Create a `Dockerfile` with instrunctions
 2. Created a new `public` repository on my Docker Hub account
-2. Built the image for `AMD64` on a Linux Machine  using `docker build -t migorr/time-app-devops:amd64 .`
-3. Tested the image locally using `docker run migorr/time-app-devops:amd64`
-4. Pushed the image `docker push migorr/time-app-devops:amd64`
-5. Built the image for `ARM64` on a M1 Mac Machine  using `docker build -t migorr/time-app-devops:arm64 .`
-6. Tested the image locally using `docker run migorr/time-app-devops:arm64`
-7. Pushed the image `docker push migorr/time-app-devops:arm64`
+3. Built the image for `AMD64` on a Linux Machine  using `docker build -t migorr/time-app-devops:amd64 .`
+4. Tested the image locally using `docker run migorr/time-app-devops:amd64`
+5. Pushed the image `docker push migorr/time-app-devops:amd64`
+6. Built the image for `ARM64` on a M1 Mac Machine  using `docker build -t migorr/time-app-devops:arm64 .`
+7. Tested the image locally using `docker run migorr/time-app-devops:arm64`
+8. Pushed the image `docker push migorr/time-app-devops:arm64`
+9. Images are built using Github workflow
 
 ### 4.2 Running the Docker image
 
-Running the image on an `AMD64 architecture`
+For Running the image, use the command:
 
 ```
-docker run -p 8080:8080 migorr/time-app-devops:amd64
+docker run -p 8080:8080 migorr/time-app-devops:latest
 ```
 
-Running the image on an `ARM64 architecture`
+## 5. Unit Tests
+
+For running unit tests, use this command:
 
 ```
-docker run -p 8080:8080  migorr/time-app-devops:arm64 
+pytest
+```
+Or
+
+```
+python -m pytest
 ```
 
-## 5. Usage
+You can add a `-v` at the end of the above commands for verbose output of the tests run.
+
+## 6. Continous Integration (CI)
+
+This repository CI setup and it automates linting, unit testing and publishing a new Docker image to a remote repository.
+
+
+## 7. Usage
 
 This app is straight-foward. After app is running property, the time will be displayed. You can refresh you page to make sure the time is still showing correctly.
 
 
-## 6. License
+## 8. License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-## 7. Contact
+## 9. Contact
 
 - For Contact: Igor Mpore - [Contact Email](mailto:i.mpore@innopolis.university)
 - Project Link: [https://github.com/desmigor/devops-labs](https://github.com/desmigor/devops-labs)

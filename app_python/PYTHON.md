@@ -37,3 +37,9 @@ This application is built using Flask.
 - &#10062;&nbsp; Slower MVP development in most cases
 - &#10062;&nbsp; Higher maintenance costs for more complex systems
 - &#10062;&nbsp; More complicated maintenance for larger implementations
+
+# 3. Unit tests best practices
+
+- Use popular testing framework (e.g. pytest)
+- Use fixtures to create dependencies
+- Use `conftest.py` for all fixtures

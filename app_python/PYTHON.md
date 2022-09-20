@@ -35,3 +35,18 @@
 ### Python : [PyLint](https://pypi.org/project/pylint/)
 
 ### Markdown : [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+
+## Testing best practices
+
+* Use [pytest](https://docs.pytest.org/en/latest/) to test the application.
+* Create a `tests` directory and a `test_` file for each test, mimicking the directory structure of the application.
+* Follow the [Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html) style of writing tests.
+* Make sure tests are fast.
+* Insure simplicity in tests.
+* Test shouldn’t duplicate implementation logic.
+* Separate between unit and functional tests.
+* Use fixtures to provide common setup and teardown code.
+* Try to maximize test code coverage to ensure that the application is tested thoroughly.
+* Do not modify the application code in tests.
+* Do not modify fixtures in other fixtures.
+* Never manually create `Response` objects for tests.

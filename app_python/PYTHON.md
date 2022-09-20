@@ -30,7 +30,6 @@
 * Maintenance costs
   * Because it is so versatile in terms of which technologies it can interface with, quite often extra costs will be incurred of supporting those technologies when using Flask.
 
-
 ## Testing best practices
 
 * Use [pytest](https://docs.pytest.org/en/latest/) to test the application.

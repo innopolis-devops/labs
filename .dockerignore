@@ -1,0 +1,14 @@
+*.pyc
+app_python/.pytest_cache
+
+app_python/venv/
+# Environments
+.env
+.venv
+env/
+venv/
+virtualenv/
+ENV/
+env.bak/
+venv.bak/
+

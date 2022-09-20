@@ -42,7 +42,13 @@ jobs:
       - name: Test with snyk
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk test
+        run: |
+          pip install -r requirements.txt
+          snyk test --sarif-file-output=result.sarif
+          - name: Upload result to GitHub Code Scanning
+          uses: github/codeql-action/upload-sarif@v2
+          with:
+          sarif_file: app_python/result.sarif
 
   build_docker:
     runs-on: ubuntu-latest

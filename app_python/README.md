@@ -1,5 +1,7 @@
 # pink moscow time webpage
 
+![painful badge](https://github.com/molberte/devops_labs/actions/workflows/python.yml/badge.svg)
+
 ## description of product
 simple page that shows current moscow time when you refresh the page! 
 

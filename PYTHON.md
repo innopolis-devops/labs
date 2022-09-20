@@ -28,3 +28,12 @@ Unlike many modern web frameworks, Django is incapable of enabling individual pr
 ### Difficult to learn 
 
 One big disadvantage of Django is that it has a steep learning curve. It comes with a lot of features that cannot be easily understood by developers. This can be really tough for developers who are making a switch from other languages. Having a different syntax also makes it hard for developers to quickly get a hang of it. Python can thus be hard to master.
+
+# Unit Tests
+## Pytest was used to test the application
+The test checks whether the page opens correctly with status 200
+
+## Best practises:
+* I have included my test inside /tests folder
+* I have included pytest.ini file which has pythonpath, DJANGO_SETTINGS_MODULE, and python_files parameters
+* I have used @pytest.mark.django_db decorator 

@@ -14,8 +14,8 @@ func getTime(tz string) string{
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
         now := getTime("Europe/Moscow")
-        res := w.Write([]byte(fmt.Sprintf("<h1>Moscow time is %s</h1>", now)))
-        if res != nil {
+        _, err := w.Write([]byte(fmt.Sprintf("<h1>Moscow time is %s</h1>", now)))
+        if err != nil {
             _ = fmt.Errorf("Some error occured")
         }
 }

@@ -19,3 +19,9 @@
    ![](https://raw.githubusercontent.com/psf/black/main/docs/_static/logo2-readme.png)
 3. cute message about formatting
    ![](https://i.imgur.com/jIjKCOD.png)
+
+## unit test~~s~~
+some best practices that i applied to my very first unit test!
+1. write simple tests (5 lines of code without empty lines)
+2. one assert per test method (so easy to follow when you have only one test method)
+3. avoid test interdependence (so easy to follow when you have only one test)

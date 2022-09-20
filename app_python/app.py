@@ -1,6 +1,5 @@
 from time_utils import get_current_time, format_time
 
-import pytz
 from flask import Flask
 
 app = Flask(__name__)

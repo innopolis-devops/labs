@@ -26,7 +26,7 @@
 * For markdown: [Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
 
 ## Unit tests
-**Description**: There is unit test in projects implemented using pytest. I checked correctness of updating.
+**Description**: There is unit test in projects implemented using go test. I checked correctness of a format, e.g it returns moscow timezone.
 
 **Best practises**:
 

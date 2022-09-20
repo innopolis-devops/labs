@@ -22,7 +22,7 @@ jobs:
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v2
         with:
-          working-directory: $GITHUB_WORKSPACE/lab1/app_go
+          working-directory: lab1/app_go
           version: v1.42.1
           skip-go-installation: true
 
@@ -33,3 +33,19 @@ jobs:
           cat $GITHUB_WORKSPACE/profile.cov_tmp | grep -v "mock_" > $GITHUB_WORKSPACE/profile.cov
         env:
           CGO_ENABLED: 0
+      
+      - name: login to ghcr
+        id: docker_login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: build and push hugo site
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          context: ./lab1/app_go
+          tags: ghcr.io/semior001/innopolis-devops-labs:latest,ghcr.io/semior001/innopolis-devops-labs:${{github.sha}}

@@ -45,6 +45,9 @@
               "purescript.packagePath" = "./${appPurescript}";
               "purescript.sourcePath" = "./${appPurescript}/src";
             };
+          python = settingsNix.python // {
+            "python.defaultInterpreterPath" = "\${workspaceFolder}/app_python/.venv/bin/python3";
+          };
         };
 
       tools = toList {

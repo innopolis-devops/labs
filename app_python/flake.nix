@@ -52,13 +52,18 @@
         devShells = {
           default = pkgs.mkShell {
             buildInputs = myTools;
+          };
+          make-poetry-env = pkgs.mkShell {
+            # https://stackoverflow.com/a/64434542
+            buildInputs = myTools;
             shellHook = ''
-            
+              poetry config virtualenvs.in-project true
+              poetry install
             '';
           };
           dev = pkgs.mkShell {
             shellHook = ''
-              nix develop -c bash -c '
+              nix develop .#make-poetry-env -c bash -c '
                 poetry run uvicorn app.main:app --reload
               '
             '';

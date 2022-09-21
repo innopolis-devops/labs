@@ -2,18 +2,16 @@
 
 ## Overview
 
-This is a simple `Python` web app that shows current time in Moscow using `FastAPI`
+This is a simple `PureScript` web app that shows current time in Moscow using `Halogen`
 
-![demo](README/demo.png)
-
-A more detailed description is in [PYTHON.md](./PYTHON.md)
+A more detailed description is in [PURESCRIPT.md](./PURESCRIPT.md)
 
 ## Build
 
 See the sections in the main [README](../README.md):
 
 - [Setup](../README.md#setup)
-- [Start app_python](../README.md#start-apppython)
+- [Start app_python](../README.md#start-apppurescript)
 
 ## Usage
 

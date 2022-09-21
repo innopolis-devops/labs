@@ -25,11 +25,13 @@
       with flake-utils.lib;
       eachDefaultSystem (system:
       let
+        pkgs = nixpkgs.legacyPackages.${system};
         myTools =
           builtins.attrValues {
             inherit (pkgs) poetry python310;
           };
-        pkgs = nixpkgs.legacyPackages.${system};
+
+        # Not really needed for now -->
         overlay = pkgs.lib.composeManyExtensions [
           poetry2nix.overlay
           (final: prev: {
@@ -43,12 +45,16 @@
           })
         ];
         p2nix = pkgs.extend overlay;
+        # <--
+
       in
       {
-        inherit p2nix;
         devShells = {
           default = pkgs.mkShell {
             buildInputs = myTools;
+            shellHook = ''
+            
+            '';
           };
           dev = pkgs.mkShell {
             shellHook = ''

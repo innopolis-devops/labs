@@ -13,13 +13,10 @@ When a server starts, one can open a given address in a browser to see current t
 
 - Created a `.venv` via `poetry`
 
-- From `flask`'s [documentation](https://flask.palletsprojects.com/en/2.2.x/tutorial/layout/), I used:
-  - project layout
-  - `.gitignore` file
+- [djlint](https://www.djlint.com/)
+- [jinja](https://jinja.palletsprojects.com/en/3.1.x/templates/)
 
 - I applied PEP8 [recommendation](https://peps.python.org/pep-0008/#package-and-module-names) to name the code directory `time_app`
-
-- I followed this Digital Ocean's [tutorial](https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3#step-3-using-html-templates) to create a basic `flask` app.
 
 - I adapted An HTML [template](https://www.freecodecamp.org/news/html-starter-template-a-basic-html5-boilerplate-for-index-html/). There is an explanation of why specific tags vere included.
 

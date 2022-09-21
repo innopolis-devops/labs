@@ -48,6 +48,17 @@
           python = settingsNix.python // {
             "python.defaultInterpreterPath" = "\${workspaceFolder}/app_python/.venv/bin/python3";
           };
+          formatters = {
+            "[html]" = {
+              "editor.defaultFormatter" = "monosans.djlint";
+            };
+            "[markdown]" = {
+              "editor.defaultFormatter" = "DavidAnson.vscode-markdownlint";
+            };
+          };
+          linters = {
+            "python.linting.pylintEnabled" = true;
+          };
         };
 
       tools = toList {

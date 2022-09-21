@@ -32,7 +32,7 @@
       "command": "nix",
       "args": [
         "develop",
-        ".#pythonDev"
+        ".#app-python"
       ],
       "options": {
         "cwd": "${workspaceFolder}"

@@ -20,10 +20,9 @@
       inherit (my-codium.tools.${system})
         writeSettingsJson
         settingsNix
-        extensions
-        mkCodium
         toList
         shellTools
+        codium
         ;
 
       appPython = "app_python";
@@ -41,7 +40,7 @@
             workbench
             ;
           ide-purescript =
-            settingsNix.ide-purescript // {
+            (settingsNix.ide-purescript or { }) // {
               "purescript.outputDirectory" = "./${appPurescript}/output/";
               "purescript.packagePath" = "./${appPurescript}";
               "purescript.sourcePath" = "./${appPurescript}/src";
@@ -51,16 +50,6 @@
       tools = toList {
         inherit (shellTools) nix purescript;
       };
-
-      codium =
-        let
-          inherit (nix-vscode-marketplace.packages.${system}) open-vsx;
-        in
-        mkCodium (extensions // {
-          live-preview = {
-            inherit (open-vsx.ritwickdey) liveserver;
-          };
-        });
 
       codiumWithSettings = pkgs.mkShell {
         buildInputs = [ writeSettings codium ];
@@ -78,12 +67,12 @@
             buildInputs = tools;
           };
           codium = codiumWithSettings;
-          purescriptDev = pkgs.mkShell {
+          app-purescript = pkgs.mkShell {
             shellHook = ''
               (cd ${appPurescript} && nix develop .#dev)
             '';
           };
-          pythonDev = pkgs.mkShell {
+          app-python = pkgs.mkShell {
             shellHook = ''
               (cd ${appPython} && nix develop .#dev)
             '';

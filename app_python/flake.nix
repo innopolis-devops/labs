@@ -50,7 +50,13 @@
           default = pkgs.mkShell {
             buildInputs = myTools;
           };
-          poetry-env = p2nix.env;
+          dev = pkgs.mkShell {
+            shellHook = ''
+              nix develop -c bash -c '
+                poetry run uvicorn app.main:app --reload
+              '
+            '';
+          };
         };
       });
   nixConfig = {

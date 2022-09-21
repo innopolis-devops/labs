@@ -10,3 +10,4 @@
 /.spago
 .parcel-cache
 dist
+min

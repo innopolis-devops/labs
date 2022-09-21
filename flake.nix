@@ -4,6 +4,7 @@
     nixpkgs.follows = "inputs/nixpkgs";
     flake-utils.follows = "inputs/flake-utils";
     my-codium.follows = "inputs/my-codium";
+    nix-vscode-marketplace.follows = "inputs/nix-vscode-marketplace";
   };
   outputs =
     { self
@@ -11,6 +12,7 @@
     , nixpkgs
     , my-codium
     , inputs
+    , nix-vscode-marketplace
     }:
     flake-utils.lib.eachDefaultSystem (system:
     let
@@ -18,10 +20,14 @@
       inherit (my-codium.tools.${system})
         writeSettingsJson
         settingsNix
-        codium
+        extensions
+        mkCodium
         toList
         shellTools
         ;
+
+      appPython = "app_python";
+      appPurescript = "app_purescript";
 
       writeSettings = writeSettingsJson
         {
@@ -35,9 +41,6 @@
             workbench
             ;
           ide-purescript =
-            let
-              appPurescript = "app_purescript";
-            in
             settingsNix.ide-purescript // {
               "purescript.outputDirectory" = "./${appPurescript}/output/";
               "purescript.packagePath" = "./${appPurescript}";
@@ -48,6 +51,16 @@
       tools = toList {
         inherit (shellTools) nix purescript;
       };
+
+      codium =
+        let
+          inherit (nix-vscode-marketplace.packages.${system}) open-vsx;
+        in
+        mkCodium (extensions // {
+          live-preview = {
+            inherit (open-vsx.ritwickdey) liveserver;
+          };
+        });
 
       codiumWithSettings = pkgs.mkShell {
         buildInputs = [ writeSettings codium ];
@@ -65,6 +78,16 @@
             buildInputs = tools;
           };
           codium = codiumWithSettings;
+          purescriptDev = pkgs.mkShell {
+            shellHook = ''
+              (cd ${appPurescript} && nix develop .#dev)
+            '';
+          };
+          pythonDev = pkgs.mkShell {
+            shellHook = ''
+              (cd ${appPython} && nix develop .#dev)
+            '';
+          };
         };
     });
 

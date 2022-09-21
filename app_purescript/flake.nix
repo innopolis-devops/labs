@@ -47,9 +47,11 @@
           default = nodeOutputs.devShells.${system}.default.overrideAttrs (fin: prev: {
             buildInputs = prev.buildInputs ++ myTools;
           });
-          dev = pkgs.mkShell {
+          dev =  pkgs.mkShell {
             shellHook = ''
-              npm run dev
+              nix develop -c bash -c '
+                npm run dev
+              '
             '';
           };
         };

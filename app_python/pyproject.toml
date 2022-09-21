@@ -12,6 +12,7 @@ pydantic = "^1.10.2"
 idna = "v3.4"
 Jinja2 = "^3.1.2"
 mypy = "^0.971"
+pylint = "^2.15.3"
 
 [tool.poetry.dev-dependencies]
 uvicorn = "^0.18.3"

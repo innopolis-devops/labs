@@ -1,5 +1,5 @@
 {
-  "name": "try-phi-front",
+  "name": "app_purescript",
   "private": true,
   "devDependencies": {
     "buffer": "^6.0.3",

@@ -8,6 +8,11 @@ When a server starts, one can open a given address in a browser to see current t
 
 ## Best practices
 
+- Project structure for a FastAPI app - [SO](https://stackoverflow.com/a/64987404)
+  - Created automatically via [manage-fastapi](https://github.com/ycd/manage-fastapi)
+
+- Created a `.venv` via `poetry`
+
 - From `flask`'s [documentation](https://flask.palletsprojects.com/en/2.2.x/tutorial/layout/), I used:
   - project layout
   - `.gitignore` file
@@ -19,10 +24,10 @@ When a server starts, one can open a given address in a browser to see current t
 - I adapted An HTML [template](https://www.freecodecamp.org/news/html-starter-template-a-basic-html5-boilerplate-for-index-html/). There is an explanation of why specific tags vere included.
 
 ## Chosen framework
-
+  
 [flask](https://github.com/pallets/flask) - a popular Python web framework.
 
-In [comparison](https://www.stxnext.com/blog/flask-vs-django-comparison/) to [Django](https://github.com/django/django), another popular web framework, here is the characteristics of `flaks`:
+In [comparison](https://www.stxnext.com/blog/flask-vs-django-comparison/) to [Django](https://github.com/django/django), another popular web framework, here is the characteristics of `flask`:
 
 - **Pros**:
   - higher flexibility

@@ -8,45 +8,49 @@ When a server starts, one can open a given address in a browser to see current t
 
 ## Best practices
 
-- Project structure for a FastAPI app - [SO](https://stackoverflow.com/a/64987404)
-  - Created automatically via [manage-fastapi](https://github.com/ycd/manage-fastapi)
+- Automatically generated the project via [manage-fastapi](https://github.com/ycd/manage-fastapi)
+  - Project structure was explained on [SO](https://stackoverflow.com/a/64987404)
 
-- Created a `.venv` via `poetry`
+- Used [poetry](https://python-poetry.org/) for Python dependency management
+  - Created a `.venv` via `poetry` later
 
-- [djlint](https://www.djlint.com/)
-- [jinja](https://jinja.palletsprojects.com/en/3.1.x/templates/)
-
-- I applied PEP8 [recommendation](https://peps.python.org/pep-0008/#package-and-module-names) to name the code directory `time_app`
+- Used linters and formatters (available in VSCodium)
 
 - I adapted An HTML [template](https://www.freecodecamp.org/news/html-starter-template-a-basic-html5-boilerplate-for-index-html/). There is an explanation of why specific tags vere included.
 
+- I applied PEP8 [recommendation](https://peps.python.org/pep-0008/#package-and-module-names) to name the code directory `time_app`
+
 ## Chosen framework
-  
-[flask](https://github.com/pallets/flask) - a popular Python web framework.
 
-In [comparison](https://www.stxnext.com/blog/flask-vs-django-comparison/) to [Django](https://github.com/django/django), another popular web framework, here is the characteristics of `flask`:
+[FastAPI](https://fastapi.tiangolo.com/)
 
-- **Pros**:
-  - higher flexibility
-  - higher compatibility with latest technologies
-  - high scalability for simple web applications
-  - technical experimentation
-  - customization
-  - slightly higher framework performance
-  - easier to use for simple cases
-  - smaller size of the code base
+### Pros
 
-- **Cons**:
-  - more potential for security risks
-  - slower MVP development in most cases
-  - more complex tech stack
-  - higher maintenance costs for more complex systems
-  - more complicated maintenance for larger implementations
+- Fast
+- Fast to code
+- Fewer bugs (uses types extensively)
+- Intuitive
+- Easy
+- Short (minimal code duplication)
+- Robust
+- Standards-based (OpenAPI)
 
-## Linters
+### Cons
 
-- The following checkers for Python:
-  - [mypy](https://github.com/python/mypy) - a static type checker
-  - [pylint](https://github.com/PyCQA/pylint) - a static code analyzer
-- The following checker for Markdown
-  - [markdownlint](https://github.com/DavidAnson/markdownlint)
+- `async`-s sometimes get in the way
+ larger implementations
+
+## Linters, checkers, formatters
+
+### Python
+
+- [mypy](https://github.com/python/mypy) - a static type checker
+- [pylint](https://github.com/PyCQA/pylint) - a static code analyzer
+
+### Markdown
+
+- [markdownlint](https://github.com/DavidAnson/markdownlint)
+
+### HTML & Jinja2
+
+- [djlint](https://www.djlint.com/) - a [jinja2](https://jinja.palletsprojects.com/en/3.1.x/templates/) and `HTML` linter

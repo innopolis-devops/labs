@@ -1,2 +1,4 @@
 .mypy_cache
 .vscode/settings.json
+.direnv
+.psc-ide-port

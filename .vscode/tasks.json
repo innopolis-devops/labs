@@ -1,0 +1,42 @@
+{
+  "version": "2.0.0",
+  "presentation": {
+    "reveal": "always",
+    "panel": "new"
+  },
+  "tasks": [
+
+    // PureScript
+    {
+      "isBackground": true,
+      "group": "build",
+      "type": "shell",
+      "label": "Build app_purescript",
+      "command": "cd app_purescript && npm run build"
+    },
+    {
+      "label": "Start app_purescript",
+      "command": "nix",
+      "args": [
+        "develop",
+        ".#app-purescript"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+
+    // Python
+    {
+      "label": "Start app_python",
+      "command": "nix",
+      "args": [
+        "develop",
+        ".#app-python"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+  ]
+}

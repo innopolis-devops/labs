@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "app_python"
+version = "0.1.0"
+description = "app to show the current MSK time"
+authors = ["Danila Danko <br4ch1st0chr0n3@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.85.0"
+python-dotenv = "^0.21.0"
+pydantic = "^1.10.2"
+idna = "v3.4"
+Jinja2 = "^3.1.2"
+mypy = "^0.971"
+pylint = "^2.15.3"
+
+[tool.poetry.dev-dependencies]
+uvicorn = "^0.18.3"
+manage-fastapi = "^1.1.1"
+black = "^22.8.0"
+djlint = "^1.17.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

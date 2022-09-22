@@ -19,17 +19,19 @@ COPY ./package.json ./spago.dhall ./packages.dhall /workspace/
 
 WORKDIR /workspace
 
-# install packages
-RUN npm install;
-
-# compile packages
-RUN spago install;
-
 USER codewarrior
 
 ENV USER=codewarrior \
     HOME=/home/codewarrior \
     PATH=/opt/purescript:$PATH
+
+RUN chown codewarrior:codewarrior /workspace;
+
+# install packages
+RUN npm install;
+
+# compile packages
+RUN spago install;
 
 COPY --chown=codewarrior:codewarrior ./ /workspace
 
@@ -37,7 +39,10 @@ RUN spago build;
 
 RUN set -ex;
 
+EXPOSE 8003
+
 RUN parcel serve -p 8003 --host 0.0.0.0 dev/index.html;
+
 # ensure testing works
 # spago test || true; \
 # clean up

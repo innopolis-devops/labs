@@ -60,7 +60,7 @@ RUN poetry install
 WORKDIR /app
 COPY . .
 
-EXPOSE 8000
+EXPOSE 8002
 ENTRYPOINT /docker-entrypoint.sh $0 $@
 CMD ["uvicorn", "--reload", "--host=0.0.0.0", "--port=8002", "app.main:app"]
 

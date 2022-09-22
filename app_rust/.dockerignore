@@ -1,0 +1,9 @@
+# We have separate build cache (and for sure we don't want to
+# copy a few GB as build context without need)
+target/
+
+# Other files we won't need inside
+Dockerfile
+docker-compose.yml
+DOCKER.md
+RUST.md

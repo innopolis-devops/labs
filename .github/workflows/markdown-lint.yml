@@ -1,0 +1,33 @@
+name: Lint markdown files
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - '**.md'
+  push:
+    branches:
+      - master
+    paths:
+      - '**.md'
+
+permissions:
+  contents: read
+
+jobs:
+
+  lint-changelog:
+    name: Lint markdown
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Lint files
+      uses: docker://avtodev/markdown-lint:v1 # fastest way
+      with:
+        args: '**/*.md'

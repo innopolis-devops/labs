@@ -93,6 +93,11 @@
               (cd ${appPython} && nix develop .#dev)
             '';
           };
+          app-python-docker-build = pkgs.mkShell {
+            shellHook = ''
+              docker build -t ${appPython} ${appPython}
+            '';
+          };
           app-python-docker = pkgs.mkShell {
             shellHook = ''
               docker build -t ${appPython} ${appPython}

@@ -64,7 +64,7 @@
           dev = pkgs.mkShell {
             shellHook = ''
               nix develop .#make-poetry-env -c bash -c '
-                poetry run uvicorn app.main:app --reload
+                poetry run uvicorn --reload --host=0.0.0.0 --port=8000 app.main:app
               '
             '';
           };

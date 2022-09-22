@@ -93,6 +93,20 @@
               (cd ${appPython} && nix develop .#dev)
             '';
           };
+          app-python-docker = pkgs.mkShell {
+            shellHook = ''
+              docker build -t app_python app_python
+              docker container logs app_python
+              docker run -d --name app_python -p 80:80 app_python
+              browse http://0.0.0.0:80
+            '';
+          };
+          app-python-docker-rm = pkgs.mkShell {
+            shellHook = ''
+              docker stop app_python
+              docker rm app_python
+            '';
+          };
         };
     });
 

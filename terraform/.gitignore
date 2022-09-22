@@ -33,4 +33,6 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+# YC servise account key
+key.json
 

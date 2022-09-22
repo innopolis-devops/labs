@@ -30,5 +30,5 @@ runs:
         for devShell in ${{ inputs.SHELLS }} ;
         do
           nix develop .#$devShell --profile dev-profile
-          cachix push ${{ inputs.CACHE }} dev-profile
+          cachix push ${{ env.cache }} dev-profile
         done

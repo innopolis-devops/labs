@@ -482,3 +482,10 @@ As I mentioned before, I used outputs to show public IP of the instance
 $ terraform output
 external_ip = "84.201.135.76"
 ```
+
+## Best terraform practices
+
+* Use .gitignore for terraform
+* Keep token as environmental variable (instead of Terraform variable/file/hardcode into config)
+* Organize terraform files into folders
+* Destroying running instances after finishing the tasks

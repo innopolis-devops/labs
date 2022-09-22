@@ -20,18 +20,18 @@ runs:
   using: composite
   steps:
     - name: Push inputs to cachix
-      working-directory: ${{ env.ROOT }}
+      working-directory: ${{ inputs.ROOT }}
       shell: bash
       run: |
         nix flake archive --json \
           | jq -r '.path,(.inputs|to_entries[].value.path)' \
-          | cachix push ${{ env.CACHE }}
+          | cachix push ${{ inputs.CACHE }}
     - name: Push devshell to cachix
-      working-directory: ${{ env.ROOT }}
+      working-directory: ${{ inputs.ROOT }}
       shell: bash
       run: |
-        for devShell in ${{ env.SHELLS }} ;
+        for devShell in ${{ inputs.SHELLS }} ;
         do
           nix develop .#$devShell --profile dev-profile
-          cachix push ${{ env.CACHE }} dev-profile
+          cachix push ${{ inputs.CACHE }} dev-profile
         done

@@ -92,15 +92,10 @@ resource "docker_image" "python_app" {
 
 #### `terraform state list` output
 
-<details>
-<summary>Click to show...</summary>
-
 ```terraform
 docker_container.python_app
 docker_image.python_app
 ```
-
-</details>
 
 ### Changes
 
@@ -118,13 +113,6 @@ The changes applied were:
 <summary>Click to show...</summary>
 
 ```terraform
-docker_image.python_app: Refreshing state... [id=sha256:7d49357c932cbd36064cc63284a083331535067fde1a919d999f1ac88f10349fntdesmond/iu-devops-python:latest]
-docker_container.python_app: Refreshing state... [id=2c7d1f456f5232a60d412423b3e2a0bca13941de8fe92871aa08121ce080e5a7]
-
-Terraform used the selected providers to generate the following execution
-plan. Resource actions are indicated with the following symbols:
--/+ destroy and then create replacement
-
 Terraform will perform the following actions:
 
   # docker_container.python_app must be replaced
@@ -205,20 +193,11 @@ Terraform will perform the following actions:
     }
 
 Plan: 1 to add, 0 to change, 1 to destroy.
-
-─────────────────────────────────────────────────────────────────────────────
-
-Note: You didn't use the -out option to save this plan, so Terraform can't
-guarantee to take exactly these actions if you run "terraform apply" now.
-
 ```
 
 </details>
 
 ##### The part that is controlled manually
-
-<details>
-<summary>Click to show...</summary>
 
 ```terraform
       ~ ports {
@@ -227,12 +206,7 @@ guarantee to take exactly these actions if you run "terraform apply" now.
         }
 ```
 
-</details>
-
 #### `terraform output` output
-
-<details>
-<summary>Click to show...</summary>
 
 ```terraform
 container_id = "94f215dbdb034aef3734438e10870177db4971c71e69559725ced8ad04e138fb"
@@ -242,4 +216,329 @@ ports = [
 ]
 ```
 
+## Yandex Cloud
+
+Followed the tutorial from Yandex Cloud Docs, available here:
+<https://cloud.yandex.ru/docs/tutorials/infrastructure-management/terraform-quickstart>.
+
+It goes through creating two virtual machines and a network between them.
+
+### Setup
+
+Refer to the [`yandex_cloud`](./yandex_cloud) folder for the source files.
+
+Outputs have been also created at the initial setup.
+
+#### `terraform show`
+
+<details>
+<summary>Click to show...</summary>
+
+```terraform
+# yandex_compute_instance.vm-1:
+resource "yandex_compute_instance" "vm-1" {
+    created_at                = "2022-09-22T20:55:05Z"
+    folder_id                 = "<REDACTED>"
+    fqdn                      = "epd6gt5t47g7johbvruu.auto.internal"
+    id                        = "epd6gt5t47g7johbvruu"
+    metadata                  = {
+        "user-data" = <<-EOT
+            #cloud-config
+            users:
+              - name: amogus
+                groups: sudo
+                shell: /bin/bash
+                sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                ssh_authorized_keys:
+                  - ssh-ed25519 AAAA......Z1Pc user@hehe-host
+        EOT
+    }
+    name                      = "terraform1"
+    network_acceleration_type = "standard"
+    platform_id               = "standard-v1"
+    status                    = "running"
+    zone                      = "ru-central1-b"
+
+    boot_disk {
+        auto_delete = true
+        device_name = "epd7q7n0qoldae61411m"
+        disk_id     = "epd7q7n0qoldae61411m"
+        mode        = "READ_WRITE"
+
+        initialize_params {
+            block_size = 4096
+            image_id   = "fd80jdh4pvsj48qftb3d"
+            size       = 3
+            type       = "network-hdd"
+        }
+    }
+
+    network_interface {
+        index              = 0
+        ip_address         = "192.168.10.20"
+        ipv4               = true
+        ipv6               = false
+        mac_address        = "d0:0d:68:74:bd:21"
+        nat                = true
+        nat_ip_address     = "51.250.27.108"
+        nat_ip_version     = "IPV4"
+        security_group_ids = []
+        subnet_id          = "e2lqh2jj3krtj4h1tmjo"
+    }
+
+    placement_policy {
+        host_affinity_rules = []
+    }
+
+    resources {
+        core_fraction = 100
+        cores         = 2
+        gpus          = 0
+        memory        = 2
+    }
+
+    scheduling_policy {
+        preemptible = false
+    }
+}
+
+# yandex_compute_instance.vm-2:
+resource "yandex_compute_instance" "vm-2" {
+    created_at                = "2022-09-22T20:55:05Z"
+    folder_id                 = "<REDACTED>"
+    fqdn                      = "epd8mek89vp90odvt48c.auto.internal"
+    id                        = "epd8mek89vp90odvt48c"
+    metadata                  = {
+        "user-data" = <<-EOT
+            #cloud-config
+            users:
+              - name: sus
+                groups: sudo
+                shell: /bin/bash
+                sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                ssh_authorized_keys:
+                  - ssh-ed25519 AAAA......hHUb user@hehe-host
+        EOT
+    }
+    name                      = "terraform2"
+    network_acceleration_type = "standard"
+    platform_id               = "standard-v1"
+    status                    = "running"
+    zone                      = "ru-central1-b"
+
+    boot_disk {
+        auto_delete = true
+        device_name = "epdh0t9fh4egfdajts14"
+        disk_id     = "epdh0t9fh4egfdajts14"
+        mode        = "READ_WRITE"
+
+        initialize_params {
+            block_size = 4096
+            image_id   = "fd80jdh4pvsj48qftb3d"
+            size       = 3
+            type       = "network-hdd"
+        }
+    }
+
+    network_interface {
+        index              = 0
+        ip_address         = "192.168.10.16"
+        ipv4               = true
+        ipv6               = false
+        mac_address        = "d0:0d:8b:3a:88:4f"
+        nat                = true
+        nat_ip_address     = "84.201.162.213"
+        nat_ip_version     = "IPV4"
+        security_group_ids = []
+        subnet_id          = "e2lqh2jj3krtj4h1tmjo"
+    }
+
+    placement_policy {
+        host_affinity_rules = []
+    }
+
+    resources {
+        core_fraction = 100
+        cores         = 4
+        gpus          = 0
+        memory        = 4
+    }
+
+    scheduling_policy {
+        preemptible = false
+    }
+}
+
+# yandex_vpc_network.network-1:
+resource "yandex_vpc_network" "network-1" {
+    created_at = "2022-09-22T20:33:17Z"
+    folder_id  = "<REDACTED>"
+    id         = "enpj6tmle0e1jv99681f"
+    labels     = {}
+    name       = "network1"
+    subnet_ids = [
+        "e2lqh2jj3krtj4h1tmjo",
+    ]
+}
+
+# yandex_vpc_subnet.subnet-1:
+resource "yandex_vpc_subnet" "subnet-1" {
+    created_at     = "2022-09-22T20:54:13Z"
+    folder_id      = "<REDACTED>"
+    id             = "e2lqh2jj3krtj4h1tmjo"
+    labels         = {}
+    name           = "subnet1"
+    network_id     = "enpj6tmle0e1jv99681f"
+    v4_cidr_blocks = [
+        "192.168.10.0/24",
+    ]
+    v6_cidr_blocks = []
+    zone           = "ru-central1-b"
+}
+
+
+Outputs:
+
+external_ip_address_vm_1 = "51.250.27.108"
+external_ip_address_vm_2 = "84.201.162.213"
+internal_ip_address_vm_1 = "192.168.10.20"
+internal_ip_address_vm_2 = "192.168.10.16"
+```
+
 </details>
+
+At this point I was able to try out SSH connections between the VMs.
+
+<details>
+<summary>Click to show the image...</summary>
+
+![SSH connection](https://i.imgur.com/BO9B1OJ.png)
+
+</details>
+
+#### `terraform state list`
+
+```terraform
+yandex_compute_instance.vm-1
+yandex_compute_instance.vm-2
+yandex_vpc_network.network-1
+yandex_vpc_subnet.subnet-1
+```
+
+### Changes to the plan
+
+The changes applied were:
+
+- Change RAM and CPU count for the second VM (to 2 GB and 2 vCPU instead of 4 and 4)
+
+#### `terraform plan` output
+
+##### First attempt
+
+<details>
+<summary>Click to show...</summary>
+
+```terraform
+Terraform will perform the following actions:
+
+  # yandex_compute_instance.vm-2 will be updated in-place
+  ~ resource "yandex_compute_instance" "vm-2" {
+        id                        = "epd8mek89vp90odvt48c"
+        name                      = "terraform2"
+        # (9 unchanged attributes hidden)
+
+      ~ resources {
+          ~ cores         = 4 -> 2
+          ~ memory        = 4 -> 2
+            # (2 unchanged attributes hidden)
+        }
+
+        # (4 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+```
+
+</details>
+
+##### The problem
+
+But after running `terraform apply`, here appears an error:
+
+```text
+Error: Changing the resources, platform_id, network_acceleration_type, scheduling_policy, placement_policy in an instance requires stopping it. To acknowledge this action, please set allow_stopping_for_update = true in your config file.
+```
+
+##### The new version
+
+<details>
+<summary>Click to show...</summary>
+
+```terraform
+Terraform will perform the following actions:
+
+  # yandex_compute_instance.vm-2 will be updated in-place
+  ~ resource "yandex_compute_instance" "vm-2" {
+      + allow_stopping_for_update = true
+        id                        = "epd8mek89vp90odvt48c"
+        name                      = "terraform2"
+        # (9 unchanged attributes hidden)
+
+      ~ resources {
+          ~ cores         = 4 -> 2
+          ~ memory        = 4 -> 2
+            # (2 unchanged attributes hidden)
+        }
+
+        # (4 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+
+Changes to Outputs:
+  - external_ip_address_vm_2 = "84.201.162.213" -> null
+```
+
+</details>
+
+#### `terraform output`
+
+##### First attempt (yes)
+
+```terraform
+external_ip_address_vm_1 = "51.250.27.108"
+external_ip_address_vm_2 = ""
+internal_ip_address_vm_1 = "192.168.10.20"
+internal_ip_address_vm_2 = "192.168.10.16"
+```
+
+##### Another problem
+
+For some reason, the second VM now does not have an IP address... or does it? While trying to run `terraform destroy`, I noticed that IP is written there:
+
+```terraform
+Changes to Outputs:
+  - external_ip_address_vm_1 = "51.250.27.108" -> null
+  - external_ip_address_vm_2 = "84.201.137.155" -> null
+  - internal_ip_address_vm_1 = "192.168.10.20" -> null
+  - internal_ip_address_vm_2 = "192.168.10.16" -> null
+```
+
+But it was still unavailable in `terraform output`.
+
+I googled a bit and found out that there is a way to *refresh* the outputs:
+
+```sh
+terraform apply -refresh-only
+```
+
+After that, `terraform output` worked as it should had done originally:
+
+##### Final result
+
+```terraform
+external_ip_address_vm_1 = "51.250.27.108"
+external_ip_address_vm_2 = "84.201.137.155"
+internal_ip_address_vm_1 = "192.168.10.20"
+internal_ip_address_vm_2 = "192.168.10.16"
+```

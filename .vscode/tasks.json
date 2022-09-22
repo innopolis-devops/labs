@@ -5,17 +5,19 @@
     "panel": "new"
   },
   "tasks": [
-
     // PureScript
     {
       "isBackground": true,
       "group": "build",
       "type": "shell",
       "label": "Build app_purescript",
-      "command": "cd app_purescript && npm run build"
+      "options": {
+        "cwd": "${workspaceFolder}/app_purescript"
+      },
+      "command": "npm run build"
     },
     {
-      "label": "Start app_purescript",
+      "label": "Run app_purescript",
       "command": "nix",
       "args": [
         "develop",
@@ -25,14 +27,58 @@
         "cwd": "${workspaceFolder}"
       }
     },
+    {
+      "label": "Docker run app_purescript",
+      "command": "nix",
+      "args": [
+        "develop",
+        ".#app-purescript-docker"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Docker remove app_purescript",
+      "command": "nix",
+      "args": [
+        "develop",
+        ".#app-purescript-docker-rm"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
 
     // Python
     {
-      "label": "Start app_python",
+      "label": "Run app_python",
       "command": "nix",
       "args": [
         "develop",
         ".#app-python"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Docker run app_python",
+      "command": "nix",
+      "args": [
+        "develop",
+        ".#app-python-docker"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Docker remove app_python",
+      "command": "nix",
+      "args": [
+        "develop",
+        ".#app-python-docker-rm"
       ],
       "options": {
         "cwd": "${workspaceFolder}"

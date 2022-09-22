@@ -106,6 +106,17 @@
               docker rm ${appPython}
             '';
           };
+          app-purescript-docker = pkgs.mkShell {
+            shellHook = ''
+              docker build -t ${appPurescript} ${appPurescript}
+              docker run -d --name ${appPurescript} -p 8003:8003 ${appPurescript}
+              docker container logs -f ${appPurescript}
+            '';
+          };
+          app-purescript-docker-rm = pkgs.mkShell {
+            shellHook = ''
+              docker stop ${appPurescript}
+              docker rm ${appPurescript}
             '';
           };
         };

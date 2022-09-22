@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "spago build",
-    "dev": "parcel dev/index.html --open",
+    "dev": "npx parcel serve -p 8001 --host 0.0.0.0 dev/index.html",
     "test": "spago test",
     "quick-start": "npm run build",
     "postquick-start": "npm run dev",

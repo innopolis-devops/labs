@@ -20,7 +20,6 @@ runs:
   using: composite
   steps:
     - uses: cachix/cachix-action@v10
-      shell: bash
       with:
         name: ${{ env.cache }}
         authToken: "${{ inputs.CACHIX_AUTH_TOKEN }}"

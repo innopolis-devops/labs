@@ -7,6 +7,7 @@ on:
     - cron: "0 0 * * *"
   pull_request:
   push:
+  workflow_dispatch:
 
 jobs:
   caching:
@@ -46,7 +47,6 @@ jobs:
         with:
           ROOT: ${{ env.root }}
           SHELLS: ${{ env.root_devShells }}
-          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
       - name: Cache ${{ env.app_purescript }}
         uses: ./.github/actions/each-devshell

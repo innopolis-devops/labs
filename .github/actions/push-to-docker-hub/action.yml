@@ -27,7 +27,7 @@ runs:
   steps:
     - name: Build image
       shell: "bash"
-      run: nix develop .# .#app-${{ inputs.SHELL }}-docker-build -c bash -c ''
+      run: nix develop .# -c nix develop .#app-${{ inputs.SHELL }}-docker-build -c bash -c ''
           docker login -p ${{ inputs.PASSWORD }} -u ${{ inputs.USER }}
           docker tag ${{ inputs.NAME }} ${{ inputs.USER }}/${{ inputs.NAME }}:${{ inputs.TAG }}
           docker push ${{ inputs.USER }}/${{ inputs.NAME }}:${{ inputs.TAG }}

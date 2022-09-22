@@ -44,8 +44,7 @@ jobs:
         run: cachix use ${{ env.cache }}
 
       - name: Cache ${{ env.root }}
-        uses: ./.github/actions/each-devshell
-        # ${{ env.each-devshell }}
+        uses: '${{ env.each-devshell }}'
         with:
           ROOT: ${{ env.root }}
           SHELLS: ${{ env.root_devShells }}

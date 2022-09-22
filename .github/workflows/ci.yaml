@@ -59,14 +59,14 @@ jobs:
       #   with:
       #     ROOT: ${{ env.app_python }}
       #     SHELLS: ${{ env.app_python_devShells }}
-      
+
       - name: Push ${{ env.app_python }} to Docker Hub
         uses: ./.github/actions/push-to-docker-hub
         with:
           USER: ${{ env.DOCKER_HUB_USER }}
           PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
           NAME: ${{ env.app_python }}
-          TAG: ${{ env.IMAGE_TAG }}
+          TAG: ${{ github.sha }}
           SHELL: ${{ env.python }}
       
       - name: Push ${{ env.app_purescript }} to Docker Hub
@@ -75,6 +75,6 @@ jobs:
           USER: ${{ env.DOCKER_HUB_USER }}
           PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
           NAME: ${{ env.app_purescript }}
-          TAG: ${{ env.IMAGE_TAG }}
+          TAG: ${{ github.sha }}
           SHELL: ${{ env.purescript }}
 

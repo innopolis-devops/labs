@@ -1,0 +1,37 @@
+name: Prepare Nix
+
+# Syntax
+# https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#about-yaml-syntax-for-github-actions
+
+description: cache flake inputs and shell
+
+inputs:
+  ROOT:
+    description: a dir for which this action should be run
+    required: true
+  CACHE:
+    description: Cache name
+    default: br4ch1st0chr0n3
+  SHELLS:
+    description: devShells names
+    required: true
+    
+runs:
+  using: composite
+  steps:
+    - name: Push inputs to cachix
+      working-directory: ${{ env.ROOT }}
+      shell: bash
+      run: |
+        nix flake archive --json \
+          | jq -r '.path,(.inputs|to_entries[].value.path)' \
+          | cachix push ${{ env.CACHE }}
+    - name: Push devshell to cachix
+      working-directory: ${{ env.ROOT }}
+      shell: bash
+      run: |
+        for devShell in ${{ env.SHELLS }} ;
+        do
+          nix develop .#$devShell --profile dev-profile
+          cachix push ${{ env.CACHE }} dev-profile
+        done

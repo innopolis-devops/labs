@@ -6,17 +6,17 @@ name: Push to Docker Hub
 description: Build and push images to Docker Hub
 
 inputs:
+  USER:
+    description: Docker Hub username
+    required: true
+  PASSWORD:
+    description: Docker Hub password
+    required: true
   NAME:
     description: Docker image name
     required: true
   TAG:
     description: Docker image tag
-    required: true
-  PASSWORD:
-    description: Docker Hub password
-    required: true
-  USER:
-    description: Docker Hub username
     required: true
   SHELL:
     description: Nix shell to use

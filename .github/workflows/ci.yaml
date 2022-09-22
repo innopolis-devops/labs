@@ -68,4 +68,13 @@ jobs:
           NAME: ${{ env.app_python }}
           TAG: ${{ env.IMAGE_TAG }}
           SHELL: ${{ env.python }}
+      
+      - name: Push ${{ env.app_purescript }} to Docker Hub
+        uses: ./.github/actions/push-to-docker-hub
+        with:
+          USER: ${{ env.DOCKER_HUB_USER }}
+          PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          NAME: ${{ env.app_purescript }}
+          TAG: ${{ env.IMAGE_TAG }}
+          SHELL: ${{ env.purescript }}
 

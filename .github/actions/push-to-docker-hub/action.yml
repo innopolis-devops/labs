@@ -1,0 +1,34 @@
+name: Push to Docker Hub
+
+# Syntax
+# https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#about-yaml-syntax-for-github-actions
+
+description: Build and push images to Docker Hub
+
+inputs:
+  NAME:
+    description: Docker image name
+    required: true
+  TAG:
+    description: Docker image tag
+    required: true
+  PASSWORD:
+    description: Docker Hub password
+    required: true
+  USER:
+    description: Docker Hub username
+    required: true
+  SHELL:
+    description: Nix shell to use
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Build image
+      shell: "bash"
+      run: nix develop .# .#app-${{ inputs.SHELL }}-docker-build -c bash -c ''
+          docker login -p ${{ inputs.PASSWORD }} -u ${{ inputs.USER }}
+          docker tag ${{ inputs.NAME }} ${{ inputs.USER }}/${{ inputs.NAME }}:${{ inputs.TAG }}
+          docker push ${{ inputs.USER }}/${{ inputs.NAME }}:${{ inputs.TAG }}
+        ''

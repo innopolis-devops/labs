@@ -21,9 +21,13 @@ jobs:
       app_purescript_devShells: "default dev"
       app_python_devShells: "default dev"
       each-devshell: ./.github/actions/each-devshell
+      DOCKER_HUB_USER: dademd
+      IMAGE_TAG: v1
+      python: python
+      purescript: purescript
     strategy:
       matrix:
-        os: [ubuntu-20.04, ubuntu-22.04, macos-11, macos-12]
+        os: [ubuntu-20.04, ubuntu-22.04]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -36,22 +40,32 @@ jobs:
       - uses: cachix/cachix-action@v10
         with:
           name: ${{ env.cache }}
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
-      - name: Cache ${{ env.root }}
-        uses: ./.github/actions/each-devshell
-        with:
-          ROOT: ${{ env.root }}
-          SHELLS: ${{ env.root_devShells }}
+      # - name: Cache ${{ env.root }}
+      #   uses: ./.github/actions/each-devshell
+      #   with:
+      #     ROOT: ${{ env.root }}
+      #     SHELLS: ${{ env.root_devShells }}
 
-      - name: Cache ${{ env.app_purescript }}
-        uses: ./.github/actions/each-devshell
-        with:
-          ROOT: ${{ env.app_purescript }}
-          SHELLS: ${{ env.app_purescript_devShells }}
+      # - name: Cache ${{ env.app_purescript }}
+      #   uses: ./.github/actions/each-devshell
+      #   with:
+      #     ROOT: ${{ env.app_purescript }}
+      #     SHELLS: ${{ env.app_purescript_devShells }}
 
-      - name: Cache ${{ env.app_python }}
-        uses: ./.github/actions/each-devshell
+      # - name: Cache ${{ env.app_python }}
+      #   uses: ./.github/actions/each-devshell
+      #   with:
+      #     ROOT: ${{ env.app_python }}
+      #     SHELLS: ${{ env.app_python_devShells }}
+      
+      - name: Push ${{ env.app_python }} to Docker Hub
+        uses: ./.github/actions/push-to-docker-hub
         with:
-          ROOT: ${{ env.app_python }}
-          SHELLS: ${{ env.app_python_devShells }}
+          USER: ${{ env.DOCKER_HUB_USER }}
+          PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          NAME: ${{ env.app_python }}
+          TAG: ${{ env.IMAGE_TAG }}
+          SHELL: ${{ env.python }}
+

@@ -41,7 +41,7 @@ RUN set -ex;
 
 EXPOSE 8003
 
-RUN parcel serve -p 8003 --host 0.0.0.0 dev/index.html;
+CMD parcel serve -p 8003 --host 0.0.0.0 dev/index.html
 
 # ensure testing works
 # spago test || true; \

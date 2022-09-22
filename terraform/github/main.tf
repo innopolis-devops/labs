@@ -14,8 +14,8 @@ provider "github" {
 }
 
 # Manage the repository
-resource "github_repository" "devops_fork_repo" {
-  name = "devops"
+resource "github_repository" "devops_fork" {
+  name = var.repository_name
   description = "Devops labs solutions for F22 course at Innopolis University"
 
   visibility = "public"
@@ -25,15 +25,15 @@ resource "github_repository" "devops_fork_repo" {
   has_wiki = true
 }
 
-resource "github_branch_default" "default_branch" {
-  repository = github_repository.devops_fork_repo.name
+resource "github_branch_default" "master" {
+  repository = github_repository.devops_fork.name
   branch = "master"
 }
 
-resource "github_branch_protection" "default_branch_protection" {
-  repository_id = github_repository.devops_fork_repo.node_id
+resource "github_branch_protection" "master" {
+  repository_id = github_repository.devops_fork.node_id
 
-  pattern = github_repository.devops_fork_repo.default_branch
+  pattern = github_repository.devops_fork.default_branch
   
   allows_deletions = false
   require_conversation_resolution = true

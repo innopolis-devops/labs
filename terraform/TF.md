@@ -489,3 +489,11 @@ external_ip = "84.201.135.76"
 * Keep token as environmental variable (instead of Terraform variable/file/hardcode into config)
 * Organize terraform files into folders
 * Destroying running instances after finishing the tasks
+* Used TFLint with default rules for terraform files
+* Not repeating resource type in names
+* Start every module with a main.tf file, where resources are located by default.
+* In every module, include a README.md file in Markdown format. In the README.md file, include basic documentation about the module.
+* Using naming conventions for configuration objects
+* Declare all variables in `variables.tf`
+* Give variables defined types
+* When appropriate, provide default values

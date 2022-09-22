@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     yandex = {
-      source = "yandex-cloud/yandex"
+      source  = "yandex-cloud/yandex"
       version = "0.79.0"
     }
   }
@@ -17,14 +17,14 @@ provider "yandex" {
 }
 
 // Create a new instance
-resource "yandex_compute_instance" "some_resource_1" {
+resource "yandex_compute_instance" "vm" {
   name        = var.instance_name
   platform_id = "standard-v1"
   zone        = "ru-central1-a"
-  
+
   resources {
-    cores  = 2
-    memory = 1
+    cores         = 2
+    memory        = 1
     core_fraction = 5
   }
 
@@ -36,8 +36,8 @@ resource "yandex_compute_instance" "some_resource_1" {
   }
 
   network_interface {
-    subnet_id = "${yandex_vpc_subnet.foo.id}"
-    nat = true
+    subnet_id = yandex_vpc_subnet.foo.id
+    nat       = true
   }
 
   metadata = {
@@ -49,8 +49,8 @@ resource "yandex_compute_instance" "some_resource_1" {
 resource "yandex_vpc_network" "foo" {}
 
 resource "yandex_vpc_subnet" "foo" {
-  zone       = "ru-central1-a"
-  v4_cidr_blocks = [ "192.168.0.0/16" ]
-  network_id = "${yandex_vpc_network.foo.id}"
+  zone           = "ru-central1-a"
+  v4_cidr_blocks = ["192.168.0.0/16"]
+  network_id     = yandex_vpc_network.foo.id
 }
 

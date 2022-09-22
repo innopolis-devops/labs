@@ -9,16 +9,24 @@ inputs:
   ROOT:
     description: a dir for which this action should be run
     required: true
-  # CACHE:
-  #   description: Cache name
-  #   default: br4ch1st0chr0n3
   SHELLS:
     description: devShells names
     required: true
-    
+  CACHIX_AUTH_TOKEN:
+    description: Cachix authorization token
+    required: true
+
 runs:
   using: composite
   steps:
+    - uses: cachix/cachix-action@v10
+      shell: bash
+      with:
+        name: ${{ env.cache }}
+        authToken: "${{ inputs.CACHIX_AUTH_TOKEN }}"
+    - name: Use cache
+      shell: bash
+      run: cachix use ${{ env.cache }}
     - name: Push inputs to cachix
       working-directory: ${{ inputs.ROOT }}
       shell: bash

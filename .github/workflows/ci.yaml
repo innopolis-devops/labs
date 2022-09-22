@@ -44,19 +44,20 @@ jobs:
         run: cachix use ${{ env.cache }}
 
       - name: Cache ${{ env.root }}
-        uses: ${{ env.each-devshell }}
+        uses: ./.github/actions/each-devshell
+        # ${{ env.each-devshell }}
         with:
           ROOT: ${{ env.root }}
           SHELLS: ${{ env.root_devShells }}
 
-      - name: Cache ${{ env.app_purescript }}
-        uses: ${{ env.each-devshell }}
-        with:
-          ROOT: ${{ env.app_purescript }}
-          SHELLS: ${{ env.app_purescript_devShells }}
+      # - name: Cache ${{ env.app_purescript }}
+      #   uses: ${{ env.each-devshell }}
+      #   with:
+      #     ROOT: ${{ env.app_purescript }}
+      #     SHELLS: ${{ env.app_purescript_devShells }}
 
-      - name: Cache ${{ env.app_python }}
-        uses: ${{ env.each-devshell }}
-        with:
-          ROOT: ${{ env.app_python }}
-          SHELLS: ${{ env.app_python_devShells }}
+      # - name: Cache ${{ env.app_python }}
+      #   uses: ${{ env.each-devshell }}
+      #   with:
+      #     ROOT: ${{ env.app_python }}
+      #     SHELLS: ${{ env.app_python_devShells }}

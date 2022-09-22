@@ -1,4 +1,4 @@
-name: Prepare Nix
+name: Cache each devshell
 
 # Syntax
 # https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#about-yaml-syntax-for-github-actions

@@ -12,20 +12,10 @@ inputs:
   SHELLS:
     description: devShells names
     required: true
-  CACHIX_AUTH_TOKEN:
-    description: Cachix authorization token
-    required: true
 
 runs:
   using: composite
   steps:
-    - uses: cachix/cachix-action@v10
-      with:
-        name: ${{ env.cache }}
-        authToken: "${{ inputs.CACHIX_AUTH_TOKEN }}"
-    - name: Use cache
-      shell: bash
-      run: cachix use ${{ env.cache }}
     - name: Push inputs to cachix
       working-directory: ${{ inputs.ROOT }}
       shell: bash
@@ -33,12 +23,12 @@ runs:
         nix flake archive --json \
           | jq -r '.path,(.inputs|to_entries[].value.path)' \
           | cachix push ${{ env.cache }}
-    # - name: Push devshell to cachix
-    #   working-directory: ${{ inputs.ROOT }}
-    #   shell: bash
-    #   run: |
-    #     for devShell in ${{ inputs.SHELLS }} ;
-    #     do
-    #       nix develop .#$devShell --profile dev-profile
-    #       cachix push ${{ inputs.CACHE }} dev-profile
-    #     done
+    - name: Push devshell to cachix
+      working-directory: ${{ inputs.ROOT }}
+      shell: bash
+      run: |
+        for devShell in ${{ inputs.SHELLS }} ;
+        do
+          nix develop .#$devShell --profile dev-profile
+          cachix push ${{ inputs.CACHE }} dev-profile
+        done

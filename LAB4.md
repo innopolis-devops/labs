@@ -46,4 +46,4 @@
 
 ### 2 extra points
 
-1. Add several teams to your repository using terraform, provide them a different level of access. Apply changes.
+1. Disable rebase and squash commits for the repository using terraform. Apply changes.

@@ -7,7 +7,7 @@
 
 - [Docker](#docker)
 - [Yandex Cloud](#yandex-cloud)
-- [GitHub](#github-repository)
+- [GitHub](#github-repository) (with the [bonus task](#bonus-disable-squash-and-rebase-commits))
 - [Best practices](#best-practices-used)
 
 ## Docker
@@ -626,6 +626,39 @@ Plan: 2 to add, 1 to change, 0 to destroy.
 <summary>Click to show the image...</summary>
 
 ![Screenshot](https://imgur.com/IHeifgR.png)
+
+</details>
+
+### Bonus: disable squash and rebase commits
+
+#### Plan
+
+<details>
+<summary>Click to show...</summary>
+
+```terraform
+Terraform will perform the following actions:
+
+  # github_repository.repo will be updated in-place
+  ~ resource "github_repository" "repo" {
+      ~ allow_rebase_merge          = true -> false
+      ~ allow_squash_merge          = true -> false
+        id                          = "iu-devops-labs"
+        name                        = "iu-devops-labs"
+        # (29 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+```
+
+</details>
+
+#### Result (GitHub web interface)
+
+<details>
+<summary>Click to show the image...</summary>
+
+![Screenshot](https://i.imgur.com/Cd8Qvlz.png)
 
 </details>
 

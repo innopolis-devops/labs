@@ -14,6 +14,9 @@ resource "github_repository" "repo" {
   name        = "iu-devops-labs"
   description = "Yet another IU homework repo"
   visibility  = "public"
+
+  allow_squash_merge = false
+  allow_rebase_merge = false
 }
 
 resource "github_branch_default" "master" {

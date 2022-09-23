@@ -49,7 +49,6 @@
           write-tasks-json
           codium .
         '';
-        TMPDIR = "/tmp";
       };
 
       # app name coincides with app dir
@@ -77,7 +76,14 @@
           default = pkgs.mkShell {
             name = "dev-tools";
             buildInputs = tools;
-            TMPDIR = "/tmp";
+          };
+          update-flakes = pkgs.mkShell {
+            name = "update-dev-shells";
+            shellHook = ''
+              (cd ${appPython} && nix flake update)
+              (cd ${appPurescript} && nix flake update)
+              nix flake update
+            '';
           };
           codium = codiumWithSettings;
         }

@@ -47,6 +47,7 @@ nix develop .#codium
 ## Commands
 
 - `Command palette` - press `Ctrl` (`Cmd`) + `Shift` + `P`
+- Might not work!
 
 ## Start app_python
 
@@ -73,11 +74,13 @@ Also, I added several commands for easier startup from a FastAPI's [tutorial](ht
 #### Start app_python in Docker
 
 1. `Command palette` -> `Tasks: Run Task` -> `Docker run app_python`
+   1. Or `nix develop .#app-python-docker-run`
 2. Open [page](http://127.0.0.1:8002) in a browser
 
 #### Remove app_python container
 
 1. `Command palette` -> `Tasks: Run Task` -> `Docker remove app_python`
+   1. Or `nix develop .#app-python-docker-rm`
 
 ### Dockerized app_purescript
 
@@ -88,7 +91,13 @@ Also, I added several commands for easier startup as VSCodium's `tasks` (see bel
 #### Start app_purescript in Docker
 
 1. `Command palette` -> `Tasks: Run Task` -> `Docker run app_purescript`
+   1. Or `nix develop .#app-purescript-docker-run`
 2. Open [page](http://127.0.0.1:8003) in a browser
+
+#### Remove app_purescript container
+
+1. `Command palette` -> `Tasks: Run Task` -> `Docker remove app_purescript`
+   1. Or `nix develop .#app-purescript-docker-rm`
 
 ## Miscellaneous
 

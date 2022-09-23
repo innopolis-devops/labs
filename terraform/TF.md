@@ -3,6 +3,13 @@
 <!-- Suppress linter warnings for HTML tags -->
 <!-- markdownlint-disable MD033 -->
 
+## Table of contents
+
+- [Docker](#docker)
+- [Yandex Cloud](#yandex-cloud)
+- [GitHub](#github-repository)
+- [Best practices](#best-practices-used)
+
 ## Docker
 
 ### Initial setup
@@ -620,4 +627,15 @@ Plan: 2 to add, 1 to change, 0 to destroy.
 
 ![Screenshot](https://imgur.com/IHeifgR.png)
 
-</summary>
+</details>
+
+## Best practices used
+
+- Variables and outputs:
+  - are declared separately
+  - have a descriptive name and description
+  - variables also have types defined
+- External files (e.g. user configs for Yandex Cloud setup) are moved into a separate directories
+- Built-in formatting is used (`terraform fmt`)
+- dependency lock (`.terraform.lock.hcl`) is uploaded together with other files to track the changes of dependencies
+- secrets are not commited, stored as env variables instead

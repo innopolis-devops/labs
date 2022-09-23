@@ -19,6 +19,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
       inherit (my-codium.tools.${system})
         writeSettingsJson
+        writeTasksJson
         settingsNix
         toList
         shellTools
@@ -28,38 +29,12 @@
       appPython = "app_python";
       appPurescript = "app_purescript";
 
-      writeSettings = writeSettingsJson
-        {
-          inherit (settingsNix)
-            todo-tree
-            files
-            editor
-            gitlens
-            git
-            nix-ide
-            workbench
-            ;
-          ide-purescript =
-            (settingsNix.ide-purescript or { }) // {
-              "purescript.outputDirectory" = "./${appPurescript}/output/";
-              "purescript.packagePath" = "./${appPurescript}";
-              "purescript.sourcePath" = "./${appPurescript}/src";
-            };
-          python = settingsNix.python // {
-            "python.defaultInterpreterPath" = "\${workspaceFolder}/app_python/.venv/bin/python3";
-          };
-          formatters = {
-            "[html]" = {
-              "editor.defaultFormatter" = "monosans.djlint";
-            };
-            "[markdown]" = {
-              "editor.defaultFormatter" = "DavidAnson.vscode-markdownlint";
-            };
-          };
-          linters = {
-            "python.linting.pylintEnabled" = true;
-          };
-        };
+      tasksNix = import ./nix/tasks.nix {
+        inherit langs appName shellNames;
+      };
+
+      writeSettings = writeSettingsJson (import ./nix/settings.nix { inherit settingsNix appPurescript; });
+      writeTasks = writeTasksJson tasksNix;
 
       tools = (toList {
         inherit (shellTools) nix purescript;
@@ -68,11 +43,32 @@
       });
 
       codiumWithSettings = pkgs.mkShell {
-        buildInputs = [ writeSettings codium ];
+        buildInputs = [ writeSettings writeTasks codium ];
         shellHook = ''
           write-settings-json
+          write-tasks-json
           codium .
         '';
+        TMPDIR = "/tmp";
+      };
+
+      # app name coincides with app dir
+      dir = lang: "app_${lang}";
+      appName = dir;
+
+      dockerPorts = [ 8002 8003 ];
+      langs = [ "python" "purescript" ];
+
+      shellNames = lang:
+        {
+          app-lang = "app-${lang}";
+          app-lang-docker-build = "app-${lang}-docker-build";
+          app-lang-docker-run = "app-${lang}-docker-run";
+          app-lang-docker-rm = "app-${lang}-docker-rm";
+        };
+
+      shells = import ./nix/shells.nix {
+        inherit langs dockerPorts appName shellNames pkgs;
       };
     in
     {
@@ -81,56 +77,13 @@
           default = pkgs.mkShell {
             name = "dev-tools";
             buildInputs = tools;
+            TMPDIR = "/tmp";
           };
           codium = codiumWithSettings;
-          app-purescript = pkgs.mkShell {
-            shellHook = ''
-              (cd ${appPurescript} && nix develop .#dev)
-            '';
-          };
-          app-python = pkgs.mkShell {
-            shellHook = ''
-              (cd ${appPython} && nix develop .#dev)
-            '';
-          };
-          app-python-docker-build = pkgs.mkShell {
-            shellHook = ''
-              docker build -t ${appPython} ${appPython}
-            '';
-          };
-          app-python-docker = pkgs.mkShell {
-            shellHook = ''
-              docker build -t ${appPython} ${appPython}
-              docker run -d --name ${appPython} -p 8002:8002 ${appPython}
-              docker container logs -f ${appPython}
-            '';
-          };
-          app-python-docker-rm = pkgs.mkShell {
-            shellHook = ''
-              docker stop ${appPython}
-              docker rm ${appPython}
-            '';
-          };
-          app-purescript-docker-build = pkgs.mkShell {
-            shellHook = ''
-              docker build -t ${appPurescript} ${appPurescript}
-            '';
-          };
-          app-purescript-docker = pkgs.mkShell {
-            shellHook = ''
-              nix develop .#app-purescript-docker-build -c bash -c '
-                docker run -d --name ${appPurescript} -p 8003:8003 ${appPurescript}
-                docker container logs -f ${appPurescript}
-              '
-            '';
-          };
-          app-purescript-docker-rm = pkgs.mkShell {
-            shellHook = ''
-              docker stop ${appPurescript}
-              docker rm ${appPurescript}
-            '';
-          };
-        };
+        }
+        // shells
+      ;
+      inherit tasksNix;
     });
 
   nixConfig = {

@@ -62,11 +62,13 @@ nix develop .#codium
 
 Alternatively, you may start the apps via [Docker](https://www.docker.com/)
 
+In both containers, I employed a caching [trick](https://fastapi.tiangolo.com/deployment/docker/#docker-cache).
+
 ### Dockerized app_python
 
 As I used `poetry` and `FastAPI`, I adapted a sample [project](https://github.com/svx/poetry-fastapi-docker).
 
-Also, I employed a caching [trick](https://fastapi.tiangolo.com/deployment/docker/#docker-cache) and added several commands for easier startup from a FastAPI's [tutorial](https://fastapi.tiangolo.com/deployment/docker/) as VSCodium's `tasks` (see below)
+Also, I added several commands for easier startup from a FastAPI's [tutorial](https://fastapi.tiangolo.com/deployment/docker/) as VSCodium's `tasks` (see below).
 
 #### Start app_python in Docker
 
@@ -81,9 +83,14 @@ Also, I employed a caching [trick](https://fastapi.tiangolo.com/deployment/docke
 
 As I used `PureScript` and `spago`, I adapted a sample [project](https://github.com/codewars/purescript).
 
-Also, I employed a caching [trick](https://fastapi.tiangolo.com/deployment/docker/#docker-cache) and added several commands for easier startup as VSCodium's `tasks` (see below)
+Also, I added several commands for easier startup as VSCodium's `tasks` (see below).
 
 #### Start app_purescript in Docker
 
 1. `Command palette` -> `Tasks: Run Task` -> `Docker run app_purescript`
 2. Open [page](http://127.0.0.1:8003) in a browser
+
+## Miscellaneous
+
+- What are Docker image tags? - [src]
+  - How to correctly tag?

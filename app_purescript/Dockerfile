@@ -39,9 +39,9 @@ RUN spago build;
 
 RUN set -ex;
 
-EXPOSE 8003
+EXPOSE 80
 
-CMD parcel serve -p 8003 --host 0.0.0.0 dev/index.html
+CMD parcel serve -p 80 --host 0.0.0.0 dev/index.html
 
 # ensure testing works
 # spago test || true; \

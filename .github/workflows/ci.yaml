@@ -60,6 +60,9 @@ jobs:
       #     ROOT: ${{ env.app_python }}
       #     SHELLS: ${{ env.app_python_devShells }}
 
+      - name: Login to Docker Hub
+        run: docker login -p ${{ secrets.DOCKER_HUB_PASSWORD }} -u ${{ env.DOCKER_HUB_USER }}
+
       - name: Push ${{ env.app_python }} to Docker Hub
         uses: ./.github/actions/push-to-docker-hub
         with:

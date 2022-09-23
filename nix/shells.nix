@@ -21,9 +21,9 @@ let
       };
       "${sh.app-lang-docker-build}" = pkgs.mkShell {
         shellHook = ''
-          # nix develop .# -c bash -c '
+          nix develop -c bash -c '
             docker build -t ${dir_} ${appName_}
-          # '
+          '
         '';
       };
       "${sh.app-lang-docker-run}" = pkgs.mkShell {
@@ -36,10 +36,10 @@ let
       };
       "${sh.app-lang-docker-rm}" = pkgs.mkShell {
         shellHook = ''
-          # nix develop .# -c bash -c '
+          nix develop -c bash -c '
             docker stop ${appName_}
             docker rm ${appName_}
-          # '
+          '
         '';
       };
     };

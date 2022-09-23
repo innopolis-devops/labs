@@ -542,3 +542,82 @@ external_ip_address_vm_2 = "84.201.137.155"
 internal_ip_address_vm_1 = "192.168.10.20"
 internal_ip_address_vm_2 = "192.168.10.16"
 ```
+
+## Github repository
+
+### Importing the repo
+
+In the [`./github`](./github/) folder, running:
+
+```sh
+export GITHUB_TOKEN="<TOKEN>"
+terraform init
+terraform import "github_repository.repo" "iu-devops-labs"
+```
+
+After the successful import, `terraform show` shows the `github_repository.repo` resource with all the params.
+
+### Applying changes
+
+The changes added were:
+
+- default `master` branch
+- protection rules on the `master` branch
+  - no force pushes
+  - no branch deletion
+  - conversation resolutions are required
+- (unintentional) disable downloads, projects and issues
+  - decided not to keep them since we're not using them anyway
+
+#### The plan
+
+<details>
+<summary>Click to show...</summary>
+
+```terraform
+Terraform will perform the following actions:
+
+  # github_branch_default.master will be created
+  + resource "github_branch_default" "master" {
+      + branch     = "master"
+      + id         = (known after apply)
+      + repository = "iu-devops-labs"
+    }
+
+  # github_branch_protection.default will be created
+  + resource "github_branch_protection" "default" {
+      + allows_deletions                = false
+      + allows_force_pushes             = false
+      + blocks_creations                = false
+      + enforce_admins                  = true
+      + id                              = (known after apply)
+      + pattern                         = "master"
+      + repository_id                   = "iu-devops-labs"
+      + require_conversation_resolution = true
+      + require_signed_commits          = false
+      + required_linear_history         = false
+    }
+
+  # github_repository.repo will be updated in-place
+  ~ resource "github_repository" "repo" {
+      - has_downloads               = true -> null
+      - has_projects                = true -> null
+      - has_wiki                    = true -> null
+        id                          = "iu-devops-labs"
+        name                        = "iu-devops-labs"
+        # (28 unchanged attributes hidden)
+    }
+
+Plan: 2 to add, 1 to change, 0 to destroy.
+```
+
+</details>
+
+#### Result (checking GitHub web interface)
+
+<details>
+<summary>Click to show the image...</summary>
+
+![Screenshot](https://imgur.com/IHeifgR.png)
+
+</summary>

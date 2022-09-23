@@ -1,0 +1,10 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Innopolis DevOps</title>
+</head>
+<body>
+    <center><p>Hello from Rust app!</p></center>
+    <center><p>MSK time: {{ time }}</p></center>
+</body>
+</html> 

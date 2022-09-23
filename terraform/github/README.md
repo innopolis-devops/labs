@@ -4,7 +4,7 @@ This module contains manifests for creating/managing GitHub repository
 
 ## Usage
 
-If you want to apply the module to existing repo use `terraform import` command. Example: `terraform import "github_repository.devops_fork" "devops"`.
+If you want to apply the module to existing repo use `terraform import` command. Example: `terraform import "github_repository.main" "devops"`.
 
 ### Key
 

@@ -9,7 +9,7 @@ jobs:
 # The application should be runnable and tested
 
   docker-push:
-    name: Push latest container to Docker Hub
+    name: Push latest container
     runs-on: ubuntu-latest
 
     steps:

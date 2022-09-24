@@ -8,7 +8,7 @@ on:
     paths:
       - app_python/**
       - .github/workflows/python.yml
-
+      
 defaults:
   run:
     working-directory: ./app_python

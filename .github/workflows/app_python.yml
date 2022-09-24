@@ -86,7 +86,7 @@ jobs:
           context: ./app_python
           file: ./app_python/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:python_lab3
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:python_lab4
           platforms: linux/amd64,linux/386,linux/arm64,linux/arm/v7
-          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:python_lab3_buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:python_lab3_buildcache,mode=max
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:python_lab4_buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:python_lab4_buildcache,mode=max

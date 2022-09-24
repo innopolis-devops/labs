@@ -32,7 +32,7 @@ jobs:
           context: ./app_php
           file: ./app_php/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:php_lab3
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:php_lab4
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6
-          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:php_lab3_buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:php_lab3_buildcache,mode=max
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:php_lab4_buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:php_lab4_buildcache,mode=max

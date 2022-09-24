@@ -37,7 +37,7 @@ ci:	lint test
 
 .PHONY: build_docker
 build_docker:
-	docker build -t devops/lab3_python .
+	docker build -t devops/lab4_python .
 
 
 .PHONY: up_dev
@@ -52,4 +52,4 @@ up:
 
 .PHONY: up_docker
 up_docker:
-	docker run -it --rm -h devops --name devops_lab3_python -p 8080:80 devops/lab3_python
+	docker run -it --rm -h devops --name devops_lab4_python -p 8080:80 devops/lab4_python

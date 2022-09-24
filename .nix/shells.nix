@@ -1,10 +1,11 @@
-{ dockerPorts
-, langs
-, appName
-, shellNames
-, pkgs
-}:
+{ pkgs }:
 let
+  inherit (import ./data.nix)
+    dockerPorts
+    langs
+    appName
+    shellNames
+    ;
   mkShells = lang: port:
     let
       sh = shellNames lang;
@@ -14,32 +15,32 @@ let
       portInternal = "80";
     in
     {
-      "${sh.app-lang}" = pkgs.mkShell {
+      "${sh.run}" = pkgs.mkShell {
         shellHook = ''
           (cd ${dir_} && nix develop .#dev)
         '';
       };
-      "${sh.app-lang-docker-build}" = pkgs.mkShell {
+      "${sh.dockerBuild}" = pkgs.mkShell {
         shellHook = ''
-          nix develop -c bash -c '
+          # nix develop -c bash -c '
             docker build -t ${dir_} ${appName_}
-          '
+          # '
         '';
       };
-      "${sh.app-lang-docker-run}" = pkgs.mkShell {
+      "${sh.dockerRun}" = pkgs.mkShell {
         shellHook = ''
-          nix develop .#${sh.app-lang-docker-build} -c bash -c '
+          nix develop .#${sh.dockerBuild} -c bash -c '
             docker run -d --name ${appName_} -p ${port_}:${portInternal} ${dir_}
             docker container logs -f ${appName_}
           '
         '';
       };
-      "${sh.app-lang-docker-rm}" = pkgs.mkShell {
+      "${sh.dockerStop}" = pkgs.mkShell {
         shellHook = ''
-          nix develop -c bash -c '
+          # nix develop -c bash -c '
             docker stop ${appName_}
             docker rm ${appName_}
-          '
+          # '
         '';
       };
     };

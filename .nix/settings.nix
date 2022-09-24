@@ -1,6 +1,9 @@
 { settingsNix
-, appPurescript
-}: {
+}:
+let
+  inherit (import ./data.nix) appPurescript;
+in
+{
   inherit (settingsNix)
     todo-tree
     files
@@ -16,6 +19,7 @@
       "purescript.packagePath" = "./${appPurescript}";
       "purescript.sourcePath" = "./${appPurescript}/src";
     };
+
   python = settingsNix.python // {
     "python.defaultInterpreterPath" = "\${workspaceFolder}/app_python/.venv/bin/python3";
   };
@@ -29,5 +33,25 @@
   };
   linters = {
     "python.linting.pylintEnabled" = true;
+  };
+  schemas = {
+    "json.schemas" = [
+      {
+        "fileMatch" = [
+          "/*.markdownlint.json"
+        ];
+        "url" = "https://raw.githubusercontent.com/DavidAnson/markdownlint/main/schema/markdownlint-config-schema.json";
+      }
+    ];
+  };
+  markdownlint = {
+    "markdownlint.lintWorkspaceGlobs" = [
+      "**/*.{md,mkd,mdwn,mdown,markdown,markdn,mdtxt,mdtext,workbook}"
+      "!**/bower_components"
+      "!**/node_modules"
+      "!**/vendor"
+      "!**/.*"
+    ];
+    "markdownlint.config" = import ./markdownlint-config.nix;
   };
 }

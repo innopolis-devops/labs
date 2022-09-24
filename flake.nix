@@ -4,6 +4,7 @@
     nixpkgs.follows = "my-inputs/nixpkgs";
     flake-utils.follows = "my-inputs/flake-utils";
     my-codium.follows = "my-inputs/my-codium";
+    my-json2md.url = "github:br4ch1st0chr0n3/flakes?dir=json2md";
     nix-vscode-marketplace.follows = "my-inputs/nix-vscode-marketplace";
   };
   outputs =
@@ -12,65 +13,70 @@
     , nixpkgs
     , my-codium
     , my-inputs
+    , my-json2md
     , nix-vscode-marketplace
     }:
     flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = nixpkgs.legacyPackages.${system};
-      inherit (my-codium.tools.${system})
+      codiumTools = my-codium.tools.${system};
+      inherit (codiumTools)
         writeSettingsJson
         writeTasksJson
         settingsNix
         toList
         shellTools
         codium
+        writeJson
+        writeShellApplicationUnchecked
         ;
-
-      appPython = "app_python";
-      appPurescript = "app_purescript";
-
-      tasksNix = import ./nix/tasks.nix {
-        inherit langs appName shellNames;
-      };
-
-      writeSettings = writeSettingsJson (import ./nix/settings.nix { inherit settingsNix appPurescript; });
-      writeTasks = writeTasksJson tasksNix;
 
       tools = (toList {
         inherit (shellTools) nix purescript;
       }) ++ (builtins.attrValues {
-        inherit (pkgs) docker;
+        inherit (pkgs) docker nodejs-16_x;
       });
 
-      codiumWithSettings = pkgs.mkShell {
-        buildInputs = [ writeSettings writeTasks codium ];
-        shellHook = ''
-          write-settings-json
-          write-tasks-json
-          codium .
-        '';
-      };
+      inherit (import ./.nix/data.nix { inherit pkgs; })
+        appPurescript
+        appPython
+        ;
 
-      # app name coincides with app dir
-      dir = lang: "app_${lang}";
-      appName = dir;
+      configWriters =
+        (import ./.nix/write-configs.nix
+          {
+            inherit
+              my-json2md
+              system
+              codiumTools
+              pkgs
+              ;
+          }
+        );
 
-      dockerPorts = [ 8002 8003 ];
-      langs = [ "python" "purescript" ];
-
-      shellNames = lang:
-        {
-          app-lang = "app-${lang}";
-          app-lang-docker-build = "app-${lang}-docker-build";
-          app-lang-docker-run = "app-${lang}-docker-run";
-          app-lang-docker-rm = "app-${lang}-docker-rm";
+      codiumWithConfigs =
+        pkgs.mkShell {
+          buildInputs = [
+            codium
+            configWriters.writeConfigs
+          ];
+          shellHook = ''
+            write-configs
+            codium .
+          '';
         };
 
-      shells = import ./nix/shells.nix {
-        inherit langs dockerPorts appName shellNames pkgs;
-      };
+      shells = import ./.nix/shells.nix;
     in
     {
+      packages = {
+        inherit (configWriters)
+          writeDocs
+          writeTasks
+          writeSettings
+          writeMarkdownlintConfig
+          writeConfigs;
+      };
       devShells =
         {
           default = pkgs.mkShell {
@@ -85,11 +91,10 @@
               nix flake update
             '';
           };
-          codium = codiumWithSettings;
+          codium = codiumWithConfigs;
         }
         // shells
       ;
-      inherit tasksNix;
     });
 
   nixConfig = {

@@ -37,69 +37,22 @@ I used Nix to make a reproducible project environment. Now, the project ships wi
 ```console
 git clone https://github.com/br4ch1st0chr0n3/devops-labs
 cd devops-labs
-git checkout lab1
+git checkout lab2
 direnv allow
 (cd app_purescript && direnv allow)
 (cd app_python && direnv allow)
 nix develop .#codium
 ```
 
-## Commands
+## Actions
 
-- `Command palette` - press `Ctrl` (`Cmd`) + `Shift` + `P`
-- Might not work!
-
-## Start app_python
-
-1. `Command palette` -> `Tasks: Run Task` -> `Run app_python`
-1. Open [page](http://127.0.0.1:8000) in a browser
-
-## Start app_purescript
-
-1. `Command palette` -> `Tasks: Run Task` -> `Run app_purescript`
-1. Open [page](http://127.0.0.1:8001) in a browser
-
-## Docker
-
-Alternatively, you may start the apps via [Docker](https://www.docker.com/)
-
-In both containers, I employed a caching [trick](https://fastapi.tiangolo.com/deployment/docker/#docker-cache).
-
-### Dockerized app_python
-
-As I used `poetry` and `FastAPI`, I adapted a sample [project](https://github.com/svx/poetry-fastapi-docker).
-
-Also, I added several commands for easier startup from a FastAPI's [tutorial](https://fastapi.tiangolo.com/deployment/docker/) as VSCodium's `tasks` (see below).
-
-#### Start app_python in Docker
-
-1. `Command palette` -> `Tasks: Run Task` -> `Docker run app_python`
-   1. Or `nix develop .#app-python-docker-run`
-2. Open [page](http://127.0.0.1:8002) in a browser
-
-#### Remove app_python container
-
-1. `Command palette` -> `Tasks: Run Task` -> `Docker remove app_python`
-   1. Or `nix develop .#app-python-docker-rm`
-
-### Dockerized app_purescript
-
-As I used `PureScript` and `spago`, I adapted a sample [project](https://github.com/codewars/purescript).
-
-Also, I added several commands for easier startup as VSCodium's `tasks` (see below).
-
-#### Start app_purescript in Docker
-
-1. `Command palette` -> `Tasks: Run Task` -> `Docker run app_purescript`
-   1. Or `nix develop .#app-purescript-docker-run`
-2. Open [page](http://127.0.0.1:8003) in a browser
-
-#### Remove app_purescript container
-
-1. `Command palette` -> `Tasks: Run Task` -> `Docker remove app_purescript`
-   1. Or `nix develop .#app-purescript-docker-rm`
+See available actions documentation [here](./README/docs.md)
 
 ## Miscellaneous
 
 - What are Docker image tags? - [src]
   - How to correctly tag?
+
+- VSCodium can't execute a command line `nix` if there is a dir called `nix` - [src](https://github.com/OmniSharp/omnisharp-vscode/pull/3372#issuecomment-546447471)
+
+<!-- TODO make json2md and other functions accept a path rather than a string -->

@@ -1,0 +1,4 @@
+[flake8]
+exclude =
+    app_python_env
+    __pycache__

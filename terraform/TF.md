@@ -1,5 +1,14 @@
 # Terraform
 
+## Best practices applied
+
+1. Follow naming convention
+2. Use separate directories for each application
+3. Declare all variables in variables.tf
+4. Organize all outputs in an outputs.tf file
+5. Meaningful descriptions for variables and outputs
+6. Use built-in formatting - terraform fmt
+
 ## Docker infrastructure using Terraform
 
 1. terraform show
@@ -94,6 +103,7 @@
     ```
 
 3. part o the log with the applied changes after re-building infrastructure
+(application port number was changed)
 
     ```terraform
           # docker_container.app_python must be replaced

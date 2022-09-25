@@ -36,7 +36,7 @@
           poetry2nix.overlay
           (final: prev: {
             env = prev.poetry2nix.mkPoetryEnv {
-              projectDir = ./.;
+              projectDir = gitignore.lib.gitignoreSource ./.;
               python = pkgs.python310;
             };
             editablePackageSources = {
@@ -46,9 +46,26 @@
         ];
         p2nix = pkgs.extend overlay;
         # <--
-
+        dotenvFile = "app.env";
+        env = poetry2nix.mkPoetryEnv {
+          python = pkgs.python310;
+          projectDir = ./.;
+        };
+        app = appName:
+          writeShellApplicationUnchecked {
+            name = "write-dotenv";
+            runtimeInputs = [ (pkgs.python310Packages.python-dotenv) ];
+            text = ''
+              dotenv -f ${appName}/.env set ${DOCKER_PORT}
+            '';
+          };
       in
       {
+        packages = {
+          default = pkgs.runCommand "env-test" { } ''
+            ${env}/bin/python --version
+          '' // { inherit env; };
+        };
         devShells = {
           default = pkgs.mkShell {
             buildInputs = myTools;
@@ -67,7 +84,7 @@
           dev = pkgs.mkShell {
             shellHook = ''
               nix develop .#make-poetry-env -c bash -c '
-                poetry run uvicorn --reload --host=0.0.0.0 --port=8000 app.main:app
+                poetry run uvicorn --reload --host=$HOST --port=$PORT app.main:app
               '
             '';
           };

@@ -22,3 +22,8 @@ See the sections in the main [README](../README.md):
 ## Contact
 
 - In case of any issues see my [GitHub profile](https://github.com/br4ch1st0chr0n3) for contact information
+
+<!-- Seems like poetry can build packages 
+I followed this example
+https://github.com/mped-oticon/poetry2nix_demo/blob/main/imgapp/__init__.py
+-->

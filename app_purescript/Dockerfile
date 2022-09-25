@@ -33,16 +33,13 @@ RUN npm install;
 # compile packages
 RUN spago install;
 
-COPY --chown=codewarrior:codewarrior ./ /app
+COPY --chown=codewarrior:codewarrior src dev /app/
 
 RUN spago build;
 
-RUN set -ex;
-
-ARG PORT
-ARG HOST
-
 EXPOSE $PORT
+
+RUN echo "${PORT}"
 
 CMD parcel serve -p ${PORT} --host ${HOST} dev/index.html
 

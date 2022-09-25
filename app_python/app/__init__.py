@@ -9,6 +9,8 @@ from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
+import uvicorn
+from dotenv import dotenv_values
 
 
 def get_application() -> FastAPI:
@@ -61,3 +63,14 @@ async def root(request: Request):
     return templates.TemplateResponse(
         "index.jinja", {"request": request, "time_msk": get_datetime()}
     )
+
+
+CONFIG = dotenv_values(dotenv_path="app.env")
+
+
+def main():
+    uvicorn.run(app, host=CONFIG["HOST"], port=int(CONFIG["PORT"]))
+
+
+if __name__ == "__main__":
+    main()

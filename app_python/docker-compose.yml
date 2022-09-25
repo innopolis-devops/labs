@@ -2,9 +2,9 @@ services:
   web:
     build:
       context: ./
-      args:
-        - PORT=${DOCKER_PORT}
-        - HOST=${HOST}
+    environment:
+      - PORT=${DOCKER_PORT}
+      - HOST=${HOST}
     ports:
       - ${HOST_PORT}:${DOCKER_PORT}
     volumes:

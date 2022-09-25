@@ -48,7 +48,7 @@ nix develop .#codium
 
 See available actions documentation [here](./README/docs.md).
 
-It's generated via [json2md](https://github.com/IonicaBizau/json2md).
+It's generated via [json2md](https://github.com/IonicaBizau/json2md) and formatted via [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2).
 
 ## Miscellaneous
 
@@ -56,5 +56,7 @@ It's generated via [json2md](https://github.com/IonicaBizau/json2md).
   - How to correctly tag?
 
 - VSCodium can't execute a command line `nix` if there is a dir called `nix` - [src](https://github.com/OmniSharp/omnisharp-vscode/pull/3372#issuecomment-546447471)
+
+- How to rebuild an image and run it?
 
 <!-- TODO make json2md and other functions accept a path rather than a string -->

@@ -55,14 +55,14 @@ RUN chmod +x /docker-entrypoint.sh
 
 # venv already has runtime deps installed we get a quicker install
 WORKDIR $PYSETUP_PATH
-RUN poetry install
 
 WORKDIR /app
 COPY . .
 
-EXPOSE ${PORT}
+RUN echo $PORT  
+EXPOSE $PORT
 ENTRYPOINT /docker-entrypoint.sh $0 $@
-CMD ["uvicorn", "--reload", "--host=${HOST}", "--port={$PORT}", "app.main:app"]
+CMD ["uvicorn", "--reload", "--host=$HOST", "--port=$PORT", "app.__init__:main"]
 
 
 # # 'lint' stage runs black and isort

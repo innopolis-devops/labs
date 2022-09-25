@@ -69,15 +69,6 @@ let
         write-markdownlint-json
       '';
     };
-  writeDotEnv = appName:
-
-    writeShellApplicationUnchecked {
-      name = "write-dotenv";
-      runtimeInputs = [ (pkgs.python310Packages.python-dotenv) ];
-      text = ''
-        dotenv -f ${appName}/.env set ${DOCKER_PORT}
-      '';
-    };
 in
 {
   inherit

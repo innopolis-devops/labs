@@ -43,3 +43,19 @@ Change Infrastructure:
 Output of the `terraform output`:
 
 ![](.github/yandex_4.png)
+
+## Github
+
+To run read [manual](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) and use the following command to init environment:
+
+```bash
+export GITHUB_TOKEN=...
+```
+
+Output of the `terraform show`:
+
+<img src=".github/github_1.png" style="zoom:60%;" />
+
+Output of the `terraform state list` and `terraform output`:
+
+![](.github/github_2.png)

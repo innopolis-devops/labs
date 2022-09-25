@@ -88,6 +88,7 @@ jobs:
           push: false
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:python_lab4
           platforms: linux/amd64,linux/386
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:python_lab4_buildcache,mode=max
           cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:python_lab4_buildcache
 
       - name: Build for arm7, arm64 and push

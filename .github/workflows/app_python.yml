@@ -80,7 +80,17 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Build and push
+      - name: Build for amd64, i386
+        uses: docker/build-push-action@v2
+        with:
+          context: ./app_python
+          file: ./app_python/Dockerfile
+          push: false
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:python_lab4
+          platforms: linux/amd64,linux/386
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/iu-devops:python_lab4_buildcache
+
+      - name: Build for arm7, arm64 and push
         uses: docker/build-push-action@v2
         with:
           context: ./app_python

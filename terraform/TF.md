@@ -1,6 +1,6 @@
 # Terraform
 
-- Install terraform CLI (https://www.terraform.io/downloads)
+- Install terraform CLI (<https://www.terraform.io/downloads>)
 
 ## Docker Provider
 
@@ -218,8 +218,6 @@
   image_id = "sha256:2d389e545974d4a93ebdef09b650753a55f72d1ab4518d17a30c0e1b3e297444nginx:latest"
   ```
 
-  
-
 ## AWS Provider
 
 - Create `aws` module following [the tutorial](https://learn.hashicorp.com/tutorials/terraform/aws-build?in=terraform/aws-get-started#prerequisites).
@@ -236,7 +234,10 @@
   ```
 
   ```bash
-  $ terraform state
+  $ terraform state list
+  aws_instance.test
+  
+  $ terraform state show aws_instance.test
   resource "aws_instance" "test" {
       ami                                  = "ami-09042b2f6d07d164a"
       arn                                  = "arn:aws:ec2:eu-central-1:237179952815:instance/i-0672f2238530a7446"
@@ -326,8 +327,108 @@
   
   $ terraform destroy
   ```
+
+## Github Provider
+
+- Create `github` module following [the tutorial](https://dev.to/pwd9000/manage-and-maintain-github-with-terraform-2k86).
+
+- Run
+
+  ```bash
+  terrform init
+  terraform validate
+  terraform fmt
+  ```
+
+- Import labs repo
+
+  ```bash
+  $ terraform import github_repository.labs UI-devops-labs
+  var.github_token
+    Enter a value: <REDACTED>
   
+  github_repository.labs: Importing from ID "UI-devops-labs"...
+  github_repository.labs: Import prepared!
+    Prepared github_repository for import
+  github_repository.labs: Refreshing state... [id=UI-devops-labs]
   
+  Import successful!
+  
+  The resources that were imported are shown above. These resources are now in
+  your Terraform state and will henceforth be managed by Terraform.
+  ```
+
+- Update repo description and branch protection from code
+
+  ```bash
+  terraform apply # write yes
+  ```
+
+- Show state
+
+  ```bash
+  $ terraform state list
+  github_repository.labs
+  $ terraform state show github_repository.labs
+  # github_repository.labs:
+  resource "github_repository" "labs" {
+      allow_auto_merge            = false
+      allow_merge_commit          = true
+      allow_rebase_merge          = true
+      allow_squash_merge          = true
+      archived                    = false
+      auto_init                   = false
+      branches                    = [
+          {
+              name      = "lab1"
+              protected = false
+          },
+          {
+              name      = "lab2"
+              protected = false
+          },
+          {
+              name      = "lab3"
+              protected = false
+          },
+          {
+              name      = "lab4"
+              protected = false
+          },
+          {
+              name      = "master"
+              protected = true
+          },
+      ]
+      default_branch              = "master"
+      delete_branch_on_merge      = false
+      description                 = "A description created from terraform"
+      etag                        = "W/\"bd4e35132c52a25de0f2dc4c4b18b6a6a492a2033ad6a526cf599c6890c4df3a\""
+      full_name                   = "afonyaa/UI-devops-labs"
+      git_clone_url               = "git://github.com/afonyaa/UI-devops-labs.git"
+      has_downloads               = false
+      has_issues                  = false
+      has_projects                = false
+      has_wiki                    = false
+      html_url                    = "https://github.com/afonyaa/UI-devops-labs"
+      http_clone_url              = "https://github.com/afonyaa/UI-devops-labs.git"
+      id                          = "UI-devops-labs"
+      is_template                 = false
+      merge_commit_message        = "PR_TITLE"
+      merge_commit_title          = "MERGE_MESSAGE"
+      name                        = "UI-devops-labs"
+      node_id                     = "R_kgDOH71BEQ"
+      private                     = false
+      repo_id                     = 532496657
+      squash_merge_commit_message = "COMMIT_MESSAGES"
+      squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+      ssh_clone_url               = "git@github.com:afonyaa/UI-devops-labs.git"
+      svn_url                     = "https://github.com/afonyaa/UI-devops-labs"
+      topics                      = []
+      visibility                  = "public"
+      vulnerability_alerts        = false
+  }
+  ```
 
 ## Best Practices
 
@@ -337,4 +438,3 @@
 - Do not push state files to github.
 - Use variables for sensitive information.
 - Use recommended directory structure and file names (`main.tf`, `variables.tf`, `outputs.tf`)
-

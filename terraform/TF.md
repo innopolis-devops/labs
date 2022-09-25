@@ -5,6 +5,7 @@
 3. Getting rid of hard-coded values via input variables
 4. Defining output variables
 5. Formatting the configuration via `terraform fmt` and `terraform validate`
+6. Prompting sensitive variables instead of storing them
 
 
 ## Containers

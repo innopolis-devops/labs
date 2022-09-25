@@ -5,7 +5,7 @@
 1. Use `terraform fmt` to automatically format files.
 
 1. Do not expose secrets in Terraform configuration files. Instead, store them
-in the environment.
+   in the environment.
 
 1. Define Terraform variable in the variables.tf file.
 

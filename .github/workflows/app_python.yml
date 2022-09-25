@@ -66,7 +66,7 @@ jobs:
       - name: Run Docker on tmpfs
         uses: JonasAlfredsson/docker-on-tmpfs@v1
         with:
-          tmpfs_size: 12
+          tmpfs_size: 15
 
       - name: Set up QEMU        
         uses: docker/setup-qemu-action@v1

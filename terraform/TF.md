@@ -9,7 +9,7 @@
 
 
 ## Containers
-There are **Docker** and **AWS** configurations
+There are **Docker** and **Yandex.Cloud** configurations
 
 ## Docker
 

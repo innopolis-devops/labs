@@ -56,7 +56,7 @@ jobs:
           pip install -r requirements.txt
       - name: Test with pytest
         run: |
-          pytest test.py
+          pytest src/test.py
 
   snyk:
     name: Snyk run

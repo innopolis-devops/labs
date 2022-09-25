@@ -2,6 +2,8 @@
 
 - Install terraform CLI (https://www.terraform.io/downloads)
 
+## Docker Provider
+
 - Create `docker` module following [the tutorial](https://learn.hashicorp.com/tutorials/terraform/docker-build?in=terraform/docker-get-started#prerequisites).
 
 - Run
@@ -217,3 +219,122 @@
   ```
 
   
+
+## AWS Provider
+
+- Create `aws` module following [the tutorial](https://learn.hashicorp.com/tutorials/terraform/aws-build?in=terraform/aws-get-started#prerequisites).
+
+- Run
+
+  ```bash
+  export AWS_ACCESS_KEY_ID=#REDACTED
+  export AWS_SECRET_ACCESS_KEY=#REDACTED
+  terrform init
+  terraform validate
+  terraform fmt
+  terraform apply # write yes
+  ```
+
+  ```bash
+  $ terraform state
+  resource "aws_instance" "test" {
+      ami                                  = "ami-09042b2f6d07d164a"
+      arn                                  = "arn:aws:ec2:eu-central-1:237179952815:instance/i-0672f2238530a7446"
+      associate_public_ip_address          = true
+      availability_zone                    = "eu-central-1a"
+      cpu_core_count                       = 1
+      cpu_threads_per_core                 = 1
+      disable_api_stop                     = false
+      disable_api_termination              = false
+      ebs_optimized                        = false
+      get_password_data                    = false
+      hibernation                          = false
+      id                                   = "i-0672f2238530a7446"
+      instance_initiated_shutdown_behavior = "stop"
+      instance_state                       = "running"
+      instance_type                        = "t2.micro"
+      ipv6_address_count                   = 0
+      ipv6_addresses                       = []
+      monitoring                           = false
+      primary_network_interface_id         = "eni-035834c18d5f1d500"
+      private_dns                          = "ip-172-31-23-102.eu-central-1.compute.internal"
+      private_ip                           = "172.31.23.102"
+      public_dns                           = "ec2-35-159-20-2.eu-central-1.compute.amazonaws.com"
+      public_ip                            = "35.159.20.2"
+      secondary_private_ips                = []
+      security_groups                      = [
+          "default",
+      ]
+      source_dest_check                    = true
+      subnet_id                            = "subnet-07237d76a9b71c77e"
+      tags                                 = {
+          "Name" = "test"
+      }
+      tags_all                             = {
+          "Name" = "test"
+      }
+      tenancy                              = "default"
+      user_data_replace_on_change          = false
+      vpc_security_group_ids               = [
+          "sg-03dd4a6530ac7a98f",
+      ]
+  
+      capacity_reservation_specification {
+          capacity_reservation_preference = "open"
+      }
+  
+      credit_specification {
+          cpu_credits = "standard"
+      }
+  
+      enclave_options {
+          enabled = false
+      }
+  
+      maintenance_options {
+          auto_recovery = "default"
+      }
+  
+      metadata_options {
+          http_endpoint               = "enabled"
+          http_put_response_hop_limit = 1
+          http_tokens                 = "optional"
+          instance_metadata_tags      = "disabled"
+      }
+  
+      private_dns_name_options {
+          enable_resource_name_dns_a_record    = false
+          enable_resource_name_dns_aaaa_record = false
+          hostname_type                        = "ip-name"
+      }
+  
+      root_block_device {
+          delete_on_termination = true
+          device_name           = "/dev/sda1"
+          encrypted             = false
+          iops                  = 100
+          tags                  = {}
+          throughput            = 0
+          volume_id             = "vol-0c00d709f5e60cee4"
+          volume_size           = 8
+          volume_type           = "gp2"
+      }
+  }
+  
+  $ terraform state list
+  aws_instance.app_server
+  
+  $ terraform destroy
+  ```
+  
+  
+
+## Best Practices
+
+- Use `terraform fmt` and `terraform validate`
+- Use `terraform plan` to see changes before apply.
+- Pin the Terraform provider to specific version.
+- Do not push state files to github.
+- Use variables for sensitive information.
+- Use recommended directory structure and file names (`main.tf`, `variables.tf`, `outputs.tf`)
+

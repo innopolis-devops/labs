@@ -66,7 +66,7 @@
           '';
         };
 
-      shells = import ./.nix/shells.nix;
+      shells = import ./.nix/shells.nix { inherit pkgs; };
     in
     {
       packages = {

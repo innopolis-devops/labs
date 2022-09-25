@@ -29,6 +29,7 @@
           in
           builtins.attrValues {
             inherit (easy-ps) purs-0_15_4 spago;
+            # inherit (pkgs.python310Packages) python-dotenv;
           };
         nodeOutputs =
           dream2nix.lib.makeFlakeOutputs {
@@ -43,13 +44,17 @@
           };
       in
       {
+        packages = nodeOutputs.packages.${system};
+        # packages.default = nodeOutputs.packages.${system}.default.overrideAttrs (_: prev: {
+        #   buildInputs = prev.buildInputs ++ myTools;
+        # });
         devShells = {
           default = nodeOutputs.devShells.${system}.default.overrideAttrs (fin: prev: {
             buildInputs = prev.buildInputs ++ myTools;
           });
           dev = pkgs.mkShell {
             shellHook = ''
-              npm run dev
+              dotenv -f app.env run x-var parcel serve -p %PORT% --host %HOST% dev/index.html
             '';
           };
         };

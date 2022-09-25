@@ -27,19 +27,23 @@ let
       python = {
         run = 8000;
         dockerRun = 8002;
+        dockerInternal = 80;
       };
       purescript = {
         run = 8001;
         dockerRun = 8003;
+        dockerInternal = 80;
       };
     };
 
   langPython = "python";
   langPurescript = "purescript";
   langs = [ langPython langPurescript ];
-  dockerPorts = [ ports.python.docker ports.purescript.docker ];
+  dockerPorts = [ ports.python.dockerRun ports.purescript.dockerRun ];
   appPython = appName langPython;
   appPurescript = appName langPurescript;
+  DOCKER_PORT = "DOCKER_PORT";
+  HOST_PORT = "HOST_PORT";
 in
 {
   inherit
@@ -54,5 +58,7 @@ in
     dockerPorts
     appPurescript
     appPython
+    DOCKER_PORT
+    HOST_PORT
     ;
 }

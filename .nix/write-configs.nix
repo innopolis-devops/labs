@@ -15,6 +15,8 @@ let
     shellNames
     taskNames
     appPurescript
+    DOCKER_PORT
+    HOST_PORT
     ;
   # all scripts assume calling from the root directory of the project
   writeDocs =
@@ -65,6 +67,15 @@ let
         write-tasks-json
         write-docs-md
         write-markdownlint-json
+      '';
+    };
+  writeDotEnv = appName:
+
+    writeShellApplicationUnchecked {
+      name = "write-dotenv";
+      runtimeInputs = [ (pkgs.python310Packages.python-dotenv) ];
+      text = ''
+        dotenv -f ${appName}/.env set ${DOCKER_PORT}
       '';
     };
 in

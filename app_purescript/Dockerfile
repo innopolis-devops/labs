@@ -2,8 +2,8 @@ FROM buildpack-deps:bionic
 
 RUN set -ex; \
     useradd --create-home codewarrior; \
-    mkdir -p /workspace; \
-    chown -R codewarrior: /workspace;
+    mkdir -p /app; \
+    chown -R codewarrior: /app;
 
 RUN set -ex; \
     curl -sL https://deb.nodesource.com/setup_16.x | bash -; \
@@ -15,9 +15,9 @@ RUN npm install -g purescript@0.15.4;
 RUN npm install -g spago@0.20.9;
 RUN npm install -g parcel@2.5.0;
 
-COPY ./package.json ./spago.dhall ./packages.dhall /workspace/
+COPY ./package.json ./spago.dhall ./packages.dhall /app/
 
-WORKDIR /workspace
+WORKDIR /app
 
 USER codewarrior
 
@@ -25,7 +25,7 @@ ENV USER=codewarrior \
     HOME=/home/codewarrior \
     PATH=/opt/purescript:$PATH
 
-RUN chown codewarrior:codewarrior /workspace;
+RUN chown codewarrior:codewarrior /app;
 
 # install packages
 RUN npm install;
@@ -33,15 +33,18 @@ RUN npm install;
 # compile packages
 RUN spago install;
 
-COPY --chown=codewarrior:codewarrior ./ /workspace
+COPY --chown=codewarrior:codewarrior ./ /app
 
 RUN spago build;
 
 RUN set -ex;
 
-EXPOSE 80
+ARG PORT
+ARG HOST
 
-CMD parcel serve -p 80 --host 0.0.0.0 dev/index.html
+EXPOSE $PORT
+
+CMD parcel serve -p ${PORT} --host ${HOST} dev/index.html
 
 # ensure testing works
 # spago test || true; \

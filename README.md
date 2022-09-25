@@ -46,7 +46,9 @@ nix develop .#codium
 
 ## Actions
 
-See available actions documentation [here](./README/docs.md)
+See available actions documentation [here](./README/docs.md).
+
+It's generated via [json2md](https://github.com/IonicaBizau/json2md).
 
 ## Miscellaneous
 

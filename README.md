@@ -44,6 +44,8 @@ Then installs requirements from `requirements.txt` and copies whole Django app i
 ```docker run -p 80:80 aldeeyar/lab2```
 ## Unit Testing
 In order to run unit tests run this command `python manage.py test` in `app_python/hw1/` directory
+## Terraform
+You can read about terraform in `./terraform` and `./terraform_yandex` directories (TF.md in each directory)
 ## To-do
 
 - [x] Add unit tests

@@ -16,7 +16,7 @@
    * Build Infrastructure
    * Provide the output of following commands in the `TF.md` file:
    ```sh
-            terraform state show
+            terraform show
             terraform state list
    ```
    *  Change Infrastructure, provide a part o the log with the applied changes in the `TF.md`.
@@ -46,4 +46,4 @@
 
 ### 2 extra points
 
-1. Add several teams to your repository using terraform, provide them a different level of access. Apply changes.
+1. Disable rebase and squash commits for the repository using terraform. Apply changes.

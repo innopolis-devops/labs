@@ -115,7 +115,8 @@ Terraform will perform the following actions:
       ~ gateway           = "172.17.0.1" -> (known after apply)
       - group_add         = [] -> null
       ~ hostname          = "93982a9ab3f2" -> (known after apply)
-      ~ id                = "93982a9ab3f2308fe9c24c118034174fd8bdd8b738ce336d1f35edbf11b5868b" -> (known after apply)
+      ~ id                = "93982a9ab3f2308fe9c24c118034174fd8bdd8b738ce336d1f35edbf11b5868b"
+       -> (known after apply)
       ~ init              = false -> (known after apply)
       ~ ip_address        = "172.17.0.2" -> (known after apply)
       ~ ip_prefix_length  = 16 -> (known after apply)

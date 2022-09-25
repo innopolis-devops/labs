@@ -33,5 +33,3 @@ jobs:
         uses: actions/checkout@v2
       - name: Run mdl
         uses: actionshub/markdownlint@main
-        with:
-          ignore_code_blocks: true

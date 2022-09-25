@@ -8,6 +8,7 @@
     gitignore.follows = "my-inputs/gitignore";
     easy-purescript-nix.follows = "my-inputs/easy-purescript-nix";
     dream2nix.follows = "my-inputs/dream2nix";
+    spago-nix.url = "github:ngua/spago.nix";
   };
 
   outputs =
@@ -18,37 +19,38 @@
     , flake-utils
     , gitignore
     , dream2nix
+    , spago-nix
     }:
       with flake-utils.lib;
       eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        spago-pkgs = pkgs.extend spago-nix.overlays.default;
         myTools =
           let
             easy-ps = import easy-purescript-nix { inherit pkgs; };
           in
-          builtins.attrValues {
+          {
             inherit (easy-ps) purs-0_15_4 spago;
-            # inherit (pkgs.python310Packages) python-dotenv;
           };
-        nodeOutputs =
-          dream2nix.lib.makeFlakeOutputs {
-            systems = [ system ];
-            config.projectRoot = ./.;
-            source = gitignore.lib.gitignoreSource ./.;
-            settings = [
-              {
-                subsystemInfo.nodejs = 16;
-              }
-            ];
+        project = spago-pkgs.spago-nix.spagoProject {
+          name = "app_purescript";
+          src = ./.;
+          shell = {
+            tools = [  ];
+          #   # builtins.attrValues myTools;
           };
+        };
       in
       {
-        packages = nodeOutputs.packages.${system};
+        # shells = project.flake.devShells;
+        packages = project.flake.packages // {
+          bundled-module = project.bundleModule { main = "Main"; };
+          bundled-app = project.bundleApp { main = "Main"; };
+          node-module = project.nodeApp { main = "Main"; };
+        };
         devShells = {
-          default = nodeOutputs.devShells.${system}.default.overrideAttrs (fin: prev: {
-            buildInputs = prev.buildInputs ++ myTools;
-          });
+          inherit (project.flake.devShells) default;
           dev = pkgs.mkShell {
             shellHook = ''
               dotenv -f app.env run x-var parcel serve -p %PORT% --host %HOST% dev/index.html

@@ -44,6 +44,10 @@ direnv allow
 nix develop .#codium
 ```
 
+- In case the wrong Python `.venv` is sourced, run `Command Palette` -> `Python: Select Interpreter` -> `Python 3.10.6 ('.venv':poetry) ./.venv/bin/python` `Workspace`
+
+- Use `nix show-derivation nixpkgs#spago` to look at its derivation's values
+
 ## Actions
 
 See available actions documentation [here](./README/docs.md).
@@ -63,6 +67,31 @@ It's generated via [json2md](https://github.com/IonicaBizau/json2md) and formatt
 
 - Environment variables aren't supported by `CMD` in `exec` mode - [src](https://docs.docker.com/engine/reference/builder/#cmd)
 
+- You can bring any packages into shell from `nixpkgs`, e.g. `nix shell nixpkgs#poetry`
+
+- It's possible to specify build a buildscript for `dream2nix`'s package like this
+
+```nix
+dream2nix.lib.makeFlakeOutputs {
+  systems = [ system ];
+  config.projectRoot = ./.;
+  source = gitignore.lib.gitignoreSource ./.;
+  settings = [
+    {
+      subsystemInfo.nodejs = 16;
+    }
+  ];
+  packageOverrides = {
+    app_purescript = {
+      "build" = {
+        buildScript = ''
+          PATH=${myTools.purs-0_15_4}/bin:$PATH
+          ${myTools.spago}/bin/spago bundle-app --to dist/index.js --minify
+        '';
+      };
+    };
+  };
+```
 <!-- TODO how to get size of a project in terms of its nix store part? -->
 <!-- 
 remove dangling images

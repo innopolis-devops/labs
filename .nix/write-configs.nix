@@ -30,6 +30,7 @@ let
       docsMdDir = "README";
       docsMdPath = "${docsMdDir}/${docsMdFile}";
       json2md = my-json2md.packages.${system}.default;
+      mdlint = pkgs.nodePackages.markdownlint-cli2;
     in
     writeShellApplicationUnchecked rec {
       name = "write-docs-md";
@@ -37,13 +38,13 @@ let
         pkgs.nodejs-16_x
         docsJson
         json2md
-        pkgs.nodePackages.markdownlint-cli2
+        mdlint
       ];
       text = ''
-        write-docs-json
+        ${docsJson.name};
         mkdir -p ${docsMdDir}
-        json2md ${docsFileJson} > ${docsMdPath};
-        markdownlint-cli2-fix ${docsMdPath}
+        ${json2md.name} ${docsFileJson} > ${docsMdPath};
+        ${mdlint}-fix ${docsMdPath}
         rm ${docsFileJson}
         printf "\n[%s]\n" "ok ${name}"
       '';
@@ -62,12 +63,30 @@ let
         writeTasks
         writeDocs
         writeMarkdownlintConfig
+        writeRootPyproject
       ];
       text = ''
-        write-settings-json
-        write-tasks-json
-        write-docs-md
-        write-markdownlint-json
+        ${writeSettings.name}
+        ${writeTasks.name}
+        ${writeDocs.name}
+        ${writeMarkdownlintConfig.name}
+        ${writeRootPyproject.name}
+      '';
+    };
+  writeRootPyproject =
+    let
+      appPythonTOML = "./app_python/pyproject.toml";
+      rootTOML = "./pyproject.toml";
+      script = "./scripts/update-root-pyproject.py";
+      python = pkgs.python310.withPackages (x: with x; [ python310Packages.tomlkit ]);
+    in
+    writeShellApplicationUnchecked {
+      runtimeInputs = [ pkgs.poetry ];
+      name = "poetry-update";
+      text = ''
+        python ${script} ${appPythonTOML} ${rootTOML}
+        chmod +w ${rootTOML}
+        poetry update
       '';
     };
 in
@@ -77,5 +96,6 @@ in
     writeTasks
     writeSettings
     writeMarkdownlintConfig
-    writeConfigs;
+    writeConfigs
+    writeRootPyproject;
 }

@@ -1,34 +1,32 @@
+{ commands }:
 let
   inherit (import ./data.nix)
-    shellNames
+    commandNames
     langs
     taskNames
+    actionNames
     ;
   tasksLang = lang:
     let
       taskNames_ = taskNames lang;
-      shellNames_ = shellNames lang;
-      commandTemplate = { lang, taskName, shellName }:
+      commandNames_ = commandNames lang;
+      mkCommand = { lang, taskName, commandName }:
         {
-          command = "nix";
-          args = [
-            "develop"
-            ".#${shellName}"
-          ];
+          command = commands.${commandName}.name;
           label = "${taskName}";
           options = {
             cwd = "\${workspaceFolder}";
           };
         };
-      actions = builtins.attrNames taskNames_;
+      actionNames = builtins.attrNames taskNames_;
     in
     builtins.map
-      (action: commandTemplate ({
+      (action: mkCommand ({
         inherit lang;
         taskName = taskNames_.${action};
-        shellName = shellNames_.${action};
+        commandName = commandNames_.${action};
       }))
-      actions;
+      actionNames;
   tasks = builtins.concatMap tasksLang langs;
   tasksNix = {
     presentation = {

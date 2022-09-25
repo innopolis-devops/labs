@@ -49,20 +49,14 @@ ENV FASTAPI_ENV=development
 COPY --from=builder-base $POETRY_HOME $POETRY_HOME
 COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 
-# Copying in our entrypoint
-COPY ./docker/docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
-
-# venv already has runtime deps installed we get a quicker install
-WORKDIR $PYSETUP_PATH
-
 WORKDIR /app
 COPY . .
 
-RUN echo $PORT  
 EXPOSE $PORT
-ENTRYPOINT /docker-entrypoint.sh $0 $@
-CMD ["uvicorn", "--reload", "--host=$HOST", "--port=$PORT", "app.__init__:main"]
+
+RUN . /opt/pysetup/.venv/bin/activate
+
+ENTRYPOINT [ "sh", "-c", "uvicorn --reload --host $HOST --port $PORT app.main:app"]
 
 
 # # 'lint' stage runs black and isort

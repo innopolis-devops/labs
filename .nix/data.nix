@@ -1,7 +1,7 @@
 let
   # app name coincides with app directory
   appName = lang: "app_${lang}";
-  shellNames = lang:
+  commandNames = lang:
     let app = "app-${lang}"; in
     {
       run = app;
@@ -17,7 +17,7 @@ let
       dockerRun = "Run ${app} in Docker";
       dockerStop = "Stop ${app} in Docker";
     };
-  actions = (builtins.mapAttrs (name: val: name) (taskNames ""));
+  actionNames = (builtins.mapAttrs (name: _: name) (taskNames ""));
   ports =
     let
       app = "app";
@@ -44,12 +44,16 @@ let
   appPurescript = appName langPurescript;
   DOCKER_PORT = "DOCKER_PORT";
   HOST_PORT = "HOST_PORT";
+  serviceNames = {
+    ${langPurescript}.web = "web";
+    ${langPython}.web = "web";
+  };
 in
 {
   inherit
-    shellNames
+    commandNames
     taskNames
-    actions
+    actionNames
     ports
     appName
     langPython
@@ -58,6 +62,7 @@ in
     dockerPorts
     appPurescript
     appPython
+    serviceNames
     DOCKER_PORT
     HOST_PORT
     ;

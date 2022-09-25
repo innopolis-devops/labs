@@ -2,6 +2,7 @@
 , system
 , codiumTools
 , pkgs
+, commands
 }:
 let
   inherit (codiumTools)
@@ -12,7 +13,7 @@ let
     writeJson
     ;
   inherit (import ./data.nix)
-    shellNames
+    commandNames
     taskNames
     appPurescript
     DOCKER_PORT
@@ -24,7 +25,7 @@ let
       docsNix = import ./docs.nix { inherit pkgs; };
       docsFileJson = "docs.json";
       # gives write-docs-json executable
-      docsJson = writeJson "docs" "./" docsFileJson docsNix;
+      docsJson = writeJson "docs" "./${docsFileJson}" docsNix;
       docsMdFile = "docs.md";
       docsMdDir = "README";
       docsMdPath = "${docsMdDir}/${docsMdFile}";
@@ -48,11 +49,11 @@ let
       '';
     };
   writeMarkdownlintConfig =
-    writeJson "markdownlint" "./configs" ".markdownlint.json" (import ./markdownlint-config.nix);
+    writeJson "markdownlint" "./configs/.markdownlint.json" (import ./markdownlint-config.nix);
   writeSettings = writeSettingsJson (import ./settings.nix {
     inherit settingsNix;
   });
-  writeTasks = writeTasksJson (import ./tasks.nix);
+  writeTasks = writeTasksJson (import ./tasks.nix { inherit commands; });
   writeConfigs =
     writeShellApplicationUnchecked {
       name = "write-configs";

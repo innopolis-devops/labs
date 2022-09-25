@@ -6,4 +6,3 @@ min
 node_modules
 output
 .purs-repl
-Dockerfile

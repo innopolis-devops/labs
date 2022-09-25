@@ -6,31 +6,12 @@ import datetime as dt
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
-from fastapi.middleware.cors import CORSMiddleware
-
-from app.core.config import settings
 import uvicorn
 from dotenv import dotenv_values
 
 
 def get_application() -> FastAPI:
-    """_summary_
-
-    Returns:
-        FastAPI: application
-    """
-    _app = FastAPI(title=settings.PROJECT_NAME)
-
-    _app.add_middleware(
-        CORSMiddleware,
-        allow_origins=[str(origin) for origin in settings.BACKEND_CORS_ORIGINS],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
-
-    return _app
-
+    return FastAPI(title = __name__)
 
 offset = dt.timedelta(hours=3)
 tz = dt.timezone(offset, name="MSK")
@@ -45,6 +26,7 @@ def get_datetime() -> str:
        str : formatted time
     """
     return str(datetime.now(tz=tz).strftime("%H:%M:%S"))
+
 
 
 templates = Jinja2Templates(directory="app/templates")

@@ -3,18 +3,18 @@ let
   inherit (import ./data.nix)
     appName
     langs
-    shellNames
+    commandNames
     ports
     taskNames
-    actions
+    actionNames
     ;
   runTask = task: "`Command palette` -> `Tasks: Run Task` -> `${task}`";
-  nixDevelop = shell: "`nix develop .#${shell}`";
+  nixDevelop = command: "`$ ${command}`";
   link = title: source: "[${title}](${source})";
   page = link "page";
 in
 [
-  { h1 = "Available actions"; }
+  { h1 = "Available actionNames"; }
   { h2 = "Keybindings"; }
   { ul = [ "`Command palette` - press `Ctrl` (`Cmd`) + `Shift` + `P`" ]; }
   {
@@ -69,14 +69,14 @@ in
     taskNames_ = taskNames lang;
     appName_ = appName lang;
     appNameInHeading = "${appName_}";
-    shellNames_ = shellNames lang;
-    actions_ = actions // { stop = "stop"; };
-    actionNames = builtins.attrNames actions_;
+    packageNames_ = commandNames lang;
+    actionNames_ = actionNames // { stop = "stop"; };
+    actionNamesList = builtins.attrNames actionNames_;
   in
   [{ h2 = "${appNameInHeading} actions"; }] ++
   (
-    pkgs.lib.lists.forEach actionNames (action:
-      if action == actions_.stop then
+    pkgs.lib.lists.forEach actionNamesList (action:
+      if action == actionNames_.stop then
         let stopApp = "Stop ${appNameInHeading}"; in
         [
           { h3 = stopApp; }
@@ -85,28 +85,28 @@ in
       else
         let
           taskName = taskNames_.${action};
-          shellName = shellNames_.${action};
+          packageName = packageNames_.${action};
         in
         [
           { h3 = taskName; }
           {
             ol =
               if
-                action == actions_.run ||
-                action == actions_.dockerRun ||
-                action == actions_.dockerBuild ||
-                action == actions_.dockerStop
+                action == actionNames_.run ||
+                action == actionNames_.dockerRun ||
+                action == actionNames_.dockerBuild ||
+                action == actionNames_.dockerStop
               then
                 let
                   port = ports.${lang}.${action};
                 in
                 [
                   "${runTask taskName}"
-                  { ol = [ "Or ${nixDevelop shellName}" ]; }
+                  { ol = [ "Or ${nixDevelop packageName}" ]; }
                 ]
                 ++
                 (
-                  if action == actions_.run || action == actions_.dockerRun then
+                  if action == actionNames_.run || action == actionNames_.dockerRun then
                     let
                       address = port: "http://127.0.0.1:${builtins.toString port}";
                     in

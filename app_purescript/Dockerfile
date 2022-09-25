@@ -15,7 +15,7 @@ RUN npm install -g purescript@0.15.4;
 RUN npm install -g spago@0.20.9;
 RUN npm install -g parcel@2.5.0;
 
-COPY ./package.json ./spago.dhall ./packages.dhall /app/
+COPY package.json spago.dhall packages.dhall /app/
 
 WORKDIR /app
 
@@ -33,15 +33,15 @@ RUN npm install;
 # compile packages
 RUN spago install;
 
-COPY --chown=codewarrior:codewarrior src dev /app/
+COPY --chown=codewarrior:codewarrior src /app/
 
 RUN spago build;
 
+COPY --chown=codewarrior:codewarrior dev /app/
+
 EXPOSE $PORT
 
-RUN echo "${PORT}"
-
-CMD parcel serve -p ${PORT} --host ${HOST} dev/index.html
+ENTRYPOINT ["sh", "-c", "parcel serve -p $PORT --host $HOST dev/index.html"]
 
 # ensure testing works
 # spago test || true; \

@@ -50,13 +50,21 @@ See available actions documentation [here](./README/docs.md).
 
 It's generated via [json2md](https://github.com/IonicaBizau/json2md) and formatted via [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2).
 
+<!-- TODO created local configuration https://python-poetry.org/docs/configuration/ -->
+
 ## Miscellaneous
+
+- Sometimes, Firefox refuses to connect to a docker container. In this case, one needs to open a new tab
 
 - What are Docker image tags? - [src]
   - How to correctly tag?
 
 - VSCodium can't execute a command line `nix` if there is a dir called `nix` - [src](https://github.com/OmniSharp/omnisharp-vscode/pull/3372#issuecomment-546447471)
 
-- How to rebuild an image and run it?
+- Environment variables aren't supported by `CMD` in `exec` mode - [src](https://docs.docker.com/engine/reference/builder/#cmd)
 
-<!-- TODO make json2md and other functions accept a path rather than a string -->
+<!-- TODO how to get size of a project in terms of its nix store part? -->
+<!-- 
+remove dangling images
+https://docs.docker.com/engine/reference/commandline/images/#show-untagged-images-dangling
+ -->

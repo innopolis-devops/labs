@@ -21,8 +21,9 @@ in
     };
 
   python = settingsNix.python // {
-    "python.defaultInterpreterPath" = "\${workspaceFolder}/app_python/.venv/bin/python3";
+    "python.defaultInterpreterPath" = "\${workspaceFolder}/.venv/bin/python3";
   };
+  
   formatters = {
     "[html]" = {
       "editor.defaultFormatter" = "monosans.djlint";
@@ -38,9 +39,15 @@ in
     "json.schemas" = [
       {
         "fileMatch" = [
-          "/*.markdownlint.json"
+          "**/*.markdownlint.json"
         ];
         "url" = "https://raw.githubusercontent.com/DavidAnson/markdownlint/main/schema/markdownlint-config-schema.json";
+      }
+      {
+        "fileMatch" = [
+          "**/pyproject.toml"
+        ];
+        "url" = "https://json.schemastore.org/pyproject.json";
       }
     ];
   };

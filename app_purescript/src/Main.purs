@@ -24,10 +24,10 @@ import Halogen.VDom.Driver (runUI)
 
 main :: Effect Unit
 main = do
-    HA.runHalogenAff do
-      body <- HA.awaitBody
-      runUI component unit body
-  
+  HA.runHalogenAff do
+    body <- HA.awaitBody
+    runUI component unit body
+
 -- #Component
 component :: forall query input output m. MonadAff m => H.Component query input output m
 component =
@@ -36,56 +36,57 @@ component =
     , render
     , eval:
         H.mkEval
-          $ H.defaultEval {
-            handleAction = handleAction
-          , initialize = Just Init
-          }
+          $ H.defaultEval
+              { handleAction = handleAction
+              , initialize = Just Init
+              }
     }
   where
-    initialState _ = Nothing
+  initialState _ = Nothing
 
 render :: forall m. State -> H.ComponentHTML Action () m
-render = 
+render =
   case _ of
     Just curTime -> okTimeHtml $ renderTime curTime
     Nothing -> noTimeHtml
-  -- HH.text ("You have been here for " <> show seconds <> " seconds")
+
+-- HH.text ("You have been here for " <> show seconds <> " seconds")
 
 renderTime :: Time -> String
-renderTime curTime = intercalate ":" $ show <$> [h, m, s]
+renderTime curTime = intercalate ":" $ show <$> [ h, m, s ]
   where
-    h = fromEnum $ hour curTime :: Int
-    m = fromEnum $ minute curTime :: Int
-    s = fromEnum $ second curTime :: Int
+  h = fromEnum $ hour curTime :: Int
+  m = fromEnum $ minute curTime :: Int
+  s = fromEnum $ second curTime :: Int
 
 okTimeHtml :: forall (a :: Type). String -> HH.HTML a Action
 okTimeHtml st = HH.div_
-    [ HH.h1_ [ HH.text "Current Moscow time (UTC+3:00):" ]
-    , HH.h2_ [ HH.text $ st ]
-    ]
+  [ HH.h1_ [ HH.text "Current Moscow time (UTC+3:00):" ]
+  , HH.h2_ [ HH.text $ st ]
+  ]
 
 noTimeHtml :: forall (a :: Type). HH.HTML a Action
 noTimeHtml = HH.div_
-    [ HH.h1_ [ HH.text "Current Moscow time (UTC+3:00) ..." ]
-    ]
+  [ HH.h1_ [ HH.text "Current Moscow time (UTC+3:00) ..." ]
+  ]
 
 -- handleAction :: forall output. Action -> H.HalogenM State Action () output Aff Action
 handleAction :: forall output m. MonadAff m => Action -> H.HalogenM State Action () output m Unit
 handleAction = case _ of
-    Init -> do 
-      _ <- H.subscribe =<< timer Tick
-      pure unit
-    Tick -> 
-      do
-        curTime <- liftEffect $ nowTime
-        H.modify_ $ (\_ -> Just curTime)
-      
+  Init -> do
+    _ <- H.subscribe =<< timer Tick
+    pure unit
+  Tick ->
+    do
+      curTime <- liftEffect $ nowTime
+      H.modify_ $ (\_ -> Just curTime)
+
 -- TODO auto-reload
 
 type State = Maybe Time
 
-data Action = 
-    Init
+data Action
+  = Init
   | Tick
 
 timer :: forall m a. MonadAff m => a -> m (HS.Emitter a)
@@ -95,7 +96,6 @@ timer val = do
     Aff.delay $ Milliseconds 800.0
     H.liftEffect $ HS.notify listener val
   pure emitter
-
 
 attr_ :: forall (a :: Row Type) (b :: Type). String -> String -> HP.IProp a b
 attr_ k v = HP.attr (H.AttrName k) v

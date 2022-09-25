@@ -13,6 +13,7 @@
     "app_purescript" : "dist/index.js"
   },
   "scripts": {
+    "update": "",
     "prebuild": "rm -rf dist && mkdir dist && cp dev/* dist",
     "build": "spago bundle-app --to dist/index.js --minify",
     "postbuild": "rm -rf min",

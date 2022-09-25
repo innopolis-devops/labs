@@ -1,4 +1,4 @@
-# Available actions
+# Available actionNames
 
 ## Keybindings
 
@@ -49,24 +49,24 @@ $ nix develop .#app-python
 ### Build app_python in Docker
 
  1. `Command palette` -> `Tasks: Run Task` -> `Build app_python in Docker`
-     1. Or `nix develop .#app-python-docker-build`
+     1. Or `$ app-python-docker-build`
 
 ### Run app_python in Docker
 
  1. `Command palette` -> `Tasks: Run Task` -> `Run app_python in Docker`
-     1. Or `nix develop .#app-python-docker-run`
+     1. Or `$ app-python-docker-run`
 
  2. Open [page](http://127.0.0.1:8002) in a browser
 
 ### Stop app_python in Docker
 
  1. `Command palette` -> `Tasks: Run Task` -> `Stop app_python in Docker`
-     1. Or `nix develop .#app-python-docker-rm`
+     1. Or `$ app-python-docker-rm`
 
 ### Run app_python
 
  1. `Command palette` -> `Tasks: Run Task` -> `Run app_python`
-     1. Or `nix develop .#app-python`
+     1. Or `$ app-python`
 
  2. Open [page](http://127.0.0.1:8000) in a browser
 
@@ -79,24 +79,24 @@ $ nix develop .#app-python
 ### Build app_purescript in Docker
 
  1. `Command palette` -> `Tasks: Run Task` -> `Build app_purescript in Docker`
-     1. Or `nix develop .#app-purescript-docker-build`
+     1. Or `$ app-purescript-docker-build`
 
 ### Run app_purescript in Docker
 
  1. `Command palette` -> `Tasks: Run Task` -> `Run app_purescript in Docker`
-     1. Or `nix develop .#app-purescript-docker-run`
+     1. Or `$ app-purescript-docker-run`
 
  2. Open [page](http://127.0.0.1:8003) in a browser
 
 ### Stop app_purescript in Docker
 
  1. `Command palette` -> `Tasks: Run Task` -> `Stop app_purescript in Docker`
-     1. Or `nix develop .#app-purescript-docker-rm`
+     1. Or `$ app-purescript-docker-rm`
 
 ### Run app_purescript
 
  1. `Command palette` -> `Tasks: Run Task` -> `Run app_purescript`
-     1. Or `nix develop .#app-purescript`
+     1. Or `$ app-purescript`
 
  2. Open [page](http://127.0.0.1:8001) in a browser
 

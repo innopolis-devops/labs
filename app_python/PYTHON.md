@@ -54,3 +54,12 @@ When a server starts, one can open a given address in a browser to see current t
 ### HTML & Jinja2
 
 - [djlint](https://www.djlint.com/) - a [jinja2](https://jinja.palletsprojects.com/en/3.1.x/templates/) and `HTML` linter
+
+## Misc
+
+### Dockerfile
+
+- Here's why one should use `exec` form for `ENTRYPOINT` and `CMD` in a `Dockerfile` - [docs](https://docs.docker.com/engine/reference/builder/#exec-form-entrypoint-example), [SO](https://stackoverflow.com/a/72444233)
+  - to be able to store child processes spawned by a shell
+  - to provide the default command in `ENTRYPOINT` with overridable `CMD`
+- If a command expects a string as a parameter, it should look like `["sh", "-c" "command" ]`

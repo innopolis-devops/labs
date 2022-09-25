@@ -2,6 +2,8 @@ services:
   web:
     build:
       context: ./
+    env_file:
+      - .env
     environment:
       - PORT=${DOCKER_PORT}
       - HOST=${HOST}

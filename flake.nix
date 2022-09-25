@@ -26,18 +26,13 @@
         settingsNix
         toList
         shellTools
-        codium
+        extensions
+        mkCodium
         writeJson
         writeShellApplicationUnchecked
         ;
 
-      tools = (toList {
-        inherit (shellTools) nix purescript;
-      }) ++ (builtins.attrValues {
-        inherit (pkgs) docker nodejs-16_x;
-      });
-
-      inherit (import ./.nix/data.nix { inherit pkgs; })
+      inherit (import ./.nix/data.nix)
         appPurescript
         appPython
         ;
@@ -50,51 +45,68 @@
               system
               codiumTools
               pkgs
+              commands
               ;
           }
         );
 
-      codiumWithConfigs =
-        pkgs.mkShell {
-          buildInputs = [
-            codium
-            configWriters.writeConfigs
-          ];
-          shellHook = ''
-            write-configs
-            codium .
-          '';
-        };
+      codium = mkCodium {
+        inherit (extensions) nix markdown purescript github misc docker python toml;
+      };
 
-      shells = import ./.nix/shells.nix { inherit pkgs; };
-    in
-    {
-      packages = {
+      poetryInstall = writeShellApplicationUnchecked {
+        name = "poetry-install";
+        runtimeInputs = [ pkgs.poetry ];
+        text = ''poetry install'';
+      };
+
+      updateFlakes = pkgs.writeShellScriptBin "update-flakes" ''
+        (cd ${appPython} && nix flake update)
+        (cd ${appPurescript} && nix flake update)
+        nix flake update
+      '';
+
+      commands = import ./.nix/commands.nix { inherit pkgs writeShellApplicationUnchecked; };
+
+      startCodium = writeShellApplicationUnchecked {
+        name = "start-codium";
+        runtimeInputs = [ codium ];
+        text = "codium .";
+      };
+      codiumWithConfigs = writeShellApplicationUnchecked {
+        name = "codium-with-configs";
+        runtimeInputs = [
+          codium
+          tools
+          (builtins.attrValues otherTools)
+          (builtins.attrValues commands)
+        ];
+        text = ''
+          write-configs
+          poetry-install
+          codium .
+        '';
+      };
+
+      # necessary for VSCodium
+      tools = (toList {
+        inherit (shellTools) nix purescript;
+      }) ++ [ pkgs.docker ];
+
+      otherTools = {
         inherit (configWriters)
           writeDocs
           writeTasks
           writeSettings
           writeMarkdownlintConfig
           writeConfigs;
-      };
-      devShells =
-        {
-          default = pkgs.mkShell {
-            name = "dev-tools";
-            buildInputs = tools;
-          };
-          update-flakes = pkgs.mkShell {
-            name = "update-dev-shells";
-            shellHook = ''
-              (cd ${appPython} && nix flake update)
-              (cd ${appPurescript} && nix flake update)
-              nix flake update
-            '';
-          };
-          codium = codiumWithConfigs;
-        }
-        // shells
-      ;
+        inherit startCodium;
+        inherit updateFlakes;
+        inherit poetryInstall;
+      } // commands;
+    in
+    {
+      packages.default = codiumWithConfigs;
     });
 
   nixConfig = {

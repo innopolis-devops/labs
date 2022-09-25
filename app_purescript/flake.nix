@@ -45,9 +45,6 @@
       in
       {
         packages = nodeOutputs.packages.${system};
-        # packages.default = nodeOutputs.packages.${system}.default.overrideAttrs (_: prev: {
-        #   buildInputs = prev.buildInputs ++ myTools;
-        # });
         devShells = {
           default = nodeOutputs.devShells.${system}.default.overrideAttrs (fin: prev: {
             buildInputs = prev.buildInputs ++ myTools;

@@ -22,6 +22,11 @@ Application uses 'pytz' library to get Moscow timezone and then prints the forma
    `python time.py`
 2. App wil be dispatched at http://127.0.0.1:5000
 
+## Unit testing 
+
+1. Install dependencies
+2. Run `pytest -v`
+
 ## Docker
 ### Prerequisites
  Make sure you have the  [Docker](https://www.docker.com/products/docker-desktop/) installed

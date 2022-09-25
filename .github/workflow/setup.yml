@@ -1,0 +1,32 @@
+name: moscowTimeApp
+on: [push]
+jobs:
+  buildingTestingStage:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ hashFiles('app_python/requirements.txt') }}
+
+      - name: Download dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r app_python/requirements.txt
+
+      - name: Linting using pyflakes
+        run: |
+          pyflakes .
+      - name: Test with pytest
+        run: |
+          pytest -v

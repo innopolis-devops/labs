@@ -17,3 +17,9 @@
 1. Use of requirements.txt
 2. Use of .gitignore
 3. Use of linters: **mdformat** for Markdown and **pyflakes** for the code.
+
+## **Applied best practises for unit testing:**
+
+1. KISS pattern(keep it stupid simple)
+2. Good test functions nameing(according to uncle Bob)
+3. Make fast tests

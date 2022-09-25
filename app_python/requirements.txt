@@ -4,3 +4,4 @@ pytz==2022.2.1
 markdown==3.4.1
 mdformat==0.7.16
 pyflakes==2.5.0
+pytest==7.1.3

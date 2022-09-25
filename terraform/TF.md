@@ -59,3 +59,18 @@ Output of the `terraform show`:
 Output of the `terraform state list` and `terraform output`:
 
 ![](.github/github_2.png)
+
+Import your existing repository using `terraform import` command:
+
+![](.github/github_3.png)
+
+Apply changes from your terraform config to the repository (**disable rebase and squash commits for the repository using terraform**):
+
+<img src=".github/github_4.png" style="zoom:60%;" />
+
+## Best practices
+
+* Use `terraform fmt` and `terraform validate` to autoformat and validate terraform files
+* Use environment variables for the secrets (not terraform variables)
+* Declare outputs and variables in separate files (`outputs.tf` and `variables.tf`)
+* Add `terraform.tfstate` to `.gitignore` cause it may contain secret credentials

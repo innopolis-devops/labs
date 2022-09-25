@@ -19,6 +19,8 @@ resource "github_repository" "repo" {
   has_downloads = true
   has_projects = true
   has_wiki = true
+  allow_squash_merge = false
+  allow_rebase_merge = false
 }
 
 resource "github_branch_default" "master" {
@@ -26,7 +28,7 @@ resource "github_branch_default" "master" {
   branch     = "master"
 }
 
-resource "github_branch_protection" "default" {
+resource "github_branch_protection" "master" {
   repository_id                   = github_repository.repo.id
   pattern                         = github_branch_default.master.branch
   require_conversation_resolution = true

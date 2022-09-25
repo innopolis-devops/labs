@@ -1,5 +1,19 @@
 # Terraform
 
+## Best Practices
+
+Here are the best practices I applied to Terraform:
+
+- Use `.gitignore` to isolate temporary Terraform files.
+
+- Use `terraform fmt` to automatically format files.
+
+- Do not expose secrets in Terraform configuration files. Instead, store them in the environment.
+
+- Define Terraform variable in the `variables.tf` file.
+
+- Define Terraform outputs in the `outputs.tf` file.
+
 ## Docker Container
 
 The output of `terraform show` command is the following:

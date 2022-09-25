@@ -14,7 +14,7 @@
 4. Follow [the Docker tutorial](https://learn.hashicorp.com/collections/terraform/docker-get-started) to build a Docker infrastructure using Terraform.
    * Install it
    * Build Infrastructure
-   * Provide the output of following commands in the `TF.md` file:
+   * Provide the output of following commands 8in the `TF.md` file:
    ```sh
             terraform show
             terraform state list

@@ -15,6 +15,8 @@ resource "github_repository" "main" {
   name        = var.repository_name
   description = var.repository_description
   visibility  = "public"
+  allow_squash_merge = false
+  allow_rebase_merge = false
 }
 
 resource "github_branch_default" "main" {

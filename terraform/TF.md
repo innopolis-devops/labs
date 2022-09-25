@@ -396,6 +396,70 @@ Do you want to perform these actions?
 yandex_compute_instance.vm: Modifying... [id=fhm98uruod5il74jfjr0
 ```
 
+## Github
+
+### Updating my devops repo
+
+#### Output of `tf apply`
+
+```sh
+github_repository.main: Refreshing state... [id=devops]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # github_branch_default.main will be created
+  + resource "github_branch_default" "main" {
+      + branch     = "master"
+      + id         = (known after apply)
+      + repository = "devops"
+    }
+
+  # github_branch_protection.main will be created
+  + resource "github_branch_protection" "main" {
+      + allows_deletions                = false
+      + allows_force_pushes             = false
+      + blocks_creations                = false
+      + enforce_admins                  = false
+      + id                              = (known after apply)
+      + pattern                         = "master"
+      + repository_id                   = "R_kgDOH6KJkA"
+      + require_conversation_resolution = true
+      + require_signed_commits          = false
+      + required_linear_history         = false
+    }
+
+  # github_repository.main will be updated in-place
+  ~ resource "github_repository" "main" {
+      ~ allow_rebase_merge          = true -> false
+      ~ allow_squash_merge          = true -> false
+      + description                 = "Devops labs solutions in my university"
+        id                          = "devops"
+        name                        = "devops"
+        # (29 unchanged attributes hidden)
+    }
+
+Plan: 2 to add, 1 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+github_repository.main: Modifying... [id=devops]
+github_repository.main: Modifications complete after 3s [id=devops]
+github_branch_default.main: Creating...
+github_branch_protection.main: Creating...
+github_branch_default.main: Creation complete after 3s [id=devops]
+github_branch_protection.main: Creation complete after 4s [id=BPR_kwDOH6KJkM4Bv0H_]
+
+Apply complete! Resources: 2 added, 1 changed, 0 destroyed.
+```
+
 ## Best practices
 
 + use [gitignore](https://github.com/github/gitignore/blob/main/Terraform.gitignore) file

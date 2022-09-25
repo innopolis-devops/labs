@@ -31,7 +31,7 @@ jobs:
         run: |
           pytest -v
   pushToDoker:
-      needs: ["build_and_test"]
+      needs: ["buildingTestingStage"]
       name: Push to DockerHub
       runs-on: ubuntu-latest
       steps:

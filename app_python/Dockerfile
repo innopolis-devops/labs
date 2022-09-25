@@ -15,4 +15,4 @@ COPY . /app
 # configure the container to run in an executed manner
 ENTRYPOINT [ "python" ]
 
-CMD ["time_app.py" ]
+CMD ["src/time_app.py" ]

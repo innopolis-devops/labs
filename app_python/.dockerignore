@@ -1,0 +1,14 @@
+.DS_Store
+env/
+images/
+.idea/
+.vscode/
+__pycache__/
+.pytest_cache/
+db/
+logs/
+Dockerfile
+README.md
+PYTHON.md
+.gitignore
+licence.txt

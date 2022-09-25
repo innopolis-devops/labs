@@ -36,3 +36,13 @@ resource "github_branch_protection" "default" {
     required_approving_review_count = 1
   }
 }
+
+resource "github_branch_protection" "lab_branches" {
+  repository_id                   = github_repository.repo.id
+  pattern                         = "lab*"
+  require_conversation_resolution = true
+
+  required_pull_request_reviews {
+    required_approving_review_count = 1
+  }
+}

@@ -4,3 +4,4 @@
 __pycache__
 /terraform/.terraform
 /terraform/*.tfstate*
+/.env

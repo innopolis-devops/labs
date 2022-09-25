@@ -12,3 +12,14 @@ module "docker_app_rust" {
   container_name = "app_rust"
   external_port  = 8081
 }
+
+module "cloud" {
+  source = "./cloud"
+
+  vm_name  = "test1"
+  hostname = "test1"
+}
+
+module "github" {
+  source = "./github"
+}

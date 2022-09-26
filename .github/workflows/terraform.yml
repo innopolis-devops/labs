@@ -6,10 +6,6 @@ on:
       - 'terraform/**'
       - '.github/workflows/terraform.yml'
 
-defaults:
-  run:
-    working-directory: ./terraform
-
 jobs:
   terraform:
     runs-on: ubuntu-latest
@@ -24,21 +20,21 @@ jobs:
           sudo apt-get -qq install terraform
 
       - name: Run terraform for docker
-        working-directory: ./docker
+        working-directory: terraform/docker
         run: |
           terraform fmt -check
           terraform init
           terraform validate
 
       - name: Run terraform for github
-        working-directory: ./github
+        working-directory: terraform/github
         run: |
           terraform fmt -check
           terraform init
           terraform validate
 
       - name: Run terraform for yandex
-        working-directory: ./yandex
+        working-directory: terraform/yandex
         run: |
           terraform fmt -check
           terraform init

@@ -1,0 +1,97 @@
+name: Python application
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+    paths:
+      - app_python/**
+      - .github/workflows/moscower.yml
+
+defaults:
+  run:
+    working-directory: ./app_python
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Black lint
+      uses: psf/black@stable
+      with:
+        options: "--check --verbose"
+        src: "app_python/app"
+        version: "22.8.0"
+
+  test:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    needs: [lint]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Unit tests
+      run: |
+        pytest tests
+
+  snyk:
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@master
+      - uses: snyk/actions/setup@master
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+      - name: Snyk monitor
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TK }}
+        continue-on-error: true
+        run: snyk test --sarif-file-output=snyk.sarif
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ./app_python/snyk.sarif
+          category: snyk-python-analysis
+
+  build:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    needs: [lint, test, snyk]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Log into Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TK }}
+
+      - name: Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: app_python
+          file: app_python/Dockerfile
+          push: true
+          tags: nihon/moscower:latest
+          cache-from: type=registry, ref=nihon/moscower:buildcache
+          cache-to: type=registry, ref=nihon/moscower:buildcache, mode=max

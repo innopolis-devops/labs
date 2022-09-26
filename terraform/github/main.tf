@@ -13,7 +13,7 @@ provider "github" {}
 # and a Visual Studio .gitignore file (incl. issues and wiki)
 resource "github_repository" "repo" {
   name        = var.repository_name
-  description = "Repository of DevOps Innopolis labs"
+  description = "New created repository from terraform"
   visibility  = "public"
 
   has_downloads = true

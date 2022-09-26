@@ -2,7 +2,6 @@
 
 * [Docker](#docker)
 * [YandexCloud](#yandexcloud)
-* [GitHub](#github)
 * [Best Practices](#best-practices)
 
 #Docker
@@ -361,36 +360,6 @@ Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
 ```bash
 >$ terraform output
 internal_ip_address_vm_1 = "192.168.10.17"
-```
-
-#GitHub
-
-## 1 Build Infrastructure Step (GitHub)
-* Added main.tf file
-* Executed `terraform init`
-* Executed `terraform apply`
-
-```bash
->$ terraform show
-```
-
-```bash
->$ terraform state list
-```
-
-## 2 Changed Infrastructure Step (GitHub)
-*
-
-```bash
->$ terraform apply
-```
-
-## 3 Output Step (GitHub)
-*
-
-```bash
->$ terraform output
-
 ```
 
 

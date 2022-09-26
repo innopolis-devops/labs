@@ -1,5 +1,5 @@
 name: Python App
-author: KE
+author: "KE"
 on: [push]
 
 jobs:

@@ -12,7 +12,7 @@ provider "yandex" {
 }
 
 resource "yandex_compute_instance" "vm-1" {
-  name = "terraform1"
+  name                      = "terraform1"
   allow_stopping_for_update = true
 
   resources {
@@ -22,7 +22,7 @@ resource "yandex_compute_instance" "vm-1" {
 
   boot_disk {
     initialize_params {
-      image_id = "fd8kdq6d0p8sij7h5qe3"
+      image_id = var.vm_os_image_id
     }
   }
 
@@ -32,7 +32,7 @@ resource "yandex_compute_instance" "vm-1" {
   }
 
   metadata = {
-    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys = "ubuntu:${file(var.pub_key_location)}"
   }
 }
 

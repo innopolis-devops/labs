@@ -56,4 +56,4 @@ Dariya Vakhitova, project creator : d.vakhitova@innopolis.university
 
 ## :tada: Illustrations
 
-![img.png](img.png)
+![img.png](../img.png)

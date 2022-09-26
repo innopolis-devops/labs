@@ -208,25 +208,117 @@ image_name = "nginx:latest"
 #YandexCloud
 
 ## 1 Build Infrastructure Step (YandexCloud)
-* 
+* Added main.tf file
+* Executed `terraform init`
+* Executed `terraform apply`
 
 ```bash
 >$ terraform show
+# yandex_compute_instance.vm-1:
+resource "yandex_compute_instance" "vm-1" {
+    created_at                = "2022-09-26T21:05:25Z"
+    folder_id                 = "b1glm7451ldbhntco79m"
+    fqdn                      = "fhm2n2hbrg107mi13aeu.auto.internal"
+    id                        = "fhm2n2hbrg107mi13aeu"
+    metadata                  = {
+        "ssh-keys" = <<-EOT
+            ubuntu:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCr/dWQ29PHc+d3tvGN+sZGpEup9tskS3RJ5uTZpqSV4hubIw+IQU5ShZA5gdDCsv9QMqKwapP/W34+N4Y1UNSO8ZwO8bPQw8CuRzbQZOv+iypVzyjD27zWkHzZEWC2zT2cFQO98hOwMY/UxEeYFlONa6TZ/pLuQognwDRREc8O0V5VKUCgsSd7UGoX6EJq7UFyWjTbLQoewzr+MWlVjw/RI/Vrrg4p0XJD2qtJWvfa0oobRbczIVthwjjSQy+HkgSPktwaNVovFtXhi9iJgAGdjershzpNcG6BsmwY8P7KnbmHuvm+ADKi8++jcrH/QXJuLNvJNBSzxzdFuNNKdZ7v minina@minina-robots
+        EOT
+    }
+    name                      = "terraform1"
+    network_acceleration_type = "standard"
+    platform_id               = "standard-v1"
+    status                    = "running"
+    zone                      = "ru-central1-a"
+
+    boot_disk {
+        auto_delete = true
+        device_name = "fhm9fojhcjdu9ge231dn"
+        disk_id     = "fhm9fojhcjdu9ge231dn"
+        mode        = "READ_WRITE"
+
+        initialize_params {
+            block_size = 4096
+            image_id   = "fd80jdh4pvsj48qftb3d"
+            size       = 3
+            type       = "network-hdd"
+        }
+    }
+
+    network_interface {
+        index              = 0
+        ip_address         = "192.168.10.17"
+        ipv4               = true
+        ipv6               = false
+        mac_address        = "d0:0d:2b:8a:2b:dc"
+        nat                = true
+        nat_ip_address     = "51.250.80.31"
+        nat_ip_version     = "IPV4"
+        security_group_ids = []
+        subnet_id          = "e9b70pp8n0poeifctd9v"
+    }
+
+    placement_policy {
+        host_affinity_rules = []
+    }
+
+    resources {
+        core_fraction = 100
+        cores         = 2
+        gpus          = 0
+        memory        = 2
+    }
+
+    scheduling_policy {
+        preemptible = false
+    }
+}
+
+# yandex_vpc_network.network-1:
+resource "yandex_vpc_network" "network-1" {
+    created_at = "2022-09-26T21:05:21Z"
+    folder_id  = "b1glm7451ldbhntco79m"
+    id         = "enp74743tcfqm9bf69jn"
+    labels     = {}
+    name       = "network1"
+    subnet_ids = []
+}
+
+# yandex_vpc_subnet.subnet-1:
+resource "yandex_vpc_subnet" "subnet-1" {
+    created_at     = "2022-09-26T21:05:23Z"
+    folder_id      = "b1glm7451ldbhntco79m"
+    id             = "e9b70pp8n0poeifctd9v"
+    labels         = {}
+    name           = "subnet1"
+    network_id     = "enp74743tcfqm9bf69jn"
+    v4_cidr_blocks = [
+        "192.168.10.0/24",
+    ]
+    v6_cidr_blocks = []
+    zone           = "ru-central1-a"
+}
 ```
 
 ```bash
 >$ terraform state list
+yandex_compute_instance.vm-1
+yandex_vpc_network.network-1
+yandex_vpc_subnet.subnet-1
 ```
 
 ## 2 Changed Infrastructure Step (YandexCloud)
-* 
+* Port changed from 8000 to 8880
+* Executed `terraform apply`
 
 ```bash
 >$ terraform apply
 ```
 
 ## 3 Output Step (YandexCloud)
-* 
+* Added main.tf file
+* Executed `terraform init`
+* Executed `terraform apply`
 
 ```bash
 >$ terraform output

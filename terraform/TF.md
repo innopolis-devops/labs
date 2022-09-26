@@ -353,6 +353,7 @@ Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
 ```
 
 ## 3 Output Step (YandexCloud)
+* Enable public IP
 * Variable `zone` is set inside `variables.tf`
 * Outputs `internal_ip_address_vm_1` and `external_ip_address_vm_1` are set inside `outputs.tf`
 * Executed `terraform apply`

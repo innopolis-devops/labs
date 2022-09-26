@@ -303,3 +303,11 @@ external_ip_address_vm_2 = "158.160.13.89"
 internal_ip_address_vm_1 = "192.168.10.27"
 internal_ip_address_vm_2 = "192.168.10.19"
 ```
+
+# Best practices
+1. Do not hardcode tokens or secrets. Either use environment variables or filepaths (do not commit these files!)
+2. Use `terraform fmt`. Better add to pre-commit hooks.
+3. Use -out option with `terraform plan` so that its output is consistent with `terraform apply`
+4. Use .gitignore for terraform
+5. Keep variables and outputs in `variables.tf` and `outputs.tf` files respectively.
+6. Make variables for reusable values like zones or image ids

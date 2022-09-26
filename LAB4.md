@@ -16,7 +16,7 @@
    * Build Infrastructure
    * Provide the output of following commands in the `TF.md` file:
    ```sh
-            terraform state show
+            terraform show
             terraform state list
    ```
    *  Change Infrastructure, provide a part o the log with the applied changes in the `TF.md`.
@@ -25,7 +25,7 @@
 
 5. Follow [the AWS tutorial](https://learn.hashicorp.com/tutorials/terraform/aws-build?in=terraform/aws-get-started) and all points from the previous step.
 6. Create a PR to the forked repo lab4 branch, ask your teammates to review it and review PRs of your teammates.
-7. **Create a PR in your own repository from the lab4 branch to the lab4 one.** It will help us with grading.
+7. **Create a PR in your own repository from the lab4 branch to the lab3 one.** It will help us with grading.
 
 ### 4 more points
 
@@ -46,4 +46,4 @@
 
 ### 2 extra points
 
-1. Add several teams to your repository using terraform, provide them a different level of access. Apply changes.
+1. Disable rebase and squash commits for the repository using terraform. Apply changes.

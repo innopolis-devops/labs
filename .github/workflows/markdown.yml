@@ -12,6 +12,6 @@ jobs:
       - name: Run mdl
         uses: actionshub/markdownlint@main
         with:
-          filesToIgnoreRegex: "terraform\\/.*"
-        with:
-          filesToIgnoreRegex: "node_modules\\/.*"
+          filesToIgnoreRegex: |
+            "terraform\\/.*"
+            "node_modules\\/.*"

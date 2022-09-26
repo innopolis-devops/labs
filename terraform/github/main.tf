@@ -10,9 +10,9 @@ terraform {
 provider "github" {}
 
 resource "github_repository" "devops-labs" {
-  name               = "devops-labs"
-  description        = "Innopolis University, DevOps (Fall 2022)"
-  visibility         = "public"
+  name        = "devops-labs"
+  description = "Innopolis University, DevOps (Fall 2022)"
+  visibility  = "public"
 
   allow_rebase_merge = false
   allow_squash_merge = false

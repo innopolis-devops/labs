@@ -18,9 +18,9 @@ resource "docker_image" "moscow_time" {
 
 resource "docker_container" "moscow_time" {
   image = docker_image.moscow_time.latest
-  name  = "moscow_time_tutorial"
+  name  = var.container_name
   ports {
     internal = 80
-    external = 8000
+    external = 8080
   }
 }

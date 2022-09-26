@@ -33,6 +33,9 @@ resource "github_repository" "labs" {
   has_projects       = true
   has_wiki           = true
   auto_init          = false
+
+  allow_squash_merge = false
+  allow_rebase_merge = false
 }
 
 #Set default branch 'main'

@@ -6,8 +6,10 @@ from src.models.custom_time import Time
 
 
 def create_app():
+    '''
+    Function that creates instance of Flask
+    '''
     app = Flask('Time', template_folder='src/templates')
-    
     @app.route("/")
     def get_cur_time():
         '''

@@ -1,7 +1,7 @@
 '''
 Module imports this app file to serve as our app gateway.
 '''
-from app import create_app
+from src.app import create_app
 
 
 app = create_app()

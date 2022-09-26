@@ -13,5 +13,5 @@ jobs:
         uses: actionshub/markdownlint@main
         with:
           filesToIgnoreRegex: |
-            "terraform\\/.*"
-            "node_modules\\/.*"
+            "devops/terraform\\/.*"
+            "devops/app_javascript/app_js/node_modules\\/.*"

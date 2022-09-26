@@ -52,7 +52,7 @@ Before proceeding, make sure you have installed [Docker](https://docs.docker.com
 1. Run docker container (support linux/amd64, linux/386, linux/arm64, linux/arm/v7):
 
    ```bash
-   docker run -it --rm -p 8080:80 markovvn1/iu-devops:lab4-python
+   docker run -it --rm -p 8080:80 markovvn1/iu-devops:lab4_python
    ```
 
 2. Open the website `http://localhost:8080/` to view the server time in Moscow.

@@ -38,13 +38,7 @@ Before proceeding, make sure you have installed [Docker](https://docs.docker.com
 3. Run the project using Docker:
 
    ```bash
-   docker run -it --rm -v "`pwd`/nginx.conf:/etc/nginx/nginx.conf" -v "`pwd`/site:/var/www/html" -p 8080:80 trafex/alpine-nginx-php7
-   ```
-
-   Alternatively, you can use [docker-compose](https://docs.docker.com/compose/) to run the project:
-
-   ```bash
-   docker-compose up
+   docker run -it --rm -v "`pwd`/docker_files/nginx.conf:/etc/nginx/nginx.conf" -v "`pwd`/site:/var/www/html" -p 8080:80 trafex/alpine-nginx-php7
    ```
 
 4. Open the website `http://localhost:8080/` to start count rubbits.
@@ -56,14 +50,20 @@ Before proceeding, make sure you have installed [Docker](https://docs.docker.com
 1. Run docker container (support linux/amd64, linux/arm64, linux/arm/v7, linux/arm/v6):
 
    ```bash
-   docker run -it --rm -p 8080:80 markovvn1/iu-devops:lab4-php
+   docker run -it --rm -p 8080:80 markovvn1/iu-devops:lab4_php
    ```
 
 2. Open the website `http://localhost:8080/` to view the server time in Moscow.
 
 ## ⚙️ Developing
 
-The changes are displayed when the page is refreshed. Therefore, to contribute, simply download and run the project as described in the previous section.
+The changes are displayed when the page is refreshed. Therefore, to contribute, simply download and run the project as described in the *Quick start* section.
+
+To build docker image run:
+
+```bash
+docker build -t markovvn1/iu-devops:lab4_php .
+```
 
 ## :computer: Contributors
 

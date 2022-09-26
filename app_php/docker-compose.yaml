@@ -1,8 +1,0 @@
-version: '3.1'
-services:
-  website:
-    build: .
-    container_name: "lab4_php"
-    restart: always
-    ports:
-      - 8080:80

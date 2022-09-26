@@ -1,0 +1,43 @@
+name: terraform
+
+on: 
+  push:
+    paths:
+      - 'terraform/**'
+      - '.github/workflows/terraform.yml'
+
+defaults:
+  run:
+    working-directory: ./terraform
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set terraform
+        run: |
+          apt-get -qq update
+          apt-get -qq install terraform
+
+      - name: Run terraform for docker
+        working-directory: ./docker
+        run: |
+          terraform fmt -check
+          terraform init
+          terraform validate
+
+      - name: Run terraform for github
+        working-directory: ./github
+        run: |
+          terraform fmt -check
+          terraform init
+          terraform validate
+
+      - name: Run terraform for yandex
+        working-directory: ./yandex
+        run: |
+          terraform fmt -check
+          terraform init
+          terraform validate

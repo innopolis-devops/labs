@@ -53,7 +53,7 @@ jobs:
           sarif_file: snyk.sarif
 
   build_docker_image:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [lint_and_test, snyk]
     if: ${{ needs.lint_and_test.result == 'success' && needs.snyk.result == 'success' }}
     timeout-minutes: 90
@@ -61,12 +61,12 @@ jobs:
       - name: Checkout 
         uses: actions/checkout@v3
 
-        # Use tmpfs in order to build arm/v7 and linux/386 images
-        # https://github.com/JonasAlfredsson/docker-nginx-certbot/issues/109
-      - name: Run Docker on tmpfs
-        uses: JonasAlfredsson/docker-on-tmpfs@v1
-        with:
-          tmpfs_size: 12
+      #   Use tmpfs in order to build arm/v7 and linux/386 images in github runners
+      #   https://github.com/JonasAlfredsson/docker-nginx-certbot/issues/109
+      # - name: Run Docker on tmpfs
+      #   uses: JonasAlfredsson/docker-on-tmpfs@v1
+      #   with:
+      #     tmpfs_size: 12
 
       - name: Set up QEMU        
         uses: docker/setup-qemu-action@v1

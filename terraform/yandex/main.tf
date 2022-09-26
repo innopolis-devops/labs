@@ -31,7 +31,7 @@ resource "yandex_compute_instance" "default" {
   }
 
   network_interface {
-    subnet_id = "${yandex_vpc_subnet.foo.id}"
+    subnet_id = yandex_vpc_subnet.foo.id
   }
 
   metadata = {

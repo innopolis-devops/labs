@@ -1,0 +1,25 @@
+version: "3"
+
+x-common: &common
+  restart: always
+  logging:
+    options:
+      max-size: "10m"
+      max-file: "5"
+
+services:
+  watchtower:
+    image: ${AWS_ECR_SERVICE_URL}/watchtower:${TAG:-latest}
+    container_name: ap-watchtower
+    environment:
+      - WATCHTOWER_DEBUG=true
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=30
+      - WATCHTOWER_REVIVE_STOPPED=true
+      - WATCHTOWER_INCLUDE_STOPPED=true
+      - WATCHTOWER_ROLLING_RESTART=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./.docker/config.json:/config.json
+    command: ap-api
+    <<: *common

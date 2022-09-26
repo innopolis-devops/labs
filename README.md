@@ -1,7 +1,7 @@
 # DevOps lab 2
 
 ![python workflow](https://github.com/zZzwat4er/devops_labs/actions/workflows/python.yaml/badge.svg?branch=lab3)
-![rust workflow](https://github.com//zZzwat4er/devops_labs/actions/workflows/dart.yaml/badge.svg?branch=lab3)
+![dart workflow](https://github.com//zZzwat4er/devops_labs/actions/workflows/dart.yaml/badge.svg?branch=lab3)
 
 ___
 

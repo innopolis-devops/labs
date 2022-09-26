@@ -19,23 +19,17 @@ jobs:
           sudo apt-get -qq update
           sudo apt-get -qq install terraform
 
-      - name: Run terraform for docker
+      - name: Terraform linter for docker
         working-directory: terraform/docker
         run: |
           terraform fmt -check
-          terraform init
-          terraform validate
 
-      - name: Run terraform for github
+      - name: Terraform linter for github
         working-directory: terraform/github
         run: |
           terraform fmt -check
-          terraform init
-          terraform validate
 
-      - name: Run terraform for yandex
+      - name: Terraform linter for yandex
         working-directory: terraform/yandex
         run: |
           terraform fmt -check
-          terraform init
-          terraform validate

@@ -37,5 +37,5 @@ resource "github_branch_protection" "default" {
 
 
 resource "github_repository" "labs" {
-  name = "devops-labs"
+  name = "devops"
 }

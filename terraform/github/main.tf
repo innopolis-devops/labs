@@ -12,7 +12,7 @@ provider "github" {}
 # Create and initialise a public GitHub Repository with MIT license
 # and a Visual Studio .gitignore file (incl. issues and wiki)
 resource "github_repository" "repo" {
-  name        = "devops-course"
+  name        = var.repository_name
   description = "Repository of DevOps Innopolis labs"
   visibility  = "public"
 

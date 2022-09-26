@@ -200,7 +200,9 @@ The application was developed in two programming languages:
    - Download dependencies.
    - Run detekt linter.
    - Run unit tests.
-- Then checks for vulnerabilities.
+- Then checks for vulnerabilities. Snyk might show warnings since there are
+  new vulnerabilities which can be fixed right now because there are no
+  library updates.
 - Finally, uploads Docker image to docker hub.
 
 ## Contact

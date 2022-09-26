@@ -34,7 +34,7 @@ The application was developed in two programming languages:
 - Open your terminal
 - `git clone https://github.com/SMore-Napi/DevOps_Innopolis.git`
 - `cd DevOps_Innopolis`
-- `git checkout lab3`
+- `git checkout lab4`
 
 ### Python build
 

@@ -1,6 +1,5 @@
 # Docker
 
-
 1. output for `terraform show`
 
 ```
@@ -76,9 +75,11 @@ resource "docker_image" "nginx" {
 
 2. output for `terraform state list`
 
+```
 docker_container.nginx
-docker_image.nginx
 
+docker_image.nginx
+```
 
 3. I changed external port from `8000` to `8888`
 
@@ -157,16 +158,17 @@ resource "docker_image" "nginx" {
 
 4. I used input variable to change name `terraform apply -var "container_name=NewNameByDariya"`
 
-
 5. output of `terraform output`:
 
-`container_id = "b6165fa0602f5739a36b22a4944f3d7b6b8f4c116ee8b1b2841a7de10d69d56a"
-image_id = "sha256:2d389e545974d4a93ebdef09b650753a55f72d1ab4518d17a30c0e1b3e297444nginx:latest"`
-
+```
+container_id = "b6165fa0602f5739a36b22a4944f3d7b6b8f4c116ee8b1b2841a7de10d69d56a"
+image_id = "sha256:2d389e545974d4a93ebdef09b650753a55f72d1ab4518d17a30c0e1b3e297444nginx:latest"
+```
 
 # AWS
 
 1. output for `terraform show`
+
 ```
 # aws_instance.app_server:
 resource "aws_instance" "app_server" {
@@ -256,19 +258,22 @@ resource "aws_instance" "app_server" {
 
 2. output for `terraform state list`
 
+```
 aws_instance.app_server
-
+```
 
 3. I changed ami version from "ami-830c94e3"  to "ami-08d70e59c07c61a3a"
 
 4. I used input variable to change name `terraform apply -var "container_name=NewNameByDariya"`
 
-5. output from ` terraform output` 
+5. output from `terraform output`
 
+```
 instance_id = "i-0c3f03821e078ef8a"
 instance_public_ip = "35.88.96.100"
+```
 
-# GitHub 
+# GitHub
 
 1. `terraform show` output
 
@@ -351,9 +356,10 @@ resource "github_repository" "main" {
 
 ```
 
-teraform ouput 
+2. output from `terraform output`
 
-```git_branches = tolist([
+```
+git_branches = tolist([
   {
     "name" = "lab1"
     "protected" = false
@@ -373,7 +379,6 @@ teraform ouput
 ])
 repository_url = "https://github.com/yadariya/labs"
 ```
-
 
 ## Best practices
 

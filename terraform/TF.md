@@ -828,7 +828,7 @@ Disable squash and rebase:
 
 ```terraform
   allow_squash_merge = false
-allow_rebase_merge   = false
+  allow_rebase_merge = false
 ```
 
 `terraform apply -var "token=..."`

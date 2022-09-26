@@ -3,7 +3,7 @@
 
 # Results
 After running terraform, AWS instances were created:
-<img width="1440" alt="1" src="https://user-images.githubusercontent.com/49106163/192392428-d6ccd010-6fe4-4093-a0b5-65c42bc06d49.png">
+<img width="800" alt="1" src="https://user-images.githubusercontent.com/49106163/192392428-d6ccd010-6fe4-4093-a0b5-65c42bc06d49.png">
 
 # Logs
 

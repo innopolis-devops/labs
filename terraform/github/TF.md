@@ -6,9 +6,9 @@
   [repository](https://github.com/SMore-Napi/Terraform_created_repo)
   automatically.
 
-<img width="1440" alt="2" src="https://user-images.githubusercontent.com/49106163/192392584-3cfe5a38-aab7-4e74-a70d-78e51b5e4f74.png">
-<img width="1440" alt="3" src="https://user-images.githubusercontent.com/49106163/192392590-9075be9b-bcc3-46d2-b4ca-a13e0528f8c7.png">
-<img width="1440" alt="4" src="https://user-images.githubusercontent.com/49106163/192392603-f707f5c8-af17-4c11-b2a1-8003653643ad.png">
+<img width="800" alt="2" src="https://user-images.githubusercontent.com/49106163/192392584-3cfe5a38-aab7-4e74-a70d-78e51b5e4f74.png">
+<img width="800" alt="3" src="https://user-images.githubusercontent.com/49106163/192392590-9075be9b-bcc3-46d2-b4ca-a13e0528f8c7.png">
+<img width="800" alt="4" src="https://user-images.githubusercontent.com/49106163/192392603-f707f5c8-af17-4c11-b2a1-8003653643ad.png">
 
 # Logs
 

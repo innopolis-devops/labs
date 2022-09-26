@@ -1,13 +1,25 @@
-# UWA
+# TTTime
 
 ## About
 
 Have you ever wondered "what time is currently in Moscow"?
 
-The **UWA** (useful web-application) is a software that could help you to answer this question.
+The project TTTime is an UWA (useful web-application) - a software that could help you to answer this question.
 It displays the local Moscow time right in your browser!
 
 ## Installation
+
+### Download the project
+
+Clone the repo with the recent project version
+```commandline
+git clone https://github.com/whutao/labs.git
+```
+
+Go to the application folder
+```commandline
+cd labs/app_python
+```
 
 ### Install python for Mac
 
@@ -42,7 +54,30 @@ $ pip install -r requirements.txt
 
 Use the single command to run the app
 ```commandline
-$ python3 ttime/app.py
+$ python3 tttime/app.py
+```
+
+## Docker
+
+If you want to install the app using docker, follow the steps
+
+### Prepare the image 
+
+Build locally (being in *app_python*)
+```commandline
+docker build -t whutao/tttime .
+```
+
+or pull the image from the dockerhub
+```commandline
+docker pull whutao/tttime
+```
+
+### Run
+
+Run and test
+```commandline
+docker run -p 5050:8080 tttime
 ```
 
 ## License

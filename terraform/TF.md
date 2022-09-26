@@ -308,16 +308,53 @@ yandex_vpc_subnet.subnet-1
 ```
 
 ## 2 Changed Infrastructure Step (YandexCloud)
-* Port changed from 8000 to 8880
+* Disable public IP
 * Executed `terraform apply`
 
 ```bash
 >$ terraform apply
+yandex_vpc_network.network-1: Refreshing state... [id=enp74743tcfqm9bf69jn]
+yandex_vpc_subnet.subnet-1: Refreshing state... [id=e9b70pp8n0poeifctd9v]
+yandex_compute_instance.vm-1: Refreshing state... [id=fhm2n2hbrg107mi13aeu]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the
+following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # yandex_compute_instance.vm-1 will be updated in-place
+  ~ resource "yandex_compute_instance" "vm-1" {
+        id                        = "fhm2n2hbrg107mi13aeu"
+        name                      = "terraform1"
+        # (9 unchanged attributes hidden)
+
+      ~ network_interface {
+          ~ nat                = true -> false
+            # (9 unchanged attributes hidden)
+        }
+
+        # (4 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+yandex_compute_instance.vm-1: Modifying... [id=fhm2n2hbrg107mi13aeu]
+yandex_compute_instance.vm-1: Modifications complete after 7s [id=fhm2n2hbrg107mi13aeu]
+
+Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
+
 ```
 
 ## 3 Output Step (YandexCloud)
-* Added main.tf file
-* Executed `terraform init`
+* Variable `zone` is set inside `variables.tf`
+* Outputs `internal_ip_address_vm_1` and `external_ip_address_vm_1` are set inside `outputs.tf`
 * Executed `terraform apply`
 
 ```bash
@@ -328,7 +365,9 @@ yandex_vpc_subnet.subnet-1
 #GitHub
 
 ## 1 Build Infrastructure Step (GitHub)
-*
+* Added main.tf file
+* Executed `terraform init`
+* Executed `terraform apply`
 
 ```bash
 >$ terraform show

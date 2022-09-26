@@ -11,7 +11,7 @@ provider "yandex" {}
 
 resource "yandex_compute_instance" "vm-1" {
   name = "terraform1"
-  zone = "ru-central1-a"
+  zone = var.zone
 
   resources {
     cores  = 2
@@ -40,7 +40,7 @@ resource "yandex_vpc_network" "network-1" {
 
 resource "yandex_vpc_subnet" "subnet-1" {
   name           = "subnet1"
-  zone           = "ru-central1-a"
+  zone           = var.zone
   network_id     = yandex_vpc_network.network-1.id
   v4_cidr_blocks = ["192.168.10.0/24"]
 }

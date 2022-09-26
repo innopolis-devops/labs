@@ -360,7 +360,7 @@ Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
 
 ```bash
 >$ terraform output
-
+internal_ip_address_vm_1 = "192.168.10.17"
 ```
 
 #GitHub

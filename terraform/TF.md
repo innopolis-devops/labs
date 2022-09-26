@@ -1,3 +1,4 @@
+I was following this tutorial (btw this company (aka Yandex) is better than stinky Amazon) https://cloud.yandex.ru/docs/tutorials/infrastructure-management/terraform-quickstart#configure-terraform
 ## Docker output of terraform show
 
 ```bash

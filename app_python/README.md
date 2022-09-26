@@ -1,5 +1,4 @@
-![](https://github.com/markovvn1/devops-labs/actions/workflows/app_python.yml/badge.svg?branch=lab4) ![](https://github.com/markovvn1/devops-labs/actions/workflows/app_php.yml/badge.svg?branch=lab4)
-
+![](https://github.com/markovvn1/devops-labs/actions/workflows/app_python.yml/badge.svg?branch=lab4)
 
 
 <div align="center">

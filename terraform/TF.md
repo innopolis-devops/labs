@@ -1,3 +1,6 @@
+![](https://github.com/markovvn1/devops-labs/actions/workflows/terraform.yml/badge.svg?branch=lab4)
+
+
 # Terraform reprot
 
 ## Docker

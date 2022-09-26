@@ -1,3 +1,6 @@
+![](https://github.com/markovvn1/devops-labs/actions/workflows/app_php.yml/badge.svg?branch=lab4)
+
+
 <div align="center">
   <img src=".github/logo.svg" height="128px"/><br/>
   <h1>Rabbit counter</h1>

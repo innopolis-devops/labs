@@ -6,3 +6,10 @@ venv/
 ENV/
 .pytest_cache/
 .vscode/
+key.json
+TF_yc.md
+deploy.tfplan
+destroy.tfplan
+config.auto.tfvars
+terraform.tfstate
+terraform.tfstate.backup

@@ -132,7 +132,7 @@ were fixed before the Lab submission.
 
 I have created 3 tests for checking the status code of the app
 (should be equal to 200), the correctness of the time format and
-the last one is about the presense of confetti pieces.
+the last one is about the presense of a confetti piece.
 If the app is not responding in 20 seconds, the timeout exception
 is raised.  
 As it is shown on the picture below, all of the tests were successfully passed.

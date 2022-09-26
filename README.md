@@ -20,6 +20,10 @@ This project is a website that will show the current time in Moscow
 
 </br>
 
+## Workflow Status badge
+
+![example event parameter](https://github.com/github/docs/actions/workflows/main.yml/badge.svg?event=push)
+
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 

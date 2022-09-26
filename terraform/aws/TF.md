@@ -104,7 +104,8 @@ After changing the ami
 ```bash
 aws_instance.app_server: Refreshing state... [id=i-06f521c03c3b0e20c]
 
-Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+Terraform used the selected providers to generate the following execution 
+plan. Resource actions are indicated with the following symbols:
 -/+ destroy and then create replacement
 
 Terraform will perform the following actions:

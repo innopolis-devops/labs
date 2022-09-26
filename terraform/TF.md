@@ -14,4 +14,4 @@
 
 ## 3. Use build-in formatter
 
-- use ```terraform fmt`` to style files
+- use `terraform fmt` to style files

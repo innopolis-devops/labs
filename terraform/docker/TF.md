@@ -90,7 +90,8 @@ After changing the external port number
 docker_image.nginx: Refreshing state... [id=sha256:2d389e545974d4a93ebdef09b650753a55f72d1ab4518d17a30c0e1b3e297444nginx:latest]
 docker_container.nginx: Refreshing state... [id=755c8b4a46f3b2b4826e1e5446b039ef776666c90595bf46797a94eab1e823f1]
 
-Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+Terraform used the selected providers to generate the following execution 
+plan. Resource actions are indicated with the following symbols:
 -/+ destroy and then create replacement
 
 Terraform will perform the following actions:
@@ -116,7 +117,7 @@ Terraform will perform the following actions:
       ~ gateway           = "172.17.0.1" -> (known after apply)
       - group_add         = [] -> null
       ~ hostname          = "755c8b4a46f3" -> (known after apply)
-      ~ id                = "755c8b4a46f3b2b4826e1e5446b039ef776666c90595bf46797a94eab1e823f1" -> (known after apply)
+      ~ id                = "755c8b4a46f3b2b4826e1e5446b039ef776666c90595bf46797a94eab1e823f1" -  > (known after apply)
       ~ init              = false -> (known after apply)
       ~ ip_address        = "172.17.0.2" -> (known after apply)
       ~ ip_prefix_length  = 16 -> (known after apply)

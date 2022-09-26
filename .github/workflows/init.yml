@@ -55,6 +55,6 @@ jobs:
             context: ./app_python
             builder: ${{ steps.buildx.outputs.name }}
             push: true
-            tags: ${{ secrets.DOCKERHUB_USERNAME }}/moscow_time:latest
+            tags: ${{ secrets.MY_DOCKERHUB_USERNAME }}/moscow_time:latest
             cache-from: type=registry,ref=${{ secrets.MY_DOCKERHUB_USERNAME }}/moscow_time:buildcache
             cache-to: type=registry,ref=${{ secrets.MY_DOCKERHUB_USERNAME }}/moscow_time:buildcache,mode=max

@@ -1,12 +1,13 @@
 #Terraform Lab
 
 * [Docker](#docker)
-* [GitHub](#github)
 * [YandexCloud](#yandexcloud)
+* [GitHub](#github)
+* [Best Practices](#best-practices)
 
 #Docker
 
-## 1 Build Infrastructure Step
+## 1 Build Infrastructure Step (Docker)
 * Added main.tf file
 * Executed `terraform init`
 * Executed `terraform apply`
@@ -91,7 +92,7 @@ docker_container.nginx
 docker_image.nginx
 ```
 
-## 2 Changed Infrastructure Step
+## 2 Changed Infrastructure Step (Docker)
 * Port changed from 8000 to 8880
 * Executed `terraform apply`
 
@@ -188,15 +189,83 @@ docker_container.nginx: Creation complete after 5s [id=7fa517c6948eea7d625bb73ae
 Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
 ```
 
-## 3 Output Step
+## 3 Output Step (Docker)
+* Container was renamed to `nginx-container-tutorial-var`
+
+* Variable `container_name` is set inside `variables.tf`
+
+* Outputs `container_id` and `image_name` are set inside `outputs.tf`
+
+* Executed `terraform apply`
 
 ```bash
 >$ terraform output
 
+container_id = "2ecad5b11978749540c34c5697c08e70aebcb4bc692d0af9f8bdce114af1b0f3"
+image_name = "nginx:latest"
+```
+
+#YandexCloud
+
+## 1 Build Infrastructure Step (YandexCloud)
+* 
+
+```bash
+>$ terraform show
+```
+
+```bash
+>$ terraform state list
+```
+
+## 2 Changed Infrastructure Step (YandexCloud)
+* 
+
+```bash
+>$ terraform apply
+```
+
+## 3 Output Step (YandexCloud)
+* 
+
+```bash
+>$ terraform output
 
 ```
 
 #GitHub
 
+## 1 Build Infrastructure Step (GitHub)
+*
 
-#YandexCloud
+```bash
+>$ terraform show
+```
+
+```bash
+>$ terraform state list
+```
+
+## 2 Changed Infrastructure Step (GitHub)
+*
+
+```bash
+>$ terraform apply
+```
+
+## 3 Output Step (GitHub)
+*
+
+```bash
+>$ terraform output
+
+```
+
+
+#Best Practices
+* Do not put secrets into repository
+* Put inside .gitignore specific files for terraform and your secrets
+* Put variables inside file named variables.tf 
+* Put outputs inside file named outputs.tf
+* Destroy modules after finishing work
+* Use formatting `terraform fmt`

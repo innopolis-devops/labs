@@ -29,6 +29,11 @@ in the directory of program
 3. App wil be dispatched at http://127.0.0.1:8080
 
 
+## Unit testing
+1. Install dependencies from package.txt
+2. Run `pytest -v` to test a program
+
+
 ## Contacts
 telegram: @romanza705
 github: romanza705

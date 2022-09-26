@@ -42,7 +42,7 @@ $ pip install -r requirements.txt
 
 Use the single command to run the app
 ```commandline
-$ python3 app.py
+$ python3 ttime/app.py
 ```
 
 ## License

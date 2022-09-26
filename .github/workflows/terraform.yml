@@ -18,8 +18,8 @@ jobs:
 
       - name: Set terraform
         run: |
-          apt-get -qq update
-          apt-get -qq install terraform
+          sudo apt-get -qq update
+          sudo apt-get -qq install terraform
 
       - name: Run terraform for docker
         working-directory: ./docker

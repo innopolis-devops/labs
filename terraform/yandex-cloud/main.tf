@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "yandex" {
-  zone = "ru-central1-a"
+  zone = var.zone
 }
 
 resource "yandex_vpc_network" "net-1" {
@@ -17,7 +17,7 @@ resource "yandex_vpc_network" "net-1" {
 
 resource "yandex_vpc_subnet" "subnet-1" {
   name           = "subnet1"
-  zone           = "ru-central1-a"
+  zone           = var.zone
   network_id     = yandex_vpc_network.net-1.id
   v4_cidr_blocks = ["192.168.1.0/24"]
 }
@@ -37,7 +37,7 @@ resource "yandex_compute_instance" "app-server" {
 
   boot_disk {
     initialize_params {
-      image_id = "fd8c00efhiopj3rlnlbn" # Ubuntu 22.04
+      image_id = var.app_server_image_id
     }
   }
 

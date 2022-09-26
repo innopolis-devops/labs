@@ -1,7 +1,9 @@
 ---
 name: Python App
 
-on: push
+on: 
+  push:
+    branches: [lab3]
 
 defaults:
   run:

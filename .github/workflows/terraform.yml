@@ -18,8 +18,7 @@ jobs:
 
       - name: Set terraform
         run: |
-          sudo apt-get -qq update
-          sudo apt-get -qq install terraform
+          sudo snap install terraform
 
       - name: Run terraform for docker
         working-directory: ./docker

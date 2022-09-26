@@ -1,5 +1,14 @@
 # Terraform
 
+## 0. Terraform Good Practices
+- Split configuration into several files
+- Organize files by workspaces in first-level directories and by projects in the second-level directories
+- Use `variables.tf` for tokens' security
+- Using `teraform fmt` to check if the files are correctly formated
+- Using `terraform validate` to check the validity of the terraform code
+
+<br>
+
 ## 1. Docker steps and output
 
 ### 1.1 Installing Terraform and building infrastructure
@@ -230,4 +239,115 @@ output:
 container_id = "c7c1571be6d03e36015f934b995436b17180ff67953b4bbc7801fd5f105d46d5"
 image_id = "sha256:0c404972e13056a866875f2bf8a981a911dc17071f505b9dc72cdf08e0d40983nginx:latest"
 ```
+
+<br>
+
+## 2. Github steps and output
+
+### 2.1 Creating a Github repository and checking the state
+
+To view the built infrastructure after applying, I used the commands below:
+
+```
+terraform show
+```
+
+output:
+```
+# github_branch_default.main:
+resource "github_branch_default" "main" {
+    branch     = "main"
+    id         = "new-terraform-repository"
+    repository = "new-terraform-repository"
+}
+
+# github_branch_protection.default:
+resource "github_branch_protection" "default" {
+    allows_deletions                = false
+    allows_force_pushes             = false
+    blocks_creations                = false
+    enforce_admins                  = true
+    id                              = "BPR_kwDOIEtNqM4Bv8kg"
+    pattern                         = "main"
+    repository_id                   = "new-terraform-repository"
+    require_conversation_resolution = true
+    require_signed_commits          = false
+    required_linear_history         = false
+}
+
+# github_repository.repo:
+resource "github_repository" "repo" {
+    allow_auto_merge            = false
+    allow_merge_commit          = true
+    allow_rebase_merge          = false
+    allow_squash_merge          = false
+    archived                    = false
+    auto_init                   = true
+    default_branch              = "main"
+    delete_branch_on_merge      = false
+    description                 = "The magic that terraform does"
+    etag                        = "W/\"064252cdc44379105ab4d6dd3b3533199a6e0e0428b640bf34c3524960359b1a\""
+    full_name                   = "desmigor/new-terraform-repository"
+    git_clone_url               = "git://github.com/desmigor/new-terraform-repository.git"
+    gitignore_template          = "VisualStudio"
+    has_downloads               = false
+    has_issues                  = false
+    has_projects                = false
+    has_wiki                    = false
+    html_url                    = "https://github.com/desmigor/new-terraform-repository"
+    http_clone_url              = "https://github.com/desmigor/new-terraform-repository.git"
+    id                          = "new-terraform-repository"
+    is_template                 = false
+    license_template            = "mit"
+    merge_commit_message        = "PR_TITLE"
+    merge_commit_title          = "MERGE_MESSAGE"
+    name                        = "new-terraform-repository"
+    node_id                     = "R_kgDOIEtNqA"
+    private                     = false
+    repo_id                     = 541805992
+    squash_merge_commit_message = "COMMIT_MESSAGES"
+    squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+    ssh_clone_url               = "git@github.com:desmigor/new-terraform-repository.git"
+    svn_url                     = "https://github.com/desmigor/new-terraform-repository"
+    visibility                  = "public"
+    vulnerability_alerts        = false
+}
+```
+
+Command:
+```
+ terraform state list
+```
+
+output:
+```
+github_branch_default.main
+github_branch_protection.default
+github_repository.repo
+```
+
+Created Repository link: [View here](https://github.com/desmigor/new-terraform-repository)
+
+### 2.2 Importing existing repository.
+
+I imported the labs repository using:
+
+```
+terraform import "github_repository.devops-labs-terraform" "devops-labs" 
+````
+
+Checking the new state:
+```
+ terraform state list
+```
+
+output:
+```
+github_branch_default.main
+github_branch_protection.default
+github_repository.devops-labs-terraform
+github_repository.repo
+```
+
+
 

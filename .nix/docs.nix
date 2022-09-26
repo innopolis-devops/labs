@@ -14,7 +14,7 @@ let
   page = link "page";
 in
 [
-  { h1 = "Available actionNames"; }
+  { h1 = "Available actions"; }
   { h2 = "Keybindings"; }
   { ul = [ "`Command palette` - press `Ctrl` (`Cmd`) + `Shift` + `P`" ]; }
   {
@@ -66,11 +66,11 @@ in
 ++
 (pkgs.lib.trivial.flip builtins.concatMap) langs (lang:
   let
-    taskNames_ = taskNames lang;
+    taskNames_ = taskNames.apps lang;
     appName_ = appName lang;
     appNameInHeading = "${appName_}";
-    packageNames_ = commandNames lang;
-    actionNames_ = actionNames // { stop = "stop"; };
+    packageNames_ = commandNames.apps lang;
+    actionNames_ = actionNames.apps // { stop = "stop"; };
     actionNamesList = builtins.attrNames actionNames_;
   in
   [{ h2 = "${appNameInHeading} actions"; }] ++

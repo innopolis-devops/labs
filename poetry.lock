@@ -265,7 +265,7 @@ python-versions = "*"
 
 [[package]]
 name = "djlint"
-version = "1.17.2"
+version = "1.17.3"
 description = "HTML Template Linter and Formatter"
 category = "dev"
 optional = false
@@ -1339,8 +1339,8 @@ distlib = [
     {file = "distlib-0.3.6.tar.gz", hash = "sha256:14bad2d9b04d3a36127ac97f30b12a19268f211063d8f8ee4f47108896e11b46"},
 ]
 djlint = [
-    {file = "djlint-1.17.2-py3-none-any.whl", hash = "sha256:acffa87f2435ead7450d5fb21f9c517a17a1058483e5044bd7a454edd886aaf5"},
-    {file = "djlint-1.17.2.tar.gz", hash = "sha256:37e6ecade721dacd5fae0e5f38d22347fc01b0ea343b3a71f3f9ed2a1cfde870"},
+    {file = "djlint-1.17.3-py3-none-any.whl", hash = "sha256:db40265bbe0810516e8573e9dd259f36b32dfe2ef1992e8236685915bcbe1185"},
+    {file = "djlint-1.17.3.tar.gz", hash = "sha256:06cdebeb00a90e52d785dc8a0eb4bfde0c2aeefb63e01504f3a445b53a55736e"},
 ]
 dnspython = [
     {file = "dnspython-2.2.1-py3-none-any.whl", hash = "sha256:a851e51367fb93e9e1361732c1d60dab63eff98712e503ea7d92e6eccb109b4f"},

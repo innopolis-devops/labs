@@ -9,11 +9,11 @@ let
     ;
   mkCommands = lang:
     let
-      commandNames_ = commandNames lang;
+      commandNames_ = commandNames.apps lang;
       appName_ = appName lang;
       dir_ = appName_;
       serviceNames_ = serviceNames.${lang};
-      appWithDocker = name: dir: text: writeShellApplicationUnchecked {
+      appWithDocker = name: dir: text: pkgs.writeShellApplication {
         text = ''
           cd ${dir_}
           ${text}
@@ -23,7 +23,7 @@ let
       };
     in
     {
-      "${commandNames_.run}" = writeShellApplicationUnchecked {
+      "${commandNames_.run}" = pkgs.writeShellApplication {
         text = ''
           cd ${dir_}
         '';
@@ -41,11 +41,13 @@ let
         docker compose stop
       '';
     };
-  commands =
-    let
-      inherit (pkgs.lib.attrsets) foldAttrs;
-      inherit (builtins) map;
-    in
-    foldAttrs (n: acc: n) { } (map mkCommands langs);
+  commands = {
+    apps =
+      let
+        inherit (pkgs.lib.attrsets) foldAttrs;
+        inherit (builtins) map;
+      in
+      foldAttrs (n: acc: n) { } (map mkCommands langs);
+  };
 in
 commands

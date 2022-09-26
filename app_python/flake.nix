@@ -52,7 +52,7 @@
           projectDir = ./.;
         };
         app = appName:
-          writeShellApplicationUnchecked {
+          pkgs.writeShellApplication {
             name = "write-dotenv";
             runtimeInputs = [ (pkgs.python310Packages.python-dotenv) ];
             text = ''

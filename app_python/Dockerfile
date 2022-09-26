@@ -19,20 +19,24 @@ ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
 # builder-base is used to build dependencies
 FROM python-base AS builder-base
-RUN buildDeps="build-essential" \
-    && apt-get update \
-    && apt-get install --no-install-recommends -y \
-        curl \
-        vim \
-        netcat \
-    && apt-get install -y --no-install-recommends $buildDeps \
-    && rm -rf /var/lib/apt/lists/*
+RUN <<EOF
+buildDeps="build-essential"
+&& apt-get update
+&& apt-get install --no-install-recommends -y
+    curl
+    vim
+    netcat
+&& apt-get install -y --no-install-recommends $buildDeps
+&& rm -rf /var/lib/apt/lists/*
+EOF
 
 # Install Poetry - respects $POETRY_VERSION & $POETRY_HOME
 ENV POETRY_VERSION=1.2.1
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN curl -sSL https://install.python-poetry.org/ | python && \
-    chmod a+x /opt/poetry/bin/poetry
+RUN <<EOF
+curl -sSL https://install.python-poetry.org/ | python &&
+chmod a+x /opt/poetry/bin/poetry
+EOF
 
 # We copy our Python requirements here to cache them
 # and install only runtime deps using poetry

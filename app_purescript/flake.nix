@@ -9,6 +9,7 @@
     easy-purescript-nix.follows = "my-inputs/easy-purescript-nix";
     dream2nix.follows = "my-inputs/dream2nix";
     spago-nix.url = "github:ngua/spago.nix";
+    my-codium.follows = "my-inputs/my-codium";
   };
 
   outputs =
@@ -20,12 +21,14 @@
     , gitignore
     , dream2nix
     , spago-nix
+    , my-codium
     }:
       with flake-utils.lib;
       eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        spago-pkgs = pkgs.extend spago-nix.overlays.default;
+
+        # spago-pkgs = pkgs.extend spago-nix.overlays.default;
         myTools =
           let
             easy-ps = import easy-purescript-nix { inherit pkgs; };
@@ -33,22 +36,32 @@
           {
             inherit (easy-ps) purs-0_15_4 spago;
           };
-        project = spago-pkgs.spago-nix.spagoProject {
-          name = "app_purescript";
-          src = ./.;
-          shell = {
-            tools = [  ];
-          #   # builtins.attrValues myTools;
-          };
-        };
+        # project = spago-pkgs.spago-nix.spagoProject {
+        #   name = "app_purescript";
+        #   src = ./.;
+        #   shell = {
+        #     tools = [ ];
+        #     #   # builtins.attrValues myTools;
+        #   };
+        # };
+        # packages = project.flake.packages // {
+        #   bundled-module = project.bundleModule { main = "Main"; };
+        #   bundled-app = project.bundleApp { main = "Main"; };
+        #   node-module = project.nodeApp { main = "Main"; };
+        # };
       in
       {
-        # shells = project.flake.devShells;
-        packages = project.flake.packages // {
-          bundled-module = project.bundleModule { main = "Main"; };
-          bundled-app = project.bundleApp { main = "Main"; };
-          node-module = project.nodeApp { main = "Main"; };
+        packages = {
+          default = pkgs.writeShellApplication
+            {
+              name = "app-purescript";
+              runtimeInputs = [ myTools.spago myTools.purs-0_15_4 pkgs.esbuild ];
+              text = ''
+                spago bundle-app --to dist/index.js --minify
+              '';
+            };
         };
+        # shells = project.flake.devShells;
         devShells = {
           inherit (project.flake.devShells) default;
           dev = pkgs.mkShell {

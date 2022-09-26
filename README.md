@@ -56,6 +56,16 @@ It's generated via [json2md](https://github.com/IonicaBizau/json2md) and formatt
 
 <!-- TODO created local configuration https://python-poetry.org/docs/configuration/ -->
 
+- For Docker, I used a caching trick described [here](https://fastapi.tiangolo.com/deployment/docker/#docker-cache)
+
+- Also, a [dotenv](https://hexdocs.pm/dotenvy/dotenv-file-format.html) file
+
+- Followed 12-factor-app [guide](https://12factor.net/dev-prod-parity)
+
+- [Adapted](https://github.com/svx/poetry-fastapi-docker)
+
+- Used [heredocs](https://www.docker.com/blog/introduction-to-heredocs-in-dockerfiles/) in Dockerfile
+
 ## Miscellaneous
 
 - Sometimes, Firefox refuses to connect to a docker container. In this case, one needs to open a new tab
@@ -69,7 +79,7 @@ It's generated via [json2md](https://github.com/IonicaBizau/json2md) and formatt
 
 - You can bring any packages into shell from `nixpkgs`, e.g. `nix shell nixpkgs#poetry`
 
-- It's possible to specify build a buildscript for `dream2nix`'s package like this
+- It's possible to specify a `build` script for `dream2nix`'s package like this
 
 ```nix
 dream2nix.lib.makeFlakeOutputs {
@@ -94,6 +104,19 @@ dream2nix.lib.makeFlakeOutputs {
 ```
 <!-- TODO how to get size of a project in terms of its nix store part? -->
 <!-- 
-remove dangling images
+TODO add command to remove dangling images
 https://docs.docker.com/engine/reference/commandline/images/#show-untagged-images-dangling
+ 
+ 
  -->
+
+<!-- 
+TODO add docker lock
+https://github.com/safe-waters/docker-lock -->
+
+ <!-- 
+ TODO add task for spago2nix
+ TODO build with spago -->
+
+
+<!-- TODO rename commands to start with app_name -->

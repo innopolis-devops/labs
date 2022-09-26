@@ -9,12 +9,12 @@
   "version": "0.0.1",
   "main": "dist/index.js",
   "bin": {
-    "app_purescript" : "dist/index.js"
+    "app_purescript": "dist/index.js"
   },
   "scripts": {
     "update": "",
     "prebuild": "rm -rf dist && mkdir dist && cp dev/* dist",
-    "build": "npx spago@0.20.9 bundle-app --to dist/index.js --minify",
+    "build": "spago bundle-app --to dist/index.js --minify && parcel build",
     "postbuild": "rm -rf min",
     "start": "dotenv -f app.env run x-var parcel serve -p %PORT% --host %HOST% dev/index.html"
   }

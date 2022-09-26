@@ -1,23 +1,30 @@
 let
   # app name coincides with app directory
   appName = lang: "app_${lang}";
-  commandNames = lang:
-    let app = "app-${lang}"; in
-    {
-      run = app;
-      dockerBuild = "${app}-docker-build";
-      dockerRun = "${app}-docker-run";
-      dockerStop = "${app}-docker-rm";
-    };
-  taskNames = lang:
-    let app = appName lang; in
-    {
-      run = "Run ${app}";
-      dockerBuild = "Build ${app} in Docker";
-      dockerRun = "Run ${app} in Docker";
-      dockerStop = "Stop ${app} in Docker";
-    };
-  actionNames = (builtins.mapAttrs (name: _: name) (taskNames ""));
+  commandNames = {
+    apps = lang:
+      let app = "app-${lang}"; in
+      {
+        run = app;
+        dockerBuild = "${app}-docker-build";
+        dockerRun = "${app}-docker-run";
+        dockerStop = "${app}-docker-rm";
+      };
+  };
+  taskNames = {
+    apps = lang:
+      let app = appName.apps lang; in
+      {
+        run = "${app}: Run";
+        dockerBuild = "${app}: Docker build";
+        dockerRun = "${app}: Docker run";
+        dockerStop = "${app}: Docker stop";
+      };
+  };
+  actionNames = {
+    apps = builtins.mapAttrs (name: _: name) (taskNames.apps "");
+  };
+
   ports =
     let
       app = "app";

@@ -8,17 +8,17 @@ let
     ;
   tasksLang = lang:
     let
-      taskNames_ = taskNames lang;
-      commandNames_ = commandNames lang;
+      taskNames_ = taskNames.apps lang;
+      commandNames_ = commandNames.apps lang;
       mkCommand = { lang, taskName, commandName }:
         {
-          command = commands.${commandName}.name;
+          command = commands.apps.${commandName}.name;
           label = "${taskName}";
           options = {
             cwd = "\${workspaceFolder}";
           };
         };
-      actionNames = builtins.attrNames taskNames_;
+      actionNames_ = builtins.attrValues actionNames.apps;
     in
     builtins.map
       (action: mkCommand ({
@@ -26,7 +26,7 @@ let
         taskName = taskNames_.${action};
         commandName = commandNames_.${action};
       }))
-      actionNames;
+      actionNames_;
   tasks = builtins.concatMap tasksLang langs;
   tasksNix = {
     presentation = {

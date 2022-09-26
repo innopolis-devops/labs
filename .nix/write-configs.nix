@@ -24,7 +24,6 @@ let
     let
       docsNix = import ./docs.nix { inherit pkgs; };
       docsFileJson = "docs.json";
-      # gives write-docs-json executable
       docsJson = writeJson "docs" "./${docsFileJson}" docsNix;
       docsMdFile = "docs.md";
       docsMdDir = "README";
@@ -32,7 +31,7 @@ let
       json2md = my-json2md.packages.${system}.default;
       mdlint = pkgs.nodePackages.markdownlint-cli2;
     in
-    writeShellApplicationUnchecked rec {
+    pkgs.writeShellApplication rec {
       name = "write-docs-md";
       runtimeInputs = [
         pkgs.nodejs-16_x
@@ -43,8 +42,8 @@ let
       text = ''
         ${docsJson.name};
         mkdir -p ${docsMdDir}
-        ${json2md.name} ${docsFileJson} > ${docsMdPath};
-        ${mdlint}-fix ${docsMdPath}
+        ${json2md.packageName} ${docsFileJson} > ${docsMdPath};
+        ${mdlint.packageName}-fix ${docsMdPath}
         rm ${docsFileJson}
         printf "\n[%s]\n" "ok ${name}"
       '';
@@ -56,7 +55,7 @@ let
   });
   writeTasks = writeTasksJson (import ./tasks.nix { inherit commands; });
   writeConfigs =
-    writeShellApplicationUnchecked {
+    pkgs.writeShellApplication {
       name = "write-configs";
       runtimeInputs = [
         writeSettings
@@ -75,18 +74,19 @@ let
     };
   writeRootPyproject =
     let
+      script = "./scripts/update-root-pyproject.py";
       appPythonTOML = "./app_python/pyproject.toml";
       rootTOML = "./pyproject.toml";
-      script = "./scripts/update-root-pyproject.py";
       python = pkgs.python310.withPackages (x: with x; [ python310Packages.tomlkit ]);
+      poetry = pkgs.poetry;
     in
-    writeShellApplicationUnchecked {
-      runtimeInputs = [ pkgs.poetry ];
-      name = "poetry-update";
+    pkgs.writeShellApplication {
+      runtimeInputs = [ poetry ];
+      name = "write-root-project";
       text = ''
-        python ${script} ${appPythonTOML} ${rootTOML}
+        ${poetry.pname} run python ${script} ${appPythonTOML} ${rootTOML}
         chmod +w ${rootTOML}
-        poetry update
+        ${poetry.pname} update
       '';
     };
 in

@@ -1,4 +1,17 @@
-After running ```terraform show``` we got:
+# Docker provider
+
+
+## Excution 
+
+* First, I created ```main.tf``` file, and run the following commands:
+- ```terraform init ```
+- ```terrform init ```
+- ```terraform validate```
+- ```terraform fmt```
+
+
+* Then after making sure everything is right, I run the following command ```terraform show```, the output was:
+
 ```
 # docker_container.nginx:
 resource "docker_container" "nginx" {
@@ -76,7 +89,7 @@ resource "docker_image" "nginx" {
 
 ```
 
-and after running ```terraform state list``` we got:
+* Then, after running ```terraform state list``` we got:
 
 ```
 docker_container.nginx
@@ -84,7 +97,8 @@ docker_image.nginx
 
 ```
 
-After changing the infrastructure (internal became 8000):
+* here we are supposed to change the infrastructure (internal became 8000):
+
 ```
 Note: Objects have changed outside of Terraform
 
@@ -212,7 +226,8 @@ Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
 
 ```
 
-check output:
+* check output:
+
 ```
 Outputs:
 

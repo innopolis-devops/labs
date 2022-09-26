@@ -1,10 +1,17 @@
-first run:
-- ```terraform init```
-- ```terrafrom fmt```
-- ```terraform validate```
-- ```terraform apply```
+# AWS provider
 
-After running ```terraform show``` we got:
+## Excution 
+
+* First, I created ```main.tf``` file, and run the following commands:
+
+- ```terraform init ```
+- ```terrform init ```
+- ```terraform validate```
+- ```terraform fmt```
+
+
+* Then after making sure everything is right, I run the following command ```terraform show```, the output was:
+
 ```
 khalil@khalil-X556URK:~/Desktop/spam/Devops-labs/terraform/AWS$ terraform show
 # aws_instance.app_server:
@@ -94,14 +101,14 @@ resource "aws_instance" "app_server" {
 
 ```
 
-and after running ```terraform state list``` we got:
+* and after running ```terraform state list``` we got:
 
 ```
 aws_instance.app_server
 
 ```
 
-After changing the infrastructure (update the ami from Amazon Linux to Ubuntu 22.04):
+* After changing the infrastructure (update the ami from Amazon Linux to Ubuntu 22.04):
 ```
 aws_instance.app_server: Refreshing state... [id=i-0fe0872e44ae0273c]
 
@@ -253,8 +260,9 @@ aws_instance.app_server: Creation complete after 35s [id=i-0b882fa39b1113c16]
 Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
 
 ```
-used variables 
-check output:
+* used variables 
+* check the output:
+
 ```
 Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 
@@ -262,7 +270,6 @@ Outputs:
 
 instance_id = "i-0b882fa39b1113c16"
 instance_public_ip = "3.144.74.246"
-
 
 ```
 

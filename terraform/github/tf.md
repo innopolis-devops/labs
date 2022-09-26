@@ -1,19 +1,17 @@
-## Github Provider
+# Github Provider
 
-- Create `github` module following [the tutorial](https://dev.to/pwd9000/manage-and-maintain-github-with-terraform-2k86).
+## Excution 
 
-- Run
+* First, I created ```main.tf``` file, and run the following commands:
 
-  ```bash
-  terrform init
-  terraform validate
-  terraform fmt
-  ```
+- ```terrform init ```
+- ```terraform validate```
+- ```terraform fmt```
 
-- Import labs repo
+* Import labs repo
 
-Enter ```terraform import github_repository.labs Devops-labs```
-Resutls:
+* Enter ```terraform import github_repository.labs Devops-labs```, resutls:
+
 ```
 var.github_token
   Specifies the GitHub PAT token or `GITHUB_TOKEN`
@@ -30,7 +28,7 @@ Import successful!
 The resources that were imported are shown above. These resources are now in
 your Terraform state and will henceforth be managed by Terraform.
 ```
-Then we apply, after that run ```terrafrom show```:
+* Then we run ```terraform apply```, after that run ```terrafrom show```:
 
 ```
 terraform show
@@ -106,6 +104,6 @@ resource "github_repository" "labs" {
 }
 
 ```
-finally we run ```terraform state list```:
+* finally we run ```terraform state list```:
 ```github_repository.labs```
 

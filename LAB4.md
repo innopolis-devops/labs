@@ -19,7 +19,7 @@
             terraform show
             terraform state list
    ```
-   *  Change Infrastructure, provide a part o the log with the applied changes in the `TF.md`.
+   *  Change Infrastructure, provide a part of the log with the applied changes in the `TF.md`.
    *  Using Input variables rename your docker container.
    *  Finish the tutorial and provide the output of the `terraform output` command in the `TF.md`.
 

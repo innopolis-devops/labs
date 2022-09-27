@@ -347,6 +347,190 @@ ports = [
 
 ## Yandex Cloud part
 
+ ###  `terraform show` output:
+
+```
+# yandex_compute_instance.vm:
+
+resource "yandex_compute_instance" "vm" {
+
+created_at  = "2022-09-27T13:58:11Z"
+
+folder_id = "b1gcnt3oqc7k7s496ps7"
+
+fqdn  = "epd0ss9ifd7ffsh8id8i.auto.internal"
+
+id  = "epd0ss9ifd7ffsh8id8i"
+
+metadata  = {
+
+"ssh-keys" = <<-EOT
+
+ubuntu:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDHEjtdmjqG/zOn6rBNENY4Ujm//QC4CMgSIBUrKf7Rfi/m38jEoyFGB2Z314DIXfOJVbpy5FaYZVU3wqpBNA81ZQyHCiOq084ibxyD8vcKjnOdx2hreR4SUcyDlG+tPEljWwTbQmIDNEg6Pl+wqeYzZoG/Z+JLhvk3rwGspYtcTsKklOpBWHde4H/yQrtOkaM9Hk1++sg6yMPlDL5LdWnBqjEwYHEmIK3i3Qu+KUOoh8IPcRSOdSm5mi8BKuTOpi5MNxDuyWAWI/+C00KXLgOXFnutwSghNiuE23P+Uo7y3UjVKVR4UL9TmiIqeHjeuoUdSgvLG7EI4ouZWvD0W4/x5RYoXyERkkHm5K+ux+nqX1GyFpxZlZtlDRvQpt2s17P7qDAsKYIwC2y0jzL6NzBXAJ8Mohvzi8XKESqBYJnHitA/JBrx1YuMSZ2PDCWbePdZPNYrnwY5LRyMgjKkVmoPk1lJHvUfZ54RJz2pPwM6YChBSHvjsNEb6S0S2zU0Klc= mikado@Alyssas-MacBook-Pro.local
+
+EOT
+
+}
+
+name  = "vm1"
+
+network_acceleration_type = "standard"
+
+platform_id = "standard-v1"
+
+status  = "running"
+
+zone  = "ru-central1-b"
+
+  
+
+boot_disk {
+
+auto_delete = true
+
+device_name = "epdpv5g0b0der6g3cljv"
+
+disk_id = "epdpv5g0b0der6g3cljv"
+
+mode  = "READ_WRITE"
+
+  
+
+initialize_params {
+
+block_size = 4096
+
+image_id = "fd80jdh4pvsj48qftb3d"
+
+size = 3
+
+type = "network-hdd"
+
+}
+
+}
+
+  
+
+network_interface {
+
+index  = 0
+
+ip_address = "192.168.10.6"
+
+ipv4 = true
+
+ipv6 = false
+
+mac_address  = "d0:0d:e7:13:27:b4"
+
+nat  = true
+
+nat_ip_address = "158.160.11.99"
+
+nat_ip_version = "IPV4"
+
+security_group_ids = []
+
+subnet_id  = "e2lh3bh7tst3l7da6vu2"
+
+}
+
+  
+
+placement_policy {
+
+host_affinity_rules = []
+
+}
+
+  
+
+resources {
+
+core_fraction = 100
+
+cores = 2
+
+gpus  = 0
+
+memory  = 2
+
+}
+
+  
+
+scheduling_policy {
+
+preemptible = false
+
+}
+
+}
+
+  
+
+# yandex_vpc_network.network-1:
+
+resource "yandex_vpc_network" "network-1" {
+
+created_at = "2022-09-27T13:58:07Z"
+
+folder_id  = "b1gcnt3oqc7k7s496ps7"
+
+id = "enpiflh904sfdnpi2s68"
+
+labels = {}
+
+subnet_ids = []
+
+}
+
+  
+
+# yandex_vpc_subnet.subnet-1:
+
+resource "yandex_vpc_subnet" "subnet-1" {
+
+created_at = "2022-09-27T13:58:09Z"
+
+folder_id  = "b1gcnt3oqc7k7s496ps7"
+
+id = "e2lh3bh7tst3l7da6vu2"
+
+labels = {}
+
+name = "subnet-1"
+
+network_id = "enpiflh904sfdnpi2s68"
+
+v4_cidr_blocks = [
+
+"192.168.10.0/24",
+
+]
+
+v6_cidr_blocks = []
+
+zone = "ru-central1-b"
+
+}
+```
+
+ ###  `terraform state list` output:
+```
+yandex_compute_instance.vm
+
+yandex_vpc_network.network-1
+
+yandex_vpc_subnet.subnet-1
+```
+ ###  `terraform output` output:
+```
+external_ip_address_vm = "158.160.11.99"
+
+internal_ip_address_vm = "192.168.10.6"
+```
 
 
 

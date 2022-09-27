@@ -671,3 +671,21 @@ Change vm name:
 
     Destroy complete! Resources: 3 destroyed.                                                                            
     ```
+
+## Best practices
+
+ * Consistence File Structure
+ * Terraform configurations files separation
+    Putting all code in main.tf is not a good idea, better having several files like:
+    - main.tf - call modules, locals, and data sources to create all resources.
+    - variables.tf - contains declarations of variables used in main.tf
+    - outputs.tf - contains outputs from the resources created in main.tf
+    - versions.tf - contains version requirements for Terraform and providers.
+    - terraform.tfvars - contains variables values and should not be used anywhere.
+ * Use separate directories for each application
+    To manage applications and projects independently of each other, put resources for each application and project in their own Terraform directories.
+    A service might represent a particular application or a common service such as shared networking. Nest all Terraform code for a particular service under one directory.
+ * Use ```terraform fmt```
+ * Use ```terraform validate```
+ * Use ```terraform plan```
+ * Do not use hardcoded secrets/tokens

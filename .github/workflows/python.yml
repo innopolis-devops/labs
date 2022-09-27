@@ -3,7 +3,7 @@ name: Python application
 on:
   push:
       branches:
-        - main
+        - master
   pull_request:
     paths:
       - app_python/**

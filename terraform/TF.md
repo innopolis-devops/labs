@@ -1,4 +1,10 @@
 # Terraform
+
+## Best practices
+- Use env variables for hiding sensitive info\
+- Use formatter for terraform files
+- Put variables and outputs into separate files
+- Use validate and plan for checking changes
 ## `terraform show` for docker moscow_time
 ```
 $ terraform show

@@ -103,6 +103,12 @@ python3 -m pytest app_python/tests
 
 to run the tests and see the coverage.
 
+## Continuous Integration
+
+The project is supported with the CI workflow (using GitHub)
+that performs lint check, unit tests and upload
+to dockerhub automatically.
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.

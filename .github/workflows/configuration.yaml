@@ -1,5 +1,4 @@
 name: Python App
-author: "KE"
 on: [push]
 
 jobs:

@@ -128,6 +128,10 @@ were fixed before the Lab submission.
 
 ![Markdownlinter](images/textdown.png)
 
+## Linter for yaml (Configuration for CI)
+
+I have used one of the most popular linters for linting yaml-files - **yamllint**.
+
 ## Unit Tests
 
 I have created 3 tests for checking the status code of the app

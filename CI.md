@@ -8,3 +8,4 @@
 1. Store authors in Action metadata to promote code ownership
 1. Use a build cache.
 1. Implement Snyk to check your projects for vulnerabilities.
+1. Use yasmlint for linting the configuration file.

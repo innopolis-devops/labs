@@ -486,6 +486,11 @@ Plan: 2 to add, 0 to change, 0 to destroy.
     your Terraform state and will henceforth be managed by Terraform.
 
 ```
+
+## Bonus part
+
+To disable rebase and squash commits for the repository, set `allow_squash_merge` and `allow_rebase_merge` arguments to false in github_repository resource.
+
 # Terraform Best Practice
 
 - Don't push `.terraform` and `.tfstate` files to VCS

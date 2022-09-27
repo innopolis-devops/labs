@@ -15,6 +15,8 @@ resource "github_repository" "repo" {
   name               = "DevOps-Course-Task"
   description        = "This is a repo for devOps coures task(has cats content...)"
   visibility         = "public"
+  allow_rebase_merge = false
+  allow_squash_merge = false
 }
 
 resource "github_branch_default" "repo" {

@@ -49,7 +49,7 @@ of your code and submit a zip file to Moodle.
 
 ### Points distribution for the course
 
-```
+```commandline
 70 - labs
 20 - final exam
 10 - attendance on lectures
@@ -57,7 +57,7 @@ of your code and submit a zip file to Moodle.
 
 ### Grade ranges
 
-```
+```commandline
 [90;100] - A
 [75;90)  - B
 [60;75)  - C

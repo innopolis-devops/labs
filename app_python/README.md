@@ -36,7 +36,7 @@ https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 Install python 3 if needed.
 
 ```commandline
-$ brew install python3
+brew install python3
 ```
 
 ### Setup the environment
@@ -44,19 +44,19 @@ $ brew install python3
 Create a virtual environment.
 
 ```commandline
-$ python3 -m venv venv
+python3 -m venv venv
 ```
 
 Select it
 
 ```commandline
-$ source venv/bin/activate
+source venv/bin/activate
 ```
 
 Install requirements with pip.
 
 ```commandline
-$ pip3 install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ## Usage
@@ -64,7 +64,7 @@ $ pip3 install -r requirements.txt
 Use the single command to run the app
 
 ```commandline
-$ python3 tttime/app.py
+python3 tttime/app.py
 ```
 
 ## Docker

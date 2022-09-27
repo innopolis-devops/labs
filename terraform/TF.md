@@ -200,4 +200,13 @@ internal_ip_address_vm_2 = "192.168.10.5"
 
 
 ## github
-check the repo [here](https://github.com/molberte/devops-generated-repo)
+check out the repo [here](https://github.com/molberte/devops-generated-repo)
+
+1. terraform state list and output in a single pic
+
+![image](https://user-images.githubusercontent.com/63815121/192494707-aa9048e5-08a9-403e-b665-5de0b86b7ddc.png)
+
+### best practices
+1. separate variable and output (didn't know that for the docker part so i left it as it is)
+2. store secrets as environment variables
+3. keep modules and environment implementation code separate

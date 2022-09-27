@@ -21,7 +21,7 @@ jobs:
         uses: docker://avtodev/markdown-lint:v1
         with:
           config: "lint/markdown.json"
-          args: "./"
+          args: "./app_python"
       - name: "Dockerfile"
         uses: hadolint/hadolint-action@v1.5.0
         with:
@@ -53,8 +53,7 @@ jobs:
         working-directory: ./app_python
     steps:
       - uses: actions/checkout@v3
-      - name: "Python environment setup"
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v4
         with:
           python-version: "3.8"
           cache: "pip"

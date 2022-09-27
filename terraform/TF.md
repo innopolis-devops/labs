@@ -3,7 +3,7 @@
 ### some outputs
 1. for `terraform show`
 
-![image](https://user-images.githubusercontent.com/63815121/192400126-f30d5c26-afdd-4bbf-9ee8-c3c211d8bde3.png)
+![image](https://user-images.githubusercontent.com/63815121/192403397-1ec662b8-2130-4dd3-8ff0-7bc069ace92a.png)
 
 2. for `terraform state list`
 
@@ -11,7 +11,7 @@
 
 
 ### change infrastucture
-i changed external port to 1337 cuz im a true hazker
+i changed external port to 1337 cuz im a true hazker, so this is the part which has been changed
 
 ![image](https://user-images.githubusercontent.com/63815121/192401109-2ec0fe60-b82e-4d28-8038-801dc8c55d5f.png)
 

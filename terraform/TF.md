@@ -1,4 +1,4 @@
-[200~# Terraform
+# Terraform
 
 ## Docker
 

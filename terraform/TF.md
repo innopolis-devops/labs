@@ -190,7 +190,7 @@ external_ip_address_vm_2 = "178.154.200.185"
 internal_ip_address_vm_1 = "192.168.10.28"
 internal_ip_address_vm_2 = "192.168.10.5"
 
-```bash
+```
 
 
 2. for `terraform state list`

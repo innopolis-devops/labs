@@ -19,3 +19,7 @@ venv/
 /terraform/github/terraform.tfstate.backup
 /terraform/github/deploy.tfplan
 /terraform/github/.terraform/
+/terraform/yandex-cloud/.terraform.tfstate.lock.info
+/terraform/yandex-cloud/.terraform.lock.hcl
+/terraform/yandex-cloud/terraform.tfstate
+/terraform/yandex-cloud/.terraform/

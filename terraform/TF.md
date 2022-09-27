@@ -229,3 +229,9 @@ github_branch_protection.default
 github_repository.devops-lab4
 github_repository.repo
 ```
+
+# Best practices
+I have used variables.tf and outputs.tf files
+I have used fmt for formatting
+I have used terraform validate 
+I have used terraform plan before making any changes

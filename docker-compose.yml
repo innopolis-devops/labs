@@ -15,7 +15,7 @@ services:
   db:
     image: postgres:13.0-alpine
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - .:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=app
       - POSTGRES_PASSWORD=app

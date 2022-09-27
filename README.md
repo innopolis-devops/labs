@@ -2,7 +2,7 @@
 ## Student: Bektleuov Talgat, CS-01
 # Overview and Usage
 This web application shows the current date and time in Moscow. The time updates when a user refreshes the page
-![img.png](img.png)
+
 # Build
 Application was built by Production Ready Web Framework Django
 

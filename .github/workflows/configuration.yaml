@@ -42,7 +42,6 @@ jobs:
       - name: Build and push to DockerHub
         uses: docker/build-push-action@v2
         with:
-          context: apppython
           file: Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops_forked:latest

@@ -108,4 +108,22 @@ image_id = "sha256:2d389e545974d4a93ebdef09b650753a55f72d1ab4518d17a30c0e1b3e297
 
 # Yandex Cloud
 ___
+Had a problem with CLI on mac, f.e.:
+```
+LibreSSL SSL_read: error:02FFF036:system library:func(4095):Connection reset by peer, errno 54
+-bash: yc: command not found
+```
+kept seeing these problems, even if I have been
+following guides from documentation step-by-step
 
+# Best Practices
+___
+1. Follow a standard module structure. Start every module with a main.tf file, where resources are located by default.
+2. Create logical groupings of resources with their own files and descriptive names, such as network.tf, instances.tf, or loadbalancer.tf.
+3. Name all configuration objects using underscores to delimit multiple words. This practice ensures consistency with the naming convention for resource types, data source types, and other predefined values.
+4. Declare all variables in variables.tf.
+5. Give variables descriptive names that are relevant to their usage or purpose.
+6. Organize all outputs in an outputs.tf file.
+7. Limit the use of custom scripts
+8. Limit the complexity of expressions
+9. Pin to minor provider versions. In root modules, declare each provider and pin to a minor version. This allows automatic upgrade to new patch releases while still keeping a solid target.

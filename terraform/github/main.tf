@@ -12,7 +12,7 @@ provider "github" {
 }
 
 resource "github_repository" "labs" {
-  name               = "lab4"
+  name               = "labs"
   description        = "Repository for DevOps labs"
 
   visibility         = "public"

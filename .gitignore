@@ -14,4 +14,8 @@
 venv/
 /.pytest_cache/
 /app_python/venv/
-/terraform/terraform-docker-container/.terraform/
+/terraform/docker/.terraform/
+/terraform/github/terraform.tfstate
+/terraform/github/terraform.tfstate.backup
+/terraform/github/deploy.tfplan
+/terraform/github/.terraform/

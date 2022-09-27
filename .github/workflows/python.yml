@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./app_python
+        working-directory: ./app_python/tests
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4

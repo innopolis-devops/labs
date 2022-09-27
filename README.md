@@ -1,4 +1,4 @@
-[![My_orkflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)](https://github.com/dannakk/labs/actions/runs/3132077164/workflow)
+[![My_orkflow](https://github.com/dannakk/labs/actions/workflows/ci.yaml/badge.svg)](https://github.com/dannakk/labs/actions/workflows/ci.yaml)
 
 # Show me time
 

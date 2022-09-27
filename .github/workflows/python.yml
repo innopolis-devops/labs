@@ -58,14 +58,15 @@ jobs:
         with:
           python-version: "3.8"
           cache: "pip"
-      - name: "Install dependencies"
+      - name: "Dependencies"
         run: |
           python -m pip install --upgrade pip
           pip install pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: "Run python tests"
+      - name: "Tests"
         run: |
-          pytest tests
+          cd app_python
+          python -m pytest
 
   snyk:
     name: Snyk

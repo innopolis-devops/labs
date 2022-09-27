@@ -40,7 +40,7 @@ jobs:
           with:
             filters: |
               python:
-                - "./app_python/**"
+                - "app_python/**"
 
   test-python:
     needs: [changes]

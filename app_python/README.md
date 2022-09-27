@@ -4,7 +4,8 @@
 
 Have you ever wondered "what time is currently in Moscow"?
 
-The project TTTime is an UWA (useful web-application) - a software that could help you to answer this question.
+The project TTTime is an UWA (useful web-application)
+- a software that could help you to answer this question.
 It displays the local Moscow time right in your browser!
 
 ## Installation
@@ -25,7 +26,8 @@ cd labs/app_python
 
 Install home brew.
 ```commandline
-$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+$ /bin/bash -c "$(curl -fsSL
+https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
 Install python 3 if needed.

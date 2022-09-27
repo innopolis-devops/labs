@@ -24,17 +24,23 @@ And **cons**:
 
 ## Tests
 
-The application is tested with unit tests in */app_python/tests* folder using `pytest` framework.
+The application is tested with unit tests in */app_python/tests*
+folder using `pytest` framework.
 
 ### Unit tests
 
-The folder contains files *conftest.py* and other files for tests. The first one is needed to define reusable components for all tests (see [reference](https://flask.palletsprojects.com/en/2.2.x/testing/)). Test files contain test cases.
+The folder contains files *conftest.py* and other files for tests.
+The first one is needed to define reusable components for all tests
+(see [reference](https://flask.palletsprojects.com/en/2.2.x/testing/)).
+Test files contain test cases.
 
 ### Best practices
 
 - Examine *only* one feature per test.
-- Test file should include only 1 test and better to be named as *test_TESTNAME*.
+- Test file should include only 1 test
+and better to be named as *test_TESTNAME*.
 - A test should not take too much time to execute.
-- A test should produce the same result no matter how many times it is executed.
+- A test should produce the same result
+no matter how many times it is executed.
 - A test should be isolated from other ones.
 - A test should be automated.

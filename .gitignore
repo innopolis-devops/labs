@@ -1,3 +1,17 @@
 venv
 .idea
 .pytest_cache
+terraform/.terraform
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/.terraform.lock.hcl
+terraform/github/.terraform
+terraform/github/terraform.tfstate
+terraform/github/terraform.tfstate.backup
+terraform/github/.terraform.lock.hcl
+terraform/yandex/.terraform
+terraform/yandex/terraform.tfstate
+terraform/yandex/terraform.tfstate.backup
+terraform/yandex/.terraform.lock.hcl
+terraform/yandex/key.json
+

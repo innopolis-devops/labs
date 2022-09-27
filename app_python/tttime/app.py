@@ -1,6 +1,10 @@
 from flask import Flask
 from datetime import datetime
-from zoneinfo import ZoneInfo
+
+try:
+    from zoneinfo import ZoneInfo
+except ImportError:
+    from backports.zoneinfo import ZoneInfo
 
 app = Flask(__name__)
 

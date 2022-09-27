@@ -38,3 +38,7 @@ jobs:
           file: app_python/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/python-docker:latest
+      - name: Python with Snyk
+          uses: snyk/actions/python-3.8@master
+          env:
+            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

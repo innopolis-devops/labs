@@ -47,7 +47,7 @@ $ source venv/bin/activate
 
 Install requirements with pip.
 ```commandline
-$ pip install -r requirements.txt
+$ pip3 install -r requirements.txt
 ```
 
 ## Usage
@@ -79,6 +79,16 @@ Run and test
 ```commandline
 docker run -p 5050:8080 tttime
 ```
+
+## Unit tests
+
+The application is covered with unit tests. After installation, one can run
+
+```commandline
+python3 -m pytest app_python/tests
+```
+
+to run the tests and see the coverage.
 
 ## License
 

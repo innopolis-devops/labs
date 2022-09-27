@@ -10,7 +10,6 @@ In this lab you need to get familiar with a logging stack - Promtail, Loki, Graf
 
    * https://grafana.com/go/webinar/loki-getting-started/
    * https://grafana.com/docs/loki/latest/overview/
-   * https://github.com/grafana/loki
 
 2. Prepare a docker-compose ﬁle with the stack and your app.
 
@@ -20,8 +19,8 @@ In this lab you need to get familiar with a logging stack - Promtail, Loki, Graf
 3. Test that it works, prepare a `LOGGING.md` report.
 4. Create a monitoring folder, put report, docker-compose.yml and conﬁg ﬁles inside.
 5. Provide screenshots of your success in the report.
-6. Create a PR to the forked repo lab4 branch, ask your teammates to review it and review PRs of your teammates.
-7. Create a PR in your own repository from the lab4 branch to the lab3 one. It will help us with grading.
+6. Create a PR to the forked repo lab7 branch, ask your teammates to review it and review PRs of your teammates.
+7. Create a PR in your own repository from the lab7 branch to the lab6 one. It will help us with grading.
 
 ## Bonus
 

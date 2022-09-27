@@ -45,7 +45,7 @@ jobs:
           context: apppython
           file: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/apppython:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops_forked:latest
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.8@master
         with:

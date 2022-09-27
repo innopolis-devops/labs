@@ -1,5 +1,5 @@
-## terraform
-
+# terraform
+## docker
 ### some outputs
 1. for `terraform show`
 
@@ -202,9 +202,14 @@ internal_ip_address_vm_2 = "192.168.10.5"
 ## github
 check out the repo [here](https://github.com/molberte/devops-generated-repo)
 
-1. terraform state list and output in a single pic
+1. `terraform state list` and `terraform output` in a single pic
 
 ![image](https://user-images.githubusercontent.com/63815121/192494707-aa9048e5-08a9-403e-b665-5de0b86b7ddc.png)
+
+2. `terraform import "github_repository.repo" "devops_labs"`
+
+![image](https://user-images.githubusercontent.com/63815121/192501763-55fca8f2-db0e-4cf7-a28f-8708b26b7087.png)
+
 
 ### best practices
 1. separate variable and output (didn't know that for the docker part so i left it as it is)

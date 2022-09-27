@@ -35,6 +35,7 @@ jobs:
       outputs:
         python: ${{ steps.filter.outputs.python }}
       steps:
+        - uses: actions/checkout@v2
         - uses: dorny/paths-filter@v2
           id: filter
           with:
@@ -72,7 +73,7 @@ jobs:
     timeout-minutes: 5
     defaults:
       run:
-        working-directory: app_python/tttime
+        working-directory: app_python
     steps:
       - uses: actions/checkout@v3
       - uses: snyk/actions/setup@master

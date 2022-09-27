@@ -17,6 +17,8 @@
 
 # Outputs
 
+### Output after `terraform state show` and `terraform state list` commands:
+
 ```
 root@LAPTOP-KJ6SQVBF:/home/homa/labs/terraform/docker# terraform show
 # docker_container.nginx:
@@ -95,7 +97,7 @@ docker_container.nginx
 docker_image.nginx
 ```
 
-
+### Output after changing configuration:
 ```
 root@LAPTOP-KJ6SQVBF:/home/homa/labs/terraform/docker# terraform apply
 docker_image.nginx: Refreshing state... [id=sha256:2d389e545974d4a93ebdef09b650753a55f72d1ab4518d17a30c0e1b3e297444nginx:latest]
@@ -214,11 +216,7 @@ docker_container.nginx: Creation complete after 1s [id=2339715ff44a1995ad4321132
 Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
 ```
 
-
-
-
-
-
+### Output after finishing tutorial:
 
 ```
 root@LAPTOP-KJ6SQVBF:/home/homa/labs/terraform/docker# terraform apply -var "container_name=Homa3030"

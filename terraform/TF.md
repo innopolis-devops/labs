@@ -1,7 +1,7 @@
 # Terraform
 
+## Best practices
 
-## Best practices:
 - Use built-in formatter (`terraform fmt`) and validator (`terraform validate`)
 - Use `terraform plan` to see what changes will be made
 - Prefer remotely managed state. Use `terraform remote config` to configure remote state.
@@ -13,10 +13,10 @@
 - For large infrastructures, use [Terraform modules](https://www.terraform.io/docs/language/modules/syntax.html).
 - A possible folder structure for small projects would use `main.tf` (to configure the infrastructure resources), `variables.tf` (to define the variables), and `outputs.tf` (to configure the outputs).
 
+## Outputs
 
-## Outputs:
+### `terraform show`
 
-### `terraform show` :
 ```JSON
 # docker_container.devopslab:
 resource "docker_container" "devopslab" {
@@ -95,13 +95,15 @@ resource "docker_image" "devopslab" {
 }
 ```
 
-### `terraform state list` :
+### `terraform state list`
+
 ```
 docker_container.devopslab
 docker_image.devopslab
 ```
 
-### Changes log:
+### Changes log
+
 ```bash
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
 -/+ destroy and then create replacement
@@ -190,8 +192,35 @@ Terraform will perform the following actions:
 Plan: 1 to add, 0 to change, 1 to destroy.
 ```
 
-### `terraform output` :
+### `terraform output`
+
 ```bash
 container_id = "88985b2b7c7db7031e96a1f7eb4110ab47d85f105e6565239f1aa8d7720fa6a3"
 image_id = "sha256:2dcef50a04f7c699755bf0b7c788e5b3ad8c9e5761d219fecdf32c80fe0ec8e3sh1co/devopslab:latest"
+```
+
+## Bonus task
+
+### `terraform plan` output after updating github/main.tf
+
+```bash
+github_repository.repo: Refreshing state... [id=DevOps-Labs]
+github_branch_default.master: Refreshing state... [id=DevOps-Labs]
+github_branch_protection.default: Refreshing state... [id=BPR_kwDOH8TzDc4Bv-wr]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # github_repository.repo will be updated in-place
+  ~ resource "github_repository" "repo" {
+      ~ allow_rebase_merge          = true -> false
+      ~ allow_squash_merge          = true -> false
+        id                          = "DevOps-Labs"
+        name                        = "DevOps-Labs"
+        # (30 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
 ```

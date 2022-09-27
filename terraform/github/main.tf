@@ -16,6 +16,8 @@ resource "github_repository" "repo" {
   name               = "DevOps-Labs"
   description        = "Repo for DevOps labs"
   visibility         = "public"
+  allow_squash_merge = false
+  allow_rebase_merge = false
 }
 
 #Set default branch 'master'

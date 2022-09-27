@@ -22,6 +22,9 @@ resource "github_repository" "repo" {
   auto_init          = true
   license_template   = "mit"
   gitignore_template = "VisualStudio"
+
+  allow_squash_merge = false
+  allow_rebase_merge = false
 }
 
 #Set default branch 'master'

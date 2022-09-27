@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     zone = ZoneInfo('Europe/Moscow')
-    return f'Current time in Moscow is: {datetime.now(zone).ctime()}'
+    return f'The current time in Moscow is: {datetime.now(zone).ctime()}'
 
 
 if __name__ == '__main__':

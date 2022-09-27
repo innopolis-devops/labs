@@ -93,7 +93,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   publish:
-    needs: [linters, test-python, snyk]
+    needs: [linters, test-python]
     name: "Publish image"
     timeout-minutes: 5
     if: ${{ needs.changes.outputs.python == 'true' }}

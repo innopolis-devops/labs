@@ -1,3 +1,5 @@
+# Description of the Python app
+
 ## Best practices for Python apps
 
 1. Install packages with `requirements.txt`
@@ -12,12 +14,14 @@ It was decided to use the *Flask* framework for the development.
 It allows to build a light web applications from scratch in a fast way.
 
 Its **pros** are:
+
 - Flexible
 - Scalable
 - Lightweight
 - Well-documented
 
 And **cons**:
+
 - Maintenance costs
 - Few tools
 - Not suitable for large projects

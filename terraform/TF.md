@@ -196,3 +196,8 @@ internal_ip_address_vm_2 = "192.168.10.5"
 2. for `terraform state list`
 
 ![image](https://user-images.githubusercontent.com/63815121/192484645-e82377eb-ab64-4324-831c-8fd4d1b15f0c.png)
+
+
+
+## github
+check the repo [here](https://github.com/molberte/devops-generated-repo)

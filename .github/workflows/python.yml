@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: app_python/tests
+        working-directory: app_python
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -65,7 +65,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: "Run python tests"
         run: |
-          pytest
+          pytest tests
 
   snyk:
     name: Snyk

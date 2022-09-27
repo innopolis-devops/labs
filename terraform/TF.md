@@ -438,3 +438,65 @@ The output of `terraform output` is
     instance_public_ip = "35.89.245.190"
 ```
 
+# Github
+
+## Output of the `terraform apply -var "token=..."`
+
+```sh
+Terraform used the selected providers to generate the following execution plan. Resource
+actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # github_branch_default.repo will be created
+  + resource "github_branch_default" "repo" {
+      + branch     = "main"
+      + id         = (known after apply)
+      + repository = "DevOps-Course-Task"
+    }
+
+  # github_branch_protection.default will be created
+  + resource "github_branch_protection" "default" {
+      + allows_deletions                = false
+      + allows_force_pushes             = false
+      + blocks_creations                = false
+      + enforce_admins                  = false
+      + id                              = (known after apply)
+      + pattern                         = "main"
+      + repository_id                   = "R_kgDOIGXLfw"
+      + require_conversation_resolution = true
+      + require_signed_commits          = false
+      + required_linear_history         = false
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+```
+
+## The output of `terraform import`
+
+```sh
+    github_repository.repo: Import prepared!
+    Prepared github_repository for import
+    github_repository.repo: Refreshing state... [id=DevOps-Course-Task]
+
+    Import successful!
+
+    The resources that were imported are shown above. These resources are now in
+    your Terraform state and will henceforth be managed by Terraform.
+
+```
+# Terraform Best Practice
+
+- Don't push `.terraform` and `.tfstate` files to VCS
+
+The `.terraform` folder is created by terraform init which is executed by every user that wishes to use terraform configuration, so it's unique for each user.
+
+The `.tfstate` is a sensitive data and should not be shared publicly (or among the developers). It is much saver to use "remote" backend to store it on a server and to allow multiple developers to collaborate on the same state.
+
+- Use `terraform.tfvars` file only in compositions
+
+Composition is the final infrastructure that is composed of many other terraform modules. It is what will be there and it is what should be configurated completely. Don't configurate using `terraform.tfvars` the modules themselves. Their variables are to be configured by the top-level user of the modules.
+
+- `terraform validate` for validating
+- `terraform fmt` for formatting code

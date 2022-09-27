@@ -13,8 +13,8 @@ In this lab you need to get familiar with Prometheus. Then you need to set up it
 3. Configure Prometheus to obtain metrics from Loki and Prometheus containers.
 4. Check `http://localhost:9090/targets`.
    * Provide screenshots of your success in `METRICS.md` in monitoring folder.
-5. Create a PR to the forked repo lab8 branch, ask your teammates to review it and review PRs of your teammates.
-6. Create a PR in your own repository from the lab8 branch to the lab7 one. It will help us with grading.
+5. Create a PR to the forked repo lab4 branch, ask your teammates to review it and review PRs of your teammates.
+6. Create a PR in your own repository from the lab4 branch to the lab3 one. It will help us with grading.
 
 ### 4 points
 

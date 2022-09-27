@@ -22,3 +22,9 @@ module "cloud" {
   vm_name  = "asdfffff"
   hostname = "asdfffff"
 }
+
+module "github" {
+  source = "./git"
+
+  test_repo_name = "this_should_not_exist"
+}

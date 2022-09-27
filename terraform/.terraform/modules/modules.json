@@ -1,1 +1,1 @@
-{"Modules":[{"Key":"py_app","Source":"./docker","Dir":"docker"},{"Key":"dart_app","Source":"./docker","Dir":"docker"},{"Key":"cloud","Source":"./cloud","Dir":"cloud"},{"Key":"","Source":"","Dir":"."}]}
+{"Modules":[{"Key":"cloud","Source":"./cloud","Dir":"cloud"},{"Key":"","Source":"","Dir":"."},{"Key":"github","Source":"./git","Dir":"git"},{"Key":"py_app","Source":"./docker","Dir":"docker"},{"Key":"dart_app","Source":"./docker","Dir":"docker"}]}

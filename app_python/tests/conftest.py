@@ -1,5 +1,5 @@
 import pytest
-from tttime.app import app as flask_application
+from ..tttime.app import app as flask_application
 
 
 @pytest.fixture()

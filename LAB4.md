@@ -47,3 +47,4 @@
 ### 2 extra points
 
 1. Disable rebase and squash commits for the repository using terraform. Apply changes.
+

@@ -47,11 +47,7 @@ jobs:
     needs: [changes]
     name: "Python tests"
     timeout-minutes: 5
-    # if: ${{ needs.changes.outputs.python == 'true' }}
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: app_python
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -97,7 +93,6 @@ jobs:
     needs: [linters, test-python]
     name: "Publish image"
     timeout-minutes: 5
-    # if: ${{ needs.changes.outputs.python == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

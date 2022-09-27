@@ -1,17 +1,13 @@
 from flask import Flask
 from datetime import datetime
-
-try:
-    from zoneinfo import ZoneInfo
-except ImportError:
-    from backports.zoneinfo import ZoneInfo
+from pytz import timezone
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    zone = ZoneInfo('Europe/Moscow')
+    zone = timezone('Europe/Moscow')
     return f'The current time in Moscow is: {datetime.now(zone).ctime()}'
 
 

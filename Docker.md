@@ -15,3 +15,7 @@ requires minimum setup for rebuilding, replacing etc.
 4. Do not allow containers to use root priviledges
 5. Use linter for a Dockerfile.
 For example, the [hadolint](https://github.com/hadolint/hadolint).
+
+## Multi-stage builds
+
+The Swift application uses docker multi-stage build. You can find the details in *app_swift/Dockerfile*.

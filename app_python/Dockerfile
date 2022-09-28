@@ -4,16 +4,13 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy application.
-COPY ./tttime /app/tttime
-
-# Copy requirements.
-COPY ./requirements.txt /app/requirements.txt
+COPY . /app
 
 # Install python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Let Docker bind to port 8080
-EXPOSE 8080
+# Let Docker bind to port 5050
+EXPOSE 5050
 
 # Start flask application.
 CMD ["gunicorn", "--bind", "0.0.0.0:8080", "tttime.app:app", "--reload"]

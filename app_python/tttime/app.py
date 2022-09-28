@@ -1,14 +1,25 @@
 from flask import Flask
+from flask import render_template
 from datetime import datetime
 from pytz import timezone
 
-app = Flask(__name__)
+
+def make_app():
+    """
+    Creates an instance of the Flask application.
+    """
+    app = Flask(__name__, template_folder="../templates")
+
+    @app.route('/', methods=['GET'])
+    def index():
+        zone = timezone('Europe/Moscow')
+        time = datetime.now(zone).strftime('%H:%M')
+        return render_template('main.html', time=time)
+
+    return app
 
 
-@app.route('/')
-def index():
-    zone = timezone('Europe/Moscow')
-    return f'The current time in Moscow is: {datetime.now(zone).ctime()}'
+app = make_app()
 
 
 if __name__ == '__main__':

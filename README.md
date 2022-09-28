@@ -1,96 +1,96 @@
-# Labs
+# TTTime
 
-## Introduction
+## About
 
-Welcome to DevOps course labs.
-All labs are practical and will be built on each other.
-You will implement simple application, containerize it,
-implement simple tests, prepare an infrastructure and
-CI/CD processes, collect metrics, logs, etc.
+Have you ever wondered "what time is currently in Moscow"?
 
-## Architecture
+The project TTTime is an UWA (useful web-application) - a
+software that could help you to answer this question.
+It displays the local Moscow time right in your browser!
 
-This repository contains a master branch with
-introduction and one branch with instructions for each lab.
+## Installation
 
-## Rules
+### Download the project
 
-Each labs requires the participant to finish
-all previous labs, therefore
-**participants are requiredto submit each lab and**
-**get at least 6/10 points for each lab to pass the course**.
-
-Grading is based on PRs with your solution to the corresponding branch
-of this repository. This repository is read-only for all participants,
-therefore to be able to create a pull request, a participant should
-fork this repository to his own workspace and solve the lab there. It
-is recommended to build a solution of a lab N upon a solution of lab N-1,
-so choose workflow in your fork of this repository wisely. Structure of
-your repository will not affect your grade, only state of your repository
-from which the PR is created will be checked and graded (state after
-last commit in your PR on corresponding lab).
-
-### Recommended workflow
-
-#### For the first lab
-
-1. Fork this repository.
-2. Checkout to lab1 branch.
-3. Complete lab1 tasks.
-4. Push the code to your repository.
-5. Create a PR to the lab1 branch on this repository from your fork's lab1 branch.
-6. Create an archive with the current version
-of your code and submit a zip file to Moodle.
-7. Create a team with with your classmates, 6 people max.
-8. Each student must review PRs of all teammates.
-9. Wait for your grade.
-
-## Grading
-
-### Points distribution for the course
+Clone the repo with the recent project version
 
 ```commandline
-70 - labs
-20 - final exam
-10 - attendance on lectures
+git clone https://github.com/whutao/labs.git
 ```
 
-### Grade ranges
+Go to the application folder
 
 ```commandline
-[90;100] - A
-[75;90)  - B
-[60;75)  - C
-[0;60)   - D
+cd labs/app_python
 ```
 
-### Labs grading
+### Install python for Mac
 
-Each lab is marked out of 10.
-All labs have a set of main tasks and a set of extra tasks.
+Install home brew.
 
-Completing main tasks correctly will give you 10 points out of 10.
-Completing extra tasks correctly will give you some additional points,
-depends on the bonus task difficulty. Your points for main and extra
-tasks will be summed up and will help you to get a better grade.
+```commandline
+$ /bin/bash -c "$(curl -fsSL
+https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
 
-If you finish all bonus tasks correctly the
-**permission to skip the exam will be granted to you + 10 extra points**.
-If you finish not all of them you will must pass the exam,
-but it can save you from the exam's failure.
+Install python 3 if needed.
 
-## Deadlines and labs distribution
+```commandline
+brew install python3
+```
 
-Participants have 2 new labs every week simultaneously
-and 1 week to submit solutions. Moodle will contain
-presentations and deadlines.
+### Setup the environment
 
-You are required to submit a zip file with your source
-code to corresponding assignment in moodle. This is
-required for the university as a proof of work.
+Create a virtual environment.
 
-## Submission policy
+```commandline
+python3 -m venv venv
+```
 
-**Submitting results after the deadline will result in maximum**
-**of 6 points for the corresponding lab. As stated before,**
-**all labs must be submitted to pass the course.**
+Select it
+
+```commandline
+source venv/bin/activate
+```
+
+Install requirements with pip.
+
+```commandline
+pip3 install -r requirements.txt
+```
+
+## Usage
+
+Use the single command to run the app
+
+```commandline
+gunicorn --bind 0.0.0.0:5050 tttime.app:app
+```
+
+You can check that everything works by visiting `127.0.0.1:5050`.
+
+## Swift app
+
+The extra web application is written in swift and localted in *app_swift*.
+It displays the current weekday name for you.
+
+Run it using docker with
+
+```commandline
+cd app_swift
+docker-compose build
+docker-compose up
+```
+
+You can check that everything works by visiting `127.0.0.1:5051`.
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Contact
+
+Roman Nabiullin
+
+- @whuthao (telegram)
+- r.nabiullin@innopolis.university (university e-mail)

@@ -4,10 +4,10 @@
     nixpkgs.follows = "my-inputs/nixpkgs";
     flake-utils.follows = "my-inputs/flake-utils";
     my-codium.follows = "my-inputs/my-codium";
-    my-json2md.url = "github:br4ch1st0chr0n3/flakes?dir=json2md";
+    my-json2md.follows = "my-inputs/json2md";
     nix-vscode-marketplace.follows = "my-inputs/nix-vscode-marketplace";
-    app-python.url = "./app_python";
-    app-purescript.url = "./app_purescript";
+    app-python.url = path:./app_python;
+    app-purescript.url = path:./app_purescript;
   };
   outputs =
     { self
@@ -29,8 +29,9 @@
         shellTools
         extensions
         mkCodium
-        writeShellApplicationUnchecked
+        writeShellApp
         mergeValues
+        mkDevShellsWithDirenv
         ;
 
       app-python-pkgs = app-python.packages.${system};
@@ -39,6 +40,8 @@
       inherit (import ./.nix/data.nix)
         appPurescript
         appPython
+        langPurescript
+        langPython
         ;
 
       configWriters =
@@ -55,13 +58,21 @@
         );
 
 
-      updateFlakes = pkgs.writeShellScriptBin "update-flakes" ''
-        (cd ${appPython} && nix flake update)
-        (cd ${appPurescript} && nix flake update)
-        nix flake update
-      '';
+      updateFlakes = writeShellApp {
+        name = "update-flakes";
+        text = ''
+          (cd ${appPython} && nix flake update)
+          (cd ${appPurescript} && nix flake update)
+          nix flake update
+        '';
+      };
 
-      commands = import ./.nix/commands.nix { inherit pkgs writeShellApplicationUnchecked; };
+      commands = import ./.nix/commands.nix {
+        inherit pkgs writeShellApp;
+        scripts = {
+          ${langPurescript} = app-purescript.scripts.${system};
+        };
+      };
 
       codiumDependencies =
         (mergeValues { inherit (shellTools) nix purescript; }) //
@@ -73,8 +84,8 @@
         inherit (extensions) nix markdown purescript github misc docker python toml;
       };
       codium =
-        writeShellApplicationUnchecked {
-          name = "start-codium";
+        writeShellApp {
+          name = "codium-2";
           runtimeInputs = [
             codiumWithExtensions
             (builtins.attrValues codiumDependencies)
@@ -84,16 +95,18 @@
             codium .
           '';
         };
+
+      devShells = mkDevShellsWithDirenv
+        {
+          runtimeInputs = [ updateFlakes (builtins.attrValues (mergeValues commands)) ];
+        }
+        {
+          codium = { runtimeInpus = [ codium ]; };
+          codiumTools = { runtimeInputs = [ (builtins.attrValues codiumDependencies) ]; };
+        };
     in
     {
-      packages = {
-        default = codium;
-      } // otherTools // codiumDependencies;
-      devShells = {
-        default = pkgs.mkShell {
-          buildInputs = builtins.attrValues otherTools;
-        };
-      };
+      packages = devShells;
     });
 
   nixConfig = {

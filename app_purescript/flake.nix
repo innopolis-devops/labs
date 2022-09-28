@@ -27,51 +27,62 @@
       eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        inherit (my-codium.tools.${system})
+          writeShellApp
+          mkDevShellsWithDirenv
+          ;
 
-        # spago-pkgs = pkgs.extend spago-nix.overlays.default;
-        myTools =
+        tools = {
+          inherit (import easy-purescript-nix { inherit pkgs; }) purs-0_15_4 spago;
+          inherit (pkgs) nodejs-16_x;
+        };
+
+        scripts =
           let
-            easy-ps = import easy-purescript-nix { inherit pkgs; };
+            data = import ../.nix/data.nix;
+            inherit (data) langPurescript;
+            commandNames_ = data.commandNames.apps langPurescript;
           in
           {
-            inherit (easy-ps) purs-0_15_4 spago;
+            run-start =
+              writeShellApp (
+                {
+                  name = "run-start";
+                  runtimeInputs =
+                    [
+                      pkgs.python310Packages.python-dotenv
+                      tools.spago
+                      tools.nodejs-16_x
+                    ];
+                  text =
+                    let
+                      envFile = "app.env";
+                      exportFile = "${envFile}.export";
+                      spago_ = "spago";
+                    in
+                    ''
+                      ${spago_} install
+                      ${spago_} build
+                      dotenv -f ${envFile} list > ${exportFile}
+                      . ${exportFile}
+                      rm ${exportFile}
+                      npx parcel serve -p $PORT --host $HOST dev/index.html
+                    '';
+                }
+              );
           };
-        # project = spago-pkgs.spago-nix.spagoProject {
-        #   name = "app_purescript";
-        #   src = ./.;
-        #   shell = {
-        #     tools = [ ];
-        #     #   # builtins.attrValues myTools;
-        #   };
-        # };
-        # packages = project.flake.packages // {
-        #   bundled-module = project.bundleModule { main = "Main"; };
-        #   bundled-app = project.bundleApp { main = "Main"; };
-        #   node-module = project.nodeApp { main = "Main"; };
-        # };
+
+        devShells = mkDevShellsWithDirenv { } {
+          scripts = {
+            runtimeInputs = builtins.attrValues scripts;
+          };
+        };
+        envrc = ".envrc";
       in
       {
-        packages = {
-          default = pkgs.writeShellApplication
-            {
-              name = "app-purescript";
-              runtimeInputs = [ myTools.spago myTools.purs-0_15_4 pkgs.esbuild ];
-              text = ''
-                spago bundle-app --to dist/index.js --minify
-              '';
-            };
-        };
-        # shells = project.flake.devShells;
-        devShells = {
-          inherit (project.flake.devShells) default;
-          dev = pkgs.mkShell {
-            shellHook = ''
-              dotenv -f app.env run x-var parcel serve -p %PORT% --host %HOST% dev/index.html
-            '';
-          };
-        };
+        packages = devShells;
+        inherit scripts;
       });
-
   nixConfig = {
     extra-substituters = [
       https://haskell-language-server.cachix.org

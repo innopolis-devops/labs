@@ -3,15 +3,16 @@ module Main where
 import Prelude
 
 import Control.Monad.Rec.Class (forever)
-import Data.Array (intercalate)
-import Data.DateTime (Time, hour, minute, second)
-import Data.Enum (fromEnum)
+import Data.DateTime (DateTime, adjust)
+import Data.Formatter.DateTime (FormatterCommand(..), format)
+import Data.Int (toNumber)
+import Data.List (fromFoldable)
 import Data.Maybe (Maybe(..))
-import Data.Time.Duration (Milliseconds(..))
+import Data.Time.Duration (Milliseconds(..)) as TD
 import Effect (Effect)
 import Effect.Aff as Aff
 import Effect.Aff.Class (class MonadAff)
-import Effect.Now (nowTime)
+import Effect.Now (nowDateTime)
 import Halogen (liftEffect)
 import Halogen as H
 import Halogen.Aff as HA
@@ -19,8 +20,6 @@ import Halogen.HTML as HH
 import Halogen.HTML.Properties as HP
 import Halogen.Subscription as HS
 import Halogen.VDom.Driver (runUI)
-
--- HTML starts here
 
 main :: Effect Unit
 main = do
@@ -50,14 +49,8 @@ render =
     Just curTime -> okTimeHtml $ renderTime curTime
     Nothing -> noTimeHtml
 
--- HH.text ("You have been here for " <> show seconds <> " seconds")
-
-renderTime :: Time -> String
-renderTime curTime = intercalate ":" $ show <$> [ h, m, s ]
-  where
-  h = fromEnum $ hour curTime :: Int
-  m = fromEnum $ minute curTime :: Int
-  s = fromEnum $ second curTime :: Int
+renderTime :: DateTime -> String
+renderTime = format $ fromFoldable [ Hours24, Placeholder ":", MinutesTwoDigits, Placeholder ":", SecondsTwoDigits ]
 
 okTimeHtml :: forall (a :: Type). String -> HH.HTML a Action
 okTimeHtml st = HH.div_
@@ -67,7 +60,7 @@ okTimeHtml st = HH.div_
 
 noTimeHtml :: forall (a :: Type). HH.HTML a Action
 noTimeHtml = HH.div_
-  [ HH.h1_ [ HH.text "Current Moscow time (UTC+3:00) ..." ]
+  [ HH.h1_ [ HH.text "Current Moscow time (UTC+3:00) ... ?" ]
   ]
 
 -- handleAction :: forall output. Action -> H.HalogenM State Action () output Aff Action
@@ -78,12 +71,15 @@ handleAction = case _ of
     pure unit
   Tick ->
     do
-      curTime <- liftEffect $ nowTime
-      H.modify_ $ (\_ -> Just curTime)
+      curDateTime <- liftEffect $ nowDateTime
+      let
+        offsetUTCPlus3 = 3 * 60 * 60 * 1000
+        curDateTime' = adjust (TD.Milliseconds $ toNumber offsetUTCPlus3) curDateTime
+      H.modify_ $ (\_ -> curDateTime')
 
 -- TODO auto-reload
 
-type State = Maybe Time
+type State = Maybe DateTime
 
 data Action
   = Init
@@ -93,7 +89,7 @@ timer :: forall m a. MonadAff m => a -> m (HS.Emitter a)
 timer val = do
   { emitter, listener } <- H.liftEffect HS.create
   _ <- H.liftAff $ Aff.forkAff $ forever do
-    Aff.delay $ Milliseconds 800.0
+    Aff.delay $ TD.Milliseconds 800.0
     H.liftEffect $ HS.notify listener val
   pure emitter
 

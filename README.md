@@ -34,15 +34,20 @@ I used Nix to make a reproducible project environment. Now, the project ships wi
 
 - Enter this project
 
-```console
+```sh
 git clone https://github.com/br4ch1st0chr0n3/devops-labs
 cd devops-labs
 git checkout lab2
-direnv allow
-(cd app_purescript && direnv allow)
-(cd app_python && direnv allow)
-nix develop .#codium
+nix registry add devops-labs github:br4ch1st0chr0n3/devops-labs
+# wait
+start-codium
 ```
+
+- Next time, after entering the project, run
+
+  ```sh
+  nix profile update devops-labs/lab2
+  ```
 
 - In case the wrong Python `.venv` is sourced, run `Command Palette` -> `Python: Select Interpreter` -> `Python 3.10.6 ('.venv':poetry) ./.venv/bin/python` `Workspace`
 
@@ -102,6 +107,12 @@ dream2nix.lib.makeFlakeOutputs {
     };
   };
 ```
+
+<!-- TODO cache to cachix during build -->
+
+- Install:
+
+
 <!-- TODO how to get size of a project in terms of its nix store part? -->
 <!-- 
 TODO add command to remove dangling images
@@ -120,3 +131,17 @@ https://github.com/safe-waters/docker-lock -->
 
 
 <!-- TODO rename commands to start with app_name -->
+
+<!-- TODO 
+
+1. Build project
+   1. this creates devshells.env file in each dir
+   2. When enter the dir, direnv sources this file
+2. When need a devshell, run its command (sourced above)
+   1. This will bring its set of deps into shell
+3. We can build such devshells.envs
+   1. project-wise
+   2. module-wise
+
+-->
+<!-- TODO disable automatic numeration markdown -->

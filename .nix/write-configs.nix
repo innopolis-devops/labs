@@ -6,7 +6,7 @@
 }:
 let
   inherit (codiumTools)
-    writeShellApplicationUnchecked
+    writeShellApp
     writeSettingsJson
     writeTasksJson
     settingsNix
@@ -31,7 +31,7 @@ let
       json2md = my-json2md.packages.${system}.default;
       mdlint = pkgs.nodePackages.markdownlint-cli2;
     in
-    pkgs.writeShellApplication rec {
+    writeShellApp rec {
       name = "write-docs-md";
       runtimeInputs = [
         pkgs.nodejs-16_x
@@ -55,7 +55,7 @@ let
   });
   writeTasks = writeTasksJson (import ./tasks.nix { inherit commands; });
   writeConfigs =
-    pkgs.writeShellApplication {
+    writeShellApp {
       name = "write-configs";
       runtimeInputs = [
         writeSettings
@@ -80,7 +80,7 @@ let
       python = pkgs.python310.withPackages (x: with x; [ python310Packages.tomlkit ]);
       poetry = pkgs.poetry;
     in
-    pkgs.writeShellApplication {
+    writeShellApp {
       runtimeInputs = [ poetry ];
       name = "write-root-project";
       text = ''

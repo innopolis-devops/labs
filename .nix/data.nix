@@ -13,7 +13,7 @@ let
   };
   taskNames = {
     apps = lang:
-      let app = appName.apps lang; in
+      let app = appName lang; in
       {
         run = "${app}: Run";
         dockerBuild = "${app}: Docker build";

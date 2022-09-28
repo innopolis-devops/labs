@@ -21,5 +21,6 @@ See the sections in the main [README](../README.md):
 
 - In case of any issues see my [GitHub profile](https://github.com/br4ch1st0chr0n3) for contact information
 
-<!-- update only lock https://stackoverflow.com/a/57867531 -->
-<!-- dotenv x-var -->
+## Best practices
+
+- I locked files for dev dependencies

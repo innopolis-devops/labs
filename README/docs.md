@@ -1,4 +1,4 @@
-# Available actionNames
+# Available actions
 
 ## Keybindings
 
@@ -46,26 +46,26 @@ $ nix develop .#app-python
 
 ## app_python actions
 
-### Build app_python in Docker
+### app_python: Docker build
 
- 1. `Command palette` -> `Tasks: Run Task` -> `Build app_python in Docker`
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_python: Docker build`
      1. Or `$ app-python-docker-build`
 
-### Run app_python in Docker
+### app_python: Docker run
 
- 1. `Command palette` -> `Tasks: Run Task` -> `Run app_python in Docker`
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_python: Docker run`
      1. Or `$ app-python-docker-run`
 
  2. Open [page](http://127.0.0.1:8002) in a browser
 
-### Stop app_python in Docker
+### app_python: Docker stop
 
- 1. `Command palette` -> `Tasks: Run Task` -> `Stop app_python in Docker`
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_python: Docker stop`
      1. Or `$ app-python-docker-rm`
 
-### Run app_python
+### app_python: Run
 
- 1. `Command palette` -> `Tasks: Run Task` -> `Run app_python`
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_python: Run`
      1. Or `$ app-python`
 
  2. Open [page](http://127.0.0.1:8000) in a browser
@@ -76,26 +76,26 @@ $ nix develop .#app-python
 
 ## app_purescript actions
 
-### Build app_purescript in Docker
+### app_purescript: Docker build
 
- 1. `Command palette` -> `Tasks: Run Task` -> `Build app_purescript in Docker`
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_purescript: Docker build`
      1. Or `$ app-purescript-docker-build`
 
-### Run app_purescript in Docker
+### app_purescript: Docker run
 
- 1. `Command palette` -> `Tasks: Run Task` -> `Run app_purescript in Docker`
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_purescript: Docker run`
      1. Or `$ app-purescript-docker-run`
 
  2. Open [page](http://127.0.0.1:8003) in a browser
 
-### Stop app_purescript in Docker
+### app_purescript: Docker stop
 
- 1. `Command palette` -> `Tasks: Run Task` -> `Stop app_purescript in Docker`
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_purescript: Docker stop`
      1. Or `$ app-purescript-docker-rm`
 
-### Run app_purescript
+### app_purescript: Run
 
- 1. `Command palette` -> `Tasks: Run Task` -> `Run app_purescript`
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_purescript: Run`
      1. Or `$ app-purescript`
 
  2. Open [page](http://127.0.0.1:8001) in a browser

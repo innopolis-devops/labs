@@ -26,10 +26,6 @@
       eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        myTools =
-          builtins.attrValues {
-            inherit (pkgs) poetry python310;
-          };
 
         # Not really needed for now -->
         overlay = pkgs.lib.composeManyExtensions [
@@ -47,29 +43,33 @@
         p2nix = pkgs.extend overlay;
         # <--
         dotenvFile = "app.env";
-        env = poetry2nix.mkPoetryEnv {
-          python = pkgs.python310;
-          projectDir = ./.;
-        };
+        # env = poetry2nix.mkPoetryEnv {
+        #   python = pkgs.python310;
+        #   projectDir = ./.;
+        # };
         app = appName:
-          pkgs.writeShellApplication {
+          writeShellApp {
             name = "write-dotenv";
             runtimeInputs = [ (pkgs.python310Packages.python-dotenv) ];
             text = ''
               dotenv -f ${appName}/.env set ${DOCKER_PORT}
             '';
           };
+        tools = {
+          inherit (pkgs) poetry python310;
+        };
+
       in
       {
-        packages = {
-          default = pkgs.runCommand "env-test" { } ''
-            ${env}/bin/python --version
-          '' // { inherit env; };
-        };
+        # packages = {
+        #   default = pkgs.runCommand "env-test" { } ''
+        #     ${env}/bin/python --version
+        #   '' // { inherit env; };
+        # };
+
         devShells = {
           default = pkgs.mkShell {
-            buildInputs = myTools;
-            TMP = "/tmp";
+            buildInputs = builtins.attrValues myTools;
           };
           make-poetry-env = pkgs.mkShell {
             # https://stackoverflow.com/a/64434542

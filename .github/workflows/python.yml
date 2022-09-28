@@ -97,7 +97,7 @@ jobs:
   publish:
     needs: [linters, test-python]
     name: "Publish image"
-    timeout-minutes: 5
+    timeout-minutes: 20
     if: ${{ needs.changes.outputs.python == 'true' }}
     runs-on: ubuntu-latest
     steps:

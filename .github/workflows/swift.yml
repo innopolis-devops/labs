@@ -52,7 +52,7 @@ jobs:
   publish:
     needs: [linters, changes]
     name: "Publish image"
-    timeout-minutes: 5
+    timeout-minutes: 20
     # if: ${{ needs.changes.outputs.swift == 'true' }}
     runs-on: ubuntu-latest
     steps:

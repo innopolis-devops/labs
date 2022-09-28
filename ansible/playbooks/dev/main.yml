@@ -1,6 +1,6 @@
 ---
 - name: Prepare docker
-  hosts: vms
+  hosts: yacloud
   remote_user: ubuntu
   # We install stuff, it requires root
   become: true

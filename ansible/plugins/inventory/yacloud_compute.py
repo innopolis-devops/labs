@@ -1,7 +1,6 @@
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import (absolute_import, division, print_function)
-import json
 from pathlib import Path
 __metaclass__ = type
 
@@ -22,10 +21,9 @@ DOCUMENTATION = '''
             description: Token that ensures this is a source file for the plugin.
             required: True
             choices: ['yacloud_compute']
-        yacloud_service_account_file:
-            description: File with service account key for yacloud connection.
-            required: False
-            default: "key.json"
+        yacloud_token_file:
+            description: File with oauth token for yacloud connection
+            required: True
         yacloud_clouds:
             description: Names of clouds to get hosts from
             type: list
@@ -55,7 +53,6 @@ try:
     from yandex.cloud.compute.v1.instance_service_pb2 import ListInstancesRequest
     from google.protobuf.json_format import MessageToDict
     from yandex.cloud.resourcemanager.v1.cloud_service_pb2 import ListCloudsRequest
-    from yandex.cloud.resourcemanager.v1.cloud_service_pb2 import ListCloudOperationsRequest
     from yandex.cloud.resourcemanager.v1.cloud_service_pb2_grpc import CloudServiceStub
     from yandex.cloud.resourcemanager.v1.folder_service_pb2 import ListFoldersRequest
     from yandex.cloud.resourcemanager.v1.folder_service_pb2_grpc import FolderServiceStub
@@ -65,10 +62,10 @@ except ImportError:
 display = Display()
 
 
-def read_service_account(filename: str) -> str:
+def read_oauth(filename: str) -> str:
     path = Path(filename)
     with path.open() as f:
-        return json.load(f)
+        return f.readline().strip()
 
 class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
 
@@ -93,10 +90,7 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
         return None
 
     def _get_clouds(self):
-        try:
-            all_clouds = MessageToDict(self.cloud_service.List(ListCloudsRequest()))["clouds"]
-        except Exception as e:
-            display.error(str(MessageToDict(self.cloud_service.List(ListCloudsRequest()))))
+        all_clouds = MessageToDict(self.cloud_service.List(ListCloudsRequest()))["clouds"]
         if self.get_option('yacloud_clouds'):
             all_clouds[:] = [x for x in all_clouds if x["name"] in self.get_option('yacloud_clouds')]
         self.clouds = all_clouds
@@ -121,8 +115,8 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
                 self.hosts += dict_["instances"]
 
     def _init_client(self):
-        sa_key = read_service_account(str(self.get_option('yacloud_service_account_file')))
-        sdk = yandexcloud.SDK(service_account_key=sa_key)
+        oauth_token = read_oauth(str(self.get_option('yacloud_token_file')))
+        sdk = yandexcloud.SDK(token=oauth_token)
 
         self.instance_service = sdk.client(InstanceServiceStub)
         self.folder_service = sdk.client(FolderServiceStub)

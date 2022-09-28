@@ -54,12 +54,9 @@ jobs:
     name: "Swift tests"
     timeout-minutes: 15
     #if: ${{ needs.changes.outputs.swift == 'true' }}
-    runs-on: macos-11
+    runs-on: macos-latest
     steps:
-      - uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: 12.5
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - run: cd app_swift
       - run: |
           swift build

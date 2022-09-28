@@ -1,0 +1,22 @@
+version: '3.7'
+
+x-shared_environment: &shared_environment
+  LOG_LEVEL: ${LOG_LEVEL:-debug}
+  
+services:
+
+  app_python:
+    image: whutao/app_python:latest
+    environment:
+      <<: *shared_environment
+    build: app_python
+    ports:
+      - '5050:8080'
+  
+  app_swift:
+    image: whutao/app_swift:latest
+    environment:
+      <<: *shared_environment
+    build: app_swift
+    ports:
+      - '5051:8080'

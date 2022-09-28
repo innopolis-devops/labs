@@ -55,6 +55,7 @@ try:
     from yandex.cloud.compute.v1.instance_service_pb2 import ListInstancesRequest
     from google.protobuf.json_format import MessageToDict
     from yandex.cloud.resourcemanager.v1.cloud_service_pb2 import ListCloudsRequest
+    from yandex.cloud.resourcemanager.v1.cloud_service_pb2 import ListCloudOperationsRequest
     from yandex.cloud.resourcemanager.v1.cloud_service_pb2_grpc import CloudServiceStub
     from yandex.cloud.resourcemanager.v1.folder_service_pb2 import ListFoldersRequest
     from yandex.cloud.resourcemanager.v1.folder_service_pb2_grpc import FolderServiceStub
@@ -95,9 +96,7 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
         try:
             all_clouds = MessageToDict(self.cloud_service.List(ListCloudsRequest()))["clouds"]
         except Exception as e:
-            s = "aboba" + str(e)
-            print()
-            raise Exception(s)
+            display.error(str(MessageToDict(self.cloud_service.List(ListCloudsRequest()))))
         if self.get_option('yacloud_clouds'):
             all_clouds[:] = [x for x in all_clouds if x["name"] in self.get_option('yacloud_clouds')]
         self.clouds = all_clouds

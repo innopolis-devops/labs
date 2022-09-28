@@ -1,12 +1,13 @@
-# Description of the Python app
+# Python application
 
 ## Best practices for Python apps
 
 1. Install packages with `requirements.txt`
 2. Virtual environment for a project.
 3. Exclude irrelevant files from git with `.gitignore`
-4. Linter `pylint` for fixing syntactic and logic bugs.
+4. Linter `pylint` for fixing syntactic bugs (configs are in *.pylintrc*).
 5. License file to protect the code distribution.
+6. Use templates for web pages using HTML.
 
 ## Framework used
 

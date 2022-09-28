@@ -69,6 +69,21 @@ gunicorn --bind 0.0.0.0:5050 tttime.app:app
 
 You can check that everything works by visiting `127.0.0.1:5050`.
 
+## Swift app
+
+The extra web application is written in swift and localted in *app_swift*.
+It displays the current weekday name for you.
+
+Run it using docker with
+
+```commandline
+cd app_swift
+docker-compose build
+docker-compose up
+```
+
+You can check that everything works by visiting `127.0.0.1:5051`.
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.

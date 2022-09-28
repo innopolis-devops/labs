@@ -1,4 +1,5 @@
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+# taken and changed from https://github.com/rodion-goritskov/yacloud_compute
 
 from __future__ import (absolute_import, division, print_function)
 from pathlib import Path

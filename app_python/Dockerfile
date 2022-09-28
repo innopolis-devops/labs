@@ -9,7 +9,7 @@ COPY . /app
 # Install python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Let Docker bind to port 5050
+# Let Docker bind to port 8080
 EXPOSE 8080
 
 # Start flask application.

@@ -58,12 +58,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: swift-actions/setup-swift@v1
-        with:
-          swift-version: "5"
-      - run: |
-          cd app_swift
-          swift build
-          swift test
+      - run: cd app_swift
+      - run: swift build -v
+      - run: swift test -v
 
   publish:
     needs: [linters, test-swift]

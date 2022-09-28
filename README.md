@@ -29,8 +29,7 @@ cd labs/app_python
 Install home brew.
 
 ```commandline
-$ /bin/bash -c "$(curl -fsSL
-https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
 Install python 3 if needed.

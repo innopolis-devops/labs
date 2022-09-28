@@ -4,11 +4,9 @@ from tttime.app import app as flask_application
 
 @pytest.fixture()
 def app():
-
     flask_application.config.update({
         "TESTING": True,
     })
-
     yield flask_application
 
 

@@ -4,12 +4,19 @@ x-shared_environment: &shared_environment
   LOG_LEVEL: ${LOG_LEVEL:-debug}
   
 services:
+
   app_python:
     image: whutao/app_python:latest
-    build:
-      context: .
     environment:
       <<: *shared_environment
+    build: app_python
     ports:
       - '5050:8080'
-    command: ["gunicorn", "--bind", "0.0.0.0:8080", "tttime.app:app", "--reload"]
+  
+  app_swift:
+    image: whutao/app_swift:latest
+    environment:
+      <<: *shared_environment
+    build: app_swift
+    ports:
+      - '5051:8080'

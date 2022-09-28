@@ -60,6 +60,8 @@ pip3 install -r requirements.txt
 
 ## Usage
 
+### Python app
+
 Use the single command to run the app
 
 ```commandline
@@ -68,12 +70,12 @@ gunicorn --bind 0.0.0.0:5050 tttime.app:app
 
 You can check that everything works by visiting [`127.0.0.1:5050`](http://127.0.0.1:5050/).
 
-## Swift app
+### Swift app
 
 The extra web application is written in swift and localted in *app_swift*.
 It displays the current weekday name for you.
 
-Run it using docker with
+The solution is dockerized and hence you can run it using docker with
 
 ```commandline
 cd app_swift
@@ -82,6 +84,39 @@ docker-compose up
 ```
 
 You can check that everything works by visiting [`127.0.0.1:5051`](http://127.0.0.1:5051/).
+<<<<<<< HEAD
+=======
+
+## Docker
+
+### Run an app
+
+Follow the steps
+
+Open the project folder *app_LANGUAGE*
+
+```commandline
+cd app_LANGUAGE
+```
+
+Run
+
+```commandline
+docker compose up
+```
+
+To check that everything works correctly open a URL specified before.
+
+### Run both
+
+From the root folder, execute
+
+```commandline
+docker compose up
+```
+
+To check that everything works correctly open URLs specified before.
+>>>>>>> 784753a (Add common docker-compose.)
 
 ## License
 

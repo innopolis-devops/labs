@@ -84,8 +84,6 @@ docker-compose up
 ```
 
 You can check that everything works by visiting [`127.0.0.1:5051`](http://127.0.0.1:5051/).
-<<<<<<< HEAD
-=======
 
 ## Docker
 
@@ -116,7 +114,6 @@ docker compose up
 ```
 
 To check that everything works correctly open URLs specified before.
->>>>>>> 784753a (Add common docker-compose.)
 
 ## License
 

@@ -9,5 +9,6 @@
 app_swift/.build
 app_swift/.swiftpm
 app_swift/*.xcodeproj
+app_swift/*.resolved
 DerivedData/
 xcuserdata

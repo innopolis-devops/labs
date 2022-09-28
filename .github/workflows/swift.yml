@@ -31,7 +31,7 @@ jobs:
       - name: "Dockerfile"
         uses: hadolint/hadolint-action@v1.5.0
         with:
-          dockerfile: app_swift/Dockerfile
+          dockerfile: app_python/Dockerfile
       - name: "Swift"
         uses: norio-nomura/action-swiftlint@3.2.1
 

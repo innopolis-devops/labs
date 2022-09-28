@@ -22,16 +22,19 @@ resource "yandex_compute_instance" "vm" {
   platform_id = "standard-v1"
   zone        = "ru-central1-a"
 
+  allow_stopping_for_update = true
+
   resources {
     cores         = 2
     memory        = 1
-    core_fraction = 5
+    core_fraction = 20
   }
 
   boot_disk {
     initialize_params {
       # Ubuntu 22.04 LTS
       image_id = "fd8c00efhiopj3rlnlbn"
+      size = 50
     }
   }
 

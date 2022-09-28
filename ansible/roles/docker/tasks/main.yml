@@ -1,15 +1,4 @@
 ---
-- name: Load OS-specific vars.
-  include_vars: "{{ lookup('first_found', params) }}"
-  vars:
-    params:
-      files:
-        - '{{ansible_distribution}}.yml'
-        - '{{ansible_os_family}}.yml'
-        - main.yml
-      paths:
-        - 'vars'
-
 - import_tasks: setup-Debian.yml
 
 - import_tasks: install-docker.yml

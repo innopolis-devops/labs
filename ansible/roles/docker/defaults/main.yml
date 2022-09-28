@@ -18,7 +18,8 @@ docker_restart_handler_state: restarted
 docker_compose_version: "v2.11.1"
 docker_compose_arch: "{{ ansible_architecture }}"
 docker_compose_url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-linux-{{ docker_compose_arch }}"
-docker_compose_path: /usr/local/bin/docker-compose
+docker_compose_dir: /usr/libexec/docker/cli-plugins
+docker_compose_path: "{{ docker_compose_dir }}/docker-compose"
 
 # Docker repo URL.
 docker_repo_url: https://download.docker.com/linux

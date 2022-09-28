@@ -57,9 +57,10 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - run: cd app_swift
-      - run: swift build -v
-      - run: swift test -v
+      - run: |
+          cd app_swift
+          swift build
+          swift test
 
   publish:
     needs: [linters, test-swift]

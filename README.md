@@ -66,7 +66,7 @@ Use the single command to run the app
 gunicorn --bind 0.0.0.0:5050 tttime.app:app
 ```
 
-You can check that everything works by visiting `127.0.0.1:5050`.
+You can check that everything works by visiting [`127.0.0.1:5050`](http://127.0.0.1:5050/).
 
 ## Swift app
 
@@ -81,7 +81,7 @@ docker-compose build
 docker-compose up
 ```
 
-You can check that everything works by visiting `127.0.0.1:5051`.
+You can check that everything works by visiting [`127.0.0.1:5051`](http://127.0.0.1:5051/).
 
 ## License
 

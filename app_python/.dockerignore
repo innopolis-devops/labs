@@ -1,5 +1,4 @@
 Dockerfile
-
 venv
-
 *.md
+LICENSE.txt

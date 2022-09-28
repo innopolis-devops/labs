@@ -2,6 +2,8 @@
 
 [![Python app CI/CD](https://github.com/whutao/course-devops/actions/workflows/python.yml/badge.svg)](https://github.com/whutao/course-devops/actions/workflows/python.yml)
 
+[![Swift app CI/CD](https://github.com/whutao/course-devops/actions/workflows/swift.yml/badge.svg)](https://github.com/whutao/course-devops/actions/workflows/swift.yml)
+
 ## About
 
 Have you ever wondered "what time is currently in Moscow"?

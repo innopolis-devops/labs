@@ -33,7 +33,7 @@ cd labs/app_python
 Install home brew.
 
 ```commandline
-$ /bin/bash -c "$(curl -fsSL
+/bin/bash -c "$(curl -fsSL
 https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 

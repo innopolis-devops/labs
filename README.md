@@ -71,7 +71,7 @@ You can check that everything works by visiting `127.0.0.1:5050`.
 
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 

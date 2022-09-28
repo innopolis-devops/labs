@@ -52,7 +52,7 @@ jobs:
   test-swift:
     needs: [changes]
     name: "Swift tests"
-    timeout-minutes: 5
+    timeout-minutes: 15
     #if: ${{ needs.changes.outputs.swift == 'true' }}
     runs-on: macos-latest
     steps:

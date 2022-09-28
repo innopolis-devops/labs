@@ -48,25 +48,12 @@ jobs:
             filters: |
               swift:
                 - app_swift
-  
-  test-swift:
-    needs: [changes]
-    name: "Swift tests"
-    timeout-minutes: 15
-    #if: ${{ needs.changes.outputs.swift == 'true' }}
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: cd app_swift
-      - run: |
-          swift build
-          swift test --parallel
 
   publish:
-    needs: [linters, test-swift]
+    needs: [linters]
     name: "Publish image"
     timeout-minutes: 20
-    # if: ${{ needs.changes.outputs.swift == 'true' }}
+    if: ${{ needs.changes.outputs.swift == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

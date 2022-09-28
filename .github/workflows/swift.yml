@@ -1,0 +1,69 @@
+name: Swift application CI/CD
+
+on:
+  push:
+    branches:
+      - master
+      - lab*
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+
+  pull_request:
+    branches:
+      - master
+      - lab* 
+    paths:
+      - app_swift/**
+      - .github/workflows/swift.yml
+
+jobs:
+
+  linters:
+    name: "Linters"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Markdown file"
+        uses: docker://avtodev/markdown-lint:v1
+        with:
+          config: "lint/markdown.json"
+          args: "./app_python"
+      - name: "Dockerfile"
+        uses: hadolint/hadolint-action@v1.5.0
+        with:
+          dockerfile: app_python/Dockerfile
+      - name: "Swift"
+        uses: norio-nomura/action-swiftlint@3.2.1
+
+  changes:
+      name: "Changes"
+      runs-on: ubuntu-latest
+      outputs:
+        python: ${{ steps.filter.outputs.swift }}
+      steps:
+        - uses: actions/checkout@v2
+        - uses: dorny/paths-filter@v2
+          id: filter
+          with:
+            filters: |
+              swift:
+                - app_swift
+
+  publish:
+    needs: [linters, changes]
+    name: "Publish image"
+    timeout-minutes: 5
+    if: ${{ needs.changes.outputs.swift == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: docker/setup-buildx-action@v2
+      - uses: docker/build-push-action@v2
+        with:
+          context: "{{defaultContext}}:app_swift"
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/app_swift:latest

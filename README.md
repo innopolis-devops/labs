@@ -9,6 +9,7 @@ This is the repo for DevOps labs at IU. Root folder contains documentation that 
 
 - [`DOCKER.md`](./DOCKER.md)
 - [`MARKDOWN.md`](./MARKDOWN.md)
+- [`CI.md`](./CI.md)
 
 ## More to read
 

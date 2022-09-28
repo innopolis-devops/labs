@@ -48,9 +48,25 @@ jobs:
             filters: |
               swift:
                 - app_swift
+  
+  test-swift:
+    needs: [changes]
+    name: "Swift tests"
+    timeout-minutes: 5
+    #if: ${{ needs.changes.outputs.swift == 'true' }}
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: fwal/setup-swift@2040b795e5c453c3a05fcb8316496afc8a74f192
+        with:
+          swift-version: "5.3.3"
+      - run: |
+          cd app_swift
+          swift build
+          swift test
 
   publish:
-    needs: [linters, changes]
+    needs: [linters, test-swift]
     name: "Publish image"
     timeout-minutes: 20
     # if: ${{ needs.changes.outputs.swift == 'true' }}

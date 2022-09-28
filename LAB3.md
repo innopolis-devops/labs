@@ -51,7 +51,7 @@ It will help us with grading.
 [examples](https://github.com/actions/starter-workflows/tree/main/ci).
 2. Improve your CI workflows:
    1. the Python app CI should run only if there are changes in the `app_python` folder
-   2. the extra `<language> app` CI should run only if there are
+   2. the extra `app_<language>` CI should run only if there are
    changes in the `app_<language>` folder
 
 ## Out of the bonus

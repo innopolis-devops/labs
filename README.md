@@ -128,6 +128,8 @@ python3 -m pytest app_python/tests
 
 to run the tests and see the coverage.
 
+Swift app is covered with unit tests too.
+
 ## Continuous Integration
 
 The project is supported with the CI workflow (using GitHub)

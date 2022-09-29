@@ -2,6 +2,15 @@
 
 ## Terraform Best Practices I Applied
 
+1. One directory per application
+1. Use input variables (`variables.tf`)
+1. Use `output.tf` for outputs
+1. Use `.gitignore`
+1. Use the environmental variables for authentication data
+1. Use proper naming
+1. Write meaningful description
+1. Use `terraform fmt` and `terraform validate`
+
 ## Build A Docker Infrastructure Using Terraform
 
 ### Outputs

@@ -1,5 +1,5 @@
 /app_python/venv/
-/__pycache__/
+**/__pycache__/*
 /app_php/vendor/
 
 

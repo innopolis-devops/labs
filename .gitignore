@@ -1,14 +1,19 @@
-# Byte-compiled / optimized / DLL files
-**/__pycache__/
-
-# Environments
-**/venv/
-
 # MacOS file system file
 **/.DS_Store
+
+# Python project
+**/__pycache__/
+**/venv/
+
+# Swift project
 app_swift/.build
 app_swift/.swiftpm
 app_swift/*.xcodeproj
 app_swift/*.resolved
 DerivedData/
 xcuserdata
+
+# Terraform
+terraform/**/.terraform
+terraform/**/*.tfstate
+terraform/**/*.tfstate.backup

@@ -6,14 +6,7 @@ on:
       - master
       - lab*
     tags:
-      - v[0-9]+.[0-9]+.[0-9]+
-  pull_request:
-    branches:
-      - master
-      - lab* 
-    paths:
-      - app_swift/**
-      - .github/workflows/swift.yml
+      - '*'
 
 jobs:
 

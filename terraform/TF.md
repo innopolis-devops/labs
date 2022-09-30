@@ -70,11 +70,99 @@ resource "docker_container" "msc_time" {
 
 ```terraform state list```
 ```sh
-    docker_container.msc_time
+docker_container.msc_time
 ```
 
-## AWS infrastructure
+## ~~AWS infrastructure~~
 > Sorry, we need to pay to use AWS but we live in Russia. I can use VPN (and what I do), but I have no foreign bank card to link with account...
+
+## Yandex.Cloud
+
+```terraform show```
+```sh
+# yandex_compute_instance.msc_time-vm:
+resource "yandex_compute_instance" "msc_time-vm" {
+    created_at                = "2022-09-30T20:04:02Z"
+    folder_id                 = "b1gep7igk87unm156jvk"
+    fqdn                      = "fhmm3stnspng49ld24cd.auto.internal"
+    id                        = "fhmm3stnspng49ld24cd"
+    network_acceleration_type = "standard"
+    platform_id               = "standard-v1"
+    status                    = "running"
+    zone                      = "ru-central1-a"
+
+    boot_disk {
+        auto_delete = true
+        device_name = "fhm2g2g3gm3cjg8l71cl"
+        disk_id     = "fhm2g2g3gm3cjg8l71cl"
+        mode        = "READ_WRITE"
+
+        initialize_params {
+            block_size = 4096
+            image_id   = "fd8kdq6d0p8sij7h5qe3"
+            size       = 10
+            type       = "network-hdd"
+        }
+    }
+
+    network_interface {
+        index              = 0
+        ip_address         = "192.168.10.9"
+        ipv4               = true
+        ipv6               = false
+        mac_address        = "d0:0d:16:1f:3b:7e"
+        nat                = false
+        security_group_ids = []
+        subnet_id          = "e9bupthc9p5nlro20ok3"
+    }
+
+    placement_policy {
+        host_affinity_rules = []
+    }
+
+    resources {
+        core_fraction = 100
+        cores         = 2
+        gpus          = 0
+        memory        = 4
+    }
+
+    scheduling_policy {
+        preemptible = false
+    }
+}
+
+# yandex_vpc_network.default:
+resource "yandex_vpc_network" "default" {
+    created_at = "2022-09-30T20:04:00Z"
+    folder_id  = "b1gep7igk87unm156jvk"
+    id         = "enplbdrhs338r82dp76j"
+    labels     = {}
+    name       = "msc_time-network"
+    subnet_ids = []
+}
+
+resource "yandex_vpc_subnet" "default" {
+    created_at     = "2022-09-30T20:04:01Z"
+    folder_id      = "b1gep7igk87unm156jvk"
+    id             = "e9bupthc9p5nlro20ok3"
+    labels         = {}
+    name           = "msc_tim-subnetwork"
+    network_id     = "enplbdrhs338r82dp76j"
+    v4_cidr_blocks = [
+        "192.168.10.0/24",
+    ]
+    v6_cidr_blocks = []
+    zone           = "ru-central1-a"
+}
+``` 
+
+```terraform state list```
+```sh
+yandex_compute_instance.msc_time-vm
+yandex_vpc_network.default
+yandex_vpc_subnet.default
+```
 
 ## GitHub infrastructure
 
@@ -83,7 +171,7 @@ After the use of `terraform apply`, entering the GitHub access token and printin
 github_repository.test: Creating...
 github_repository.test: Creation complete after 7s [id=Andrey-Terraform-Test]
 github_branch.master: Creating...
-github_branch.master: Creation complete after 3s [id=Andrey-Terraform-Test:development]
+github_branch.master: Creation complete after 3s [id=Andrey-Terraform-Test:master]
 github_branch_default.master: Creating...
 github_branch_default.master: Creation complete after 3s [id=Andrey-Terraform-Test]
 github_branch_protection.default: Creating...

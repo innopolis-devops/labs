@@ -6,6 +6,7 @@
 - To format files, perform `terraform fmt` in the terminal.
 - Better to use *outputs.tf* to define the outputs.
 - Better to use *variables.tf* to define the variables.
+- Do not hardcode such things as tokens - use environment variables instead.
 
 ## Docker
 
@@ -190,3 +191,7 @@ whutao@Romans-MacBook-Pro docker % terraform output
 docker_container_id = "08330d55e07f14f5f1fca84d79a991355ba3c4c03f4b483f70e6906449a42085"
 docker_image_id = "sha256:217f99b91b69f465e373d644e6eb4cf34e30efdf2676d6d1592a2b890460de00whutao/app_python:latest"
 ```
+
+## GitHub
+
+The generated repo can be found [here](https://github.com/whutao/course-devops-terraform-generated).

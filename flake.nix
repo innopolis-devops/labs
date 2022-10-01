@@ -67,14 +67,13 @@
         };
       };
 
+      tools = { inherit (pkgs) docker poetry python310; };
       codium = mkCodium {
         extensions = { inherit (extensions) nix markdown purescript github misc docker python toml; };
         runtimeDependencies =
           builtins.attrValues (
             (mergeValues { inherit (shellTools) nix purescript; })
             // { inherit (pkgs) docker poetry python310; }
-            // (mergeValues commands)
-            // configWriters
           );
 
       };
@@ -86,7 +85,13 @@
       devShells =
         mkDevShellsWithDefault
           {
-            buildInputs = [ codium (builtins.attrValues update) app-python-pkgs.updateDependencies ];
+            buildInputs = [
+              codium
+              (builtins.attrValues update)
+              app-python-pkgs.updateDependencies
+              (builtins.attrValues tools)
+              (builtins.attrValues (mergeValues commands))
+            ];
             shellHook = ''poetry env use $PWD/.venv/bin/python'';
           }
           {

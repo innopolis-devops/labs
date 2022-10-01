@@ -29,14 +29,14 @@ let
     {
       "${commandNames_.run}" =
         let
-          pythonStart = scripts.${langPurescript}.run-start;
+          pythonStart = scripts.${langPython}.run-start;
           purescriptStart = scripts.${langPurescript}.run-start;
           runtimeInputs = {
             "${langPython}" = [ pythonStart ];
             "${langPurescript}" = [ purescriptStart ];
           };
           text = {
-            "${langPython}" = pythonStart;
+            "${langPython}" = pythonStart.name;
             "${langPurescript}" = purescriptStart.name;
           };
         in

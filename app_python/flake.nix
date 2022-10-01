@@ -45,8 +45,10 @@
 
           scripts = mkShellApps {
             run-start = {
-              runtimeInputs = [ tools.python-dotenv tools.poetry ];
-              text = ''poetry run app'';
+              runtimeInputs = [ tools.python-dotenv tools.poetry];
+              text = ''
+                poetry run app
+              '';
             };
           };
           updateDependencies = mkShellApp {
@@ -57,6 +59,15 @@
               poetry install
             '';
           };
+          activateEnv = mkShellApp {
+            name = "activate-env";
+            runtimeInputs = [ tools.poetry ];
+            text = ''
+              source .venv/bin/activate
+              poetry env use $PWD/.venv/bin/python
+            '';
+          };
+
         in
         {
           inherit scripts;
@@ -65,11 +76,8 @@
           };
           devShells = mkDevShellsWithDefault
             {
-              buildInputs = builtins.attrValues (tools // scripts // { inherit updateDependencies; });
-              shellHook = ''
-                source .venv/bin/activate
-                poetry env use $PWD/.venv/bin/python
-              '';
+              buildInputs = builtins.attrValues (tools // scripts // { inherit updateDependencies; inherit activateEnv; });
+              shellHook = ''${activateEnv.name}'';
             }
             {
               fish = { };

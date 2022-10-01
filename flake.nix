@@ -96,15 +96,18 @@
           }
           {
             fish = { };
-            ci-cache = {
-              shellHook = ''${update.flakesPushToCachix.name}'';
-              buildInputs = [ update.flakesPushToCachix ];
-            };
+            # ci-cache = {
+            #   shellHook = ''${update.flakesPushToCachix.name}'';
+            #   buildInputs = [ update.flakesPushToCachix ];
+            # };
           };
     in
     {
       inherit commands;
       inherit devShells;
+      packages = {
+        default = update.flakesPushToCachix;
+      };
     });
 
   nixConfig = {

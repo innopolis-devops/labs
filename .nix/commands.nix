@@ -3,26 +3,19 @@ let
   inherit (import ./data.nix)
     dockerPorts
     langs
-    appName
     commandNames
     serviceNames
     langPython
     langPurescript
     ;
+
+  # we assume that the commands will start in the corresponding directories
   mkCommands = lang:
     let
       commandNames_ = commandNames.apps lang;
-      appName_ = appName lang;
-      dir_ = appName_;
-      # TODO use commandNames - compliant fields instead of just web
       serviceNames_ = serviceNames.${lang};
-      appWithDocker = name: dir: text: mkShellApp {
-        text = ''
-          cd ${dir_}
-
-          ${text}
-        '';
-        inherit name;
+      appWithDocker = name: text: mkShellApp {
+        inherit name text;
         runtimeInputs = [ pkgs.docker ];
       };
     in
@@ -43,21 +36,19 @@ let
         mkShellApp (
           {
             text = ''
-              cd ${dir_}
-
               ${text.${lang}}
             '';
             name = commandNames_.run;
             runtimeInputs = runtimeInputs.${lang};
           }
         );
-      "${commandNames_.dockerBuild}" = appWithDocker commandNames_.dockerBuild dir_ ''
+      "${commandNames_.dockerBuild}" = appWithDocker commandNames_.dockerBuild ''
         docker compose build ${serviceNames_.web}
       '';
-      "${commandNames_.dockerRun}" = appWithDocker commandNames_.dockerRun dir_ ''
+      "${commandNames_.dockerRun}" = appWithDocker commandNames_.dockerRun ''
         docker compose up ${serviceNames_.web}
       '';
-      "${commandNames_.dockerStop}" = appWithDocker commandNames_.dockerStop dir_ ''
+      "${commandNames_.dockerStop}" = appWithDocker commandNames_.dockerStop ''
         docker compose stop
       '';
     };

@@ -4,10 +4,10 @@
     nixpkgs.follows = "my-inputs/nixpkgs";
     flake-utils.follows = "my-inputs/flake-utils";
     nix-vscode-marketplace.follows = "my-inputs/nix-vscode-marketplace";
-    # app-python.url = path:./app_python;
-    app-python.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_python";
-    # app-purescript.url = path:./app_purescript;
-    app-purescript.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_purescript";
+    app-python.url = path:./app_python;
+    # app-python.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_python";
+    app-purescript.url = path:./app_purescript;
+    # app-purescript.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_purescript";
     my-json2md.follows = "my-inputs/json2md";
     my-codium.follows = "my-inputs/my-codium";
   };
@@ -71,28 +71,9 @@
         };
       };
 
-      tools = { inherit (pkgs) docker poetry python310; };
-
       rootDir = ./.;
       dirs = [ appPurescript appPython ];
       flakesUtils = mkFlakesUtils [ appPurescript appPython "." ];
-
-      devShells =
-        mkDevShellsWithDefault
-          {
-            buildInputs = [
-              codium
-              (builtins.attrValues flakesUtils)
-              app-python-pkgs.updateDependencies
-              (builtins.attrValues tools)
-              (builtins.attrValues (mergeValues commands))
-              pushToGithub_
-            ];
-            shellHook = ''poetry env use $PWD/.venv/bin/python'';
-          }
-          {
-            fish = { };
-          };
 
       flakesToggleRelativePaths_ =
         let
@@ -106,16 +87,35 @@
 
       pushToGithub_ = pushToGithub flakesToggleRelativePaths_ flakesUtils.flakesUpdate;
 
+      myTools =
+        {
+          inherit (pkgs) docker poetry python310;
+        }
+        // flakesUtils
+        // ({ inherit flakesToggleRelativePaths_ pushToGithub_; });
+
       codium = mkCodium {
         extensions = { inherit (extensions) nix markdown purescript github misc docker python toml; };
         runtimeDependencies =
-          builtins.attrValues
-            (
-              (mergeValues { inherit (shellTools) nix purescript; })
-              // { inherit (pkgs) docker poetry python310; }
-              // flakesUtils
-            ) ++ [ pushToGithub_ ];
+          builtins.attrValues ((mergeValues { inherit (shellTools) nix purescript docker; }) // myTools);
       };
+
+
+      devShells =
+        mkDevShellsWithDefault
+          {
+            buildInputs = [
+              codium
+            ];
+          }
+          {
+            commands = {
+              buildInputs = [ (toList commands) (builtins.attrValues configWriters)];
+            };
+            tools = {
+              buildInputs = builtins.attrValues myTools;
+            };
+          };
     in
     {
       inherit commands;

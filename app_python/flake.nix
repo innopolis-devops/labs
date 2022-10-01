@@ -45,10 +45,17 @@
 
           scripts = mkShellApps {
             run-start = {
-              runtimeInputs = [ tools.python-dotenv tools.poetry];
+              runtimeInputs = [ tools.python-dotenv pkgs.poetry ];
               text = ''
                 poetry run app
               '';
+            };
+            lint-and-fix-dockerfile = {
+              name = "lint-and-fix-dockerfile";
+              text = ''
+
+              '';
+              runtimeInputs = [ pkgs.haskellPackages.hadolint ];
             };
           };
           updateDependencies = mkShellApp {
@@ -59,29 +66,47 @@
               poetry install
             '';
           };
-          activateEnv = mkShellApp {
-            name = "activate-env";
-            runtimeInputs = [ tools.poetry ];
-            text = ''
-              source .venv/bin/activate
-              poetry env use $PWD/.venv/bin/python
-            '';
-          };
-
+          # TODO why can't we set env in a script?
+          # activateEnv = mkShellApp {
+          #   name = "activate-env";
+          #   text = ''
+          #     source .venv/bin/activate
+          #     poetry env use $PWD/.venv/bin/python
+          #   '';
+          # };
+          # How to activate env for a script?
+          # activateEnvHook = ''
+          #   source .venv/bin/activate
+          #   poetry env use $PWD/.venv/bin/python
+          # '';
         in
         {
           inherit scripts;
           packages = {
             inherit updateDependencies;
           };
-          devShells = mkDevShellsWithDefault
-            {
-              buildInputs = builtins.attrValues (tools // scripts // { inherit updateDependencies; inherit activateEnv; });
-              shellHook = ''${activateEnv.name}'';
-            }
-            {
-              fish = { };
-            };
+          devShells =
+            let
+
+            in
+            (mkDevShellsWithDefault
+              {
+                buildInputs = builtins.attrValues (scripts // { inherit (pkgs) poetry; });
+                shellHook = ''
+                  ${activateEnvHook}
+                '';
+              }
+              {
+                tools = {
+                  buildInputs = [
+                    builtins.attrValues
+                    (tools // { inherit updateDependencies; })
+                  ];
+                };
+              }
+            )
+            # // { inherit activateEnv; }
+          ;
         }) // { inherit (my-inputs) formatter; };
   nixConfig = {
     extra-substituters = [

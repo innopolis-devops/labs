@@ -5,27 +5,37 @@ let
     langs
     taskNames
     actionNames
+    appName
     ;
   tasksLang = lang:
     let
       taskNames_ = taskNames.apps lang;
       commandNames_ = commandNames.apps lang;
-      mkCommand = { lang, taskName, commandName }:
+      dir_ = appName lang;
+      # cwd relative to the workspace folder
+      mkCommand = { lang, taskName, commandName, cwd ? "." }:
         {
-          command = commands.apps.${commandName}.name;
+          command =
+            let path = commands.apps.${commandName};
+            in "${path}/bin/${path.name}";
           label = "${taskName}";
           options = {
-            cwd = "\${workspaceFolder}";
+            cwd = "\${workspaceFolder}/${cwd}";
           };
         };
       actionNames_ = builtins.attrValues actionNames.apps;
     in
     builtins.map
-      (action: mkCommand ({
-        inherit lang;
-        taskName = taskNames_.${action};
-        commandName = commandNames_.${action};
-      }))
+      (action: mkCommand
+        (
+          {
+            inherit lang;
+            taskName = taskNames_.${action};
+            commandName = commandNames_.${action};
+            cwd = dir_;
+          }
+        )
+      )
       actionNames_;
   tasks = builtins.concatMap tasksLang langs;
   tasksNix = {

@@ -7,7 +7,7 @@ variable "vm_cores" {
 variable "vm_mem" {
   description = "The size of RAM in GB"
   type        = number
-  default     = 4
+  default     = 2
 }
 
 variable "vm_os_image_id" {

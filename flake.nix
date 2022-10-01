@@ -72,15 +72,6 @@
       };
 
       tools = { inherit (pkgs) docker poetry python310; };
-      codium = mkCodium {
-        extensions = { inherit (extensions) nix markdown purescript github misc docker python toml; };
-        runtimeDependencies =
-          builtins.attrValues (
-            (mergeValues { inherit (shellTools) nix purescript; })
-            // { inherit (pkgs) docker poetry python310; }
-          );
-
-      };
 
       rootDir = ./.;
       dirs = [ appPurescript appPython ];
@@ -108,12 +99,23 @@
           appPython = "app-python";
           appPurescript = "app-purescript";
           toggleConfig = [
-            { "." = [ appPython appPurescript]; }
+            { "." = [ appPython appPurescript ]; }
           ];
         in
         flakesToggleRelativePaths toggleConfig flakesUtils.flakesUpdate;
-      
+
       pushToGithub_ = pushToGithub flakesToggleRelativePaths_ flakesUtils.flakesUpdate;
+
+      codium = mkCodium {
+        extensions = { inherit (extensions) nix markdown purescript github misc docker python toml; };
+        runtimeDependencies =
+          builtins.attrValues
+            (
+              (mergeValues { inherit (shellTools) nix purescript; })
+              // { inherit (pkgs) docker poetry python310; }
+              // flakesUtils
+            ) ++ [ pushToGithub_ ];
+      };
     in
     {
       inherit commands;

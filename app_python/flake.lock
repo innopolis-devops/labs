@@ -406,6 +406,22 @@
         "url": "https://hackage.haskell.org/package/brittany-0.13.1.2/brittany-0.13.1.2.tar.gz"
       }
     },
+    "cachix": {
+      "locked": {
+        "lastModified": 1664455073,
+        "narHash": "sha256-SMPL29UE/ffoHEYhUkq0NZ9T/AtXaM2HlwGBYazAJzs=",
+        "owner": "cachix",
+        "repo": "cachix",
+        "rev": "4c9397689598a3f2ea6123ddc556a105fe7b4c9c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "cachix",
+        "rev": "4c9397689598a3f2ea6123ddc556a105fe7b4c9c",
+        "type": "github"
+      }
+    },
     "constraints-extras": {
       "flake": false,
       "locked": {
@@ -3354,6 +3370,7 @@
     },
     "my-codium": {
       "inputs": {
+        "cachix": "cachix",
         "easy-purescript-nix": [
           "my-inputs",
           "my-codium",
@@ -3400,7 +3417,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-0yHMo6E5z1zNAzMDxW3QcnwvVu1oXqhFdcOCp1IAeDU=",
+        "narHash": "sha256-VZDEHaK2FDY1lRllZqqBVRYpkYgBDAfkuD757qowqfY=",
         "path": "../codium",
         "type": "path"
       },
@@ -3467,11 +3484,11 @@
       },
       "locked": {
         "dir": "inputs",
-        "lastModified": 1664575681,
-        "narHash": "sha256-sPeSvmSX+0brQynXBDxvNHQaHluwaWhASz+Y8s63FbM=",
+        "lastModified": 1664592067,
+        "narHash": "sha256-f0Pk7EJkM0lXtZFahLeaq+Ykvy5qFLraXS61z5yLVm0=",
         "owner": "br4ch1st0chr0n3",
         "repo": "flakes",
-        "rev": "0db8a0d17df3652f443a7eb51f73e0d1f5c02ef1",
+        "rev": "765854966988735cd7de7e1c8d21fb89d8d6d4f0",
         "type": "github"
       },
       "original": {

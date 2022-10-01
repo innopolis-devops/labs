@@ -39,21 +39,14 @@ jobs:
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= br4ch1st0chr0n3.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
           install_url: https://releases.nixos.org/nix/nix-2.10.3/install
           nix_path: nixpkgs=nixpkgs=https://github.com/NixOS/nixpkgs/archive/cd87aef066e4bdbb1139845500072bd252d37c5e.tar.gz
-      # - uses: cachix/cachix-action@v10
-      #   with:
-      #     name: ${{ secrets.CACHIX_CACHE }}
-      #     authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-
-      - name: Install cachix
-        run: |
-          nix profile install nixpkgs#cachix
-          cachix authtoken ${{ secrets.CACHIX_AUTH_TOKEN }}
-          cachix use ${{ secrets.CACHIX_CACHE }}
-
+      - name: Log in to Cachix
+        uses: cachix/cachix-action@v10
+        with:
+          name: ${{ secrets.CACHIX_CACHE }}
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Cache flakes
         run: CACHIX_CACHE=${{ secrets.CACHIX_CACHE }} nix develop .#ci-cache -c ""
-
-      - name: Login to Docker Hub
+      - name: Log in to Docker Hub
         run: docker login -p ${{ secrets.DOCKER_HUB_PASSWORD }} -u ${{ secrets.DOCKER_HUB_USER }}
 
       # - name: Push ${{ env.app_python }} to Docker Hub

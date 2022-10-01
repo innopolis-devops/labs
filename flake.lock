@@ -1051,7 +1051,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-Yx669DnRZ1fQJdTJY/bsFXSGtyOjxboPnwpfgKzkrRQ=",
+        "narHash": "sha256-5+btRH7pxei5kYdeRb+XiNLHqwNvbegEUQ+WVLtSDxI=",
         "path": "./app_purescript",
         "type": "path"
       },
@@ -1087,7 +1087,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-xBpWgnVqs/dj249VMhfRV9yuCvOFWNQ44g4UppAkgXk=",
+        "narHash": "sha256-5BDZKKG05/31M2N4DEnERTbh+lRwU+/hrl2GDlOA2Gg=",
         "path": "./app_python",
         "type": "path"
       },
@@ -1310,6 +1310,54 @@
       "original": {
         "type": "tarball",
         "url": "https://hackage.haskell.org/package/brittany-0.13.1.2/brittany-0.13.1.2.tar.gz"
+      }
+    },
+    "cachix": {
+      "locked": {
+        "lastModified": 1664455073,
+        "narHash": "sha256-SMPL29UE/ffoHEYhUkq0NZ9T/AtXaM2HlwGBYazAJzs=",
+        "owner": "cachix",
+        "repo": "cachix",
+        "rev": "4c9397689598a3f2ea6123ddc556a105fe7b4c9c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "cachix",
+        "rev": "4c9397689598a3f2ea6123ddc556a105fe7b4c9c",
+        "type": "github"
+      }
+    },
+    "cachix_2": {
+      "locked": {
+        "lastModified": 1664455073,
+        "narHash": "sha256-SMPL29UE/ffoHEYhUkq0NZ9T/AtXaM2HlwGBYazAJzs=",
+        "owner": "cachix",
+        "repo": "cachix",
+        "rev": "4c9397689598a3f2ea6123ddc556a105fe7b4c9c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "cachix",
+        "rev": "4c9397689598a3f2ea6123ddc556a105fe7b4c9c",
+        "type": "github"
+      }
+    },
+    "cachix_3": {
+      "locked": {
+        "lastModified": 1664455073,
+        "narHash": "sha256-SMPL29UE/ffoHEYhUkq0NZ9T/AtXaM2HlwGBYazAJzs=",
+        "owner": "cachix",
+        "repo": "cachix",
+        "rev": "4c9397689598a3f2ea6123ddc556a105fe7b4c9c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "cachix",
+        "rev": "4c9397689598a3f2ea6123ddc556a105fe7b4c9c",
+        "type": "github"
       }
     },
     "constraints-extras": {
@@ -10180,6 +10228,7 @@
     },
     "my-codium": {
       "inputs": {
+        "cachix": "cachix",
         "easy-purescript-nix": [
           "app-purescript",
           "my-inputs",
@@ -10233,7 +10282,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-0yHMo6E5z1zNAzMDxW3QcnwvVu1oXqhFdcOCp1IAeDU=",
+        "narHash": "sha256-VZDEHaK2FDY1lRllZqqBVRYpkYgBDAfkuD757qowqfY=",
         "path": "../codium",
         "type": "path"
       },
@@ -10244,6 +10293,7 @@
     },
     "my-codium_2": {
       "inputs": {
+        "cachix": "cachix_2",
         "easy-purescript-nix": [
           "app-python",
           "my-inputs",
@@ -10297,7 +10347,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-0yHMo6E5z1zNAzMDxW3QcnwvVu1oXqhFdcOCp1IAeDU=",
+        "narHash": "sha256-VZDEHaK2FDY1lRllZqqBVRYpkYgBDAfkuD757qowqfY=",
         "path": "../codium",
         "type": "path"
       },
@@ -10308,6 +10358,7 @@
     },
     "my-codium_3": {
       "inputs": {
+        "cachix": "cachix_3",
         "easy-purescript-nix": [
           "my-inputs",
           "my-codium",
@@ -10354,7 +10405,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-0yHMo6E5z1zNAzMDxW3QcnwvVu1oXqhFdcOCp1IAeDU=",
+        "narHash": "sha256-VZDEHaK2FDY1lRllZqqBVRYpkYgBDAfkuD757qowqfY=",
         "path": "../codium",
         "type": "path"
       },
@@ -10431,11 +10482,11 @@
       },
       "locked": {
         "dir": "inputs",
-        "lastModified": 1664575681,
-        "narHash": "sha256-sPeSvmSX+0brQynXBDxvNHQaHluwaWhASz+Y8s63FbM=",
+        "lastModified": 1664592067,
+        "narHash": "sha256-f0Pk7EJkM0lXtZFahLeaq+Ykvy5qFLraXS61z5yLVm0=",
         "owner": "br4ch1st0chr0n3",
         "repo": "flakes",
-        "rev": "0db8a0d17df3652f443a7eb51f73e0d1f5c02ef1",
+        "rev": "765854966988735cd7de7e1c8d21fb89d8d6d4f0",
         "type": "github"
       },
       "original": {
@@ -10687,11 +10738,11 @@
       },
       "locked": {
         "dir": "inputs",
-        "lastModified": 1664575681,
-        "narHash": "sha256-sPeSvmSX+0brQynXBDxvNHQaHluwaWhASz+Y8s63FbM=",
+        "lastModified": 1664592067,
+        "narHash": "sha256-f0Pk7EJkM0lXtZFahLeaq+Ykvy5qFLraXS61z5yLVm0=",
         "owner": "br4ch1st0chr0n3",
         "repo": "flakes",
-        "rev": "0db8a0d17df3652f443a7eb51f73e0d1f5c02ef1",
+        "rev": "765854966988735cd7de7e1c8d21fb89d8d6d4f0",
         "type": "github"
       },
       "original": {
@@ -10846,11 +10897,11 @@
       },
       "locked": {
         "dir": "inputs",
-        "lastModified": 1664575681,
-        "narHash": "sha256-sPeSvmSX+0brQynXBDxvNHQaHluwaWhASz+Y8s63FbM=",
+        "lastModified": 1664592067,
+        "narHash": "sha256-f0Pk7EJkM0lXtZFahLeaq+Ykvy5qFLraXS61z5yLVm0=",
         "owner": "br4ch1st0chr0n3",
         "repo": "flakes",
-        "rev": "0db8a0d17df3652f443a7eb51f73e0d1f5c02ef1",
+        "rev": "765854966988735cd7de7e1c8d21fb89d8d6d4f0",
         "type": "github"
       },
       "original": {

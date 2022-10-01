@@ -15,14 +15,11 @@ pylint = "^2.15.3"
 manage-fastapi = "^1.1.1"
 black = "^22.8.0"
 djlint = "^1.17.1"
-poetry = "^1.2.1"
 uvicorn = "^0.18.3"
 fastapi = "^0.85.0"
 python-dotenv = "^0.21.0"
 pydantic = "^1.10.2"
 Jinja2 = "^3.1.2"
-
-[tool.poetry.scripts]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

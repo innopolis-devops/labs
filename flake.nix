@@ -3,11 +3,11 @@
     my-inputs.url = "github:br4ch1st0chr0n3/flakes?dir=inputs";
     nixpkgs.follows = "my-inputs/nixpkgs";
     flake-utils.follows = "my-inputs/flake-utils";
-    my-codium.follows = "my-inputs/my-codium";
-    my-json2md.follows = "my-inputs/json2md";
     nix-vscode-marketplace.follows = "my-inputs/nix-vscode-marketplace";
     app-python.url = path:./app_python;
     app-purescript.url = path:./app_purescript;
+    my-json2md.follows = "my-inputs/json2md";
+    my-codium.follows = "my-inputs/my-codium";
   };
   outputs =
     { self
@@ -29,9 +29,11 @@
         shellTools
         extensions
         mkCodium
-        writeShellApp
+        mkShellApp
+        mkShellApps
         mergeValues
-        mkDevShellsWithDirenv
+        mkDevShellsWithDefault
+        mkFlakesUtils
         ;
 
       app-python-pkgs = app-python.packages.${system};
@@ -57,56 +59,47 @@
           }
         );
 
-
-      updateFlakes = writeShellApp {
-        name = "update-flakes";
-        text = ''
-          (cd ${appPython} && nix flake update)
-          (cd ${appPurescript} && nix flake update)
-          nix flake update
-        '';
-      };
-
       commands = import ./.nix/commands.nix {
-        inherit pkgs writeShellApp;
+        inherit pkgs mkShellApp;
         scripts = {
           ${langPurescript} = app-purescript.scripts.${system};
+          ${langPython} = app-python.scripts.${system};
         };
       };
 
-      codiumDependencies =
-        (mergeValues { inherit (shellTools) nix purescript; }) //
-        { inherit (pkgs) docker poetry; };
-      otherTools = {
-        inherit updateFlakes;
-      } // (mergeValues commands) // configWriters;
-      codiumWithExtensions = mkCodium {
-        inherit (extensions) nix markdown purescript github misc docker python toml;
-      };
-      codium =
-        writeShellApp {
-          name = "codium-2";
-          runtimeInputs = [
-            codiumWithExtensions
-            (builtins.attrValues codiumDependencies)
-            (builtins.attrValues otherTools)
-          ];
-          text = ''
-            codium .
-          '';
-        };
+      codium = mkCodium {
+        extensions = { inherit (extensions) nix markdown purescript github misc docker python toml; };
+        runtimeDependencies =
+          builtins.attrValues (
+            (mergeValues { inherit (shellTools) nix purescript; })
+            // { inherit (pkgs) docker poetry python310; }
+            // (mergeValues commands)
+            // configWriters
+          );
 
-      devShells = mkDevShellsWithDirenv
-        {
-          runtimeInputs = [ updateFlakes (builtins.attrValues (mergeValues commands)) ];
-        }
-        {
-          codium = { runtimeInpus = [ codium ]; };
-          codiumTools = { runtimeInputs = [ (builtins.attrValues codiumDependencies) ]; };
-        };
+      };
+
+      rootDir = ./.;
+      dirs = [ appPurescript appPython ];
+      update = mkFlakesUtils [ appPurescript appPython "." ];
+
+      devShells =
+        mkDevShellsWithDefault
+          {
+            buildInputs = [ codium (builtins.attrValues update) app-python-pkgs.updateDependencies ];
+            shellHook = ''poetry env use $PWD/.venv/bin/python'';
+          }
+          {
+            fish = { };
+            ci-cache = {
+              shellHook = ''${update.flakesUpdateAndPushToCachix.name}'';
+              buildInputs = [ update.flakesUpdateAndPushToCachix ];
+            };
+          };
     in
     {
-      packages = devShells;
+      inherit commands;
+      inherit devShells;
     });
 
   nixConfig = {

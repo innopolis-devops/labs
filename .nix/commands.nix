@@ -1,4 +1,4 @@
-{ pkgs, writeShellApp, scripts }:
+{ pkgs, mkShellApp, scripts }:
 let
   inherit (import ./data.nix)
     dockerPorts
@@ -16,7 +16,7 @@ let
       dir_ = appName_;
       # TODO use commandNames - compliant fields instead of just web
       serviceNames_ = serviceNames.${lang};
-      appWithDocker = name: dir: text: writeShellApp {
+      appWithDocker = name: dir: text: mkShellApp {
         text = ''
           cd ${dir_}
 
@@ -29,17 +29,18 @@ let
     {
       "${commandNames_.run}" =
         let
+          pythonStart = scripts.${langPurescript}.run-start;
+          purescriptStart = scripts.${langPurescript}.run-start;
           runtimeInputs = {
-            "${langPython}" = [ "#! /bin/bash echo hi" ];
-            "${langPurescript}" = [ pursStart ];
+            "${langPython}" = [ pythonStart ];
+            "${langPurescript}" = [ purescriptStart ];
           };
-          pursStart = scripts.${langPurescript}.run-start;
           text = {
-            "${langPython}" = "echo py\n";
-            "${langPurescript}" = "${pursStart.name}";
+            "${langPython}" = pythonStart;
+            "${langPurescript}" = purescriptStart.name;
           };
         in
-        writeShellApp (
+        mkShellApp (
           {
             text = ''
               cd ${dir_}

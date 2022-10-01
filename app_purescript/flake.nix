@@ -8,8 +8,8 @@
     gitignore.follows = "my-inputs/gitignore";
     easy-purescript-nix.follows = "my-inputs/easy-purescript-nix";
     dream2nix.follows = "my-inputs/dream2nix";
-    spago-nix.url = "github:ngua/spago.nix";
     my-codium.follows = "my-inputs/my-codium";
+    spago-nix.url = "github:ngua/spago.nix";
   };
 
   outputs =
@@ -24,65 +24,61 @@
     , my-codium
     }:
       with flake-utils.lib;
-      eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-        inherit (my-codium.tools.${system})
-          writeShellApp
-          mkDevShellsWithDirenv
-          ;
+      eachDefaultSystem
+        (system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          inherit (my-codium.tools.${system})
+            mkShellApp
+            mkShellApps
+            mkDevShellsWithDefault
+            ;
 
-        tools = {
-          inherit (import easy-purescript-nix { inherit pkgs; }) purs-0_15_4 spago;
-          inherit (pkgs) nodejs-16_x;
-        };
-
-        scripts =
-          let
-            data = import ../.nix/data.nix;
-            inherit (data) langPurescript;
-            commandNames_ = data.commandNames.apps langPurescript;
-          in
-          {
-            run-start =
-              writeShellApp (
-                {
-                  name = "run-start";
-                  runtimeInputs =
-                    [
-                      pkgs.python310Packages.python-dotenv
-                      tools.spago
-                      tools.nodejs-16_x
-                    ];
-                  text =
-                    let
-                      envFile = "app.env";
-                      exportFile = "${envFile}.export";
-                      spago_ = "spago";
-                    in
-                    ''
-                      ${spago_} install
-                      ${spago_} build
-                      dotenv -f ${envFile} list > ${exportFile}
-                      . ${exportFile}
-                      rm ${exportFile}
-                      npx parcel serve -p $PORT --host $HOST dev/index.html
-                    '';
-                }
-              );
+          tools = {
+            inherit (import easy-purescript-nix { inherit pkgs; }) purs-0_15_4 spago;
+            inherit (pkgs) nodejs-16_x;
+            inherit (pkgs.python310Packages) python-dotenv;
           };
 
-        devShells = mkDevShellsWithDirenv { } {
-          scripts = {
-            runtimeInputs = builtins.attrValues scripts;
-          };
-        };
-        envrc = ".envrc";
-      in
-      {
-        packages = devShells;
-        inherit scripts;
-      });
+          data = import ../.nix/data.nix;
+
+          scripts =
+            let
+              inherit (data) langPurescript;
+              commandNames_ = data.commandNames.apps langPurescript;
+            in
+            mkShellApps
+              {
+                run-start =
+                  {
+                    runtimeInputs = builtins.attrValues { inherit (tools) python-dotenv spago nodejs-16_x; };
+                    text =
+                      let
+                        dotenvFile = "app.env";
+                        spago_ = "spago";
+                      in
+                      ''
+                        ${spago_} install
+                        ${spago_} build
+                        source <( dotenv -f ${dotenvFile} list )
+                        npx parcel serve -p $PORT --host $HOST dev/index.html
+                      '';
+                  };
+              };
+
+          devShells = mkDevShellsWithDefault
+            {
+              buildInputs = builtins.attrValues scripts;
+            }
+            { 
+              fish = {};
+            };
+        in
+        {
+          inherit scripts;
+          inherit devShells;
+        })
+      // { inherit (my-inputs) formatter; };
   nixConfig = {
     extra-substituters = [
       https://haskell-language-server.cachix.org

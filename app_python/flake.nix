@@ -2,10 +2,11 @@
   description = "Try-phi front end";
 
   inputs = {
-    inputs.url = "github:br4ch1st0chr0n3/flakes?dir=inputs";
-    nixpkgs.follows = "inputs/nixpkgs";
-    flake-utils.follows = "inputs/flake-utils";
-    gitignore.follows = "inputs/gitignore";
+    my-inputs.url = "github:br4ch1st0chr0n3/flakes?dir=inputs";
+    nixpkgs.follows = "my-inputs/nixpkgs";
+    flake-utils.follows = "my-inputs/flake-utils";
+    gitignore.follows = "my-inputs/gitignore";
+    my-codium.follows = "my-inputs/my-codium";
     # poetry2nix.follows = "inputs/poetry2nix";
     poetry2nix = {
       url = "github:br4ch1st0chr0n3/poetry2nix/patch-1";
@@ -16,80 +17,64 @@
 
   outputs =
     { self
-    , inputs
     , nixpkgs
     , flake-utils
     , gitignore
+    , my-codium
+    , my-inputs
     , poetry2nix
     }:
       with flake-utils.lib;
-      eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
+      eachDefaultSystem
+        (system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
 
-        # Not really needed for now -->
-        overlay = pkgs.lib.composeManyExtensions [
-          poetry2nix.overlay
-          (final: prev: {
-            env = prev.poetry2nix.mkPoetryEnv {
-              projectDir = gitignore.lib.gitignoreSource ./.;
-              python = pkgs.python310;
+          dotenvFile = "app.env";
+
+          tools = {
+            inherit (pkgs) poetry python310;
+            inherit (pkgs.python310Packages) python-dotenv;
+          };
+
+          inherit (my-codium.tools.${system})
+            mkShellApp
+            mkShellApps
+            mkDevShellsWithDefault
+            ;
+
+          scripts = mkShellApps {
+            run-start = {
+              runtimeInputs = [ tools.python-dotenv tools.poetry ];
+              text = ''poetry run app'';
             };
-            editablePackageSources = {
-              my-app = ./app;
-            };
-          })
-        ];
-        p2nix = pkgs.extend overlay;
-        # <--
-        dotenvFile = "app.env";
-        # env = poetry2nix.mkPoetryEnv {
-        #   python = pkgs.python310;
-        #   projectDir = ./.;
-        # };
-        app = appName:
-          writeShellApp {
-            name = "write-dotenv";
-            runtimeInputs = [ (pkgs.python310Packages.python-dotenv) ];
+          };
+          updateDependencies = mkShellApp {
+            runtimeInputs = [ tools.poetry ];
+            name = "poetry-update-dependencies";
             text = ''
-              dotenv -f ${appName}/.env set ${DOCKER_PORT}
+              poetry update
+              poetry install
             '';
           };
-        tools = {
-          inherit (pkgs) poetry python310;
-        };
-
-      in
-      {
-        # packages = {
-        #   default = pkgs.runCommand "env-test" { } ''
-        #     ${env}/bin/python --version
-        #   '' // { inherit env; };
-        # };
-
-        devShells = {
-          default = pkgs.mkShell {
-            buildInputs = builtins.attrValues myTools;
+        in
+        {
+          inherit scripts;
+          packages = {
+            inherit updateDependencies;
           };
-          make-poetry-env = pkgs.mkShell {
-            # https://stackoverflow.com/a/64434542
-            buildInputs = myTools;
-            shellHook = ''
-              nix develop -c bash -c '
-                poetry config virtualenvs.in-project true
-                poetry install
-              '
-            '';
-          };
-          dev = pkgs.mkShell {
-            shellHook = ''
-              nix develop .#make-poetry-env -c bash -c '
-                poetry run uvicorn --reload --host=$HOST --port=$PORT app.main:app
-              '
-            '';
-          };
-        };
-      });
+          devShells = mkDevShellsWithDefault
+            {
+              buildInputs = builtins.attrValues (tools // scripts // { inherit updateDependencies; });
+              shellHook = ''
+                source .venv/bin/activate
+                poetry env use $PWD/.venv/bin/python
+              '';
+            }
+            {
+              fish = { };
+            };
+        }) // { inherit (my-inputs) formatter; };
   nixConfig = {
     extra-substituters = [
       https://haskell-language-server.cachix.org

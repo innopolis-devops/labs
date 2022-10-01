@@ -1,7 +1,10 @@
+# syntax=docker/dockerfile:1.3-labs
 ###############################################
 # Base Image
 ###############################################
+
 FROM python:3.10-slim as python-base
+
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -13,6 +16,7 @@ ENV PYTHONUNBUFFERED=1 \
     POETRY_NO_INTERACTION=1 \
     PYSETUP_PATH="/opt/pysetup" \
     VENV_PATH="/opt/pysetup/.venv"
+    
 
 # prepend poetry and venv to path
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
@@ -21,20 +25,17 @@ ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 FROM python-base AS builder-base
 RUN <<EOF
 buildDeps="build-essential"
-&& apt-get update
-&& apt-get install --no-install-recommends -y
-    curl
-    vim
-    netcat
-&& apt-get install -y --no-install-recommends $buildDeps
-&& rm -rf /var/lib/apt/lists/*
+apt-get update
+apt-get install --no-install-recommends -y curl vim netcat
+apt-get install -y --no-install-recommends $buildDeps
+rm -rf /var/lib/apt/lists/*
 EOF
 
 # Install Poetry - respects $POETRY_VERSION & $POETRY_HOME
 ENV POETRY_VERSION=1.2.1
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN <<EOF
-curl -sSL https://install.python-poetry.org/ | python &&
+curl -sSL https://install.python-poetry.org/ | python
 chmod a+x /opt/poetry/bin/poetry
 EOF
 
@@ -63,15 +64,15 @@ RUN . /opt/pysetup/.venv/bin/activate
 ENTRYPOINT [ "sh", "-c", "uvicorn --reload --host $HOST --port $PORT app.main:app"]
 
 
-# # 'lint' stage runs black and isort
-# # running in check mode means build will fail if any linting errors occur
-# FROM development AS lint
-# RUN black --config ./pyproject.toml --check app tests
-# RUN isort --settings-path ./pyproject.toml --recursive --check-only
-# CMD ["tail", "-f", "/dev/null"]
+# 'lint' stage runs black and isort
+# running in check mode means build will fail if any linting errors occur
+FROM development AS lint
+RUN black --config ./pyproject.toml --check app tests
+RUN isort --settings-path ./pyproject.toml --recursive --check-only
+CMD ["tail", "-f", "/dev/null"]
 
-# # 'test' stage runs our unit tests with pytest and
-# # coverage.  Build will fail if test coverage is under 95%
+# 'test' stage runs our unit tests with pytest and
+# coverage.  Build will fail if test coverage is under 95%
 # FROM development AS test
 # RUN coverage run --rcfile ./pyproject.toml -m pytest ./tests
 # RUN coverage report --fail-under 95

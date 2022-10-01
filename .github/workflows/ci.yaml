@@ -13,18 +13,18 @@ jobs:
   caching:
     name: Build on ${{ matrix.os }}
     env:
-      cache: br4ch1st0chr0n3
-      root: ./
-      app_purescript: app_purescript
-      app_python: app_python
-      root_devShells: "default codium"
-      app_purescript_devShells: "default dev"
-      app_python_devShells: "default dev"
-      each-devshell: ./.github/actions/each-devshell
-      DOCKER_HUB_USER: dademd
+      # cache: br4ch1st0chr0n3
+      # root: ./
+      # app_purescript: app_purescript
+      # app_python: app_python
+      # root_devShells: "default codium"
+      # app_purescript_devShells: "default dev"
+      # app_python_devShells: "default dev"
+      # each-devshell: ./.github/actions/each-devshell
+      # DOCKER_HUB_USER: dademd
       IMAGE_TAG: v1
-      python: python
-      purescript: purescript
+      # python: python
+      # purescript: purescript
     strategy:
       matrix:
         os: [ubuntu-20.04, ubuntu-22.04]
@@ -39,43 +39,28 @@ jobs:
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= br4ch1st0chr0n3.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
       - uses: cachix/cachix-action@v10
         with:
-          name: ${{ env.cache }}
+          name: ${{ secrets.CACHIX_CACHE }}
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
-      # - name: Cache ${{ env.root }}
-      #   uses: ./.github/actions/each-devshell
-      #   with:
-      #     ROOT: ${{ env.root }}
-      #     SHELLS: ${{ env.root_devShells }}
-
-      # - name: Cache ${{ env.app_purescript }}
-      #   uses: ./.github/actions/each-devshell
-      #   with:
-      #     ROOT: ${{ env.app_purescript }}
-      #     SHELLS: ${{ env.app_purescript_devShells }}
-
-      # - name: Cache ${{ env.app_python }}
-      #   uses: ./.github/actions/each-devshell
-      #   with:
-      #     ROOT: ${{ env.app_python }}
-      #     SHELLS: ${{ env.app_python_devShells }}
+      - name: Cache flakes
+        run: nix develop .#ci-cache -c ""
 
       - name: Login to Docker Hub
-        run: docker login -p ${{ secrets.DOCKER_HUB_PASSWORD }} -u ${{ env.DOCKER_HUB_USER }}
+        run: docker login -p ${{ secrets.DOCKER_HUB_PASSWORD }} -u ${{ secrets.DOCKER_HUB_USER }}
 
-      - name: Push ${{ env.app_python }} to Docker Hub
-        uses: ./.github/actions/push-to-docker-hub
-        with:
-          PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          NAME: ${{ env.app_python }}
-          TAG: ${{ github.sha }}
-          SHELL: ${{ env.python }}
+      # - name: Push ${{ env.app_python }} to Docker Hub
+      #   uses: ./.github/actions/push-to-docker-hub
+      #   with:
+      #     PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      #     NAME: ${{ env.app_python }}
+      #     TAG: ${{ github.sha }}
+      #     SHELL: ${{ env.python }}
       
-      - name: Push ${{ env.app_purescript }} to Docker Hub
-        uses: ./.github/actions/push-to-docker-hub
-        with:
-          PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          NAME: ${{ env.app_purescript }}
-          TAG: ${{ github.sha }}
-          SHELL: ${{ env.purescript }}
+      # - name: Push ${{ env.app_purescript }} to Docker Hub
+      #   uses: ./.github/actions/push-to-docker-hub
+      #   with:
+      #     PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      #     NAME: ${{ env.app_purescript }}
+      #     TAG: ${{ github.sha }}
+      #     SHELL: ${{ env.purescript }}
 

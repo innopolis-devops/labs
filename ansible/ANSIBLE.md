@@ -4,7 +4,7 @@
 
 - [Inventory description](#inventory)
 - [Playbook description](#playbook)
-- [Command outputs](#inventory)
+- [Command outputs](#deployment-outputs)
   - [Playbook run](#run-playbook)
   - [Inventory list](#inventory-list)
 - [Bonus: dynamic inventory](#bonus-dynamic-inventory)

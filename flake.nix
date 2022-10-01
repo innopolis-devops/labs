@@ -97,8 +97,8 @@
           {
             fish = { };
             ci-cache = {
-              shellHook = ''${update.flakesUpdateAndPushToCachix.name}'';
-              buildInputs = [ update.flakesUpdateAndPushToCachix ];
+              shellHook = ''${update.flakesPushToCachix.name}'';
+              buildInputs = [ update.flakesPushToCachix ];
             };
           };
     in

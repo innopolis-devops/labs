@@ -36,6 +36,8 @@
         mergeValues
         mkDevShellsWithDefault
         mkFlakesUtils
+        flakesToggleRelativePaths
+        pushToGithub
         ;
 
       app-python-pkgs = app-python.packages.${system};
@@ -82,33 +84,42 @@
 
       rootDir = ./.;
       dirs = [ appPurescript appPython ];
-      update = mkFlakesUtils [ appPurescript appPython "." ];
+      flakesUtils = mkFlakesUtils [ appPurescript appPython "." ];
 
       devShells =
         mkDevShellsWithDefault
           {
             buildInputs = [
               codium
-              (builtins.attrValues update)
+              (builtins.attrValues flakesUtils)
               app-python-pkgs.updateDependencies
               (builtins.attrValues tools)
               (builtins.attrValues (mergeValues commands))
+              pushToGithub_
             ];
             shellHook = ''poetry env use $PWD/.venv/bin/python'';
           }
           {
             fish = { };
-            # ci-cache = {
-            #   shellHook = ''${update.flakesPushToCachix.name}'';
-            #   buildInputs = [ update.flakesPushToCachix ];
-            # };
           };
+
+      flakesToggleRelativePaths_ =
+        let
+          appPython = "app-python";
+          appPurescript = "app-purescript";
+          toggleConfig = [
+            { "." = [ appPython appPurescript]; }
+          ];
+        in
+        flakesToggleRelativePaths toggleConfig flakesUtils.flakesUpdate;
+      
+      pushToGithub_ = pushToGithub flakesToggleRelativePaths_ flakesUtils.flakesUpdate;
     in
     {
       inherit commands;
       inherit devShells;
       packages = {
-        default = update.flakesPushToCachix;
+        default = flakesUtils.flakesPushToCachix;
       };
     });
 

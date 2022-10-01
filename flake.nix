@@ -4,8 +4,10 @@
     nixpkgs.follows = "my-inputs/nixpkgs";
     flake-utils.follows = "my-inputs/flake-utils";
     nix-vscode-marketplace.follows = "my-inputs/nix-vscode-marketplace";
-    app-python.url = path:./app_python;
-    app-purescript.url = path:./app_purescript;
+    # app-python.url = path:./app_python;
+    app-python.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_python";
+    # app-purescript.url = path:./app_purescript;
+    app-purescript.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_purescript";
     my-json2md.follows = "my-inputs/json2md";
     my-codium.follows = "my-inputs/my-codium";
   };

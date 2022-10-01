@@ -1050,14 +1050,20 @@
         "spago-nix": "spago-nix"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-nJ25EnmaVQbWYUx9udCBtgtsY1up8jh4MClTFx2QV6Y=",
-        "path": "./app_purescript",
-        "type": "path"
+        "dir": "app_purescript",
+        "lastModified": 1664596596,
+        "narHash": "sha256-3+5Iwv+xwUZxEWfEfh7CGXCXhyz7s3+yBxtcL68jxzQ=",
+        "owner": "br4ch1st0chr0n3",
+        "repo": "devops-labs",
+        "rev": "982fd2377dbed0b5da9768af091eb18b7e82ac79",
+        "type": "github"
       },
       "original": {
-        "path": "./app_purescript",
-        "type": "path"
+        "dir": "app_purescript",
+        "owner": "br4ch1st0chr0n3",
+        "ref": "lab2",
+        "repo": "devops-labs",
+        "type": "github"
       }
     },
     "app-python": {
@@ -1086,14 +1092,20 @@
         "poetry2nix": "poetry2nix_37"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-tGw4RH5jqi0QfM1bcqXTbbIDS4+ft4qlAx1Fdya7qlA=",
-        "path": "./app_python",
-        "type": "path"
+        "dir": "app_python",
+        "lastModified": 1664596596,
+        "narHash": "sha256-3+5Iwv+xwUZxEWfEfh7CGXCXhyz7s3+yBxtcL68jxzQ=",
+        "owner": "br4ch1st0chr0n3",
+        "repo": "devops-labs",
+        "rev": "982fd2377dbed0b5da9768af091eb18b7e82ac79",
+        "type": "github"
       },
       "original": {
-        "path": "./app_python",
-        "type": "path"
+        "dir": "app_python",
+        "owner": "br4ch1st0chr0n3",
+        "ref": "lab2",
+        "repo": "devops-labs",
+        "type": "github"
       }
     },
     "brittany-01312": {

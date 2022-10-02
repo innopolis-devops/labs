@@ -1391,11 +1391,11 @@
       },
       "locked": {
         "dir": "app_purescript",
-        "lastModified": 1664669624,
-        "narHash": "sha256-+IzbzvDQTjiC1CJQ3bFtD0RGQ5ztM5Sg7EclOpvOVVY=",
+        "lastModified": 1664670823,
+        "narHash": "sha256-MRZ5f4iIjnRdbA2GI6OBkvfpLRGt1eqZZgXZKinTHqU=",
         "owner": "br4ch1st0chr0n3",
         "repo": "devops-labs",
-        "rev": "fde032fd473fa1f71db634873fe8fb81b8397e48",
+        "rev": "597c96aebf176b8b8024678ec00dc55653b9f10a",
         "type": "github"
       },
       "original": {
@@ -1428,16 +1428,15 @@
           "app-python",
           "my-inputs",
           "nixpkgs"
-        ],
-        "poetry2nix": "poetry2nix_49"
+        ]
       },
       "locked": {
         "dir": "app_python",
-        "lastModified": 1664669624,
-        "narHash": "sha256-+IzbzvDQTjiC1CJQ3bFtD0RGQ5ztM5Sg7EclOpvOVVY=",
+        "lastModified": 1664670823,
+        "narHash": "sha256-MRZ5f4iIjnRdbA2GI6OBkvfpLRGt1eqZZgXZKinTHqU=",
         "owner": "br4ch1st0chr0n3",
         "repo": "devops-labs",
-        "rev": "fde032fd473fa1f71db634873fe8fb81b8397e48",
+        "rev": "597c96aebf176b8b8024678ec00dc55653b9f10a",
         "type": "github"
       },
       "original": {
@@ -3124,7 +3123,7 @@
           "source-flake",
           "nixpkgs"
         ],
-        "poetry2nix": "poetry2nix_50",
+        "poetry2nix": "poetry2nix_49",
         "pre-commit-hooks": "pre-commit-hooks_17"
       },
       "locked": {
@@ -3158,7 +3157,7 @@
           "my-inputs",
           "nixpkgs"
         ],
-        "poetry2nix": "poetry2nix_53",
+        "poetry2nix": "poetry2nix_52",
         "pre-commit-hooks": "pre-commit-hooks_18"
       },
       "locked": {
@@ -3190,7 +3189,7 @@
           "source-flake",
           "nixpkgs"
         ],
-        "poetry2nix": "poetry2nix_56",
+        "poetry2nix": "poetry2nix_55",
         "pre-commit-hooks": "pre-commit-hooks_19"
       },
       "locked": {
@@ -3259,7 +3258,7 @@
           "my-inputs",
           "nixpkgs"
         ],
-        "poetry2nix": "poetry2nix_59",
+        "poetry2nix": "poetry2nix_58",
         "pre-commit-hooks": "pre-commit-hooks_20"
       },
       "locked": {
@@ -3291,7 +3290,7 @@
           "source-flake",
           "nixpkgs"
         ],
-        "poetry2nix": "poetry2nix_62",
+        "poetry2nix": "poetry2nix_61",
         "pre-commit-hooks": "pre-commit-hooks_21"
       },
       "locked": {
@@ -3325,7 +3324,7 @@
           "my-inputs",
           "nixpkgs"
         ],
-        "poetry2nix": "poetry2nix_65",
+        "poetry2nix": "poetry2nix_64",
         "pre-commit-hooks": "pre-commit-hooks_22"
       },
       "locked": {
@@ -3356,7 +3355,7 @@
           "source-flake",
           "nixpkgs"
         ],
-        "poetry2nix": "poetry2nix_68",
+        "poetry2nix": "poetry2nix_67",
         "pre-commit-hooks": "pre-commit-hooks_23"
       },
       "locked": {
@@ -3389,7 +3388,7 @@
           "my-inputs",
           "nixpkgs"
         ],
-        "poetry2nix": "poetry2nix_71",
+        "poetry2nix": "poetry2nix_70",
         "pre-commit-hooks": "pre-commit-hooks_24"
       },
       "locked": {
@@ -7416,21 +7415,6 @@
         "type": "github"
       }
     },
-    "flake-utils_97": {
-      "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "flakeCompat": {
       "flake": false,
       "locked": {
@@ -10688,7 +10672,7 @@
         "brittany-01312": "brittany-01312_17",
         "constraints-extras": "constraints-extras_17",
         "flake-compat": "flake-compat_34",
-        "flake-utils": "flake-utils_67",
+        "flake-utils": "flake-utils_66",
         "fourmolu": "fourmolu_17",
         "fourmolu-0300": "fourmolu-0300_17",
         "ghc-exactprint": "ghc-exactprint_17",
@@ -10702,7 +10686,7 @@
         "lsp-test": "lsp-test_17",
         "myst-parser": "myst-parser_17",
         "nixpkgs": "nixpkgs_50",
-        "poetry2nix": "poetry2nix_51",
+        "poetry2nix": "poetry2nix_50",
         "ptr-poker": "ptr-poker_17",
         "retrie": "retrie_17",
         "sphinx_rtd_theme": "sphinx_rtd_theme_17",
@@ -10730,7 +10714,7 @@
         "brittany-01312": "brittany-01312_18",
         "constraints-extras": "constraints-extras_18",
         "flake-compat": "flake-compat_36",
-        "flake-utils": "flake-utils_71",
+        "flake-utils": "flake-utils_70",
         "fourmolu": "fourmolu_18",
         "fourmolu-0300": "fourmolu-0300_18",
         "ghc-exactprint": "ghc-exactprint_18",
@@ -10744,7 +10728,7 @@
         "lsp-test": "lsp-test_18",
         "myst-parser": "myst-parser_18",
         "nixpkgs": "nixpkgs_53",
-        "poetry2nix": "poetry2nix_54",
+        "poetry2nix": "poetry2nix_53",
         "ptr-poker": "ptr-poker_18",
         "retrie": "retrie_18",
         "sphinx_rtd_theme": "sphinx_rtd_theme_18",
@@ -10772,7 +10756,7 @@
         "brittany-01312": "brittany-01312_19",
         "constraints-extras": "constraints-extras_19",
         "flake-compat": "flake-compat_38",
-        "flake-utils": "flake-utils_75",
+        "flake-utils": "flake-utils_74",
         "fourmolu": "fourmolu_19",
         "fourmolu-0300": "fourmolu-0300_19",
         "ghc-exactprint": "ghc-exactprint_19",
@@ -10786,7 +10770,7 @@
         "lsp-test": "lsp-test_19",
         "myst-parser": "myst-parser_19",
         "nixpkgs": "nixpkgs_56",
-        "poetry2nix": "poetry2nix_57",
+        "poetry2nix": "poetry2nix_56",
         "ptr-poker": "ptr-poker_19",
         "retrie": "retrie_19",
         "sphinx_rtd_theme": "sphinx_rtd_theme_19",
@@ -10856,7 +10840,7 @@
         "brittany-01312": "brittany-01312_20",
         "constraints-extras": "constraints-extras_20",
         "flake-compat": "flake-compat_40",
-        "flake-utils": "flake-utils_79",
+        "flake-utils": "flake-utils_78",
         "fourmolu": "fourmolu_20",
         "fourmolu-0300": "fourmolu-0300_20",
         "ghc-exactprint": "ghc-exactprint_20",
@@ -10870,7 +10854,7 @@
         "lsp-test": "lsp-test_20",
         "myst-parser": "myst-parser_20",
         "nixpkgs": "nixpkgs_59",
-        "poetry2nix": "poetry2nix_60",
+        "poetry2nix": "poetry2nix_59",
         "ptr-poker": "ptr-poker_20",
         "retrie": "retrie_20",
         "sphinx_rtd_theme": "sphinx_rtd_theme_20",
@@ -10898,7 +10882,7 @@
         "brittany-01312": "brittany-01312_21",
         "constraints-extras": "constraints-extras_21",
         "flake-compat": "flake-compat_42",
-        "flake-utils": "flake-utils_83",
+        "flake-utils": "flake-utils_82",
         "fourmolu": "fourmolu_21",
         "fourmolu-0300": "fourmolu-0300_21",
         "ghc-exactprint": "ghc-exactprint_21",
@@ -10912,7 +10896,7 @@
         "lsp-test": "lsp-test_21",
         "myst-parser": "myst-parser_21",
         "nixpkgs": "nixpkgs_62",
-        "poetry2nix": "poetry2nix_63",
+        "poetry2nix": "poetry2nix_62",
         "ptr-poker": "ptr-poker_21",
         "retrie": "retrie_21",
         "sphinx_rtd_theme": "sphinx_rtd_theme_21",
@@ -10940,7 +10924,7 @@
         "brittany-01312": "brittany-01312_22",
         "constraints-extras": "constraints-extras_22",
         "flake-compat": "flake-compat_44",
-        "flake-utils": "flake-utils_87",
+        "flake-utils": "flake-utils_86",
         "fourmolu": "fourmolu_22",
         "fourmolu-0300": "fourmolu-0300_22",
         "ghc-exactprint": "ghc-exactprint_22",
@@ -10954,7 +10938,7 @@
         "lsp-test": "lsp-test_22",
         "myst-parser": "myst-parser_22",
         "nixpkgs": "nixpkgs_65",
-        "poetry2nix": "poetry2nix_66",
+        "poetry2nix": "poetry2nix_65",
         "ptr-poker": "ptr-poker_22",
         "retrie": "retrie_22",
         "sphinx_rtd_theme": "sphinx_rtd_theme_22",
@@ -10982,7 +10966,7 @@
         "brittany-01312": "brittany-01312_23",
         "constraints-extras": "constraints-extras_23",
         "flake-compat": "flake-compat_46",
-        "flake-utils": "flake-utils_91",
+        "flake-utils": "flake-utils_90",
         "fourmolu": "fourmolu_23",
         "fourmolu-0300": "fourmolu-0300_23",
         "ghc-exactprint": "ghc-exactprint_23",
@@ -10996,7 +10980,7 @@
         "lsp-test": "lsp-test_23",
         "myst-parser": "myst-parser_23",
         "nixpkgs": "nixpkgs_68",
-        "poetry2nix": "poetry2nix_69",
+        "poetry2nix": "poetry2nix_68",
         "ptr-poker": "ptr-poker_23",
         "retrie": "retrie_23",
         "sphinx_rtd_theme": "sphinx_rtd_theme_23",
@@ -11024,7 +11008,7 @@
         "brittany-01312": "brittany-01312_24",
         "constraints-extras": "constraints-extras_24",
         "flake-compat": "flake-compat_48",
-        "flake-utils": "flake-utils_95",
+        "flake-utils": "flake-utils_94",
         "fourmolu": "fourmolu_24",
         "fourmolu-0300": "fourmolu-0300_24",
         "ghc-exactprint": "ghc-exactprint_24",
@@ -11038,7 +11022,7 @@
         "lsp-test": "lsp-test_24",
         "myst-parser": "myst-parser_24",
         "nixpkgs": "nixpkgs_71",
-        "poetry2nix": "poetry2nix_72",
+        "poetry2nix": "poetry2nix_71",
         "ptr-poker": "ptr-poker_24",
         "retrie": "retrie_24",
         "sphinx_rtd_theme": "sphinx_rtd_theme_24",
@@ -14074,12 +14058,12 @@
         "dream2nix": "dream2nix_18",
         "easy-purescript-nix": "easy-purescript-nix_19",
         "flake-compat": "flake-compat_35",
-        "flake-utils": "flake-utils_70",
+        "flake-utils": "flake-utils_69",
         "gitignore": "gitignore_35",
         "haskell-language-server": "haskell-language-server_18",
         "nix-vscode-marketplace": "nix-vscode-marketplace_18",
         "nixpkgs": "nixpkgs_55",
-        "poetry2nix": "poetry2nix_55",
+        "poetry2nix": "poetry2nix_54",
         "vscodium-extensions": "vscodium-extensions_18"
       },
       "locked": {
@@ -14103,12 +14087,12 @@
         "dream2nix": "dream2nix_20",
         "easy-purescript-nix": "easy-purescript-nix_21",
         "flake-compat": "flake-compat_39",
-        "flake-utils": "flake-utils_78",
+        "flake-utils": "flake-utils_77",
         "gitignore": "gitignore_39",
         "haskell-language-server": "haskell-language-server_20",
         "nix-vscode-marketplace": "nix-vscode-marketplace_20",
         "nixpkgs": "nixpkgs_61",
-        "poetry2nix": "poetry2nix_61",
+        "poetry2nix": "poetry2nix_60",
         "vscodium-extensions": "vscodium-extensions_20"
       },
       "locked": {
@@ -14132,12 +14116,12 @@
         "dream2nix": "dream2nix_22",
         "easy-purescript-nix": "easy-purescript-nix_23",
         "flake-compat": "flake-compat_43",
-        "flake-utils": "flake-utils_86",
+        "flake-utils": "flake-utils_85",
         "gitignore": "gitignore_43",
         "haskell-language-server": "haskell-language-server_22",
         "nix-vscode-marketplace": "nix-vscode-marketplace_22",
         "nixpkgs": "nixpkgs_67",
-        "poetry2nix": "poetry2nix_67",
+        "poetry2nix": "poetry2nix_66",
         "vscodium-extensions": "vscodium-extensions_22"
       },
       "locked": {
@@ -14161,12 +14145,12 @@
         "dream2nix": "dream2nix_24",
         "easy-purescript-nix": "easy-purescript-nix_25",
         "flake-compat": "flake-compat_47",
-        "flake-utils": "flake-utils_94",
+        "flake-utils": "flake-utils_93",
         "gitignore": "gitignore_47",
         "haskell-language-server": "haskell-language-server_24",
         "nix-vscode-marketplace": "nix-vscode-marketplace_24",
         "nixpkgs": "nixpkgs_73",
-        "poetry2nix": "poetry2nix_73",
+        "poetry2nix": "poetry2nix_72",
         "vscodium-extensions": "vscodium-extensions_24"
       },
       "locked": {
@@ -17721,24 +17705,18 @@
       }
     },
     "poetry2nix_49": {
-      "inputs": {
-        "flake-utils": "flake-utils_65",
-        "nixpkgs": [
-          "app-python",
-          "nixpkgs"
-        ]
-      },
+      "flake": false,
       "locked": {
-        "lastModified": 1663711158,
-        "narHash": "sha256-xlmHce1+3wAVIFPipVfxio0wsN0rklwdAYCuMFcHpxU=",
-        "owner": "br4ch1st0chr0n3",
+        "lastModified": 1632969109,
+        "narHash": "sha256-jPDclkkiAy5m2gGLBlKgH+lQtbF7tL4XxBrbSzw+Ioc=",
+        "owner": "nix-community",
         "repo": "poetry2nix",
-        "rev": "aaf0ccc97200d62ecd16925961180f7ca592e521",
+        "rev": "aee8f04296c39d88155e05d25cfc59dfdd41cc77",
         "type": "github"
       },
       "original": {
-        "owner": "br4ch1st0chr0n3",
-        "ref": "patch-1",
+        "owner": "nix-community",
+        "ref": "1.21.0",
         "repo": "poetry2nix",
         "type": "github"
       }
@@ -17764,25 +17742,8 @@
       }
     },
     "poetry2nix_50": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1632969109,
-        "narHash": "sha256-jPDclkkiAy5m2gGLBlKgH+lQtbF7tL4XxBrbSzw+Ioc=",
-        "owner": "nix-community",
-        "repo": "poetry2nix",
-        "rev": "aee8f04296c39d88155e05d25cfc59dfdd41cc77",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "1.21.0",
-        "repo": "poetry2nix",
-        "type": "github"
-      }
-    },
-    "poetry2nix_51": {
       "inputs": {
-        "flake-utils": "flake-utils_68",
+        "flake-utils": "flake-utils_67",
         "nixpkgs": "nixpkgs_51"
       },
       "locked": {
@@ -17800,9 +17761,9 @@
         "type": "github"
       }
     },
-    "poetry2nix_52": {
+    "poetry2nix_51": {
       "inputs": {
-        "flake-utils": "flake-utils_69",
+        "flake-utils": "flake-utils_68",
         "nixpkgs": [
           "my-inputs",
           "env2json",
@@ -17825,7 +17786,7 @@
         "type": "github"
       }
     },
-    "poetry2nix_53": {
+    "poetry2nix_52": {
       "flake": false,
       "locked": {
         "lastModified": 1632969109,
@@ -17842,9 +17803,9 @@
         "type": "github"
       }
     },
-    "poetry2nix_54": {
+    "poetry2nix_53": {
       "inputs": {
-        "flake-utils": "flake-utils_72",
+        "flake-utils": "flake-utils_71",
         "nixpkgs": "nixpkgs_54"
       },
       "locked": {
@@ -17862,9 +17823,9 @@
         "type": "github"
       }
     },
-    "poetry2nix_55": {
+    "poetry2nix_54": {
       "inputs": {
-        "flake-utils": "flake-utils_73",
+        "flake-utils": "flake-utils_72",
         "nixpkgs": [
           "my-inputs",
           "env2json",
@@ -17889,7 +17850,7 @@
         "type": "github"
       }
     },
-    "poetry2nix_56": {
+    "poetry2nix_55": {
       "flake": false,
       "locked": {
         "lastModified": 1632969109,
@@ -17906,9 +17867,9 @@
         "type": "github"
       }
     },
-    "poetry2nix_57": {
+    "poetry2nix_56": {
       "inputs": {
-        "flake-utils": "flake-utils_76",
+        "flake-utils": "flake-utils_75",
         "nixpkgs": "nixpkgs_57"
       },
       "locked": {
@@ -17926,9 +17887,9 @@
         "type": "github"
       }
     },
-    "poetry2nix_58": {
+    "poetry2nix_57": {
       "inputs": {
-        "flake-utils": "flake-utils_77",
+        "flake-utils": "flake-utils_76",
         "nixpkgs": [
           "my-inputs",
           "json2md",
@@ -17951,7 +17912,7 @@
         "type": "github"
       }
     },
-    "poetry2nix_59": {
+    "poetry2nix_58": {
       "flake": false,
       "locked": {
         "lastModified": 1632969109,
@@ -17964,6 +17925,26 @@
       "original": {
         "owner": "nix-community",
         "ref": "1.21.0",
+        "repo": "poetry2nix",
+        "type": "github"
+      }
+    },
+    "poetry2nix_59": {
+      "inputs": {
+        "flake-utils": "flake-utils_79",
+        "nixpkgs": "nixpkgs_60"
+      },
+      "locked": {
+        "lastModified": 1662879385,
+        "narHash": "sha256-ZmiyHn0uPH4xHYcOhY0e0sPtfyM6jCF/shmVq2aTOLc=",
+        "owner": "nix-community",
+        "repo": "poetry2nix",
+        "rev": "4f8d61cd936f853242a4ce1fd476f5488c288c26",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "master",
         "repo": "poetry2nix",
         "type": "github"
       }
@@ -17999,26 +17980,6 @@
     "poetry2nix_60": {
       "inputs": {
         "flake-utils": "flake-utils_80",
-        "nixpkgs": "nixpkgs_60"
-      },
-      "locked": {
-        "lastModified": 1662879385,
-        "narHash": "sha256-ZmiyHn0uPH4xHYcOhY0e0sPtfyM6jCF/shmVq2aTOLc=",
-        "owner": "nix-community",
-        "repo": "poetry2nix",
-        "rev": "4f8d61cd936f853242a4ce1fd476f5488c288c26",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "master",
-        "repo": "poetry2nix",
-        "type": "github"
-      }
-    },
-    "poetry2nix_61": {
-      "inputs": {
-        "flake-utils": "flake-utils_81",
         "nixpkgs": [
           "my-inputs",
           "json2md",
@@ -18043,7 +18004,7 @@
         "type": "github"
       }
     },
-    "poetry2nix_62": {
+    "poetry2nix_61": {
       "flake": false,
       "locked": {
         "lastModified": 1632969109,
@@ -18060,9 +18021,9 @@
         "type": "github"
       }
     },
-    "poetry2nix_63": {
+    "poetry2nix_62": {
       "inputs": {
-        "flake-utils": "flake-utils_84",
+        "flake-utils": "flake-utils_83",
         "nixpkgs": "nixpkgs_63"
       },
       "locked": {
@@ -18080,9 +18041,9 @@
         "type": "github"
       }
     },
-    "poetry2nix_64": {
+    "poetry2nix_63": {
       "inputs": {
-        "flake-utils": "flake-utils_85",
+        "flake-utils": "flake-utils_84",
         "nixpkgs": [
           "my-inputs",
           "my-codium",
@@ -18105,7 +18066,7 @@
         "type": "github"
       }
     },
-    "poetry2nix_65": {
+    "poetry2nix_64": {
       "flake": false,
       "locked": {
         "lastModified": 1632969109,
@@ -18122,9 +18083,9 @@
         "type": "github"
       }
     },
-    "poetry2nix_66": {
+    "poetry2nix_65": {
       "inputs": {
-        "flake-utils": "flake-utils_88",
+        "flake-utils": "flake-utils_87",
         "nixpkgs": "nixpkgs_66"
       },
       "locked": {
@@ -18142,9 +18103,9 @@
         "type": "github"
       }
     },
-    "poetry2nix_67": {
+    "poetry2nix_66": {
       "inputs": {
-        "flake-utils": "flake-utils_89",
+        "flake-utils": "flake-utils_88",
         "nixpkgs": [
           "my-inputs",
           "my-codium",
@@ -18169,7 +18130,7 @@
         "type": "github"
       }
     },
-    "poetry2nix_68": {
+    "poetry2nix_67": {
       "flake": false,
       "locked": {
         "lastModified": 1632969109,
@@ -18186,9 +18147,9 @@
         "type": "github"
       }
     },
-    "poetry2nix_69": {
+    "poetry2nix_68": {
       "inputs": {
-        "flake-utils": "flake-utils_92",
+        "flake-utils": "flake-utils_91",
         "nixpkgs": "nixpkgs_69"
       },
       "locked": {
@@ -18206,26 +18167,9 @@
         "type": "github"
       }
     },
-    "poetry2nix_7": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1632969109,
-        "narHash": "sha256-jPDclkkiAy5m2gGLBlKgH+lQtbF7tL4XxBrbSzw+Ioc=",
-        "owner": "nix-community",
-        "repo": "poetry2nix",
-        "rev": "aee8f04296c39d88155e05d25cfc59dfdd41cc77",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "1.21.0",
-        "repo": "poetry2nix",
-        "type": "github"
-      }
-    },
-    "poetry2nix_70": {
+    "poetry2nix_69": {
       "inputs": {
-        "flake-utils": "flake-utils_93",
+        "flake-utils": "flake-utils_92",
         "nixpkgs": [
           "my-inputs",
           "source-flake",
@@ -18247,7 +18191,7 @@
         "type": "github"
       }
     },
-    "poetry2nix_71": {
+    "poetry2nix_7": {
       "flake": false,
       "locked": {
         "lastModified": 1632969109,
@@ -18264,9 +18208,26 @@
         "type": "github"
       }
     },
-    "poetry2nix_72": {
+    "poetry2nix_70": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1632969109,
+        "narHash": "sha256-jPDclkkiAy5m2gGLBlKgH+lQtbF7tL4XxBrbSzw+Ioc=",
+        "owner": "nix-community",
+        "repo": "poetry2nix",
+        "rev": "aee8f04296c39d88155e05d25cfc59dfdd41cc77",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "1.21.0",
+        "repo": "poetry2nix",
+        "type": "github"
+      }
+    },
+    "poetry2nix_71": {
       "inputs": {
-        "flake-utils": "flake-utils_96",
+        "flake-utils": "flake-utils_95",
         "nixpkgs": "nixpkgs_72"
       },
       "locked": {
@@ -18284,9 +18245,9 @@
         "type": "github"
       }
     },
-    "poetry2nix_73": {
+    "poetry2nix_72": {
       "inputs": {
-        "flake-utils": "flake-utils_97",
+        "flake-utils": "flake-utils_96",
         "nixpkgs": [
           "my-inputs",
           "source-flake",
@@ -20217,12 +20178,12 @@
         "dream2nix": "dream2nix_19",
         "easy-purescript-nix": "easy-purescript-nix_20",
         "flake-compat": "flake-compat_37",
-        "flake-utils": "flake-utils_74",
+        "flake-utils": "flake-utils_73",
         "gitignore": "gitignore_37",
         "haskell-language-server": "haskell-language-server_19",
         "nix-vscode-marketplace": "nix-vscode-marketplace_19",
         "nixpkgs": "nixpkgs_58",
-        "poetry2nix": "poetry2nix_58",
+        "poetry2nix": "poetry2nix_57",
         "vscodium-extensions": "vscodium-extensions_19"
       },
       "locked": {
@@ -20246,12 +20207,12 @@
         "dream2nix": "dream2nix_21",
         "easy-purescript-nix": "easy-purescript-nix_22",
         "flake-compat": "flake-compat_41",
-        "flake-utils": "flake-utils_82",
+        "flake-utils": "flake-utils_81",
         "gitignore": "gitignore_41",
         "haskell-language-server": "haskell-language-server_21",
         "nix-vscode-marketplace": "nix-vscode-marketplace_21",
         "nixpkgs": "nixpkgs_64",
-        "poetry2nix": "poetry2nix_64",
+        "poetry2nix": "poetry2nix_63",
         "vscodium-extensions": "vscodium-extensions_21"
       },
       "locked": {
@@ -20275,12 +20236,12 @@
         "dream2nix": "dream2nix_23",
         "easy-purescript-nix": "easy-purescript-nix_24",
         "flake-compat": "flake-compat_45",
-        "flake-utils": "flake-utils_90",
+        "flake-utils": "flake-utils_89",
         "gitignore": "gitignore_45",
         "haskell-language-server": "haskell-language-server_23",
         "nix-vscode-marketplace": "nix-vscode-marketplace_23",
         "nixpkgs": "nixpkgs_70",
-        "poetry2nix": "poetry2nix_70",
+        "poetry2nix": "poetry2nix_69",
         "vscodium-extensions": "vscodium-extensions_23"
       },
       "locked": {
@@ -20507,12 +20468,12 @@
         "dream2nix": "dream2nix_17",
         "easy-purescript-nix": "easy-purescript-nix_18",
         "flake-compat": "flake-compat_33",
-        "flake-utils": "flake-utils_66",
+        "flake-utils": "flake-utils_65",
         "gitignore": "gitignore_33",
         "haskell-language-server": "haskell-language-server_17",
         "nix-vscode-marketplace": "nix-vscode-marketplace_17",
         "nixpkgs": "nixpkgs_52",
-        "poetry2nix": "poetry2nix_52",
+        "poetry2nix": "poetry2nix_51",
         "vscodium-extensions": "vscodium-extensions_17"
       },
       "locked": {

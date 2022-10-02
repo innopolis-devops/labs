@@ -1,0 +1,7 @@
+VM:
+  hosts:
+    VM1:
+      ansible_host: 52.59.202.244
+      ansible_user: ubuntu
+      ansible_ssh_private_key_file: ~/devops.pem
+      ansible_become: true

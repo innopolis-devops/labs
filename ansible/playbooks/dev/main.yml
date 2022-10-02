@@ -1,0 +1,7 @@
+- name: Install docker
+  hosts: YandexVM1
+  remote_user: vova
+  become: true
+
+  roles:
+    - docker

@@ -4,10 +4,10 @@
     nixpkgs.follows = "my-inputs/nixpkgs";
     flake-utils.follows = "my-inputs/flake-utils";
     nix-vscode-marketplace.follows = "my-inputs/nix-vscode-marketplace";
-    app-python.url = path:./app_python;
-    # app-python.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_python";
-    app-purescript.url = path:./app_purescript;
-    # app-purescript.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_purescript";
+    # app-python.url = path:./app_python;
+    app-python.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_python";
+    # app-purescript.url = path:./app_purescript;
+    app-purescript.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_purescript";
     json2md.follows = "my-inputs/json2md";
     env2json.follows = "my-inputs/env2json";
     my-codium.follows = "my-inputs/my-codium";
@@ -99,8 +99,7 @@
 
       codium = mkCodium {
         extensions = { inherit (extensions) nix markdown purescript github misc docker python toml; };
-        runtimeDependencies =
-          builtins.attrValues ((mergeValues { inherit (shellTools) nix purescript docker; }) // myTools);
+        runtimeDependencies = toList { inherit (shellTools) nix purescript docker; };
       };
 
 
@@ -113,7 +112,7 @@
           }
           {
             commands = {
-              buildInputs = [ (toList commands) (builtins.attrValues configWriters)];
+              buildInputs = [ (toList commands) (builtins.attrValues configWriters) ];
             };
             tools = {
               buildInputs = builtins.attrValues myTools;

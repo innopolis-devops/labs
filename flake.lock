@@ -1391,11 +1391,11 @@
       },
       "locked": {
         "dir": "app_purescript",
-        "lastModified": 1664670823,
-        "narHash": "sha256-MRZ5f4iIjnRdbA2GI6OBkvfpLRGt1eqZZgXZKinTHqU=",
+        "lastModified": 1664670866,
+        "narHash": "sha256-XP9tivUKO0pVhWPLGcFkA96pLgdQZsyPAlZxGqeHBo4=",
         "owner": "br4ch1st0chr0n3",
         "repo": "devops-labs",
-        "rev": "597c96aebf176b8b8024678ec00dc55653b9f10a",
+        "rev": "cc95daaeab302b53e8261baef55c985251a8536a",
         "type": "github"
       },
       "original": {
@@ -1432,11 +1432,11 @@
       },
       "locked": {
         "dir": "app_python",
-        "lastModified": 1664670823,
-        "narHash": "sha256-MRZ5f4iIjnRdbA2GI6OBkvfpLRGt1eqZZgXZKinTHqU=",
+        "lastModified": 1664670866,
+        "narHash": "sha256-XP9tivUKO0pVhWPLGcFkA96pLgdQZsyPAlZxGqeHBo4=",
         "owner": "br4ch1st0chr0n3",
         "repo": "devops-labs",
-        "rev": "597c96aebf176b8b8024678ec00dc55653b9f10a",
+        "rev": "cc95daaeab302b53e8261baef55c985251a8536a",
         "type": "github"
       },
       "original": {
@@ -4151,11 +4151,11 @@
       },
       "locked": {
         "dir": "env2json",
-        "lastModified": 1664662058,
-        "narHash": "sha256-LxIgVCsiMTHB11UrMT6xBCIEWKdWwtpqEpNZSOMU4Eg=",
+        "lastModified": 1664753574,
+        "narHash": "sha256-M6O+xys6dAPN8fbjUlKuqL54whevDpGdmd1Rw9/xAjo=",
         "owner": "br4ch1st0chr0n3",
         "repo": "flakes",
-        "rev": "24b4950dfa78ab20da3275bdd526cb6da88140b8",
+        "rev": "bd1efbdce99b4d9beea14645ef034e54fc048a25",
         "type": "github"
       },
       "original": {
@@ -5265,7 +5265,6 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
-        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
         "type": "github"
       }
     },
@@ -5282,6 +5281,7 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
         "type": "github"
       }
     },
@@ -5298,7 +5298,6 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
-        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
         "type": "github"
       }
     },
@@ -5315,6 +5314,7 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
         "type": "github"
       }
     },
@@ -5331,7 +5331,6 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
-        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
         "type": "github"
       }
     },
@@ -5348,6 +5347,7 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
         "type": "github"
       }
     },
@@ -5364,7 +5364,6 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
-        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
         "type": "github"
       }
     },
@@ -5397,6 +5396,7 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
         "type": "github"
       }
     },
@@ -5413,7 +5413,6 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
-        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
         "type": "github"
       }
     },
@@ -5430,6 +5429,7 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
         "type": "github"
       }
     },
@@ -5446,7 +5446,6 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
-        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
         "type": "github"
       }
     },
@@ -5463,6 +5462,7 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
         "type": "github"
       }
     },
@@ -5479,7 +5479,6 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
-        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
         "type": "github"
       }
     },
@@ -5496,6 +5495,7 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
         "type": "github"
       }
     },
@@ -5512,11 +5512,27 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
-        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
         "type": "github"
       }
     },
     "flake-compat_48": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1650374568,
+        "narHash": "sha256-Z+s0J8/r907g149rllvwhb4pKi8Wam5ij0st8PwAh+E=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
+        "type": "github"
+      }
+    },
+    "flake-compat_49": {
       "flake": false,
       "locked": {
         "lastModified": 1650374568,
@@ -10671,7 +10687,7 @@
         "all-cabal-hashes-unpacked": "all-cabal-hashes-unpacked_17",
         "brittany-01312": "brittany-01312_17",
         "constraints-extras": "constraints-extras_17",
-        "flake-compat": "flake-compat_34",
+        "flake-compat": "flake-compat_35",
         "flake-utils": "flake-utils_66",
         "fourmolu": "fourmolu_17",
         "fourmolu-0300": "fourmolu-0300_17",
@@ -10713,7 +10729,7 @@
         "all-cabal-hashes-unpacked": "all-cabal-hashes-unpacked_18",
         "brittany-01312": "brittany-01312_18",
         "constraints-extras": "constraints-extras_18",
-        "flake-compat": "flake-compat_36",
+        "flake-compat": "flake-compat_37",
         "flake-utils": "flake-utils_70",
         "fourmolu": "fourmolu_18",
         "fourmolu-0300": "fourmolu-0300_18",
@@ -10755,7 +10771,7 @@
         "all-cabal-hashes-unpacked": "all-cabal-hashes-unpacked_19",
         "brittany-01312": "brittany-01312_19",
         "constraints-extras": "constraints-extras_19",
-        "flake-compat": "flake-compat_38",
+        "flake-compat": "flake-compat_39",
         "flake-utils": "flake-utils_74",
         "fourmolu": "fourmolu_19",
         "fourmolu-0300": "fourmolu-0300_19",
@@ -10839,7 +10855,7 @@
         "all-cabal-hashes-unpacked": "all-cabal-hashes-unpacked_20",
         "brittany-01312": "brittany-01312_20",
         "constraints-extras": "constraints-extras_20",
-        "flake-compat": "flake-compat_40",
+        "flake-compat": "flake-compat_41",
         "flake-utils": "flake-utils_78",
         "fourmolu": "fourmolu_20",
         "fourmolu-0300": "fourmolu-0300_20",
@@ -10881,7 +10897,7 @@
         "all-cabal-hashes-unpacked": "all-cabal-hashes-unpacked_21",
         "brittany-01312": "brittany-01312_21",
         "constraints-extras": "constraints-extras_21",
-        "flake-compat": "flake-compat_42",
+        "flake-compat": "flake-compat_43",
         "flake-utils": "flake-utils_82",
         "fourmolu": "fourmolu_21",
         "fourmolu-0300": "fourmolu-0300_21",
@@ -10923,7 +10939,7 @@
         "all-cabal-hashes-unpacked": "all-cabal-hashes-unpacked_22",
         "brittany-01312": "brittany-01312_22",
         "constraints-extras": "constraints-extras_22",
-        "flake-compat": "flake-compat_44",
+        "flake-compat": "flake-compat_45",
         "flake-utils": "flake-utils_86",
         "fourmolu": "fourmolu_22",
         "fourmolu-0300": "fourmolu-0300_22",
@@ -10965,7 +10981,7 @@
         "all-cabal-hashes-unpacked": "all-cabal-hashes-unpacked_23",
         "brittany-01312": "brittany-01312_23",
         "constraints-extras": "constraints-extras_23",
-        "flake-compat": "flake-compat_46",
+        "flake-compat": "flake-compat_47",
         "flake-utils": "flake-utils_90",
         "fourmolu": "fourmolu_23",
         "fourmolu-0300": "fourmolu-0300_23",
@@ -11007,7 +11023,7 @@
         "all-cabal-hashes-unpacked": "all-cabal-hashes-unpacked_24",
         "brittany-01312": "brittany-01312_24",
         "constraints-extras": "constraints-extras_24",
-        "flake-compat": "flake-compat_48",
+        "flake-compat": "flake-compat_49",
         "flake-utils": "flake-utils_94",
         "fourmolu": "fourmolu_24",
         "fourmolu-0300": "fourmolu-0300_24",
@@ -12595,11 +12611,11 @@
       },
       "locked": {
         "dir": "json2md",
-        "lastModified": 1664662058,
-        "narHash": "sha256-LxIgVCsiMTHB11UrMT6xBCIEWKdWwtpqEpNZSOMU4Eg=",
+        "lastModified": 1664753574,
+        "narHash": "sha256-M6O+xys6dAPN8fbjUlKuqL54whevDpGdmd1Rw9/xAjo=",
         "owner": "br4ch1st0chr0n3",
         "repo": "flakes",
-        "rev": "24b4950dfa78ab20da3275bdd526cb6da88140b8",
+        "rev": "bd1efbdce99b4d9beea14645ef034e54fc048a25",
         "type": "github"
       },
       "original": {
@@ -13854,11 +13870,11 @@
       },
       "locked": {
         "dir": "codium",
-        "lastModified": 1664662058,
-        "narHash": "sha256-LxIgVCsiMTHB11UrMT6xBCIEWKdWwtpqEpNZSOMU4Eg=",
+        "lastModified": 1664753574,
+        "narHash": "sha256-M6O+xys6dAPN8fbjUlKuqL54whevDpGdmd1Rw9/xAjo=",
         "owner": "br4ch1st0chr0n3",
         "repo": "flakes",
-        "rev": "24b4950dfa78ab20da3275bdd526cb6da88140b8",
+        "rev": "bd1efbdce99b4d9beea14645ef034e54fc048a25",
         "type": "github"
       },
       "original": {
@@ -14039,11 +14055,11 @@
       },
       "locked": {
         "dir": "inputs",
-        "lastModified": 1664662314,
-        "narHash": "sha256-YD54PfF7JKEU+fkjTV+D87qxH41WdFZ1T9Owq/PJAXA=",
+        "lastModified": 1664753637,
+        "narHash": "sha256-lbEWLUVgHfNszUneCNPFGOCPJQJmaaLGsiYJ27dJTlo=",
         "owner": "br4ch1st0chr0n3",
         "repo": "flakes",
-        "rev": "4b50b12ecaef82396089d607053a1cf5b8768b7b",
+        "rev": "1514c6d5bd99327afbb132bd2b5cc17a5d2039a3",
         "type": "github"
       },
       "original": {
@@ -14057,7 +14073,7 @@
       "inputs": {
         "dream2nix": "dream2nix_18",
         "easy-purescript-nix": "easy-purescript-nix_19",
-        "flake-compat": "flake-compat_35",
+        "flake-compat": "flake-compat_36",
         "flake-utils": "flake-utils_69",
         "gitignore": "gitignore_35",
         "haskell-language-server": "haskell-language-server_18",
@@ -14086,7 +14102,7 @@
       "inputs": {
         "dream2nix": "dream2nix_20",
         "easy-purescript-nix": "easy-purescript-nix_21",
-        "flake-compat": "flake-compat_39",
+        "flake-compat": "flake-compat_40",
         "flake-utils": "flake-utils_77",
         "gitignore": "gitignore_39",
         "haskell-language-server": "haskell-language-server_20",
@@ -14115,7 +14131,7 @@
       "inputs": {
         "dream2nix": "dream2nix_22",
         "easy-purescript-nix": "easy-purescript-nix_23",
-        "flake-compat": "flake-compat_43",
+        "flake-compat": "flake-compat_44",
         "flake-utils": "flake-utils_85",
         "gitignore": "gitignore_43",
         "haskell-language-server": "haskell-language-server_22",
@@ -14144,7 +14160,7 @@
       "inputs": {
         "dream2nix": "dream2nix_24",
         "easy-purescript-nix": "easy-purescript-nix_25",
-        "flake-compat": "flake-compat_47",
+        "flake-compat": "flake-compat_48",
         "flake-utils": "flake-utils_93",
         "gitignore": "gitignore_47",
         "haskell-language-server": "haskell-language-server_24",
@@ -19713,6 +19729,7 @@
           "my-inputs",
           "env2json"
         ],
+        "flake-compat": "flake-compat_33",
         "flake-utils": [
           "my-inputs",
           "flake-utils"
@@ -20177,7 +20194,7 @@
       "inputs": {
         "dream2nix": "dream2nix_19",
         "easy-purescript-nix": "easy-purescript-nix_20",
-        "flake-compat": "flake-compat_37",
+        "flake-compat": "flake-compat_38",
         "flake-utils": "flake-utils_73",
         "gitignore": "gitignore_37",
         "haskell-language-server": "haskell-language-server_19",
@@ -20188,11 +20205,11 @@
       },
       "locked": {
         "dir": "source-flake",
-        "lastModified": 1664661811,
-        "narHash": "sha256-E0KRT9J6KoJbhVLz75AfEYpVZnPdZefk3NK9HOjNwgs=",
+        "lastModified": 1664753392,
+        "narHash": "sha256-QyZYX/276ec2G065uYAmYEU2isquhsxbvCZnafqLzg4=",
         "owner": "br4ch1st0chr0n3",
         "repo": "flakes",
-        "rev": "e1faafc7b6aac05fe1101d6c10989f0cd50fed67",
+        "rev": "b35821cc9f86e3aee91d5d78f0ab98cadf622f2c",
         "type": "github"
       },
       "original": {
@@ -20206,7 +20223,7 @@
       "inputs": {
         "dream2nix": "dream2nix_21",
         "easy-purescript-nix": "easy-purescript-nix_22",
-        "flake-compat": "flake-compat_41",
+        "flake-compat": "flake-compat_42",
         "flake-utils": "flake-utils_81",
         "gitignore": "gitignore_41",
         "haskell-language-server": "haskell-language-server_21",
@@ -20217,11 +20234,11 @@
       },
       "locked": {
         "dir": "source-flake",
-        "lastModified": 1664661811,
-        "narHash": "sha256-E0KRT9J6KoJbhVLz75AfEYpVZnPdZefk3NK9HOjNwgs=",
+        "lastModified": 1664753392,
+        "narHash": "sha256-QyZYX/276ec2G065uYAmYEU2isquhsxbvCZnafqLzg4=",
         "owner": "br4ch1st0chr0n3",
         "repo": "flakes",
-        "rev": "e1faafc7b6aac05fe1101d6c10989f0cd50fed67",
+        "rev": "b35821cc9f86e3aee91d5d78f0ab98cadf622f2c",
         "type": "github"
       },
       "original": {
@@ -20235,7 +20252,7 @@
       "inputs": {
         "dream2nix": "dream2nix_23",
         "easy-purescript-nix": "easy-purescript-nix_24",
-        "flake-compat": "flake-compat_45",
+        "flake-compat": "flake-compat_46",
         "flake-utils": "flake-utils_89",
         "gitignore": "gitignore_45",
         "haskell-language-server": "haskell-language-server_23",
@@ -20246,11 +20263,11 @@
       },
       "locked": {
         "dir": "source-flake",
-        "lastModified": 1664662058,
-        "narHash": "sha256-LxIgVCsiMTHB11UrMT6xBCIEWKdWwtpqEpNZSOMU4Eg=",
+        "lastModified": 1664753574,
+        "narHash": "sha256-M6O+xys6dAPN8fbjUlKuqL54whevDpGdmd1Rw9/xAjo=",
         "owner": "br4ch1st0chr0n3",
         "repo": "flakes",
-        "rev": "24b4950dfa78ab20da3275bdd526cb6da88140b8",
+        "rev": "bd1efbdce99b4d9beea14645ef034e54fc048a25",
         "type": "github"
       },
       "original": {
@@ -20467,7 +20484,7 @@
       "inputs": {
         "dream2nix": "dream2nix_17",
         "easy-purescript-nix": "easy-purescript-nix_18",
-        "flake-compat": "flake-compat_33",
+        "flake-compat": "flake-compat_34",
         "flake-utils": "flake-utils_65",
         "gitignore": "gitignore_33",
         "haskell-language-server": "haskell-language-server_17",
@@ -20478,11 +20495,11 @@
       },
       "locked": {
         "dir": "source-flake",
-        "lastModified": 1664661811,
-        "narHash": "sha256-E0KRT9J6KoJbhVLz75AfEYpVZnPdZefk3NK9HOjNwgs=",
+        "lastModified": 1664753392,
+        "narHash": "sha256-QyZYX/276ec2G065uYAmYEU2isquhsxbvCZnafqLzg4=",
         "owner": "br4ch1st0chr0n3",
         "repo": "flakes",
-        "rev": "e1faafc7b6aac05fe1101d6c10989f0cd50fed67",
+        "rev": "b35821cc9f86e3aee91d5d78f0ab98cadf622f2c",
         "type": "github"
       },
       "original": {

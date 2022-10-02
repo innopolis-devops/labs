@@ -4,11 +4,15 @@
     nixpkgs.follows = "my-inputs/nixpkgs";
     flake-utils.follows = "my-inputs/flake-utils";
     nix-vscode-marketplace.follows = "my-inputs/nix-vscode-marketplace";
-    # app-python.url = path:./app_python;
-    app-python.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_python";
     # app-purescript.url = path:./app_purescript;
+    app-python.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_python";
+    # app-python.url = path:./app_python;
     app-purescript.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_purescript";
     json2md.follows = "my-inputs/json2md";
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
     env2json.follows = "my-inputs/env2json";
     my-codium.follows = "my-inputs/my-codium";
   };
@@ -23,6 +27,7 @@
     , app-python
     , nix-vscode-marketplace
     , env2json
+    , flake-compat
     }:
     flake-utils.lib.eachDefaultSystem (system:
     let
@@ -40,6 +45,7 @@
         mkFlakesUtils
         flakesToggleRelativePaths
         pushToGithub
+        mkBin
         ;
 
       app-python-pkgs = app-python.packages.${system};
@@ -88,42 +94,76 @@
         in
         flakesToggleRelativePaths toggleConfig flakesUtils.flakesUpdate;
 
-      pushToGithub_ = pushToGithub flakesToggleRelativePaths_ flakesUtils.flakesUpdate;
-
-      myTools =
-        {
-          inherit (pkgs) docker poetry python310;
-        }
-        // flakesUtils
-        // ({ inherit flakesToggleRelativePaths_ pushToGithub_; });
 
       codium = mkCodium {
         extensions = { inherit (extensions) nix markdown purescript github misc docker python toml; };
-        runtimeDependencies = toList { inherit (shellTools) nix purescript docker; };
+        runtimeDependencies = [
+          (toList
+            (
+              { inherit (shellTools) nix purescript docker; }
+              //
+              commands
+            )
+          )
+          flakesToggleRelativePaths_
+          (
+            builtins.attrValues (
+              {
+                inherit (pkgs) docker poetry direnv lorri inotify-tools;
+                inherit (pkgs.python310Packages) python-dotenv;
+              }
+              //
+              flakesUtils
+              //
+              configWriters
+            )
+          )
+        ];
       };
 
+      scripts = mkShellApps {
+        lintDockerfiles = {
+          text = let dockerFile = "Dockerfile"; in
+            pkgs.lib.strings.concatMapStringsSep
+              ''printf "\n" ; ''
+              (dir: '' ( printf "${dir}:\n" ; hadolint ${dir}/${dockerFile});'')
+              [ appPython appPurescript ];
+        };
+        reload = {
+          text = ''
+            nix develop .#"$1" -c bash -c "exit"
+            # echo 4
+            exit
+          '';
+        };
+      };
 
       devShells =
-        mkDevShellsWithDefault
+        (mkDevShellsWithDefault
           {
+            # binaries that we need to test and can't yet include as a part of codium
+            # if they gets here, they will overwrite the stuff from codium
             buildInputs = [
-              codium
+              (builtins.attrValues scripts)
+              pkgs.haskell-language-server
             ];
           }
           {
-            commands = {
-              buildInputs = [ (toList commands) (builtins.attrValues configWriters) ];
+            fish = {
+              buildInputs = [
+                (builtins.attrValues scripts)
+              ];
             };
-            tools = {
-              buildInputs = builtins.attrValues myTools;
-            };
-          };
+          }
+        );
     in
     {
-      inherit commands;
       inherit devShells;
       packages = {
-        default = flakesUtils.flakesPushToCachix;
+        default = codium;
+        lint = scripts.lintDockerfiles;
+        pushToCachix = flakesUtils.flakesPushToCachix;
+        format = flakesUtils.flakesFormat;
       };
     });
 
@@ -142,3 +182,5 @@
     ];
   };
 }
+
+

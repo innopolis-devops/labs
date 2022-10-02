@@ -1,4 +1,4 @@
-{ commands }:
+{ commands, codiumTools }:
 let
   inherit (import ./data.nix)
     commandNames
@@ -15,9 +15,7 @@ let
       # cwd relative to the workspace folder
       mkCommand = { lang, taskName, commandName, cwd ? "." }:
         {
-          command =
-            let path = commands.apps.${commandName};
-            in "${path}/bin/${path.name}";
+          command = codiumTools.mkBin commands.apps.${commandName};
           label = "${taskName}";
           options = {
             cwd = "\${workspaceFolder}/${cwd}";

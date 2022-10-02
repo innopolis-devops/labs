@@ -22,32 +22,36 @@ I used Nix to make a reproducible project environment. Now, the project ships wi
 
 ## Setup
 
-- Install [Nix](https://nixos.org/download.html) (Single-user installation)
+1. Install [Nix](https://nixos.org/download.html) (Single-user installation)
 
   ```sh
   sh <(curl -L https://nixos.org/nix/install) --no-daemon
   ```
 
-- Enable [flakes](https://nixos.wiki/wiki/Flakes#Permanent)
+1. Enable [flakes](https://nixos.wiki/wiki/Flakes#Permanent)
 
-- Install [direnv](https://direnv.net/#basic-installation) - steps 1, 2
+1. Install `direnv`:
+      1. Actually install on your system
+         - by following the [docs](https://direnv.net/#basic-installation)
+         - or via
 
-- Enter this project
+           ```sh
+           nix profile install direnv
+           ```
+
+      1. Hook to your shell step `2` - from the docs
+
+1. Enter this project
 
 ```sh
 git clone https://github.com/br4ch1st0chr0n3/devops-labs
 cd devops-labs
 git checkout lab2
-nix registry add devops-labs github:br4ch1st0chr0n3/devops-labs
-# wait
-start-codium
+nix run
+direnv allow
+# wait several seconds
+
 ```
-
-- Next time, after entering the project, run
-
-  ```sh
-  nix profile update devops-labs/lab2
-  ```
 
 - In case the wrong Python `.venv` is sourced, run `Command Palette` -> `Python: Select Interpreter` -> `Python 3.10.6 ('.venv':poetry) ./.venv/bin/python` `Workspace`
 
@@ -112,7 +116,6 @@ dream2nix.lib.makeFlakeOutputs {
 
 - Install:
 
-
 <!-- TODO how to get size of a project in terms of its nix store part? -->
 <!-- 
 TODO add command to remove dangling images
@@ -128,7 +131,6 @@ https://github.com/safe-waters/docker-lock -->
  <!-- 
  TODO add task for spago2nix
  TODO build with spago -->
-
 
 <!-- TODO rename commands to start with app_name -->
 
@@ -155,3 +157,7 @@ lint
 push to docker hub
 
  -->
+
+ <!-- TODO
+ document commands
+  -->

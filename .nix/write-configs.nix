@@ -54,7 +54,7 @@ let
   writeSettings = writeSettingsJson (import ./settings.nix {
     inherit settingsNix;
   });
-  writeTasks = writeTasksJson (import ./tasks.nix { inherit commands; });
+  writeTasks = writeTasksJson (import ./tasks.nix { inherit commands codiumTools; });
   writeConfigs =
     mkShellApp {
       name = "write-configs";

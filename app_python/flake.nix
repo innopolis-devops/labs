@@ -25,11 +25,6 @@
 
           dotenvFile = "app.env";
 
-          tools = {
-            inherit (pkgs) poetry python310;
-            inherit (pkgs.python310Packages) python-dotenv;
-          };
-
           inherit (my-codium.tools.${system})
             mkShellApp
             mkShellApps
@@ -38,16 +33,9 @@
 
           scripts = mkShellApps {
             run-start = {
-              runtimeInputs = [ tools.python-dotenv pkgs.poetry ];
               text = ''poetry run app'';
             };
-            lint-and-fix-dockerfile = {
-              name = "lint-dockerfile";
-              text = '''';
-              runtimeInputs = [ pkgs.haskellPackages.hadolint ];
-            };
             update-dependencies = {
-              runtimeInputs = [ tools.poetry ];
               name = "poetry-update-dependencies";
               text = ''
                 poetry update
@@ -63,7 +51,7 @@
           };
           devShells = mkDevShellsWithDefault
             {
-              buildInputs = builtins.attrValues (scripts // { inherit (pkgs) poetry; });
+              buildInputs = builtins.attrValues (scripts);
               shellHook = ''
                 source .venv/bin/activate
                 poetry env use $PWD/.venv/bin/python
@@ -71,7 +59,7 @@
             }
             {
               tools = {
-                buildInputs = (builtins.attrValues (tools // { inherit updateDependencies; }))
+                buildInputs = (builtins.attrValues { inherit updateDependencies; })
                 ;
               };
             }

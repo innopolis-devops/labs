@@ -107,6 +107,7 @@ server                     : ok=14   changed=2    unreachable=0    failed=0    s
 ```
 
 Now let's check that on VM we have docker installed.
+
 ![img_2.png](screenshots/img_2.png)
 
 ### 2) Logs of `ansible-inventory`

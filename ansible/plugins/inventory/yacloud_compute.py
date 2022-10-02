@@ -1,8 +1,8 @@
-# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
-# taken and changed from https://github.com/rodion-goritskov/yacloud_compute
+"""
+Code is taken from https://github.com/rodion-goritskov/yacloud_compute
+""" 
 
 from __future__ import (absolute_import, division, print_function)
-from pathlib import Path
 __metaclass__ = type
 
 DOCUMENTATION = '''
@@ -22,9 +22,10 @@ DOCUMENTATION = '''
             description: Token that ensures this is a source file for the plugin.
             required: True
             choices: ['yacloud_compute']
+        yacloud_token:
+            description: Oauth token for yacloud connection
         yacloud_token_file:
             description: File with oauth token for yacloud connection
-            required: True
         yacloud_clouds:
             description: Names of clouds to get hosts from
             type: list
@@ -62,11 +63,6 @@ except ImportError:
 
 display = Display()
 
-
-def read_oauth(filename: str) -> str:
-    path = Path(filename)
-    with path.open() as f:
-        return f.readline().strip()
 
 class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
 
@@ -116,8 +112,14 @@ class InventoryModule(BaseInventoryPlugin, Constructable, Cacheable):
                 self.hosts += dict_["instances"]
 
     def _init_client(self):
-        oauth_token = read_oauth(str(self.get_option('yacloud_token_file')))
-        sdk = yandexcloud.SDK(token=oauth_token)
+        file = self.get_option('yacloud_token_file')
+        if file is not None:
+            token = open(file).read().strip()
+        else:
+            token = self.get_option('yacloud_token')
+        if not token:
+            raise AnsibleError("token it empty. provide either `yacloud_token_file` or `yacloud_token`")
+        sdk = yandexcloud.SDK(token=token)
 
         self.instance_service = sdk.client(InstanceServiceStub)
         self.folder_service = sdk.client(FolderServiceStub)

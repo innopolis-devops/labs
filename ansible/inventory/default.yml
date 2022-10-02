@@ -1,4 +1,0 @@
-test:
-  hosts:
-    local:
-      ansible_host: localhost

@@ -7,12 +7,6 @@
     flake-utils.follows = "my-inputs/flake-utils";
     gitignore.follows = "my-inputs/gitignore";
     my-codium.follows = "my-inputs/my-codium";
-    # poetry2nix.follows = "inputs/poetry2nix";
-    poetry2nix = {
-      url = "github:br4ch1st0chr0n3/poetry2nix/patch-1";
-      # flake = false;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -22,7 +16,6 @@
     , gitignore
     , my-codium
     , my-inputs
-    , poetry2nix
     }:
       with flake-utils.lib;
       eachDefaultSystem
@@ -46,66 +39,42 @@
           scripts = mkShellApps {
             run-start = {
               runtimeInputs = [ tools.python-dotenv pkgs.poetry ];
-              text = ''
-                poetry run app
-              '';
+              text = ''poetry run app'';
             };
             lint-and-fix-dockerfile = {
-              name = "lint-and-fix-dockerfile";
-              text = ''
-
-              '';
+              name = "lint-dockerfile";
+              text = '''';
               runtimeInputs = [ pkgs.haskellPackages.hadolint ];
             };
+            update-dependencies = {
+              runtimeInputs = [ tools.poetry ];
+              name = "poetry-update-dependencies";
+              text = ''
+                poetry update
+                poetry install
+              '';
+            };
           };
-          updateDependencies = mkShellApp {
-            runtimeInputs = [ tools.poetry ];
-            name = "poetry-update-dependencies";
-            text = ''
-              poetry update
-              poetry install
-            '';
-          };
-          # TODO why can't we set env in a script?
-          # activateEnv = mkShellApp {
-          #   name = "activate-env";
-          #   text = ''
-          #     source .venv/bin/activate
-          #     poetry env use $PWD/.venv/bin/python
-          #   '';
-          # };
-          # How to activate env for a script?
-          # activateEnvHook = ''
-          #   source .venv/bin/activate
-          #   poetry env use $PWD/.venv/bin/python
-          # '';
         in
         {
           inherit scripts;
           packages = {
             inherit updateDependencies;
           };
-          devShells =
-            let
-
-            in
-            (mkDevShellsWithDefault
-              {
-                buildInputs = builtins.attrValues (scripts // { inherit (pkgs) poetry; });
-                shellHook = ''
-                  ${activateEnvHook}
-                '';
-              }
-              {
-                tools = {
-                  buildInputs = [
-                    builtins.attrValues
-                    (tools // { inherit updateDependencies; })
-                  ];
-                };
-              }
-            )
-            # // { inherit activateEnv; }
+          devShells = mkDevShellsWithDefault
+            {
+              buildInputs = builtins.attrValues (scripts // { inherit (pkgs) poetry; });
+              shellHook = ''
+                source .venv/bin/activate
+                poetry env use $PWD/.venv/bin/python
+              '';
+            }
+            {
+              tools = {
+                buildInputs = (builtins.attrValues (tools // { inherit updateDependencies; }))
+                ;
+              };
+            }
           ;
         }) // { inherit (my-inputs) formatter; };
   nixConfig = {

@@ -2328,21 +2328,6 @@
         "type": "github"
       }
     },
-    "flake-utils_33": {
-      "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "flake-utils_4": {
       "locked": {
         "lastModified": 1659877975,
@@ -5876,28 +5861,6 @@
         "type": "github"
       }
     },
-    "poetry2nix_25": {
-      "inputs": {
-        "flake-utils": "flake-utils_33",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1663711158,
-        "narHash": "sha256-xlmHce1+3wAVIFPipVfxio0wsN0rklwdAYCuMFcHpxU=",
-        "owner": "br4ch1st0chr0n3",
-        "repo": "poetry2nix",
-        "rev": "aaf0ccc97200d62ecd16925961180f7ca592e521",
-        "type": "github"
-      },
-      "original": {
-        "owner": "br4ch1st0chr0n3",
-        "ref": "patch-1",
-        "repo": "poetry2nix",
-        "type": "github"
-      }
-    },
     "poetry2nix_3": {
       "inputs": {
         "flake-utils": "flake-utils_4",
@@ -6519,8 +6482,7 @@
         "nixpkgs": [
           "my-inputs",
           "nixpkgs"
-        ],
-        "poetry2nix": "poetry2nix_25"
+        ]
       }
     },
     "rust-analyzer-src": {

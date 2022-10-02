@@ -39,15 +39,8 @@
             inherit (pkgs) nodejs-16_x;
             inherit (pkgs.python310Packages) python-dotenv;
           };
-          
-          # FIXME?
-          data = import ../.nix/data.nix;
 
           scripts =
-            let
-              inherit (data) langPurescript;
-              commandNames_ = data.commandNames.apps langPurescript;
-            in
             mkShellApps
               {
                 run-start =
@@ -71,8 +64,8 @@
             {
               buildInputs = builtins.attrValues scripts;
             }
-            { 
-              fish = {};
+            {
+              fish = { };
             };
         in
         {

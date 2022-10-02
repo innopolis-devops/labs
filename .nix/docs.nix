@@ -1,10 +1,9 @@
-{ pkgs }:
+{ pkgs, env2json, system }:
 let
   inherit (import ./data.nix)
     appName
     langs
     commandNames
-    ports
     taskNames
     actionNames
     ;
@@ -64,58 +63,79 @@ in
   }
 ]
 ++
-(pkgs.lib.trivial.flip builtins.concatMap) langs (lang:
+(
   let
-    taskNames_ = taskNames.apps lang;
-    appName_ = appName lang;
-    appNameInHeading = "${appName_}";
-    packageNames_ = commandNames.apps lang;
     actionNames_ = actionNames.apps // { stop = "stop"; };
-    actionNamesList = builtins.attrNames actionNames_;
-  in
-  [{ h2 = "${appNameInHeading} actions"; }] ++
-  (
-    pkgs.lib.lists.forEach actionNamesList (action:
-      if action == actionNames_.stop then
-        let stopApp = "Stop ${appNameInHeading}"; in
-        [
-          { h3 = stopApp; }
-          { ol = [ "Press `Ctrl` (`Cmd`) + `C` in the terminal" ]; }
-        ]
-      else
-        let
-          taskName = taskNames_.${action};
-          packageName = packageNames_.${action};
-        in
-        [
-          { h3 = taskName; }
+    mkJSON = env2json.tools.${system}.mkJSON;
+    ports =
+      builtins.foldl' (a: b: a // b) { } (builtins.map
+        (lang:
+          let
+            f = envName: builtins.fromJSON (
+              builtins.readFile "${(mkJSON ../${appName lang}/${envName}.env).out}/.json"
+            );
+          in
           {
-            ol =
-              if
-                action == actionNames_.run ||
-                action == actionNames_.dockerRun ||
-                action == actionNames_.dockerBuild ||
-                action == actionNames_.dockerStop
-              then
-                let
-                  port = ports.${lang}.${action};
-                in
-                [
-                  "${runTask taskName}"
-                  { ol = [ "Or ${nixDevelop packageName}" ]; }
-                ]
-                ++
-                (
-                  if action == actionNames_.run || action == actionNames_.dockerRun then
-                    let
-                      address = port: "http://127.0.0.1:${builtins.toString port}";
-                    in
-                    [ "Open ${page (address port)} in a browser" ]
-                  else [ ]
-                )
-              else [ ]
-            ;
+            ${lang} = {
+              ${actionNames_.run} = f "app";
+              ${actionNames_.dockerRun} = f "";
+            };
           }
-        ])
+        )
+        langs
+      );
+  in
+  (pkgs.lib.trivial.flip builtins.concatMap) langs (lang:
+    let
+      taskNames_ = taskNames.apps lang;
+      appName_ = appName lang;
+      appNameInHeading = "${appName_}";
+      packageNames_ = commandNames.apps lang;
+      actionNamesList = builtins.attrNames actionNames_;
+    in
+    [{ h2 = "${appNameInHeading} actions"; }] ++
+    (
+      pkgs.lib.lists.forEach actionNamesList (action:
+        if action == actionNames_.stop then
+          let stopApp = "${appNameInHeading}: Stop"; in
+          [
+            { h3 = stopApp; }
+            { ol = [ "Press `Ctrl` (`Cmd`) + `C` in the terminal" ]; }
+          ]
+        else
+          let
+            taskName = taskNames_.${action};
+            packageName = packageNames_.${action};
+          in
+          [
+            { h3 = taskName; }
+            {
+              ol =
+                if builtins.hasAttr action { inherit (actionNames_) run dockerRun dockerBuild dockerStop; }
+                then
+                  [
+                    "${runTask taskName}"
+                    { ol = [ "Or ${nixDevelop packageName}" ]; }
+                  ]
+                  ++
+                  (
+                    if builtins.hasAttr action { inherit (actionNames_) run dockerRun; } then
+                      let
+                        belongsTo = val: set: builtins.elem val (builtins.attrValues set);
+                        PORT = "PORT";
+                        HOST_PORT = "HOST_PORT";
+                        port = ports.${lang}.${action}.${if action == actionNames_.run then PORT else HOST_PORT};
+                        HOST = "HOST";
+                        host = ports.${lang}.${action}.${HOST};
+                        address = "http://${host}:${port}";
+                      in
+                      [ "Open ${page address} in a browser" ]
+                    else [ ]
+                  )
+                else [ ]
+              ;
+            }
+          ])
+    )
   )
 )

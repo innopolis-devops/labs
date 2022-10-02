@@ -1,8 +1,9 @@
-{ my-json2md
+{ json2md
 , system
 , codiumTools
 , pkgs
 , commands
+, env2json
 }:
 let
   inherit (codiumTools)
@@ -22,13 +23,13 @@ let
   # all scripts assume calling from the root directory of the project
   writeDocs =
     let
-      docsNix = import ./docs.nix { inherit pkgs; };
+      docsNix = import ./docs.nix { inherit pkgs env2json system; };
       docsFileJson = "docs.json";
       docsJson = writeJson "docs" "./${docsFileJson}" docsNix;
       docsMdFile = "docs.md";
       docsMdDir = "README";
       docsMdPath = "${docsMdDir}/${docsMdFile}";
-      json2md = my-json2md.packages.${system}.default;
+      json2md_ = json2md.packages.${system}.default;
       mdlint = pkgs.nodePackages.markdownlint-cli2;
     in
     mkShellApp rec {
@@ -36,13 +37,13 @@ let
       runtimeInputs = [
         pkgs.nodejs-16_x
         docsJson
-        json2md
+        json2md_
         mdlint
       ];
       text = ''
         ${docsJson.name};
         mkdir -p ${docsMdDir}
-        ${json2md.packageName} ${docsFileJson} > ${docsMdPath};
+        ${json2md_.packageName} ${docsFileJson} > ${docsMdPath};
         ${mdlint.packageName}-fix ${docsMdPath}
         rm ${docsFileJson}
         printf "\n[%s]\n" "ok ${name}"

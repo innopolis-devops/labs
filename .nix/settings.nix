@@ -12,6 +12,7 @@ in
     git
     nix-ide
     workbench
+    markdown-all-in-one
     ;
   ide-purescript =
     (settingsNix.ide-purescript or { }) // {

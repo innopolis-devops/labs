@@ -8,7 +8,7 @@ let
         run = app;
         dockerBuild = "${app}-docker-build";
         dockerRun = "${app}-docker-run";
-        dockerStop = "${app}-docker-rm";
+        dockerStop = "${app}-docker-stop";
       };
   };
   taskNames = {
@@ -25,28 +25,9 @@ let
     apps = builtins.mapAttrs (name: _: name) (taskNames.apps "");
   };
 
-  ports =
-    let
-      app = "app";
-      docker = "docker";
-    in
-    {
-      python = {
-        run = 8000;
-        dockerRun = 8002;
-        dockerInternal = 80;
-      };
-      purescript = {
-        run = 8001;
-        dockerRun = 8003;
-        dockerInternal = 80;
-      };
-    };
-
   langPython = "python";
   langPurescript = "purescript";
   langs = [ langPython langPurescript ];
-  dockerPorts = [ ports.python.dockerRun ports.purescript.dockerRun ];
   appPython = appName langPython;
   appPurescript = appName langPurescript;
   DOCKER_PORT = "DOCKER_PORT";
@@ -61,12 +42,12 @@ in
     commandNames
     taskNames
     actionNames
-    ports
+    # ports
     appName
     langPython
     langPurescript
     langs
-    dockerPorts
+    # dockerPorts
     appPurescript
     appPython
     serviceNames

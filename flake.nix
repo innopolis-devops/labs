@@ -8,7 +8,8 @@
     # app-python.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_python";
     app-purescript.url = path:./app_purescript;
     # app-purescript.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_purescript";
-    my-json2md.follows = "my-inputs/json2md";
+    json2md.follows = "my-inputs/json2md";
+    env2json.follows = "my-inputs/env2json";
     my-codium.follows = "my-inputs/my-codium";
   };
   outputs =
@@ -17,10 +18,11 @@
     , nixpkgs
     , my-codium
     , my-inputs
-    , my-json2md
+    , json2md
     , app-purescript
     , app-python
     , nix-vscode-marketplace
+    , env2json
     }:
     flake-utils.lib.eachDefaultSystem (system:
     let
@@ -54,11 +56,12 @@
         (import ./.nix/write-configs.nix
           {
             inherit
-              my-json2md
+              json2md
               system
               codiumTools
               pkgs
               commands
+              env2json
               ;
           }
         );

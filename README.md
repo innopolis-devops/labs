@@ -146,7 +146,12 @@ https://github.com/safe-waters/docker-lock -->
 -->
 <!-- TODO disable automatic numeration markdown -->
 
-- `.envrc`
-  - We release a path that contains a binary
-  - We want this path with its dependencies be available for a user
-  - we need to copy a runtime closureei
+<!-- TODO 
+
+add tasks
+toggle paths
+push to github
+lint
+push to docker hub
+
+ -->

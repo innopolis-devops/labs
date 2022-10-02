@@ -48,8 +48,8 @@ In this lab you need to get familiar with a CD tool - Ansible. Then use it to de
 2. Install ansible and read about it - [Ansible intro](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 
 3. Create an ansible role for docker. There are two ways:
-    * Write a role from scratch.
-    * Use a [docker role](https://github.com/geerlingguy/ansible-role-docker) from `ansible-galaxy` as a template.
+   * Write a role from scratch.
+   * Use a [docker role](https://github.com/geerlingguy/ansible-role-docker) from `ansible-galaxy` as a template.
 4. Create a playbook.
 5. Create an `ANSIBLE.md` file in the `ansible` folder.
 6. Run your playbook (deploy the role) and provide 50 last lines of the output of the your deployment command in it. Example:
@@ -73,5 +73,4 @@ In this lab you need to get familiar with a CD tool - Ansible. Then use it to de
 1. Set up dynamic inventory for your cloud, try to find something ready
 
 > [AWS example](https://docs.ansible.com/ansible/latest/collections/amazon/aws/aws_ec2_inventory.html)
->
 > [Yandex Cloud - not tested](https://github.com/rodion-goritskov/yacloud_compute)

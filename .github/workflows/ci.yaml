@@ -13,18 +13,12 @@ jobs:
   caching:
     name: Build on ${{ matrix.os }}
     env:
-      # cache: br4ch1st0chr0n3
-      # root: ./
-      # app_purescript: app_purescript
-      # app_python: app_python
-      # root_devShells: "default codium"
-      # app_purescript_devShells: "default dev"
-      # app_python_devShells: "default dev"
-      # each-devshell: ./.github/actions/each-devshell
-      # DOCKER_HUB_USER: dademd
-      IMAGE_TAG: v1
-      # python: python
-      # purescript: purescript
+      action: |
+        git pull --rebase --autostash
+        nix run .#{0}
+        git commit -a -m "action: {1}"
+        git push
+      # IMAGE_TAG: v1
     strategy:
       matrix:
         os: [ubuntu-20.04, ubuntu-22.04]
@@ -38,17 +32,22 @@ jobs:
             substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://hydra.iohk.io https://haskell-language-server.cachix.org https://br4ch1st0chr0n3.cachix.org
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= br4ch1st0chr0n3.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
           install_url: https://releases.nixos.org/nix/nix-2.11.1/install
-      - name: Log in to Docker Hub
-        run: docker login -p ${{ secrets.DOCKER_HUB_PASSWORD }} -u ${{ secrets.DOCKER_HUB_USER }}
-      - 
-      - name: Log in to Cachix
-        uses: cachix/cachix-action@v10
-        with:
-          name: ${{ secrets.CACHIX_CACHE }}
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: config git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
 
-      - name: Cache flakes  
-        run: CACHIX_CACHE=${{ secrets.CACHIX_CACHE }} nix run
+      - name: Update locks
+        env:
+          command: updateLocks
+          msg: update locks
+        if: ${{ matrix.os == 'ubuntu-20.04' }}
+        run: ${{ format(env.action, env.command, env.msg) }}
+      
+      # TODO use
+      # - name: Log in to Docker Hub
+      #   run: docker login -p ${{ secrets.DOCKER_HUB_PASSWORD }} -u ${{ secrets.DOCKER_HUB_USER }}
+      
       # - name: Push ${{ env.app_python }} to Docker Hub
       #   uses: ./.github/actions/push-to-docker-hub
       #   with:
@@ -64,4 +63,14 @@ jobs:
       #     NAME: ${{ env.app_purescript }}
       #     TAG: ${{ github.sha }}
       #     SHELL: ${{ env.purescript }}
+
+      - name: Log in to Cachix
+        uses: cachix/cachix-action@v10
+        with:
+          name: ${{ secrets.CACHIX_CACHE }}
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Cache flakes  
+        run: CACHIX_CACHE=${{ secrets.CACHIX_CACHE }} nix run
+        
 

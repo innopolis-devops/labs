@@ -163,6 +163,7 @@
         default = codium;
         lint = scripts.lintDockerfiles;
         pushToCachix = flakesUtils.flakesPushToCachix;
+        updateLocks = flakesUtils.flakesUpdate;
         format = flakesUtils.flakesFormat;
       };
     });

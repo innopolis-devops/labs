@@ -1,0 +1,8 @@
+---
+- name: Prepare docker
+  hosts: yacloud
+  remote_user: ubuntu
+  become: true
+
+  roles:
+    - docker

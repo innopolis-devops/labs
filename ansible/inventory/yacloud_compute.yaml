@@ -1,0 +1,2 @@
+plugin: yacloud_compute
+yacloud_token: "YANDEX_OAUTH_TOKEN" # token is retrieved from the specified env variable

@@ -1,7 +1,7 @@
 all:
   hosts:
     vm:
-      ansible_host: 44.201.238.51
-      ansible_user: r.nurutdinov
-      ansible_ssh_private_key_file: ~/devops.pem
+      ansible_host: 84.201.152.173
+      ansible_user: kastrylia
+      ansible_ssh_private_key_file: ~/.ssh/id_rsa
       ansible_become: true

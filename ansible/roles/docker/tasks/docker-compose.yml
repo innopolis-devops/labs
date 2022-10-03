@@ -17,7 +17,6 @@
   when: >
     docker_compose_current_version is defined
     and (docker_compose_version | regex_replace('v', '')) not in docker_compose_current_version
-
 - name: Install Docker Compose (if configured).
   get_url:
     url: "{{ docker_compose_url }}"

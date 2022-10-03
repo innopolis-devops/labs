@@ -1,0 +1,6 @@
+[yacloud]
+asdfffff ansible_host=130.193.48.25
+
+[yacloud:vars]
+ansible_user=ubuntu
+ansible_ssh_private_key_file=~/.ssh/yc

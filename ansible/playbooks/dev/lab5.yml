@@ -1,0 +1,5 @@
+- name: Lab5
+  hosts: all
+  become: yes
+  roles:
+    - geerlingguy.docker

@@ -689,6 +689,10 @@ Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
 
 ## GITHUB
 
+### Init
+
+```bash
+
 ## Best practices
 
 - Use terraform modules

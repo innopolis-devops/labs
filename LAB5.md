@@ -73,5 +73,4 @@ In this lab you need to get familiar with a CD tool - Ansible. Then use it to de
 1. Set up dynamic inventory for your cloud, try to find something ready
 
 > [AWS example](https://docs.ansible.com/ansible/latest/collections/amazon/aws/aws_ec2_inventory.html)
-> 
 > [Yandex Cloud - not tested](https://github.com/rodion-goritskov/yacloud_compute)

@@ -54,7 +54,7 @@ vm                         : ok=14   changed=6    unreachable=0    failed=0    s
 ```
 
 ```bash
-[nailya@nailya ansible]$ ansible-inventory -i inventory/main.yml --list > list.txt
+[nailya@nailya ansible]$ ansible-inventory -i inventory/main.yml --list
 {
     "_meta": {
         "hostvars": {

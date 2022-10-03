@@ -3,5 +3,4 @@ vm:
     vm1:
       ansible_host: "51.250.82.130"
       ansible_user: ubuntu
-      ansible_ssh_private_key_file: ~/.ssh/id_rsa_app_server
       ansible_become: true

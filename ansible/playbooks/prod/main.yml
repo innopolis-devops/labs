@@ -1,6 +1,6 @@
 ---
 - name: Install docker
-  hosts: server_yacloud
+  hosts: yacloud
   remote_user: ubuntu
   become: true
 

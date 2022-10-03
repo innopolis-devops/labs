@@ -1,10 +1,10 @@
-#Terraform Lab
+# Terraform Lab
 
 * [Docker](#docker)
 * [YandexCloud](#yandexcloud)
 * [Best Practices](#best-practices)
 
-#Docker
+# Docker
 
 ## 1 Build Infrastructure Step (Docker)
 * Added main.tf file
@@ -204,7 +204,7 @@ container_id = "2ecad5b11978749540c34c5697c08e70aebcb4bc692d0af9f8bdce114af1b0f3
 image_name = "nginx:latest"
 ```
 
-#YandexCloud
+# YandexCloud
 
 ## 1 Build Infrastructure Step (YandexCloud)
 * Added main.tf file
@@ -363,7 +363,7 @@ internal_ip_address_vm_1 = "192.168.10.17"
 ```
 
 
-#Best Practices
+# Best Practices
 * Do not put secrets into repository
 * Put inside .gitignore specific files for terraform and your secrets
 * Put variables inside file named variables.tf 

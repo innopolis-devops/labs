@@ -136,14 +136,6 @@ Output of the command after deployment of the role docker on remote virtual mach
 ansible-playbook playbooks/prod/main.yml --diff
 ```
 
-<details> <summary>Output</summary>
-
-```
-
-```
-
-</details>
-
 ### Check inventory
 Run the command to check the inventory:
 
@@ -152,5 +144,24 @@ ansible-inventory -i inventory/yacloud_compute.yml --list
 ```
 
 ```
-
+{
+    "_meta": {
+        "hostvars": {
+            "ya_vm": {
+                "ansible_host": "51.250.80.31"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "ungrouped",
+            "yacloud"
+        ]
+    },
+    "servers": {
+        "hosts": [
+            "ya_vm"
+        ]
+    }
+}
 ```

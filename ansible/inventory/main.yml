@@ -1,0 +1,6 @@
+host:
+  hosts:
+    vm:
+      ansible_host: "51.250.90.28"
+      ansible_user: ubuntu
+      ansible_become: true

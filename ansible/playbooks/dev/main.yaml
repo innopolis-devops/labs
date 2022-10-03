@@ -1,0 +1,4 @@
+- name: Docker
+  hosts: virtualmachine
+  roles:
+    - docker

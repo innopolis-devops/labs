@@ -33,3 +33,25 @@ check dependencies and code style by flake8
 
 I chose it because nothing needs to be configured in yml file, by that I mean
 github already suplies with ready template
+
+
+## Unit Testing Best Practices
+A unit test validates and verifies individual software units (or components) to ensure each unit works as intended. A unit may be a function, procedure, method, object, or module. Unit testing occurs during the coding phase of the software development lifecycle, and can help identify coding errors, code quality issues, and security issues.
+
+* Write Readable, Simple Tests (AAA).
+Unit test library has specific convention of defining test, which follows AAA. I was using pytest
+and I think I could keep the simplicity.
+* Write Deterministic Tests.
+Test scenarios cannot have different outcomes, either one state or other.
+* Test One Scenario Per Test.
+In test_logic.py test were made for on particular scenario.
+* Unit Tests Should Be Automated.
+I have CI configured to run tests
+* Write Isolated Tests.
+The state of one test does not disturb others.
+* Avoid Test Interdependence.
+Kind of same idea.
+* Ensure Unit Tests are Repeatable and Scalable.
+The test scenarios can be scaled.
+* Write Good Test Names.
+Test names indicate which particular field is tested.

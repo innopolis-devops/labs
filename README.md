@@ -1,20 +1,22 @@
 Clock-clock
 =======================
 
-![py test](https://github.com/Amirka-Kh/devops-labs/actions/workflows/python-app.yml/badge.svg?style=for-the-badge)
+![CI](https://github.com/Amirka-Kh/devops-labs/actions/workflows/build.yml/badge.svg?style=for-the-badge)
 ![docker](https://github.com/Amirka-Kh/devops-labs/actions/workflows/lint.yml/badge.svg?style=for-the-badge)
 
 ## Content
 1. [Description](#description)
-> * [Project description](#project-description)
-> * [Demo](#demo)
+* [Project description](#project-description)
+* [Demo](#demo)
 2. [Build](#build)
-> * [Without Docker](#without-docker)
-> * [With Docker](#with-docker)
+* [Without Docker](#without-docker)
+* [With Docker](#with-docker)
+* [Unit tests](#unit-tests)
+* [Use case](#use-case)
 3. [Project requirements](#project-requirements)
-> * [User Stories](#user-stories)
-> * [Required Features](#required-features)
-> * [Non-functional Requirements](#non-functional-requirements)
+* [User Stories](#user-stories)
+* [Required Features](#required-features)
+* [Non-functional Requirements](#non-functional-requirements)
 
 ## Description
 ### Project description
@@ -48,6 +50,13 @@ if you pulled an image then type the following:
 if you build it locally type next:
 `docker run -d --publish 8000:5000 --name clock-server clock-clock:v1.0.0`
 4. Access the website `localhost:8000`
+### Unit tests
+to start unit tests go to the `tests` directory,
+then choose the file with tests you like and run:
+`pytest <test_file.py>` 
+### Use case
+app is available by `localhost:8000`, to view specific timezone one can
+address next url `localhost:8000/Europe-Moscow` that will show moscow time
 
 ## Project requirements
 ### User Stories

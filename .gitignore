@@ -1,0 +1,13 @@
+.DS_Store
+.pytest_cache/
+__pycache__/
+
+env
+venv
+.env
+.venv
+
+# IDE files
+.mypy_cache
+.idea
+.vscode

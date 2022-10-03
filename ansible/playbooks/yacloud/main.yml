@@ -1,0 +1,8 @@
+---
+- name: Yacloud part
+  hosts: 51.250.89.99
+  remote_user: ubuntu
+  become: true
+
+  roles:
+    - docker

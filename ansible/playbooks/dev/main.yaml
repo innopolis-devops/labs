@@ -1,0 +1,4 @@
+- name: AWS ansible
+  hosts: vm
+  roles:
+    - docker

@@ -10,7 +10,7 @@ variable "box_subnet" {
 
 variable "box_name" {
   description = "VM name"
-  default     = "timeweb-box"
+  default     = "timeweb"
 }
 
 variable "hostname" {

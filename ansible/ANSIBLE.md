@@ -53,3 +53,29 @@ skipping: [asdfffff]
 PLAY RECAP *********************************************************************
 asdfffff                   : ok=13   changed=0    unreachable=0    failed=0    skipped=14   rescued=0    ignored=0
 ```
+
+```bash
+ansible-inventory -i ./ansible/inventory/yacloud_compute --list                                                                                                      lab5 2 
+{
+    "_meta": {
+        "hostvars": {
+            "asdfffff": {
+                "ansible_host": "130.193.48.25",
+                "ansible_ssh_private_key_file": "~/.ssh/yc",
+                "ansible_user": "ubuntu"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "ungrouped",
+            "yacloud"
+        ]
+    },
+    "yacloud": {
+        "hosts": [
+            "asdfffff"
+        ]
+    }
+}
+```

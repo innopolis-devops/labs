@@ -14,4 +14,5 @@ jobs:
         with:
           filesToIgnoreRegex: |
             "devops/terraform\\/.*"
+            "devops/ansible\\/.*"
             "devops/app_javascript/app_js/node_modules\\/.*"

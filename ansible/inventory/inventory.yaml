@@ -1,0 +1,7 @@
+vms:
+  hosts:
+    VM1:
+      ansible_host: 3.71.110.29
+      ansible_user: ubuntu
+      ansible_ssh_private_key_file: /mnt/c/lab.pem
+      ansible_become: true

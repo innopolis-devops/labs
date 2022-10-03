@@ -34,7 +34,7 @@ resource "yandex_compute_instance" "vm" {
   }
 
   network_interface {
-    subnet_id = yandex_vpc_subnet.foo.id
+    subnet_id = yandex_vpc_subnet.subnetwork.id
     nat       = true
   }
 
@@ -45,12 +45,12 @@ resource "yandex_compute_instance" "vm" {
 
 }
 
-resource "yandex_vpc_network" "foo" {
+resource "yandex_vpc_network" "newtwork" {
 
 }
 
-resource "yandex_vpc_subnet" "foo" {
+resource "yandex_vpc_subnet" "subnetwork" {
   zone           = "ru-central1-a"
   v4_cidr_blocks = ["192.168.0.0/16"]
-  network_id     = yandex_vpc_network.foo.id
+  network_id     = yandex_vpc_network.newtwork.id
 }

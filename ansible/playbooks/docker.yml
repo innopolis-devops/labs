@@ -1,0 +1,5 @@
+- name: Install docker
+  hosts: danoneVM
+  become: true
+  roles:
+    - danone

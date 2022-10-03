@@ -1,0 +1,8 @@
+---
+ - name: Docker
+   hosts: yacloud
+   remote_user: ubuntu
+   become: true
+
+   roles:
+     - docker

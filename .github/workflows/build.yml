@@ -5,9 +5,9 @@ name: Build
 
 on:
   push:
-    branches: [ * ]
-  pull_request:
-    branches: [ * ]
+    paths:
+      - "app_python/**"
+      - ".github/workflows/build.yaml"
 
 jobs:
   lint:
@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - lint
-      - tests
+      - test
     steps:
       - name: Check out repo
         uses: actions/checkout@v2

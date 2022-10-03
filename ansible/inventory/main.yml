@@ -1,0 +1,6 @@
+baka:
+  hosts:
+    bakavm:
+      ansible_host: "51.250.89.217"
+      ansible_user: test
+      ansible_become: true

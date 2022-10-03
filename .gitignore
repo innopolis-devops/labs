@@ -131,3 +131,5 @@ dmypy.json
 key.json
 config.auto.tfvars
 .idea/
+
+.terraform/

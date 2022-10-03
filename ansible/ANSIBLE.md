@@ -1,3 +1,5 @@
+# Result of execution Ansible commands
+
 Last 50 lines of output command `ansible-playbook` 
 ```
 TASK [docker : Install Docker packages.] **************************************************************************************************************

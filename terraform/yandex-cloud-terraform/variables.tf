@@ -27,3 +27,8 @@ variable "service_account_key_file_name" {
   type = string
   default = "key.json"
 }
+
+variable "image_size" {
+  type = number
+  default = 10
+}

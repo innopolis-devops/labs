@@ -39,7 +39,7 @@ resource "yandex_compute_instance" "app-server" {
   boot_disk {
     initialize_params {
       image_id = var.image_id_name # Ubuntu 22.04
-      size     = 10
+      size     = var.image_size
     }
   }
 

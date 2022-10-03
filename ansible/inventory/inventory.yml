@@ -1,0 +1,5 @@
+VM:
+  hosts:
+    vm1:
+      ansible_host: 51.250.80.61
+      ansible_user: test

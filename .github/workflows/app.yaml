@@ -44,7 +44,8 @@ jobs:
 
       - name: Test with pytest
         run: |
-          pytest
+          cd src/
+          pytest ../tests
 
   security:
     runs-on: ubuntu-latest

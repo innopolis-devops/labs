@@ -19,7 +19,7 @@ TASK [Gathering Facts] *********************************************************
 ok: [local_host]
 
 TASK [docker : include_tasks] ******************************************************************************************
-included: /home/local/AP-TEAM/minina/PythonProjects/Innopolis_DevOps2022/ansible/roles/docker/tasks/setup-Debian.yml for local_host
+included: /home/local/minina/PythonProjects/Innopolis_DevOps2022/ansible/roles/docker/tasks/setup-Debian.yml for local_host
 
 TASK [docker : Ensure old versions of Docker are not installed.] *******************************************************
 ok: [local_host]
@@ -69,7 +69,7 @@ ok: [local_host]
 TASK [docker : Ensure handlers are notified now to avoid firewall conflicts.] ******************************************
 
 TASK [docker : include_tasks] ******************************************************************************************
-included: /home/local/AP-TEAM/minina/PythonProjects/Innopolis_DevOps2022/ansible/roles/docker/tasks/docker-compose.yml for local_host
+included: /home/local/minina/PythonProjects/Innopolis_DevOps2022/ansible/roles/docker/tasks/docker-compose.yml for local_host
 
 TASK [docker : Check current docker-compose version.] ******************************************************************
 ok: [local_host]

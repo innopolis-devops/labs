@@ -1,3 +1,4 @@
+1. ```ansible-playbook <path_to your_playbook> --diff```
 ```bash
 [nailya@nailya ansible]$ ansible-playbook playbooks/dev/main.yml --diff
 TASK [docker : Install Docker packages (with downgrade option).] ***********************************************************************************************
@@ -53,6 +54,7 @@ PLAY RECAP *********************************************************************
 vm                         : ok=14   changed=6    unreachable=0    failed=0    skipped=12   rescued=0    ignored=0
 ```
 
+2. ```ansible-inventory -i <name_of_your_inventory_file>.yaml --list```
 ```bash
 [nailya@nailya ansible]$ ansible-inventory -i inventory/main.yml --list
 {

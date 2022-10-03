@@ -1,6 +1,22 @@
 DOCKER.md
 Dockerfile
-LAB1.md
-LAB2.md
-LICENSE
+.gitignore
+
+env
+venv
+.env
+.venv
+.DS_Store
+
+
+# IDE files
+.mypy_cache
+.idea
+.vscode
+.pytest_cache/
+__pycache__/
+
+LAB*.md
 PYTHON.md
+README.md
+DOCKER.md

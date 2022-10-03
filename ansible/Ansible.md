@@ -59,6 +59,7 @@ bakavm                         : ok=15   changed=5    unreachable=0    failed=0 
 ```
 
 ### ansible-inventory -i inventory/main.yml --list
+I deleted all ids, ssh keys and all other sensetive information. 
 ```bash
 $ ansible-inventory -i inventory/main.yml --list
 {

@@ -5,5 +5,5 @@ variable "image" {
 
 variable "name" {
   description = "Container name"
-  default     = "timeweb"
+  default     = "timeweb-container"
 }

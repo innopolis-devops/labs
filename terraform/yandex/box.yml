@@ -1,0 +1,8 @@
+#cloud-config
+users:
+  - name: user
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAjkJ9LgfH0SH1pWea4cO8m7cjndaTgAYgLJclBvumMHNysv/Mnu+fC8okiZh/7fkI96X7Mjgt7P+4vQ0hYsx7U= user@box

@@ -1,5 +1,6 @@
 __pycache__
 *.swp
+.env
 # Local .terraform directories
 **/.terraform/*
 

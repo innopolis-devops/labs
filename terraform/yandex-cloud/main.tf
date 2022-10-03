@@ -38,6 +38,7 @@ resource "yandex_compute_instance" "app-server" {
   boot_disk {
     initialize_params {
       image_id = var.app_server_image_id
+      size     = var.app_server_image_size
     }
   }
 

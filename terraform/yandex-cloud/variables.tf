@@ -10,6 +10,12 @@ variable "app_server_mem" {
   default     = 2
 }
 
+variable "app_server_image_size" {
+  description = "Thes size of boot disk image in GB"
+  type        = number
+  default     = 10
+}
+
 variable "app_server_ssh_key" {
   description = "Path to public key"
   type        = string

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # source: https://gist.github.com/GhostofGoes/94580e76cd251972b15b4821c8a06f59
 # source: https://github.com/github/gitignore/blob/main/Node.gitignore
 
@@ -265,3 +266,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+=======
+*.tfvars
+>>>>>>> 89ab922a8875c16ae482d6d35229e4813e9cf1c7

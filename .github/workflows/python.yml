@@ -34,6 +34,8 @@ jobs:
           dockerfile: app_python/Dockerfile
       - name: "Python"
         uses: quentinguidee/pep8-action@v1
+        with:
+          args: "./app_python"
 
   changes:
       name: "Changes"

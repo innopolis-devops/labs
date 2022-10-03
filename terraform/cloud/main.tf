@@ -38,6 +38,7 @@ resource "yandex_compute_instance" "default" {
   boot_disk {
     initialize_params {
       image_id = data.yandex_compute_image.ubuntu-2204-lts.image_id
+      size     = 20
     }
   }
 

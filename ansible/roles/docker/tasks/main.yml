@@ -1,0 +1,17 @@
+- name: Do apt update
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Install python docker package
+  become: true
+  ansible.builtin.import_role:
+    name: geerlingguy.pip
+  vars:
+    pip_install_packages:
+      - name: docker
+
+- name: Import role geerlingguy.docker
+  become: true
+  ansible.builtin.import_role:
+    name: geerlingguy.docker

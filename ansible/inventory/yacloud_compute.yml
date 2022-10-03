@@ -1,0 +1,7 @@
+plugin: yacloud_compute
+# NOTE: `yacloud_token` here is not requred
+# because the plugin have been modified to use `YC_TOKEN` environment variable
+cache: true
+cache_plugin: ansible.builtin.jsonfile
+cache_timeout: 7200
+cache_connection: tmp/yacloud_compute_inventory

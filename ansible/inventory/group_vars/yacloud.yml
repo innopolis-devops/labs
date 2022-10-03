@@ -1,0 +1,4 @@
+ansible_user: ubuntu
+# NOTE: the private key itself is stored in ssh agent. Providing only public key here
+# In normal environment something like HC Vault should be used instead of this quirky way
+ansible_ssh_private_key_file: ~/.ssh/keys/ycloud.pub

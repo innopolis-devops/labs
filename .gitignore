@@ -5,3 +5,5 @@ __pycache__
 /terraform/.terraform
 /terraform/*.tfstate*
 /.env
+/ansible/tmp/*
+!/ansible/tmp/.gitkeep

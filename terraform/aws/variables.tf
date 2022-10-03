@@ -20,3 +20,8 @@ variable "aws_secret_access_key" {
   description = "AWS auth."
   type        = string
 }
+
+variable "deploy_public_key" {
+  description = "SSH key, that will be allowed to connect to the instances."
+  type        = string
+}

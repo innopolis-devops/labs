@@ -1,6 +1,6 @@
 - name: install docker
   hosts: yc-host
-  remote_user: ubuntu
+  remote_user: root
   become: true
   roles:
     - docker

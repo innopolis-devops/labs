@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: true
+  vars:
+    docker_install_compose: false
+  roles:
+    - geerlingguy.docker
+    - '../../roles/timeweb'

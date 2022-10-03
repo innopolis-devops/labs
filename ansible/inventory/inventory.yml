@@ -1,4 +1,5 @@
-managed-nodes:
+managed_nodes:
   hosts:
-    yc-host:
-      ansible_host: 178.154.204.211
+    yc_host:
+      ansible_host: 51.250.81.158
+      ansible_user: ubuntu

@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "yandex" {
-  zone = "ru-central1-a"
+  zone                     = "ru-central1-a"
   service_account_key_file = var.service_account_key_file_name
 }
 
@@ -28,7 +28,7 @@ resource "yandex_compute_instance" "app-server" {
   allow_stopping_for_update = true
 
   metadata = {
-    ssh-keys = var.app_server_ssh_key
+    ssh-keys = "ubuntu:${file("./id_rsa.pub")}"
   }
 
   resources {
@@ -39,6 +39,7 @@ resource "yandex_compute_instance" "app-server" {
   boot_disk {
     initialize_params {
       image_id = var.image_id_name # Ubuntu 22.04
+      size     = 10
     }
   }
 

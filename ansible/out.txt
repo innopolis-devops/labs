@@ -1,0 +1,21 @@
+{
+    "_meta": {
+        "hostvars": {
+            "yc_host": {
+                "ansible_host": "51.250.81.158",
+                "ansible_user": "ubuntu"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "managed_nodes",
+            "ungrouped"
+        ]
+    },
+    "managed_nodes": {
+        "hosts": [
+            "yc_host"
+        ]
+    }
+}

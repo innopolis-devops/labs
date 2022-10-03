@@ -1,4 +1,5 @@
 # ansible-playbook
+
 ```PLAY [Yandex Cloud ansible] *************************************************************************************
 
 TASK [Gathering Facts] *********************************************************************************
@@ -101,7 +102,33 @@ TASK [docker : include_tasks] **************************************************
 skipping: [vm]
 
 PLAY RECAP *********************************************************************************************
-vm                         : ok=14   changed=6    unreachable=0    failed=0    skipped=14   rescued=0    ignored=0   
+vm                         : ok=14   changed=6    unreachable=0    failed=0    skipped=14   rescued=0    ignored=0
 ```
 
 # ansible-inventory
+
+```
+  {
+    "_meta": {
+        "hostvars": {
+            "vm": {
+                "ansible_become": true,
+                "ansible_host": "84.201.152.173",
+                "ansible_ssh_private_key_file": "~/.ssh/id_rsa",
+                "ansible_user": "kastrylia"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "ungrouped"
+        ]
+    },
+    "ungrouped": {
+        "hosts": [
+            "vm"
+        ]
+    }
+}
+
+```

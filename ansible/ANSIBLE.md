@@ -87,7 +87,7 @@
     51.250.81.82               : ok=12   changed=0    unreachable=0    failed=0    skipped=14   rescued=0    ignored=0
     ```
  - `ansible-inventory -i inventory/main.yml --list`:
-    ```
+    ```json
     {
         "_meta": {
             "hostvars": {

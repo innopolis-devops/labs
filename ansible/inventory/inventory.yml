@@ -1,0 +1,4 @@
+managed-nodes:
+  hosts:
+    yc-host:
+      ansible_host: 178.154.204.211

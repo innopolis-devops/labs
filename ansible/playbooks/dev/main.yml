@@ -1,0 +1,7 @@
+name: install docker
+hosts: yc-host
+remote_user: ubuntu
+become: true
+
+roles:
+  - docker

@@ -1,0 +1,9 @@
+vms:
+  hosts:
+    vm:
+      ansible_host: 84.201.176.53
+
+test:
+  hosts:
+    local:
+      ansible_host: localhost

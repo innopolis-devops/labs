@@ -1,0 +1,6 @@
+- hosts: vm
+  roles:
+    - web_app
+    - name: Install Docker
+      role: geerlingguy.docker
+    become: true

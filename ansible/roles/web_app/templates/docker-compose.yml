@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  {{web_app_name }}:
+    image: {{ web_app.registry }}/{{web_app.image}}:{{web_app.tag}}
+    ports:
+      - "{{ web_app.external_port}}:{{web_app.port}}"
+    restart: always
+
+

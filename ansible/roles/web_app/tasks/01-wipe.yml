@@ -1,0 +1,14 @@
+- name: Wipe all data
+  block:
+  - name: Wipe docker compose services
+    community.docker.docker_compose:
+      project_src: "{{web_app_base_path}}"
+      state: absent
+      remove_volumes: true
+    ignore_errors: true
+
+  - name: Wipe a base path
+    ansible.builtin.file:
+      path: "{{web_app_base_path }}"
+      state: absent
+  tag: ["web_app", "web_app_wipe"]

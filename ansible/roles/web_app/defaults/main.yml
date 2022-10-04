@@ -1,0 +1,10 @@
+
+web_app_base_path: "/opt/web_app"
+web_app_name:  "app_python"
+web_app:
+  registry: "mikadonia"
+  image: "py_app"
+  tag: "latest"
+  external_port: 80
+  port: 5000
+web_app_full_wipe: false

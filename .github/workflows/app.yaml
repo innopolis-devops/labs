@@ -3,7 +3,7 @@ name: Python App
 
 on: 
   push:
-    branches: [lab3]
+    branches: [lab4]
 
 defaults:
   run:

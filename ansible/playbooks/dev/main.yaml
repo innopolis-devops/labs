@@ -1,5 +1,5 @@
 - name: Prepare docker
-  hosts: VM1
+  hosts: vm1
   become: true
   roles:
     - docker

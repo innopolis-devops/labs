@@ -25,3 +25,4 @@ venv/
 /terraform/yandex-cloud/.terraform.lock.hcl
 /terraform/yandex-cloud/terraform.tfstate
 /terraform/yandex-cloud/.terraform/
+/ansible-venv/

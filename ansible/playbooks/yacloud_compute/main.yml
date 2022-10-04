@@ -1,7 +1,7 @@
 ---
 - name: Install docker
   hosts: yacloud
-  remote_user: ubuntu
+  remote_user: talgat
   become: true
 
   roles:

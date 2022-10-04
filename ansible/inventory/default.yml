@@ -1,6 +1,6 @@
 vm:
   hosts:
-    vm1:
+    yacloud:
       ansible_host: "62.84.118.130"
       ansible_user: talgat
       ansible_become: true

@@ -1,0 +1,9 @@
+---
+- name: Install docker
+  hosts: yacloud
+  remote_user: talgat
+
+  become: true
+
+  roles:
+    - docker

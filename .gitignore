@@ -6,6 +6,8 @@
 *.venv
 *.env/
 *.venv/
+/.env
+/.env.dev
 *.virtualenv/
 *.ENV/
 *.env.bak/

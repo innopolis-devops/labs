@@ -242,9 +242,114 @@ image_id = "sha256:0c404972e13056a866875f2bf8a981a911dc17071f505b9dc72cdf08e0d40
 
 <br>
 
-## 2. Github steps and output
+## 2. Yandex Cloud
 
-### 2.1 Creating a Github repository and checking the state
+```
+terraform show
+```
+
+```
+# yandex_compute_instance.vm-1:
+resource "yandex_compute_instance" "vm-1" {
+    allow_stopping_for_update = true
+    created_at                = "2022-10-04T06:30:27Z"
+    folder_id                 = "b1gua67r1utsreuh35jj"
+    fqdn                      = "fhm6pp15qfl25ch1c3rh.auto.internal"
+    id                        = "fhm6pp15qfl25ch1c3rh"
+    metadata                  = {
+        "ssh-keys" = <<-EOT
+            ubuntu:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCjZEREUs6lEznAuF3h7a380tExW+xmgUtmhkVd96nFeos1IRexQTDiWTcJFKDAYRDiewZfzm0xUyB2r7PqBa1mdBq+x72JTs0BYdIt0ICiqGzJ2cmb4fu1PsIORTDG9+DDNUnleooPo0Omo33BlKuU4j+go+LWJb8U8v6rKVtS2k4WrE7nyBKnopmo1w8U1+8O+hFzgDJMgfksh5wOH9HYmZb5VFgc0MvraQ2rqm1og0psUtt07Cwmbur2+U4evP21Uu0/aGBAChkDzYQkJynA/QSlqlNKskaMHwNVyr/Bj7+Va4ULQe6YiirrDsn/OO0z7VzySbmXyonDglVU4BxX desmigor@MIs-Mac.local
+        EOT
+    }
+    name                      = "terraform-app"
+    network_acceleration_type = "standard"
+    platform_id               = "standard-v1"
+    status                    = "running"
+    zone                      = "ru-central1-a"
+
+    boot_disk {
+        auto_delete = true
+        device_name = "fhmg4c04tk384npvgc5u"
+        disk_id     = "fhmg4c04tk384npvgc5u"
+        mode        = "READ_WRITE"
+
+        initialize_params {
+            block_size = 4096
+            image_id   = "fd8ip4qsne4vvmq4rnm5"
+            size       = 3
+            type       = "network-hdd"
+        }
+    }
+
+    network_interface {
+        index              = 0
+        ip_address         = "192.168.10.18"
+        ipv4               = true
+        ipv6               = false
+        mac_address        = "d0:0d:6c:e4:25:d3"
+        nat                = true
+        nat_ip_address     = "130.193.37.79"
+        nat_ip_version     = "IPV4"
+        security_group_ids = []
+        subnet_id          = "e9b3co2i1310lmeokff9"
+    }
+
+    placement_policy {
+        host_affinity_rules = []
+    }
+
+    resources {
+        core_fraction = 100
+        cores         = 2
+        gpus          = 0
+        memory        = 2
+    }
+
+    scheduling_policy {
+        preemptible = false
+    }
+}
+
+# yandex_vpc_network.network-1:
+resource "yandex_vpc_network" "network-1" {
+    created_at = "2022-10-04T06:25:49Z"
+    folder_id  = "b1gua67r1utsreuh35jj"
+    id         = "enpb667kklk2bor0tjiv"
+    labels     = {}
+    name       = "network1"
+    subnet_ids = [
+        "e9b3co2i1310lmeokff9",
+    ]
+}
+
+# yandex_vpc_subnet.subnet-1:
+resource "yandex_vpc_subnet" "subnet-1" {
+    created_at     = "2022-10-04T06:25:50Z"
+    folder_id      = "b1gua67r1utsreuh35jj"
+    id             = "e9b3co2i1310lmeokff9"
+    labels         = {}
+    name           = "subnet1"
+    network_id     = "enpb667kklk2bor0tjiv"
+    v4_cidr_blocks = [
+        "192.168.10.0/24",
+    ]
+    v6_cidr_blocks = []
+    zone           = "ru-central1-a"
+}
+```
+
+```
+terraform output
+```
+
+```
+external_ip_address_vm_1 = "130.193.37.79"
+internal_ip_address_vm_1 = "192.168.10.18"
+```
+
+## 3. Github steps and output
+
+### 3.1 Creating a Github repository and checking the state
 
 To view the built infrastructure after applying, I used the commands below:
 

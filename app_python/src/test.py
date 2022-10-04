@@ -3,7 +3,6 @@ from datetime import datetime
 import pytz
 import app as tested_app
 
-
 class FlaskAppTests(unittest.TestCase):
     def setUp(self):
         tested_app.app.config['TESTING'] = True

@@ -6,7 +6,7 @@ on:
     branches: [lab5]
     paths:
       - app_python/**
-      - .github/workflows/python.yml
+      - .github/workflows/app.yml
 
 defaults:
   run:

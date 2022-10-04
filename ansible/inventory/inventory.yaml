@@ -1,7 +1,0 @@
- VM:
-   hosts:
-     VM1:
-       ansible_host: 52.59.XXX.XXX //TODO
-       ansible_user: ubuntu
-       ansible_ssh_private_key_file: ~/learning-projects/devops-labs/key.pem
-       ansible_become: true

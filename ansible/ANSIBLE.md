@@ -1,17 +1,17 @@
-1.
+# 1. First Command
 
 ```bash
-ansible-playbook playbooks/dev/main.yaml --diff
+ansible-playbook playbooks/dev/main.yml --diff
 ```
 
 ```bash
 TODO
 ```
 
-2.
+# 2. Second Command
 
 ```bash
- ansible-inventory -i inventory/inventory.yaml --list
+ansible-inventory -i inventory/main.yml --list
 ```
 
 ```bash

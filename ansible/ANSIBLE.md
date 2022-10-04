@@ -1,5 +1,8 @@
 # 1. First Command
 
+```
+ansible-playbook playbooks/dev/main.yml --diff
+```
 ```bash
 PLAY [Install Docker] *******************************************************************************************************************************************************
 
@@ -87,10 +90,6 @@ skipping: [yacloud-vm]
 
 PLAY RECAP ******************************************************************************************************************************************************************
 yacloud-vm                 : ok=13   changed=0    unreachable=0    failed=0    skipped=14   rescued=0    ignored=0
-```
-
-```bash
-TODO
 ```
 
 # 2. Second Command

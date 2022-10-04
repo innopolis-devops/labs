@@ -7,6 +7,22 @@
   notify: restart docker
   ignore_errors: "{{ ansible_check_mode }}"
 
+- name: Install pip docker packages
+  block:
+
+  - name: Install pip
+    package:
+      name: "python3-pip"
+      state: "present"
+
+  - name: Install docker module
+    pip:
+      name: [ "docker", "docker-compose" ]
+
+  - name: Install compose module
+    pip:
+      name: docker-compose
+
 - name: Ensure /etc/docker/ directory exists.
   file:
     path: /etc/docker

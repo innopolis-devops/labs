@@ -1,9 +1,9 @@
 ---
-- name: Prepare docker
+- name: Deploy app
   hosts: yacloud
   remote_user: ubuntu
   # We install stuff, it requires root
   become: true
 
   roles:
-    - docker
+    - web_app

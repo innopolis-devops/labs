@@ -290,3 +290,69 @@ vm01                       : ok=13   changed=6    unreachable=0    failed=0    s
     }
 }
 ```
+
+## Web application deployment output
+
+last 50 lines
+
+```diff
+$ ansible-playbook playbooks/dev/main.yml --diff
+...
+--- before
++++ after
+@@ -1,5 +1,5 @@
+ {
+-    "mode": "0755",
++    "mode": "0700",
+     "path": "/opt/web_app",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [test]
+ ____________________________________________________________
+< TASK [web_app : Template, validate, and copy compose file] >
+ ------------------------------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+--- before
++++ after: /home/bragov4ik/.ansible/tmp/ansible-local-31499b873vnj0/tmpzik__280/docker-compose.yml.j2
+@@ -0,0 +1,10 @@
++version: "3.9"
++
++services:
++  app_python:
++    image: bragov4ik/time_web_app:latest
++    container_name: app_python
++    ports:
++      - "80:8000"
++    restart: always
++      
+\ No newline at end of file
+
+changed: [test]
+ _____________________________________
+< TASK [web_app : Start all services] >
+ -------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+changed: [test]
+ ____________
+< PLAY RECAP >
+ ------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+test                       : ok=19   changed=11   unreachable=0    failed=0    skipped=11   rescued=0    ignored=0
+```

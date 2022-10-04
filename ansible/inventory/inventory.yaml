@@ -1,0 +1,9 @@
+VM:
+  hosts:
+    VM1:
+    ansible_host: "10.130.0.0"
+    ansible_user: ubuntu
+    ansible_ssh_private_key: ~/.ssh/mykey.pem
+    ansible_become: true
+  children:
+    webservers:

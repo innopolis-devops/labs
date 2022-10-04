@@ -1,0 +1,5 @@
+name: Docker
+hosts: VM1
+become: true
+roles:
+  -docker

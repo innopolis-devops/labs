@@ -39,12 +39,12 @@ jobs:
 
       - name: Analysing the code with pylint
         run: |
-          pylint ./app_python/src/
+          pylint src/
         continue-on-error: true
 
       - name: Test with pytest
         run: |
-          cd ./app_python/src/
+          cd src/
           pytest ../tests
 
   security:
@@ -61,14 +61,14 @@ jobs:
       - name: Snyk monitor
         run: |
           pip install -r requirements.txt
-          snyk test --sarif-file-output=snyk.sarif
+          snyk test --sarif-file-output=../snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: ./app_python/snyk.sarif
+          sarif_file: snyk.sarif
 
   deploy:
     runs-on: ubuntu-latest

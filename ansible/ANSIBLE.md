@@ -72,9 +72,14 @@ TASK [docker : Install docker-compose plugin.] *********************************
         "all": {
             "children": [
                 "ungrouped",
-                "vms"
+                "vm"
             ]
         },
+        "vm": {
+            "hosts": [
+                "vm1"
+            ]
+        }
     }
 
 ```

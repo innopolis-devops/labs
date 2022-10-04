@@ -1,0 +1,6 @@
+- name: Docker install
+  hosts: yacloud
+  remote_user: test
+  become: true
+  roles:
+    - docker

@@ -1,0 +1,3 @@
+plugin: "yacloud_compute"
+# YC_TOKEN will be taken from env
+yacloud_token_env_name: "YC_TOKEN"

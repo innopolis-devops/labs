@@ -38,5 +38,10 @@ resource "yandex_compute_instance" "msc_time-vm" {
 
   network_interface {
     subnet_id = "${yandex_vpc_subnet.default.id}"
+    nat = true
+  }
+
+  metadata = {
+    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
   }
 }

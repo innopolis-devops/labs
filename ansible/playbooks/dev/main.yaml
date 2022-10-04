@@ -1,0 +1,13 @@
+- hosts: all
+
+  tasks:
+  - name: Update apt repos cache
+    become: yes
+    remote_user: ubuntu
+    ansible.builtin.apt:
+      update_cache: yes
+
+  roles:
+  - name: Docker installation
+    role: geerlingguy.docker
+    become: yes

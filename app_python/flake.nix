@@ -1,5 +1,5 @@
 {
-  description = "Try-phi front end";
+  description = "app_python flake";
 
   inputs = {
     my-inputs.url = "github:br4ch1st0chr0n3/flakes?dir=inputs";

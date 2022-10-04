@@ -1,6 +1,6 @@
 version: "3.10"
 services:
   web:
-    build: .
+    build: app_python
     ports:
       - "8000:8000"

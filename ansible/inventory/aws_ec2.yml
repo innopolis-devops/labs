@@ -1,0 +1,17 @@
+plugin: amazon.aws.aws_ec2
+regions:
+  - us-east-1
+  - us-east-2
+  - us-west-1
+  - us-west-2
+keyed_groups:
+  - key: tags['Name']
+    prefix: pytime-dev
+    parent_group: "pytime-dev"
+  - key: tags['Name']
+    prefix: pytime-prod
+    parent_group: "pytime-prod"
+compose:
+  # Use only the public IP addresses to connect to the hosts
+  # (note: this does not modify inventory_hostname, which is set via I(hostnames))
+  ansible_host: public_ip_address

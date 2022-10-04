@@ -1,0 +1,25 @@
+---
+- include_tasks: setup.yml
+
+- name: Install Docker
+  package:
+    name: docker.io
+    state: present
+    update_cache: yes
+
+- name: Start Docker and ensure it will run at boot.
+  service:
+    name: docker
+    state: started
+    enabled: true
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Install python dependencies for docker
+  pip:
+    name:
+      - "docker=={{ docker_version }}"
+
+- include_tasks: user-permissions.yml
+
+- include_tasks: docker-compose.yml
+  when: install_docker_compose | bool

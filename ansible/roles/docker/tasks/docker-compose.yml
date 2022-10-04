@@ -1,0 +1,12 @@
+---
+- name: Install docker compose
+  package:
+    name:
+      - docker-compose
+    state: present
+
+- name: Install python dependencies for docker-compose
+  pip:
+    name:
+      - pyyaml
+      - "docker-compose=={{ docker_compose_version }}"

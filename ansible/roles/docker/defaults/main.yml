@@ -1,0 +1,5 @@
+---
+docker_group: "docker"
+docker_version: "latest"
+docker_compose_version: "latest"
+install_docker_compose: true

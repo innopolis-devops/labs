@@ -1,0 +1,13 @@
+---
+- name: Install pip and tools
+  package:
+    name:
+      - python3-pip
+      - python3-virtualenv
+      - python3-setuptools
+    state: present
+
+- name: Update pip
+  pip:
+    name:
+      - pip>=20

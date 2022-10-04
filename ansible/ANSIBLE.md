@@ -106,7 +106,7 @@ ansible-inventory -i inventory/main.yml --list
             "yacloud-vm": {
                 "ansible_become": true,
                 "ansible_host": "130.193.37.79",
-                "ansible_user": "app"
+                "ansible_user": "ubuntu"
             }
         }
     },

@@ -2,5 +2,5 @@ all:
   hosts:
     yacloud-vm:
       ansible_host: 130.193.37.79
-      ansible_user: app
+      ansible_user: ubuntu
       ansible_become: true

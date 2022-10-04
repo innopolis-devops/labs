@@ -1,0 +1,6 @@
+- name: My first play
+  hosts: virtualmachines
+  roles:
+    - role: '../../roles/geerlingguy.docker'
+
+  

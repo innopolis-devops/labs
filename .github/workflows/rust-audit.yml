@@ -1,0 +1,24 @@
+name: Rust audit
+
+on:
+  push:
+    paths: 
+      - '**/Cargo.toml'
+      - '**/Cargo.lock'
+
+defaults:
+  run:
+    working-directory: ./app_rust
+
+permissions:
+  contents: read
+
+jobs:
+  security_audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: cargo install cargo-audit
+      - name: Run audit
+        # why ignore https://github.com/chronotope/chrono/issues/602
+        run: cargo audit --color always --file Cargo.lock --ignore RUSTSEC-2020-0071

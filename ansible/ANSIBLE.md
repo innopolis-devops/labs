@@ -69,7 +69,7 @@ vm1 : ok=15 changed=6 unreachable=0 failed=0 skipped=11 rescued=0 ignored=0
 ## output of ansible-inventory
 
    ```sh
-   ansible-inventory -i inventory/inventory.yaml --list
+    ubuntu-1@ubuntu1:~/labs/ansible$ ansible-inventory -i inventory/inventory.yml —list
     {
         "_meta": {
             "hostvars": {

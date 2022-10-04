@@ -13,29 +13,29 @@ provider "yandex" {
 }
 
 // VM1 2 cores 2GB mem on Ubuntu
-resource "yandex_compute_instance" "vm-1" {
-  name = "terraform1"
+# resource "yandex_compute_instance" "vm-1" {
+#   name = "terraform1"
 
-  resources {
-    cores  = 2
-    memory = 2
-  }
+#   resources {
+#     cores  = 2
+#     memory = 2
+#   }
 
-  boot_disk {
-    initialize_params {
-      image_id = "fd80jdh4pvsj48qftb3d"
-    }
-  }
+#   boot_disk {
+#     initialize_params {
+#       image_id = "fd80jdh4pvsj48qftb3d"
+#     }
+#   }
 
-  network_interface {
-    subnet_id = yandex_vpc_subnet.subnet-1.id
-    nat       = true
-  }
+#   network_interface {
+#     subnet_id = yandex_vpc_subnet.subnet-1.id
+#     nat       = true
+#   }
 
-  metadata = {
-    user-data = file("./vm-user.yml")
-  }
-}
+#   metadata = {
+#     user-data = file("./vm-user.yml")
+#   }
+# }
 
 // VM2 4 cores 4GB mem on Ubuntu
 resource "yandex_compute_instance" "vm-2" {
@@ -48,7 +48,7 @@ resource "yandex_compute_instance" "vm-2" {
 
   boot_disk {
     initialize_params {
-      image_id = "fd804nmi5gak42ae1dcq"
+      image_id = "fd81u2vhv3mc49l1ccbb" // ubuntu-20-04-lts-v20220704
     }
   }
 

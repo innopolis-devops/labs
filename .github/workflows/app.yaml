@@ -1,12 +1,10 @@
 ---
 name: Python App
 
-on: 
-  push:
-    branches: [lab5]
+on: [push]
     paths:
-      - app_python/**
-      - .github/workflows/app.yml
+      - 'app_python/**'
+      - '.github/workflows/app.yml'
 
 defaults:
   run:

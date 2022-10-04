@@ -3,7 +3,7 @@
 ## Static inventory
 
 ```sh
-ubuntu-1@ubuntu1:~/devops-labs/ansible$ ansible-playbook playbooks/dev/main.yml —diff -i inventory/inventory.yml —private-key=~/.ssh/id_rsa —extra-vars "ansible_sudo_pass"="ubuntu-1"
+ubuntu-1@ubuntu1:~/devops-labs/ansible$ ansible-playbook playbooks/dev/main.yaml —diff -i inventory/inventory.yml —private-key=~/.ssh/id_rsa —extra-vars "ansible_sudo_pass"="ubuntu-1"
 
 TASK [docker : Install Docker packages (with downgrade option).] ***************
 The following package was automatically installed and is no longer required:

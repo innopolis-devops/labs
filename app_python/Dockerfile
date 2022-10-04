@@ -33,7 +33,7 @@ EXPOSE 8000
 COPY . .
 
 # Set the working directory to /app/src
-WORKDIR /app
+WORKDIR /app/src
 
 # Set the default command for the container
-CMD [ "python3", "-m" , "flask", "--app", "src.app", "run", "--host", "0.0.0.0", "--port", "8000"]
+CMD [ "python3", "-m" , "flask", "run", "--host", "0.0.0.0", "--port", "8000"]

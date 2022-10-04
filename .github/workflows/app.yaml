@@ -10,7 +10,7 @@ on:
 
 defaults:
   run:
-    working-directory: app_python
+    working-directory: ./app_python
 
 jobs:
   build:

@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.2
 
-FROM clux/muslrust:stable as build
+FROM clux/muslrust:nightly-2022-10-05 as build
 
 COPY Cargo.toml Cargo.lock /volume/
 COPY src /volume/src

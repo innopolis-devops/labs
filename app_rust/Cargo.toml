@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 chrono = "0.4"
 rocket = "0.5.0-rc.2"
+rocket_prometheus = "0.10.0-rc.3"

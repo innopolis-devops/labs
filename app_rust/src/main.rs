@@ -1,5 +1,6 @@
 use chrono::{DateTime, FixedOffset, Local};
 use rocket::{get, launch, routes};
+use rocket_prometheus::PrometheusMetrics;
 
 fn get_time_moscow() -> DateTime<FixedOffset> {
     let hour = 3600;
@@ -17,7 +18,11 @@ fn index() -> String {
 
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![index])
+    let prometheus = PrometheusMetrics::new();
+    rocket::build()
+        .attach(prometheus.clone())
+        .mount("/", routes![index])
+        .mount("/metrics", prometheus)
 }
 
 #[cfg(test)]

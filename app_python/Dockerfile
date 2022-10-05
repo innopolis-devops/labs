@@ -10,8 +10,8 @@ COPY src/* /app/
 USER appuser
 
 HEALTHCHECK --interval=1m --timeout=3s \
-  CMD curl -f http://localhost:8000/ || exit 1
-
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8000/ || exit 1
+  
 EXPOSE 8000
 
 # If necessary we may want to change parameters on launch

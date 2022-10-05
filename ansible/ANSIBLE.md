@@ -371,3 +371,7 @@ $ curl http://178.154.206.170:80/
 $ curl http://178.154.206.170:81/
 Moscow time: 20:56:36
 ```
+
+### Other bonus staff
+
+everything is implemented

@@ -61,7 +61,7 @@ EXPOSE $PORT
 
 RUN . /opt/pysetup/.venv/bin/activate
 
-ENTRYPOINT [ "sh", "-c", "uvicorn --reload --host $HOST --port $PORT app.main:app"]
+ENTRYPOINT [ "bash", "-c", "uvicorn --reload --host $HOST --port $PORT app.main:app"]
 
 
 # 'lint' stage runs black and isort

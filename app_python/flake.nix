@@ -2,20 +2,19 @@
   description = "app_python flake";
 
   inputs = {
-    my-inputs.url = "github:br4ch1st0chr0n3/flakes?dir=inputs";
-    nixpkgs.follows = "my-inputs/nixpkgs";
-    flake-utils.follows = "my-inputs/flake-utils";
-    gitignore.follows = "my-inputs/gitignore";
-    my-codium.follows = "my-inputs/my-codium";
+    nixpkgs_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/nixpkgs;
+    flake-utils_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/flake-utils;
+    drv-tools.url = github:br4ch1st0chr0n3/flakes?dir=drv-tools;
+    nixpkgs.follows = "nixpkgs_/nixpkgs";
+    flake-utils.follows = "flake-utils_/flake-utils";
   };
 
   outputs =
     { self
     , nixpkgs
     , flake-utils
-    , gitignore
-    , my-codium
-    , my-inputs
+    , drv-tools
+    , ...
     }:
       with flake-utils.lib;
       eachDefaultSystem
@@ -25,15 +24,21 @@
 
           dotenvFile = "app.env";
 
-          inherit (my-codium.tools.${system})
+          inherit (drv-tools.functions.${system})
             mkShellApp
             mkShellApps
             mkDevShellsWithDefault
             ;
 
+          applyN = genOp: n: op: nul: builtins.foldl' op nul (builtins.genList genOp n);
+          applyN_ = applyN (x: x);
+          whenRootAtDepth = depth: ''when inside `$PROJECT_ROOT/${applyN_ depth (dir: _: builtins.baseNameOf dir) ./.}`'';
+
           scripts = mkShellApps {
             run-start = {
               text = ''poetry run app'';
+              runtimeInputs = [ pkgs.poetry ];
+              longDescription = ''Run `app` ${whenRootAtDepth 2}'';
             };
             update-dependencies = {
               name = "poetry-update-dependencies";
@@ -41,17 +46,18 @@
                 poetry update
                 poetry install
               '';
+              runtimeInputs = [ pkgs.poetry ];
+              longDescription = ''Update `venv` ${whenRootAtDepth 2}'';
             };
           };
         in
         {
-          inherit scripts;
           packages = {
-            inherit updateDependencies;
+            inherit scripts;
           };
           devShells = mkDevShellsWithDefault
             {
-              buildInputs = builtins.attrValues (scripts);
+              buildInputs = (builtins.attrValues scripts) ++ [ pkgs.poetry ];
               shellHook = ''
                 source .venv/bin/activate
                 poetry env use $PWD/.venv/bin/python
@@ -64,7 +70,7 @@
               };
             }
           ;
-        }) // { inherit (my-inputs) formatter; };
+        });
   nixConfig = {
     extra-substituters = [
       https://haskell-language-server.cachix.org

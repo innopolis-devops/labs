@@ -8,17 +8,32 @@ When a server starts, one can open a given address in a browser to see current t
 
 ## Best practices
 
+What I did in this project
+
 - Automatically generated the project via [manage-fastapi](https://github.com/ycd/manage-fastapi)
   - Project structure was explained on [SO](https://stackoverflow.com/a/64987404)
 
+- Adapted An HTML [template](https://www.freecodecamp.org/news/html-starter-template-a-basic-html5-boilerplate-for-index-html/). There is an explanation of why specific tags vere included.
+
 - Used [poetry](https://python-poetry.org/) for Python dependency management
-  - Created a `.venv` via `poetry` later
+  - Created an in-project virtual environment
+  - Created a local poetry configuration
 
-- Used linters and formatters (available in VSCodium)
+- [Adapted](https://github.com/svx/poetry-fastapi-docker) a ready image that correctly works for `poetry`
 
-- I adapted An HTML [template](https://www.freecodecamp.org/news/html-starter-template-a-basic-html5-boilerplate-for-index-html/). There is an explanation of why specific tags vere included.
+- Used linters and formatters (see the [Tools](./PYTHON.md#tools) section)
 
-- I applied PEP8 [recommendation](https://peps.python.org/pep-0008/#package-and-module-names) to name the code directory `time_app`
+- Used the `Compose` schema in `docker-compose.yml` (provided by VSCodium)
+
+- Applied PEP8 [recommendation](https://peps.python.org/pep-0008/#package-and-module-names) to name the code directory `time_app`
+
+- Linted `Dockerfile` via [hadolint](https://github.com/hadolint/hadolint)
+
+- Created a Nix flake with relevant scripts in output
+  - the default `devshell` sources Python virtual environment when entering this directory
+
+- Stored the app configuration in a `.env` file
+  - It's checked into the repo since it contains non-sensitive data necessary to run this app
 
 ## Chosen framework
 
@@ -40,7 +55,9 @@ When a server starts, one can open a given address in a browser to see current t
 - `async`-s sometimes get in the way
  larger implementations
 
-## Linters, checkers, formatters
+## Tools
+
+Linters, checkers, formatters
 
 ### Python
 
@@ -49,17 +66,12 @@ When a server starts, one can open a given address in a browser to see current t
 
 ### Markdown
 
-- [markdownlint](https://github.com/DavidAnson/markdownlint)
+- [markdownlint](https://github.com/DavidAnson/markdownlint) - a linter and formatter
 
 ### HTML & Jinja2
 
-- [djlint](https://www.djlint.com/) - a [jinja2](https://jinja.palletsprojects.com/en/3.1.x/templates/) and `HTML` linter
-
-## Misc
+- [djlint](https://www.djlint.com/) - a [jinja2](https://jinja.palletsprojects.com/en/3.1.x/templates/) and `HTML` linter and formatter
 
 ### Dockerfile
 
-- Here's why one should use `exec` form for `ENTRYPOINT` and `CMD` in a `Dockerfile` - [docs](https://docs.docker.com/engine/reference/builder/#exec-form-entrypoint-example), [SO](https://stackoverflow.com/a/72444233)
-  - to be able to store child processes spawned by a shell
-  - to provide the default command in `ENTRYPOINT` with overridable `CMD`
-- If a command expects a string as a parameter, it should look like `["sh", "-c" "command" ]`
+See this [section](../README.md#docker)

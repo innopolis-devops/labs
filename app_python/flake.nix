@@ -52,9 +52,8 @@
           };
         in
         {
-          packages = {
-            inherit scripts;
-          };
+          inherit scripts;
+          packages = { };
           devShells = mkDevShellsWithDefault
             {
               buildInputs = (builtins.attrValues scripts) ++ [ pkgs.poetry ];

@@ -1,0 +1,12 @@
+- hosts: vms
+
+  pre_tasks:
+    - name: Update apt cache
+      become: true
+      ansible.builtin.apt:
+        update_cache: yes
+
+  roles:
+    - name: Install Docker
+      role: geerlingguy.docker
+      become: true

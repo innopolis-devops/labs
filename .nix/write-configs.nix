@@ -1,17 +1,23 @@
 { json2md
 , system
-, codiumTools
+, drv-tools
 , pkgs
 , commands
 , env2json
+, my-codium
 }:
 let
-  inherit (codiumTools)
+  inherit (drv-tools.functions.${system})
     mkShellApp
+    writeJson
+    framedBrackets
+    ;
+  inherit (my-codium.configs.${system})
+    settingsNix
+    ;
+  inherit (my-codium.functions.${system})
     writeSettingsJson
     writeTasksJson
-    settingsNix
-    writeJson
     ;
   inherit (import ./data.nix)
     commandNames
@@ -46,7 +52,7 @@ let
         ${json2md_.packageName} ${docsFileJson} > ${docsMdPath};
         ${mdlint.packageName}-fix ${docsMdPath}
         rm ${docsFileJson}
-        printf "\n[%s]\n" "ok ${name}"
+        printf "${framedBrackets "%s"}" "ok ${name}"
       '';
     };
   writeMarkdownlintConfig =
@@ -54,7 +60,7 @@ let
   writeSettings = writeSettingsJson (import ./settings.nix {
     inherit settingsNix;
   });
-  writeTasks = writeTasksJson (import ./tasks.nix { inherit commands codiumTools; });
+  writeTasks = writeTasksJson (import ./tasks.nix { inherit commands drv-tools system; });
   writeConfigs =
     mkShellApp {
       name = "write-configs";

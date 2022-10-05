@@ -66,7 +66,7 @@ in
 (
   let
     actionNames_ = actionNames.apps // { stop = "stop"; };
-    mkJSON = env2json.tools.${system}.mkJSON;
+    mkJSON = env2json.functions.${system}.mkJSON;
     ports =
       builtins.foldl' (a: b: a // b) { } (builtins.map
         (lang:

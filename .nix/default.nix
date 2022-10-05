@@ -6,23 +6,28 @@
 , app-python
 , app-purescript
 , rootDir
+, drv-tools
+, flake-tools
+, easy-purescript-nix
 }:
 let
   pkgs = nixpkgs.legacyPackages.${system};
-  codiumTools = my-codium.tools.${system};
-  inherit (codiumTools)
-    toList
-    shellTools
-    extensions
+  inherit (my-codium.functions.${system})
     mkCodium
+    ;
+  inherit (my-codium.configs.${system})
+    extensions
+    ;
+  inherit (drv-tools.functions.${system})
+    toList
     mkShellApp
     mkShellApps
-    mergeValues
     mkDevShellsWithDefault
+    mkBin
+    ;
+  inherit (flake-tools.functions.${system})
     mkFlakesUtils
     flakesToggleRelativePaths
-    pushToGithub
-    mkBin
     ;
 
   inherit (import ./data.nix)
@@ -38,10 +43,11 @@ let
         inherit
           json2md
           system
-          codiumTools
           pkgs
           commands
           env2json
+          drv-tools
+          my-codium
           ;
       }
     );
@@ -71,20 +77,15 @@ let
   codium = mkCodium {
     extensions = { inherit (extensions) nix markdown purescript github misc docker python toml fish; };
     runtimeDependencies = [
-      (toList
-        (
-          { inherit (shellTools) nix purescript docker; }
-          //
-          commands
-        )
-      )
-
+      (toList commands)
       flakesToggleRelativePaths_
       (
         builtins.attrValues (
           {
             inherit (pkgs) docker poetry direnv lorri inotify-tools;
             inherit (pkgs.python310Packages) python-dotenv;
+            inherit (pkgs) rnix-lsp;
+            inherit (pkgs.haskellPackages) hadolint;
           }
           //
           flakesUtils
@@ -96,20 +97,20 @@ let
   };
 
   scripts = mkShellApps {
-    lintDockerfiles = {
-      text = let dockerFile = "Dockerfile"; in
-        pkgs.lib.strings.concatMapStringsSep
-          ''printf "\n" ; ''
-          (dir: '' ( printf "${dir}:\n" ; hadolint ${dir}/${dockerFile});'')
-          [ appPython appPurescript ];
-    };
-    reload = {
-      text = ''
-        nix develop .#"$1" -c bash -c "exit"
-        # echo 4
-        exit
-      '';
-    };
+    lintDockerfiles =
+      let
+        dockerFile = "Dockerfile";
+        dirs = [ appPython appPurescript ];
+        inherit (pkgs.lib.strings) concatMapStringsSep concatStringsSep;
+      in
+      {
+        text =
+          concatMapStringsSep
+            ''printf "\n" ; ''
+            (dir: '' ( printf "${dir}:\n" ; ${mkBin pkgs.hadolint} ${dir}/${dockerFile});'')
+            dirs;
+        longDescription = ''Lint ${dockerFile}s in ${concatStringsSep ", " dirs}'';
+      };
   };
 
   devShells =
@@ -132,5 +133,5 @@ let
     );
 in
 {
-  inherit devShells scripts codium flakesUtils;
+  inherit devShells scripts codium flakesUtils flakesToggleRelativePaths_;
 }

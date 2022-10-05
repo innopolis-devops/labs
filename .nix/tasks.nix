@@ -1,4 +1,4 @@
-{ commands, codiumTools }:
+{ commands, drv-tools, system}:
 let
   inherit (import ./data.nix)
     commandNames
@@ -6,6 +6,9 @@ let
     taskNames
     actionNames
     appName
+    ;
+  inherit (drv-tools.functions.${system})
+    mkBin
     ;
   tasksLang = lang:
     let
@@ -15,7 +18,7 @@ let
       # cwd relative to the workspace folder
       mkCommand = { lang, taskName, commandName, cwd ? "." }:
         {
-          command = codiumTools.mkBin commands.apps.${commandName};
+          command = mkBin commands.apps.${commandName};
           label = "${taskName}";
           options = {
             cwd = "\${workspaceFolder}/${cwd}";

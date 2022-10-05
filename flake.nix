@@ -1,31 +1,35 @@
 {
   inputs = {
-    my-inputs.url = "github:br4ch1st0chr0n3/flakes?dir=inputs";
-    nixpkgs.follows = "my-inputs/nixpkgs";
-    flake-utils.follows = "my-inputs/flake-utils";
+    nixpkgs_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/nixpkgs;
+    flake-utils_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/flake-utils;
+    drv-tools.url = github:br4ch1st0chr0n3/flakes?dir=drv-tools;
+    flake-tools.url = github:br4ch1st0chr0n3/flakes?dir=flake-tools;
+    easy-purescript-nix_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/easy-purescript-nix;
+    nixpkgs.follows = "nixpkgs_/nixpkgs";
+    flake-utils.follows = "flake-utils_/flake-utils";
+    my-codium.url = github:br4ch1st0chr0n3/flakes?dir=codium;
+    env2json.url = github:br4ch1st0chr0n3/flakes?dir=env2json;
+    json2md.url = github:br4ch1st0chr0n3/flakes?dir=json2md;
+    easy-purescript-nix.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/easy-purescript-nix;
+
     # app-purescript.url = path:./app_purescript;
     app-python.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_python";
     # app-python.url = path:./app_python;
     app-purescript.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_purescript";
-    json2md.follows = "my-inputs/json2md";
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
-    env2json.follows = "my-inputs/env2json";
-    my-codium.follows = "my-inputs/my-codium";
   };
   outputs =
     { self
     , flake-utils
     , nixpkgs
     , my-codium
-    , my-inputs
     , json2md
     , app-purescript
     , app-python
     , env2json
-    , flake-compat
+    , flake-tools
+    , easy-purescript-nix
+    , drv-tools
+    , ...
     }:
     flake-utils.lib.eachDefaultSystem (system:
     let
@@ -34,8 +38,9 @@
       rootDir = ./.;
 
       inherit (import ./.nix/default.nix {
-        inherit nixpkgs system my-codium app-python app-purescript rootDir json2md env2json;
-      }) devShells scripts codium flakesUtils;
+        inherit nixpkgs system my-codium app-python app-purescript
+          rootDir json2md env2json drv-tools flake-tools easy-purescript-nix;
+      }) devShells scripts codium flakesUtils flakesToggleRelativePaths_;
     in
     {
       inherit devShells;
@@ -45,6 +50,8 @@
         pushToCachix = flakesUtils.flakesPushToCachix;
         updateLocks = flakesUtils.flakesUpdate;
         format = flakesUtils.flakesFormat;
+        createVenvs = scripts.createVenvs;
+        togglePaths = flakesToggleRelativePaths_;
       };
     });
 

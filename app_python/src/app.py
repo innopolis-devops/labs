@@ -1,8 +1,10 @@
 from flask import Flask
+from prometheus_flask_exporter import PrometheusMetrics
 from datetime import datetime
 from pytz import timezone
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 
 def format_time(dt, timezone_name) -> str:

@@ -27,13 +27,19 @@ def render_status_check() -> str:
     r = requests.get("http://worldtimeapi.org/api/timezone/Europe/Moscow")
     remote_time = r.json()["datetime"]
     remote_time = iso8601.parse_date(remote_time)
-    
+
     local_time = local_time_moscow()
     diff = abs(remote_time - local_time)
-    if (diff < max_timedelta):
-        return "<h1>Local time is correct. Error ({}) is within boundary ({})</h1>".format(diff, max_timedelta)
+    if diff < max_timedelta:
+        return (
+            "<h1>Local time is correct. Error ({}) is within boundary ({})</h1>".format(
+                diff, max_timedelta
+            )
+        )
     else:
-        return "<h1>Local time is incorrect. Difference with another time provider is {}</h1>".format(diff)
+        return "<h1>Local time is incorrect. Difference with another time provider is {}</h1>".format(
+            diff
+        )
 
 
 @app.route("/")

@@ -1,9 +1,8 @@
 use std::collections::HashMap;
 
 use chrono::{DateTime, FixedOffset, Local};
-use serde::{Serialize, Deserialize, self};
+use serde::{self, Deserialize, Serialize};
 use thiserror::Error;
-
 
 pub fn get_local_time_moscow() -> DateTime<FixedOffset> {
     let hour = 3600;
@@ -21,7 +20,7 @@ pub enum ParseError {
     #[error("incorrect value: {0}")]
     IncorrectValue(String),
     #[error("incorrect time format: {0:?}")]
-    IncorrectTimeFmt(#[from] chrono::ParseError)
+    IncorrectTimeFmt(#[from] chrono::ParseError),
 }
 
 #[derive(Error, Debug)]
@@ -32,11 +31,12 @@ pub enum TimeRequestError {
     InvalidResponse(#[from] ParseError),
 }
 
-fn parse_response(response: HashMap<String, JsonFieldPayload>) -> Result<DateTime<FixedOffset>, TimeRequestError> {
-    let time = response.get("datetime")
-        .ok_or::<TimeRequestError>(
-            ParseError::NoRequiredField("field \"datetime\" not found".to_owned()).into()
-        )?;
+fn parse_response(
+    response: HashMap<String, JsonFieldPayload>,
+) -> Result<DateTime<FixedOffset>, TimeRequestError> {
+    let time = response
+        .get("datetime")
+        .ok_or_else(|| ParseError::NoRequiredField("field \"datetime\" not found".to_owned()))?;
     let time = match time {
         JsonFieldPayload::String(s) => s,
         v => return Err(ParseError::IncorrectValue(format!("{:?}", v)).into()),

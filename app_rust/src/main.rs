@@ -2,7 +2,7 @@ use chrono::Duration;
 use rocket::{get, launch, routes};
 use rocket_prometheus::PrometheusMetrics;
 
-use utils::{render_time_page, get_local_time_moscow, get_remote_time_moscow, TimeRequestError};
+use utils::{get_local_time_moscow, get_remote_time_moscow, render_time_page, TimeRequestError};
 
 mod utils;
 
@@ -10,7 +10,6 @@ mod utils;
 fn index() -> String {
     render_time_page("Moscow", get_local_time_moscow())
 }
-
 
 #[get("/status")]
 async fn status_check() -> String {
@@ -22,23 +21,29 @@ async fn status_check() -> String {
             // Rocket does not work properly with logging yet
             println!("WARN: {:?}", e);
             let err_cause_return = match e {
-                TimeRequestError::RequestFailure(_) => 
-                    "could not reach remote time server",
-                TimeRequestError::InvalidResponse(_) =>
-                    "remote time server returned invalid response",
+                TimeRequestError::RequestFailure(_) => "could not reach remote time server",
+                TimeRequestError::InvalidResponse(_) => {
+                    "remote time server returned invalid response"
+                }
             };
             let mut output = "Failed to perform time status check: ".to_owned();
             output.push_str(err_cause_return);
-            return output
+            return output;
         }
     };
     let local_time = get_local_time_moscow();
     let diff = remote_time - local_time;
     if diff.num_seconds().abs() < max_allowed_diff_secs {
-        format!("Local time is correct. Error ({}) is within boundary ({})", diff, Duration::seconds(max_allowed_diff_secs))
-    }
-    else {
-        format!("Local time is incorrect. Difference with another time provider is {}", diff)
+        format!(
+            "Local time is correct. Error ({}) is within boundary ({})",
+            diff,
+            Duration::seconds(max_allowed_diff_secs)
+        )
+    } else {
+        format!(
+            "Local time is incorrect. Difference with another time provider is {}",
+            diff
+        )
     }
 }
 

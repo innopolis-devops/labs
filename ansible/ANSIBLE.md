@@ -356,3 +356,18 @@ changed: [test]
 
 test                       : ok=19   changed=11   unreachable=0    failed=0    skipped=11   rescued=0    ignored=0
 ```
+
+### Bonus web app deployment result
+
+```bash
+test                       : ok=4    changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0 
+```
+
+### Everything is working
+
+```bash
+$ curl http://178.154.206.170:80/
+<h1>Moscow time: 20:56:26</h1>
+$ curl http://178.154.206.170:81/
+Moscow time: 20:56:36
+```

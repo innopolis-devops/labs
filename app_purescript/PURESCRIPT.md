@@ -8,11 +8,13 @@ When a `parcel` dev server starts, one can open a given address in a browser to 
 
 ## Best practices
 
+What I did
+
 - Automatically generated the project via [spago](https://github.com/purescript/spago), an official `PureScript` package manager
 
 - Used linters and formatters (available in VSCodium)
 
-- I adapted An HTML [template](https://www.freecodecamp.org/news/html-starter-template-a-basic-html5-boilerplate-for-index-html/). There is an explanation of why specific tags vere included.
+- Adapted An HTML [template](https://www.freecodecamp.org/news/html-starter-template-a-basic-html5-boilerplate-for-index-html/). There is an explanation of why specific tags vere included.
 
 ## Chosen framework
 
@@ -30,7 +32,7 @@ When a `parcel` dev server starts, one can open a given address in a browser to 
 ### Cons
 
 - Not easy to learn by following the [guide](https://purescript-halogen.github.io/purescript-halogen/index.html)
-- Maintained by only a few persons -> vulnerable
+- Maintained by only a few persons -> uses some old vulnerable Node packages
 
 ## Linters, checkers, formatters
 
@@ -41,8 +43,12 @@ When a `parcel` dev server starts, one can open a given address in a browser to 
 
 ### Markdown
 
-- [markdownlint](https://github.com/DavidAnson/markdownlint)
+- [markdownlint](https://github.com/DavidAnson/markdownlint) - a linter and formatter
 
 ### HTML
 
-- [djlint](https://www.djlint.com/) - an `HTML` linter
+- [djlint](https://www.djlint.com/) - an `HTML` linter and formatter
+
+### Dockerfile
+
+See this [section](../README.md#docker)

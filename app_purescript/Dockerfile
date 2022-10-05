@@ -41,7 +41,7 @@ COPY --chown=codewarrior:codewarrior dev /app/
 
 EXPOSE $PORT
 
-ENTRYPOINT ["sh", "-c", "parcel serve -p $PORT --host $HOST dev/index.html"]
+ENTRYPOINT ["bash", "-c", "parcel serve -p $PORT --host $HOST dev/index.html"]
 
 # ensure testing works
 # spago test || true; \

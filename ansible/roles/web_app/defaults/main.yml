@@ -1,0 +1,10 @@
+web_app:
+  name: "msc_time_py"
+  registry: "andrew174194"
+  image: "msc_time_py"
+  tag: "latest"
+web_app_net:
+  external_port: 80
+  port: 5000
+web_app_base_path: "/etc/msc_time"
+web_app_full_app: false

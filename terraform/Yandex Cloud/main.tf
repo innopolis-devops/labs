@@ -42,6 +42,7 @@ resource "yandex_compute_instance" "msc_time-vm" {
   }
 
   metadata = {
-    ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    #ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys = "ubuntu:${file("//wsl$/Ubuntu-20.04/home/andrew/.ssh/id_rsa.pub")}"
   }
 }

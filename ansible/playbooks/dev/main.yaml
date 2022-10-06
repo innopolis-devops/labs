@@ -1,4 +1,5 @@
 - hosts: all
+  tags: ["web_app"]
 
   tasks:
   - name: Update apt repos cache
@@ -10,4 +11,19 @@
   roles:
   - name: Docker installation
     role: geerlingguy.docker
+    gather_facts: true
+    become: yes
+
+  - name: Install docker package for python
+    role: geerlingguy.pip
+    vars:
+      pip_install_packages:
+        - name: pip
+          extra_args: "--upgrade"
+        - name: docker
+        - name: docker-compose
+    become: true
+
+  - name: Docker compose
+    role: web_app
     become: yes

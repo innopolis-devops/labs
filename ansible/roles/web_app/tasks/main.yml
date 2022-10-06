@@ -1,0 +1,29 @@
+---
+- name: Wipe
+  ansible.builtin.include_tasks: 01-wipe.yml
+  when: web_app_full_app | bool
+  tags: ["web_app", "web_app_delete"]
+
+- name: Deploy a wep app
+  block: 
+  - name: Create a base dir
+    ansible.builtin.file:
+      path: "{{ web_app_base_path }}"
+      state: directory
+      mode: '0755'
+
+  - name: Template a file to base dir
+    ansible.builtin.template:
+      src: template/docker-compose.yml.j2
+      dest: "{{ web_app_base_path }}/docker-compose.yml"
+      owner: root
+      group: root
+      mode: '0600'
+      
+  - name: Start docker-compose
+    community.docker.docker_compose:
+      project_src: "{{ web_app_base_path }}"
+      state: present
+      pull: true
+  
+  tags: ["web_app"]

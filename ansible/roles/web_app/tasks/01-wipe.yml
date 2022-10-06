@@ -1,0 +1,15 @@
+- name: Wipe
+  block:
+  - name: Delete dockers
+    community.docker.docker_compose:
+      project_src: "{{ web_app_base_path }}"
+      state: absent
+      remove_volumes: true
+    ignore_errors: true
+
+  - name: Delete a base dir
+    ansible.builtin.file:
+      path: "{{ web_app_base_path }}"
+      state: absent
+
+  tags: ["web_app", "web_app_delete"]

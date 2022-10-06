@@ -1,0 +1,9 @@
+version: "2.4"
+
+services:
+
+  {{ web_app.name }}:
+    image: {{ web_app.registry }}/{{ web_app.image }}:{{ web_app.tag }}
+    ports:
+      - "{{ web_app_net.external_port }}:{{ web_app_net.port }}"
+    restart: always

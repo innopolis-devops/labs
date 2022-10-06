@@ -28,26 +28,21 @@
             mkShellApp
             mkShellApps
             mkDevShellsWithDefault
+            mkBin
             ;
 
           applyN = genOp: n: op: nul: builtins.foldl' op nul (builtins.genList genOp n);
           applyN_ = applyN (x: x);
           whenRootAtDepth = depth: ''when inside `$PROJECT_ROOT/${applyN_ depth (dir: _: builtins.baseNameOf dir) ./.}`'';
 
+          activateVenv = builtins.readFile ./scripts/activate.sh;
           scripts = mkShellApps {
             run-start = {
-              text = ''poetry run app'';
-              runtimeInputs = [ pkgs.poetry ];
-              longDescription = ''Run `app` ${whenRootAtDepth 2}'';
-            };
-            update-dependencies = {
-              name = "poetry-update-dependencies";
               text = ''
-                poetry update
-                poetry install
+                ${activateVenv}
+                poetry run app
               '';
-              runtimeInputs = [ pkgs.poetry ];
-              longDescription = ''Update `venv` ${whenRootAtDepth 2}'';
+              longDescription = ''Run `app` ${whenRootAtDepth 2}'';
             };
           };
         in
@@ -58,8 +53,7 @@
             {
               buildInputs = (builtins.attrValues scripts) ++ [ pkgs.poetry ];
               shellHook = ''
-                source .venv/bin/activate
-                poetry env use $PWD/.venv/bin/python
+                ${activateVenv}
               '';
             }
             {
@@ -69,6 +63,9 @@
               };
             }
           ;
+          configs = {
+            inherit activateVenv;
+          };
         });
   nixConfig = {
     extra-substituters = [

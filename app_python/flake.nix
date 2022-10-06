@@ -29,26 +29,31 @@
             mkShellApps
             mkDevShellsWithDefault
             mkBin
+            applyN
             ;
 
-          applyN = genOp: n: op: nul: builtins.foldl' op nul (builtins.genList genOp n);
-          applyN_ = applyN (x: x);
-          whenRootAtDepth = depth: ''when inside `$PROJECT_ROOT/${applyN_ depth (dir: _: builtins.baseNameOf dir) ./.}`'';
+          whenRootAtDepth = depth: ''when inside `$PROJECT_ROOT/${builtins.baseNameOf ./.}`'';
 
-          activateVenv = builtins.readFile ./scripts/activate.sh;
+          activateVenv = ''
+            ${builtins.readFile ./scripts/activate.sh}
+            set +e
+          '';
           scripts = mkShellApps {
-            run-start = {
-              text = ''
-                ${activateVenv}
-                poetry run app
-              '';
-              longDescription = ''Run `app` ${whenRootAtDepth 2}'';
-            };
+            run-start =
+              let appName = (pkgs.lib.modules.importTOML ./pyproject.toml).config.tool.poetry.name;
+              in
+              {
+                text = ''
+                  ${activateVenv}
+                  poetry run ${appName}
+                '';
+                longDescription = ''Run `${appName}` ${whenRootAtDepth 2}'';
+              };
           };
         in
         {
+          packages = scripts;
           inherit scripts;
-          packages = { };
           devShells = mkDevShellsWithDefault
             {
               buildInputs = (builtins.attrValues scripts) ++ [ pkgs.poetry ];

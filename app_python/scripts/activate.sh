@@ -13,5 +13,4 @@ source <( \
 )
 
 poetry env use $PWD/.venv/bin/python
-
 set -e

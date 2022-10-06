@@ -23,19 +23,7 @@ env:
     git push
 
 jobs:
-  install-nix:
-      - uses: cachix/install-nix-action@v17
-        with:
-          extra_nix_config: ${{ env.extra_nix_config }}
-          install_url: ${{ env.install_url }}
-      
-      - name: config git
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-
   caching:
-    needs: install-nix
     name: Build on ${{ matrix.os }}
     strategy:
       matrix:
@@ -43,6 +31,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v17
+        with:
+          extra_nix_config: ${{ env.extra_nix_config }}
+          install_url: ${{ env.install_url }}
+      - name: config git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
 
       - name: Update locks
         env:
@@ -66,7 +62,8 @@ jobs:
       matrix:
         app: [app_purescript, app_python]
     defaults:
-      working-directory: ${{ matrix.app }}
+      run:
+        working-directory: ${{ matrix.app }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up Docker Buildx

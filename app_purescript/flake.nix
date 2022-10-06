@@ -33,7 +33,6 @@
           tools = {
             inherit (import easy-purescript-nix { inherit pkgs; }) purs-0_15_4 spago;
             inherit (pkgs) nodejs-16_x;
-            inherit (pkgs.python310Packages) python-dotenv;
           };
 
           scripts =
@@ -41,7 +40,7 @@
               {
                 run-start =
                   {
-                    runtimeInputs = builtins.attrValues { inherit (tools) python-dotenv spago nodejs-16_x; };
+                    runtimeInputs = builtins.attrValues { inherit (tools) spago nodejs-16_x; };
                     text =
                       let
                         dotenvFile = "app.env";
@@ -50,7 +49,7 @@
                       ''
                         ${spago_} install
                         ${spago_} build
-                        source <( dotenv -f ${dotenvFile} list )
+                        source ${dotenvFile}
                         npx parcel serve -p $PORT --host $HOST dev/index.html
                       '';
                   };
@@ -67,7 +66,6 @@
         {
           inherit scripts;
           packages = scripts;
-          inherit scripts;
           inherit devShells;
         });
   nixConfig = {

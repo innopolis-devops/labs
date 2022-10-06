@@ -11,4 +11,4 @@ services:
       - ${HOST_PORT}:${DOCKER_PORT}
     volumes:
       - .:/app
-    image: ${DOCKER_NAME}/app_python:latest
+    image: ${DOCKER_HUB_USERNAME}/app_python:latest

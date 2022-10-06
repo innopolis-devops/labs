@@ -13,4 +13,4 @@ services:
     # mount to have parcel watch this dir
     volumes:
       - .:/app
-    image: ${DOCKER_NAME}/app_purescript:latest
+    image: ${DOCKER_HUB_USERNAME}/app_purescript:latest

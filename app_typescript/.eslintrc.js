@@ -24,6 +24,7 @@ module.exports = {
   rules: {
     "semi": ["error", "always"],
     "indent": ["error", 2],
+    "newline-per-chained-call": "error",
     "object-curly-spacing": ["error", "always"],
     "comma-dangle": ["error", "always-multiline"],
     "eol-last": ["error", "always"],

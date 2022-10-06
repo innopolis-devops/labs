@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "test": "jest",
+    "test": "jest --runInBand",
     "start": "node build/index.js",
     "dev": "ts-node-dev src/index.ts",
     "lint": "eslint .",
@@ -30,7 +30,8 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "node": "^16.17.0",
-    "ntpclient": "^1.1.2"
+    "ntpclient": "^1.1.2",
+    "redis": "^4.3.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",

@@ -9,60 +9,47 @@ on:
   push:
   workflow_dispatch:
 
+env:
+  extra_nix_config: |
+    access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://hydra.iohk.io https://haskell-language-server.cachix.org https://br4ch1st0chr0n3.cachix.org
+    trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= br4ch1st0chr0n3.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
+  install_url: https://releases.nixos.org/nix/nix-2.11.1/install
+  main_os: ubuntu-20.04
+  action: |
+    git pull --rebase --autostash
+    nix run {0} {1}
+    git commit -a -m "action: {2}"
+    git push
+
 jobs:
+  install-nix:
+      - uses: cachix/install-nix-action@v17
+        with:
+          extra_nix_config: ${{ env.extra_nix_config }}
+          install_url: ${{ env.install_url }}
+      
+      - name: config git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
   caching:
+    needs: install-nix
     name: Build on ${{ matrix.os }}
-    env:
-      action: |
-        git pull --rebase --autostash
-        nix run .#{0}
-        git commit -a -m "action: {1}"
-        git push
-      # IMAGE_TAG: v1
     strategy:
       matrix:
         os: [ubuntu-20.04, ubuntu-22.04]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v17
-        with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://hydra.iohk.io https://haskell-language-server.cachix.org https://br4ch1st0chr0n3.cachix.org
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= br4ch1st0chr0n3.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
-          install_url: https://releases.nixos.org/nix/nix-2.11.1/install
-      - name: config git
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
 
       - name: Update locks
         env:
-          command: updateLocks
+          command: .#updateLocks
           msg: update locks
-        if: ${{ matrix.os == 'ubuntu-20.04' }}
-        run: ${{ format(env.action, env.command, env.msg) }}
-      
-      # TODO use
-      # - name: Log in to Docker Hub
-      #   run: docker login -p ${{ secrets.DOCKER_HUB_PASSWORD }} -u ${{ secrets.DOCKER_HUB_USER }}
-      
-      # - name: Push ${{ env.app_python }} to Docker Hub
-      #   uses: ./.github/actions/push-to-docker-hub
-      #   with:
-      #     PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
-      #     NAME: ${{ env.app_python }}
-      #     TAG: ${{ github.sha }}
-      #     SHELL: ${{ env.python }}
-      
-      # - name: Push ${{ env.app_purescript }} to Docker Hub
-      #   uses: ./.github/actions/push-to-docker-hub
-      #   with:
-      #     PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
-      #     NAME: ${{ env.app_purescript }}
-      #     TAG: ${{ github.sha }}
-      #     SHELL: ${{ env.purescript }}
+        if: ${{ matrix.os == env.main_os }}
+        run: ${{ format(env.action, env.command, '', env.msg) }}
 
       - name: Log in to Cachix
         uses: cachix/cachix-action@v10
@@ -70,7 +57,29 @@ jobs:
           name: ${{ secrets.CACHIX_CACHE }}
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
-      - name: Cache flakes  
-        run: CACHIX_CACHE=${{ secrets.CACHIX_CACHE }} nix run
+      - name: Cache flakes
+        run: CACHIX_CACHE=${{ secrets.CACHIX_CACHE }} nix run .#pushToCachix
         
+  push-to-docker-hub:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        app: [app_purescript, app_python]
+    defaults:
+      working-directory: ${{ matrix.app }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PAT }}
+      # TODO add linters and tests
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ matrix.app }}:latest
 

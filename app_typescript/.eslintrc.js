@@ -10,6 +10,9 @@ module.exports = {
   extends: [
     "eslint:recommended",
   ],
+  ignorePatterns: [
+    "build/**/*.js",
+  ],
   overrides: [
     {
       files: ['*.ts', '*.tsx'],

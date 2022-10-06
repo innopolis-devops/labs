@@ -1,9 +1,6 @@
 # VSCode settings
 .vscode/
 
-# Environment variables
-.env
-
 # PyCharm 
 .idea/
 

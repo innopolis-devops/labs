@@ -8,9 +8,11 @@ class TimeService {
   }
 
   static async fromNTP(server: string): Promise<TimeService> {
-    const offset = await new NTPClient(server).getNetworkTime().then(
-      date => Date.now() - date.getTime()
-    );
+    const offset = await new NTPClient(server)
+      .getNetworkTime()
+      .then(
+        date => Date.now() - date.getTime()
+      );
     return new TimeService(offset);
   }
 

@@ -66,9 +66,10 @@
         in
         {
           inherit scripts;
+          packages = scripts;
+          inherit scripts;
           inherit devShells;
-        })
-      // { inherit (my-inputs) formatter; };
+        });
   nixConfig = {
     extra-substituters = [
       https://haskell-language-server.cachix.org

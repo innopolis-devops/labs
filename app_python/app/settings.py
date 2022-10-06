@@ -10,6 +10,9 @@ class RunEnv(str, enum.Enum):
 
 class Settings(BaseSettings):
     run_env: RunEnv = RunEnv.PRODUCTION
+    ntp_server: str
+    redis_host: str
+    redis_port: int
 
     class Config:
         env_file = ".env"

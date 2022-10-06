@@ -1,19 +1,19 @@
+# syntax=docker/dockerfile:1.3-labs
 FROM buildpack-deps:bionic
 
-RUN set -ex; \
-    useradd --create-home codewarrior; \
-    mkdir -p /app; \
-    chown -R codewarrior: /app;
+SHELL ["/bin/bash", "-c"]
 
-RUN set -ex; \
-    curl -sL https://deb.nodesource.com/setup_16.x | bash -; \
-    apt-get install -y nodejs; \
-    apt-get clean; \
-    rm -rf /var/lib/apt/lists/* /tmp/*;
-
-RUN npm install -g purescript@0.15.4;
-RUN npm install -g spago@0.20.9;
-RUN npm install -g parcel@2.5.0;
+RUN <<EOF 
+set -ex -o pipefail;
+useradd --create-home codewarrior;
+mkdir -p /app;
+chown -R codewarrior: /app;
+curl -sL https://deb.nodesource.com/setup_16.x | bash -;
+apt-get install --no-install-recommends -y nodejs;
+apt-get clean;
+rm -rf /var/lib/apt/lists/* /tmp/*;
+npm install -g purescript@0.15.4 spago@0.20.9 parcel@2.5.0
+EOF
 
 COPY package.json spago.dhall packages.dhall /app/
 
@@ -25,13 +25,9 @@ ENV USER=codewarrior \
     HOME=/home/codewarrior \
     PATH=/opt/purescript:$PATH
 
-RUN chown codewarrior:codewarrior /app;
-
-# install packages
-RUN npm install;
-
-# compile packages
-RUN spago install;
+RUN chown codewarrior:codewarrior /app; \
+    npm install; \
+    spago install;
 
 COPY --chown=codewarrior:codewarrior src /app/
 

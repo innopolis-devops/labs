@@ -1,6 +1,15 @@
 - hosts: vm
   roles:
-    - web_app
     - name: Install Docker
       role: geerlingguy.docker
-    become: true
+    - name: Install docker package for python
+      role: geerlingguy.pip
+      vars:
+        pip_install_packages:
+          - name: pip
+            extra_args: "--upgrade"
+          - name: docker
+          - name: docker-compose
+      become: true
+    - web_app
+  become: true

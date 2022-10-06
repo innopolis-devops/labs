@@ -35,3 +35,29 @@ dream2nix.lib.makeFlakeOutputs {
     };
   };
 ```
+
+- Interactive diagrams of `/nix/store` - [nix-du](https://github.com/symphorien/nix-du)
+
+## Stuff I made along the way
+
+- [Tutorials and Notes](https://github.com/br4ch1st0chr0n3/the-little-things) (also on Nix)
+- [flakes](https://github.com/br4ch1st0chr0n3/flakes) - library-monorepo with nix my flakes
+- [vscodium-extensions](https://github.com/br4ch1st0chr0n3/vscodium-extensions)
+  - customizable list of extensions - [here](https://github.com/br4ch1st0chr0n3/vscodium-extensions/tree/master)
+  - a larger list of extensions - [here](https://github.com/br4ch1st0chr0n3/vscodium-extensions/tree/fix-ci)
+
+## TODO
+
+- [ ] Pure Nix builds for:
+
+  - [ ] `app_purescript` - via [spago.nix](https://github.com/ngua/spago.nix)
+  - [ ] `app_python` - via [poetry2nix](https://github.com/nix-community/poetry2nix)
+
+- [ ] Additional tasks.
+  - [ ] `Docker`: remove dangling images - [src](https://docs.docker.com/engine/reference/commandline/images/#show-untagged-images-dangling)
+  - [ ] Lint files
+- [ ] `desc` - use this nix eval
+
+  ```terminal
+  nix eval nix#checks.x86_64-linux --apply builtins.attrNames
+  ```

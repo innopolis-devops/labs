@@ -24,6 +24,7 @@ let
     mkShellApps
     mkDevShellsWithDefault
     mkBin
+    framedBrackets
     ;
   inherit (flake-tools.functions.${system})
     mkFlakesUtils
@@ -84,7 +85,7 @@ let
           {
             inherit (pkgs) docker poetry direnv lorri inotify-tools;
             inherit (pkgs.python310Packages) python-dotenv;
-            inherit (pkgs) rnix-lsp;
+            inherit (pkgs) rnix-lsp nixpkgs-fmt;
             inherit (pkgs.haskellPackages) hadolint;
           }
           //
@@ -96,6 +97,8 @@ let
     ];
   };
 
+  inherit (app-python.configs.${system}) activateVenv;
+
   scripts = mkShellApps {
     lintDockerfiles =
       let
@@ -104,18 +107,46 @@ let
         inherit (pkgs.lib.strings) concatMapStringsSep concatStringsSep;
       in
       {
-        text =
-          concatMapStringsSep
-            ''printf "\n" ; ''
-            (dir: '' ( printf "${dir}:\n" ; ${mkBin pkgs.hadolint} ${dir}/${dockerFile});'')
-            dirs;
-        longDescription = ''Lint ${dockerFile}s in ${concatStringsSep ", " dirs}'';
+        runtimeInputs = pkgs.haskellPackages.hadolint;
+        text = ''
+          set +e
+        ''
+        +
+        (concatMapStringsSep
+          ''printf "\n" ; ''
+          (dir: '' ( printf "${framedBrackets "linting in ${dir}"}" ; hadolint ${dir}/${dockerFile});'')
+          dirs
+        );
+
+
+
+        longDescription = ''
+          Lint ${dockerFile}s in ${concatStringsSep ", " dirs}'';
       };
+    createVenvs = {
+      text =
+        let createMessage = ''printf "${framedBrackets "creating environment in $PWD"}"''; in
+        ''
+          ${createMessage}
+          ${activateVenv}
+          poetry install --no-root
+          cd ${appPython}
+          ${createMessage}
+          ${activateVenv}
+          poetry install --no-root
+        '';
+      longDescription = ''
+        Create `.venv`s for `Python` environments in $PROJECT_ROOT and ${appPython}.
+
+        Please, run this from your $PROJECT_ROOT! A couple of times if anything goes wrong :)
+      '';
+    };
   };
 
   devShells =
     (mkDevShellsWithDefault
       {
+        shellHook = ''${app-python.configs.${system}.activateVenv}'';
         # binaries that we need to test and can't yet include as a part of codium
         # if they gets here, they will overwrite the stuff from codium
         buildInputs = [
@@ -124,11 +155,7 @@ let
         ];
       }
       {
-        fish = {
-          buildInputs = [
-            (builtins.attrValues scripts)
-          ];
-        };
+        fish = { };
       }
     );
 in

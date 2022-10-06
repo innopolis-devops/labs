@@ -46,13 +46,11 @@
       inherit devShells;
       packages = {
         default = codium;
-        lint = scripts.lintDockerfiles;
         pushToCachix = flakesUtils.flakesPushToCachix;
         updateLocks = flakesUtils.flakesUpdate;
         format = flakesUtils.flakesFormat;
-        createVenvs = scripts.createVenvs;
         togglePaths = flakesToggleRelativePaths_;
-      };
+      } // scripts;
     });
 
   nixConfig = {

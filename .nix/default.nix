@@ -78,7 +78,10 @@ let
     flakesToggleRelativePaths toggleConfig flakesUtils.flakesUpdate;
 
   codium = mkCodium {
-    extensions = { inherit (extensions) nix markdown purescript github misc docker python toml fish; };
+    extensions = {
+      inherit (extensions)
+        nix markdown purescript github misc docker python toml fish yaml;
+    };
     runtimeDependencies = [
       (toList commands)
       flakesToggleRelativePaths_

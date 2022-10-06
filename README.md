@@ -72,11 +72,9 @@ nix run .# .
 
 1. Try running a task (see the [section](./README.md#vscodium-tasks) below)
 
-## VSCodium Tasks
+## Available actions
 
-See the [docs](./README/docs.md#available-actions)
-
-The docs are generated from [docs.nix](./.nix/docs.nix) via [json2md](https://github.com/IonicaBizau/json2md) and formatted via [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2).
+See the automatically generated [docs](./README/docs.md#available-actions).
 
 ## Miscellaneous
 

@@ -1,4 +1,4 @@
-{ pkgs, mkShellApp, scripts }:
+{ pkgs, mkShellApp, scripts, system, drv-tools }:
 let
   inherit (import ./data.nix)
     dockerPorts
@@ -7,46 +7,48 @@ let
     serviceNames
     langPython
     langPurescript
+    appName
     ;
 
   # we assume that the commands will start in the corresponding directories
   mkCommands = lang:
     let
+      appName_ = appName lang;
       commandNames_ = commandNames.apps lang;
       serviceNames_ = serviceNames.${lang};
       appWithDocker = name: text: mkShellApp {
         inherit name text;
         runtimeInputs = [ pkgs.docker ];
       };
+      rootEnv = "../.env";
+      withEnvFile = ''
+        set -a
+        if [[ -f ${rootEnv} ]]
+        then
+          source ${rootEnv}
+        fi
+        set +a
+      '';
+      inherit (drv-tools.functions.${system}) mkBin;
     in
     {
       "${commandNames_.run}" =
-        let
-          pythonStart = scripts.${langPython}.run-start;
-          purescriptStart = scripts.${langPurescript}.run-start;
-          runtimeInputs = {
-            "${langPython}" = [ pythonStart ];
-            "${langPurescript}" = [ purescriptStart ];
-          };
-          text = {
-            "${langPython}" = pythonStart.name;
-            "${langPurescript}" = purescriptStart.name;
-          };
-        in
         mkShellApp (
           {
             text = ''
-              ${text.${lang}}
+              ${mkBin scripts.${lang}.run-start}
             '';
             name = commandNames_.run;
-            runtimeInputs = runtimeInputs.${lang};
           }
         );
       "${commandNames_.dockerBuild}" = appWithDocker commandNames_.dockerBuild ''
-        docker compose build ${serviceNames_.web}
+        ${withEnvFile} docker compose build ${serviceNames_.web}
       '';
       "${commandNames_.dockerRun}" = appWithDocker commandNames_.dockerRun ''
-        docker compose up ${serviceNames_.web}
+        ${withEnvFile} docker compose up ${serviceNames_.web}
+      '';
+      "${commandNames_.dockerPush}" = appWithDocker commandNames_.dockerPush ''
+        ${withEnvFile} docker compose push ${serviceNames_.web}
       '';
       "${commandNames_.dockerStop}" = appWithDocker commandNames_.dockerStop ''
         docker compose stop

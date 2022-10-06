@@ -9,6 +9,7 @@ let
         dockerBuild = "${app}-docker-build";
         dockerRun = "${app}-docker-run";
         dockerStop = "${app}-docker-stop";
+        dockerPush = "${app}-docker-push";
       };
   };
   taskNames = {
@@ -19,6 +20,7 @@ let
         dockerBuild = "${app}: Docker build";
         dockerRun = "${app}: Docker run";
         dockerStop = "${app}: Docker stop";
+        dockerPush = "${app}: push to Docker Hub";
       };
   };
   actionNames = {

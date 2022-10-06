@@ -40,7 +40,8 @@
       inherit (import ./.nix/default.nix {
         inherit nixpkgs system my-codium app-python app-purescript
           rootDir json2md env2json drv-tools flake-tools easy-purescript-nix;
-      }) devShells scripts codium flakesUtils flakesToggleRelativePaths_;
+      }) devShells scripts codium flakesUtils
+        flakesToggleRelativePaths_ configWriters commands;
     in
     {
       inherit devShells;
@@ -50,8 +51,8 @@
         updateLocks = flakesUtils.flakesUpdate;
         format = flakesUtils.flakesFormat;
         togglePaths = flakesToggleRelativePaths_;
-      } // scripts;
-    });
+      } // scripts // configWriters // commands.apps;
+    }); 
 
   nixConfig = {
     extra-substituters = [

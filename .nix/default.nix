@@ -26,6 +26,9 @@ let
     mkBin
     framedBrackets
     ;
+  inherit (drv-tools.packages.${system})
+    desc
+    ;
   inherit (flake-tools.functions.${system})
     mkFlakesUtils
     flakesToggleRelativePaths
@@ -54,7 +57,7 @@ let
     );
 
   commands = import ./commands.nix {
-    inherit pkgs mkShellApp;
+    inherit pkgs mkShellApp system drv-tools;
     scripts = {
       ${langPurescript} = app-purescript.scripts.${system};
       ${langPython} = app-python.scripts.${system};
@@ -74,7 +77,6 @@ let
     in
     flakesToggleRelativePaths toggleConfig flakesUtils.flakesUpdate;
 
-
   codium = mkCodium {
     extensions = { inherit (extensions) nix markdown purescript github misc docker python toml fish; };
     runtimeDependencies = [
@@ -84,7 +86,6 @@ let
         builtins.attrValues (
           {
             inherit (pkgs) docker poetry direnv lorri inotify-tools;
-            inherit (pkgs.python310Packages) python-dotenv;
             inherit (pkgs) rnix-lsp nixpkgs-fmt;
             inherit (pkgs.haskellPackages) hadolint;
           }
@@ -99,7 +100,7 @@ let
 
   inherit (app-python.configs.${system}) activateVenv;
 
-  scripts = mkShellApps {
+  scripts = (mkShellApps {
     lintDockerfiles =
       let
         dockerFile = "Dockerfile";
@@ -141,7 +142,8 @@ let
         Please, run this from your $PROJECT_ROOT! A couple of times if anything goes wrong :)
       '';
     };
-  };
+  })
+  // { inherit desc; };
 
   devShells =
     (mkDevShellsWithDefault
@@ -150,7 +152,7 @@ let
         # binaries that we need to test and can't yet include as a part of codium
         # if they gets here, they will overwrite the stuff from codium
         buildInputs = [
-          (builtins.attrValues (scripts // flakesUtils))
+          (builtins.attrValues (scripts // flakesUtils // commands.apps))
           pkgs.haskell-language-server
         ];
       }
@@ -160,5 +162,5 @@ let
     );
 in
 {
-  inherit devShells scripts codium flakesUtils flakesToggleRelativePaths_;
+  inherit devShells scripts codium flakesUtils flakesToggleRelativePaths_ configWriters desc commands;
 }

@@ -8,59 +8,83 @@ let
     actionNames
     ;
   runTask = task: "`Command palette` -> `Tasks: Run Task` -> `${task}`";
-  nixDevelop = command: "`$ ${command}`";
+  nixDevelop = command: "`${command}`";
   link = title: source: "[${title}](${source})";
   page = link "page";
 in
 [
   { h1 = "Available actions"; }
+  ''
+    These docs are generated from [docs.nix](../.nix/docs.nix) via [json2md](https://github.com/IonicaBizau/json2md) 
+    and formatted via [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2). 
+    The command to write the docs:
+
+    ```terminal
+    nix run .#writeDocs
+    ```
+  ''
   { h2 = "Keybindings"; }
-  { ul = [ "`Command palette` - press `Ctrl` (`Cmd`) + `Shift` + `P`" ]; }
   {
-    h2 = "Warning";
+    ul = [
+      "`Command palette` - press `Ctrl` (`Cmd`) + `Shift` + `P`"
+      "Stop app - press `Ctrl` (`Cmd`) + `C` in the terminal where that app is running"
+      ({ ul = [ "Alternatively, run the corresponding task" ]; })
+    ];
+  }
+  {
+    h2 = "Warning 1";
   }
   {
     p = [
-      "Commands may not work inside VSCodium."
-      "In this case, you may use an ordinary terminal."
-      "Open it in the project's root directory and explore the available `devShells`."
+      ''
+        Commands may not work inside VSCodium. In this case, you may try them in an ordinary terminal.
+        
+        Open it in the `$PROJECT_ROOT` directory and explore the available commands (`packages`).
+        
+        I added the descriptions to some of them
+      ''
     ];
   }
   {
     code = {
-      "language" = "sh";
+      "language" = "terminal";
       "content" = ''
-        $ nix repl
-        nix-repl> :lf .
-        nix-repl> devShells.<TAB>
-        # formatted for demo purpose
-        devShells.aarch64-darwin  
-        devShells.aarch64-linux   
-        devShells.i686-linux      
-        devShells.x86_64-darwin   
-        devShells.x86_64-linux
-        nix-repl> p = devShells.x86_64-linux
-        nix-repl> p.<TAB>
-        # formatted for demo purpose
-        p.app-purescript               
-        p.app-purescript-docker-build  
-        p.app-purescript-docker-rm     
-        p.app-purescript-docker-run    
-        p.app-python                   
-        p.app-python-docker-build      
-        p.app-python-docker-rm         
-        p.app-python-docker-run        
-        p.codium
-        p.default
-        p.update-flakes
-        nix-repl> :?
-        # list of available commands
-        nix-repl> :q
-        # the line below is a command in a terminal
-        $ nix develop .#app-python
+        $ nix flake show
+        # may be not up to date
+        ...
+        └───packages
+          ...
+          └───x86_64-linux
+              ...
+              ├───createVenvs: package 'createVenvs'
+              ├───default: package 'codium'
+              ├───desc: package 'desc'
+              ├───format: package 'flakes-format'
+              ├───lintDockerfiles: package 'lintDockerfiles'
+              ├───pushToCachix: package 'flakes-push-to-cachix-in-each-dir'
+              ├───togglePaths: package 'flakes-toggle-relative-paths'
+              ├───updateLocks: package 'flakes-update-in-each-dir'
+              ├───writeConfigs: package 'write-configs'
+              ├───writeDocs: package 'write-docs-md'
+              ├───writeMarkdownlintConfig: package 'write-markdownlint-json'
+              ├───writeRootPyproject: package 'write-root-project'
+              ├───writeSettings: package 'write-settings-json'
+              └───writeTasks: package 'write-tasks-json'
+        $ nix run .#desc .#desc
+        ... description in Markdown ...
+        $ nix run .#desc .#writeTasks
+        ... description in Markdown ...
       '';
     };
   }
+  { h2 = "Warning 2"; }
+  ''
+    To make available the commands from the next section in your terminal, hit in the `$PROJECT_ROOT`:
+    ```sh
+    nix develop
+    ```
+    If you use VSCodium, they're bundled into it and will be available in its terminal
+  ''
 ]
 ++
 (
@@ -90,7 +114,7 @@ in
       taskNames_ = taskNames.apps lang;
       appName_ = appName lang;
       appNameInHeading = "${appName_}";
-      packageNames_ = commandNames.apps lang;
+      commandNames_ = commandNames.apps lang;
       actionNamesList = builtins.attrNames actionNames_;
     in
     [{ h2 = "${appNameInHeading} actions"; }] ++
@@ -105,17 +129,20 @@ in
         else
           let
             taskName = taskNames_.${action};
-            packageName = packageNames_.${action};
+            commandName = commandNames_.${action};
           in
           [
             { h3 = taskName; }
             {
               ol =
-                if builtins.hasAttr action { inherit (actionNames_) run dockerRun dockerBuild dockerStop; }
+                if builtins.hasAttr action { inherit (actionNames_) run dockerRun dockerBuild dockerStop dockerPush; }
                 then
                   [
-                    "${runTask taskName}"
-                    { ol = [ "Or ${nixDevelop packageName}" ]; }
+                    ''${runTask taskName}
+                    ''
+                    {
+                      ol = [ ''Or ${nixDevelop "(cd ${appName_} && ${commandName})"}'' ];
+                    }
                   ]
                   ++
                   (

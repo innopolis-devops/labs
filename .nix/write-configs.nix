@@ -26,7 +26,7 @@ let
     DOCKER_PORT
     HOST_PORT
     ;
-  # all scripts assume calling from the root directory of the project
+  # all scripts assume calling from the $PROJECT_ROOT
   writeDocs =
     let
       docsNix = import ./docs.nix { inherit pkgs env2json system; };
@@ -53,6 +53,9 @@ let
         ${mdlint.packageName}-fix ${docsMdPath}
         rm ${docsFileJson}
         printf "${framedBrackets "%s"}" "ok ${name}"
+      '';
+      longDescription = ''
+        Write `${docsMdDir}/${docsMdFile}` which documents the available commands and tasks
       '';
     };
   writeMarkdownlintConfig =

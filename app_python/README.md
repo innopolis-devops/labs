@@ -7,7 +7,25 @@
 
 An app that allows to receive the current time in Moscow by a web request. Makes sure the time is correct by synchronizing it to the Google's NTP server at the startup.
 
+## Features
+
+- App shows the current time in Moscow at `/` route
+- App counts successfully served requests
+- App has a status route `/status`, which displays the served requests count as well.
+- Routes accept only `GET` requests, giving out proper errors (404/405) on incorrect requests.
+
 ## Docker image
+
+### Docker Compose — preffered method
+
+New app versions require Redis database for storing metrics and will not work without Redis connection.
+It is highly recommended to use Docker Compose to run the app:
+
+```sh
+docker compose up -d
+```
+
+Anyway, here are the instructions in case you want to run the app separately, assuming you have a running Redis server.
 
 ### From Docker Hub
 
@@ -15,9 +33,13 @@ The app has a [docker image](https://hub.docker.com/r/ntdesmond/iu-devops-python
 
 To fetch it, use `docker pull ntdesmond/iu-devops-python` command.
 
+Note that this docker image is built with `REDIS_HOST` set to `redis` and `REDIS_PORT` is `6379`, as per [`.env`](./.env) file.
+
 ### Building locally
 
 Run `docker build -t ntdesmond/iu-devops-python .` in the current directory to build the app locally.
+
+You may want to edit [`.env`](./.env) file first.
 
 ### Start the app
 
@@ -53,11 +75,15 @@ pip install -r requirements-dev.txt
 
 ## Usage
 
+### Configuration
+
+Edit [`.env`](./.env) file to suit your needs berfore running the app.
+
 ### Gunicorn
 
 App is configured to run with [Gunicorn](https://github.com/benoitc/gunicorn), which allows it to use all CPU cores and run incredibly fast.
 
-Use the following commmand to start the app:
+Use the following command to start the app:
 
 ```sh
 gunicorn --config ./gunicorn.conf.py app.api:app

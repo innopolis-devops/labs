@@ -29,6 +29,6 @@
 - [x] Followed 12-factor-app [guide](https://12factor.net/dev-prod-parity)
   - Each server reads from its [dotenv](https://hexdocs.pm/dotenvy/dotenv-file-format.html) files (`.env`)
 
-- [x] Used [heredocs](https://www.docker.com/blog/introduction-to-heredocs-in-dockerfiles/) in Dockerfile to ease reading multiline commands
+- [x] Used [heredocs](https://www.docker.com/blog/introduction-to-heredocs-in-dockerfiles/) in `Dockerfiles` to ease reading multiline commands
 
 - [x] Used [hadolint](https://github.com/hadolint/hadolint) to lint the Docker files

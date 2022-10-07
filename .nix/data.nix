@@ -10,6 +10,7 @@ let
         dockerRun = "${app}-docker-run";
         dockerStop = "${app}-docker-stop";
         dockerPush = "${app}-docker-push";
+        dockerPull = "${app}-docker-pull";
       };
   };
   taskNames = {
@@ -20,7 +21,9 @@ let
         dockerBuild = "${app}: Docker build";
         dockerRun = "${app}: Docker run";
         dockerStop = "${app}: Docker stop";
-        dockerPush = "${app}: push to Docker Hub";
+        # TODO push a specific service name
+        dockerPush = "${app}: push `${serviceNames.${lang}.web}` to Docker Hub";
+        dockerPull = "${app}: pull `${serviceNames.${lang}.web}` from Docker Hub";
       };
   };
   actionNames = {

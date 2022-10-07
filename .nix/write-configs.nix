@@ -49,8 +49,8 @@ let
       text = ''
         ${docsJson.name};
         mkdir -p ${docsMdDir}
-        ${json2md_.packageName} ${docsFileJson} > ${docsMdPath};
-        ${mdlint.packageName}-fix ${docsMdPath}
+        ${json2md_.packageName} ${docsFileJson} > ${docsMdPath}
+        ${mdlint.packageName}-fix ${docsMdPath} || echo ""
         rm ${docsFileJson}
         printf "${framedBrackets "%s"}" "ok ${name}"
       '';

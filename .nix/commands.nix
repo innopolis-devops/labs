@@ -50,6 +50,9 @@ let
       "${commandNames_.dockerPush}" = appWithDocker commandNames_.dockerPush ''
         ${withEnvFile} docker compose push ${serviceNames_.web}
       '';
+      "${commandNames_.dockerPull}" = appWithDocker commandNames_.dockerPull ''
+        ${withEnvFile} docker compose pull
+      '';
       "${commandNames_.dockerStop}" = appWithDocker commandNames_.dockerStop ''
         docker compose stop
       '';

@@ -11,6 +11,9 @@ let
   nixDevelop = command: "`${command}`";
   link = title: source: "[${title}](${source})";
   page = link "page";
+  projectRoot = "$PROJECT_ROOT";
+  projectRoot_ = "`${projectRoot}`";
+  dotenv = ".env";
 in
 [
   { h1 = "Available actions"; }
@@ -32,19 +35,28 @@ in
     ];
   }
   {
-    h2 = "Warning 1";
+    h2 = "Warnings";
   }
   {
-    p = [
-      ''
-        Commands may not work inside VSCodium. In this case, you may try them in an ordinary terminal.
-        
-        Open it in the `$PROJECT_ROOT` directory and explore the available commands (`packages`).
-        
-        I added the descriptions to some of them
-      ''
-    ];
+    h3 = "Environment";
   }
+
+  ''
+    The commands below read from `${dotenv}` files both from app folders and from the ${projectRoot_}.
+    I checked them into the repo to ease the project demonstration. 
+    If you'd like to push to your [cachix](https://www.cachix.org/) cache or [Docker Hub](https://hub.docker.com/) repo, 
+    make sure to edit the `${projectRoot}/${dotenv}` to use locally the tasks depending on it.
+    Otherwise, you may supply these values as the environment variables 
+    via the `set -a` - [trick](https://stackoverflow.com/a/45971167)
+  ''
+  {
+    h3 = "Commands and Tasks";
+  }
+  ''
+    If Tasks don't work inside VSCodium, try them in an ordinary terminal. 
+    Open it in the ${projectRoot_} directory and explore the available commands (`packages`).
+    I added the descriptions to some of them
+  ''
   {
     code = {
       "language" = "terminal";
@@ -77,13 +89,12 @@ in
       '';
     };
   }
-  { h2 = "Warning 2"; }
   ''
-    To make available the commands from the next section in your terminal, hit in the `$PROJECT_ROOT`:
+    To make the commands from the next section available in your terminal, hit in the ${projectRoot_}:
     ```sh
     nix develop
     ```
-    If you use VSCodium, they're bundled into it and will be available in its terminal
+    If you use VSCodium, they're bundled into it and should be available in its terminal
   ''
 ]
 ++
@@ -117,7 +128,7 @@ in
       commandNames_ = commandNames.apps lang;
       actionNamesList = builtins.attrNames actionNames_;
     in
-    [{ h2 = "${appNameInHeading} actions"; }] ++
+    [{ h2 = "`${appNameInHeading}` actions"; }] ++
     (
       pkgs.lib.lists.forEach actionNamesList (action:
         if action == actionNames_.stop then
@@ -135,7 +146,11 @@ in
             { h3 = taskName; }
             {
               ol =
-                if builtins.hasAttr action { inherit (actionNames_) run dockerRun dockerBuild dockerStop dockerPush; }
+                if builtins.hasAttr action
+                  {
+                    inherit (actionNames_)
+                      run dockerRun dockerBuild dockerStop dockerPush dockerPull;
+                  }
                 then
                   [
                     ''${runTask taskName}

@@ -14,12 +14,21 @@ nix run .#writeDocs
 - Stop app - press `Ctrl` (`Cmd`) + `C` in the terminal where that app is running
   - Alternatively, run the corresponding task
 
-## Warning 1
+## Warnings
 
-Commands may not work inside VSCodium. In this case, you may try them in an ordinary terminal.
+### Environment
 
+The commands below read from `.env` files both from app folders and from the `$PROJECT_ROOT`.
+I checked them into the repo to ease the project demonstration.
+If you'd like to push to your [cachix](https://www.cachix.org/) cache or [Docker Hub](https://hub.docker.com/) repo,
+make sure to edit the `$PROJECT_ROOT/.env` to use locally the tasks depending on it.
+Otherwise, you may supply these values as the environment variables
+via the `set -a` - [trick](https://stackoverflow.com/a/45971167)
+
+### Commands and Tasks
+
+If Tasks don't work inside VSCodium, try them in an ordinary terminal.
 Open it in the `$PROJECT_ROOT` directory and explore the available commands (`packages`).
-
 I added the descriptions to some of them
 
 ```terminal
@@ -51,17 +60,15 @@ $ nix run .#desc .#writeTasks
 
 ```
 
-## Warning 2
-
-To make available the commands from the next section in your terminal, hit in the `$PROJECT_ROOT`:
+To make the commands from the next section available in your terminal, hit in the `$PROJECT_ROOT`:
 
 ```sh
 nix develop
 ```
 
-If you use VSCodium, they're bundled into it and will be available in its terminal
+If you use VSCodium, they're bundled into it and should be available in its terminal
 
-## app_python actions
+## `app_python` actions
 
 ### app_python: Docker build
 
@@ -69,9 +76,15 @@ If you use VSCodium, they're bundled into it and will be available in its termin
 
      1. Or `(cd app_python && app-python-docker-build)`
 
-### app_python: Docker push to Docker Hub
+### app_python: pull `web` from Docker Hub
 
- 1. `Command palette` -> `Tasks: Run Task` -> `app_python: Docker push to Docker Hub`
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_python: pull`web`from Docker Hub`
+
+     1. Or `(cd app_python && app-python-docker-pull)`
+
+### app_python: push `web` to Docker Hub
+
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_python: push`web`to Docker Hub`
 
      1. Or `(cd app_python && app-python-docker-push)`
 
@@ -101,7 +114,7 @@ If you use VSCodium, they're bundled into it and will be available in its termin
 
  1. Press `Ctrl` (`Cmd`) + `C` in the terminal
 
-## app_purescript actions
+## `app_purescript` actions
 
 ### app_purescript: Docker build
 
@@ -109,9 +122,15 @@ If you use VSCodium, they're bundled into it and will be available in its termin
 
      1. Or `(cd app_purescript && app-purescript-docker-build)`
 
-### app_purescript: Docker push to Docker Hub
+### app_purescript: pull `web` from Docker Hub
 
- 1. `Command palette` -> `Tasks: Run Task` -> `app_purescript: Docker push to Docker Hub`
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_purescript: pull`web`from Docker Hub`
+
+     1. Or `(cd app_purescript && app-purescript-docker-pull)`
+
+### app_purescript: push `web` to Docker Hub
+
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_purescript: push`web`to Docker Hub`
 
      1. Or `(cd app_purescript && app-purescript-docker-push)`
 

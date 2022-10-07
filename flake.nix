@@ -13,9 +13,9 @@
     easy-purescript-nix.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/easy-purescript-nix;
 
     # app-purescript.url = path:./app_purescript;
-    app-python.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_python";
+    app-python.url = "github:br4ch1st0chr0n3/devops-labs/lab3?dir=app_python";
     # app-python.url = path:./app_python;
-    app-purescript.url = "github:br4ch1st0chr0n3/devops-labs/lab2?dir=app_purescript";
+    app-purescript.url = "github:br4ch1st0chr0n3/devops-labs/lab3?dir=app_purescript";
   };
   outputs =
     { self

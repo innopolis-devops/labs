@@ -88,8 +88,9 @@ let
       (
         builtins.attrValues (
           {
-            inherit (pkgs) docker poetry direnv lorri inotify-tools;
-            inherit (pkgs) rnix-lsp nixpkgs-fmt;
+            inherit (pkgs) 
+              docker poetry direnv lorri inotify-tools 
+              rnix-lsp nixpkgs-fmt dhall-lsp-server;
             inherit (pkgs.haskellPackages) hadolint;
           }
           //

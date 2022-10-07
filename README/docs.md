@@ -76,15 +76,15 @@ If you use VSCodium, they're bundled into it and should be available in its term
 
      1. Or `(cd app_python && app-python-docker-build)`
 
-### app_python: pull `web` from Docker Hub
+### app_python: Pull `web` from Docker Hub
 
- 1. `Command palette` -> `Tasks: Run Task` -> `app_python: pull`web`from Docker Hub`
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_python: Pull`web`from Docker Hub`
 
      1. Or `(cd app_python && app-python-docker-pull)`
 
-### app_python: push `web` to Docker Hub
+### app_python: Push `web` to Docker Hub
 
- 1. `Command palette` -> `Tasks: Run Task` -> `app_python: push`web`to Docker Hub`
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_python: Push`web`to Docker Hub`
 
      1. Or `(cd app_python && app-python-docker-push)`
 
@@ -122,15 +122,15 @@ If you use VSCodium, they're bundled into it and should be available in its term
 
      1. Or `(cd app_purescript && app-purescript-docker-build)`
 
-### app_purescript: pull `web` from Docker Hub
+### app_purescript: Pull `web` from Docker Hub
 
- 1. `Command palette` -> `Tasks: Run Task` -> `app_purescript: pull`web`from Docker Hub`
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_purescript: Pull`web`from Docker Hub`
 
      1. Or `(cd app_purescript && app-purescript-docker-pull)`
 
-### app_purescript: push `web` to Docker Hub
+### app_purescript: Push `web` to Docker Hub
 
- 1. `Command palette` -> `Tasks: Run Task` -> `app_purescript: push`web`to Docker Hub`
+ 1. `Command palette` -> `Tasks: Run Task` -> `app_purescript: Push`web`to Docker Hub`
 
      1. Or `(cd app_purescript && app-purescript-docker-push)`
 

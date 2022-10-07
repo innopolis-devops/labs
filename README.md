@@ -63,14 +63,23 @@ Additionally,
 ```terminal
 git clone https://github.com/br4ch1st0chr0n3/devops-labs
 cd devops-labs
-git checkout lab2
+git checkout lab3
 direnv allow
+(cd app_purescript && direnv allow)
+(cd app_python && direnv allow)
+nix run .#createVenvs
+nix run .#writeConfigs
+# to start VSCodium
 nix run .# .
 ```
 
-1. In case the wrong Python `.venv` is sourced, go to `Command Palette` (`Ctrl` (`Cmd`) + `Shift` +`P`) -> `Python: Select Interpreter` -> `Python 3.10.6 ('.venv':poetry) ./.venv/bin/python` `Workspace`
+1. `Command Palette`: `Ctrl` (`Cmd`) + `Shift` +`P`
 
-1. Try running a task (see the [section](./README.md#vscodium-tasks) below)
+1. In case the wrong Python `.venv` is sourced, go to `Command Palette` -> `Python: Select Interpreter` -> `Python 3.10.6 ('.venv':poetry)` with `./.venv/bin/python`
+
+1. Try running a task (see the [section](./README.md#vscodium-tasks) below) `app_purescript: Run`
+
+1. In case after building `app_purescript` you see the red error messages, go to `Command Palette` -> `Developer: Reload Window`
 
 ## Available actions
 

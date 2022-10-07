@@ -111,7 +111,7 @@ let
         inherit (pkgs.lib.strings) concatMapStringsSep concatStringsSep;
       in
       {
-        runtimeInputs = pkgs.haskellPackages.hadolint;
+        runtimeInputs = [ pkgs.haskellPackages.hadolint ];
         text = ''
           set +e
         ''
@@ -121,9 +121,6 @@ let
           (dir: '' ( printf "${framedBrackets "linting in ${dir}"}" ; hadolint ${dir}/${dockerFile});'')
           dirs
         );
-
-
-
         longDescription = ''
           Lint ${dockerFile}s in ${concatStringsSep ", " dirs}'';
       };
@@ -139,6 +136,7 @@ let
           ${activateVenv}
           poetry install --no-root
         '';
+      runtimeInputs = [ pkgs.poetry ];
       longDescription = ''
         Create `.venv`s for `Python` environments in $PROJECT_ROOT and ${appPython}.
 

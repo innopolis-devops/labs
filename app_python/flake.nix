@@ -48,7 +48,15 @@
                   poetry run ${appName}
                 '';
                 longDescription = ''Run `${appName}` ${whenRootAtDepth 2}'';
+                runtimeInputs = [ pkgs.poetry ];
               };
+            test = {
+              text = ''
+                ${activateVenv}
+                poetry run pytest -rX
+              '';
+              runtimeInputs = [ pkgs.poetry ];
+            };
           };
         in
         {

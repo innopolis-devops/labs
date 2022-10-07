@@ -6,6 +6,7 @@ let
       let app = "app-${lang}"; in
       {
         run = app;
+        test = "${app}-test";
         dockerBuild = "${app}-docker-build";
         dockerRun = "${app}-docker-run";
         dockerStop = "${app}-docker-stop";
@@ -18,6 +19,7 @@ let
       let app = appName lang; in
       {
         run = "${app}: Run";
+        test = "${app}: Test";
         dockerBuild = "${app}: Docker build";
         dockerRun = "${app}: Docker run";
         dockerStop = "${app}: Docker stop";

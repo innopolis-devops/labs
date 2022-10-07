@@ -35,24 +35,29 @@
             inherit (pkgs) nodejs-16_x;
           };
 
+          psInputs = builtins.attrValues tools;
           scripts =
             mkShellApps
               {
                 run-start =
                   {
-                    runtimeInputs = builtins.attrValues { inherit (tools) spago nodejs-16_x; };
-                    text =
-                      let
-                        dotenvFile = "app.env";
-                        spago_ = "spago";
-                      in
-                      ''
-                        ${spago_} install
-                        ${spago_} build
-                        source ${dotenvFile}
-                        npx parcel serve -p $PORT --host $HOST dev/index.html
-                      '';
+                    runtimeInputs = psInputs;
+                    text = 
+                    let
+                      dotenvFile = "app.env";
+                      spago_ = "spago";
+                    in
+                    ''
+                      ${spago_} install
+                      ${spago_} build
+                      source ${dotenvFile}
+                      npx parcel serve -p $PORT --host $HOST dev/index.html
+                    '';
                   };
+                test = {
+                  text = ''spago test'';
+                  runtimeInputs = psInputs;
+                };
               };
 
           devShells = mkDevShellsWithDefault

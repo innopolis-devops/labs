@@ -16,10 +16,12 @@ let
       appName_ = appName lang;
       commandNames_ = commandNames.apps lang;
       serviceNames_ = serviceNames.${lang};
-      appWithDocker = name: text: mkShellApp {
-        inherit name text;
-        runtimeInputs = [ pkgs.docker ];
-      };
+      inherit (drv-tools.functions.${system}) mkBin mkShellApps;
+      mkAppsWithDocker = apps@{...}: mkShellApps (
+        builtins.mapAttrs (name: app: app // { runtimeInputs = (app.runtimeInputs or []) ++ [ pkgs.docker ]; }) apps
+      );
+      mkAppsWithDocker_ = apps@{...}: mkAppsWithDocker (builtins.mapAttrs (name: text: { inherit text; }) apps);
+      mkShellApps_ = apps@{...}: mkShellApps (builtins.mapAttrs (name: text: { inherit text; }) apps);
       rootEnv = "../.env";
       withEnvFile = ''
         set -a
@@ -29,34 +31,22 @@ let
         fi
         set +a
       '';
-      inherit (drv-tools.functions.${system}) mkBin;
     in
-    {
-      "${commandNames_.run}" =
-        mkShellApp (
-          {
-            text = ''
-              ${mkBin scripts.${lang}.run-start}
-            '';
-            name = commandNames_.run;
-          }
-        );
-      "${commandNames_.dockerBuild}" = appWithDocker commandNames_.dockerBuild ''
-        ${withEnvFile} docker compose build ${serviceNames_.web}
-      '';
-      "${commandNames_.dockerRun}" = appWithDocker commandNames_.dockerRun ''
-        ${withEnvFile} docker compose up ${serviceNames_.web}
-      '';
-      "${commandNames_.dockerPush}" = appWithDocker commandNames_.dockerPush ''
-        ${withEnvFile} docker compose push ${serviceNames_.web}
-      '';
-      "${commandNames_.dockerPull}" = appWithDocker commandNames_.dockerPull ''
-        ${withEnvFile} docker compose pull
-      '';
-      "${commandNames_.dockerStop}" = appWithDocker commandNames_.dockerStop ''
-        docker compose stop
-      '';
-    };
+    (mkShellApps_
+      {
+        "${commandNames_.run}" = ''${mkBin scripts.${lang}.run-start}'';
+        "${commandNames_.test}" = ''${mkBin scripts.${lang}.test}'';
+      }
+    ) //
+    (mkAppsWithDocker_
+      {
+        "${commandNames_.dockerBuild}" = ''${withEnvFile} docker compose build ${serviceNames_.web}'';
+        "${commandNames_.dockerRun}" = ''${withEnvFile} docker compose up ${serviceNames_.web}'';
+        "${commandNames_.dockerPush}" = ''${withEnvFile} docker compose push ${serviceNames_.web}'';
+        "${commandNames_.dockerPull}" = ''${withEnvFile} docker compose pull'';
+        "${commandNames_.dockerStop}" = ''docker compose stop'';
+      }
+    );
   commands = {
     apps =
       let

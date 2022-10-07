@@ -1,0 +1,6 @@
+---
+- name: Docker
+  hosts: yacloud
+  remote_user: whutao
+  roles:
+    - docker

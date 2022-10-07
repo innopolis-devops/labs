@@ -1,0 +1,16 @@
+services:
+  web:
+    build:
+      context: ./
+    env_file:
+      - .env
+    environment:
+      - PORT=${DOCKER_PORT}
+      - HOST=${HOST}
+      - TZ=Europe/Amsterdam
+    ports:
+      - ${HOST_PORT}:${DOCKER_PORT}
+    # mount to have parcel watch this dir
+    volumes:
+      - .:/app
+    image: ${DOCKER_HUB_USERNAME}/app_purescript:latest

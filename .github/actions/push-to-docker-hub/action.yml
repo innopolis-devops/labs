@@ -1,0 +1,46 @@
+name: Push to Docker Hub
+
+# Syntax
+# https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#about-yaml-syntax-for-github-actions
+
+description: Build and push images to Docker Hub
+
+inputs:
+  PASSWORD:
+    description: Docker Hub password
+    required: true
+  NAME:
+    description: Docker image name
+    required: true
+  TAG:
+    description: Docker image tag
+    required: true
+  SHELL:
+    description: Nix shell to use
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ inputs.USER }}
+        password: ${{ inputs. }}
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:latest
+
+    - name: Build image
+      shell: "bash"
+      run: nix develop .# -c nix develop .#app-${{ inputs.SHELL }}-docker-build -c bash -c ''
+          docker login -p ${{ inputs.PASSWORD }} -u ${{ inputs.USER }}
+          docker tag ${{ inputs.NAME }} ${{ inputs.USER }}/${{ inputs.NAME }}:${{ inputs.TAG }}
+          docker push ${{ inputs.USER }}/${{ inputs.NAME }}:${{ inputs.TAG }}
+        ''

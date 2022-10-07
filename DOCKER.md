@@ -32,3 +32,7 @@
 - [x] Used [heredocs](https://www.docker.com/blog/introduction-to-heredocs-in-dockerfiles/) in `Dockerfiles` to ease reading multiline commands
 
 - [x] Used [hadolint](https://github.com/hadolint/hadolint) to lint the Docker files
+
+## Available Commands and Tasks
+
+See the [docs](./README/docs.md)

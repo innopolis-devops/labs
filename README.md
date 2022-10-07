@@ -58,7 +58,7 @@ Additionally,
 
    1. Hook to your shell - step `2` from the docs
 
-1. Enter this project
+1. Enter this project. When asked about substituters and keys, answer `y`. This is needed for Nix to use binary caches
 
 ```terminal
 git clone https://github.com/br4ch1st0chr0n3/devops-labs
@@ -77,7 +77,7 @@ nix run .# .
 
 1. In case the wrong Python `.venv` is sourced, go to `Command Palette` -> `Python: Select Interpreter` -> `Python 3.10.6 ('.venv':poetry)` with `./.venv/bin/python`
 
-1. Try running a task (see the [section](./README.md#vscodium-tasks) below) `app_purescript: Run`
+1. Try running a task `app_purescript: Run` (see the [section](./README.md#vscodium-tasks) below)
 
 1. In case after building `app_purescript` you see the red error messages, go to `Command Palette` -> `Developer: Reload Window`
 

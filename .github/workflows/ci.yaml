@@ -19,7 +19,7 @@ env:
   action: |
     git pull --rebase --autostash
     nix run {0} {1}
-    git commit -a -m "action: {2}"
+    git diff --exit-code || git commit -a -m "action: {2}"
     git push
 
 jobs:

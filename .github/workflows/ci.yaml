@@ -25,8 +25,6 @@ env:
     git config user.name github-actions
     git config user.email github-actions@github.com
 
-  app_python: app_python
-
 jobs:
   caching:
     name: Build on ${{ matrix.os }}
@@ -80,7 +78,7 @@ jobs:
 
       # - No need to lint PureScript since it's statically typed
       - name: Linting
-        if: ${{ matrix.app == env.app_python }}
+        if: ${{ matrix.app == 'app_python' }}
         run: nix run .#lint
       - name: Test
         run: nix run .#test

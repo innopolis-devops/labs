@@ -12,3 +12,5 @@
 dist
 min
 prod
+test
+!test/Main.purs

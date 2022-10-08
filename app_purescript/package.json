@@ -1,10 +1,13 @@
 {
   "name": "app_purescript",
   "devDependencies": {
-    "parcel": "2.5.0",
-    "x-var": "0.0.1",
     "dotenv-cli": "^6.0.0",
-    "esbuild": "0.15.9"
+    "esbuild": "0.15.9",
+    "parcel": "2.5.0",
+    "querystring-es3": "^0.2.1",
+    "url": "^0.11.0",
+    "x-var": "0.0.1",
+    "xhr2": "^0.2.1"
   },
   "version": "0.0.1",
   "main": "dist/index.js",

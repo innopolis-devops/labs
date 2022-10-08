@@ -17,6 +17,7 @@ import Halogen (liftEffect)
 import Halogen as H
 import Halogen.Aff as HA
 import Halogen.HTML as HH
+import Halogen.HTML.Properties (id)
 import Halogen.HTML.Properties as HP
 import Halogen.Subscription as HS
 import Halogen.VDom.Driver (runUI)
@@ -54,7 +55,7 @@ renderTime = format $ fromFoldable [ Hours24, Placeholder ":", MinutesTwoDigits,
 
 okTimeHtml :: forall (a :: Type). String -> HH.HTML a Action
 okTimeHtml st = HH.div_
-  [ HH.h1_ [ HH.text "Current Moscow time (UTC+3:00):" ]
+  [ HH.h1 [ id "time" ] [ HH.text "Current Moscow time (UTC+3:00):" ]
   , HH.h2_ [ HH.text $ st ]
   ]
 

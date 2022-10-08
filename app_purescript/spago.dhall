@@ -13,20 +13,24 @@ to generate this file without the comments in this block.
 { name = "my-project"
 , dependencies =
   [ "aff"
-  , "arrays"
+  , "affjax"
+  , "affjax-node"
   , "console"
   , "datetime"
   , "effect"
-  , "enums"
+  , "either"
   , "formatters"
   , "halogen"
   , "halogen-subscriptions"
+  , "http-methods"
+  , "integers"
+  , "lists"
   , "maybe"
   , "now"
   , "prelude"
+  , "spec"
   , "tailrec"
-  , "integers"
-  , "lists"
+  , "web-dom"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]

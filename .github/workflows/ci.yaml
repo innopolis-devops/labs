@@ -58,7 +58,7 @@ jobs:
 
       - name: Cache flakes
         run: CACHIX_CACHE=${{ secrets.CACHIX_CACHE }} nix run .#pushToCachix
-  
+
   # It's a separate job just to not block other jobs
   # I need quick flake.lock updates
   app-ci:
@@ -66,6 +66,9 @@ jobs:
     strategy:
       matrix:
         app: [app_purescript, app_python]
+    defaults:
+      run:
+        working-directory: ${{ matrix.app }}
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -73,18 +76,16 @@ jobs:
         with:
           extra_nix_config: ${{ env.extra_nix_config }}
           install_url: ${{ env.install_url }}
-      # Nix will install the dependencies
+      # - Nix will install the dependencies
 
-      # no need to lint PureScript since it's statically typed
+      # - No need to lint PureScript since it's statically typed
       - name: Linting
         if: ${{ matrix.app == env.app_python }}
-        working-directory: matrix.app
         run: nix run .#lint
       - name: Test
         run: nix run .#test
 
-
-  push-to-docker-hub: 
+  push-to-docker-hub:
     name: Push ${{ matrix.app }} to Docker Hub
     runs-on: ubuntu-20.04
     strategy:
@@ -109,11 +110,10 @@ jobs:
       # TODO add linters and tests
       - name: Build and push
         uses: docker/build-push-action@v3
-        env: 
+        env:
           DOCKER_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         with:
           # https://github.com/docker/build-push-action#path-context
           context: ${{ matrix.app }}
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ matrix.app }}:latest
-

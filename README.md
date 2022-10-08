@@ -1,3 +1,5 @@
+[![Caching](https://github.com/br4ch1st0chr0n3/devops-labs/actions/workflows/ci.yaml/badge.svg)](https://github.com/br4ch1st0chr0n3/devops-labs/actions/workflows/ci.yaml)
+
 # Time apps
 
 ## Descriptions

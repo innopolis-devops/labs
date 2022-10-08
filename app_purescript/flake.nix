@@ -59,9 +59,13 @@
                 test = {
                   # https://github.com/mozilla/geckodriver/releases/tag/v0.31.0
                   text = ''
+                    nix run .#run-start &
+                    parcel_pid=$!
                     mkdir -p test_tmp
                     export TMPDIR=test_tmp
+                    sleep 4
                     poetry run pytest -rX --rootdir test --driver Firefox
+                    kill $parcel_pid
                   '';
                   runtimeInputs = psInputs;
                 };

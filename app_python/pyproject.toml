@@ -17,6 +17,7 @@ pytest = "^7.1.3"
 [tool.poetry.dev-dependencies]
 uvicorn = "^0.18.3"
 manage-fastapi = "^1.1.1"
+pylint = "^2.15.3"
 
 [tool.poetry.scripts]
 app = 'app.main:main'

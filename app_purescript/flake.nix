@@ -59,6 +59,8 @@
                 test = {
                   # https://github.com/mozilla/geckodriver/releases/tag/v0.31.0
                   text = ''
+                    poetry install
+                    ${activateVenv}
                     set +e
                     nix run .#run-start &
                     parcel_pid=$!

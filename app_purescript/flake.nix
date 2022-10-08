@@ -64,13 +64,11 @@
                     set +e
                     nix run .#run-start &
                     parcel_pid=$!
-                    ADDRESS=
                     poetry run python ${./scripts/wait-for-server.py}
                     mkdir -p test_tmp
                     export TMPDIR=test_tmp
                     poetry run pytest -rX --rootdir test --driver Firefox
-                    kill $parcel_pid
-                    echo "test finished"
+                    kill $parcel_pid || echo "test finished"
                   '';
                   runtimeInputs = psInputs ++ [ pkgs.poetry pkgs.geckodriver pkgs.firefox ];
                 };

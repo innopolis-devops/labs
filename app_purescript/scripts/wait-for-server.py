@@ -12,7 +12,7 @@ while status:
             print ("no response")
         finally:
             print("the server isn't yet ready")
-            time.sleep(5)
+            time.sleep(2)
     else:
         print("status code is 200, hence exiting")
         status = False

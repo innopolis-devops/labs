@@ -36,7 +36,14 @@
 
           whenRootAtDepth = depth: ''when inside `$PROJECT_ROOT/${builtins.baseNameOf ./.}`'';
 
-          activateVenv = python-tools.snippets.${system};
+          # TODO enable disabled errors after command
+          # https://unix.stackexchange.com/a/310963 
+          withoutErrors = command: ''
+            set +e
+            ${command}
+            echo ""
+          '';
+          inherit (python-tools.snippets.${system}) activateVenv;
           scripts = mkShellApps {
             run-start =
               let appName = (pkgs.lib.modules.importTOML ./pyproject.toml).config.tool.poetry.name;
@@ -52,9 +59,15 @@
             test = {
               text = ''
                 ${activateVenv}
-                poetry run pytest -rX
+                poetry run pytest -rX || echo ""
               '';
               runtimeInputs = [ pkgs.poetry ];
+            };
+            lint = {
+              text = withoutErrors ''
+                poetry run pylint app
+              '';
+              runtimeInputs = [ pkgs.pylint ];
             };
           };
         in

@@ -1,0 +1,6 @@
+- name: Wipe app
+  docker_container:
+    name: "{{ app_name }}"
+    state: absent
+  when: app_full_wipe | bool
+  tags: wipe

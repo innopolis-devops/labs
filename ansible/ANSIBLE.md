@@ -321,3 +321,61 @@
         terraform1                 : ok=19   changed=4    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0   
 
     ```
+
+2. 50 last lines after additions to configs, required in the remaining part of main task
+
+    ```plain
+
+        ...(skipped)
+
+        TASK [docker : Install Docker Compose (if configured).] ***********************************************************************************************************
+        changed: [terraform1]
+
+        TASK [docker : Get docker group info using getent.] ***************************************************************************************************************
+        skipping: [terraform1]
+
+        TASK [docker : Check if there are any users to add to the docker group.] ******************************************************************************************
+
+        TASK [docker : include_tasks] *************************************************************************************************************************************
+        skipping: [terraform1]
+
+        TASK [web_app : Wipe app] *****************************************************************************************************************************************
+        skipping: [terraform1]
+
+        TASK [web_app : Start Docker service] *****************************************************************************************************************************
+        ok: [terraform1]
+
+        TASK [web_app : Create app directory] *****************************************************************************************************************************
+        --- before
+        +++ after
+        @@ -1,4 +1,4 @@
+        {
+            "path": "/opt/python_kremlin_chimes",
+        -    "state": "absent"
+        +    "state": "directory"
+        }
+
+        changed: [terraform1]
+
+        TASK [web_app : Template a docker file] ***************************************************************************************************************************
+        --- before
+        +++ after: /home/danila/.ansible/tmp/ansible-local-52204hyg4ii3b/tmp03m7gz42/docker-compose.yml.j2
+        @@ -0,0 +1,9 @@
+        +version: "3.9"
+        +
+        +services:
+        +  python_kremlin_chimes:
+        +    image: danmory/python_kremlin_chimes:latest
+        +    container_name: python_kremlin_chimes
+        +    ports:
+        +      - "80:8000"
+        +    restart: always
+
+        changed: [terraform1]
+
+        TASK [web_app : Start all services] *******************************************************************************************************************************
+        changed: [terraform1]
+
+        PLAY RECAP ********************************************************************************************************************************************************
+        terraform1                 : ok=23   changed=11   unreachable=0    failed=0    skipped=12   rescued=0    ignored=0     
+    ```

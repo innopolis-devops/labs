@@ -1,0 +1,9 @@
+app_full_wipe : false
+app_name: python_kremlin_chimes
+app_image:
+  name: danmory/python_kremlin_chimes
+  version: latest
+app_port:
+  external: 80
+  internal: 8000
+app_path: "/opt/{{ app_name }}"

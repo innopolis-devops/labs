@@ -1,32 +1,31 @@
-- name: Install Python
-  package:
-    name: "python3"
-    state: present
 
-- name: Install PIP
-  apt: name=python3-pip state=present 
+- name: Wipe app
+  ansible.builtin.import_tasks: 01-wipe.yml
+  when: app_full_wipe | bool
+  tags: 
+    - wipe
+    - deploy
 
-- name: Install Docker sdk for python
-  pip:
-    name: docker
+- name: Deploy app
+  tags: deploy
+  block:
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
 
-- name: Start Docker service
-  service:
-    name: "docker"
-    state: started
+    - name: Create app directory
+      ansible.builtin.file:
+        path: "{{ app_path }}"
+        state: directory
 
-- name: Pull app docker image
-  docker_image:
-    name: danmory/python_kremlin_chimes
-    tag: latest
-    source: pull
+    - name: Template a docker file
+      ansible.builtin.template:
+        src: docker-compose.yml.j2
+        dest: "{{ app_path }}/docker-compose.yml"
 
-- name: Run docker container
-  docker_container:
-    name: python_kremlin_chimes
-    image: danmory/python_kremlin_chimes:latest
-    state: started
-    exposed_ports:
-    - "8000"
-    ports:
-    - "8000:8000"
+    - name: Start all services
+      community.docker.docker_compose:
+        project_src: "{{ app_path }}"
+        state: present
+        pull: true      

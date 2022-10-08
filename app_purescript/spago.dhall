@@ -22,7 +22,6 @@ to generate this file without the comments in this block.
   , "formatters"
   , "halogen"
   , "halogen-subscriptions"
-  , "http-methods"
   , "integers"
   , "lists"
   , "maybe"

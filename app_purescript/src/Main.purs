@@ -55,8 +55,8 @@ renderTime = format $ fromFoldable [ Hours24, Placeholder ":", MinutesTwoDigits,
 
 okTimeHtml :: forall (a :: Type). String -> HH.HTML a Action
 okTimeHtml st = HH.div_
-  [ HH.h1 [ id "time" ] [ HH.text "Current Moscow time (UTC+3:00):" ]
-  , HH.h2_ [ HH.text $ st ]
+  [ HH.h1_ [ HH.text "Current Moscow time (UTC+3:00):" ]
+  , HH.h2 [ id "time" ] [ HH.text $ st ]
   ]
 
 noTimeHtml :: forall (a :: Type). HH.HTML a Action

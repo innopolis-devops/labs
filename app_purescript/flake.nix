@@ -6,6 +6,7 @@
     flake-utils_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/flake-utils;
     easy-purescript-nix_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/easy-purescript-nix;
     drv-tools.url = github:br4ch1st0chr0n3/flakes?dir=drv-tools;
+    python-tools.url = github:br4ch1st0chr0n3/flakes?dir=language-tools/python;
     nixpkgs.follows = "nixpkgs_/nixpkgs";
     flake-utils.follows = "flake-utils_/flake-utils";
     easy-purescript-nix.follows = "easy-purescript-nix_/easy-purescript-nix";
@@ -17,6 +18,7 @@
     , easy-purescript-nix
     , flake-utils
     , drv-tools
+    , python-tools
     , ...
     }:
       with flake-utils.lib;
@@ -42,27 +44,35 @@
                 run-start =
                   {
                     runtimeInputs = psInputs;
-                    text = 
-                    let
-                      dotenvFile = "app.env";
-                      spago_ = "spago";
-                    in
-                    ''
-                      ${spago_} install
-                      ${spago_} build
-                      source ${dotenvFile}
-                      npx parcel serve -p $PORT --host $HOST dev/index.html
-                    '';
+                    text =
+                      let
+                        dotenvFile = "app.env";
+                        spago_ = "spago";
+                      in
+                      ''
+                        ${spago_} install
+                        ${spago_} build
+                        source ${dotenvFile}
+                        npx parcel serve -p $PORT --host $HOST dev/index.html
+                      '';
                   };
                 test = {
-                  text = ''spago test'';
+                  # https://github.com/mozilla/geckodriver/releases/tag/v0.31.0
+                  text = ''
+                    mkdir -p test_tmp
+                    export TMPDIR=test_tmp
+                    poetry run pytest -rX --rootdir test --driver Firefox
+                  '';
                   runtimeInputs = psInputs;
                 };
               };
-
+          inherit (python-tools.snippets.${system}) activateVenv;
           devShells = mkDevShellsWithDefault
             {
-              buildInputs = builtins.attrValues scripts;
+              buildInputs = builtins.attrValues scripts ++ [ pkgs.poetry ];
+              shellHook = ''
+                ${activateVenv}
+              '';
             }
             {
               fish = { };

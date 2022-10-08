@@ -40,6 +40,8 @@
           # https://unix.stackexchange.com/a/310963 
           withoutErrors = command: ''
             set +e
+            ${activateVenv}
+            poetry install
             ${command}
             echo ""
           '';
@@ -49,16 +51,14 @@
               let appName = (pkgs.lib.modules.importTOML ./pyproject.toml).config.tool.poetry.name;
               in
               {
-                text = ''
-                  ${activateVenv}
+                text = withoutErrors ''
                   poetry run ${appName}
                 '';
                 longDescription = ''Run `${appName}` ${whenRootAtDepth 2}'';
                 runtimeInputs = [ pkgs.poetry ];
               };
             test = {
-              text = ''
-                ${activateVenv}
+              text = withoutErrors ''
                 poetry run pytest -rX || echo ""
               '';
               runtimeInputs = [ pkgs.poetry ];
@@ -67,7 +67,7 @@
               text = withoutErrors ''
                 poetry run pylint app
               '';
-              runtimeInputs = [ pkgs.pylint ];
+              runtimeInputs = [ pkgs.poetry ];
             };
           };
         in

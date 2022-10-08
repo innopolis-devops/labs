@@ -72,7 +72,7 @@
                     kill $parcel_pid
                     echo "test finished"
                   '';
-                  runtimeInputs = psInputs ++ [ pkgs.poetry ];
+                  runtimeInputs = psInputs ++ [ pkgs.poetry pkgs.geckodriver pkgs.firefox ];
                 };
               };
           inherit (python-tools.snippets.${system}) activateVenv;

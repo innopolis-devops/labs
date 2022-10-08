@@ -5,6 +5,7 @@
     nixpkgs_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/nixpkgs;
     flake-utils_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/flake-utils;
     drv-tools.url = github:br4ch1st0chr0n3/flakes?dir=drv-tools;
+    python-tools.url = github:br4ch1st0chr0n3/flakes?dir=language-tools/python;
     nixpkgs.follows = "nixpkgs_/nixpkgs";
     flake-utils.follows = "flake-utils_/flake-utils";
   };
@@ -14,6 +15,7 @@
     , nixpkgs
     , flake-utils
     , drv-tools
+    , python-tools
     , ...
     }:
       with flake-utils.lib;
@@ -34,10 +36,7 @@
 
           whenRootAtDepth = depth: ''when inside `$PROJECT_ROOT/${builtins.baseNameOf ./.}`'';
 
-          activateVenv = ''
-            ${builtins.readFile ./scripts/activate.sh}
-            set +e
-          '';
+          activateVenv = python-tools.snippets.${system};
           scripts = mkShellApps {
             run-start =
               let appName = (pkgs.lib.modules.importTOML ./pyproject.toml).config.tool.poetry.name;
@@ -76,9 +75,6 @@
               };
             }
           ;
-          configs = {
-            inherit activateVenv;
-          };
         });
   nixConfig = {
     extra-substituters = [

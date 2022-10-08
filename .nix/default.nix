@@ -9,6 +9,7 @@
 , drv-tools
 , flake-tools
 , easy-purescript-nix
+, python-tools
 }:
 let
   pkgs = nixpkgs.legacyPackages.${system};
@@ -88,9 +89,10 @@ let
       (
         builtins.attrValues (
           {
-            inherit (pkgs) 
-              docker poetry direnv lorri inotify-tools 
-              rnix-lsp nixpkgs-fmt dhall-lsp-server;
+            inherit (pkgs)
+              docker poetry direnv lorri inotify-tools
+              rnix-lsp nixpkgs-fmt dhall-lsp-server
+              geckodriver;
             inherit (pkgs.haskellPackages) hadolint;
           }
           //
@@ -115,37 +117,19 @@ let
         runtimeInputs = [ pkgs.haskellPackages.hadolint ];
         text = ''
           set +e
-        ''
-        +
-        (concatMapStringsSep
-          ''printf "\n" ; ''
-          (dir: '' ( printf "${framedBrackets "linting in ${dir}"}" ; hadolint ${dir}/${dockerFile});'')
-          dirs
-        );
+          ${concatMapStringsSep
+            ''printf "\n" ; ''
+            (dir: '' ( printf "${framedBrackets "linting in ${dir}"}" ; hadolint ${dir}/${dockerFile});'')
+            dirs
+          }'';
         longDescription = ''
           Lint ${dockerFile}s in ${concatStringsSep ", " dirs}'';
       };
-    createVenvs = {
-      text =
-        let createMessage = ''printf "${framedBrackets "creating environment in $PWD"}"''; in
-        ''
-          ${createMessage}
-          ${activateVenv}
-          poetry install --no-root
-          cd ${appPython}
-          ${createMessage}
-          ${activateVenv}
-          poetry install --no-root
-        '';
-      runtimeInputs = [ pkgs.poetry ];
-      longDescription = ''
-        Create `.venv`s for `Python` environments in $PROJECT_ROOT and ${appPython}.
-
-        Please, run this from your $PROJECT_ROOT! A couple of times if anything goes wrong :)
-      '';
-    };
   })
-  // { inherit desc; };
+  // {
+    inherit desc;
+    createVenvs = python-tools.functions.${system}.createVenvs [ appPython appPurescript "." ];
+  };
 
   devShells =
     (mkDevShellsWithDefault

@@ -11,6 +11,7 @@ let
     mkShellApp
     writeJson
     framedBrackets
+    mkBin
     ;
   inherit (my-codium.configs.${system})
     settingsNix
@@ -23,6 +24,7 @@ let
     commandNames
     taskNames
     appPurescript
+    appPython
     DOCKER_PORT
     HOST_PORT
     ;
@@ -67,36 +69,32 @@ let
   writeConfigs =
     mkShellApp {
       name = "write-configs";
-      runtimeInputs = [
-        writeSettings
-        writeTasks
-        writeDocs
-        writeMarkdownlintConfig
-        writeRootPyproject
-      ];
       text = ''
-        ${writeSettings.name}
-        ${writeTasks.name}
-        ${writeDocs.name}
-        ${writeMarkdownlintConfig.name}
-        ${writeRootPyproject.name}
+        ${mkBin writeSettings}
+        ${mkBin writeTasks}
+        ${mkBin writeDocs}
+        ${mkBin writeMarkdownlintConfig}
+        ${mkBin writeRootPyproject}
       '';
     };
   writeRootPyproject =
     let
       script = "./scripts/update-root-pyproject.py";
-      appPythonTOML = "./app_python/pyproject.toml";
-      rootTOML = "./pyproject.toml";
-      python = pkgs.python310.withPackages (x: with x; [ python310Packages.tomlkit ]);
-      poetry = pkgs.poetry;
+      pyproject = "pyproject.toml";
+      appPythonTOML = "${appPython}/${pyproject}";
+      appPurescriptTOML = "${appPurescript}/${pyproject}";
+      rootTOML = "${pyproject}";
+      targets = [appPython appPurescript];
+      python = pkgs.python310.withPackages (x: with x; [ pkgs.python310Packages.tomlkit ]);
     in
     mkShellApp {
-      runtimeInputs = [ poetry ];
+      runtimeInputs = [ pkgs.poetry python ];
       name = "write-root-project";
       text = ''
-        ${poetry.pname} run python ${script} ${appPythonTOML} ${rootTOML}
         chmod +w ${rootTOML}
-        ${poetry.pname} update
+        python ${script} ${appPythonTOML} ${rootTOML}
+        python ${script} ${appPurescriptTOML} ${rootTOML}
+        poetry update
       '';
     };
 in

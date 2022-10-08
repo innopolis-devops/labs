@@ -5,6 +5,7 @@
     drv-tools.url = github:br4ch1st0chr0n3/flakes?dir=drv-tools;
     flake-tools.url = github:br4ch1st0chr0n3/flakes?dir=flake-tools;
     easy-purescript-nix_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/easy-purescript-nix;
+    python-tools.url = github:br4ch1st0chr0n3/flakes?dir=language-tools/python;
     nixpkgs.follows = "nixpkgs_/nixpkgs";
     flake-utils.follows = "flake-utils_/flake-utils";
     my-codium.url = github:br4ch1st0chr0n3/flakes?dir=codium;
@@ -29,6 +30,7 @@
     , flake-tools
     , easy-purescript-nix
     , drv-tools
+    , python-tools
     , ...
     }:
     flake-utils.lib.eachDefaultSystem (system:
@@ -39,7 +41,9 @@
 
       inherit (import ./.nix/default.nix {
         inherit nixpkgs system my-codium app-python app-purescript
-          rootDir json2md env2json drv-tools flake-tools easy-purescript-nix;
+          rootDir json2md env2json drv-tools flake-tools easy-purescript-nix
+          python-tools
+          ;
       }) devShells scripts codium flakesUtils
         flakesToggleRelativePaths_ configWriters commands;
     in

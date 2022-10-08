@@ -21,6 +21,11 @@ env:
     nix run {0} {1}
     git diff --exit-code || git commit -a -m "action: {2}"
     git push
+  config_git_actions: |
+    git config user.name github-actions
+    git config user.email github-actions@github.com
+
+  app_python: app_python
 
 jobs:
   caching:
@@ -36,9 +41,7 @@ jobs:
           extra_nix_config: ${{ env.extra_nix_config }}
           install_url: ${{ env.install_url }}
       - name: config git
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+        run: ${{ env.config_git_actions }}
 
       - name: Update locks
         env:
@@ -55,8 +58,27 @@ jobs:
 
       - name: Cache flakes
         run: CACHIX_CACHE=${{ secrets.CACHIX_CACHE }} nix run .#pushToCachix
-        
-  push-to-docker-hub:
+  
+  # It's a separate job just to not block other jobs
+  # I need quick flake.lock updates
+  app-ci:
+    name: CI for ${{ matrix.app }}  project
+    strategy:
+      matrix:
+        app: [app_purescript, app_python]
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Dependencies
+      - uses: cachix/install-nix-action@v17
+        with:
+          extra_nix_config: ${{ env.extra_nix_config }}
+          install_url: ${{ env.install_url }}
+      - name: Lint
+        if: ${{ matrix.app == env.app_python }}
+
+
+  push-to-docker-hub: 
     name: Push ${{ matrix.app }} to Docker Hub
     runs-on: ubuntu-20.04
     strategy:

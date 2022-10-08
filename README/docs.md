@@ -114,6 +114,8 @@ If you use VSCodium, they're bundled into it and should be available in its term
 
  1. Press `Ctrl` (`Cmd`) + `C` in the terminal
 
+### app_python: Test
+
 ## `app_purescript` actions
 
 ### app_purescript: Docker build
@@ -159,3 +161,5 @@ If you use VSCodium, they're bundled into it and should be available in its term
 ### app_purescript: Stop
 
  1. Press `Ctrl` (`Cmd`) + `C` in the terminal
+
+### app_purescript: Test

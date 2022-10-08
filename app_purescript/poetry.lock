@@ -102,6 +102,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "logging"
+version = "0.4.9.6"
+description = "A logging module for Python"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "outcome"
 version = "1.2.0"
 description = "Capture the outcome of Python function calls."
@@ -401,7 +409,7 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "5c9464e95466f5d1f43dc0dfd25f33d9ae1b96ebca07c6ed842a09351bd41ace"
+content-hash = "4f6b091923cda4f16c9ef196b8f61cc460edff1218f61968c3da2dd8001def5f"
 
 [metadata.files]
 async-generator = [
@@ -508,6 +516,9 @@ idna = [
 iniconfig = [
     {file = "iniconfig-1.1.1-py2.py3-none-any.whl", hash = "sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3"},
     {file = "iniconfig-1.1.1.tar.gz", hash = "sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"},
+]
+logging = [
+    {file = "logging-0.4.9.6.tar.gz", hash = "sha256:26f6b50773f085042d301085bd1bf5d9f3735704db9f37c1ce6d8b85c38f2417"},
 ]
 outcome = [
     {file = "outcome-1.2.0-py2.py3-none-any.whl", hash = "sha256:c4ab89a56575d6d38a05aa16daeaa333109c1f96167aba8901ab18b6b5e0f7f5"},

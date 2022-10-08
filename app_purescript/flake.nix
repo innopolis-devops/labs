@@ -59,15 +59,18 @@
                 test = {
                   # https://github.com/mozilla/geckodriver/releases/tag/v0.31.0
                   text = ''
+                    set +e
                     nix run .#run-start &
                     parcel_pid=$!
+                    ADDRESS=
+                    poetry run python ${./scripts/wait-for-server.py}
                     mkdir -p test_tmp
                     export TMPDIR=test_tmp
-                    sleep 4
                     poetry run pytest -rX --rootdir test --driver Firefox
                     kill $parcel_pid
+                    echo "test finished"
                   '';
-                  runtimeInputs = psInputs;
+                  runtimeInputs = psInputs ++ [ pkgs.poetry ];
                 };
               };
           inherit (python-tools.snippets.${system}) activateVenv;

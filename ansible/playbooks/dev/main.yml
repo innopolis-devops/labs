@@ -1,4 +1,5 @@
 - name: Install Docker
   hosts: yacloud-vm
+  become: yes
   roles:
     - docker

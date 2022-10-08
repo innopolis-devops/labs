@@ -104,8 +104,6 @@ let
     ];
   };
 
-  inherit (app-python.configs.${system}) activateVenv;
-
   scripts = (mkShellApps {
     lintDockerfiles =
       let
@@ -134,7 +132,7 @@ let
   devShells =
     (mkDevShellsWithDefault
       {
-        shellHook = ''${app-python.configs.${system}.activateVenv}'';
+        shellHook = python-tools.snippets.${system}.activateVenv;
         # binaries that we need to test and can't yet include as a part of codium
         # if they gets here, they will overwrite the stuff from codium
         buildInputs = [

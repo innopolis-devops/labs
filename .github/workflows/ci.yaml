@@ -69,13 +69,19 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - name: Dependencies
       - uses: cachix/install-nix-action@v17
         with:
           extra_nix_config: ${{ env.extra_nix_config }}
           install_url: ${{ env.install_url }}
-      - name: Lint
+      # Nix will install the dependencies
+
+      # no need to lint PureScript since it's statically typed
+      - name: Linting
         if: ${{ matrix.app == env.app_python }}
+        working-directory: matrix.app
+        run: nix run .#lint
+      - name: Test
+        run: nix run .#test
 
 
   push-to-docker-hub: 

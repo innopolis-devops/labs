@@ -1,0 +1,32 @@
+- name: Install Python
+  package:
+    name: "python3"
+    state: present
+
+- name: Install PIP
+  apt: name=python3-pip state=present 
+
+- name: Install Docker sdk for python
+  pip:
+    name: docker
+
+- name: Start Docker service
+  service:
+    name: "docker"
+    state: started
+
+- name: Pull app docker image
+  docker_image:
+    name: danmory/python_kremlin_chimes
+    tag: latest
+    source: pull
+
+- name: Run docker container
+  docker_container:
+    name: python_kremlin_chimes
+    image: danmory/python_kremlin_chimes:latest
+    state: started
+    exposed_ports:
+    - "8000"
+    ports:
+    - "8000:8000"

@@ -17,7 +17,7 @@
         project_src: '{{ web_app_path }}'
         state: absent
         remove_orphans: true
-        remove_images: true
+        remove_images: all
         remove_volumes: true
     - name: Rmdir {{ web_app_path }}
       when: web_app_compose_dir_exists

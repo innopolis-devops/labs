@@ -23,5 +23,5 @@ COPY . /app
 
 RUN useradd -m appuser
 USER appuser
-ENTRYPOINT ["gunicorn", "app:app"] 
+ENTRYPOINT ["gunicorn", "src.wsgi:app"] 
 CMD ["-b", "0.0.0.0:4444"]

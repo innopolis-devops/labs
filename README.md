@@ -29,15 +29,10 @@ I used Nix to make a reproducible project environment. Now, the project ships wi
 - development shells
 - scripts
   - to generate the `docs`, `settings.json`, `tasks.json`
-  - to sync `venv`s of the root (`./`) and `app_python`
+  - to sync `venv`s of the root (`./`), `app_python`, and `app_purescript`
   - to start apps via their servers or in `Docker` containers
   - to lint files
-  - to cache devshells and push them to [Cachix](https://www.cachix.org/)
-
-Additionally,
-
-- I dramatically reduced the sizes of `flake.locks` by refactoring my flakes repo.They're 10-40 times smaller than when I started doing this lab
-- This is due to my refactored [flakes](https://github.com/br4ch1st0chr0n3/flakes) repository
+  - to cache devshells and push them to [Cachix](https://www.cachix.org/) (a binary cache)
 
 ## Setup
 

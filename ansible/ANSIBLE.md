@@ -1,5 +1,6 @@
 # Playbook
 
+```
 igor@debian:~/labs/ansible$ ansible-playbook playbooks/dev/main.yml --diff
 
 ...
@@ -54,11 +55,13 @@ skipping: [ansible]
 PLAY RECAP *********************************************************************************************************
 VM1                        : ok=13   changed=0    unreachable=0    failed=0    skipped=14   rescued=0    ignored=0   
 ansible                    : ok=13   changed=0    unreachable=0    failed=0    skipped=14   rescued=0    ignored=0
+```
 
 # Inventory
 
 ## inventory.yml
 
+```
 igor@debian:~/labs/ansible$ ansible-inventory -i inventory/inventory.yml --list
 {
     "VM": {
@@ -81,9 +84,11 @@ igor@debian:~/labs/ansible$ ansible-inventory -i inventory/inventory.yml --list
         ]
     }
 }
+```
 
 # yacloud_compute.yml
 
+```
 igor@debian:~/labs/ansible$ ansible-inventory -i inventory/yacloud_compute.yml --list
 {
     "_meta": {
@@ -106,9 +111,11 @@ igor@debian:~/labs/ansible$ ansible-inventory -i inventory/yacloud_compute.yml -
         ]
     }
 }
+```
 
 # Lab 6 Deployment
 
+```
 igor@debian:~/labs/ansible$ ansible-playbook playbooks/dev/app_python/main.yml -i inventory/yacloud_compute.yml --diff
 
 ...
@@ -163,6 +170,7 @@ ok: [ansible]
 
 PLAY RECAP *********************************************************************************************************************************************************************************************************************************
 ansible                    : ok=16   changed=0    unreachable=0    failed=0    skipped=16   rescued=0    ignored=0
+```
 
 # Application improvements
 

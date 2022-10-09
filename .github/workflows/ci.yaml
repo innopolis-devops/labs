@@ -139,6 +139,7 @@ jobs:
       - name: Cache flakes
         run: CACHIX_CACHE=${{ secrets.CACHIX_CACHE }} nix run .#pushToCachix
   changed-files-app_purescript:
+    name: Check if app_purescript has any modified files
     outputs:
       app_purescript: ${{ steps.changed-files.outputs.any_modified }}
     runs-on: ubuntu-20.04
@@ -153,6 +154,7 @@ jobs:
           files: app_purescript/**
           sha: ${{ github.sha }}
   changed-files-app_python:
+    name: Check if app_python has any modified files
     outputs:
       app_python: ${{ steps.changed-files.outputs.any_modified }}
     runs-on: ubuntu-20.04

@@ -151,6 +151,7 @@ let
   changed-files =
     genAttrs apps (app:
       {
+        name = "Check if ${app} has any modified files";
         runs-on = ubuntu20;
         outputs = {
           "${app}" = expr "steps.${changed-files_}.outputs.any_modified";

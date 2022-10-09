@@ -113,6 +113,7 @@ let
         text = ''
           ${mkBin writeCIJSON}
           cat ${ciJSON} | yq --yaml-output . > ${ciYAML}
+          rm ${ciJSON}
         '';
         runtimeInputs = [ pkgs.yq ];
       }

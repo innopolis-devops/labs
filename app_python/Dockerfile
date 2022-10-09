@@ -11,3 +11,6 @@ RUN adduser -D app && chown -R app .
 USER app
 ENV APP_TMP_DATA=/tmp
 CMD ["flask", "run"]
+
+HEALTHCHECK --interval=1m --timeout=5s \
+  CMD wget http://127.0.0.1:80/ || exit 1

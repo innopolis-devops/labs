@@ -18,3 +18,11 @@ override.tf.json
 
 .terraformrc
 terraform.rc
+
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/

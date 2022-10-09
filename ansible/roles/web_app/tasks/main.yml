@@ -1,6 +1,6 @@
 
 ---
-- name: deploy nginx docker container
+- name: deploy moscow_time docker container
   docker_container:
     image: alexdestdev/moscow_time:latest
     name: moscow_time

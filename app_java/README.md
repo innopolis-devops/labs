@@ -45,6 +45,14 @@ If everything is correct, you will see the web page similar to the following one
 ![img.png](images/docs/web-page-time.png)
 * Great! Everything works!
 
+## Monitoring
+
+Monitoring is performed with the use of Prometheus.
+
+URL: /actuator/prometheus
+
+Healthcheck URL: /healthcheck
+
 ## How to use?
 After running the project, open the following [link in your browser](http://localhost:8080/time/now).
 

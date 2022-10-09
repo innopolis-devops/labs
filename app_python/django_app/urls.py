@@ -14,7 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path, include
+from .views import healthcheck
 
 urlpatterns = [
-    path("time/", include("timeapp.urls")),
+    path('healthcheck', healthcheck, name='healthcheck'),
+    path('time/', include('timeapp.urls')),
+    path('', include('django_prometheus.urls')),
 ]

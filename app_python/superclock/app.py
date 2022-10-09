@@ -20,5 +20,5 @@ async def home(request: Request) -> Response:
 
 
 @app.on_event("startup")
-async def startup():
+async def startup() -> None:
     Instrumentator().instrument(app).expose(app)

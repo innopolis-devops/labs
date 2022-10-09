@@ -676,3 +676,21 @@ We deployed app to yandex cloud, we can check via curl request:
 ```
 
 ### Bonus task
+
+Added metrics and healthcheck for python and rust application.
+
+Wrote playbook for rust, deployed rust app to yandex cloud:
+
+```console
+> curl 62.84.124.253:4445    
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Innopolis DevOps</title>
+</head>
+<body>
+    <center><p>Hello from Rust app!</p></center>
+    <center><p>MSK time: 17:48:18</p></center>
+</body>
+</html> 
+```

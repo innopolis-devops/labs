@@ -5,14 +5,14 @@
     - name: Check if docker-compose file exists
       ansible.builtin.stat:
         path: '{{ web_app_path }}/docker-compose.yml'
-      register: web_app_compose_exists
+      register: web_app_compose
     - name: Check if web app directory exists
       ansible.builtin.stat:
         path: '{{ web_app_path }}'
-      register: web_app_compose_dir_exists
+      register: web_app_compose_dir
 
     - name: Docker Compose rm
-      when: web_app_compose_exists
+      when: web_app_compose.stat.exists
       community.docker.docker_compose:
         project_src: '{{ web_app_path }}'
         state: absent
@@ -20,7 +20,7 @@
         remove_images: all
         remove_volumes: true
     - name: Rmdir {{ web_app_path }}
-      when: web_app_compose_dir_exists
+      when: web_app_compose_dir.stat.exists
       ansible.builtin.file:
         path: '{{ web_app_path }}'
         state: absent

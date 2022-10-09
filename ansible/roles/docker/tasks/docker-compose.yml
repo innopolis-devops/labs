@@ -5,6 +5,21 @@
   changed_when: false
   failed_when: false
 
+- name: Install Python3
+  apt:
+    pkg: python3
+    state: present
+
+- name: Install Python3 pip
+  apt:
+    pkg: python3-pip
+    state: present
+
+- name: Install Python3 docker-compose
+  pip:
+    name: docker-compose
+    state: latest
+
 - set_fact:
     docker_compose_current_version: "{{ docker_compose_vsn.stdout | regex_search('(\\d+(\\.\\d+)+)') }}"
   when: docker_compose_vsn.stdout is defined

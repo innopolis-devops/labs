@@ -1,0 +1,4 @@
+- name: Docker
+  hosts: VM1
+  roles:
+    - docker

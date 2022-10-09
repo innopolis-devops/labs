@@ -2,4 +2,4 @@
   hosts: VM1
 
   roles:
-    - docker
+    - web_app

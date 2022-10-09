@@ -1,5 +1,5 @@
 lint
-ansible_venv
+venv_ansible
 .DS_Store
 */__pycache__/
 devops.pem

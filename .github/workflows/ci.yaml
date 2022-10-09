@@ -138,7 +138,10 @@ jobs:
           echo "One or more files in the docs folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files.outputs.all_changed_files }}"
   push-to-docker-hub-app_purescript:
+    if: needs.changed-files-app_purescript.outputs.app_purescript.any_changed == 'true'
     name: Push app_purescript to Docker Hub
+    needs:
+      - changed-files-app_purescript
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -164,7 +167,10 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app_purescript:latest
   push-to-docker-hub-app_python:
+    if: needs.changed-files-app_python.outputs.app_python.any_changed == 'true'
     name: Push app_python to Docker Hub
+    needs:
+      - changed-files-app_python
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3

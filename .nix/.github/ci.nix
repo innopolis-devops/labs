@@ -28,6 +28,7 @@ let
   mkNamedSets = attrs@{ ... }: builtins.mapAttrs mkNamedSet attrs;
   insertListIf = cond: list: if cond then list else [ ];
   inherit (pkgs.lib.attrsets) genAttrs;
+  changed-files-app = app: "changed-files-${app}";
 
   ns = mkNamedSets {
     secrets = {
@@ -92,18 +93,17 @@ let
     in
     builtins.mapAttrs
       (app: val:
-        let changed-files-app = "${changed-files_}-${app}";
-        in
+        let changed-files-app_ = changed-files-app app; in
         {
-          needs = [ changed-files-app ];
           name = "CI for ${app}";
+          needs = [ changed-files-app_ ];
+          "if" = "needs.${changed-files-app_}.outputs.${app}.any_changed == 'true'";
           defaults = {
             run = {
               working-directory = app;
             };
           };
           runs-on = "ubuntu-20.04";
-          "if" = "needs.${changed-files-app}.outputs.${app}.any_changed == 'true'";
           steps = [
             { uses = "actions/checkout@v3"; }
             actions.installNix
@@ -227,8 +227,12 @@ let
   # a.purs.ab
   push-to-docker-hub =
     genAttrs apps
-      (app: {
+      (app: 
+      let changed-files-app_ = changed-files-app app; in
+      {
         name = "Push ${app} to Docker Hub";
+        needs = [ changed-files-app_ ];
+        "if" = "needs.${changed-files-app_}.outputs.${app}.any_changed == 'true'";
         runs-on = ubuntu20;
         steps = [
           actions.checkout

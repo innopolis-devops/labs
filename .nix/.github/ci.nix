@@ -103,7 +103,7 @@ let
             };
           };
           runs-on = "ubuntu-20.04";
-          "if" = expr "needs.${changed-files-app}.outputs.${app}";
+          "if" = "needs.${changed-files-app}.outputs.${app}.any_changed == 'true'";
           steps = [
             { uses = "actions/checkout@v3"; }
             actions.installNix
@@ -168,6 +168,14 @@ let
               files = "${app}/**";
             };
           }
+          {
+            name = "List changed files";
+            "if" = "steps.${changed-files_}.outputs.any_changed == 'true'";
+            run = ''
+              echo "One or more files in the docs folder has changed."
+              echo "List all the files that have changed: ${expr "steps.${changed-files_}.outputs.all_changed_files" }"
+            '';
+          }
         ];
       }
     );
@@ -175,7 +183,6 @@ let
   caching =
     let
       gitNixAction = { actionName, action, args ? "" }: ''
-        
         git pull --rebase --autostash
         nix run ${action} ${args}
         git diff --exit-code || git commit -a -m 'action: ${actionName}'

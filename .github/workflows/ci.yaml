@@ -3,7 +3,7 @@ jobs:
     defaults:
       run:
         working-directory: app_purescript
-    if: ${{ needs.changed-files-app_purescript.outputs.app_purescript }}
+    if: needs.changed-files-app_purescript.outputs.app_purescript.any_changed == 'true'
     name: CI for app_purescript
     needs:
       - changed-files-app_purescript
@@ -30,7 +30,7 @@ jobs:
     defaults:
       run:
         working-directory: app_python
-    if: ${{ needs.changed-files-app_python.outputs.app_python }}
+    if: needs.changed-files-app_python.outputs.app_python.any_changed == 'true'
     name: CI for app_python
     needs:
       - changed-files-app_python
@@ -70,7 +70,7 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
       - name: Update locks
-        run: "\ngit pull --rebase --autostash\nnix run .#updateLocks \ngit diff --exit-code || git commit -a -m 'action: update flake.lock-s'\ngit push\n\n"
+        run: "git pull --rebase --autostash\nnix run .#updateLocks \ngit diff --exit-code || git commit -a -m 'action: update flake.lock-s'\ngit push\n\n"
       - name: Log in to Cachix
         uses: cachix/cachix-action@v10
         with:
@@ -112,6 +112,11 @@ jobs:
         with:
           files: app_purescript/**
           sha: ${{ github.sha }}
+      - if: steps.changed-files.outputs.any_changed == 'true'
+        name: List changed files
+        run: |
+          echo "One or more files in the docs folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files.outputs.all_changed_files }}"
   changed-files-app_python:
     name: Check if app_python has any modified files
     outputs:
@@ -127,6 +132,11 @@ jobs:
         with:
           files: app_python/**
           sha: ${{ github.sha }}
+      - if: steps.changed-files.outputs.any_changed == 'true'
+        name: List changed files
+        run: |
+          echo "One or more files in the docs folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files.outputs.all_changed_files }}"
   push-to-docker-hub-app_purescript:
     name: Push app_purescript to Docker Hub
     runs-on: ubuntu-20.04

@@ -116,7 +116,6 @@ asdfffff                   : ok=19   changed=0    unreachable=0    failed=0    s
 
 ```bash
 ansible-playbook ./playbooks/app_dart/main.yml  --diff | tail -n50
-@@ -1,10 +1,4 @@
  {
      "path": "/dart_app",
 -    "path_content": {

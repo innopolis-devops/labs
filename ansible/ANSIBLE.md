@@ -35,3 +35,19 @@ Output of the `ansible-inventory` command:
 Check docker version after running ansible:
 
 ![](.github/img8.png)
+
+
+
+## Lab6
+
+Check the site before running ansible:
+
+![](.github/img9.png)
+
+Output of the your deployment command:
+
+![](.github/img10.png)
+
+Check the site after running ansible:
+
+![](.github/img11.png)

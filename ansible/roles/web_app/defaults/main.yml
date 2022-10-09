@@ -1,0 +1,9 @@
+---
+web_app:
+  image: "nginx:latest"
+  port:
+    internal: 80
+    external: 80
+  container: "nginx"
+  path: "/opt/nginx"
+  full_wipe: false

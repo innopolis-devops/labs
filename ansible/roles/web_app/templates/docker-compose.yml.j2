@@ -1,0 +1,9 @@
+version: '3.0'
+
+services:
+  web_app:
+    image: "{{ web_app.image }}"
+    container_name: {{ web_app.container }}
+    ports: 
+        - "{{web_app.port.external}}:{{web_app.port.internal}}"
+    restart: always

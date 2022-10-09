@@ -1,0 +1,27 @@
+- name: Wipe the base dir
+  include_tasks: 01-wipe.yml
+  when: web_app.full_wipe
+  tags: ["web_app_wipe"]
+
+- name: Deploy web app
+  block:
+  - name: Create a directory for the project
+    file:
+      path: "{{ web_app.path }}"
+      state: directory
+      mode: "0755"
+
+  - name: Create docker-compose.yml file from the template
+    template:
+      src: docker-compose.yml.j2
+      dest: "{{ web_app.path }}/docker-compose.yml"
+      owner: root
+      group: root
+      mode: "0600"
+
+  - name: Start web_app
+    docker_compose:
+      project_src: "{{ web_app.path }}"
+      state: present
+      pull: true
+  tags: ["web_app"]

@@ -1,0 +1,13 @@
+- name: Wipe web_app
+  block:
+  - name: Stop all services
+    docker_compose:
+      project_src: "{{ web_app.path }}"
+      state: absent
+      remove_volumes: true
+      ignore_errors: true
+
+  - name: Remove the base dir
+    file:
+      path: "{{ web_app.path }}"
+      state: absent

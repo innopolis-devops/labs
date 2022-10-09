@@ -1,0 +1,11 @@
+---
+- name: Install pip docker packages
+  block:
+  - name: Install pip
+    package:
+      name: "python3-pip"
+      state: present
+
+  - name: Install docker and docker-compose module
+    pip:
+      name: ["docker", "docker-compose"]

@@ -1,0 +1,17 @@
+- name: Install docker
+  hosts: yacloud
+  remote_user: vova
+  become: true
+
+  roles:
+    - role: web_app
+      vars:
+        docker_install_pip_libs: true
+        web_app:
+          image: "markovvn1/iu-devops:lab_python"
+          port:
+            internal: 80
+            external: 80
+          container: "lab_python"
+          path: "/opt/lab_python"
+          full_wipe: false

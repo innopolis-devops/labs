@@ -5,7 +5,7 @@
   become: true
 
   vars:
-    web_app_image_name: currenttime:v0.3.2
+    web_app_image_name: currenttime:v0.3.3
 
   roles:
     - web_app

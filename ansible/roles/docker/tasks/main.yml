@@ -1,0 +1,15 @@
+- name: "Install py dep"
+  become: true
+  block:
+    - name: Install pip
+      apt:
+        update_cache: yes
+        state: latest
+        name: python3-pip
+    - name: Install Docker SDK for Py
+      pip:
+        name: docker
+
+    - name: Install Docker Compose for Py
+      pip:
+        name: docker-compose

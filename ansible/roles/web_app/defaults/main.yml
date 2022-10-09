@@ -1,0 +1,8 @@
+web_app_base_dir: '/web_app'
+web_app_name: 'py_app'
+web_app:
+  image: wat4er/inno_devops
+  tag: python
+  external_port: 8080
+  internal_port: 5000
+web_app_full_wipe: false

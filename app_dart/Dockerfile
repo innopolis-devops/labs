@@ -24,4 +24,4 @@ RUN chown -R user /app
 
 USER user
 
-CMD ["python", "-m", "http.server", "5000"] 
+CMD ["python", "-m", "http.server", "5050"] 

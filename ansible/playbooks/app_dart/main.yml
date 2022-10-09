@@ -1,0 +1,12 @@
+- name: dart_app
+  hosts: all
+  become: yes
+  roles:
+    - role: web_app
+      web_app_base_dir: /dart_app
+      web_app:
+        image: wat4er/inno_devops
+        tag: dart
+        external_port: 80
+        internal_port: 5050
+      web_app_name: dart_app

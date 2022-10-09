@@ -79,6 +79,9 @@
 - include_tasks: docker-compose.yml
   when: docker_install_compose | bool
 
+- include_tasks: docker-python.yml
+  when: docker_install_python | bool
+
 - name: Get docker group info using getent.
   getent:
     database: group

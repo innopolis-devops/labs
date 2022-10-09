@@ -18,6 +18,21 @@
   ignore_errors: "{{ ansible_check_mode }}"
   when: "ansible_version.full is version_compare('2.12', '>=') and ansible_os_family in ['RedHat', 'Debian']"
 
+- name: Install python dependencies
+  become: true
+  apt:
+    update_cache: yes
+    state: latest
+    name: python3-pip
+
+- name: Install 'Docker SDK for Python'
+  pip:
+    name: docker
+
+- name: Install 'Docker Compose for Python'
+  pip:
+    name: docker-compose
+
 - name: Install docker-compose plugin.
   package:
     name: "{{ docker_compose_package }}"

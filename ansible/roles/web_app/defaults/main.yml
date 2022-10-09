@@ -1,0 +1,9 @@
+web_app_base_dir: 'opt/web_app'
+web_app_name: 'web_app'
+web_app:
+  image: app_python
+  tag: latest
+  registry: easeln
+  external_port: 1337
+  internal_port: 5000
+web_app_full_wipe: false

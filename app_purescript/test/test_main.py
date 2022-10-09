@@ -8,8 +8,8 @@ from selenium.webdriver.firefox.options import Options
 
 # https://pytest-selenium.readthedocs.io/en/latest/user_guide.html#configuration
 @pytest.fixture
-def ff_options(firefox_options: Options):
-    firefox_options.set_preference("headless", True)
+def firefox_options(firefox_options: Options):
+    firefox_options.add_argument("--headless")
     return firefox_options
 
 # https://pytest-selenium.readthedocs.io/en/latest/user_guide.html#nondestructive-tests

@@ -3,3 +3,4 @@ ansible_venv
 .DS_Store
 */__pycache__/
 devops.pem
+venv_ansible

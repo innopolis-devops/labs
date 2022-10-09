@@ -26,8 +26,7 @@ fn rocket() -> _ {
     rocket::build()
         .attach(prometheus.clone())
         .mount("/metrics", prometheus)
-        .mount("/", routes![index])
-        .mount("/healthcheck", routes![healthcheck])
+        .mount("/", routes![index, healthcheck])
 }
 
 #[cfg(test)]

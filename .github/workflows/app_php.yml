@@ -1,6 +1,9 @@
 name: App PHP
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'app_php/**'
 
 jobs:
   build:

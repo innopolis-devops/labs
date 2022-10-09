@@ -3,7 +3,7 @@
 require __DIR__ . '/vendor/autoload.php';
 
 include 'healthcheck.php';
-include 'engine.php'
+include 'engine.php';
 
 if (isset($_POST["metrics"])) {
     $registry = \Prometheus\CollectorRegistry::getDefault();

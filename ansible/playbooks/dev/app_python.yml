@@ -8,4 +8,3 @@
         web_app_port: 5000
         web_container_port: 8080
         web_app_image: docker.io/chermnyx/inno-devops-python
-        web_app_full_wipe: true

@@ -1,7 +1,8 @@
 version: '3.7'
 services:
-  web_app:
+  '{{ web_app_name }}':
     image: '{{ web_app_image }}'
+    container_name: '{{ web_app_name }}'
     restart: always
     ports:
       - '{{ web_app_port }}:{{ web_container_port }}'

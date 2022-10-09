@@ -4,7 +4,8 @@
     - name: web_app
       tags: [web_app-rust]
       vars:
+        web_app_name: app_rust
         web_app_path: /app_rust
-        web_app_port: 5000
-        web_container_port: 8081
+        web_app_port: 5001
+        web_container_port: 8080
         web_app_image: docker.io/chermnyx/inno-devops-rust

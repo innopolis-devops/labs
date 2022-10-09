@@ -37,7 +37,7 @@ ci:	lint test
 
 .PHONY: build_docker
 build_docker:
-	docker build -t markovvn1/iu-devops:lab5_python .
+	docker build -t markovvn1/iu-devops:lab_python .
 
 
 .PHONY: up_dev
@@ -52,4 +52,4 @@ up:
 
 .PHONY: up_docker
 up_docker:
-	docker run -it --rm -h devops --name devops_lab5_python -p 8080:80 markovvn1/iu-devops:lab5_python
+	docker run -it --rm -h devops --name devops_lab_python -p 8080:80 markovvn1/iu-devops:lab_python

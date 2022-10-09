@@ -1,4 +1,4 @@
-![](https://github.com/markovvn1/devops-labs/actions/workflows/app_php.yml/badge.svg?branch=lab5)
+![](https://github.com/markovvn1/devops-labs/actions/workflows/app_php.yml/badge.svg?branch=lab6)
 
 
 <div align="center">
@@ -29,10 +29,10 @@ Before proceeding, make sure you have installed [Docker](https://docs.docker.com
    git clone https://github.com/Markovvn1/devops-labs.git && cd devops-labs
    ```
 
-2. Switch to lab5 branch and open project's directory:
+2. Switch to lab6 branch and open project's directory:
 
    ```bash
-   git checkout lab5 && cd app_php
+   git checkout lab6 && cd app_php
    ```
 
 3. Run the project using Docker:
@@ -50,7 +50,7 @@ Before proceeding, make sure you have installed [Docker](https://docs.docker.com
 1. Run docker container (support linux/amd64, linux/arm64, linux/arm/v7, linux/arm/v6):
 
    ```bash
-   docker run -it --rm -p 8080:80 markovvn1/iu-devops:lab5_php
+   docker run -it --rm -p 8080:80 markovvn1/iu-devops:lab_php
    ```
 
 2. Open the website `http://localhost:8080/` to view the server time in Moscow.
@@ -62,7 +62,7 @@ The changes are displayed when the page is refreshed. Therefore, to contribute, 
 To build docker image run:
 
 ```bash
-docker build -t markovvn1/iu-devops:lab5_php .
+docker build -t markovvn1/iu-devops:lab_php .
 ```
 
 ## :computer: Contributors

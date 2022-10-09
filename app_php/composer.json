@@ -1,0 +1,9 @@
+{
+    "require": {
+        "overtrue/phplint": "7.4.x-dev",
+        "phpunit/phpunit": "9.*",
+        "predis/predis": "2.*",
+        "promphp/prometheus_client_php": "2.*",
+        "generationtux/healthz": "*"
+    }
+}

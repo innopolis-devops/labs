@@ -1,5 +1,6 @@
 - name: WebApp role
   tags: [webapp]
+  become: true
   block:
     - name: Import 0-wipe.yml
       ansible.builtin.import_tasks: 0-wipe.yml

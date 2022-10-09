@@ -1,77 +1,62 @@
-# 5
+# 6
 
-## Ansible 1
+## Ansible 2
 
-In this lab you need to get familiar with a CD tool - Ansible. Then use it to deploy docker on a newly created cloud VM. You will need it for your application deployment in the next lab.
+### 6 points
 
-### 10 points
+In this lab you need to use ansible to prepare a CD process for your application.
 
-1. Tidy you repository if there is a difference and try to follow the suggested structure for this and next lab:
+1. Create an ansible role for your application's docker image deployment.
+2. Update a playbook.
+3. Run your playbook (deploy the role) and provide 50 last lines of the output of the your deployment command in the `ANSIBLE.md` file.
+
+### 4 points
+
+1. Group tasks with blocks.
+2. For your web_app role set the role dependency - the `docker` role.
+3. Apply tags.
+4. Create a yml file with **Wipe** logic for your app (remove your docker container and all related files), test it. It should be enabled by a variable, like `web_app_full_wipe=true`.
+5. Use different tag for the **Wipe** part, so it should be possible to run it separately from the main tasks.
+6. Create a `docker-compose.yml` file for your app.
+7. Use a `template` module to deliver your `docker-compose.yml` file to a server.
+
+Suggested structure:
 
    ```sh
    .
-   |-- README.md
-   |-- ansible
-   |   |-- inventory
-   |   |   `-- default_aws_ec2.yml
-   |   |-- playbooks
-   |   |   `-- dev
-   |   |       `-- main.yaml
-   |   |-- roles
-   |   |   |-- docker
-   |   |   |   |-- defaults
-   |   |   |   |   `-- main.yml
-   |   |   |   |-- handlers
-   |   |   |   |   `-- main.yml
-   |   |   |   |-- tasks
-   |   |   |   |   |-- install_compose.yml
-   |   |   |   |   |-- install_docker.yml
-   |   |   |   |   `-- main.yml
-   |   |   |   `-- README.md
-   |   |   `-- web_app
-   |   |       |-- defaults
-   |   |       |   `-- main.yml
-   |   |       |-- handlers
-   |   |       |   `-- main.yml
-   |   |       |-- meta
-   |   |       |   `-- main.yml
-   |   |       |-- tasks
-   |   |       |   `-- main.yml
-   |   |       `-- templates
-   |   |           `-- docker-compose.yml.j2
-   |   `-- ansible.cfg
-   |-- app_go
-   |-- app_python
-   `-- terraform
+   |-- defaults
+   |   `-- main.yml
+   |-- meta
+   |   `-- main.yml
+   |-- tasks
+   |   |-- 0-wipe.yml
+   |   `-- main.yml
+   `-- templates
+      `-- docker-compose.yml.j2
    ```
-
-2. Install ansible and read about it - [Ansible intro](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
-
-3. Create an ansible role for docker. There are two ways:
-   * Write a role from scratch.
-   * Use a [docker role](https://github.com/geerlingguy/ansible-role-docker) from `ansible-galaxy` as a template.
-4. Create a playbook.
-5. Create an `ANSIBLE.md` file in the `ansible` folder.
-6. Run your playbook (deploy the role) and provide 50 last lines of the output of the your deployment command in it. Example:
-
-   ```sh
-   ansible-playbook <path_to your_playbook> --diff
-   ```
-
-7. Provide the output of the following command in the `ANSIBLE.md` file:
-
-   ```sh
-   ansible-inventory -i <name_of_your_inventory_file>.yaml --list
-   ```
-
-[Tricks and Tips](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html)
 
 ## Bonus
 
-### 2 points
+### 4 points
 
-1. Set up dynamic inventory for your cloud, try to find something ready
+CD improvement:
 
-> [AWS example](https://docs.ansible.com/ansible/latest/collections/amazon/aws/aws_ec2_inventory.html)
-> 
-> [Yandex Cloud - not tested](https://github.com/rodion-goritskov/yacloud_compute)
+1. Create an extra playbook for your bonus app, reuse your existing role.
+
+Suggested structure:
+
+   ```sh
+   .
+   `--ansible
+       `-- playbooks
+           `-- dev
+               |-- app_python
+               |   `-- main.yaml
+               `-- app_go
+                   `-- main.yaml
+   ```
+
+Application improvements:
+
+1. Implement any metrics to your app.
+2. Implement a healthcheck.

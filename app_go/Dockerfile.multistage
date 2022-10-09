@@ -10,16 +10,25 @@ COPY *.go ./
 
 RUN go build -o /go_server
 
+ARG BUSYBOX_VERSION=1.31.0-i686-uclibc
+ADD https://busybox.net/downloads/binaries/$BUSYBOX_VERSION/busybox_WGET /wget
+RUN chmod a+x /wget
+
 FROM gcr.io/distroless/base-debian10
 
 WORKDIR /
 
 COPY --from=build /go_server /go_server
+COPY --from=build /wget /usr/bin/wget
 
 EXPOSE 8080
 
 USER nonroot:nonroot
 
 ENV GIN_MODE release
+
+HEALTHCHECK --interval=30s \
+            --timeout=5s \
+            CMD ["/usr/bin/wget", "--no-verbose", "--tries=1", "--spider", "127.0.0.1:8080"]
 
 ENTRYPOINT ["/go_server"]

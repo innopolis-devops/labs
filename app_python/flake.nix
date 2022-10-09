@@ -81,12 +81,7 @@
                 ${activateVenv}
               '';
             }
-            {
-              tools = {
-                buildInputs = (builtins.attrValues { inherit updateDependencies; })
-                ;
-              };
-            }
+            { }
           ;
         });
   nixConfig = {

@@ -1,0 +1,14 @@
+- name: Deploy GO web application
+  hosts: yacloud
+  remote_user: ubuntu
+  become: true
+  vars:
+    app_name: go_kremlin_chimes
+    app_image:
+      name: danmory/go_kremlin_chimes
+      version: latest
+    app_port:
+      external: 80
+      internal: 8080
+  roles:
+    - web_app

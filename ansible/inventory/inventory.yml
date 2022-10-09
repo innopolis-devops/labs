@@ -1,5 +1,5 @@
-VM:
+vm:
   hosts:
     vm1:
-      ansible_host: 51.250.80.61
+      ansible_host: 158.160.14.30
       ansible_user: test

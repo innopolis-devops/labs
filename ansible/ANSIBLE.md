@@ -1,5 +1,83 @@
 # Ansible
 
+## Lab 6
+
+### Tags
+
+```bash
+$ ansible-playbook playbooks/dev/lab6.yml --list-tasks
+
+playbook: playbooks/dev/lab6.yml
+
+  play #1 (all): Lab6 Python	TAGS: []
+    tasks:
+      docker : Do apt update	TAGS: [docker, web_app-python]
+      geerlingguy.pip : Ensure Pip is installed.	TAGS: [docker, web_app-python]
+      geerlingguy.pip : Ensure pip_install_packages are installed.	TAGS: [docker, web_app-python]
+      geerlingguy.docker : Load OS-specific vars.	TAGS: [docker, web_app-python]
+      include_tasks	TAGS: [docker, web_app-python]
+      include_tasks	TAGS: [docker, web_app-python]
+      geerlingguy.docker : Install Docker packages.	TAGS: [docker, web_app-python]
+      geerlingguy.docker : Install Docker packages (with downgrade option).	TAGS: [docker, web_app-python]
+      geerlingguy.docker : Install docker-compose plugin.	TAGS: [docker, web_app-python]
+      geerlingguy.docker : Install docker-compose-plugin (with downgrade option).	TAGS: [docker, web_app-python]
+      geerlingguy.docker : Ensure /etc/docker/ directory exists.	TAGS: [docker, web_app-python]
+      geerlingguy.docker : Configure Docker daemon options.	TAGS: [docker, web_app-python]
+      geerlingguy.docker : Ensure Docker is started and enabled at boot.	TAGS: [docker, web_app-python]
+      geerlingguy.docker : Ensure handlers are notified now to avoid firewall conflicts.	TAGS: [docker, web_app-python]
+      include_tasks	TAGS: [docker, web_app-python]
+      geerlingguy.docker : Get docker group info using getent.	TAGS: [docker, web_app-python]
+      geerlingguy.docker : Check if there are any users to add to the docker group.	TAGS: [docker, web_app-python]
+      include_tasks	TAGS: [docker, web_app-python]
+      web_app : Check if docker-compose file exists	TAGS: [web_app-python, webapp, webapp-wipe]
+      web_app : Check if web app directory exists	TAGS: [web_app-python, webapp, webapp-wipe]
+      web_app : Docker Compose rm	TAGS: [web_app-python, webapp, webapp-wipe]
+      web_app : Rmdir {{ web_app_path }}	TAGS: [web_app-python, webapp, webapp-wipe]
+      web_app : Mkdir {{ web_app_path }}	TAGS: [web_app-python, webapp, webapp-install]
+      web_app : Template docker compose configuration	TAGS: [web_app-python, webapp, webapp-install]
+      web_app : Pull images	TAGS: [web_app-python, webapp, webapp-install]
+
+  play #2 (all): Lab6 Rust	TAGS: []
+    tasks:
+      docker : Do apt update	TAGS: [docker, web_app-rust]
+      geerlingguy.pip : Ensure Pip is installed.	TAGS: [docker, web_app-rust]
+      geerlingguy.pip : Ensure pip_install_packages are installed.	TAGS: [docker, web_app-rust]
+      geerlingguy.docker : Load OS-specific vars.	TAGS: [docker, web_app-rust]
+      include_tasks	TAGS: [docker, web_app-rust]
+      include_tasks	TAGS: [docker, web_app-rust]
+      geerlingguy.docker : Install Docker packages.	TAGS: [docker, web_app-rust]
+      geerlingguy.docker : Install Docker packages (with downgrade option).	TAGS: [docker, web_app-rust]
+      geerlingguy.docker : Install docker-compose plugin.	TAGS: [docker, web_app-rust]
+      geerlingguy.docker : Install docker-compose-plugin (with downgrade option).	TAGS: [docker, web_app-rust]
+      geerlingguy.docker : Ensure /etc/docker/ directory exists.	TAGS: [docker, web_app-rust]
+      geerlingguy.docker : Configure Docker daemon options.	TAGS: [docker, web_app-rust]
+      geerlingguy.docker : Ensure Docker is started and enabled at boot.	TAGS: [docker, web_app-rust]
+      geerlingguy.docker : Ensure handlers are notified now to avoid firewall conflicts.	TAGS: [docker, web_app-rust]
+      include_tasks	TAGS: [docker, web_app-rust]
+      geerlingguy.docker : Get docker group info using getent.	TAGS: [docker, web_app-rust]
+      geerlingguy.docker : Check if there are any users to add to the docker group.	TAGS: [docker, web_app-rust]
+      include_tasks	TAGS: [docker, web_app-rust]
+      web_app : Check if docker-compose file exists	TAGS: [web_app-rust, webapp, webapp-wipe]
+      web_app : Check if web app directory exists	TAGS: [web_app-rust, webapp, webapp-wipe]
+      web_app : Docker Compose rm	TAGS: [web_app-rust, webapp, webapp-wipe]
+      web_app : Rmdir {{ web_app_path }}	TAGS: [web_app-rust, webapp, webapp-wipe]
+      web_app : Mkdir {{ web_app_path }}	TAGS: [web_app-rust, webapp, webapp-install]
+      web_app : Template docker compose configuration	TAGS: [web_app-rust, webapp, webapp-install]
+      web_app : Pull images	TAGS: [web_app-rust, webapp, webapp-install]
+```
+
+### Playbook `app_python.yml`
+
+```bash
+ansible-playbook playbooks/dev/app_python.yml --diff 2>&1 | tail --lines=50 
+```
+
+### Playbook `app_rust.yml`
+
+```bash
+ansible-playbook playbooks/dev/app_rust.yml --diff 2>&1 | tail --lines=50 
+```
+
 ## Lab 5
 
 ```bash

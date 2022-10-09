@@ -1,3 +1,2 @@
-- ansible.builtin.import_playbook: docker.yml
 - ansible.builtin.import_playbook: app_python.yml
 - ansible.builtin.import_playbook: app_rust.yml

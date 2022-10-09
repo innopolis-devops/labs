@@ -25,12 +25,3 @@
       state: present
       pull: true
   tags: ["web_app"]
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-
-    Terms
-    Privacy
-    Security
-    Status
-    Do

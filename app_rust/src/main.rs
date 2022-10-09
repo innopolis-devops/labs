@@ -1,5 +1,6 @@
 use chrono::prelude::Utc;
 use chrono_tz::Europe::Moscow;
+use rocket_prometheus::PrometheusMetrics;
 
 fn get_time() -> String {
     let dt = Utc::now().with_timezone(&Moscow);
@@ -9,14 +10,24 @@ fn get_time() -> String {
 #[macro_use]
 extern crate rocket;
 
-#[get("/")]
+#[rocket::get("/")]
 fn index() -> String {
     get_time()
 }
 
-#[launch]
+#[rocket::get("/healthcheck")]
+fn healthcheck() -> String {
+    "ඞ".to_string()
+}
+
+#[rocket::launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![index])
+    let prometheus = PrometheusMetrics::new();
+    rocket::build()
+        .attach(prometheus.clone())
+        .mount("/metrics", prometheus)
+        .mount("/", routes![index])
+        .mount("/healthcheck", routes![healthcheck])
 }
 
 #[cfg(test)]

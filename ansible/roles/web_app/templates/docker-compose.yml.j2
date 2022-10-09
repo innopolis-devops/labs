@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  web_app:
+    image: '{{ web_app_image }}'
+    restart: always
+    ports:
+      - '{{ web_app_port }}:{{ web_container_port }}'
+    healthcheck🔗:
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 --spider http://localhost:{{ web_container_port }}/healthcheck || exit 1
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

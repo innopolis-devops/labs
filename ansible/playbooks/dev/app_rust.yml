@@ -1,0 +1,11 @@
+- name: Lab6 Rust
+  hosts: all
+  roles:
+    - name: web_app
+      tags: [web_app-rust]
+      vars:
+        web_app_path: /app_rust
+        web_app_port: 5000
+        web_container_port: 8081
+        web_app_image: docker.io/chermnyx/inno-devops-rust
+        web_app_full_wipe: true

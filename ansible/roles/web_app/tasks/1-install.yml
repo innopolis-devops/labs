@@ -1,0 +1,25 @@
+- name: Install WebApp
+  tags: [webapp-install]
+  when: web_app_full_install
+  block:
+    - name: Mkdir {{ web_app_path }}
+      ansible.builtin.file:
+        path: '{{ web_app_path }}'
+        state: directory
+        mode: 0755
+
+    - name: Template docker compose configuration
+      ansible.builtin.template:
+        src: docker-compose.yml.j2
+        dest: '{{ web_app_path }}/docker-compose.yml'
+        mode: 0644
+      notify:
+        - web_app_docker_restart
+
+    - name: Pull images
+      community.docker.docker_compose:
+        project_src: '{{ web_app_path }}'
+        pull: true
+        state: present
+      notify:
+        - web_app_docker_restart

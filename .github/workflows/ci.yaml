@@ -53,6 +53,44 @@ jobs:
         uses: snyk/actions/python@master
       - name: Test
         run: nix run .#test
+  caching-macos-11:
+    name: Caching on macos-11
+    runs-on: macos-11
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v17
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://hydra.iohk.io https://haskell-language-server.cachix.org https://br4ch1st0chr0n3.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= br4ch1st0chr0n3.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
+          install_url: https://releases.nixos.org/nix/nix-2.11.1/install
+      - name: Log in to Cachix
+        uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: ${{ secrets.CACHIX_CACHE }}
+      - name: Cache flakes
+        run: CACHIX_CACHE=${{ secrets.CACHIX_CACHE }} nix run .#pushToCachix
+  caching-macos-12:
+    name: Caching on macos-12
+    runs-on: macos-12
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v17
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://hydra.iohk.io https://haskell-language-server.cachix.org https://br4ch1st0chr0n3.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= br4ch1st0chr0n3.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
+          install_url: https://releases.nixos.org/nix/nix-2.11.1/install
+      - name: Log in to Cachix
+        uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: ${{ secrets.CACHIX_CACHE }}
+      - name: Cache flakes
+        run: CACHIX_CACHE=${{ secrets.CACHIX_CACHE }} nix run .#pushToCachix
   caching-ubuntu-20:
     name: Caching on ubuntu-20.04
     runs-on: ubuntu-20.04

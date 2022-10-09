@@ -7,6 +7,8 @@ let
   ubuntu22 = "ubuntu-22.04";
   ubuntu20_ = "ubuntu-20";
   ubuntu22_ = "ubuntu-22";
+  macos12 = "macos-12";
+  macos11 = "macos-11";
   CACHIX_CACHE_ = "CACHIX_CACHE";
   mainOS = ubuntu20;
   extraNixConfig = ''
@@ -188,7 +190,12 @@ let
         git diff --exit-code || git commit -a -m 'action: ${actionName}'
         git push
       '';
-      matrix = { "${ubuntu20_}" = ubuntu20; "${ubuntu22_}" = ubuntu22; };
+      matrix = {
+        "${ubuntu20_}" = ubuntu20;
+        "${ubuntu22_}" = ubuntu22;
+        "${macos11}" = macos11;
+        "${macos12}" = macos12;
+      };
     in
     builtins.mapAttrs
       (os_: os:
@@ -227,51 +234,51 @@ let
   # a.purs.ab
   push-to-docker-hub =
     genAttrs apps
-      (app: 
-      let changed-files-app_ = changed-files-app app; in
-      {
-        name = "Push ${app} to Docker Hub";
-        needs = [ changed-files-app_ ];
-        "if" = "needs.${changed-files-app_}.outputs.${app}.any_changed == 'true'";
-        runs-on = ubuntu20;
-        steps = [
-          actions.checkout
-          {
-            name = "Hadolint Action";
-            uses = "hadolint/hadolint-action@v2.0.0";
-            "with" = {
-              no-fail = true;
-              verbose = true;
-              dockerfile = "${ app }/Dockerfile";
-            };
-          }
-          {
-            name = "Set up Docker Buildx";
-            uses = "docker/setup-buildx-action@v2";
-          }
-          {
-            name = "Log in to Docker Hub";
-            uses = "docker/login-action@v2";
-            "with" = {
-              username = expr ns.secrets.DOCKER_HUB_USERNAME;
-              password = expr ns.secrets.DOCKER_HUB_PAT;
-            };
-          }
-          {
-            name = "Build and push";
-            uses = "docker/build-push-action@v3";
-            env = {
-              DOCKER_NAME = expr ns.secrets.DOCKER_HUB_USERNAME;
-            };
-            "with" = {
-              # https://github.com/docker/build-push-action#path-context
-              context = app;
-              push = true;
-              tags = "${expr ns.secrets.DOCKER_HUB_USERNAME}/${app}:latest";
-            };
-          }
-        ];
-      });
+      (app:
+        let changed-files-app_ = changed-files-app app; in
+        {
+          name = "Push ${app} to Docker Hub";
+          needs = [ changed-files-app_ ];
+          "if" = "needs.${changed-files-app_}.outputs.${app}.any_changed == 'true'";
+          runs-on = ubuntu20;
+          steps = [
+            actions.checkout
+            {
+              name = "Hadolint Action";
+              uses = "hadolint/hadolint-action@v2.0.0";
+              "with" = {
+                no-fail = true;
+                verbose = true;
+                dockerfile = "${ app }/Dockerfile";
+              };
+            }
+            {
+              name = "Set up Docker Buildx";
+              uses = "docker/setup-buildx-action@v2";
+            }
+            {
+              name = "Log in to Docker Hub";
+              uses = "docker/login-action@v2";
+              "with" = {
+                username = expr ns.secrets.DOCKER_HUB_USERNAME;
+                password = expr ns.secrets.DOCKER_HUB_PAT;
+              };
+            }
+            {
+              name = "Build and push";
+              uses = "docker/build-push-action@v3";
+              env = {
+                DOCKER_NAME = expr ns.secrets.DOCKER_HUB_USERNAME;
+              };
+              "with" = {
+                # https://github.com/docker/build-push-action#path-context
+                context = app;
+                push = true;
+                tags = "${expr ns.secrets.DOCKER_HUB_USERNAME}/${app}:latest";
+              };
+            }
+          ];
+        });
 
   # app-ci.appPurescript
   mkJobs = jobs_@{ ... }: mergeValues (mergeValues (

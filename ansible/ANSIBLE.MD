@@ -1,5 +1,6 @@
 # Ansible
-## 
+
+## Lab5:  
 ```
 ansible-playbook playbooks/dev/main.yml --diff
 ```
@@ -299,4 +300,63 @@ skipping: [yacloud]
 
 PLAY RECAP ***********************************************************************************************************************************************************************************************************
 yacloud                    : ok=11   changed=0    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0  
+```
+## Lab6:
+
+```shell
+ansible-playbook ./playbooks/dev/lab6.yml  --diff | tail -n50
+```
+
+Output:
+
+```shell
+TASK [docker : Ensure /etc/docker/ directory exists.] **************************
+skipping: [yacloud]
+
+TASK [docker : Configure Docker daemon options.] *******************************
+skipping: [yacloud]
+
+TASK [docker : Ensure Docker is started and enabled at boot.] ******************
+ok: [yacloud]
+
+TASK [docker : Ensure handlers are notified now to avoid firewall conflicts.] ***
+
+TASK [docker : include_tasks] **************************************************
+included: /home/talgat/PycharmProjects/DevOpsLabs/ansible/roles/docker/tasks/docker-compose.yml for yacloud
+
+TASK [docker : Check current docker-compose version.] **************************
+ok: [yacloud]
+
+TASK [docker : set_fact] *******************************************************
+ok: [yacloud]
+
+TASK [docker : Delete existing docker-compose version if it's different.] ******
+skipping: [yacloud]
+
+TASK [docker : Install Docker Compose (if configured).] ************************
+skipping: [yacloud]
+
+TASK [docker : Get docker group info using getent.] ****************************
+skipping: [yacloud]
+
+TASK [docker : Check if there are any users to add to the docker group.] *******
+
+TASK [docker : include_tasks] **************************************************
+skipping: [yacloud]
+
+TASK [web_app : Include wipe task list in play] ********************************
+skipping: [yacloud]
+
+TASK [web_app : Create a directory if it does not exist] ***********************
+ok: [yacloud]
+
+TASK [web_app : Template a docker-compose.yml] *********************************
+ok: [yacloud]
+
+TASK [web_app : Run docker-compose services] ***********************************
+An exception occurred during task execution. To see the full traceback, use -vvv. The error was: ModuleNotFoundError: No module named 'docker'
+fatal: [yacloud]: FAILED! => {"changed": false, "msg": "Failed to import the required Python library (Docker SDK for Python: docker above 5.0.0 (Python >= 3.6) or docker before 5.0.0 (Python 2.7) or docker-py (Python 2.6)) on talgat's Python /usr/bin/python3. Please read the module documentation and install it in the appropriate location. If the required library is installed, but Ansible is using the wrong Python interpreter, please consult the documentation on ansible_python_interpreter, for example via `pip install docker` (Python >= 3.6) or `pip install docker==4.4.4` (Python 2.7) or `pip install docker-py` (Python 2.6). The error was: No module named 'docker'"}
+
+PLAY RECAP *********************************************************************
+yacloud                    : ok=13   changed=0    unreachable=0    failed=1    skipped=14   rescued=0    ignored=0  
 ```

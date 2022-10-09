@@ -1,0 +1,9 @@
+---
+- name: Install docker
+  hosts: yacloud
+  remote_user: ubuntu
+
+  become: true
+
+  roles:
+    - web_app

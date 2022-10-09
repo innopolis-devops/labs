@@ -25,7 +25,27 @@ env:
     git config user.name github-actions
     git config user.email github-actions@github.com
 
+  app_purescript: app_purescript
+  app_python: app_python
+
 jobs:
+  changed-files:
+    runs-on: ubuntu-latest
+    outputs:
+      output: ${{ steps.changed-files-specific.outputs.workflows }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Get changed files for app_purescript
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v32
+        with:
+          sha: ${{ github.sha }}
+          files: |
+            app_purescript/**
+      - name: app_python/**
+
   caching:
     name: Build on ${{ matrix.os }}
     strategy:
@@ -57,13 +77,22 @@ jobs:
       - name: Cache flakes
         run: CACHIX_CACHE=${{ secrets.CACHIX_CACHE }} nix run .#pushToCachix
 
-  # It's a separate job just to not block other jobs
-  # I need quick flake.lock updates
+  read-configs:
+    runs-on: ubuntu-latest
+    outputs:
+      app-ci-matrix: ${{ steps.app-ci-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - id: app-ci-matrix
+        run: echo "::set-output name=matrix::$(jq -c . < .github/workflows/configs/app-ci.json)"
+
   app-ci:
-    name: CI for ${{ matrix.app }}  project
+    needs: read-configs
+    name: CI for ${{ matrix.app }} project
     strategy:
-      matrix:
-        app: [app_purescript, app_python]
+      matrix: ${{ fromJSON(needs.read-configs.outputs.app-ci-matrix) }}
     defaults:
       run:
         working-directory: ${{ matrix.app }}
@@ -74,52 +103,67 @@ jobs:
         with:
           extra_nix_config: ${{ env.extra_nix_config }}
           install_url: ${{ env.install_url }}
-      # - Nix will install the dependencies
-      
-      # - No need to lint PureScript since it's statically typed
+      # - Nix will install the dependencies on demand
+
       - name: Linting
-        if: ${{ matrix.app == 'app_python' }}
+      # - No need to lint PureScript since it's strongly statically typed
+        if: ${{ matrix.app == env.app_python }}
         run: nix run .#lint
-      - name: Test
-        run: nix run .#test
-  
 
-  snyk-test-app-purescript:
-    runs-on: ubuntu-20.04
-    name: Snyk vulnerability check for app_purescript (Node.js)
-    defaults: 
-      run:
-        working-directory: app_purescript
-    steps:
-      - uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v17
-        with:
-          extra_nix_config: ${{ env.extra_nix_config }}
-          install_url: ${{ env.install_url }}
-      - name: Build the app
+      - name: Build app
+        # No need to build app_python as it's an interpretable lang
+        if: ${{ matrix.app == env.app_purescript }}
         run: nix run .#build
-      - name: Install deps?
-        run: nix profile install nixpkgs#python310Full
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
+
+      - name: Run Snyk to check for vulnerabilities ${{ matrix.snyk-language-title }}
+        uses: snyk/actions/${{ matrix.snyk-language }}@master
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-  snyk-test-app-python:
-    runs-on: ubuntu-20.04
-    name: Snyk vulnerability check for app_python
-    defaults:
-      run:
-        working-directory: app_python
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/python@master
-        continue-on-error: true
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - name: Test
+        # For now, I was unable to make Firefox tests work in GH actions
+        # if: ${{ matrix.app == 'app_python' }}
+        run: nix run .#test
 
+  # snyk-checks:``
+  #   runs-on: ubuntu-20.04
+  #   name: Snyk vulnerability check for ${{  }} (Node.js)
+  #   defaults:
+  #     run:
+  #       working-directory: app_purescript
+  #   strategy:
+  #     matrix:
+  #       apps: [app_purescript, app_python]
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: cachix/install-nix-action@v17
+  #       with:
+  #         extra_nix_config: ${{ env.extra_nix_config }}
+  #         install_url: ${{ env.install_url }}
+  #     - name: Build the app
+  #       run: nix run .#build
+  #     - name: Install deps
+  #       run: nix profile install nixpkgs#python310Full
+  #     - name: Run Snyk to check for vulnerabilities
+  #       uses: snyk/actions/node@master
+  #       continue-on-error: true
+  #       env:
+  #         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  # snyk-test-app-python:
+  #   runs-on: ubuntu-20.04
+  #   name: Snyk vulnerability check for app_python
+  #   defaults:
+  #     run:
+  #       working-directory: app_python
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Run Snyk to check for vulnerabilities
+  #       uses: snyk/actions/python@master
+  #       continue-on-error: true
+  #       env:
+  #         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   push-to-docker-hub:
     name: Push ${{ matrix.app }} to Docker Hub

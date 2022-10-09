@@ -12,19 +12,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v17
         with:
-          extra_nix_config: '
-
-            access-tokens = "github.com=${{ secrets.GITHUB_TOKEN }}"
-
-            substituters = "https://cache.nixos.org/ https://nix-community.cachix.org
-            https://hydra.iohk.io https://haskell-language-server.cachix.org https://br4ch1st0chr0n3.cachix.org"
-
-            trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-            nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
-            hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8=
-            br4ch1st0chr0n3.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU="
-
-            '
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://hydra.iohk.io https://haskell-language-server.cachix.org https://br4ch1st0chr0n3.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= br4ch1st0chr0n3.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
           install_url: https://releases.nixos.org/nix/nix-2.11.1/install
       - name: Build app
         run: nix run .#build
@@ -48,19 +39,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v17
         with:
-          extra_nix_config: '
-
-            access-tokens = "github.com=${{ secrets.GITHUB_TOKEN }}"
-
-            substituters = "https://cache.nixos.org/ https://nix-community.cachix.org
-            https://hydra.iohk.io https://haskell-language-server.cachix.org https://br4ch1st0chr0n3.cachix.org"
-
-            trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-            nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
-            hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8=
-            br4ch1st0chr0n3.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU="
-
-            '
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://hydra.iohk.io https://haskell-language-server.cachix.org https://br4ch1st0chr0n3.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= br4ch1st0chr0n3.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
           install_url: https://releases.nixos.org/nix/nix-2.11.1/install
       - name: Linting
         run: nix run .#lint
@@ -78,31 +60,17 @@ jobs:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v17
         with:
-          extra_nix_config: '
-
-            access-tokens = "github.com=${{ secrets.GITHUB_TOKEN }}"
-
-            substituters = "https://cache.nixos.org/ https://nix-community.cachix.org
-            https://hydra.iohk.io https://haskell-language-server.cachix.org https://br4ch1st0chr0n3.cachix.org"
-
-            trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-            nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
-            hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8=
-            br4ch1st0chr0n3.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU="
-
-            '
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://hydra.iohk.io https://haskell-language-server.cachix.org https://br4ch1st0chr0n3.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= br4ch1st0chr0n3.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
           install_url: https://releases.nixos.org/nix/nix-2.11.1/install
       - name: Configure git
-        run: '
-
+        run: |
           git config user.name github-actions
-
           git config user.email github-actions@github.com
-
-          '
       - name: Update locks
-        run: "\ngit pull --rebase --autostash\nnix run .#updateLocks \ngit diff --exit-code\
-          \ || git commit -a -m 'action: update flake.lock-s'\ngit push\n"
+        run: "\ngit pull --rebase --autostash\nnix run .#updateLocks \ngit diff --exit-code || git commit -a -m 'action: update flake.lock-s'\ngit push\n\n"
       - name: Log in to Cachix
         uses: cachix/cachix-action@v10
         with:
@@ -117,19 +85,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: cachix/install-nix-action@v17
         with:
-          extra_nix_config: '
-
-            access-tokens = "github.com=${{ secrets.GITHUB_TOKEN }}"
-
-            substituters = "https://cache.nixos.org/ https://nix-community.cachix.org
-            https://hydra.iohk.io https://haskell-language-server.cachix.org https://br4ch1st0chr0n3.cachix.org"
-
-            trusted-public-keys = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
-            nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
-            hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8=
-            br4ch1st0chr0n3.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU="
-
-            '
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://hydra.iohk.io https://haskell-language-server.cachix.org https://br4ch1st0chr0n3.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= br4ch1st0chr0n3.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
           install_url: https://releases.nixos.org/nix/nix-2.11.1/install
       - name: Log in to Cachix
         uses: cachix/cachix-action@v10
@@ -220,7 +179,7 @@ jobs:
           context: app_python
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app_python:latest
-'on':
+"on":
   pull_request: {}
   push: {}
   schedule:

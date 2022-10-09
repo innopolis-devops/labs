@@ -112,10 +112,10 @@ let
         name = "write-yaml";
         text = ''
           ${mkBin writeCIJSON}
-          cat ${ciJSON} | yq --yaml-output . > ${ciYAML}
+          cat ${ciJSON} | yq e -MP - > ${ciYAML}
           rm ${ciJSON}
         '';
-        runtimeInputs = [ pkgs.yq ];
+        runtimeInputs = [ pkgs.yq-go ];
       }
   ;
 in

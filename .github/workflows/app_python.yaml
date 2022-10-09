@@ -24,7 +24,7 @@ jobs:
       - name: Lint Markdown
         uses: nosborn/github-action-markdown-cli@v3.0.1
         with:
-          files: .
+          files: app_python
 
   code:
     timeout-minutes: 15
@@ -62,6 +62,7 @@ jobs:
         with:
           python-version: '3.10'
       - name: Snyk monitor
+        continue-on-error: true
         run: |
           pip install -r requirements.txt
           snyk test --sarif-file-output=snyk.sarif

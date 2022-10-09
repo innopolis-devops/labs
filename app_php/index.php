@@ -3,6 +3,7 @@
 require __DIR__ . '/vendor/autoload.php';
 
 include 'healthcheck.php';
+include 'engine.php'
 
 if (isset($_POST["metrics"])) {
     $registry = \Prometheus\CollectorRegistry::getDefault();
@@ -30,10 +31,6 @@ echo "</form>";
 echo "<form method='post'>";
 echo "<button type='submit' name='healthcheck' class='button'>Healthcheck</button>";
 echo "</form>";
-
-function validate_number($number) {
-    return filter_var($number, FILTER_VALIDATE_INT);
-}
 
 if (isset($_POST["calculate"])) {
     if (!validate_number($_POST["number1"]))

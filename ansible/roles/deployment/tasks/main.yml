@@ -1,0 +1,20 @@
+- name: deploy web app
+  block:
+    - name: pull image
+      docker_image:
+        name: zyymee/moscow-time-web-app:latest
+        source: pull
+
+    - name: build webapp     
+      docker_image:
+        name: zyymee/moscow-time-web-app:latest
+        build: 
+          path: ~/ansible/app_python
+          args: 
+            listen_port: 5000
+        source: build
+
+    - name: start webapp
+      docker_container:
+        name: moscow-time-web-app
+        image: zyymee/moscow-time-web-app:latest

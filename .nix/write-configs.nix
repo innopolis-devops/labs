@@ -9,16 +9,17 @@
 let
   inherit (drv-tools.functions.${system})
     mkShellApp
-    writeJson
+    writeJSON
     framedBrackets
     mkBin
+    withLongDescription
     ;
   inherit (my-codium.configs.${system})
     settingsNix
     ;
   inherit (my-codium.functions.${system})
-    writeSettingsJson
-    writeTasksJson
+    writeSettingsJSON
+    writeTasksJSON
     ;
   inherit (import ./data.nix)
     commandNames
@@ -32,8 +33,8 @@ let
   writeDocs =
     let
       docsNix = import ./docs.nix { inherit pkgs env2json system; };
-      docsFileJson = "docs.json";
-      docsJson = writeJson "docs" "./${docsFileJson}" docsNix;
+      docsFileJSON = "docs.json";
+      docsJSON = writeJSON "docs" "./${docsFileJSON}" docsNix;
       docsMdFile = "docs.md";
       docsMdDir = "README";
       docsMdPath = "${docsMdDir}/${docsMdFile}";
@@ -44,16 +45,16 @@ let
       name = "write-docs-md";
       runtimeInputs = [
         pkgs.nodejs-16_x
-        docsJson
+        docsJSON
         json2md_
         mdlint
       ];
       text = ''
-        ${docsJson.name};
+        ${docsJSON.name};
         mkdir -p ${docsMdDir}
-        ${json2md_.packageName} ${docsFileJson} > ${docsMdPath}
+        ${json2md_.packageName} ${docsFileJSON} > ${docsMdPath}
         ${mdlint.packageName}-fix ${docsMdPath} || echo ""
-        rm ${docsFileJson}
+        rm ${docsFileJSON}
         printf "${framedBrackets "%s"}" "ok ${name}"
       '';
       longDescription = ''
@@ -61,22 +62,11 @@ let
       '';
     };
   writeMarkdownlintConfig =
-    writeJson "markdownlint" "./configs/.markdownlint.json" (import ./markdownlint-config.nix);
-  writeSettings = writeSettingsJson (import ./settings.nix {
+    writeJSON "markdownlint" "./configs/.markdownlint.json" (import ./markdownlint-config.nix);
+  writeSettings = writeSettingsJSON (import ./settings.nix {
     inherit settingsNix;
   });
-  writeTasks = writeTasksJson (import ./tasks.nix { inherit commands drv-tools system; });
-  writeConfigs =
-    mkShellApp {
-      name = "write-configs";
-      text = ''
-        ${mkBin writeSettings}
-        ${mkBin writeTasks}
-        ${mkBin writeDocs}
-        ${mkBin writeMarkdownlintConfig}
-        ${mkBin writeRootPyproject}
-      '';
-    };
+  writeTasks = writeTasksJSON (import ./tasks.nix { inherit commands drv-tools system; });
   writeRootPyproject =
     let
       script = "./scripts/update-root-pyproject.py";
@@ -84,7 +74,7 @@ let
       appPythonTOML = "${appPython}/${pyproject}";
       appPurescriptTOML = "${appPurescript}/${pyproject}";
       rootTOML = "${pyproject}";
-      targets = [appPython appPurescript];
+      targets = [ appPython appPurescript ];
       python = pkgs.python310.withPackages (x: with x; [ pkgs.python310Packages.tomlkit ]);
     in
     mkShellApp {
@@ -97,9 +87,40 @@ let
         poetry update
       '';
     };
+  writeConfigs =
+    mkShellApp {
+      name = "write-configs";
+      text = ''
+        ${mkBin writeSettings}
+        ${mkBin writeTasks}
+        ${mkBin writeDocs}
+        ${mkBin writeMarkdownlintConfig}
+        ${mkBin writeRootPyproject}
+        ${mkBin writeWorkflows}
+      '';
+    };
+  writeWorkflows =
+    let
+      ciNix = import ./.github/ci.nix { inherit appPurescript appPython pkgs drv-tools system; };
+      workflowsPath = ".github/workflows";
+      ciJSON = "${workflowsPath}/ci-nix.json";
+      ciYAML = "${workflowsPath}/ci.yaml";
+      writeCIJSON = withLongDescription (writeJSON "ci-workflow" ciJSON ciNix) "write `${ciJSON}`";
+    in
+    mkShellApp
+      {
+        name = "write-yaml";
+        text = ''
+          ${mkBin writeCIJSON}
+          cat ${ciJSON} | yq --yaml-output . > ${ciYAML}
+        '';
+        runtimeInputs = [ pkgs.yq ];
+      }
+  ;
 in
 {
   inherit
+    writeWorkflows
     writeDocs
     writeTasks
     writeSettings

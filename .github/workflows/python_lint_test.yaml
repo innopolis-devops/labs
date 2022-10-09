@@ -1,0 +1,44 @@
+name: Python lint and test
+
+on: [push]
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      python: ${{ steps.filter.outputs.python }}
+      flutter: ${{ steps.filter.outputs.flutter }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          python:
+            - 'app_python/**'
+          flutter:
+            - 'app_flutter/**'
+
+  build:
+    needs: changes
+    if: ${{ needs.changes.outputs.python == 'true' }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f app_python/requirements.txt ]; then pip install -r app_python/requirements.txt; fi
+      - name: Lint with pylint
+        uses: quentinguidee/pep8-action@v1
+      - name: Test with unittest
+        run: |
+          python -m unittest discover -s app_python/ -p "*_test.py"

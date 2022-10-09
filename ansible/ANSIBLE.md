@@ -1,0 +1,107 @@
+# Command outputs
+
+```bash
+ansible-playbook playbooks/main.yml --diff
+
+PLAY [Prepare docker] **************************************************************************
+
+TASK [Gathering Facts] *************************************************************************
+ok: [VM1]
+
+TASK [docker : Load OS-specific vars.] *********************************************************
+ok: [VM1]
+
+TASK [docker : include_tasks] ******************************************************************
+skipping: [VM1]
+
+TASK [docker : include_tasks] ******************************************************************
+included: /Users/glebosotov/code/inno-devops-labs/ansible2/roles/docker/tasks/setup-Debian.yml for VM1
+
+TASK [docker : Ensure old versions of Docker are not installed.] *******************************
+ok: [VM1]
+
+TASK [docker : Ensure dependencies are installed.] *********************************************
+The following NEW packages will be installed:
+  apt-transport-https
+0 upgraded, 1 newly installed, 0 to remove and 39 not upgraded.
+changed: [VM1]
+
+TASK [docker : Ensure additional dependencies are installed (on Ubuntu < 20.04 and any other systems).] ***
+skipping: [VM1]
+
+TASK [docker : Ensure additional dependencies are installed (on Ubuntu >= 20.04).] *************
+ok: [VM1]
+
+TASK [docker : Add Docker apt key.] ************************************************************
+ok: [VM1]
+
+TASK [docker : Ensure curl is present (on older systems without SNI).] *************************
+skipping: [VM1]
+
+TASK [docker : Add Docker apt key (alternative for older systems without SNI).] ****************
+skipping: [VM1]
+
+TASK [docker : Add Docker repository.] *********************************************************
+ok: [VM1]
+
+TASK [docker : Install Docker packages.] *******************************************************
+skipping: [VM1]
+
+TASK [docker : Install Docker packages (with downgrade option).] *******************************
+ok: [VM1]
+
+TASK [docker : Install docker-compose plugin.] *************************************************
+skipping: [VM1]
+
+TASK [docker : Install docker-compose-plugin (with downgrade option).] *************************
+skipping: [VM1]
+
+TASK [docker : Ensure /etc/docker/ directory exists.] ******************************************
+skipping: [VM1]
+
+TASK [docker : Configure Docker daemon options.] ***********************************************
+skipping: [VM1]
+
+TASK [docker : Ensure Docker is started and enabled at boot.] **********************************
+ok: [VM1]
+
+TASK [docker : Ensure handlers are notified now to avoid firewall conflicts.] ******************
+
+TASK [docker : Get docker group info using getent.] ********************************************
+skipping: [VM1]
+
+TASK [docker : Check if there are any users to add to the docker group.] ***********************
+
+TASK [docker : include_tasks] ******************************************************************
+skipping: [VM1]
+
+PLAY RECAP *************************************************************************************
+VM1                        : ok=10   changed=1    unreachable=0    failed=0    skipped=12   rescued=0    ignored=0  
+```
+
+```bash
+ansible-inventory -i inventory/inventory.yaml --list
+{
+    "VM": {
+        "hosts": [
+            "VM1"
+        ]
+    },
+    "_meta": {
+        "hostvars": {
+            "VM1": {
+                "ansible_become": true,
+                "ansible_host": "3.65.38.113",
+                "ansible_ssh_private_key_file": "~/code/inno-devops-labs/devops.pem",
+                "ansible_user": "ubuntu"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "VM",
+            "ungrouped"
+        ]
+    }
+}
+```

@@ -14,7 +14,13 @@
         pip_install_packages:
           - name: docker
 
+          # docker-compose v1 is required by ansible docker_compose module
+          - name: docker-compose
+
     - name: Import role geerlingguy.docker
       become: true
+      vars:
+        docker_install_compose: false
+        docker_install_compose_plugin: false
       ansible.builtin.import_role:
         name: geerlingguy.docker

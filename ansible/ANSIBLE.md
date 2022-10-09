@@ -93,3 +93,89 @@ vm1 : ok=15 changed=6 unreachable=0 failed=0 skipped=11 rescued=0 ignored=0
         }
     }
    ```
+   
+## lab 6
+
+### ```ansible-playbook playbooks/dev/main.yaml --diff -i inventory/inventory.yml --private-key=~/.ssh/id_rsa --extra-vars "ansible_sudo_pass"="ubuntu-1"```
+
+```bash
+...
+
+TASK [docker : Ensure handlers are notified now to avoid firewall conflicts.] ***
+
+TASK [docker : include_tasks] **************************************************
+included: /home/ubuntu-1/labs/ansible/roles/docker/tasks/docker-compose.yml for vm1
+
+TASK [docker : Check current docker-compose version.] **************************
+ok: [vm1]
+
+TASK [docker : set_fact] *******************************************************
+ok: [vm1]
+
+TASK [docker : Delete existing docker-compose version if it's different.] ******
+skipping: [vm1]
+
+TASK [docker : Install Docker Compose (if configured).] ************************
+skipping: [vm1]
+
+TASK [docker : Get docker group info using getent.] ****************************
+skipping: [vm1]
+
+TASK [docker : Check if there are any users to add to the docker group.] *******
+
+TASK [docker : include_tasks] **************************************************
+skipping: [vm1]
+
+TASK [web_app : Wipe the base dir] *********************************************
+skipping: [vm1]
+
+TASK [web_app : Create a directory if it doesn't exist] ************************
+ok: [vm1]
+
+TASK [web_app : Template the docker-compose.yml] *******************************
+--- before: opt/web_app/docker-compose.yml
++++ after: /home/ubuntu-1/.ansible/tmp/ansible-local-14180_6jgjk4f/tmpol89ckyb/docker-compose.yml.j2
+@@ -5,5 +5,5 @@
+         image: "easeln/app_python:latest"
+         container_name: web_app
+         ports:
+-            - "1337:5000"
++            - "80:8000"
+         restart: always
+\ No newline at end of file
+
+changed: [vm1]
+
+TASK [web_app : Start services] ************************************************
+changed: [vm1]
+
+PLAY RECAP *********************************************************************
+vm1                        : ok=18   changed=2    unreachable=0    failed=0    skipped=14   rescued=0    ignored=0   
+```
+
+### ```ansible-inventory -i inventory/inventory.yml --list```
+```bash
+{
+    "_meta": {
+        "hostvars": {
+            "vm1": {
+                "ansible_become": true,
+                "ansible_host": "10.0.2.15",
+                "ansible_user": "ubuntu-1"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "ungrouped",
+            "vm"
+        ]
+    },
+    "vm": {
+        "hosts": [
+            "vm1"
+        ]
+    }
+}
+
+```

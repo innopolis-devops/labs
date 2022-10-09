@@ -38,7 +38,7 @@ Before proceeding, make sure you have installed [Docker](https://docs.docker.com
 3. Run the project using Docker:
 
    ```bash
-   docker run -it --rm -v "`pwd`/docker_files/nginx.conf:/etc/nginx/nginx.conf" -v "`pwd`/site:/var/www/html" -p 8080:80 trafex/alpine-nginx-php7
+   docker run -it --rm -v "`pwd`/docker_files/nginx.conf:/etc/nginx/nginx.conf" -v "`pwd`/site:/var/www/html" -p 8080:80 trafex/php-nginx:2.6.0
    ```
 
 4. Open the website `http://localhost:8080/` to start count rubbits.
@@ -63,6 +63,12 @@ To build docker image run:
 
 ```bash
 docker build -t markovvn1/iu-devops:lab_php .
+```
+
+All metrics can be found on separate server on port 3333:
+
+```bash
+docker exec -it <container_name> curl http://localhost:3333/nginx_status
 ```
 
 ## :computer: Contributors

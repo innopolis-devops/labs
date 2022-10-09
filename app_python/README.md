@@ -16,6 +16,7 @@ The application is written using the [FastAPI](https://fastapi.tiangolo.com/) fr
 <div align="center">
   <img src=".github/web_demo.png" width="600px"/>
 </div>
+Application is using [Prometheus FastAPI Instrumentator](https://github.com/trallnag/prometheus-fastapi-instrumentator) to collect metrics. All metrics available on `/metrics`.
 
 ## ⚡️ Quick start (for Linux only)
 

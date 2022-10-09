@@ -10,6 +10,7 @@ fastapi = "^0.79.0"
 uvicorn = "^0.18.2"
 Jinja2 = "^3.1.2"
 pytz = "^2022.2.1"
+prometheus-fastapi-instrumentator = "^5.9.1"
 
 [tool.poetry.group.dev.dependencies]
 isort = "^5.10.1"

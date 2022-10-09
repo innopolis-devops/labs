@@ -59,4 +59,6 @@ USER python
 
 EXPOSE 80
 
+HEALTHCHECK --interval=5s --timeout=10s CMD curl --silent --fail http://localhost || exit 1
+
 ENTRYPOINT [".venv/bin/uvicorn", "--host", "0.0.0.0", "--port", "80", "superclock:app"]

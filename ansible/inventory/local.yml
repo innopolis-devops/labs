@@ -6,4 +6,3 @@ vm:
       ansible_password: mypass
       ansible_sudo_pass: mypass
       ansible_become: true
-

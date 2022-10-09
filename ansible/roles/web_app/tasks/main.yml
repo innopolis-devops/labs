@@ -1,0 +1,35 @@
+---
+- name: Wipe web_app
+  ansible.builtin.include_tasks: 0-wipe.yml
+  when: web_app_full_wipe | bool == true
+  tags: ["wipe", "deploy"]
+
+
+- name: Deploy app
+  tags: ["deploy"]
+  block:
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+
+    - name: Create app dir
+      file:
+        state: directory
+        dest: "{{ web_app_path }}"
+
+    - name: Pull app image from Docker registry
+      docker_image:
+        name: "{{ web_app_image_name }}"
+        tag: "{{ web_app_image_tag }}"
+        source: pull
+
+    - name: Template a docker file
+      ansible.builtin.template:
+        src: docker-compose.yml.j2
+        dest: "{{ web_app_path }}/docker-compose.yml"
+
+    - name: Run docker-compose
+      ansible.builtin.docker_compose:
+        project_src: "{{ web_app_path }}"
+        state: present

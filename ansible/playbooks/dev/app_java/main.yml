@@ -1,0 +1,18 @@
+- name: Deploying Java app
+  hosts: yacloud1
+  become: true
+
+  vars:
+    web_app_name: app_java
+    web_app_full_wipe: false
+
+    web_app_image_name: mcflydesigner/spring-ui-lab
+    web_app_image_tag: latest
+
+    web_app:
+      config:
+        internal_port: 8080
+        external_port: 8080
+
+  roles:
+    - web_app

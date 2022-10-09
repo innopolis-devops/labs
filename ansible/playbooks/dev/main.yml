@@ -5,8 +5,13 @@
   become: yes
   vars: 
     docker_apt_ignore_key_error: true
+  tags:
+    - server_preparation
+    - webapp_deploy
 
 - name: deploy webapp
   hosts: deploy_servers
   roles: 
     - deployment
+  tags:
+    - webapp_deploy

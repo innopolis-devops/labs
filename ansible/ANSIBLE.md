@@ -173,3 +173,108 @@ alex@alex-VirtualBox:~/devprojects/devops/ansible$ ansible-inventory -i inventor
 }
 
 ```
+## Deploy moscow_time container
+```
+PLAY [Prepare docker] ****************************************************************************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************************************************************************
+ok: [VM1]
+
+TASK [docker : Load OS-specific vars.] ***********************************************************************************************************************
+ok: [VM1]
+
+TASK [docker : include_tasks] ********************************************************************************************************************************
+included: /home/alex/devprojects/devops/ansible/roles/docker/tasks/setup-Debian.yml for VM1
+
+TASK [docker : Ensure old versions of Docker are not installed.] *********************************************************************************************
+ok: [VM1]
+
+TASK [docker : Ensure dependencies are installed.] ***********************************************************************************************************
+ok: [VM1]
+
+TASK [docker : Ensure additional dependencies are installed (on Ubuntu < 20.04 and any other systems).] ******************************************************
+ok: [VM1]
+
+TASK [docker : Ensure additional dependencies are installed (on Ubuntu >= 20.04).] ***************************************************************************
+skipping: [VM1]
+
+TASK [docker : Add Docker apt key.] **************************************************************************************************************************
+ok: [VM1]
+
+TASK [docker : Ensure curl is present (on older systems without SNI).] ***************************************************************************************
+skipping: [VM1]
+
+TASK [docker : Add Docker apt key (alternative for older systems without SNI).] ******************************************************************************
+skipping: [VM1]
+
+TASK [docker : Add Docker repository.] ***********************************************************************************************************************
+ok: [VM1]
+
+TASK [docker : Install Docker packages.] *********************************************************************************************************************
+skipping: [VM1]
+
+TASK [docker : Install Docker packages (with downgrade option).] *********************************************************************************************
+ok: [VM1]
+
+TASK [docker : Install docker-compose plugin.] ***************************************************************************************************************
+skipping: [VM1]
+
+TASK [docker : Install docker-compose-plugin (with downgrade option).] ***************************************************************************************
+skipping: [VM1]
+
+TASK [docker : Ensure /etc/docker/ directory exists.] ********************************************************************************************************
+skipping: [VM1]
+
+TASK [docker : Configure Docker daemon options.] *************************************************************************************************************
+skipping: [VM1]
+
+TASK [docker : Ensure Docker is started and enabled at boot.] ************************************************************************************************
+ok: [VM1]
+
+TASK [docker : Ensure handlers are notified now to avoid firewall conflicts.] ********************************************************************************
+
+TASK [docker : include_tasks] ********************************************************************************************************************************
+included: /home/alex/devprojects/devops/ansible/roles/docker/tasks/docker-compose.yml for VM1
+
+TASK [docker : Check current docker-compose version.] ********************************************************************************************************
+ok: [VM1]
+
+TASK [docker : set_fact] *************************************************************************************************************************************
+ok: [VM1]
+
+TASK [docker : Delete existing docker-compose version if it's different.] ************************************************************************************
+skipping: [VM1]
+
+TASK [docker : Install Docker Compose (if configured).] ******************************************************************************************************
+skipping: [VM1]
+
+TASK [docker : Get docker group info using getent.] **********************************************************************************************************
+skipping: [VM1]
+
+TASK [docker : Check if there are any users to add to the docker group.] *************************************************************************************
+
+TASK [docker : include_tasks] ********************************************************************************************************************************
+skipping: [VM1]
+
+TASK [web_app : Install pip] *********************************************************************************************************************************
+ok: [VM1]
+
+TASK [web_app : Install docker-py] ***************************************************************************************************************************
+ok: [VM1]
+
+TASK [web_app : deploy moscow_time docker container] *********************************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "exists": false,
+-    "running": false
++    "exists": true,
++    "running": true
+ }
+
+changed: [VM1]
+
+PLAY RECAP ***************************************************************************************************************************************************
+VM1                        : ok=16   changed=1    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0   
+```

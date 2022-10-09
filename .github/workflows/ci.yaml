@@ -75,13 +75,49 @@ jobs:
           extra_nix_config: ${{ env.extra_nix_config }}
           install_url: ${{ env.install_url }}
       # - Nix will install the dependencies
-
+      
       # - No need to lint PureScript since it's statically typed
       - name: Linting
         if: ${{ matrix.app == 'app_python' }}
         run: nix run .#lint
       - name: Test
         run: nix run .#test
+  
+
+  snyk-test-app-purescript:
+    runs-on: ubuntu-20.04
+    name: Snyk vulnerability check for app_purescript (Node.js)
+    defaults: 
+      run:
+        working-directory: app_purescript
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v17
+        with:
+          extra_nix_config: ${{ env.extra_nix_config }}
+          install_url: ${{ env.install_url }}
+      - name: Build the app
+        run: nix run .#build
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  snyk-test-app-python:
+    runs-on: ubuntu-20.04
+    name: Snyk vulnerability check for app_python
+    defaults:
+      run:
+        working-directory: app_python
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
 
   push-to-docker-hub:
     name: Push ${{ matrix.app }} to Docker Hub

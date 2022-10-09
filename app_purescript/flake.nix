@@ -39,6 +39,7 @@
 
           psInputs = builtins.attrValues tools;
           scripts =
+            let build = ''npm i && spago install && npm run build''; in
             mkShellApps
               {
                 run-start =
@@ -46,12 +47,11 @@
                     runtimeInputs = psInputs;
                     text =
                       let
+                        # so that .env can later be ignored
                         dotenvFile = "app.env";
-                        spago_ = "spago";
                       in
                       ''
-                        ${spago_} install
-                        ${spago_} build
+                        ${build}
                         source ${dotenvFile}
                         npx parcel serve -p $PORT --host $HOST dev/index.html
                       '';
@@ -59,8 +59,8 @@
                 test = {
                   # https://github.com/mozilla/geckodriver/releases/tag/v0.31.0
                   text = ''
-                    poetry install
                     ${activateVenv}
+                    poetry install
                     set +e
                     nix run .#run-start &
                     parcel_pid=$!
@@ -71,6 +71,12 @@
                     kill $parcel_pid || echo "test finished"
                   '';
                   runtimeInputs = psInputs ++ [ pkgs.poetry pkgs.geckodriver pkgs.firefox ];
+                };
+                build = {
+                  text = ''
+                    ${build}
+                  '';
+                  runtimeInputs = psInputs;
                 };
               };
           inherit (python-tools.snippets.${system}) activateVenv;

@@ -1,0 +1,10 @@
+
+---
+- name: deploy nginx docker container
+  docker_container:
+    image: alexdestdev/moscow_time:latest
+    name: moscow_time
+    state: started
+    auto_remove: true
+    ports:
+      - "5000:5000"

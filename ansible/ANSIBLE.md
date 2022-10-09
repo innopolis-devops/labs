@@ -29,6 +29,36 @@
         - geerlingguy.docker
     ```
 
+1. Start your VM (in my case it provided with yandex, so I run `terraform/yandex`)
+
+    ```bash
+    cd terraform/yandex
+    terraform init
+    terraform apply
+    ```
+
+1. Then put your VM's IP to `ansible/inventory/main.yml` file:
+
+    ```bash
+        ansible_host: //here
+        ```
+
+1. Run 'ansible-playbook <path_to your_playbook> --diff':
+
+    If you got message like this:
+
+    ```bash
+    "E: Failed to fetch http://ru.archive.ubuntu.com/ubuntu/pool/universe/a/apt/apt-transport-https_2.4.7_all.deb  404  Not Found [IP: 213.180.204.183 80]"
+    ```
+
+    Connect to your VM via ssh and change mirrors in Ubuntu Server from regional to main:
+
+    ```bash
+        sudo nano /etc/apt/sources.list
+        ```
+
+    Change all `ru.archive.ubuntu.com/ubuntu` to `http://archive.ubuntu.com/ubuntu`
+
 ## Outputs
 
 1. Output of 'ansible-playbook <path_to your_playbook> --diff':

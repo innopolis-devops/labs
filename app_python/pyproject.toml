@@ -11,6 +11,8 @@ uvicorn = "^0.18"
 pytz = "^2022.2"
 types-pytz = "^2022.2.1"
 pydantic = "^1.10"
+starlette-exporter = "^0.14.0"
+fastapi-health = "^0.4.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^5.0"
@@ -39,6 +41,9 @@ branch = true
 show_missing = true
 skip_covered = true
 fail_under = 100
+
+[tool.mypy]
+ignore_missing_imports = true
 
 [build-system]
 requires = ["poetry>=1.2.0"]

@@ -5,6 +5,10 @@ extern crate rocket;
 use rocket::response::content::Html;
 
 #[macro_use]
+extern crate rocket_prometheus;
+use rocket_prometheus::PrometheusMetrics;
+
+#[macro_use]
 extern crate chrono;
 
 #[macro_use]
@@ -23,8 +27,17 @@ fn index() -> Html<String> {
     Html(format!("<h1>{}</h1>", msc_now))
 }
 
+#[get("/health")]
+fn health() -> Html<&'static str> {
+    Html("Ok")
+}
+
 fn rocket() -> rocket::Rocket {
-    rocket::ignite().mount("/", routes![index])
+    let prometheus = PrometheusMetrics::new();
+    rocket::ignite()
+        .attach(prometheus.clone())
+        .mount("/metrics", prometheus)
+        .mount("/", routes![index, health])
 }
 
 fn main() {
@@ -43,5 +56,12 @@ mod test {
         let mut response = client.get("/").dispatch();
         assert_eq!(response.status(), Status::Ok);
         assert_matches!(response.body_string(), Some(_));
+    }
+
+    #[test]
+    fn health() {
+        let client = Client::new(rocket()).expect("valid rocket instance");
+        let mut response = client.get("/health").dispatch();
+        assert_eq!(response.status(), Status::Ok);
     }
 }

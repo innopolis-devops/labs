@@ -5,6 +5,7 @@ authors = ["Alexander a.kurmazov@innopolis.university"]
 
 [dependencies]
 rocket = "0.4.7"
+rocket_prometheus = "0.9.0"
 chrono = "0.4"
 clippy = "0.0.302"
 assert_matches = "1.5"

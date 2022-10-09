@@ -13,6 +13,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app
 
 # configure the container to run in an executed manner
-ENTRYPOINT [ "python" ]
+ENTRYPOINT [ "python3" ]
 
 CMD ["src/time_app.py" ]

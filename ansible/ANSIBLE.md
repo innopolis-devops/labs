@@ -69,19 +69,118 @@ playbook: playbooks/dev/lab6.yml
 ### Playbook `app_python.yml`
 
 ```bash
-ansible-playbook playbooks/dev/app_python.yml --diff 2>&1 | tail --lines=50 
+ansible-playbook playbooks/dev/app_python.yml -e web_app_full_wipe=true --diff 2>&1 | tail --lines=50
+-  directories: []
+-  files:
+-  - /app_python/docker-compose.yml
+-state: directory
++state: absent
+
+changed: [test1]
+
+TASK [web_app : Mkdir /app_python] *********************************************
+--- before
++++ after
+@@ -1,2 +1,2 @@
+ path: /app_python
+-state: absent
++state: directory
+
+changed: [test1]
+
+TASK [web_app : Template docker compose configuration] *************************
+--- before
++++ after: /home/chermnyx/.ansible/tmp/ansible-local-95160806lxj9h/tmp33nqims3/docker-compose.yml.j2
+@@ -0,0 +1,16 @@
++version: '3.7'
++services:
++  'app_python':
++    image: 'docker.io/chermnyx/inno-devops-python'
++    container_name: 'app_python'
++    restart: always
++    ports:
++      - '5000:8080'
++    healthcheck:
++      test:
++        - CMD-SHELL
++        - wget --no-verbose --tries=1 -O /dev/null http://localhost:8080/healthcheck || exit 1
++      interval: 1m30s
++      timeout: 10s
++      retries: 3
++      start_period: 5s
+
+changed: [test1]
+
+TASK [web_app : Pull images] ***************************************************
+changed: [test1]
+
+RUNNING HANDLER [web_app : WebApp docker compose restart] **********************
+changed: [test1]
+
+PLAY RECAP *********************************************************************
+test1                      : ok=20   changed=7    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0
 ```
 
 ### Playbook `app_rust.yml`
 
 ```bash
-ansible-playbook playbooks/dev/app_rust.yml --diff 2>&1 | tail --lines=50 
+ansible-playbook playbooks/dev/app_rust.yml -e web_app_full_wipe=true --diff 2>&1 | tail --lines=50
+
+-  directories: []
+-  files:
+-  - /app_rust/docker-compose.yml
+-state: directory
++state: absent
+
+changed: [test1]
+
+TASK [web_app : Mkdir /app_rust] ***********************************************
+--- before
++++ after
+@@ -1,2 +1,2 @@
+ path: /app_rust
+-state: absent
++state: directory
+
+changed: [test1]
+
+TASK [web_app : Template docker compose configuration] *************************
+--- before
++++ after: /home/chermnyx/.ansible/tmp/ansible-local-95552jooagw2_/tmpsr7vi_2f/docker-compose.yml.j2
+@@ -0,0 +1,16 @@
++version: '3.7'
++services:
++  'app_rust':
++    image: 'docker.io/chermnyx/inno-devops-rust'
++    container_name: 'app_rust'
++    restart: always
++    ports:
++      - '5001:8080'
++    healthcheck:
++      test:
++        - CMD-SHELL
++        - wget --no-verbose --tries=1 -O /dev/null http://localhost:8080/healthcheck || exit 1
++      interval: 1m30s
++      timeout: 10s
++      retries: 3
++      start_period: 5s
+
+changed: [test1]
+
+TASK [web_app : Pull images] ***************************************************
+changed: [test1]
+
+RUNNING HANDLER [web_app : WebApp docker compose restart] **********************
+changed: [test1]
+
+PLAY RECAP *********************************************************************
+test1                      : ok=20   changed=7    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0
 ```
 
 ## Lab 5
 
 ```bash
-$ ansible-playbook playbooks/dev/lab5.yml --diff 2>&1 | tail --lines=50 
+$ ansible-playbook playbooks/dev/lab5.yml --diff 2>&1 | tail --lines=50
   docker-scan-plugin libltdl7 libslirp0 pigz slirp4netns
 0 upgraded, 9 newly installed, 0 to remove and 19 not upgraded.
 changed: [test1]
@@ -130,7 +229,7 @@ TASK [geerlingguy.docker : include_tasks] **************************************
 skipping: [test1]
 
 PLAY RECAP *********************************************************************
-test1                      : ok=18   changed=9    unreachable=0    failed=0    skipped=12   rescued=0    ignored=0   
+test1                      : ok=18   changed=9    unreachable=0    failed=0    skipped=12   rescued=0    ignored=0
 
 ```
 

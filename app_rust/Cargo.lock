@@ -304,6 +304,7 @@ dependencies = [
  "chrono-tz",
  "rocket",
  "rocket_dyn_templates",
+ "rocket_prometheus",
 ]
 
 [[package]]
@@ -1247,6 +1248,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "prometheus"
+version = "0.13.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "45c8babc29389186697fe5a2a4859d697825496b83db5d0b65271cdc0488e88c"
+dependencies = [
+ "cfg-if 1.0.0",
+ "fnv",
+ "lazy_static",
+ "memchr",
+ "parking_lot",
+ "thiserror",
+]
+
+[[package]]
 name = "quote"
 version = "1.0.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1442,6 +1457,16 @@ dependencies = [
  "time 0.3.14",
  "tokio",
  "uncased",
+]
+
+[[package]]
+name = "rocket_prometheus"
+version = "0.10.0-rc.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e3e70efcf6b0234723d0d295b95d64283ed02bb98a8a3f0c8c7ebb5b8da69165"
+dependencies = [
+ "prometheus",
+ "rocket",
 ]
 
 [[package]]

@@ -5,6 +5,7 @@ use chrono::Local;
 use currenttime::Settings;
 use rocket::State;
 use rocket_dyn_templates::{context, Template};
+use rocket_prometheus::PrometheusMetrics;
 
 fn get_current_time(settings: &Settings) -> String {
     Local::now()
@@ -24,13 +25,21 @@ fn index(settings: &State<Settings>) -> Template {
     )
 }
 
+#[get("/health")]
+fn health() -> String {
+    "OK".to_string()
+}
+
 #[launch]
 fn rocket() -> _ {
     let settings = Settings::default();
+    let prometheus = PrometheusMetrics::new();
 
     rocket::build()
         .manage(settings)
-        .mount("/", routes![index])
+        .attach(prometheus.clone())
+        .mount("/", routes![index, health])
+        .mount("/metrics", prometheus)
         .attach(Template::fairing())
 }
 

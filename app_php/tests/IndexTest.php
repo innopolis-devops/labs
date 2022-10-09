@@ -1,6 +1,5 @@
 <?php
 
-include 'app_php/index.php';
 include 'app_php/engine.php';
 
 use PHPUnit\Framework\TestCase;

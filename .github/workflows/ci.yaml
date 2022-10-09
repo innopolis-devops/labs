@@ -98,6 +98,8 @@ jobs:
           install_url: ${{ env.install_url }}
       - name: Build the app
         run: nix run .#build
+      - name: Install deps?
+        run: nix profile install nixpkgs#python310Full
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         continue-on-error: true

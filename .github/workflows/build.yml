@@ -42,13 +42,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('app_python/requirements*.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements*.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
             ${{ runner.os }}-
       - name: Install dependencies
         run: |
-          pip install -r app_python/requirements.test.txt -r app_python/requirements.txt
+          pip install -r requirements.test.txt -r requirements.txt
       - name: test
         run: |
           pytest

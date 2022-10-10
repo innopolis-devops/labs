@@ -1,7 +1,11 @@
-FROM node:9-slim
-WORKDIR /app
-copy package.json ./src/server
-RUN yarn
-COPY . /app
-CMD ["yarn", "serve"]
+FROM node:alpine
 
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "start"]

@@ -88,7 +88,7 @@ let
         "${appPython}" = {
           snyk = {
             language = "python";
-            language-title = "";
+            language-title = "(Python)";
           };
         };
       };
@@ -136,6 +136,9 @@ let
               name = "Run Snyk to check for vulnerabilities ${val.snyk.language-title}";
               uses = "snyk/actions/${ val.snyk.language }@master";
               continue-on-error = true;
+              "with" = {
+                args = "--all-projects";
+              };
               env = {
                 SNYK_TOKEN = expr ns.secrets.SNYK_TOKEN;
               };

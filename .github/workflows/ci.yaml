@@ -24,6 +24,8 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         name: Run Snyk to check for vulnerabilities (Node.js)
         uses: snyk/actions/node@master
+        with:
+          args: --all-projects
       - name: Test
         run: nix run .#test
   app-ci-app_python:
@@ -49,8 +51,10 @@ jobs:
       - continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        name: 'Run Snyk to check for vulnerabilities '
+        name: Run Snyk to check for vulnerabilities (Python)
         uses: snyk/actions/python@master
+        with:
+          args: --all-projects
       - name: Test
         run: nix run .#test
   caching-macos-11:

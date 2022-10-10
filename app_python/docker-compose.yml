@@ -2,12 +2,12 @@ version: '3.7'
 
 services:
   web:
-    build: ./web
+    image: igooorbb/inno-devops-webapp
     command: uwsgi --ini uwsgi.ini
     expose:
       - 5000
   nginx:
-    build: ./nginx
+    image: igooorbb/inno-devops-nginx
     ports:
       - 1337:80
     depends_on:

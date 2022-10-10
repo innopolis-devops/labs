@@ -1,4 +1,4 @@
 image: "{{ image_registry }}/{{ image_name }}:{{ image_tag }}" 
 ports: "8000:8000"
 path: "/opt/app"
-full_wipe: true
+full_wipe: false

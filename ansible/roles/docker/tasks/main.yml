@@ -33,6 +33,19 @@
   ignore_errors: "{{ ansible_check_mode }}"
   when: "ansible_version.full is version_compare('2.12', '>=') and ansible_os_family in ['RedHat', 'Debian']"
 
+- name: Ensure Pip is installed.
+  become: true
+  package:
+    name: "python3-pip"
+    state: present
+
+- name: Install docker libraries
+  pip:
+    name:
+      - docker=={{ docker_version }}
+      - docker-compose=={{ python_docker_compose_version }}
+    state: present
+
 - name: Install docker-compose plugin.
   package:
     name: "{{ docker_compose_package }}"

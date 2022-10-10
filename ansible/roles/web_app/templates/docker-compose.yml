@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  {{ app_name }}:
+    image: {{ docker_registry }}/{{ docker_image }}:{{ docker_tag }}
+    container_name: {{ app_name }}
+    ports:
+      - "{{ docker_ports.external }}:{{ docker_ports.internal }}"
+    restart: always

@@ -1,0 +1,9 @@
+app_name: "moscow_time"
+docker_ports: 
+  external: 5000 
+  internal: 5000
+docker_registry: "aladdinych"
+docker_image: "devops_labs"
+docker_tag: "latest"
+app_base_path: "/opt/web_app"
+web_app_full_wipe: true

@@ -1,0 +1,27 @@
+- name: Do wiping depending on flag
+  ansible.builtin.include_tasks: 0-wipe.yml
+  when: web_app_full_wipe | bool
+  tags: ["moscow_time", "wipe_app"]
+
+- name: Deploy application
+  block:
+  - name: Creating a folder 
+    ansible.builtin.file:
+      path: "{{ app_base_path }}"
+      state: directory
+      mode: '0755'
+
+  - name: Install Docker-compose
+    ansible.builtin.template:
+      src: docker-compose.yml
+      dest: "{{app_base_path}}/docker-compose.yml"
+      owner: root
+      group: root
+      mode: '600'
+
+  - name: Start docker-compose service
+    community.docker.docker_compose:
+      project_src: "{{app_base_path}}"
+      state: present
+      pull: true
+  tags: ["moscow_time"]

@@ -1,0 +1,16 @@
+---
+- name: Wiping task
+  block:
+  - name: Wipe the docker
+    community.docker.docker_compose:
+      project_src: "{{ app_base_path }}"
+      state: absent
+      remove_volumes: true
+    ignore_errors: true
+
+  - name: Delete a folder
+    ansible.builtin.file:
+      path: "{{ app_base_path }}"
+      state: absent
+  
+  tags: ["wipe_app", "moscow_time"]

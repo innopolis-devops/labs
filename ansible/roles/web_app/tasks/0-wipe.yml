@@ -3,14 +3,14 @@
   block:
   - name: wiping docker
     community.docker.docker_compose:
-      project_src: "{{ web_app_base_path }}"
+      project_src: "{{ base_path }}"
       state: absent
       remove_volumes: true
     ignore_errors: true
 
   - name: wiping dir
     ansible.builtin.file:
-      path: "{{ web_app_base_path }}"
+      path: "{{ base_path }}"
       state: absent
   
   tags: ["wipe"]

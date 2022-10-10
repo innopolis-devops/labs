@@ -48,7 +48,7 @@ jobs:
             ${{ runner.os }}-
       - name: Install dependencies
         run: |
-          pip install -r requirements.test.txt -r requirements.txt
+          pip install -r requirements.txt
       - name: test
         run: |
           pytest

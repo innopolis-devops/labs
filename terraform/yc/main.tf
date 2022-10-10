@@ -24,7 +24,7 @@ resource "yandex_compute_instance" "vm-1" {
 
   boot_disk {
     initialize_params {
-      image_id = "fd8ip4qsne4vvmq4rnm5"
+      image_id = "fd81u2vhv3mc49l1ccbb"
     }
   }
 

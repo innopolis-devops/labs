@@ -252,10 +252,10 @@ terraform show
 # yandex_compute_instance.vm-1:
 resource "yandex_compute_instance" "vm-1" {
     allow_stopping_for_update = true
-    created_at                = "2022-10-04T06:30:27Z"
+    created_at                = "2022-10-10T15:43:07Z"
     folder_id                 = "b1gua67r1utsreuh35jj"
-    fqdn                      = "fhm6pp15qfl25ch1c3rh.auto.internal"
-    id                        = "fhm6pp15qfl25ch1c3rh"
+    fqdn                      = "fhmvtp9i2tsojmvub5ha.auto.internal"
+    id                        = "fhmvtp9i2tsojmvub5ha"
     metadata                  = {
         "ssh-keys" = <<-EOT
             ubuntu:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCjZEREUs6lEznAuF3h7a380tExW+xmgUtmhkVd96nFeos1IRexQTDiWTcJFKDAYRDiewZfzm0xUyB2r7PqBa1mdBq+x72JTs0BYdIt0ICiqGzJ2cmb4fu1PsIORTDG9+DDNUnleooPo0Omo33BlKuU4j+go+LWJb8U8v6rKVtS2k4WrE7nyBKnopmo1w8U1+8O+hFzgDJMgfksh5wOH9HYmZb5VFgc0MvraQ2rqm1og0psUtt07Cwmbur2+U4evP21Uu0/aGBAChkDzYQkJynA/QSlqlNKskaMHwNVyr/Bj7+Va4ULQe6YiirrDsn/OO0z7VzySbmXyonDglVU4BxX desmigor@MIs-Mac.local
@@ -269,29 +269,29 @@ resource "yandex_compute_instance" "vm-1" {
 
     boot_disk {
         auto_delete = true
-        device_name = "fhmg4c04tk384npvgc5u"
-        disk_id     = "fhmg4c04tk384npvgc5u"
+        device_name = "fhmqn0m8o7dpplsnv1ap"
+        disk_id     = "fhmqn0m8o7dpplsnv1ap"
         mode        = "READ_WRITE"
 
         initialize_params {
             block_size = 4096
-            image_id   = "fd8ip4qsne4vvmq4rnm5"
-            size       = 3
+            image_id   = "fd81u2vhv3mc49l1ccbb"
+            size       = 5
             type       = "network-hdd"
         }
     }
 
     network_interface {
         index              = 0
-        ip_address         = "192.168.10.18"
+        ip_address         = "192.168.10.32"
         ipv4               = true
         ipv6               = false
-        mac_address        = "d0:0d:6c:e4:25:d3"
+        mac_address        = "d0:0d:1f:ee:53:21"
         nat                = true
-        nat_ip_address     = "130.193.37.79"
+        nat_ip_address     = "62.84.113.228"
         nat_ip_version     = "IPV4"
         security_group_ids = []
-        subnet_id          = "e9b3co2i1310lmeokff9"
+        subnet_id          = "e9bsei174rpn04i98png"
     }
 
     placement_policy {
@@ -312,30 +312,34 @@ resource "yandex_compute_instance" "vm-1" {
 
 # yandex_vpc_network.network-1:
 resource "yandex_vpc_network" "network-1" {
-    created_at = "2022-10-04T06:25:49Z"
+    created_at = "2022-10-10T15:43:05Z"
     folder_id  = "b1gua67r1utsreuh35jj"
-    id         = "enpb667kklk2bor0tjiv"
+    id         = "enpco2cq8144kg3anui2"
     labels     = {}
     name       = "network1"
-    subnet_ids = [
-        "e9b3co2i1310lmeokff9",
-    ]
+    subnet_ids = []
 }
 
 # yandex_vpc_subnet.subnet-1:
 resource "yandex_vpc_subnet" "subnet-1" {
-    created_at     = "2022-10-04T06:25:50Z"
+    created_at     = "2022-10-10T15:43:05Z"
     folder_id      = "b1gua67r1utsreuh35jj"
-    id             = "e9b3co2i1310lmeokff9"
+    id             = "e9bsei174rpn04i98png"
     labels         = {}
     name           = "subnet1"
-    network_id     = "enpb667kklk2bor0tjiv"
+    network_id     = "enpco2cq8144kg3anui2"
     v4_cidr_blocks = [
         "192.168.10.0/24",
     ]
     v6_cidr_blocks = []
     zone           = "ru-central1-a"
 }
+
+
+Outputs:
+
+external_ip_address_vm_1 = "62.84.113.228"
+internal_ip_address_vm_1 = "192.168.10.32"
 ```
 
 ```
@@ -343,8 +347,8 @@ terraform output
 ```
 
 ```
-external_ip_address_vm_1 = "130.193.37.79"
-internal_ip_address_vm_1 = "192.168.10.18"
+external_ip_address_vm_1 = "62.84.113.228"
+internal_ip_address_vm_1 = "192.168.10.32"
 ```
 
 ## 3. Github steps and output

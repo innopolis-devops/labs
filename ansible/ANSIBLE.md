@@ -136,7 +136,7 @@ vm                         : ok=14   changed=6    unreachable=0    failed=0    s
 # ansible-playbook deploying a role
 
 ```
-  PLAY [Yandex Cloud ansible] ****************************************************
+PLAY [Yandex Cloud ansible] ****************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [vm]
@@ -230,18 +230,23 @@ TASK [docker : include_tasks] **************************************************
 skipping: [vm]
 
 TASK [web_app : Include wipe if needed] ****************************************
-skipping: [vm]
+included: /home/kastrylia/DevOpsLabs/ansible/roles/web_app/tasks/0-wipe.yml for vm
+
+TASK [web_app : wiping docker] *************************************************
+changed: [vm]
+
+TASK [web_app : wiping dir] ****************************************************
+changed: [vm]
 
 TASK [web_app : Create a directory] ********************************************
-ok: [vm]
+changed: [vm]
 
 TASK [web_app : Docker compose installation] ***********************************
-ok: [vm]
+changed: [vm]
 
 TASK [web_app : Run docker compose] ********************************************
-ok: [vm]
+changed: [vm]
 
 PLAY RECAP *********************************************************************
-vm                         : ok=19   changed=0    unreachable=0    failed=0    skipped=15   rescued=0    ignored=0
-
+vm                         : ok=22   changed=5    unreachable=0    failed=0    skipped=14   rescued=0    ignored=0
 ```

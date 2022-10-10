@@ -50,11 +50,11 @@
       },
       "locked": {
         "dir": "app_purescript",
-        "lastModified": 1665367032,
-        "narHash": "sha256-20YBBIz9gJ+jFN75Y/EuexbXe328EaqleFU3x3qB69o=",
+        "lastModified": 1665367189,
+        "narHash": "sha256-N2JR6KenA1M/2vlCm0IporMEQFFcEgAZCiuUpFecxh4=",
         "owner": "br4ch1st0chr0n3",
         "repo": "devops-labs",
-        "rev": "1ca3c07215f523c0b51725b47f1913a07722c2da",
+        "rev": "b1597c9d8d1974f9369f53399d2d687d9d6b97e6",
         "type": "github"
       },
       "original": {
@@ -84,11 +84,11 @@
       },
       "locked": {
         "dir": "app_python",
-        "lastModified": 1665367032,
-        "narHash": "sha256-20YBBIz9gJ+jFN75Y/EuexbXe328EaqleFU3x3qB69o=",
+        "lastModified": 1665367189,
+        "narHash": "sha256-N2JR6KenA1M/2vlCm0IporMEQFFcEgAZCiuUpFecxh4=",
         "owner": "br4ch1st0chr0n3",
         "repo": "devops-labs",
-        "rev": "1ca3c07215f523c0b51725b47f1913a07722c2da",
+        "rev": "b1597c9d8d1974f9369f53399d2d687d9d6b97e6",
         "type": "github"
       },
       "original": {

@@ -1,9 +1,5 @@
-- name: Install Docker
+- name: Docker deploy
   hosts: virtualmachines
   remote_user: ubuntu
-  vars:
-    pip_install_packages:
-      - name: docker-compose
-      - name: docker
   roles:
-    - docker
+    - web_app

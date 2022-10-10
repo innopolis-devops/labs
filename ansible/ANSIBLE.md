@@ -3,45 +3,6 @@
 ## 1
 ```
 
-PLAY [Install Docker] ******************************************************************************************************************************************************
-
-TASK [Gathering Facts] *****************************************************************************************************************************************************
-Enter passphrase for key '/Users/diazzzu/.ssh/id_rsa': 
-ok: [vm1]
-
-TASK [docker : Load OS-specific vars.] *************************************************************************************************************************************
-ok: [vm1]
-
-TASK [docker : include_tasks] **********************************************************************************************************************************************
-skipping: [vm1]
-
-TASK [docker : include_tasks] **********************************************************************************************************************************************
-included: /Users/diazzzu/PycharmProjects/labs/ansible/roles/docker/tasks/setup-Debian.yml for vm1
-
-TASK [docker : Ensure old versions of Docker are not installed.] ***********************************************************************************************************
-ok: [vm1]
-
-TASK [docker : Ensure dependencies are installed.] *************************************************************************************************************************
-ok: [vm1]
-
-TASK [docker : Ensure additional dependencies are installed (on Ubuntu < 20.04 and any other systems).] ********************************************************************
-ok: [vm1]
-
-TASK [docker : Ensure additional dependencies are installed (on Ubuntu >= 20.04).] *****************************************************************************************
-skipping: [vm1]
-
-TASK [docker : Add Docker apt key.] ****************************************************************************************************************************************
-ok: [vm1]
-
-TASK [docker : Ensure curl is present (on older systems without SNI).] *****************************************************************************************************
-skipping: [vm1]
-
-TASK [docker : Add Docker apt key (alternative for older systems without SNI).] ********************************************************************************************
-skipping: [vm1]
-
-TASK [docker : Add Docker repository.] *************************************************************************************************************************************
-ok: [vm1]
-
 TASK [docker : Install Docker packages.] ***********************************************************************************************************************************
 skipping: [vm1]
 
@@ -119,4 +80,62 @@ vm1                        : ok=17   changed=1    unreachable=0    failed=0    s
         ]
     }
 }
+```
+
+## Lab 6
+```
+TASK [docker : Ensure Docker is started and enabled at boot.] ******************
+ok: [vm1]
+
+TASK [docker : Ensure handlers are notified now to avoid firewall conflicts.] ***
+
+TASK [docker : include_tasks] **************************************************
+included: /Users/diazzzu/PycharmProjects/labs/ansible/roles/docker/tasks/docker-compose.yml for vm1
+
+TASK [docker : Check current docker-compose version.] **************************
+ok: [vm1]
+
+TASK [docker : set_fact] *******************************************************
+ok: [vm1]
+
+TASK [docker : Delete existing docker-compose version if it's different.] ******
+skipping: [vm1]
+
+TASK [docker : Install Docker Compose (if configured).] ************************
+skipping: [vm1]
+
+TASK [docker : Get docker group info using getent.] ****************************
+skipping: [vm1]
+
+TASK [docker : Check if there are any users to add to the docker group.] *******
+
+TASK [docker : include_tasks] **************************************************
+skipping: [vm1]
+
+TASK [docker : Install pip] ****************************************************
+ok: [vm1]
+
+TASK [docker : Install docker module] ******************************************
+ok: [vm1]
+
+TASK [web_app : Include wipe if needed] ****************************************
+included: /Users/diazzzu/PycharmProjects/labs/ansible/roles/web_app/tasks/0-wipe.yml for vm1
+
+TASK [web_app : Wipe docker compose services] **********************************
+changed: [vm1]
+
+TASK [web_app : Wipe a base path] **********************************************
+changed: [vm1]
+
+TASK [web_app : Create a directory of application] *****************************
+changed: [vm1]
+
+TASK [web_app : Docker compose file creation] **********************************
+changed: [vm1]
+
+TASK [web_app : Run all services] **********************************************
+changed: [vm1]
+
+PLAY RECAP *********************************************************************
+vm1                        : ok=23   changed=5    unreachable=0    failed=0    skipped=12   rescued=0    ignored=2   
 ```

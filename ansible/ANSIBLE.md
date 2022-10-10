@@ -57,9 +57,10 @@ vm1                        : ok=16   changed=6    unreachable=0    failed=0    s
  
 ### output of the following command: 
 
-```ansible-inventory -i inventory/main.yml --list```
+``ansible-inventory -i inventory/main.yml --list ``
 
 ```
+
     {
         "_meta": {
             "hostvars": {
@@ -77,8 +78,8 @@ vm1                        : ok=16   changed=6    unreachable=0    failed=0    s
         },
     }
 
-``` 
 ```
+
 
 ## Lab 6
 

@@ -1,0 +1,9 @@
+web_app_base_path: "/opt/web_app"
+web_app_name: "python_app"
+web_app:
+  registry: "molberte"
+  image: "devops-labs"
+  tag: "latest"
+  external_port: 80
+  port: 5000
+web_app_full_wipe: false

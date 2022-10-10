@@ -25,6 +25,7 @@ resource "yandex_compute_instance" "ilya-vm" {
     initialize_params {
       // got it by "yc compute image list --folder-id standard-images"
       image_id = "fd8lbi4hr72am1eb2kmf" // ubuntu-20-04-lts-v20211027
+      size = 10
     }
   }
 

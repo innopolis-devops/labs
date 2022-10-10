@@ -1,0 +1,5 @@
+- hosts: yacloud
+  become: true
+  remote_user: ubuntu
+  roles:
+    - web_app

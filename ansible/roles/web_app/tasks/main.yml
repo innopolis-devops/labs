@@ -1,0 +1,11 @@
+---
+- name: Template a docker-compose.yml to /
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: /etc/docker-compose.yml
+    mode: '0644'
+
+- name: Create and start web service
+  community.docker.docker_compose:
+    project_src: /etc/
+    pull: true

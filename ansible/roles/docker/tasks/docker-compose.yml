@@ -26,3 +26,12 @@
     (docker_compose_current_version is not defined)
     or (docker_compose_current_version|length == 0)
     or (docker_compose_current_version is version((docker_compose_version | regex_replace('v', '')), '<'))
+
+- name: Install pip
+  package:
+    name: "python3-pip"
+    state: "present"
+
+- name: Install docker module
+  pip:
+    name: [ "docker", "docker-compose" ]

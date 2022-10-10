@@ -1,0 +1,5 @@
+docker_image_name: "devops_app_python"
+docker_user: "ilyakolomin"
+docker_tag: "latest"
+
+docker_ports: "8000:8000"

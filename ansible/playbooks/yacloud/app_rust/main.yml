@@ -1,0 +1,13 @@
+---
+- name: Deploy app_rust
+  hosts: yacloud
+  remote_user: ubuntu
+  become: true
+  vars:
+    image_name: app_rust-server
+    image_tag: latest
+    image_registry: akurmazov
+    command: cargo run
+
+  roles:
+    - web_app

@@ -1,0 +1,13 @@
+---
+- name: Deploy app_python
+  hosts: yacloud
+  remote_user: ubuntu
+  become: true
+  vars:
+    image_name: server
+    image_tag: latest
+    image_registry: akurmazov
+    command: python -m poetry run uvicorn server.app:app --host 0.0.0.0
+
+  roles:
+    - web_app

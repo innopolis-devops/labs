@@ -16,6 +16,10 @@
 
 - [DOCKER.md](./DOCKER.md)
 
+### CI
+
+- [CI.md](./CI.md)
+
 ### Unit tests
 
 - [app_python](./app_python/PYTHON.md#unit-tests)

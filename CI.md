@@ -39,3 +39,5 @@ These aren't the official best practices, just useful stuff I came across and ap
   - This is managed by the [tj-actions/changed-files](https://github.com/tj-actions/changed-files) action
 
 ## Snyk
+
+- Added Snyk vulnerability checks

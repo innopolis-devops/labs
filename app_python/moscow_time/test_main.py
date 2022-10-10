@@ -1,11 +1,11 @@
 from fastapi.testclient import TestClient
-from datetime import date, datetime
+from datetime import datetime
 import zoneinfo
-zone = zoneinfo.ZoneInfo("Europe/Moscow")
 
 from .main import app
 
 client = TestClient(app)
+zone = zoneinfo.ZoneInfo("Europe/Moscow")
 
 
 def test_get_main():

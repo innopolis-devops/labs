@@ -76,9 +76,9 @@
  }
  ```
 
- # Yandex cloud
+# Yandex cloud
 
- `ansible-playbook playbooks/yacloud/main.yml --diff`:
+`ansible-playbook playbooks/yacloud/main.yml --diff`:
 
  ```text
  PLAY [Docker] ****************************************************************************************************************************************************************************
@@ -183,4 +183,118 @@
          ]
      }
  }
+ ```
+
+# Lab 6
+
+### First docker deployment to yandex cloud
+
+ Output:
+
+ ```console
+ TASK [docker : Ensure installation directory exists.] *************************************************************************************************************
+ skipping: [terraformlab]
+
+ TASK [docker : Install Docker Compose (if configured).] ***********************************************************************************************************
+ changed: [terraformlab]
+
+ TASK [docker : Get docker group info using getent.] ***************************************************************************************************************
+ skipping: [terraformlab]
+
+ TASK [docker : Check if there are any users to add to the docker group.] ******************************************************************************************
+
+ TASK [docker : include_tasks] *************************************************************************************************************************************
+ skipping: [terraformlab]
+
+ TASK [web_app : Stop all services] ********************************************************************************************************************************
+ skipping: [terraformlab]
+
+ TASK [web_app : Remove app directory] *****************************************************************************************************************************
+ skipping: [terraformlab]
+
+ TASK [web_app : Create dir] ***************************************************************************************************************************************
+ --- before
+ +++ after
+ @@ -1,5 +1,5 @@
+  {
+ -    "mode": "0755",
+ +    "mode": "0700",
+      "path": "/opt/devops/app_python",
+ -    "state": "absent"
+ +    "state": "directory"
+  }
+
+ changed: [terraformlab]
+
+ TASK [web_app : Template a file to `dir/docker-compose.yml`] ******************************************************************************************************
+ --- before
+ +++ after: /Users/Max/.ansible/tmp/ansible-local-7655407tup78t/tmpu_56hwdf/docker-compose.yml.j2
+ @@ -0,0 +1,9 @@
+ +version: "3.9"
+ +
+ +services:
+ +  app_python:
+ +    image: maxkoz777/moscow_time_python:latest
+ +    container_name: app_python
+ +    ports:
+ +      - "8081:8081"
+ +    restart: on-failure
+
+ changed: [terraformlab]
+
+ TASK [web_app : Start with docker compose] ************************************************************************************************************************
+ changed: [terraformlab]
+
+ PLAY RECAP ********************************************************************************************************************************************************
+ terraformlab                 : ok=22   changed=12   unreachable=0    failed=0    skipped=10   rescued=0    ignored=0   
+
+ ```
+
+ </details>
+
+### Python app deployed:
+
+ ```console
+ > curl 51.250.87.149:8081
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Current Moscow time:</title>
+</head>
+<body>
+<h1>23:40:54</h1>
+</body>
+</html>
+ ```
+
+### Java app deployed
+
+ ```console
+ > curl 51.250.87.149:8080    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Current Moscow Time:</title>
+</head>
+<body>
+<h1>Current Moscow Time:</h1>
+<h2>23:42:51</h2>
+</body>
+</html>
+ ```
+
+## Metrics
+
+To check whether app is up and running:
+
+For java use endpoint:
+```console
+localhost:8080/actuator/health
+ ```
+
+For python use endpoint:
+```console
+localhost:8081/health
  ```

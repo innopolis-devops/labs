@@ -2,4 +2,4 @@
   hosts: VM
   become: true
   roles:
-    - docker
+    - web_app

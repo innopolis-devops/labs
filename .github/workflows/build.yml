@@ -33,7 +33,23 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Test with pytest
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('app_python/requirements*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+      - name: Install dependencies
+        run: |
+          pip install -r app_python/requirements.test.txt -r app_python/requirements.txt
+      - name: test
         run: |
           pytest
   build:

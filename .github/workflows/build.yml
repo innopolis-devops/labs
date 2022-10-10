@@ -91,7 +91,7 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Run Snyk to check for vulnerabilities
-        working-directory: app
+        working-directory: app_python/main.py
         run: snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

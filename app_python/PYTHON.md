@@ -78,4 +78,4 @@ See this [section](../README.md#docker)
 
 ### Unit tests
 
-I followed the official fastapi [guide](https://fastapi.tiangolo.com/tutorial/testing/) on testing. This allowed me to use the [pytest](https://docs.pytest.org/en/7.1.x/) Python testing library. Next, I made a unit test that checks via [bs4](https://pypi.org/project/beautifulsoup4/) if a word is present on a page sent by the server.
+I followed the official fastapi [guide](https://fastapi.tiangolo.com/tutorial/testing/) on testing. This allowed me to use the [pytest](https://docs.pytest.org/en/7.1.x/) Python testing library. Next, I made a unit test that checks via [bs4](https://pypi.org/project/beautifulsoup4/) if a word is present on a page sent by the server. 

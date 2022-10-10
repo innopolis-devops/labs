@@ -2,7 +2,7 @@
 web_app_name: "app_python"
 web_app_image:
   registry: "johndenkis"
-  name: "simple_python_app"
+  name: "simple_python_app_v3"
   tag: "latest"
 web_app_port:
   internal: 5000

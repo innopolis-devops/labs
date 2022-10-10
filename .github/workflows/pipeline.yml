@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-
+    name: CI-Build Node.js
     runs-on: ubuntu-latest
 
     strategy:
@@ -19,7 +19,6 @@ jobs:
       run:
         working-directory: ./app_nodejs
     steps:
-      - name: CI Node.js
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3

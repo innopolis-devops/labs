@@ -1,9 +1,7 @@
 import pytz
 from datetime import datetime
 
-import flask
 from flask import Flask, render_template
-from markupsafe import escape
 
 
 app = Flask(__name__)

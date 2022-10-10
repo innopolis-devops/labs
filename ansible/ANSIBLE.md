@@ -86,6 +86,7 @@ terraform1                 : ok=13   changed=6    unreachable=0    failed=0    s
 }
 ```
 
+
 ## Playbook for CD
 
 `ansible-playbook playbooks/dev/main.yml --diff`

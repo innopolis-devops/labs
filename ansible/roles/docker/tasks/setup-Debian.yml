@@ -14,6 +14,7 @@
     state: present
     update_cache: yes
 
+
 - name: Ensure additional dependencies are installed (on Ubuntu < 20.04 and any other systems).
   apt:
     name: gnupg2

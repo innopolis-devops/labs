@@ -54,6 +54,15 @@
   when: docker_daemon_options.keys() | length > 0
   notify: restart docker
 
+- name: Install python and pip
+  package:
+    name: "python3-pip"
+    state: "present"
+
+- name: Install docker and docker-compose
+  pip:
+    name: ["docker", "docker-compose"]
+
 - name: Ensure Docker is started and enabled at boot.
   service:
     name: docker

@@ -5,4 +5,4 @@
   become: true
 
   roles:
-    - docker
+    - web_app

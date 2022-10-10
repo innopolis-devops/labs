@@ -1,0 +1,13 @@
+---
+- name: App_python
+  hosts: 51.250.89.99
+  remote_user: ubuntu
+  become: true
+
+  vars:
+    web_app_image:
+      name: noneword/app_python
+      version: latest
+
+  roles:
+    - web_app

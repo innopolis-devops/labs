@@ -1,0 +1,15 @@
+---
+- name: App_java
+  hosts: 51.250.89.99
+  remote_user: ubuntu
+  become: true
+
+  vars:
+    web_app_name: "app_java"
+    web_app_image:
+      name: noneword/app_java
+      version: latest
+    web_app_ports: "4568:8080"
+
+  roles:
+    - web_app

@@ -140,3 +140,54 @@
      }
  }
  ```
+
+### Lab 6 output
+
+```
+ TASK [docker : include_tasks] *************************************************************************************************************************************
+ skipping: [terraformlab]
+
+ TASK [web_app : Stop] *********************************************************************************************************************************************
+ skipping: [terraformlab]
+
+ TASK [web_app : Remove] *******************************************************************************************************************************************
+ skipping: [terraformlab]
+
+ TASK [web_app : Wipe] *********************************************************************************************************************************************
+ skipping: [terraformlab]
+
+ TASK [web_app : Create directory] *********************************************************************************************************************************
+ --- before
+ +++ after
+ @@ -1,5 +1,5 @@
+ {
+ -    "mode": "0755",
+ +    "mode": "0700",
+      "path": "/opt/app_python",
+ -    "state": "absent"
+ +    "state": "directory"
+ }
+
+ changed: [terraformlab]
+
+ TASK [web_app : Template docker-compose] **************************************************************************************************************************
+ --- before
+ +++ after: /Users/grishakostarev/.ansible/tmp/ansible-local-78693tsk6kd2p/tmp25d0ad86/docker-compose.yml.j2
+ @@ -0,0 +1,8 @@
+ +version: "3.9"
+ +services:
+ +  app_python:
+ +    image: noneword/app_python:latest
+ +    container_name: app_python
+ +    ports:
+ +      - "4567:8080"
+ +    restart: always
+
+ changed: [terraformlab]
+
+ TASK [web_app : Start docker-compose] *****************************************************************************************************************************
+ changed: [terraformlab]
+
+ PLAY RECAP ********************************************************************************************************************************************************
+ terraformlab                 : ok=21   changed=13   unreachable=0    failed=0    skipped=13   rescued=0    ignored=0 
+```

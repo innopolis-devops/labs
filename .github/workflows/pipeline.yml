@@ -19,6 +19,7 @@ jobs:
       run:
         working-directory: ./app_nodejs
     steps:
+      - name: CI Node.js
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3

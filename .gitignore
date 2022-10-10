@@ -1,6 +1,4 @@
 /.idea/
-/app_nodejs/node_modules/
-/app_nodejs/yarn.lock
 .terraform/
 *.tfstate
 *.tfstate.*

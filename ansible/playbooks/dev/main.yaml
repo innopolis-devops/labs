@@ -2,5 +2,5 @@
   hosts: VM1
   become: true
   roles:
-    - docker
-    - web_app
+    - name: web_app
+      tags: [web_app]

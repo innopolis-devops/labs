@@ -1,0 +1,7 @@
+version: '2'
+services:
+    web:
+        image: alexdestdev/moscow_time:latest
+        ports:
+            - "5000:5000"
+        restart: always

@@ -1,0 +1,12 @@
+- name: Install pip
+  apt:
+      name: python3-pip
+      state: latest
+      update_cache: yes
+
+- name: Install docker libraries
+  pip:
+    name: 
+      - docker
+      - docker-compose
+    state: present

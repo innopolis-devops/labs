@@ -1,0 +1,45 @@
+---
+# tasks file for web_app
+
+- name: Wipe disabled
+  fail:
+    msg: Wiping is currently disabled. Consider changing 'wipe_enabled' variable.
+  when: not wipe_enabled
+  tags:
+    - redeploy
+    - wipe
+    - never
+
+- block:
+    - name: Wipe app-related data
+      include_tasks: 0-wipe.yml
+  when: wipe_enabled
+  tags:
+    - redelpoy
+    - wipe
+    - never
+
+
+- name: Deploy using docker compose
+  tags:
+  # on redeploy docker role is not executed, assuming it already have been
+    - redeploy
+
+  block:
+    - name: Install dependencies
+      include_tasks: dependencies.yml
+
+    - name: Start docker
+      service:
+        name: docker
+        state: started
+
+    - name: Copy docker-compose.yml
+      template:
+        src: docker-compose.yml.j2
+        dest: docker-compose.yml
+
+    - name: Run docker-compose
+      docker_compose:
+        project_src: .
+        state: present

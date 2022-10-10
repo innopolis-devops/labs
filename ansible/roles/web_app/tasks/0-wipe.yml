@@ -1,0 +1,19 @@
+- name: Check if docker-compose.yml is present
+  stat:
+    path: docker-compose.yml
+  register: compose_stat
+
+
+- name: Discard docker configuration
+  when: compose_stat.stat.exists
+  block:
+    - name: Stop and delete docker containers
+      docker_compose:
+        project_src: .
+        state: absent
+        remove_images: all
+
+    - name: Delete docker-compose.yml
+      file:
+        state: absent
+        dest: docker-compose.yml

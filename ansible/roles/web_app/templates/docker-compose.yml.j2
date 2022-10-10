@@ -1,0 +1,6 @@
+services:
+  {{ web_app_docker.name }}:
+    image: {{ web_app_docker.image }}
+    container_name: {{ web_app_docker.name }}
+    ports:
+      - "{{ web_app_docker.ext_port }}:{{ web_app_docker.in_port }}"

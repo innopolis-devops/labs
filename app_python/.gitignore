@@ -2,8 +2,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 
 terraform.tfvars
-.terraform
-.idea
+.terraform/
+.idea/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files

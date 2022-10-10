@@ -1,0 +1,10 @@
+---
+# defaults file for web_app
+
+wipe_enabled: false
+
+web_app_docker:
+  name: python_app
+  image: e2xen/devops-pythonapp:latest
+  in_port: 80
+  ext_port: 80

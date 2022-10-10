@@ -1,4 +1,6 @@
-- name: Install Docker
+- name: Install web_app
   hosts: yacloud-vm
   roles:
-    - docker
+    - role: web_app
+      vars:
+        wipe_enabled: true

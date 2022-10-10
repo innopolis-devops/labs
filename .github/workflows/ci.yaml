@@ -3,7 +3,7 @@ jobs:
     defaults:
       run:
         working-directory: app_purescript
-    if: needs.changed-files-app_purescript.outputs.app_purescript.any_modified == 'true'
+    if: needs.changed-files-app_purescript.outputs.app_purescript == 'true'
     name: CI for app_purescript
     needs:
       - changed-files-app_purescript
@@ -32,7 +32,7 @@ jobs:
     defaults:
       run:
         working-directory: app_python
-    if: needs.changed-files-app_python.outputs.app_python.any_modified == 'true'
+    if: needs.changed-files-app_python.outputs.app_python == 'true'
     name: CI for app_python
     needs:
       - changed-files-app_python
@@ -142,7 +142,7 @@ jobs:
   changed-files-app_purescript:
     name: Check if app_purescript has any modified files
     outputs:
-      app_purescript: ${{ steps.changed-files.outputs }}
+      app_purescript: ${{ steps.changed-files.outputs.any_modified }}
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -162,7 +162,7 @@ jobs:
   changed-files-app_python:
     name: Check if app_python has any modified files
     outputs:
-      app_python: ${{ steps.changed-files.outputs }}
+      app_python: ${{ steps.changed-files.outputs.any_modified }}
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3

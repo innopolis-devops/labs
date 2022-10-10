@@ -99,7 +99,7 @@ let
         {
           name = "CI for ${app}";
           needs = [ changed-files-app_ ];
-          "if" = "needs.${changed-files-app_}.outputs.${app}.any_modified == 'true'";
+          "if" = "needs.${changed-files-app_}.outputs.${app} == 'true'";
           defaults = {
             run = {
               working-directory = app;
@@ -157,9 +157,8 @@ let
         name = "Check if ${app} has any modified files";
         runs-on = ubuntu20;
         outputs = {
-          "${app}" = expr "steps.${changed-files_}.outputs";
+          "${app}" = expr "steps.${changed-files_}.outputs.any_modified";
         };
-        # app_python: ${{ steps.changed-files-${{ env.app_python }}.outputs.any_modified }}
         steps = [
           (actions.checkout // {
             "with" = { fetch-depth = 0; };

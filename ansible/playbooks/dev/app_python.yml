@@ -1,0 +1,6 @@
+- name: Deploying Python app
+  hosts: yacloud-vm
+  become: true
+
+  roles:
+    - web_app

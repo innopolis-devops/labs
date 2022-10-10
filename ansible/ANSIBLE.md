@@ -53,7 +53,7 @@ ansible-inventory -i inventory/main.yml --list
         "hostvars": {
             "yacloud-vm": {
                 "ansible_become": true,
-                "ansible_host": "130.193.37.79",
+                "ansible_host": "62.84.113.228",
                 "ansible_user": "ubuntu"
             }
         }

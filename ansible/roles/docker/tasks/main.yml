@@ -36,7 +36,7 @@
   apt:
     name: python3-pip
 
-- name: install python sdk
+- name: install docker python sdk
   become_user: "{{ ansible_env.SUDO_USER }}"
   pip:
     name:

@@ -55,4 +55,4 @@ See this [section](../README.md#docker)
 
 ### Unit tests
 
-As `PureScript` compiles to `JavaScript` and runs in a browser I used [pytest](https://docs.pytest.org/en/7.1.x/), [selenium](https://www.selenium.dev/), [geckodriver](https://github.com/mozilla/geckodriver), and [Firefox](https://www.mozilla.org/ru/firefox/) in `headless` mode. Next, I made a unit test that checks via [bs4](https://pypi.org/project/beautifulsoup4/) if a word is present on a page sent by the server. 
+As `PureScript` compiles to `JavaScript` and runs in a browser I used [pytest](https://docs.pytest.org/en/7.1.x/), [selenium](https://www.selenium.dev/), [geckodriver](https://github.com/mozilla/geckodriver), and [Firefox](https://www.mozilla.org/ru/firefox/) in `headless` mode. Next, I made a unit test that checks via [bs4](https://pypi.org/project/beautifulsoup4/) if a word is present on a page sent by the server.

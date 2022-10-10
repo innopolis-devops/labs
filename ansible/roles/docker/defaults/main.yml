@@ -26,6 +26,10 @@ docker_compose_arch: "{{ ansible_architecture }}"
 docker_compose_url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-linux-{{ docker_compose_arch }}"
 docker_compose_path: /usr/local/bin/docker-compose
 
+docker_install_python: true
+python_docker_compose_version: "1.29.2"
+docker_version: "6.0.0"
+
 # Docker repo URL.
 docker_repo_url: https://download.docker.com/linux
 

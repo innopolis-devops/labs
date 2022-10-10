@@ -22,6 +22,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
     implementation("org.yaml:snakeyaml:1.32")
+    implementation("org.springframework.boot:spring-boot-starter-actuator:2.7.4")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

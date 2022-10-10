@@ -1,3 +1,5 @@
+# Lab 5. Install Docker
+
 ## Notes
 - Generate ssh key: `ssh-keygen -t rsa`.
 - I placed the ssh key in **ansible** folder.
@@ -157,4 +159,139 @@ server                     : ok=16   changed=6    unreachable=0    failed=0    s
         ]
     }
 }
+```
+
+# Lab 6. Deploy web app
+
+## app_python
+
+- Run `ansible-playbook playbooks/dev/app_python.yaml --diff`
+- Python app was deployed, we can check it:
+- `curl 130.193.36.150:8000` 
+  (you can also try, I hope Yandex Cloud VM won't change its IP)
+
+<img width="400" alt="2" src="https://user-images.githubusercontent.com/49106163/194933745-77ee36f6-76bd-427e-a2c4-8ab97e916c2f.png">
+
+- Also, let's open this URL in a browser: `130.193.36.150:8000` (it's magic!)
+
+<img width="600" alt="2" src="https://user-images.githubusercontent.com/49106163/194934080-0753e456-e0e2-419a-96b5-13dcad85a160.png">
+
+### Logs output (last 50 lines):
+
+```bash
+TASK [docker : Install docker libraries] *******************************************************************************************************************************************************************
+changed: [server]
+
+TASK [web_app : Include wipe if needed] ********************************************************************************************************************************************************************
+included: /Users/smore/Desktop/Innopolis/DevOps Engineering/DevOps_Innopolis/ansible/roles/web_app/tasks/0-wipe.yml for server
+
+TASK [web_app : Wipe docker compose services] **************************************************************************************************************************************************************
+fatal: [server]: FAILED! => {"changed": false, "msg": "Configuration error - \n        Can't find a suitable configuration file in this directory or any\n        parent. Are you in the right directory?\n\n        Supported filenames: docker-compose.yml, docker-compose.yaml, compose.yml, compose.yaml\n        "}
+...ignoring
+
+TASK [web_app : Wipe a base path] **************************************************************************************************************************************************************************
+ok: [server]
+
+TASK [web_app : Create a directory of application] *********************************************************************************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/app_python",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [server]
+
+TASK [web_app : Docker compose file creation] **************************************************************************************************************************************************************
+--- before
++++ after: /Users/smore/.ansible/tmp/ansible-local-7793ohzj69iz/tmpnpv_3xts/docker-compose.yml.j2
+@@ -0,0 +1,9 @@
++version: "3.9"
++
++services:
++  app_python:
++    image: smorenapi/app_python:latest
++    container_name: app_python
++    ports:
++      - "8000:8000"
++    restart: always
+
+changed: [server]
+
+TASK [web_app : Run all services] **************************************************************************************************************************************************************************
+changed: [server]
+
+PLAY RECAP *************************************************************************************************************************************************************************************************
+server                     : ok=22   changed=5    unreachable=0    failed=0    skipped=14   rescued=0    ignored=1 
+```
+
+## app_kotlin
+
+- Run `ansible-playbook playbooks/dev/app_kotlin.yaml --diff`
+- Python app was deployed, we can check it:
+- `curl 130.193.36.150:8080`
+  (you can also try, I hope Yandex Cloud VM won't change its IP)
+
+<img width="400" alt="2" src="https://user-images.githubusercontent.com/49106163/194933745-77ee36f6-76bd-427e-a2c4-8ab97e916c2f.png">
+
+- Also, let's open this URL in a browser: `130.193.36.150:8080` (it's magic!)
+
+<img width="600" alt="2" src="https://user-images.githubusercontent.com/49106163/194934080-0753e456-e0e2-419a-96b5-13dcad85a160.png">
+
+### Logs output (last 50 lines):
+
+```bash
+TASK [web_app : Include wipe if needed] ********************************************************************************************************************************************************************
+included: /Users/smore/Desktop/Innopolis/DevOps Engineering/DevOps_Innopolis/ansible/roles/web_app/tasks/0-wipe.yml for server
+
+TASK [web_app : Wipe docker compose services] **************************************************************************************************************************************************************
+fatal: [server]: FAILED! => {"changed": false, "msg": "Configuration error - \n        Can't find a suitable configuration file in this directory or any\n        parent. Are you in the right directory?\n\n        Supported filenames: docker-compose.yml, docker-compose.yaml, compose.yml, compose.yaml\n        "}
+...ignoring
+
+TASK [web_app : Wipe a base path] **************************************************************************************************************************************************************************
+ok: [server]
+
+TASK [web_app : Create a directory of application] *********************************************************************************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/app_kotlin",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [server]
+
+TASK [web_app : Docker compose file creation] **************************************************************************************************************************************************************
+--- before
++++ after: /Users/smore/.ansible/tmp/ansible-local-10308gavlj9ch/tmpht4p1xk9/docker-compose.yml.j2
+@@ -0,0 +1,17 @@
++version: "3.9"
++
++services:
++  app_kotlin:
++    image: smorenapi/app_kotlin:latest
++    container_name: app_kotlin
++    ports:
++      - "8080:8080"
++    restart: always
++    healthcheck:
++       test:
++         - CMD-SHELL
++         - wget --no-verbose --tries=1 -O /dev/null http://localhost:8080/healthcheck || exit 1
++       interval: 1m30s
++       timeout: 10s
++       retries: 3
++       start_period: 5s
+
+changed: [server]
+
+TASK [web_app : Run all services] **************************************************************************************************************************************************************************
+changed: [server]
+
+PLAY RECAP *************************************************************************************************************************************************************************************************
+server                     : ok=22   changed=3    unreachable=0    failed=0    skipped=14   rescued=0    ignored=1  
 ```

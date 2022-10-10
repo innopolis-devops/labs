@@ -34,7 +34,7 @@ The application was developed in two programming languages:
 - Open your terminal
 - `git clone https://github.com/SMore-Napi/DevOps_Innopolis.git`
 - `cd DevOps_Innopolis`
-- `git checkout lab5`
+- `git checkout lab6`
 
 ### Python build
 
@@ -144,12 +144,25 @@ The application was developed in two programming languages:
 
 ![Web App](https://user-images.githubusercontent.com/49106163/188318587-e71e43a8-8bdf-46f3-a29f-f2377f4b5e86.png)
 
+- Also, you can use
+  [http://127.0.0.1:8000/healthcheck](http://127.0.0.1:8000/healthcheck)
+  endpoint as a metric:
+
+![Web App Healthcheck](https://user-images.githubusercontent.com/49106163/194942463-a822beb7-a420-4f75-a5bc-892353b81f48.png)
+
+
 ### Kotlin usage
 
 - Run the application and open this URL in your browser: [http://127.0.0.1:8080](http://127.0.0.1:8080)
 - Each time when you refresh a page you will see the actual Moscow time
 
 ![Web App](https://user-images.githubusercontent.com/49106163/188326480-63eefcee-88fc-4692-a234-85f34d5afd65.png)
+
+- Also, you can use
+  [http://127.0.0.1:8080/healthcheck](http://127.0.0.1:8080/healthcheck)
+  endpoint as a metric:
+
+![Web App Healthcheck](https://user-images.githubusercontent.com/49106163/194942565-61d4fdd2-8547-445a-94bd-34d9f83d83ec.png)
 
 ## Unit tests
 

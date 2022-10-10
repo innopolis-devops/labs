@@ -252,6 +252,93 @@ aws_instance.app_server: Creation complete after 56s [id=i-01a240d9c9ed3934d]
 
 Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 ```
+Output of `terraform show`
+```
+# aws_instance.app_server:
+resource "aws_instance" "app_server" {
+    ami                                  = "ami-830c94e3"
+    arn                                  = "arn:aws:ec2:us-west-2:950605125116:instance/i-01a240d9c9ed3934d"    
+    associate_public_ip_address          = true
+    availability_zone                    = "us-west-2a"
+    cpu_core_count                       = 1
+    cpu_threads_per_core                 = 1
+    disable_api_stop                     = false
+    disable_api_termination              = false
+    ebs_optimized                        = false
+    get_password_data                    = false
+    hibernation                          = false
+    id                                   = "i-01a240d9c9ed3934d"
+    instance_initiated_shutdown_behavior = "stop"
+    instance_state                       = "running"
+    instance_type                        = "t2.micro"
+    ipv6_address_count                   = 0
+    ipv6_addresses                       = []
+    monitoring                           = false
+    primary_network_interface_id         = "eni-0c1d58d2b3b64e588"
+    private_dns                          = "ip-172-31-22-237.us-west-2.compute.internal"
+    private_ip                           = "172.31.22.237"
+    public_dns                           = "ec2-35-92-46-168.us-west-2.compute.amazonaws.com"
+    public_ip                            = "35.92.46.168"
+    secondary_private_ips                = []
+    security_groups                      = [
+        "default",
+    ]
+    source_dest_check                    = true
+    subnet_id                            = "subnet-064debad51435aa72"
+    tags                                 = {
+        "Name" = "AppServerInstance"
+    }
+    tags_all                             = {
+        "Name" = "AppServerInstance"
+    }
+    tenancy                              = "default"
+    user_data_replace_on_change          = false
+    vpc_security_group_ids               = [
+        "sg-0586a33d36fdf3961",
+    ]
+
+    capacity_reservation_specification {
+        capacity_reservation_preference = "open"
+    }
+
+    credit_specification {
+        cpu_credits = "standard"
+    }
+
+    enclave_options {
+        enabled = false
+    }
+
+    maintenance_options {
+        auto_recovery = "default"
+    }
+
+    metadata_options {
+        http_endpoint               = "enabled"
+        http_put_response_hop_limit = 1
+        http_tokens                 = "optional"
+        instance_metadata_tags      = "disabled"
+    }
+
+    private_dns_name_options {
+        enable_resource_name_dns_a_record    = false
+        enable_resource_name_dns_aaaa_record = false
+        hostname_type                        = "ip-name"
+    }
+
+    root_block_device {
+        delete_on_termination = true
+        device_name           = "/dev/sda1"
+        encrypted             = false
+        iops                  = 0
+        tags                  = {}
+        throughput            = 0
+        volume_id             = "vol-0a91ed7f5036f789d"
+        volume_size           = 8
+        volume_type           = "standard"
+    }
+}
+```
 Output of `terraform state list` - `aws_instance.app_server`
 
 ## Github steps and output

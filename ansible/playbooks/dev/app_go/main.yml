@@ -1,0 +1,8 @@
+- hosts: yacloud
+  become: true
+  remote_user: ubuntu
+  vars:
+    docker_image_name: "devops_app_go"
+    docker_ports: "8080:8080"
+  roles:
+    - web_app

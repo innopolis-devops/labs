@@ -3,3 +3,5 @@ docker_user: "ilyakolomin"
 docker_tag: "latest"
 
 docker_ports: "8000:8000"
+
+web_app_full_wipe: true

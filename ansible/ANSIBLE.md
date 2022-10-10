@@ -149,3 +149,62 @@ ilya-vm                    : ok=15   changed=5    unreachable=0    failed=0    s
 }
 
 ```
+
+## Lab 6
+
+```
+TASK [docker : include_tasks] **********************************************************************************************************************************************
+skipping: [ilya-vm]
+
+TASK [web_app : Get running containers] ************************************************************************************************************************************
+ok: [ilya-vm]
+
+TASK [web_app : Stop running containers] ***********************************************************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "exists": true,
+-    "running": true
++    "exists": false,
++    "running": false
+ }
+
+changed: [ilya-vm] => (item=4340c48936df09bc120563de29fd6a50b9e623f0db97ec6c7e25cc06b85a53d8)
+
+TASK [web_app : Remove images] *********************************************************************************************************************************************
+changed: [ilya-vm] => (item=sha256:23c15ff1d1d39a2f3382b0f59244ce055a588cc6e83c02a744aa8f941394d44a)
+
+TASK [web_app : Remove previous configuration] *****************************************************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/etc/docker-compose.yml",
+-    "state": "file"
++    "state": "absent"
+ }
+
+changed: [ilya-vm]
+
+TASK [web_app : Template a docker-compose.yml to /etc/] ********************************************************************************************************************
+--- before
++++ after: /Users/ilya/.ansible/tmp/ansible-local-890264bbgi0wt/tmpj_5_f61u/docker-compose.yml.j2
+@@ -0,0 +1,5 @@
++services:
++  web:
++    image: "ilyakolomin/devops_app_python:latest"
++    ports:
++        - 8000:8000
+
+changed: [ilya-vm]
+
+TASK [web_app : Create and start web service] ******************************************************************************************************************************
+changed: [ilya-vm]
+
+PLAY RECAP *****************************************************************************************************************************************************************
+ilya-vm                    : ok=20   changed=5    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0   
+```
+
+![](https://i.imgur.com/QCYl7Dy.png)
+_The docker is deployed_

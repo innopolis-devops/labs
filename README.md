@@ -10,7 +10,7 @@
 
 ### app_purescript
 
-- [PYTHON.md](./app_purescript/PURESCRIPT.md)
+- [PURESCRIPT.md](./app_purescript/PURESCRIPT.md)
 
 ### Docker
 

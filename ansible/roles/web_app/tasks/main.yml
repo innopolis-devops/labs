@@ -3,15 +3,15 @@
   when: web_app_full_wipe | bool
   tags: ["web_app", "wipe"]
 
-- name: Deploy time app
+- name: Deploying application
   block:
-  - name: Create a directory if it does not exist
+  - name: Create a directory 
     ansible.builtin.file:
       path: "{{ base_path }}"
       state: directory
       mode: '0755'
 
-  - name: Create docker compose
+  - name: Docker compose installation
     ansible.builtin.template:
       src: docker-compose.yml
       dest: "{{base_path}}/docker-compose.yml"
@@ -19,7 +19,7 @@
       group: root
       mode: '600'
 
-  - name: Run docker compose services
+  - name: Run docker compose
     community.docker.docker_compose:
       project_src: "{{base_path}}"
       state: present

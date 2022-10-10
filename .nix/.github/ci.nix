@@ -241,7 +241,7 @@ let
         {
           name = "Push ${app} to Docker Hub";
           needs = [ changed-files-app_ ];
-          "if" = "needs.${changed-files-app_}.outputs.${app}.any_changed == 'true'";
+          "if" = "needs.${changed-files-app_}.outputs.${app} == 'true'";
           runs-on = ubuntu20;
           steps = [
             actions.checkout

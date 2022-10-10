@@ -1,5 +1,208 @@
 # Ansible
 
+
+## Lab 6
+
+```
+┌──(kali㉿kali)-[~/repos/inno_devops/ansible]
+└─$ ansible-playbook playbooks/dev/main.yml --diff
+
+PLAY [all] **********************************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************
+ok: [51.250.14.185]
+
+TASK [docker : Update apt repo and cache] ***************************************************************************
+changed: [51.250.14.185]
+
+TASK [docker : Install Python pip] **********************************************************************************
+The following additional packages will be installed:
+  build-essential bzip2 cpp cpp-11 dpkg-dev fakeroot fontconfig-config
+  fonts-dejavu-core g++ g++-11 gcc gcc-11 gcc-11-base javascript-common
+  libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl
+  libasan6 libatomic1 libc-dev-bin libc-devtools libc6-dev libcc1-0
+  libcrypt-dev libdeflate0 libdpkg-perl libexpat1-dev libfakeroot
+  libfile-fcntllock-perl libfontconfig1 libgcc-11-dev libgd3 libgomp1 libisl23
+  libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libjs-jquery libjs-sphinxdoc
+  libjs-underscore liblsan0 libmpc3 libnsl-dev libpython3-dev
+  libpython3-stdlib libpython3.10 libpython3.10-dev libpython3.10-minimal
+  libpython3.10-stdlib libquadmath0 libstdc++-11-dev libtiff5 libtirpc-dev
+  libtsan0 libubsan1 libwebp7 libxpm4 linux-libc-dev lto-disabled-list make
+  manpages-dev python3 python3-dev python3-distutils python3-lib2to3
+  python3-minimal python3-wheel python3.10 python3.10-dev python3.10-minimal
+  rpcsvc-proto zlib1g-dev
+Suggested packages:
+  bzip2-doc cpp-doc gcc-11-locales debian-keyring g++-multilib g++-11-multilib
+  gcc-11-doc gcc-multilib autoconf automake libtool flex bison gdb gcc-doc
+  gcc-11-multilib apache2 | lighttpd | httpd glibc-doc bzr libgd-tools
+  libstdc++-11-doc make-doc python3-doc python3-tk python3-venv
+  python3.10-venv python3.10-doc binfmt-support
+The following NEW packages will be installed:
+  build-essential bzip2 cpp cpp-11 dpkg-dev fakeroot fontconfig-config
+  fonts-dejavu-core g++ g++-11 gcc gcc-11 gcc-11-base javascript-common
+  libalgorithm-diff-perl libalgorithm-diff-xs-perl libalgorithm-merge-perl
+  libasan6 libatomic1 libc-dev-bin libc-devtools libc6-dev libcc1-0
+  libcrypt-dev libdeflate0 libdpkg-perl libexpat1-dev libfakeroot
+  libfile-fcntllock-perl libfontconfig1 libgcc-11-dev libgd3 libgomp1 libisl23
+  libitm1 libjbig0 libjpeg-turbo8 libjpeg8 libjs-jquery libjs-sphinxdoc
+  libjs-underscore liblsan0 libmpc3 libnsl-dev libpython3-dev
+  libpython3.10-dev libquadmath0 libstdc++-11-dev libtiff5 libtirpc-dev
+  libtsan0 libubsan1 libwebp7 libxpm4 linux-libc-dev lto-disabled-list make
+  manpages-dev python3-dev python3-pip python3-wheel python3.10-dev
+  rpcsvc-proto zlib1g-dev
+The following packages will be upgraded:
+  libpython3-stdlib libpython3.10 libpython3.10-minimal libpython3.10-stdlib
+  python3 python3-distutils python3-lib2to3 python3-minimal python3.10
+  python3.10-minimal
+10 upgraded, 64 newly installed, 0 to remove and 25 not upgraded.
+changed: [51.250.14.185]
+
+TASK [docker : Install docker sdk and docker-compose] ***************************************************************
+changed: [51.250.14.185]
+
+TASK [geerlingguy.docker : Load OS-specific vars.] ******************************************************************
+ok: [51.250.14.185]
+
+TASK [geerlingguy.docker : include_tasks] ***************************************************************************
+skipping: [51.250.14.185]
+
+TASK [geerlingguy.docker : include_tasks] ***************************************************************************
+included: /home/kali/.ansible/roles/geerlingguy.docker/tasks/setup-Debian.yml for 51.250.14.185
+
+TASK [geerlingguy.docker : Ensure old versions of Docker are not installed.] ****************************************
+ok: [51.250.14.185]
+
+TASK [geerlingguy.docker : Ensure dependencies are installed.] ******************************************************
+The following NEW packages will be installed:
+  apt-transport-https
+0 upgraded, 1 newly installed, 0 to remove and 25 not upgraded.
+changed: [51.250.14.185]
+
+TASK [geerlingguy.docker : Ensure additional dependencies are installed (on Ubuntu < 20.04 and any other systems).] ***
+skipping: [51.250.14.185]
+
+TASK [geerlingguy.docker : Ensure additional dependencies are installed (on Ubuntu >= 20.04).] **********************
+ok: [51.250.14.185]
+
+TASK [geerlingguy.docker : Add Docker apt key.] *********************************************************************
+[WARNING]: Module remote_tmp /root/.ansible/tmp did not exist and was created with a mode of 0700, this may cause
+issues when running as another user. To avoid this, create the remote_tmp dir with the correct permissions manually
+changed: [51.250.14.185]
+
+TASK [geerlingguy.docker : Ensure curl is present (on older systems without SNI).] **********************************
+skipping: [51.250.14.185]
+
+TASK [geerlingguy.docker : Add Docker apt key (alternative for older systems without SNI).] *************************
+skipping: [51.250.14.185]
+
+TASK [geerlingguy.docker : Add Docker repository.] ******************************************************************
+--- before: /dev/null
++++ after: /etc/apt/sources.list.d/download_docker_com_linux_ubuntu.list
+@@ -0,0 +1 @@
++deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
+
+changed: [51.250.14.185]
+
+TASK [geerlingguy.docker : Install Docker packages.] ****************************************************************
+skipping: [51.250.14.185]
+
+TASK [geerlingguy.docker : Install Docker packages (with downgrade option).] ****************************************
+The following additional packages will be installed:
+  docker-scan-plugin libltdl7 libslirp0 pigz slirp4netns
+Suggested packages:
+  aufs-tools cgroupfs-mount | cgroup-lite
+The following NEW packages will be installed:
+  containerd.io docker-ce docker-ce-cli docker-ce-rootless-extras
+  docker-scan-plugin libltdl7 libslirp0 pigz slirp4netns
+0 upgraded, 9 newly installed, 0 to remove and 25 not upgraded.
+changed: [51.250.14.185]
+
+TASK [geerlingguy.docker : Install docker-compose plugin.] **********************************************************
+skipping: [51.250.14.185]
+
+TASK [geerlingguy.docker : Install docker-compose-plugin (with downgrade option).] **********************************
+skipping: [51.250.14.185]
+
+TASK [geerlingguy.docker : Ensure /etc/docker/ directory exists.] ***************************************************
+skipping: [51.250.14.185]
+
+TASK [geerlingguy.docker : Configure Docker daemon options.] ********************************************************
+skipping: [51.250.14.185]
+
+TASK [geerlingguy.docker : Ensure Docker is started and enabled at boot.] *******************************************
+ok: [51.250.14.185]
+
+TASK [geerlingguy.docker : Ensure handlers are notified now to avoid firewall conflicts.] ***************************
+
+RUNNING HANDLER [geerlingguy.docker : restart docker] ***************************************************************
+changed: [51.250.14.185]
+
+TASK [geerlingguy.docker : include_tasks] ***************************************************************************
+included: /home/kali/.ansible/roles/geerlingguy.docker/tasks/docker-compose.yml for 51.250.14.185
+
+TASK [geerlingguy.docker : Check current docker-compose version.] ***************************************************
+ok: [51.250.14.185]
+
+TASK [geerlingguy.docker : set_fact] ********************************************************************************
+ok: [51.250.14.185]
+
+TASK [geerlingguy.docker : Delete existing docker-compose version if it's different.] *******************************
+--- before
++++ after
+@@ -1,2 +1,2 @@
+ path: /usr/local/bin/docker-compose
+-state: file
++state: absent
+
+changed: [51.250.14.185]
+
+TASK [geerlingguy.docker : Install Docker Compose (if configured).] *************************************************
+changed: [51.250.14.185]
+
+TASK [geerlingguy.docker : Get docker group info using getent.] *****************************************************
+skipping: [51.250.14.185]
+
+TASK [geerlingguy.docker : Check if there are any users to add to the docker group.] ********************************
+
+TASK [geerlingguy.docker : include_tasks] ***************************************************************************
+skipping: [51.250.14.185]
+
+TASK [web_app : Wipe web app] ***************************************************************************************
+skipping: [51.250.14.185]
+
+TASK [web_app : Create web app dir] *********************************************************************************
+--- before
++++ after
+@@ -1,2 +1,2 @@
+ path: /opt/web_app
+-state: absent
++state: directory
+
+changed: [51.250.14.185]
+
+TASK [web_app : Template the docker-compose.yml] ********************************************************************
+--- before
++++ after: /home/kali/.ansible/tmp/ansible-local-890750hmxc8wbm/tmpuyz8f1tq/docker-compose.yml.j2
+@@ -0,0 +1,8 @@
++version: '3.4'
++
++services:
++  app_moscow:
++    image: boggda1337/moscow_app:latest
++    restart: on-failure
++    ports:
++      - "8000:8000"
+
+changed: [51.250.14.185]
+
+TASK [web_app : Run docker-compose services] ************************************************************************
+changed: [51.250.14.185]
+
+PLAY RECAP **********************************************************************************************************
+51.250.14.185              : ok=22   changed=13   unreachable=0    failed=0    skipped=13   rescued=0    ignored=0   
+```
+
+## Lab 5
  - `ansible-playbook playbooks/dev/main.yml --diff`:
     ```
     PLAY [all] **********************************************************************************************************

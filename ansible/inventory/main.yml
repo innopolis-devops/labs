@@ -2,7 +2,7 @@ all:
   children:
     ycloud:
       hosts:
-        51.250.81.82:
+        51.250.14.185:
   vars:
     ansible_user: ubuntu
     ansible_ssh_private_key_file: ~/.ssh/yc_key

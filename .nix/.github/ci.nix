@@ -99,7 +99,7 @@ let
         {
           name = "CI for ${app}";
           needs = [ changed-files-app_ ];
-          "if" = "needs.${changed-files-app_}.outputs.${app}.any_changed == 'true'";
+          "if" = "needs.${changed-files-app_}.outputs.${app}.any_modified == 'true'";
           defaults = {
             run = {
               working-directory = app;
@@ -157,7 +157,7 @@ let
         name = "Check if ${app} has any modified files";
         runs-on = ubuntu20;
         outputs = {
-          "${app}" = expr "steps.${changed-files_}.outputs.any_modified";
+          "${app}" = expr "steps.${changed-files_}.outputs";
         };
         # app_python: ${{ steps.changed-files-${{ env.app_python }}.outputs.any_modified }}
         steps = [
@@ -175,7 +175,7 @@ let
           }
           {
             name = "List changed files";
-            "if" = "steps.${changed-files_}.outputs.any_changed == 'true'";
+            "if" = "steps.${changed-files_}.outputs.any_modified == 'true'";
             run = ''
               echo "One or more files in the docs folder has changed."
               echo "List all the files that have changed: ${expr "steps.${changed-files_}.outputs.all_changed_files" }"

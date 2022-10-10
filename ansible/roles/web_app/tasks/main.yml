@@ -1,29 +1,27 @@
----
-- name: Wiping
-  ansible.builtin.import_tasks: 0-wipe.yml
+- name: Include wipe if needed
+  ansible.builtin.include_tasks: 0-wipe.yml
   when: web_app_full_wipe | bool
   tags: ["web_app", "wipe"]
 
-- name: Deploy web app
+- name: Deploy time app
   block:
-
-  - name: Create a directory if it doesn't exist
+  - name: Create a directory if it does not exist
     ansible.builtin.file:
-      path: "{{ base_path }}"
+      path: "{{ web_app_base_path }}"
       state: directory
-      mode: '0700'
+      mode: '0755'
 
-  - name: Template, validate, and copy compose file
+  - name: Create docker compose
     ansible.builtin.template:
-      src: "docker-compose.yml.j2"
-      dest: "{{ base_path }}/docker-compose.yml"
-      mode: "600"
-      validate: docker compose -f %s config
+      src: docker-compose.yml
+      dest: "{{web_app_base_path}}/docker-compose.yml"
+      owner: root
+      group: root
+      mode: '600'
 
-  - name: Start all services
+  - name: Run docker compose services
     community.docker.docker_compose:
-      project_src: "{{ base_path }}"
+      project_src: "{{web_app_base_path}}"
       state: present
       pull: true
-
   tags: ["web_app"]

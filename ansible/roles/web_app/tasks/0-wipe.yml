@@ -13,4 +13,4 @@
       path: "{{ base_path }}"
       state: absent
   
-  tags: ["wipe"]
+  tags: ["wipe", "web_app"]

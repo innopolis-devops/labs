@@ -41,3 +41,5 @@ docker_users: []
 
 # Docker daemon options as a dict
 docker_daemon_options: {}
+
+docker_install_pip_libs: false

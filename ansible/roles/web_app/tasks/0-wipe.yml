@@ -5,6 +5,8 @@
       ansible.builtin.docker_compose:
         project_src: "{{ web_app_path }}"
         state: absent
+        remove_volumes: true
+      ignore_errors: true
 
     - name: Remove app content
       file:

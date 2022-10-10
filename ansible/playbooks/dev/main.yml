@@ -5,4 +5,4 @@
     docker_install_compose: false
   roles:
     - geerlingguy.docker
-    - '../../roles/timeweb'
+    - '../../roles/web_app'

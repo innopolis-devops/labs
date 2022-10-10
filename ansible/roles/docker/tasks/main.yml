@@ -10,29 +10,6 @@
       paths:
         - 'vars'
 
-- name: pip docker
-  block:
-
-  - name: pip installation
-    package:
-      name: "python3-pip"
-      state: "present"
-
-  - name: docker installation
-    pip:
-      name: [ "docker", "docker-compose" ]
-
-  - name: docker compose installation
-    pip:
-      name: docker-compose
-
-
-- include_tasks: setup-RedHat.yml
-  when: ansible_os_family == 'RedHat'
-
-- include_tasks: setup-Debian.yml
-  when: ansible_os_family == 'Debian'
-
 - name: Install Docker packages.
   package:
     name: "{{ docker_packages }}"
@@ -57,7 +34,6 @@
   notify: restart docker
   ignore_errors: "{{ ansible_check_mode }}"
   when: "docker_install_compose_plugin | bool == true and (ansible_version.full is version_compare('2.12', '<') or ansible_os_family not in ['RedHat', 'Debian'])"
-
 
 - name: Install docker-compose-plugin (with downgrade option).
   package:
@@ -96,6 +72,9 @@
 
 - include_tasks: docker-compose.yml
   when: docker_install_compose | bool
+
+- include_tasks: docker-python.yml
+  when: docker_install_python | bool
 
 - name: Get docker group info using getent.
   getent:

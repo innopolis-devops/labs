@@ -24,6 +24,6 @@
     community.docker.docker_compose:
       project_src: "{{ web_app_base_path }}"
       state: present
-      pull: true
+      pull: yes
   
   tags: ["web_app"]

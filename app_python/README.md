@@ -51,9 +51,20 @@ if you build it locally type next:
 `docker run -d --publish 8000:5000 --name clock-server clock-clock:v1.0.0`
 4. Access the website `localhost:8000`
 ### Unit tests
-to start unit tests go to the `tests` directory,
-then choose the file with tests you like and run:
-`pytest <test_file.py>` 
+go to root directory and simply type:
+`pytest` 
+output may look like this:
+```
+============================================= test session starts =============================================
+platform win32 -- Python 3.8.10, pytest-7.1.3, pluggy-1.0.0
+rootdir: C:\Users\amira\PycharmProjects\devops-labs
+collected 7 items
+
+app_python\tests\test_logic.py ..                                                                        [ 28%]
+app_python\tests\test_views.py .....                                                                     [100%]
+
+============================================== 7 passed in 0.49s ============================================== 
+```
 ### Use case
 app is available by `localhost:8000`, to view specific timezone one can
 address next url `localhost:8000/Europe-Moscow` that will show moscow time

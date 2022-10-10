@@ -1,0 +1,16 @@
+---
+- name: Deploy app
+  hosts: VM1
+
+  vars:
+    web_app_name: "app_javascript"
+    web_app_image:
+      registry: "kamilakhamidullina"
+      name: "devops_lab2_bonus"
+      tag: "latest"
+    web_app_port:
+      internal: 8000
+      external: 81
+
+  roles:
+    - web_app

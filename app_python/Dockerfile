@@ -4,14 +4,20 @@ WORKDIR /app
 
 RUN ["adduser", "--system", "--group", "moscower"]
 
-USER moscower
+ENV USERNAME moscower
+USER ${USERNAME}
+
+ENV PATH /home/${USERNAME}/.local/bin:${PATH}
 
 COPY ./requirements.txt /app/requirements.txt
 RUN ["pip", "install", "--no-cache-dir", "--upgrade", "-r", "/app/requirements.txt"]
 
-COPY ./app /app
+COPY ./app /app/app
 COPY ./templates /app/templates
 
-EXPOSE 80
+HEALTHCHECK --interval=1m --timeout=3s \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8000/ || exit 1
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+EXPOSE 8000
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

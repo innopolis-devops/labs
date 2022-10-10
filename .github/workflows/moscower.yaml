@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
     paths:
       - app_python/**
-      - .github/workflows/moscower.yml
+      - .github/workflows/moscower.yaml
 
 defaults:
   run:

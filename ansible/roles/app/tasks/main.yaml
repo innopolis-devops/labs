@@ -1,0 +1,27 @@
+- name: Wipe
+  ansible.builtin.import_tasks: wipe.yaml
+  when: app_full_wipe | bool
+  tags: ["app", "app_wipe"]
+
+- name: Deploy app
+  block:
+
+  - name: Create a directory if it doesn't exist
+    ansible.builtin.file:
+      path: "{{ app_base_path }}"
+      state: directory
+      mode: '0700'
+
+  - name: Template, validate, and copy compose file
+    ansible.builtin.template:
+      src: "docker-compose.yaml.j2"
+      dest: "{{ app_base_path }}/docker-compose.yaml"
+      mode: "600"
+
+  - name: Start all services
+    community.docker.docker_compose:
+      project_src: "{{ app_base_path }}"
+      state: present
+      pull: true
+
+  tags: ["app"]

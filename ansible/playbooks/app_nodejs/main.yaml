@@ -1,0 +1,11 @@
+name: app_nodejs
+hosts: all
+become: yes
+roles:
+  - role: app
+    app_base_dir: /app_nodejs
+    app:
+      image: afonya2001/devops
+      external_port: 8080
+      internal_port: 8080
+    app_name: app_nodejs

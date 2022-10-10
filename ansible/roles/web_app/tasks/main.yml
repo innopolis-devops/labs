@@ -1,16 +1,32 @@
 ---
-- name: Install pip
-  apt:
-    name: python3-pip
-    update_cache: true
-    state: present
-- name: Install docker-compose
-  pip:
-    name: docker-compose
-- name: Start the timeweb container
-  become: yes
-  docker_container:
-    image: "{{ image_name }}"
-    name: "{{ container_name  }}"
-    ports: '{{ container_ports }}'
-    state: 'started'
+- name: Install pip, docker-compose, run timeweb
+  tags: install
+  when: web_app_full_wipe != true
+  block:
+    - name: Install pip
+      apt:
+        name: python3-pip
+        update_cache: true
+        state: present
+    - name: Install docker-compose
+      pip:
+        name: docker-compose
+    - name: Create app dir
+      become: yes
+      file:
+        path: '{{ docker_compose_path }}'
+        state: directory
+        mode: '0755'
+    - name: Create docker-compose.yml
+      become: yes
+      template:
+        src: 'docker-compose.yml.j2'
+        dest: '{{ docker_compose_path }}/docker-compose.yml'
+    - name: Start the timeweb docker-compose
+      become: yes
+      community.docker.docker_compose:
+        project_src: '{{ docker_compose_path }}'
+        state: present
+
+- name: Import wipe task
+  import_tasks: 0-wipe.yml

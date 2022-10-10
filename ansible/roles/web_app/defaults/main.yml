@@ -3,3 +3,5 @@ image_name: 'passkeyra/timeweb:latest'
 container_name: 'timeweb'
 container_ports:
   - '50000:50000'
+web_app_full_wipe: false
+docker_compose_path: /app

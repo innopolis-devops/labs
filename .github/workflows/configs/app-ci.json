@@ -1,0 +1,12 @@
+{
+    "app_purescript": {
+        "app": "app_purescript",
+        "snyk-language": "node",
+        "snyk-language-title": "(Node.js)"
+    },
+    "app_python": {
+        "app": "app_python",
+        "snyk-language": "python",
+        "snyk-language-title": ""
+    }
+}

@@ -1,5 +1,7 @@
 # Ansible
 
+## lab5 
+
 ### 50 last lines of the output of the your deployment command 
 
 After Running ```ansible-playbook playbooks/dev/main.yml --diff```
@@ -74,5 +76,69 @@ vm1                        : ok=16   changed=6    unreachable=0    failed=0    s
             ]
         },
     }
+
+``` 
+```
+
+## Lab 6
+
+The final output: ( around 50 lines)
+
+```
+
+TASK [web_app : Remove app directory] *********************************************************************************************************************************************************************
+--- before
++++ after
+@@ -1,10 +1,4 @@
+ {
+     "path": "/opt/py_app",
+-    "path_content": {
+-        "directories": [],
+-        "files": [
+-            "/opt/py_app/docker-compose.yml"
+-        ]
+-    },
+-    "state": "directory"
++    "state": "absent"
+ }
+
+changed: [vm1]
+
+TASK [web_app : Start Docker service] *********************************************************************************************************************************************************************
+ok: [vm1]
+
+TASK [web_app : Create app directory] *********************************************************************************************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/py_app",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [vm1]
+
+TASK [web_app : Template a docker file] *******************************************************************************************************************************************************************
+--- before
++++ after: /home/khalil/.ansible/tmp/ansible-local-44005ww46rmts/tmp1851bk5z/docker-compose.yml.j2
+@@ -0,0 +1,9 @@
++version: "3.9"
++
++services:
++  py_app:
++    image: mkhalil99/py_app:latest
++    container_name: py_app
++    ports:
++      - "8000:8000"
++    restart: always
+
+changed: [vm1]
+
+TASK [web_app : Start all services] ***********************************************************************************************************************************************************************
+changed: [vm1]
+
+PLAY RECAP ************************************************************************************************************************************************************************************************
+vm1                        : ok=22   changed=5    unreachable=0    failed=0    skipped=14   rescued=0    ignored=0   
 
 ```

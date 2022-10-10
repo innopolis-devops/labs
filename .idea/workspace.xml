@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5d46bee0-755e-40ed-bb78-7aff55b19228" name="Changes" comment="" />
+    <list default="true" id="5d46bee0-755e-40ed-bb78-7aff55b19228" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ansible/ANSIBLE.md" beforeDir="false" afterPath="$PROJECT_DIR$/ansible/ANSIBLE.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ansible/playbooks/docker.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ansible/roles/danone/tasks/main.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ansible/roles/danone/tasks/main.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,6 +24,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ansible/roles/web_app" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ansible/roles/web_app" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -29,10 +40,24 @@
       <option name="presentableId" value="Default" />
       <updated>1664829682930</updated>
       <workItem from="1664829685330" duration="6000" />
+      <workItem from="1665354718146" duration="5643000" />
+      <workItem from="1665370810319" duration="18000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

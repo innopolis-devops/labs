@@ -24,7 +24,7 @@
       ansible.builtin.file:
         path: /etc/docker-compose.yml
         state: absent
-  tags: ['wipe']
+  tags: ['web_app']
 
 - name: Deploy docker
   block:

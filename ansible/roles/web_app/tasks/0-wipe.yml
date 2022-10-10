@@ -1,16 +1,14 @@
----
-- name: Wipe
+- name: Wipe 
   block:
-  - name: Stop all services
+  - name: Wipe docker 
     community.docker.docker_compose:
-      project_src: "{{ base_path }}"
+      project_src: "{{web_app_base_path}}"
       state: absent
       remove_volumes: true
-      ignore_errors: true
+    ignore_errors: true
 
-  - name: Remove app directory
+  - name: Wipe a base path
     ansible.builtin.file:
-      path: "{{ base_path }}"
+      path: "{{web_app_base_path }}"
       state: absent
-
-  tags: ["wipe"]
+  tag: ["wipe"]

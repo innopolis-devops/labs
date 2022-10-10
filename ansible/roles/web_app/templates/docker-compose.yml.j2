@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  python_app:
+    image: {{ registry }}/{{ image }}:{{ image_tag }}
+    volumes: 
+      - app-data:/home/app/data
+    ports:
+      - "{{ app_http_port }}:8000"
+    restart: always
+
+volumes:
+  app-data:

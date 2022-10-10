@@ -1,0 +1,5 @@
+- name: docker image
+  hosts: host
+  become: true
+  roles:
+    - web_app

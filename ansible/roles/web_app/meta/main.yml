@@ -1,0 +1,14 @@
+---
+dependencies: [docker]
+
+galaxy_info:
+  role_name: app_python
+  author: nailyav
+  description: Prepared CD process for my application for Ubuntu.
+  company: "Innopolis University"
+  license: "license (Apache)"
+  min_ansible_version: 2.11.4
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic

@@ -1,8 +1,10 @@
 # Ansible
 
-## With static inventory file
+## Lab 5
 
-### `ansible-playbook playbooks/dev/main.yml --diff -i inventory/default.yml --private-key=~/.ssh/id_rsa_app_server`
+### With static inventory file
+
+#### `ansible-playbook playbooks/dev/main.yml --diff -i inventory/default.yml --private-key=~/.ssh/id_rsa_app_server`
 
     ...
 
@@ -63,7 +65,7 @@
     PLAY RECAP *****************************************************************************************************************************************************
     vm1                        : ok=15   changed=6    unreachable=0    failed=0    skipped=11   rescued=0    ignored=0
 
-### `ansible-inventory -i inventory/default.yml --list`
+#### `ansible-inventory -i inventory/default.yml --list`
 
     {
         "_meta": {
@@ -88,9 +90,9 @@
         }
     }
 
-## With dynamic inventory file
+### With dynamic inventory file
 
-### `ansible-playbook playbooks/yacloud_compute/main.yml --diff -i inventory/yacloud_compute.yml --private-key=~/.ssh/id_rsa_app_server`
+#### `ansible-playbook playbooks/yacloud_compute/main.yml --diff -i inventory/yacloud_compute.yml --private-key=~/.ssh/id_rsa_app_server`
 
     ...
 
@@ -146,7 +148,7 @@
     PLAY RECAP ********************************************************************************************************************************************************************************
     app-server                 : ok=12   changed=0    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0
 
-### `ansible-inventory -i inventory/yacloud_compute.yml --list`
+#### `ansible-inventory -i inventory/yacloud_compute.yml --list`
 
     {
         "_meta": {
@@ -168,3 +170,62 @@
             ]
         }
     }
+
+## Lab 6
+
+### `ansible-playbook playbooks/dev/app_python/main.yml --diff -i inventory/yacloud_compute.yml --private-key=~/.ssh/id_rsa_app_server`
+
+    ...
+
+      libpython3.10-stdlib libstdc++6 python3 python3-distutils python3-lib2to3
+      python3-minimal python3.10 python3.10-minimal zlib1g
+    14 upgraded, 64 newly installed, 0 to remove and 35 not upgraded.
+    changed: [app-server]
+
+    TASK [docker : Install Docker SDK for Python3] *********************************
+    changed: [app-server]
+
+    TASK [web_app : Stop services from docker-compose] *****************************
+    skipping: [app-server]
+
+    TASK [web_app : Remove directory with app] *************************************
+    skipping: [app-server]
+
+    TASK [web_app : Start Docker] **************************************************
+    ok: [app-server]
+
+    TASK [web_app : Create directory for app] **************************************
+    --- before
+    +++ after
+    @@ -1,4 +1,4 @@
+    {
+        "path": "/opt/moscow-time-py",
+
+    - "state": "absent"
+
+    + "state": "directory"
+    }
+
+    changed: [app-server]
+
+    TASK [web_app : Use template for docker-compose file] **************************
+    --- before
+    +++ after: /home/ezio/.ansible/tmp/ansible-local-2057713n8kpcfd/tmpsb7f3njz/docker-compose.yml.j2
+    @@ -0,0 +1,9 @@
+    +version: "3.9"
+    +
+    +services:
+    - moscow-time-py:
+    - image: grommash99/moscow-time-py:latest
+    - container_name: moscow-time-py
+    - ports:
+    - - "80:8080"
+    - restart: always
+
+    changed: [app-server]
+
+    TASK [web_app : Up docker-compose] *********************************************
+    changed: [app-server]
+
+    PLAY RECAP *********************************************************************
+    app-server                 : ok=23   changed=12   unreachable=0    failed=0    skipped=13   rescued=0    ignored=0

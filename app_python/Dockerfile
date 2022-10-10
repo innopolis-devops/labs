@@ -29,6 +29,10 @@ WORKDIR /app
 COPY --from=build --chown=user:user /venv /venv
 COPY --chown=user:user . /app
 
+RUN apk add --no-cache curl=7.81.0
+
 USER user
+
+HEALTHCHECK --interval=30s --timeout=5s CMD ["curl", "http://127.0.0.1:8080"]
 
 ENTRYPOINT ["/venv/bin/python3", "/app/main.py"]

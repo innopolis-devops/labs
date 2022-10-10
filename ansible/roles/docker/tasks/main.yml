@@ -81,3 +81,19 @@
 
 - include_tasks: docker-users.yml
   when: at_least_one_user_to_modify is defined
+
+- name: Install Python3
+  package:
+    name: "python3"
+    state: present
+
+- name: Install pip
+  apt:
+    name: python3-pip
+    state: present
+
+- name: Install Docker SDK for Python3
+  pip:
+    name:
+      - docker
+      - "docker-compose"

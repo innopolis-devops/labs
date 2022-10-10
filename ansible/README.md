@@ -14,3 +14,10 @@
 ## Run
 
     ansible-playbook <path_to_playbook> --diff -i <path_to_inventory> --private-key=<path_to_private_key>
+
+## Wipe application deployment
+
+    ansible-playbook <path_to_playbook> \
+      --tags wipe \
+      --extra-vars "app_full_wipe=true" \
+      --private-key=<path_to_private_key>

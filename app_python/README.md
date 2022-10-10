@@ -105,3 +105,7 @@ Ignore some rules due to conflict with black.
 ### Run container with application
 
     docker run -d --rm -p "8080:8080" --name moscow-time-py grommash99/moscow-time-py
+
+## Metrics
+
+Metrics are available at `http://localhost:8080/metrics`.

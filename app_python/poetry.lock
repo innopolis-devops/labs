@@ -178,6 +178,17 @@ dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
+name = "prometheus-client"
+version = "0.14.1"
+description = "Python client for the Prometheus monitoring system."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.extras]
+twisted = ["twisted"]
+
+[[package]]
 name = "py"
 version = "1.11.0"
 description = "library with cross-python path, ini-parsing, io, code, log facilities"
@@ -338,7 +349,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "51e25bad3ba621f0b7a0186141617ea9f93b35473dd2a7bfc20af1fa8459547f"
+content-hash = "68b8b4f768d5a217d9c9290eba01bac300aa44bdca8834fc015830ec38244143"
 
 [metadata.files]
 aiodns = []
@@ -358,6 +369,7 @@ iniconfig = []
 multidict = []
 packaging = []
 pluggy = []
+prometheus-client = []
 py = []
 pycares = []
 pycparser = []

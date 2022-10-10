@@ -8,6 +8,7 @@ authors = ["Abuzyar Tazetdinov <tazetdinov9925@gmail.com>"]
 python = "^3.10"
 aiohttp = {extras = ["speedups"], version = "^3.8.1"}
 pytz = "^2022.2.1"
+prometheus-client = "^0.14.1"
 
 [tool.poetry.dev-dependencies]
 types-pytz = "^2022.2.1"

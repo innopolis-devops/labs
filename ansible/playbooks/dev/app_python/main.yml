@@ -1,0 +1,15 @@
+- name: Deploy Python app
+  hosts: yacloud
+  remote_user: ubuntu
+  become: true
+  vars:
+    app:
+      name: moscow-time-py
+      image:
+        name: grommash99/moscow-time-py
+        version: latest
+      ports:
+        - external: 80
+          internal: 8080
+  roles:
+    - web_app

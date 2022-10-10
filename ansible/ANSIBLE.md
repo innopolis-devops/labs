@@ -1,6 +1,6 @@
 # Ansible
 
-## Playbook execution
+## Playbook execution for docker role
 
 Last 50 lines of command `ansible-playbook playbooks/dev/main.yml --diff`:
 
@@ -84,4 +84,69 @@ terraform1                 : ok=13   changed=6    unreachable=0    failed=0    s
         ]
     }
 }
+```
+
+## Playbook for CD
+
+`ansible-playbook playbooks/dev/main.yml --diff`
+
+```console
+TASK [web_app : Stop all services] **********************************************************************************************************************************************
+skipping: [terraform1]
+
+TASK [web_app : Remove app directory] *******************************************************************************************************************************************
+skipping: [terraform1]
+
+TASK [web_app : Create a directory if it doesn't exist] *************************************************************************************************************************
+--- before
++++ after
+@@ -1,5 +1,5 @@
+ {
+-    "mode": "0755",
++    "mode": "0700",
+     "path": "/opt/app_python",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [terraform1]
+
+TASK [web_app : Template, validate, and copy compose file] **********************************************************************************************************************
+--- before
++++ after: /home/atrei/.ansible/tmp/ansible-local-57033juy0f_si/tmp2j079g4_/docker-compose.yml.j2
+@@ -0,0 +1,9 @@
++version: "3.9"
++
++services:
++  app_python:
++    image: feydrauth/msctime:latest
++    container_name: app_python
++    ports:
++      - "80:8000"
++    restart: always
+
+changed: [terraform1]
+
+TASK [web_app : Start all services] *********************************************************************************************************************************************
+changed: [terraform1]
+```
+
+### Check web app
+
+```bash
+[atrei@atrei-hpelitebook850g4 ansible]$ curl http://178.154.221.219:80
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="/static/style.css">
+<head>
+    <meta charset="UTF-8">
+    <title> Moscow Current Time </title>
+</head>
+<body>
+    
+    <h1>Moscow time</h1>
+    <h1>15:07:43</h1>
+
+</body>
+</html>
 ```

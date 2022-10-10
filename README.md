@@ -16,6 +16,11 @@
 
 - [DOCKER.md](./DOCKER.md)
 
+### Unit tests
+
+- [app_python](./app_python/PYTHON.md#unit-tests)
+- [app_purescript](./app_purescript/PURESCRIPT.md#unit-tests)
+
 ## Nix
 
 I used Nix to make a reproducible project environment. Now, the project ships with:
@@ -28,7 +33,7 @@ I used Nix to make a reproducible project environment. Now, the project ships wi
   - etc., with linters and formatters and formatting on save
 - development shells
 - scripts
-  - to generate the `docs`, `settings.json`, `tasks.json`
+  - to generate the `docs`, `settings.json`, `tasks.json`, and workflow files
   - to sync `venv`s of the root (`./`), `app_python`, and `app_purescript`
   - to start apps via their servers or in `Docker` containers
   - to lint files

@@ -18,7 +18,6 @@
         src: "docker-compose.yml.j2"
         dest: "{{ web_app_dir }}/docker-compose.yml"
         mode: "600"
-        validate: docker compose -f %s config
 
     - name: Start
       community.docker.docker_compose:

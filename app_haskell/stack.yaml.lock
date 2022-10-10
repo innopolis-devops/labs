@@ -18,6 +18,18 @@ packages:
       sha256: 76bcdabe2c4083a914a6ddc532b2b6f7209e368cac14a9dcbe445a8707e9552d
   original:
     hackage: tz-0.1.3.6
+- completed:
+    name: servant-prometheus
+    version: 0.2.0.0
+    git: https://github.com/serokell/servant-prometheus
+    pantry-tree:
+      size: 1450
+      sha256: 86eac694966b65974c61e46e39be34aa87c331189ee334f42a0bde39d7bacfcc
+    commit: 3a6414f68c3c5f3e3516fdb969545811b8df160c
+  original:
+    name: servant-prometheus
+    git: https://github.com/serokell/servant-prometheus
+    commit: 3a6414f68c3c5f3e3516fdb969545811b8df160c
 snapshots:
 - completed:
     size: 590100

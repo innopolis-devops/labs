@@ -1,5 +1,4 @@
 .hie
-LICENSE
 .stan.toml
 .stylish-haskell.yaml
 **/*.md

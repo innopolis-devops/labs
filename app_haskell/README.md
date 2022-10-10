@@ -94,3 +94,7 @@ You can quickly download the latest binary `stylish-haskell` like so:
 You can quickly download the latest binary `hlint` like so:
 
     ../scripts/download-hlint.sh
+
+## Metrics
+
+Metrics are available at `http://localhost:8081/`.

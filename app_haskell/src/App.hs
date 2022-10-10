@@ -11,7 +11,7 @@ import           UnliftIO             hiding (Handler)
 
 newtype AppEnv
   = AppEnv
-  { config    :: Config }
+  { config :: Config }
 
 newtype App a = App
   { unApp :: ReaderT AppEnv IO a }

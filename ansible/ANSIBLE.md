@@ -229,3 +229,59 @@
 
     PLAY RECAP *********************************************************************
     app-server                 : ok=23   changed=12   unreachable=0    failed=0    skipped=13   rescued=0    ignored=0
+
+### `ansible-playbook playbooks/dev/app_haskell/main.yml --diff -i inventory/yacloud_compute.yml --private-key=~/.ssh/id_rsa_app_server`
+
+    ...
+
+    TASK [docker : Install pip] ****************************************************
+    ok: [app-server]
+
+    TASK [docker : Install Docker SDK for Python3] *********************************
+    ok: [app-server]
+
+    TASK [web_app : Stop services from docker-compose] *****************************
+    skipping: [app-server]
+
+    TASK [web_app : Remove directory with app] *************************************
+    skipping: [app-server]
+
+    TASK [web_app : Start Docker] **************************************************
+    ok: [app-server]
+
+    TASK [web_app : Create directory for app] **************************************
+    --- before
+    +++ after
+    @@ -1,4 +1,4 @@
+    {
+        "path": "/opt/moscow-time-hs",
+
+    - "state": "absent"
+
+    + "state": "directory"
+    }
+
+    changed: [app-server]
+
+    TASK [web_app : Use template for docker-compose file] **************************
+    --- before
+    +++ after: /home/ezio/.ansible/tmp/ansible-local-214915z08o86to/tmpirlcjzc1/docker-compose.yml.j2
+    @@ -0,0 +1,10 @@
+    +version: "3.9"
+    +
+    +services:
+    - moscow-time-hs:
+    - image: grommash99/moscow-time-hs:latest
+    - container_name: moscow-time-hs
+    - ports:
+    - - "80:8080"
+    - - "8081:8081"
+    - restart: always
+
+    changed: [app-server]
+
+    TASK [web_app : Up docker-compose] *********************************************
+    changed: [app-server]
+
+    PLAY RECAP *********************************************************************
+    app-server                 : ok=20   changed=3    unreachable=0    failed=0    skipped=15   rescued=0    ignored=0

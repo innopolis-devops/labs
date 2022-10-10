@@ -2,9 +2,15 @@ module Config where
 
 import           Data.Default
 
-newtype Config
+data Config
   = Config
-  { port :: Int }
+  { port           :: Int
+  , monitoringPort :: Int
+  , timeout        :: Int }
 
 instance Default Config where
-  def = Config { port = 8080 }
+  def = Config
+    { port = 8080
+    , monitoringPort = 8081
+    , timeout = 60
+    }

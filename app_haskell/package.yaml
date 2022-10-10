@@ -34,6 +34,8 @@ dependencies:
   - data-default
   - unliftio
   - time
+  - servant-prometheus
+  - prometheus-client
 
 library:
   source-dirs: src

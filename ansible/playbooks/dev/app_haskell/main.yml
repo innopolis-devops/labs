@@ -1,0 +1,17 @@
+- name: Deploy Haskell app
+  hosts: yacloud
+  remote_user: ubuntu
+  become: true
+  vars:
+    app:
+      name: moscow-time-hs
+      image:
+        name: grommash99/moscow-time-hs
+        version: latest
+      ports:
+        - external: 80
+          internal: 8080
+        - external: 8081
+          internal: 8081
+  roles:
+    - web_app

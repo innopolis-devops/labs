@@ -1,0 +1,11 @@
+web_app:
+  name: "python_app"
+  registry: "aldeeyar"
+  image_name: "lab2"
+  tag: "latest"
+  path: "/root/web_app"
+  port:
+  - external: "80"
+  - internal: "80"
+
+web_app_full_wipe: true

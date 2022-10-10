@@ -1,0 +1,11 @@
+- name: Wipe
+  block:
+  - name: Stop a container
+    docker_container:
+      name: "{{ web_app.name }}" 
+      state: absent
+
+  - name: Remove app directory
+    file:
+      path: "{{ web_app.path }}"
+      state: absent

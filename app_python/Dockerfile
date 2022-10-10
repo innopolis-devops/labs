@@ -29,7 +29,7 @@ WORKDIR /app
 COPY --from=build --chown=user:user /venv /venv
 COPY --chown=user:user . /app
 
-RUN apk add --no-cache curl=7.81.0
+RUN apk add --no-cache curl=7.83.1-r3
 
 USER user
 

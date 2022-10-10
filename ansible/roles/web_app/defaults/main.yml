@@ -8,5 +8,5 @@ web_app_port:
   internal: 5000
   external: 5000
 web_app_full_wipe: false
-web_app_base_path: "/opt/{{ web_app_name }}"
+web_app_dir: "/opt/{{ web_app_name }}"
 

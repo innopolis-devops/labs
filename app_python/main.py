@@ -5,7 +5,7 @@ from config import default_config
 
 def main():
     config = default_config
-    app = make_app(config.app_name)
+    app = make_app(config.app_name, up_metrics=True)
     web.run_app(app, port=config.port)
 
 

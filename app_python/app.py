@@ -12,8 +12,9 @@ async def get_time(_: web.Request) -> web.Response:
     return web.Response(text=f"Time in Moscow is {t}")
 
 
-def make_app(app_name: str):
+def make_app(app_name: str, up_metrics: bool):
     app = web.Application()
-    setup_metrics(app, app_name)
+    if up_metrics:
+        setup_metrics(app, app_name)
     app.add_routes([web.get("/", get_time)])
     return app

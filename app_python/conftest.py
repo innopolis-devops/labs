@@ -6,7 +6,7 @@ pytest_plugins = "aiohttp.pytest_plugin"
 
 @pytest.fixture
 async def api_client(aiohttp_client):
-    app = make_app()
+    app = make_app("test_app", up_metrics=False)
     client = await aiohttp_client(app)
 
     try:

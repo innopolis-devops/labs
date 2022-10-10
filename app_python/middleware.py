@@ -47,7 +47,9 @@ def setup_metrics(app: web.Application, app_name: str) -> None:
     )
 
     app["request_latency_seconds"] = Histogram(
-        "request_latency_seconds", "Request latency", ["app_name", "endpoint"]
+        "request_latency_seconds",
+        "Request latency",
+        ["app_name", "endpoint"],
     )
 
     app["requests_in_progress_total"] = Gauge(

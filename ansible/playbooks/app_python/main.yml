@@ -1,0 +1,11 @@
+---
+ - name: start web_app on yandex cloud
+   hosts: 51.250.87.149
+   remote_user: ubuntu
+   become: true
+
+   vars:
+     web_app_image_name: moscow_time_python:latest
+
+   roles:
+     - web_app

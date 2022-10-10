@@ -1,0 +1,6 @@
+web_app_name: "app_python"
+web_app_image_name: "moscow_time_python:latest"
+web_app_image: maxkoz777/{{ web_app_image_name }}
+web_app_ports: "8081:8081"
+web_app_full_wipe: false
+web_app_dir: "/opt/devops/{{ web_app_name }}"

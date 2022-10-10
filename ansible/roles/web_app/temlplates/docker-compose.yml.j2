@@ -1,0 +1,9 @@
+version: "3.9"
+
+ services:
+   {{ web_app_name }}:
+     image: {{ web_app_image }}
+     container_name: {{ web_app_name }}
+     ports:
+       - "{{ web_app_ports }}"
+     restart: on-failure

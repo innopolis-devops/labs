@@ -1,0 +1,12 @@
+---
+ - name: start web_app on yandex cloud
+   hosts: 51.250.87.149
+   remote_user: ubuntu
+   become: true
+   vars:
+     web_app_name: "app_java"
+     web_app_image_name: moscow_time_java:latest
+     web_app_ports: "8080:8080"
+
+   roles:
+     - web_app

@@ -1,0 +1,16 @@
+---
+- name: Wipe everything
+  block:
+  - name: Stop everything
+    community.docker.docker_compose:
+      project_src: "{{ web_app_dir }}"
+      state: absent
+      remove_volumes: true
+    ignore_errors: true
+
+  - name: Remove directory
+    ansible.builtin.file:
+      state: absent
+      path: "{{ web_app_dir }}"
+
+  tags: ["web_app"]

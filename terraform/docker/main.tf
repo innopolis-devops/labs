@@ -9,7 +9,7 @@ provider "docker" {
 
 resource "docker_container" "nginx" {
   image = docker_image.my_image.latest
-  name  = "tutorial"
+  name  = "node_app"
   ports {
     internal = 80
     external = 8080

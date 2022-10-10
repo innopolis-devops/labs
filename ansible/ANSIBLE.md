@@ -74,3 +74,61 @@ homa@LAPTOP-KJ6SQVBF:~/labs/ansible$ ansible-inventory --list
     }
 }
 ```
+
+### Output `ansible-playbook playbooks/docker.yml --diff --private-key devops.pem`:
+
+```
+TASK [geerlingguy.docker : Delete existing docker-compose version if it's different.] ********************************************************************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/usr/local/bin/docker-compose",
+-    "state": "file"
++    "state": "absent"
+ }
+
+changed: [34.244.242.94]
+
+TASK [geerlingguy.docker : Install Docker Compose (if configured).] **************************************************************************************************************************************************************
+changed: [34.244.242.94]
+
+TASK [geerlingguy.docker : Get docker group info using getent.] ******************************************************************************************************************************************************************
+skipping: [34.244.242.94]
+
+TASK [geerlingguy.docker : Check if there are any users to add to the docker group.] *********************************************************************************************************************************************
+
+TASK [geerlingguy.docker : include_tasks] ****************************************************************************************************************************************************************************************
+skipping: [34.244.242.94]
+
+TASK [docker-compose-deploy : Create project directory] **************************************************************************************************************************************************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/devops-app-python",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [34.244.242.94]
+
+TASK [docker-compose-deploy : copy Docker Compose files] *************************************************************************************************************************************************************************
+--- before
++++ after: /home/homa/labs/ansible/playbooks/files/docker-compose.yml
+@@ -0,0 +1,5 @@
++services:
++  web:
++    image: "homa3030/app_python"
++    ports:
++      - "8080:8080"
+\ No newline at end of file
+
+changed: [34.244.242.94]
+
+TASK [docker-compose-deploy : deploy Docker Compose stack] ***********************************************************************************************************************************************************************
+changed: [34.244.242.94]
+
+PLAY RECAP ***********************************************************************************************************************************************************************************************************************
+34.244.242.94              : ok=21   changed=7    unreachable=0    failed=0    skipped=12   rescued=0    ignored=0
+```

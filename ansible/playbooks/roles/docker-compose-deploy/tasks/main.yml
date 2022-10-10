@@ -1,0 +1,33 @@
+- name: Install Python
+  raw: sudo apt update && sudo apt install python3
+
+- name: Include Docker role
+  include_role: 
+    name: geerlingguy.pip
+  vars:
+    pip_install_packages: [docker, docker-compose]
+
+- name: Include Docker role
+  include_role: 
+    name: geerlingguy.docker
+  vars:
+    docker_install_compose: true
+
+- name: Create project directory
+  become: yes
+  file:
+    path: /opt/{{ deployment_app_name }}
+    state: directory
+
+- name: copy Docker Compose files
+  become: yes
+  copy:
+    src: ./docker-compose.yml
+    dest: /opt/{{ deployment_app_name }}/docker-compose.yml
+
+- name: deploy Docker Compose stack
+  become: yes
+  docker_compose:
+    project_src: /opt/{{ deployment_app_name }}
+    pull: yes
+    recreate: always

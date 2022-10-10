@@ -1,24 +1,7 @@
-
-
-- name: Wait until system is ready
-  hosts: all
-  become: yes
-  gather_facts: yes
-  tasks:
-    - name: Install Python
-      raw: sudo apt update && sudo apt install python3
-
-    - name: Install pip
-      include_role:
-        name: geerlingguy.pip
-
-    - name: Install Docker
-      include_role:
-        name: geerlingguy.docker
-
-    - name: Wait for apt list lock (Known to cause issues sometimes)
-      raw: while fuser /var/lib/apt/lists/lock >/dev/null 2>&1; do echo 'Waiting for apt list lock.' && sleep 10; done
+- hosts: all
 
   vars:
-    pip_install_packages:
-      - name: docker
+    deployment_app_name: devops-app-python
+
+  roles:
+    - { role: docker-compose-deploy, become: yes }

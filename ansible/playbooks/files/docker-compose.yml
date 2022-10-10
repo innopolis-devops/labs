@@ -1,0 +1,5 @@
+services:
+  web:
+    image: "homa3030/app_python"
+    ports:
+      - "8080:8080"

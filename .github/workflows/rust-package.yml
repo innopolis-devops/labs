@@ -1,0 +1,97 @@
+name: Rust
+
+on:
+  push:
+    branches:
+      - 'lab*'
+      - $default-branch
+    paths:
+      - 'app_rust/**'
+      - '.github/workflows/rust-package.yml'
+      - '.github/workflows/docker-release.yml'
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+
+  pull_request:
+    branches:
+      - $default-branch 
+    paths:
+      - 'app_rust/**'
+      - '.github/workflows/rust-package.yml'
+      - '.github/workflows/docker-release.yml'
+
+defaults:
+  run:
+    working-directory: ./app_rust
+
+env:
+  CARGO_TERM_COLOR: always
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  lints:
+
+    # To avoid multiple runs on single commit
+    # It is still checked by push trigger, so no worries.
+    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: update cache on every commit
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          app_rust/target/
+        # We want to update the cache as we build
+        key: primes-${{ runner.os }}-${{ github.run_id }}
+        restore-keys: |
+          primes-${{ runner.os }}
+
+    - name: Code style check
+      run: cargo fmt --all --verbose --check
+    - name: Build
+      run: cargo check
+    - name: Run clippy check
+      run: cargo clippy --all-features -- -D warnings
+
+  tests:
+
+    # To avoid multiple runs on single commit
+    # It is still checked by push trigger, so no worries.
+    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
+    needs: [lints]
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: update cache on every commit
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+        # We want to update the cache as we build
+        key: primes-${{ runner.os }}-${{ github.run_id }}
+        restore-keys: |
+          primes-${{ runner.os }}
+    - name: Run tests
+      run: cargo test --verbose
+  
+  docker-publish:
+    uses: ./.github/workflows/docker-release.yml
+    secrets: inherit
+    with:
+      docker_repo_name: time_rust_web_app
+      project_folder: app_rust

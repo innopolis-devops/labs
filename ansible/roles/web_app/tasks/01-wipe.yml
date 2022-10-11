@@ -1,0 +1,13 @@
+name: Wipe web_app
+block:
+  - name: Stop services.
+    ansible.builtin.docker_compose:
+      project_src: "{{ web_app_dir }}"
+      state: absent
+      remove_volumes: true
+      ignore_errors: true
+  - name: Remove the web_app dir.
+    ansible.builtin.file:
+      path: "{{ web_app_dir }}"
+      state: absent
+    tags: ["web_app"]

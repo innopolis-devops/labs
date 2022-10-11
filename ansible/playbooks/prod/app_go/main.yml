@@ -3,6 +3,14 @@
   hosts: yacloud
   remote_user: ubuntu
   become: true
-
+  vars:
+    web_app_image:
+      registry: "johndenkis"
+      name: "simple_go_app_v2"
+      tag: "latest"
+    web_app_port:
+      internal: 3000
+      external: 3000
+    web_app_name: "app_go"
   roles:
     - web_app

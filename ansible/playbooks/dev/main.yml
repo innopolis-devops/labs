@@ -2,4 +2,4 @@
   hosts: VM1
   become: true
   roles:
-    - ansible/roles/docker
+    - roles/docker

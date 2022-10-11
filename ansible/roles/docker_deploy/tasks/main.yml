@@ -1,11 +1,12 @@
 ---
 - name: Pull and deploy image
-     block:
-        - name: pull image
-          docker_image:
-            name: sh1co/devopslab
+    tags: deployment
+    block:
+      - name: pull image
+        docker_image:
+          name: sh1co/devopslab
 
-        - name: Create container
-          docker_container:
-            name: mydevopslab
-            image: sh1co/devopslab
+      - name: Create container
+        docker_container:
+          name: mydevopslab
+          image: sh1co/devopslab

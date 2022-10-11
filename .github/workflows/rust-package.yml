@@ -81,7 +81,7 @@ jobs:
           ~/.cargo/registry/index/
           ~/.cargo/registry/cache/
           ~/.cargo/git/db/
-          target/
+          app_rust/target/
         # We want to update the cache as we build
         key: rust-${{ runner.os }}-${{ github.run_id }}
         restore-keys: |

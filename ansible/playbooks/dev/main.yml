@@ -1,6 +1,8 @@
 ---
-- name: Docker
+- name: App
   hosts: yacloud
-  remote_user: whutao
+  remote_user: ubuntu
   roles:
+    # - docker
     - web_app
+  become: true

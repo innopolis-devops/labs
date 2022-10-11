@@ -3,9 +3,8 @@ web_app:
   registry: "whutao"
   image_name: "app_python"
   tag: "latest"
-  path: "/opt/app_python"
-  port:
-  - external: "5050"
-  - internal: "8080"
+  path: "/root/app_python"
+  internal_port: "8080"
+  external_port: "5050"
 
-web_app_full_wipe: true
+web_app_full_wipe: false

@@ -4,13 +4,5 @@ services:
     image: {{ web_app.registry }}/{{ web_app.image_name }}:{{ web_app.tag }}
     container_name: {{ web_app.name }}
     ports:
-      - "{{ web_app.port.external }}:{{ web_app.port.internal }}"
+      - {{ web_app.internal_port }}:{{ web_app.external_port }}
     restart: always
-    healthcheck:
-        test:
-          - CMD-SHELL
-          - wget --no-verbose --tries=1 -O /dev/null http://localhost:{{ web_container_port }}/healthcheck || exit 1
-        interval: 1m
-        timeout: 15s
-        retries: 5
-        start_period: 10s

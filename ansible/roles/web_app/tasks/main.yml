@@ -13,7 +13,7 @@
       state: directory
       mode: '0700'
 
-  - name: docker-compose.yml
+  - name: Copy docker-compose.yml
     ansible.builtin.template:
       src: "docker-compose.yml.j2"
       dest: "{{ web_app.path }}/docker-compose.yml"

@@ -1,6 +1,8 @@
 # Ansible
 
-## Deployment output
+## Part 1
+
+### Deployment output
 
 ```commandline
 changed: [yacloud]
@@ -66,7 +68,7 @@ PLAY RECAP *********************************************************************
 yacloud                    : ok=16   changed=6    unreachable=0    failed=0    skipped=12   rescued=0    ignored=0
 ```
 
-## List inventory
+### List inventory
 
 The command `ansible-inventory -i inventory/yacloud_compute.yml --list` will produce
 
@@ -84,6 +86,74 @@ The command `ansible-inventory -i inventory/yacloud_compute.yml --list` will pro
                 "ansible_host": "51.250.71.60",
                 "ansible_ssh_private_key_file": "~/.ssh/id_rsa",
                 "ansible_user": "whutao"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "VM",
+            "ungrouped"
+        ]
+    }
+}
+```
+
+## Part 2 - CD
+
+### Deployment
+
+```
+TASK [docker : Ensure installation directory exists.] ********************************************************
+skipping: [yacloud]
+
+TASK [docker : Install Docker Compose (if configured).] ******************************************************
+changed: [yacloud]
+
+TASK [docker : Get docker group info using getent.] **********************************************************
+skipping: [yacloud]
+
+TASK [docker : Check if there are any users to add to the docker group.] *************************************
+
+TASK [docker : include_tasks] ********************************************************************************
+skipping: [yacloud]
+
+TASK [web_app : Stop services] *******************************************************************************
+skipping: [yacloud]
+
+TASK [web_app : Cleanup] *************************************************************************************
+skipping: [yacloud]
+
+TASK [web_app : Create app directory] ************************************************************************
+ok: [yacloud]
+
+TASK [web_app : Copy docker-compose.yml] *********************************************************************
+ok: [yacloud]
+
+TASK [web_app : Docker compose] ******************************************************************************
+changed: [yacloud]
+
+PLAY RECAP ***************************************************************************************************
+yacloud                    : ok=18   changed=5    unreachable=0    failed=0    skipped=11   rescued=0    ignored=0  
+```
+
+### Inventory
+
+List the ansible inventory
+
+```
+{
+    "VM": {
+        "hosts": [
+            "yacloud"
+        ]
+    },
+    "_meta": {
+        "hostvars": {
+            "yacloud": {
+                "ansible_become": true,
+                "ansible_host": "51.250.94.105",
+                "ansible_ssh_private_key_file": "~/.ssh/id_rsa",
+                "ansible_user": "ubuntu"
             }
         }
     },

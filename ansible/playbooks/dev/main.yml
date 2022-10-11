@@ -3,6 +3,5 @@
   hosts: yacloud
   remote_user: ubuntu
   roles:
-    # - docker
     - web_app
   become: true

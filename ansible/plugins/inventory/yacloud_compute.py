@@ -4,7 +4,6 @@
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
-
 DOCUMENTATION = '''
     name: yacloud_compute
     plugin_type: inventory
@@ -44,12 +43,10 @@ DOCUMENTATION = '''
 EXAMPLES = '''
 '''
 
-
 from ansible.errors import AnsibleError
 from ansible.plugins.inventory import BaseInventoryPlugin, Constructable, Cacheable
 from ansible.utils.display import Display
 from ansible.module_utils._text import to_native
-
 
 try:
     import yandexcloud

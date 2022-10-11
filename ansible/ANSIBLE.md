@@ -1,7 +1,7 @@
 ## Lab 6
 1.```ansible-playbook <path_to your_playbook> --diff```
 ```bash
-[nailya@nailya ansible]$ ansible-playbook playbooks/dev/main.yml --diff
+[nailya@nailya ansible]$ ansible-playbook playbooks/web_app/main.yml --diff
 
 PLAY [docker image] ************************************************************
 

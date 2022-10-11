@@ -41,20 +41,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: update cache on every commit
-      uses: actions/cache@v3
+    # It's better configured for rust thus not default
+    - uses: Swatinem/rust-cache@v2
       with:
-        path: |
-          ~/.cargo/bin/
-          ~/.cargo/registry/index/
-          ~/.cargo/registry/cache/
-          ~/.cargo/git/db/
-          app_rust/target/
-        # We want to update the cache as we build
-        key: primes-${{ runner.os }}-${{ github.run_id }}
-        restore-keys: |
-          primes-${{ runner.os }}
-
+        workspaces: "app_rust -> target"
+        cache-on-failure: true
     - name: Code style check
       run: cargo fmt --all --verbose --check
     - name: Build
@@ -73,19 +64,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: update cache on every commit
-      uses: actions/cache@v3
+    # It's better configured for rust thus not default
+    - uses: Swatinem/rust-cache@v2
       with:
-        path: |
-          ~/.cargo/bin/
-          ~/.cargo/registry/index/
-          ~/.cargo/registry/cache/
-          ~/.cargo/git/db/
-          target/
-        # We want to update the cache as we build
-        key: primes-${{ runner.os }}-${{ github.run_id }}
-        restore-keys: |
-          primes-${{ runner.os }}
+        workspaces: "app_rust -> target"
+        cache-on-failure: true
     - name: Run tests
       run: cargo test --verbose
   

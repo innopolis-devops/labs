@@ -2,5 +2,6 @@
   hosts: virtualmachines
   roles:
     - role: '../../roles/geerlingguy.docker'
+    - role: '../../roles/docker_deploy'
 
   

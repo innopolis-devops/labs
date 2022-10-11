@@ -1,13 +1,9 @@
-version: '3'
+version: "3.9"
 
 services:
-  python_app:
+  {{ web_app_name }}:
     image: {{ registry }}/{{ image }}:{{ image_tag }}
-    volumes: 
-      - app-data:/home/app/data
+    container_name: {{ web_app_name }}
     ports:
-      - "{{ app_http_port }}:8000"
+      - "{{ web_app_port.external }}:{{ web_app_port.internal }}"
     restart: always
-
-volumes:
-  app-data:

@@ -1,3 +1,7 @@
+## Lab 6
+
+
+## Lab 5
 1. ```ansible-playbook <path_to your_playbook> --diff```
 ```bash
 [nailya@nailya ansible]$ ansible-playbook playbooks/dev/main.yml --diff

@@ -8,12 +8,8 @@ RUN pip install --no-cache-dir -r requirements.txt && \
     addgroup -S admins && \
     adduser -S admin -G admins
 
-COPY app_python .
-
-EXPOSE 8000
+COPY . .
 
 USER admin
 
-COPY entrypoint.sh .
-
-ENTRYPOINT ["/app/entrypoint.sh"]
+EXPOSE 5000

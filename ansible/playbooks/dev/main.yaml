@@ -1,4 +1,4 @@
 - name: Install Docker
   hosts: clock_clock_moscow
   roles:
-    - docker
+    - web_app

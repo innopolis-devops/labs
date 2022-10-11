@@ -3,4 +3,4 @@
   hosts: yacloud
   remote_user: whutao
   roles:
-    - docker
+    - web_app

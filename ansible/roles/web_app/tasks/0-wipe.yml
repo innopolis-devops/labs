@@ -1,0 +1,17 @@
+---
+- name: Cleanup
+  block:
+
+  - name: Stop services
+    community.docker.docker_compose:
+      project_src: "{{ web_app.dir }}"
+      state: absent
+      remove_volumes: true
+    ignore_errors: true
+
+  - name: Cleanup
+    ansible.builtin.file:
+      state: absent
+      path: "{{ web_app.path }}"
+
+  tags: ["web_app_wipe"]

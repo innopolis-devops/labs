@@ -1,0 +1,7 @@
+VM:
+  hosts:
+    clock_clock_moscow:
+      ansible_host: 3.17.37.178
+      ansible_user: ubuntu
+      ansible_ssh_private_key_file: ./EC2key.pem
+      ansible_become: true

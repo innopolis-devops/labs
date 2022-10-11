@@ -1,0 +1,13 @@
+web_app_name: app_python
+web_app_image:
+  registry: justmark0
+  name: devopsiu
+  tag: latest
+
+web_app_port:
+  internal: 8000
+  external: 8000
+
+web_app_base_path: /opt/{{ web_app_name }}
+
+web_app_full_wipe: false

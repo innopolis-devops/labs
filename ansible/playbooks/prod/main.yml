@@ -1,19 +1,7 @@
-- name: Update repositories cache
-  hosts: all
-  remote_user: ubuntu
-  become: yes
-  tasks:
-    - name: Update repositories cache
-      ansible.builtin.apt:
-        update_cache: yes
-
-- name: Install Docker
-  hosts: all
+- hosts: all
   remote_user: ubuntu
   roles:
-    - role: geerlingguy.docker
-      become: yes
+    - name: Deploy app
+      role: app
       vars:
-        docker_service_enabled: yes
-        docker_users:
-          - ubuntu
+        branch: lab5

@@ -3,6 +3,7 @@ resource "aws_instance" "app_server" {
   instance_type = "t3.nano"
   key_name = aws_key_pair.deploy_key.key_name
   security_groups = [aws_security_group.app_sg.name]
+  iam_instance_profile = "ec2-role"
 
   tags = {
     Name = "ExampleAppServerInstance"

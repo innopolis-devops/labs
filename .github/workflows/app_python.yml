@@ -54,7 +54,7 @@ jobs:
         with:
           context: app_python
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/python_kremlin_chimes:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app_python:app_python
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Move cache

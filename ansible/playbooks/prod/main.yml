@@ -4,4 +4,4 @@
     - name: Deploy app
       role: app
       vars:
-        branch: lab5
+        branch: lab6

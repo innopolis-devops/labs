@@ -1,0 +1,12 @@
+---
+dependencies: [docker]
+
+galaxy_info:
+  role_name: app_python
+  author: Dmitriy Tsaplya
+  description: Web App for Devops Lab
+  company: Innopolis University
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.4
+  platforms:
+  galaxy_tags: []

@@ -1,0 +1,30 @@
+---
+- name: Wipe app_python
+  ansible.builtin.import_tasks: 0-wipe.yml
+  when: web_app_full_wipe | bool
+  tags: ["app_python"]
+
+- name: Launching app_python
+  block:
+
+  - name: Install dependencies
+    include_tasks: dependencies.yml
+  - name: Create directory
+    ansible.builtin.file:
+      path: "{{ web_app_path }}"
+      state: directory
+      mode: '0755'
+
+  - name: Docker compose template
+    ansible.builtin.template:
+      src: "docker-compose.yml.j2"
+      dest: "{{ web_app_path }}/docker-compose.yml"
+      owner: root
+      group: root
+      mode: "0600"
+
+  - name: Docker compose start
+    community.docker.docker_compose:
+      project_src: "{{ web_app_path }}"
+      state: present
+      pull: true

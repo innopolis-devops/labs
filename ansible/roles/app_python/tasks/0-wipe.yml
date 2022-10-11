@@ -1,0 +1,14 @@
+- name: Wipe app_python
+  tags: ["app_python","app_python_wipe"]
+  block:
+    - name: Stop all services
+      ansible.builtin.docker_compose:
+        project_src: "{{ web_app_path }}"
+        remove_volumes: true
+        state: absent
+      ignore_errors: true
+
+    - name: Remove app_python directory
+      ansible.builtin.file:
+        state: absent
+        dest: "{{ web_app_path }}"

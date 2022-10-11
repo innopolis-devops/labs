@@ -1,0 +1,7 @@
+web_app_python:
+  name: app_python
+  image: tsaplyadmitriy/lab2_python_app:latest
+  in_port: 80
+  ext_port: 80
+web_app_path: "/opt/app_python"
+web_app_full_wipe: false

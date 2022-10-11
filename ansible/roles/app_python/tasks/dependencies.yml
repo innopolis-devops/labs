@@ -1,0 +1,11 @@
+- name: Pip
+  apt:
+      name: python3-pip
+      state: latest
+      update_cache: yes
+- name: Docker
+  pip:
+    name: 
+      - docker
+      - docker-compose
+    state: present

@@ -1,0 +1,16 @@
+---
+- name: Delete container and image
+    tags: wipe
+    block:
+      - name: Stop a container
+        docker_container:
+          name: mydevopslab
+          state: stopped
+      - name: remove container
+        docker_container:
+          name: mydevopslab
+          state: absent
+      - name: Remove image
+        docker_image:
+          state: absent
+          name: sh1co/devopslab

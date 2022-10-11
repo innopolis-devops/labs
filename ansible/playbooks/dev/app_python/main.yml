@@ -1,0 +1,6 @@
+- name: install docker app_python
+  hosts: managed_nodes
+  remote_user: ubuntu
+  become: true
+  roles:
+    - web_app

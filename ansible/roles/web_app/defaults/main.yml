@@ -1,0 +1,12 @@
+# This is defaults config for python app
+
+app_name: app_python
+app_path: "/app_python/{{ python_app_name }}"
+
+app_image_name: inforest/app_python
+app_image_tag: app_python
+
+app_config:
+  ports:
+    internal: 5000
+    external: 5000

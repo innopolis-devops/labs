@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  {{ app_name }}:
+    image: "{{ app_image_name }}:{{ app_image_tag }}"
+    container_name: {{ app_name }}
+    ports:
+      - "{{ app_config.ports.external }}:{{ app_config.ports.internal }}"
+    restart: always

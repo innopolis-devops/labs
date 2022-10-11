@@ -25,6 +25,7 @@ Also, you can set inventory as default in `ansible.cfg`
 [defaults]
 host_key_checking = False
 inventory = ./inventory/aws_ec2.yml
+roles_path = ~/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles:./roles
 
 [inventory]
 enable_plugins = aws_ec2
@@ -33,26 +34,18 @@ enable_plugins = aws_ec2
 # Playbook
 Playbook is simple, only two tasks - update apt-get cache and install docker.
 ```yaml
-- name: Update repositories cache
-  hosts: all
-  remote_user: ubuntu
-  become: yes
-  tasks:
-    - name: Update repositories cache
-      ansible.builtin.apt:
-        update_cache: yes
-
-- name: Install Docker
-  hosts: all
+- hosts: all
   remote_user: ubuntu
   roles:
-    - role: geerlingguy.docker
-      become: yes
+    - name: Deploy app
+      role: app
       vars:
-        docker_service_enabled: yes
-        docker_users:
-          - ubuntu
+        branch: lab6
 ```
+
+# Roles
+There are two roles. First one is `docker` that install docker and docker compose (v2). And the second one is deploying 
+app to the server.
 
 # Output
 Running:
@@ -63,125 +56,45 @@ Running:
 ```shell
 (iu-devops-labs) f3line@kitty-2 ansible % ansible-playbook playbooks/prod/main.yml --diff
 
-PLAY [Update repositories cache] *************************************************************************************************************************************************************************
+PLAY [all] ***********************************************************************************************************************************************************************************************
 
 TASK [Gathering Facts] ***********************************************************************************************************************************************************************************
-ok: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
+ok: [ec2-13-50-112-103.eu-north-1.compute.amazonaws.com]
 
-TASK [Update repositories cache] *************************************************************************************************************************************************************************
-changed: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
+TASK [docker : Install Docker.] **************************************************************************************************************************************************************************
+changed: [ec2-13-50-112-103.eu-north-1.compute.amazonaws.com]
 
-PLAY [Install Docker] ************************************************************************************************************************************************************************************
+TASK [docker : Install Docker Compose] *******************************************************************************************************************************************************************
+changed: [ec2-13-50-112-103.eu-north-1.compute.amazonaws.com]
 
-TASK [Gathering Facts] ***********************************************************************************************************************************************************************************
-ok: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
+TASK [docker : Configure Docker.] ************************************************************************************************************************************************************************
+changed: [ec2-13-50-112-103.eu-north-1.compute.amazonaws.com]
 
-TASK [geerlingguy.docker : Load OS-specific vars.] *******************************************************************************************************************************************************
-ok: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
+TASK [docker : Reset ssh connection to allow user changes to affect 'current login user'.] ***************************************************************************************************************
 
-TASK [geerlingguy.docker : include_tasks] ****************************************************************************************************************************************************************
-skipping: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
+TASK [app : include_tasks] *******************************************************************************************************************************************************************************
+included: /Users/f3line/Documents/iu-devops-labs/ansible/roles/app/tasks/wipe.yml for ec2-13-50-112-103.eu-north-1.compute.amazonaws.com
 
-TASK [geerlingguy.docker : include_tasks] ****************************************************************************************************************************************************************
-included: /Users/f3line/.ansible/roles/geerlingguy.docker/tasks/setup-Debian.yml for ec2-16-171-56-77.eu-north-1.compute.amazonaws.com
+TASK [app : Wipe Docker] *********************************************************************************************************************************************************************************
+skipping: [ec2-13-50-112-103.eu-north-1.compute.amazonaws.com]
 
-TASK [geerlingguy.docker : Ensure old versions of Docker are not installed.] *****************************************************************************************************************************
-ok: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
+TASK [app : Wipe Directory] ******************************************************************************************************************************************************************************
+skipping: [ec2-13-50-112-103.eu-north-1.compute.amazonaws.com]
 
-TASK [geerlingguy.docker : Ensure dependencies are installed.] *******************************************************************************************************************************************
-The following NEW packages will be installed:
-  apt-transport-https
-0 upgraded, 1 newly installed, 0 to remove and 22 not upgraded.
-changed: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
+TASK [app : Install Make and AWS CLI.] *******************************************************************************************************************************************************************
+changed: [ec2-13-50-112-103.eu-north-1.compute.amazonaws.com]
 
-TASK [geerlingguy.docker : Ensure additional dependencies are installed (on Ubuntu < 20.04 and any other systems).] **************************************************************************************
-skipping: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
+TASK [app : Configure AWS CLI.] **************************************************************************************************************************************************************************
+changed: [ec2-13-50-112-103.eu-north-1.compute.amazonaws.com]
 
-TASK [geerlingguy.docker : Ensure additional dependencies are installed (on Ubuntu >= 20.04).] ***********************************************************************************************************
-ok: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
+TASK [app : Clone repository] ****************************************************************************************************************************************************************************
+changed: [ec2-13-50-112-103.eu-north-1.compute.amazonaws.com]
 
-TASK [geerlingguy.docker : Add Docker apt key.] **********************************************************************************************************************************************************
-changed: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : Ensure curl is present (on older systems without SNI).] ***********************************************************************************************************************
-skipping: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : Add Docker apt key (alternative for older systems without SNI).] **************************************************************************************************************
-skipping: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : Add Docker repository.] *******************************************************************************************************************************************************
---- before: /dev/null
-+++ after: /etc/apt/sources.list.d/download_docker_com_linux_ubuntu.list
-@@ -0,0 +1 @@
-+deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
-
-changed: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : Install Docker packages.] *****************************************************************************************************************************************************
-skipping: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : Install Docker packages (with downgrade option).] *****************************************************************************************************************************
-The following additional packages will be installed:
-  docker-scan-plugin pigz slirp4netns
-Suggested packages:
-  aufs-tools cgroupfs-mount | cgroup-lite
-The following NEW packages will be installed:
-  containerd.io docker-ce docker-ce-cli docker-ce-rootless-extras
-  docker-scan-plugin pigz slirp4netns
-0 upgraded, 7 newly installed, 0 to remove and 22 not upgraded.
-changed: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : Install docker-compose plugin.] ***********************************************************************************************************************************************
-skipping: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : Install docker-compose-plugin (with downgrade option).] ***********************************************************************************************************************
-skipping: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : Ensure /etc/docker/ directory exists.] ****************************************************************************************************************************************
-skipping: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : Configure Docker daemon options.] *********************************************************************************************************************************************
-skipping: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : Ensure Docker is started and enabled at boot.] ********************************************************************************************************************************
-ok: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : Ensure handlers are notified now to avoid firewall conflicts.] ****************************************************************************************************************
-
-RUNNING HANDLER [geerlingguy.docker : restart docker] ****************************************************************************************************************************************************
-changed: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : include_tasks] ****************************************************************************************************************************************************************
-included: /Users/f3line/.ansible/roles/geerlingguy.docker/tasks/docker-compose.yml for ec2-16-171-56-77.eu-north-1.compute.amazonaws.com
-
-TASK [geerlingguy.docker : Check current docker-compose version.] ****************************************************************************************************************************************
-ok: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : set_fact] *********************************************************************************************************************************************************************
-ok: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : Delete existing docker-compose version if it's different.] ********************************************************************************************************************
-ok: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : Install Docker Compose (if configured).] **************************************************************************************************************************************
-changed: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : Get docker group info using getent.] ******************************************************************************************************************************************
-ok: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com]
-
-TASK [geerlingguy.docker : Check if there are any users to add to the docker group.] *********************************************************************************************************************
-ok: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com] => (item=ubuntu)
-
-TASK [geerlingguy.docker : include_tasks] ****************************************************************************************************************************************************************
-included: /Users/f3line/.ansible/roles/geerlingguy.docker/tasks/docker-users.yml for ec2-16-171-56-77.eu-north-1.compute.amazonaws.com
-
-TASK [geerlingguy.docker : Ensure docker users are added to the docker group.] ***************************************************************************************************************************
-changed: [ec2-16-171-56-77.eu-north-1.compute.amazonaws.com] => (item=ubuntu)
-
-TASK [geerlingguy.docker : Reset ssh connection to apply user changes.] **********************************************************************************************************************************
+TASK [app : Start] ***************************************************************************************************************************************************************************************
+changed: [ec2-13-50-112-103.eu-north-1.compute.amazonaws.com]
 
 PLAY RECAP ***********************************************************************************************************************************************************************************************
-ec2-16-171-56-77.eu-north-1.compute.amazonaws.com : ok=22   changed=8    unreachable=0    failed=0    skipped=9    rescued=0    ignored=0   
+ec2-13-50-112-103.eu-north-1.compute.amazonaws.com : ok=9    changed=7    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
 ```
 
 </details>
@@ -356,3 +269,10 @@ Status:
 
 # Other
 To be able to connect to the instance, I have to add security group and ssh key setup into terraform script.
+
+
+Healthcheck:
+```shell
+ubuntu@ip-172-31-14-93:~$ curl localhost/v1/system/status
+{"status":"OK"}
+```

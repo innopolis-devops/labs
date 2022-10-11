@@ -22,3 +22,6 @@
           sudo systemctl enable docker
           # Add user ubuntu to docker group.
           sudo usermod -aG docker ubuntu
+
+    - name: Reset ssh connection to allow user changes to affect 'current login user'.
+      ansible.builtin.meta: reset_connection

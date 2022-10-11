@@ -19,5 +19,3 @@
       ansible.builtin.shell:
         cmd: make ecr_login prod
         chdir: "{{path}}/app_python/"
-      register: cmd
-      failed_when: "cmd.rc not in [ 0, 2 ]"

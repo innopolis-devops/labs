@@ -20,4 +20,5 @@ HEALTHCHECK --interval=1m --timeout=3s \
 
 EXPOSE 8000
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+ENTRYPOINT ["uvicorn", "app.main:app"]
+CMD ["--host", "0.0.0.0", "--port", "8000"]

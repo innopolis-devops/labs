@@ -1,0 +1,7 @@
+- name: Deploy
+  hosts: yacloud
+  remote_user: ubuntu
+  become: true
+
+  roles:
+    - app

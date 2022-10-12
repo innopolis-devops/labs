@@ -4,9 +4,25 @@
 
 ---
 
-An app that allows to receive the current time in Moscow by a web request. Makes sure the time is correct by synchronizing it to the Google's NTP server at the startup.
+## Features
+
+- App shows the current time in Moscow at `/` route
+- App counts successfully served requests
+- App has a status route `/status`, which displays the served requests count as well.
+- Routes accept only `GET` requests, giving out proper errors (404/405) on incorrect requests.
 
 ## Docker image
+
+### Docker Compose — preffered method
+
+New app versions require Redis database for storing metrics and will not work without Redis connection.
+It is highly recommended to use Docker Compose to run the app:
+
+```sh
+docker compose up -d
+```
+
+Anyway, here are the instructions in case you want to run the app separately, assuming you have a running Redis server.
 
 ### From Docker Hub
 
@@ -14,9 +30,13 @@ The app has a [docker image](https://hub.docker.com/r/ntdesmond/iu-devops-ts) in
 
 To fetch it, use `docker pull ntdesmond/iu-devops-ts` command.
 
+Note that this docker image is built with `REDIS_URL` set to `redis://redis:6379`, as per [`.env`](./.env) file.
+
 ### Building locally
 
 Run `docker build -t ntdesmond/iu-devops-ts .` in the current directory to build the app locally.
+
+You may want to edit [`.env`](./.env) file first.
 
 ### Start the app
 
@@ -26,7 +46,7 @@ Here is a sample command to run the image:
 docker run --rm -p 3000:3000 ntdesmond/iu-devops-ts
 ```
 
-You may want to change the port binding (`-p` option).
+You may also want to change the port binding (`-p` option).
 
 Note that within the container the app uses the port defined in [`.env`](./.env) file, and this may not match the port binding in the command above.
 
@@ -41,6 +61,8 @@ Note that within the container the app uses the port defined in [`.env`](./.env)
 ---
 
 - Install the packages: `npm install`
+
+- Edit [`.env`](./.env) file to suit your needs
 
 - Compile Typescript: `npm run build`
 

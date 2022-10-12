@@ -18,6 +18,7 @@ RUN addgroup -S app && adduser -S app -G app
 
 # Copy app files
 COPY ./app ./app
+COPY ./.env ./
 
 # Use a newly created user
 USER app

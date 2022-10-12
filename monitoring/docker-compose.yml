@@ -1,0 +1,88 @@
+version: '3.9'
+
+# Default logging for all containers.
+x-logging:
+  &default-logging
+  driver: json-file
+  options:
+    # Add the container name to the log file
+    tag: "{{.ImageName}}|{{.Name}}"
+
+
+networks:
+  python_app_network:
+  ts_app_network:
+  loki:
+
+
+services:
+  # Python application
+  python_app:
+    image: ntdesmond/iu-devops-python
+    restart: always
+    depends_on:
+      - redis_python
+    ports:
+      - "8080:8000"
+    environment:
+      - REDIS_HOST=redis_python
+    networks:
+      - python_app_network
+    logging: *default-logging
+  
+  redis_python:
+    image: redis
+    restart: always
+    networks:
+      - python_app_network
+    logging: *default-logging
+      
+  # Typescript application
+  ts_app:
+    image: ntdesmond/iu-devops-ts
+    restart: always
+    depends_on:
+      - redis_ts
+    ports:
+      - "8081:3000"
+    environment:
+      - REDIS_URL=redis://redis_ts:6379
+    networks:
+      - ts_app_network
+    logging: *default-logging
+  
+  redis_ts:
+    image: redis
+    restart: always
+    networks:
+      - ts_app_network
+    logging: *default-logging
+
+  # Grafana Loki
+  loki:
+    image: grafana/loki:2.6.1
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+    logging: *default-logging
+
+  promtail:
+    image: grafana/promtail:2.6.1
+    volumes:
+      # using /mnt/l since i an on WSL
+      - /mnt/l/data/docker:/var/lib/docker:ro
+      - ./promtail.yml:/etc/promtail/config.yml:ro
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - loki
+    logging: *default-logging
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - loki
+    logging: *default-logging

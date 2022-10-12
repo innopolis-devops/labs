@@ -71,7 +71,7 @@ services:
   promtail:
     image: grafana/promtail:2.6.1
     volumes:
-      # using /mnt/l since i an on WSL
+      # using /mnt/l since i use WSL
       - /mnt/l/data/docker:/var/lib/docker:ro
       - ./promtail.yml:/etc/promtail/config.yml:ro
     command: -config.file=/etc/promtail/config.yml

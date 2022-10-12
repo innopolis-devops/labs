@@ -31,8 +31,8 @@ services:
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
-    networks:
-      - loki
+    # networks:
+    #   - loki
     <<: *logs
 
   promtail:
@@ -42,8 +42,8 @@ services:
       - promtail-data:/var/lib/promtail/positions
       - ${PWD}/promtail.yml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/config.yml
-    networks:
-      - loki
+    # networks:
+    #   - loki
     <<: *logs
 
   grafana:
@@ -66,12 +66,39 @@ services:
         /run.sh
     ports:
       - "3000:3000"
-    networks:
-      - loki
+    # networks:
+    #   - loki
     <<: *logs
+  
+  # prometheus:
+  #   image: prom/prometheus:2.39.1
+  #   volumes:
+  #     - ${PWD}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+  #     - prometheus-data:/prometheus
+  #   command:
+  #     - '--config.file=/etc/prometheus/prometheus.yml'
+  #     - '--storage.tsdb.path=/prometheus'
+  #     - '--web.console.libraries=/etc/prometheus/console_libraries'
+  #     - '--web.console.templates=/etc/prometheus/consoles'
+  #     - '--storage.tsdb.retention.time=14d'
+  #     - '--web.enable-lifecycle'
+  #     - '--storage.tsdb.wal-compression'
+  #     - '--storage.tsdb.max-block-duration=4h'
+  #     - '--storage.tsdb.wal-segment-size=60MB'
+  #     - '--storage.tsdb.allow-overlapping-blocks'
+  #     - '--query.max-samples=5000000'
+  #   restart: unless-stopped
+  #   expose:
+  #     - 909
+  #   networks:
+  #     - monitoring.network
+  #     - loki
+  #   labels:
+  #     org.label-schema.group: "monitoring"
 
-networks:
-  loki:
+
+# networks:
+#   loki:
 
 volumes:
   promtail-data: {}

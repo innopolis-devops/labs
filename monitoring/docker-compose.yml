@@ -1,0 +1,77 @@
+version: "3.9"
+
+x-logs: &logs
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "100m"
+      max-file: "10"
+      tag: "{{.ImageName}}|{{.Name}}"
+
+services:
+  app_python:
+    image: bragov4ik/time_web_app:latest
+    ports:
+      - 80:8000
+    restart: always
+    command: [ "-b", "0.0.0.0:8000", "--log-level", "debug" ]
+    <<: *logs
+  
+  app_rust:
+    image: bragov4ik/time_rust_web_app:latest
+    ports:
+      - 81:8000
+    restart: always
+    environment:
+      ROCKET_LOG_LEVEL: "normal"
+    <<: *logs
+
+  loki:
+    image: grafana/loki:2.6.1
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+    <<: *logs
+
+  promtail:
+    image: grafana/promtail:2.6.1
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - promtail-data:/var/lib/promtail/positions
+      - ${PWD}/promtail.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - loki
+    <<: *logs
+
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+    entrypoint:
+      - sh
+      - -euc
+      - |
+        mkdir -p /etc/grafana/provisioning/datasources
+        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
+        apiVersion: 1
+        datasources:
+          - name: Loki
+            type: loki
+            access: proxy
+            url: http://loki:3100
+        EOF
+        /run.sh
+    ports:
+      - "3000:3000"
+    networks:
+      - loki
+    <<: *logs
+
+networks:
+  loki:
+
+volumes:
+  promtail-data: {}

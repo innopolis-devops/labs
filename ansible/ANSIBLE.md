@@ -296,7 +296,7 @@ vm01                       : ok=13   changed=6    unreachable=0    failed=0    s
 last 50 lines
 
 ```diff
-$ ansible-playbook playbooks/dev/main.yml --diff
+$ ansible-playbook playbooks/python/main.yml --diff
 ...
 --- before
 +++ after

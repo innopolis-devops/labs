@@ -8,32 +8,34 @@ x-logs: &logs
       max-file: "10"
       tag: "{{.ImageName}}|{{.Name}}"
 
+x-common: &common
+  <<: *logs
+  restart: unless-stopped
+
 services:
   app_python:
     image: bragov4ik/time_web_app:latest
     ports:
       - 80:8000
-    restart: always
     command: [ "-b", "0.0.0.0:8000", "--log-level", "debug" ]
-    <<: *logs
+    <<: *common
+    restart: always
   
   app_rust:
     image: bragov4ik/time_rust_web_app:latest
     ports:
       - 81:8000
-    restart: always
     environment:
       ROCKET_LOG_LEVEL: "normal"
-    <<: *logs
+    <<: *common
+    restart: always
 
   loki:
     image: grafana/loki:2.6.1
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
-    # networks:
-    #   - loki
-    <<: *logs
+    <<: *common
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -42,14 +44,15 @@ services:
       - promtail-data:/var/lib/promtail/positions
       - ${PWD}/promtail.yml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/config.yml
-    # networks:
-    #   - loki
-    <<: *logs
+    <<: *common
 
   grafana:
     image: grafana/grafana:latest
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ${PWD}/grafana/provisioning:/etc/grafana/provisioning
     entrypoint:
       - sh
       - -euc
@@ -62,43 +65,32 @@ services:
             type: loki
             access: proxy
             url: http://loki:3100
+          - name: Prometheus
+            type: prometheus
+            access: proxy
+            url: http://prometheus:9090
         EOF
         /run.sh
     ports:
       - "3000:3000"
-    # networks:
-    #   - loki
-    <<: *logs
+    <<: *common
   
-  # prometheus:
-  #   image: prom/prometheus:2.39.1
-  #   volumes:
-  #     - ${PWD}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-  #     - prometheus-data:/prometheus
-  #   command:
-  #     - '--config.file=/etc/prometheus/prometheus.yml'
-  #     - '--storage.tsdb.path=/prometheus'
-  #     - '--web.console.libraries=/etc/prometheus/console_libraries'
-  #     - '--web.console.templates=/etc/prometheus/consoles'
-  #     - '--storage.tsdb.retention.time=14d'
-  #     - '--web.enable-lifecycle'
-  #     - '--storage.tsdb.wal-compression'
-  #     - '--storage.tsdb.max-block-duration=4h'
-  #     - '--storage.tsdb.wal-segment-size=60MB'
-  #     - '--storage.tsdb.allow-overlapping-blocks'
-  #     - '--query.max-samples=5000000'
-  #   restart: unless-stopped
-  #   expose:
-  #     - 909
-  #   networks:
-  #     - monitoring.network
-  #     - loki
-  #   labels:
-  #     org.label-schema.group: "monitoring"
-
-
-# networks:
-#   loki:
+  prometheus:
+    image: prom/prometheus:v2.39.1
+    volumes:
+      - ${PWD}/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=14d'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - "9090:9090"
+    <<: *common
 
 volumes:
   promtail-data: {}
+  prometheus-data: {}
+  grafana-data: {}

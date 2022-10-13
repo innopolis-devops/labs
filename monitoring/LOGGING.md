@@ -6,7 +6,7 @@
 
 The containers are launched succesfully, Graphana starts at port 8000. Logs are collected and can be retrieved:
 
-![warning logs search query in Graphana](./report_artifacts/graphana_screen.png)
+![warning logs search query in Graphana](./report_artifacts/graphana_logs.png)
 
 ### Solution description
 
@@ -27,4 +27,4 @@ Logs from all containers are already collected, I've just added bonus app.
 
 In the screenshot you can see logs from the app + selection to see logs from all other containers:
 
-![graphana_query_selection](report_artifacts/graphana_screen_bonus.png)
+![graphana_query_selection](report_artifacts/graphana_logs_bonus.png)

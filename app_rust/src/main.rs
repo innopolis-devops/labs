@@ -1,5 +1,5 @@
 use chrono::Duration;
-use rocket::{get, launch, routes};
+use rocket::{get, launch, routes, http::Status};
 use rocket_prometheus::PrometheusMetrics;
 
 use utils::{get_local_time_moscow, get_remote_time_moscow, render_time_page, TimeRequestError};
@@ -12,7 +12,7 @@ fn index() -> String {
 }
 
 #[get("/status")]
-async fn status_check() -> String {
+async fn status_check() -> (Status, String) {
     let max_allowed_diff_secs = 5;
 
     let remote_time = match get_remote_time_moscow().await {
@@ -28,22 +28,22 @@ async fn status_check() -> String {
             };
             let mut output = "Failed to perform time status check: ".to_owned();
             output.push_str(err_cause_return);
-            return output;
+            return (Status::ServiceUnavailable, output);
         }
     };
     let local_time = get_local_time_moscow();
     let diff = remote_time - local_time;
     if diff.num_seconds().abs() < max_allowed_diff_secs {
-        format!(
+        (Status::Ok, format!(
             "Local time is correct. Error ({}) is within boundary ({})",
             diff,
             Duration::seconds(max_allowed_diff_secs)
-        )
+        ))
     } else {
-        format!(
+        (Status::Ok, format!(
             "Local time is incorrect. Difference with another time provider is {}",
             diff
-        )
+        ))
     }
 }
 

@@ -55,4 +55,4 @@ def status_check():
         return render_status_check()
     except Exception as e:
         app.logger.warn("Could not do status check: %s", e)
-        return "Failed to perform status check"
+        return "Failed to perform status check", 503

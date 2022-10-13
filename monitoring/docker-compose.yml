@@ -59,6 +59,10 @@ services:
     command: -config.file=/etc/promtail/config.yml
     <<: [*common, *health]
     healthcheck:
+      # A bit messy but the idea is the following:
+      # * Find inode that is connected to remote address with port 3100 (0c1c, probably loki's port?)
+      # * Check that this inode is listed in file descriptors of process 1 (promtail itself)
+      # in other words, checks if promtail is connected to loki
       test: ["CMD-SHELL", "ls -iLalh /proc/1/fd | grep `cat /proc/net/tcp | awk '/[0-9A-Z]+:0C1C/{ print $$10 }'`"]
 
   grafana:

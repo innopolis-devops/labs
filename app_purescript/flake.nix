@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/nixpkgs;
     flake-utils_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/flake-utils;
-    easy-purescript-nix_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/easy-purescript-nix;
+    easy-purescript-nix_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/easy-purescript-nix;  
     drv-tools.url = github:br4ch1st0chr0n3/flakes?dir=drv-tools;
     python-tools.url = github:br4ch1st0chr0n3/flakes?dir=language-tools/python;
     nixpkgs.follows = "nixpkgs_/nixpkgs";

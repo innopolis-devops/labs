@@ -5,6 +5,7 @@
 , commands
 , env2json
 , my-codium
+, refmt
 }:
 let
   inherit (drv-tools.functions.${system})
@@ -29,6 +30,7 @@ let
     DOCKER_PORT
     HOST_PORT
     ;
+  refmt_ = refmt.packages.${system}.default;
   # all scripts assume calling from the $PROJECT_ROOT
   writeDocs =
     let
@@ -87,17 +89,36 @@ let
         poetry update
       '';
     };
+  inherit (pkgs.lib.strings) concatMapStringsSep;
   writeConfigs =
     mkShellApp {
       name = "write-configs";
+      text = concatMapStringsSep "\n" mkBin
+        (builtins.attrValues {
+          inherit writeSettings writeTasks writeDocs
+            writeMarkdownlintConfig writeRootPyproject writeWorkflows;
+        })
+      ;
+    };
+  writeTerraform =
+    let
+      dockerTF = "terraform/docker";
+      inherit (import terraform/docker/variables.nix { inherit pkgs; }) variablesTF tfvars mainTF;
+      mkTFPath = name: "${dockerTF}/${name}.tf";
+      targets =
+        concatMapStringsSep "\n" (x@{ tf, fileName }: "printf '${tf}' > ${mkTFPath fileName}") ([
+          { tf = variablesTF; fileName = "variables"; }
+          { tf = tfvars; fileName = "terraform.tfvars"; }
+          { tf = mainTF; fileName = "main"; }
+        ]);
+    in
+    mkShellApp {
       text = ''
-        ${mkBin writeSettings}
-        ${mkBin writeTasks}
-        ${mkBin writeDocs}
-        ${mkBin writeMarkdownlintConfig}
-        ${mkBin writeRootPyproject}
-        ${mkBin writeWorkflows}
+        ${targets}
+        terraform fmt ${dockerTF}
       '';
+      runtimeInputs = [ refmt_ pkgs.terraform ];
+      name = "write-terraform-docker";
     };
   writeWorkflows =
     let
@@ -127,5 +148,6 @@ in
     writeSettings
     writeMarkdownlintConfig
     writeConfigs
-    writeRootPyproject;
+    writeRootPyproject
+    writeTerraform;
 }

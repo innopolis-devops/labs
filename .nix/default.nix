@@ -10,6 +10,7 @@
 , flake-tools
 , easy-purescript-nix
 , python-tools
+, refmt
 }:
 let
   pkgs = nixpkgs.legacyPackages.${system};
@@ -53,6 +54,7 @@ let
           env2json
           drv-tools
           my-codium
+          refmt
           ;
       }
     );
@@ -81,7 +83,7 @@ let
   codium = mkCodium {
     extensions = {
       inherit (extensions)
-        nix markdown purescript github misc docker python toml fish yaml;
+        nix markdown purescript github misc docker python toml fish yaml terraform;
     };
     runtimeDependencies = [
       (toList commands)
@@ -134,7 +136,7 @@ let
       {
         shellHook = python-tools.snippets.${system}.activateVenv;
         # binaries that we need to test and can't yet include as a part of codium
-        # if they gets here, they will overwrite the stuff from codium
+        # if they get here, they will overwrite the stuff from codium
         buildInputs = [
           (builtins.attrValues (scripts // flakesUtils // commands.apps))
           pkgs.haskell-language-server

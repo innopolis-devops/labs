@@ -12,6 +12,7 @@
     env2json.url = github:br4ch1st0chr0n3/flakes?dir=env2json;
     json2md.url = github:br4ch1st0chr0n3/flakes?dir=json2md;
     easy-purescript-nix.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/easy-purescript-nix;
+    refmt.url = github:br4ch1st0chr0n3/refmt/master;
 
     # app-purescript.url = path:./app_purescript;
     app-python.url = "github:br4ch1st0chr0n3/devops-labs/lab3?dir=app_python";
@@ -31,6 +32,7 @@
     , easy-purescript-nix
     , drv-tools
     , python-tools
+    , refmt
     , ...
     }:
     flake-utils.lib.eachDefaultSystem (system:
@@ -42,7 +44,7 @@
       inherit (import ./.nix/default.nix {
         inherit nixpkgs system my-codium app-python app-purescript
           rootDir json2md env2json drv-tools flake-tools easy-purescript-nix
-          python-tools
+          python-tools refmt
           ;
       }) devShells scripts codium flakesUtils
         flakesToggleRelativePaths_ configWriters commands;

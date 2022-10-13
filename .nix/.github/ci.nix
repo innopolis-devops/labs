@@ -49,7 +49,7 @@ let
   actions = {
     logInToCachix = {
       name = "Log in to Cachix";
-      uses = "cachix/cachix-action@v10";
+      uses = "cachix/cachix-action@v11";
       "with" = {
         name = expr ns.secrets.CACHIX_CACHE;
         authToken = expr ns.secrets.CACHIX_AUTH_TOKEN;

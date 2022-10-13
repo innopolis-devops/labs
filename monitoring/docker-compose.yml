@@ -51,26 +51,7 @@ services:
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
     volumes:
-      - grafana-data:/var/lib/grafana
       - ${PWD}/grafana/provisioning:/etc/grafana/provisioning
-    entrypoint:
-      - sh
-      - -euc
-      - |
-        mkdir -p /etc/grafana/provisioning/datasources
-        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
-        apiVersion: 1
-        datasources:
-          - name: Loki
-            type: loki
-            access: proxy
-            url: http://loki:3100
-          - name: Prometheus
-            type: prometheus
-            access: proxy
-            url: http://prometheus:9090
-        EOF
-        /run.sh
     ports:
       - "3000:3000"
     <<: *common
@@ -93,4 +74,3 @@ services:
 volumes:
   promtail-data: {}
   prometheus-data: {}
-  grafana-data: {}

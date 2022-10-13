@@ -20,8 +20,8 @@ let
   toStringBody_ = nl: args@{ ... }: with builtins; ''{
     ${
         concatMapStringsSep nl (x: "${x}") (attrValues (
-          mapAttrs (name: val: "${name} = ${toString val}") (
-            filterAttrs (name: val: !(elem (typeOf val) ["lambda" "null"])) args
+          mapAttrs (name: val: "${name} = ${toStringPrimitive val}") (
+            filterPrimitives args
           )
         ))
       }
@@ -55,6 +55,7 @@ let
   list = type: {
     __type = "list";
     __toString = self: ''${self.__type}(${type})'';
+    __arg = type;
   };
 
 
@@ -74,12 +75,6 @@ let
       __toString = toStringBody;
     };
 
-  mkVar = attrs@{ ... }: (builtins.mapAttrs (_: x: mkBody_ x) attrs) // {
-    __toString = self:
-      let inherit (pkgs.lib.strings) removePrefix removeSuffix; in
-      removePrefix "{" (removeSuffix "}" (toStringBody_ "\n\n" self));
-  };
-
   t = list (object {
     name = string;
     enabled = optional bool true;
@@ -95,29 +90,52 @@ let
   appPython = "app_python";
   apps = [ appPurescript appPython ];
 
-  variable = genAttrs apps (app: {
-    "${app}" = {
-      type = object {
-        DIR = string;
-        DOCKER_PORT = number;
-        HOST = string;
-        HOST_PORT = number;
-        NAME = optional string "renamed_${app}";
-      };
-    };
-  });
+  filterPrimitives = args@{ ... }: with builtins; filterAttrs (name: val: !(elem (typeOf val) [ "lambda" "null" ])) args;
+  mkVariables = attrs@{ ... }: (
+    builtins.mapAttrs
+      (name: value: value // { __toString = toStringBody; })
+      attrs
+  ) // {
+    __toString = self: concatStringsSep "\n\n" (
+      with builtins; attrValues (
+        mapAttrs (name: value: ''variable ${qq name} ${value}'') (filterPrimitives self)
+      )
+    );
+  };
 
-  var = mkVar {
+  variable = mkVariables (genAttrs apps (app: {
+    type = object {
+      DIR = optional string "/app";
+      DOCKER_PORT = optional number 80;
+      HOST = optional string "0.0.0.0";
+      NAME = optional string "renamed_${app}";
+      HOST_PORT = number;
+    };
+  }));
+
+  mapToValue = attrs@{ ... }: builtins.mapAttrs
+    (name: val:
+      if val.__type == "object" then { } else { }
+    )
+    attrs;
+
+  noBraces = arg: assert builtins.isString arg;
+    let inherit (pkgs.lib.strings) removePrefix removeSuffix; in
+    removePrefix "{" (removeSuffix "}" arg);
+
+  mkVars = attrs@{ ... }: (builtins.mapAttrs
+    (name: val: mkBody_ (
+      val
+    ))
+    attrs) // {
+    __toString = self: noBraces (toStringBody_ "\n\n" self);
+  };
+
+  var = mkVars {
     "${appPython}" = {
-      DIR = qq "/app";
-      DOCKER_PORT = 80;
-      HOST = qq "0.0.0.0";
       HOST_PORT = 8002;
     };
     "${appPurescript}" = {
-      DIR = qq "/app";
-      DOCKER_PORT = 80;
-      HOST = qq "0.0.0.0";
       HOST_PORT = 8003;
     };
   };

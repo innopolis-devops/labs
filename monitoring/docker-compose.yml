@@ -4,13 +4,22 @@ x-logs: &logs
   logging:
     driver: "json-file"
     options:
-      max-size: "100m"
+      max-size: "10m"
       max-file: "10"
       tag: "{{.ImageName}}|{{.Name}}"
 
 x-common: &common
   <<: *logs
   restart: unless-stopped
+  mem_limit: 100M
+
+x-health: &health
+  healthcheck:
+    test: ["CMD-SHELL", "curl -f http://localhost/"]
+    interval: 1m30s
+    timeout: 30s
+    retries: 3
+    start_period: 40s
 
 services:
   app_python:
@@ -20,6 +29,7 @@ services:
     command: [ "-b", "0.0.0.0:8000", "--log-level", "debug" ]
     <<: *common
     restart: always
+    # Healthcheck is configured inside docker image
   
   app_rust:
     image: bragov4ik/time_rust_web_app:latest
@@ -29,13 +39,16 @@ services:
       ROCKET_LOG_LEVEL: "normal"
     <<: *common
     restart: always
+    # Healthcheck is configured inside docker image
 
   loki:
     image: grafana/loki:2.6.1
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
-    <<: *common
+    <<: [*common, *health]
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3100/ready || exit 1"]
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -44,7 +57,9 @@ services:
       - promtail-data:/var/lib/promtail/positions
       - ${PWD}/promtail.yml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/config.yml
-    <<: *common
+    <<: [*common, *health]
+    healthcheck:
+      test: ["CMD-SHELL", "ls -iLalh /proc/1/fd | grep `cat /proc/net/tcp | awk '/[0-9A-Z]+:0C1C/{ print $$10 }'`"]
 
   grafana:
     image: grafana/grafana:latest
@@ -54,7 +69,9 @@ services:
       - ${PWD}/grafana/provisioning:/etc/grafana/provisioning
     ports:
       - "3000:3000"
-    <<: *common
+    <<: [*common, *health]
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/healthz || exit 1"]
   
   prometheus:
     image: prom/prometheus:v2.39.1
@@ -69,7 +86,9 @@ services:
       - '--web.console.templates=/usr/share/prometheus/consoles'
     ports:
       - "9090:9090"
-    <<: *common
+    <<: [*common, *health]
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:9090/-/healthy || exit 1"]
 
 volumes:
   promtail-data: {}

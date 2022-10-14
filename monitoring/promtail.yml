@@ -1,0 +1,56 @@
+# Config based on:
+# - https://github.com/black-rosary/loki-nginx/blob/master/promtail/promtail.yml
+# - https://itnext.io/monitoring-your-docker-containers-logs-the-loki-way-e9fdbae6bafd
+
+# Port configuration
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+  log_level: "warn"
+
+# Promtail progress storage
+positions:
+  filename: /tmp/positions.yaml
+
+# Address of loki server to push to
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+# Logs to read/scrape
+scrape_configs:
+  - job_name: docker-logs
+
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: container-logs
+          # All Docker container logs
+          __path__: /var/lib/docker/containers/*/*.log
+
+    pipeline_stages:
+      # Parse JSON log line
+      - json:
+          expressions:
+            stream: stream
+            attrs: attrs
+            tag: attrs.tag
+            time: time
+
+      # Convert timestamp
+      - timestamp:
+          source: time
+          format: RFC3339Nano
+
+      # Parse the tag into labels
+      - regex:
+          expression: ^(?P<image_name>([^|]+))\|(?P<container_name>([^|]+))$
+          source: "tag"
+      - labels:
+          image_name:
+          container_name:
+
+      # Drop all logs without tag "{{:ImageName}}|{{:Name}}"
+      - match:
+          selector: '{job="docker",container_name="",image_name=""}'
+          action: drop

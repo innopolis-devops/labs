@@ -1,0 +1,44 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets:
+          - "prometheus:9090"
+
+  - job_name: "loki"
+    dns_sd_configs:
+      - names:
+          - loki
+        type: A
+        port: 3100
+
+  # All the other services
+  - job_name: "promtail"
+    dns_sd_configs:
+      - names:
+          - promtail
+        type: A
+        port: 9080
+
+  - job_name: "grafana"
+    dns_sd_configs:
+      - names:
+          - grafana
+        type: A
+        port: 3000
+
+  - job_name: "python_app"
+    dns_sd_configs:
+      - names:
+          - python_app
+        type: A
+        port: 8000
+
+  - job_name: "ts_app"
+    dns_sd_configs:
+      - names:
+          - ts_app
+        type: A
+        port: 3000

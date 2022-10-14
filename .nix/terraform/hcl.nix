@@ -307,20 +307,22 @@ let
   # no qq since top resource types have no quotation marks
   # TODO add as toString
   mkBlocks = attrs@{ ... }:
-    mapAttrs
-      (name: val@{ ... }:
-        val // {
-          __toString = self:
-            concatStringsSep "\n" (
-              map (str: "${name} ${str}")
-                (mapBlockToString val true)
-            );
-        })
-      attrs;
+    let as =
+      mapAttrs
+        (name: val@{ ... }:
+          val // {
+            __toString = self:
+              concatStringsSep "\n" (
+                map (str: "${name} ${str}")
+                  (mapBlockToString val true)
+              );
+          })
+        attrs;
+    in as;
 
   # TODO should variables be declared separately?
 
-  blocks = mkBlocks {
+  testBlocks = mkBlocks {
     terraform = b {
       required_providers = a {
         docker = a {
@@ -379,7 +381,7 @@ let
     b = { type = optional string "b"; };
     buckets = { type = t; };
   };
-  
+
   testVar = mkVars testVariable {
     a = { a = 100; };
     b = "c";
@@ -411,11 +413,50 @@ let
       }
     ];
   };
+
+  # circular dependency?
+  mainTF = mkBlocks {
+    terraform = b {
+      required_providers = a {
+        docker = a {
+          source = "kreuzwerker/docker";
+          version = "~> 2.22.0";
+        };
+      };
+    };
+    resource.docker_image.try_app_python = b {
+      name = "dademd/app_python:latest";
+      keep_locally = false;
+    };
+    locals = b {
+      path_app_python = "";
+      path_app_purescript = "";
+    };
+    resource.docker_container.try_app_python = b {
+      image = docker_image.try_app_python.image_id;
+      name = "try_app_python";
+      restart = "always";
+      volumes = b {
+        container_path = var.app_python_env.DIR;
+        host_path = local.path_app_python;
+        read_only = false;
+      };
+      ports = b {
+        internal = var.app_python_env.DOCKER_PORT;
+        external = var.app_python_env.HOST_PORT;
+      };
+      env = [ "HOST=${var.app_python_env.HOST}" "PORT=${var.app_python_env.DOCKER_PORT}" ];
+      host = b {
+        host = "localhost";
+        ip = var.app_python_env.HOST;
+      };
+    };
+  };
 in
 {
   inherit t var_ variable mapToValue;
   inherit testVar testVariable;
   inherit var;
-  inherit blocks;
+  inherit testBlocks;
 
 }

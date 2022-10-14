@@ -10,4 +10,4 @@ After it web interface is available on `127.0.0.1:3000`. Logs from both `app_pyt
 
 ## Screenshot
 
-![Screenshot](https://github.com/ParfenovIgor/labs/tree/lab7/monitor/screenshots/1.png)
+![Screenshot](./screenshots/1.png)

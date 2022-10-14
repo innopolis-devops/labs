@@ -1,0 +1,21 @@
+---
+- include_tasks: 0-wipe.yml
+
+- name: Prepare and launch Docker container
+  block:
+    - name: Make sure destination dir exists
+      file:
+        path: "{{ docker_compose_directory }}"
+        state: directory
+        mode: 0755
+
+    - name: Create a docker-compose.yml file
+      ansible.builtin.template:
+        src: templates/docker-compose.yml.j2
+        dest: "{{ docker_compose_directory }}/docker-compose.yml"
+
+    - name: Run the app using docker-compose
+      community.docker.docker_compose:
+        project_src: "{{ docker_compose_directory }}"
+        files:
+          - docker-compose.yml

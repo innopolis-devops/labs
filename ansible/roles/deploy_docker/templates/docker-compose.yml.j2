@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  web_app:
+    image: {{ image_name }}
+    restart: always
+    ports:
+      - "{{ external_port }}:{{ internal_port }}"
+  
+  redis:
+    image: redis
+    restart: always
+    logging:
+      driver: none

@@ -1,0 +1,49 @@
+name: Build and test (Typescript)
+
+on:
+  push:
+    paths:
+      - "app_typescript/*"
+
+# Allow one concurrent build for each branch
+concurrency:
+  group: build-test-ts-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+
+    # Use app_python directory for all steps
+    defaults:
+      run:
+        working-directory: ./app_typescript
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run linter (ESLint)
+        run: npm run lint
+
+      - name: Run Jest tests
+        run: npm run test
+
+      # Snyk didn't want to work as a separate Node action, bruh
+      - uses: snyk/actions/setup@master
+
+      - name: Run Snyk to check for vulnerabilities
+        run: snyk test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

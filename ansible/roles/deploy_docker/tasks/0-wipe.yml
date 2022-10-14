@@ -1,0 +1,16 @@
+---
+- name: Remove the Docker container and related files
+  tags: wipe
+  when: web_app_full_wipe
+  block:
+    - name: Stop docker-compose
+      community.docker.docker_compose:
+        project_src: "{{ docker_compose_directory }}"
+        files:
+          - docker-compose.yml
+        state: absent
+
+    - name: Remove the application directory
+      file:
+        path: "{{ docker_compose_directory }}"
+        state: absent

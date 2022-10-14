@@ -1,0 +1,52 @@
+version: "3.4"
+
+x-logging: &logging
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "100m"
+      max-file: "10"
+      tag: "{{.ImageName}}|{{.Name}}"
+
+networks:
+  loki:
+
+services:
+  app_python:
+    image: igorparfenov/devops_lab:app_python_latest
+    ports:
+      - 80:5000
+    restart: always
+    <<: *logging
+
+  app_php:
+    image: igorparfenov/devops_lab:app_php_latest
+    ports:
+      - 81:80
+    restart: always
+    <<: *logging
+
+  loki:
+    image: grafana/loki:2.6.1
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+
+  promtail:
+    image: grafana/promtail:2.6.1
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      # - promtail-data:/var/lib/promtail/positions
+      - ./promtail.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - loki
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - loki

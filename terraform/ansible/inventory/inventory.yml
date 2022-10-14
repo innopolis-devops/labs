@@ -1,0 +1,6 @@
+VM:
+  hosts:
+    VM1:
+      ansible_host: 51.250.105.74
+      ansible_user: debian
+

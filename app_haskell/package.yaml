@@ -36,6 +36,9 @@ dependencies:
   - time
   - servant-prometheus
   - prometheus-client
+  - co-log
+  - chronos
+  - text
 
 library:
   source-dirs: src

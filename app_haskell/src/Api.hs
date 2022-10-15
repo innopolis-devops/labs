@@ -3,6 +3,7 @@
 module Api where
 
 import           App
+import           Colog
 import           Data.Time
 import           Lucid
 import           Servant
@@ -17,6 +18,7 @@ api = Proxy
 getTime :: App (Html ())
 getTime = do
   moscowTime <- liftIO getMoscowTime
+  logInfo "Time request"
   let responseString = "Time in Moscow is " <> fmtTime moscowTime :: String
   pure $ toHtml responseString
 

@@ -2,6 +2,7 @@ from datetime import datetime
 
 import pytz
 from aiohttp import web
+from loguru import logger
 from middleware import setup_metrics
 
 moscow_tz = pytz.timezone("Europe/Moscow")
@@ -9,6 +10,7 @@ moscow_tz = pytz.timezone("Europe/Moscow")
 
 async def get_time(_: web.Request) -> web.Response:
     t = datetime.now(moscow_tz).strftime("%H:%M:%S")
+    logger.info("Time request")
     return web.Response(text=f"Time in Moscow is {t}")
 
 

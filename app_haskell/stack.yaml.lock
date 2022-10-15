@@ -5,6 +5,13 @@
 
 packages:
 - completed:
+    hackage: co-log-0.4.0.1@sha256:3d4c17f37693c80d1aa2c41669bc3438fac3e89dc5f479e57d79bc3ddc4dfcc5,5087
+    pantry-tree:
+      size: 1126
+      sha256: e73165ff8f744709428e2e87984c9d60ca1cec43d8455c413181c7c466e7497c
+  original:
+    hackage: co-log-0.4.0.1
+- completed:
     hackage: servant-lucid-0.9.0.5@sha256:c46780eefc12544b862af1dd7c7f88715e5fb45d954da538b0641d42c7b5f5c6,1787
     pantry-tree:
       size: 392

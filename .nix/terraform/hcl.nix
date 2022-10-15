@@ -56,9 +56,7 @@ let
     (mapAttrs (name: value: value // { __toString = toStringBody; }) attrs
     ) // {
       __toString = self: concatStringsSep "\n" (
-        with builtins; attrValues (
-          mapAttrs (name: value: ''variable ${qq name} ${value}'') (filterOutNonTypes self)
-        )
+        mapAttrsToList (name: value: ''variable ${qq name} ${value}'') (filterOutNonTypes self)
       );
     };
 
@@ -190,9 +188,10 @@ let
     }
     else if elem (typeOf arg) [ "int" "float" "set" ] then "${toString arg}"
     # "path", "lambda", "null"
-    else "";
+    else throw "what's your type?";
 
-  toStringBody_ = nl: args@{ ... }: with builtins; (x: "{\n${x}\n}")
+  braces = x: "{${if x == "" then "" else "\n${x}\n"}}";
+  toStringBody_ = nl: args@{ ... }: with builtins; braces
     (
       concatMapStringsSep nl (x: "${x}") (
         attrValues (
@@ -231,22 +230,29 @@ let
     (mapAttrs
       (name: val:
         let path_ = "${path}${if path == "" then "" else "."}${name}"; in
-        (if isAttrs val then mkAccessors_ val else id) path_
+        (
+          if isAttrs val
+          then mkAccessors_ val
+          else x: { __toString = self: "${x}"; }
+        ) path_
       )
       (filterOutNonTypes attrs)
-    ) // {
-      _ = path;
-    };
+    ) // (
+      let
+        # __functor = path_: assert isString path; { };
+        __functor = self: path_: mkAccessors_ { } "${path}.${path_}";
+        __toString = self: path;
+      in
+      { inherit __functor __toString; __isArgument = null; }
+    );
 
   # Blocks
   # should make variables available with a set prefix
   # should handle the blocks based on their prefixes
   # will render them
 
-  inherit (genAttrs [ "__isArgument" "__isBlock" ] id) __isArgument __isBlock;
-
   # assume arguments are values and contain no blocks
-  toStringBlockBody = attrs@{ ... }: (x: "{${if x == "" then "" else "\n${x}\n"}}") (
+  toStringBlockBody = attrs@{ ... }: braces (
     concatStringsSep "\n" (
       # we want a list of representations of body attributes and blocks
       flatten (
@@ -255,9 +261,14 @@ let
             if isAttrs val then
               (
                 # a new block starts so the new block type won't be a label
-                if hasAttr __isBlock val then map (x: "${name} ${x}") (mapBlockToString val false)
-                else if hasAttr __isArgument val then [ ("${name} = ${toStringBody (mkToStringBody val)}") ]
-                else map (x: ''${name} ${x}'') (mapBlockToString val true)
+                if hasAttr KW.__isArgument val then
+                  [ ("${name} = ${toStringBody (mkToStringBody val)}") ]
+                # if a new block starts, there go not labels, but block types
+                else
+                  let isLabel = !hasAttr KW.__isBlock val; in
+                  map
+                    (x: "${name} ${x}")
+                    (mapBlockToString val isLabel)
               )
             else [ ''${name} = ${toStringPrimitive val}'' ]
           )
@@ -273,13 +284,13 @@ let
   mkResource = { name, value }:
     value // { __toString = self: ''${qq name} ${toStringBody self}''; };
 
-  blockNames = genAttrs [ "resource" "variable" ] id;
-
   # return a list of representations
   mapBlockToString = attrs@{ ... }: isLabel:
     assert isBool isLabel;
-    if hasAttr __isArgument attrs then [ (toStringBody (mkToStringBody attrs)) ]
-    else if hasAttr __isBlock attrs then [ (toStringBlockBody attrs) ]
+    if hasAttr KW.__isArgument attrs then [ (toStringBody (mkToStringBody attrs)) ]
+    else if hasAttr KW.__isBlock attrs then [ (toStringBlockBody attrs) ]
+    # else if hasAttr KW.__toString attrs then [ "${attrs}" ]
+    # if hasAttr KW.__toString val then [ "${val}" ]
     # it's a part of a header of a block
     else
       flatten
@@ -289,7 +300,7 @@ let
               if isAttrs val then
                 let
                   name_ = (if isLabel then qq else id) name;
-                  infix = if hasAttr __isArgument val then " = " else " ";
+                  infix = if hasAttr KW.__isArgument val then " = " else " ";
                   reprs = mapBlockToString val true;
                 in
                 map (val_: "${name_}${infix}${val_}") reprs
@@ -304,21 +315,62 @@ let
   # argument
   a = attrs@{ ... }: attrs // { __isArgument = null; };
 
+  ifHasAttr = attr: f: attrs@{ ... }: attrs // (
+    if hasAttr attr attrs then { "${attr}" = f attr; } else { }
+  );
   # no qq since top resource types have no quotation marks
   # TODO add as toString
-  mkBlocks = attrs@{ ... }:
+  mkBlocks = mkBlocks_ { };
+
+  # keywords
+  KW = genAttrs [ "__" "local" "locals" "resource" "__isArgument" "__isBlock" "__toString" ] id;
+
+  mkBlocks_ = __@{ ... }: attrs@{ ... }:
     let as =
       mapAttrs
         (name: val@{ ... }:
           val // {
             __toString = self:
+              let infix = if hasAttr KW.__isArgument val then " = " else " "; in
               concatStringsSep "\n" (
-                map (str: "${name} ${str}")
+                map (str: "${name}${infix}${str}")
                   (mapBlockToString val true)
               );
           })
         attrs;
-    in as;
+    in
+    as // (
+      let
+        std =
+          {
+            __toString = self:
+              concatStringsSep "\n" (
+                attrValues (filterAttrs (name: _: name != KW.__) (filterOutNonTypes self))
+              );
+
+            __ = recursiveUpdate __
+              (
+                {
+                  local =
+                    if hasAttr KW.locals as then mkAccessors_ (as.locals) KW.local else { };
+                }
+                // (if hasAttr KW.resource as then mkAccessors (filterOutNonTypes as.resource) else { })
+              );
+          };
+        cont = {
+          # Set -> (Set -> Set) -> Set
+          __functor = self: x:
+            (
+              y: y // { __toString = self_: "${self}\n${y}"; }
+            ) (mkBlocks_ self.__ (x self.__));
+        };
+      in
+      std // cont
+    );
+
+  # TODO use filterAttrsRecursive?
+
+  # mkBlocks {} {}
 
   # TODO should variables be declared separately?
 
@@ -415,48 +467,58 @@ let
   };
 
   # circular dependency?
-  mainTF = mkBlocks {
-    terraform = b {
-      required_providers = a {
-        docker = a {
-          source = "kreuzwerker/docker";
-          version = "~> 2.22.0";
+  mainTF =
+    mkBlocks
+      {
+        terraform = b {
+          required_providers = a {
+            docker = a {
+              source = "kreuzwerker/docker";
+              version = "~> 2.22.0";
+            };
+          };
         };
-      };
-    };
-    resource.docker_image.try_app_python = b {
-      name = "dademd/app_python:latest";
-      keep_locally = false;
-    };
-    locals = b {
-      path_app_python = "";
-      path_app_purescript = "";
-    };
-    resource.docker_container.try_app_python = b {
-      image = docker_image.try_app_python.image_id;
-      name = "try_app_python";
-      restart = "always";
-      volumes = b {
-        container_path = var.app_python_env.DIR;
-        host_path = local.path_app_python;
-        read_only = false;
-      };
-      ports = b {
-        internal = var.app_python_env.DOCKER_PORT;
-        external = var.app_python_env.HOST_PORT;
-      };
-      env = [ "HOST=${var.app_python_env.HOST}" "PORT=${var.app_python_env.DOCKER_PORT}" ];
-      host = b {
-        host = "localhost";
-        ip = var.app_python_env.HOST;
-      };
-    };
-  };
+        resource.docker_image.try_app_python = b {
+          name = "dademd/app_python:latest";
+          keep_locally = false;
+        };
+        locals = b {
+          path_app_python = "";
+          path_app_purescript = "";
+        };
+      }
+      (__: {
+        resource.docker_container.try_app_python = b {
+          image = __.docker_image.try_app_python "image_id";
+
+          # name = "try_app_python";
+          # restart = "always";
+          # volumes = b {
+          #   container_path = __.var.app_python_env.DIR;
+          #   host_path = __.local.path_app_python;
+          #   read_only = false;
+          # };
+          # ports = b {
+          #   internal = __.var.app_python_env.DOCKER_PORT;
+          #   external = __.var.app_python_env.HOST_PORT;
+          # };
+          # env = [ "HOST=${__.var.app_python_env.HOST}" "PORT=${__.var.app_python_env.DOCKER_PORT}" ];
+          # host = b {
+          #   host = "localhost";
+          #   ip = __.var.app_python_env.HOST;
+          # };
+        };
+      }
+      );
+
+  # f = x: with { y = 4; }; x;
+  # g = f { inherit y; };
 in
 {
+  # inherit g;
   inherit t var_ variable mapToValue;
   inherit testVar testVariable;
   inherit var;
   inherit testBlocks;
-
+  inherit mainTF;
 }

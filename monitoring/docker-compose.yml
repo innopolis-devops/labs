@@ -1,0 +1,106 @@
+version: '3.7'
+
+x-logging:
+  &loki-logging
+  driver: "json-file"
+  options:
+    max-size: "100m"
+    max-file: "10"
+    tag: "{{.ImageName}}|{{.Name}}"
+
+services:
+
+  grafana:
+    image: grafana/grafana:9.1.8
+    container_name: monitoring.grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - VIRTUAL_HOST=monitoring.grafana
+      - NETWORK_ACCESS=internal
+      - VIRTUAL_PORT=3000
+    restart: unless-stopped
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring.network
+    labels:
+      org.label-schema.group: "monitoring"
+    logging: *loki-logging
+
+  promtail:
+    image: grafana/promtail:2.6.1
+    container_name: monitoring.promtail
+    expose:
+      - 9080
+    ports:
+      - "9080:9080"
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - promtail-data:/var/lib/promtail/positions
+      - ./promtail/promtail.yml:/etc/promtail/promtail.yml
+    command:
+      - '-config.file=/etc/promtail/promtail.yml'
+    restart: unless-stopped
+    networks:
+      - monitoring.network
+      - app_python
+      - app_java
+    labels:
+      org.label-schema.group: "monitoring"
+    logging: *loki-logging
+
+  loki:
+    container_name: monitoring.loki
+    image: grafana/loki:2.6.1
+    expose:
+      - 3100
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - loki-data:/tmp/loki/
+    restart: unless-stopped
+    networks:
+      - monitoring.network
+    labels:
+      org.label-schema.group: "monitoring"
+    logging: *loki-logging
+
+  app_python:
+    container_name: app_python
+    image: mcflydesigner/django-iu-lab:latest
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    logging: *loki-logging
+    networks:
+      - app_python
+
+  app_java:
+    container_name: app_java
+    image: mcflydesigner/spring-ui-lab:latest
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    logging: *loki-logging
+    networks:
+      - app_java
+
+networks:
+  app_python:
+  app_java:
+  monitoring.network:
+    ipam:
+      driver: default
+
+volumes:
+  grafana-data: { }
+  loki-data: { }
+  promtail-data: { }

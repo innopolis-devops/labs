@@ -44,9 +44,9 @@ services:
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - promtail-data:/var/lib/promtail/positions
-      - ${PWD}/promtail/promtail.yml:/etc/promtail/promtail.yml
+      - ${PWD}/promtail/promtail.yml:/etc/promtail.yml
     command:
-      - '-config.file=/etc/promtail/promtail.yml'
+      - '-config.file=/etc/promtail.yml'
     restart: unless-stopped
     labels:
       org.label-schema.group: "monitoring"
@@ -60,7 +60,7 @@ services:
       - "3100:3100"
     volumes:
       - loki-data:/tmp/loki/
-    command: -config.file=/etc/loki-config.yml
+    command: -config.file=/etc/loki/loki-config.yml
     restart: unless-stopped
     labels:
       org.label-schema.group: "monitoring"

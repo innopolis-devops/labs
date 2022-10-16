@@ -1,0 +1,11 @@
+# Default role for python app
+
+web_app_wipe : false
+web_app_name: app_python
+web_app_image:
+  name: inforest/app_python
+  version: app_python
+web_app_port:
+  external: 80
+  internal: 5000
+web_app_path: "/opt/{{ app_name }}"

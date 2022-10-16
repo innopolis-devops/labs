@@ -1,0 +1,45 @@
+- name: Wipe app
+  ansible.builtin.import_tasks: 0-wipe.yml
+  when: web_app_wipe | bool
+  tags:
+    - wipe
+    - deploy
+
+- name: Install docker for python
+  tags:
+    - deploy
+  block:
+    - name: Install pip
+      package:
+        name: python3-pip
+        state: present
+    - name: Install docker
+      ansible.builtin.pip:
+        name: docker
+    - name: Install docker-compose
+      ansible.builtin.pip:
+        name: docker-compose
+
+- name: Deploy app
+  tags: deploy
+  block:
+    - name: Start docker service
+      service:
+        name: docker
+        state: started
+
+    - name: Create directory
+      ansible.builtin.file:
+        path: "{{ web_app_path }}"
+        state: directory
+
+    - name: Template a docker file
+      ansible.builtin.template:
+        src: docker-compose.yml.j2
+        dest: "{{ web_app_path }}/docker-compose.yml"
+
+    - name: Start all
+      community.docker.docker_compose:
+        project_src: "{{ web_app_path }}"
+        state: present
+        pull: true

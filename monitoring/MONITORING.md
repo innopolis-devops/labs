@@ -8,6 +8,8 @@ Logs collected from all docker containers.
 After running infrastructure with monitoring and setting up Grafana,
 I have got the following results:
 
-![Explore](.attachments/1.png)
+![All](.attachments/1.png)
 
-![Dashboard](.attachments/2.png)
+![app1](.attachments/2.png)
+
+![app2](.attachments/3.png)

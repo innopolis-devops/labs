@@ -37,7 +37,7 @@ services:
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - promtail-data:/var/lib/promtail/positions
-      - ${PWD}/promtail.yml:/etc/promtail/promtail.yml
+      - ${PWD}/promtail.yml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/promtail.yml
     restart: unless-stopped
     labels:

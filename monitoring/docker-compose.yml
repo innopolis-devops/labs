@@ -3,7 +3,7 @@ version: '3'
 services:
 
   app_python:
-    image: johndenkis/simple_python_app_v2
+    image: johndenkis/simple_python_app_v2:latest
     ports:
       - 5000:5000
     command: ["--log-level", "debug"]

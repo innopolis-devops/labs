@@ -39,6 +39,7 @@ dependencies:
   - co-log
   - chronos
   - text
+  - bytestring
 
 library:
   source-dirs: src

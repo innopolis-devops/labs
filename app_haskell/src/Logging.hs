@@ -7,12 +7,15 @@ import qualified Chronos                    as C
 import           Colog
 import           Control.Concurrent         (ThreadId)
 import           Control.Monad.IO.Class     (MonadIO (..))
+import qualified Data.ByteString            as BS
+import qualified Data.ByteString.Char8      as BS8
 import           Data.Text                  (Text)
 import qualified Data.Text                  as T
 import           Data.Text.Encoding
 import           Data.Text.Lazy             (toStrict)
 import qualified Data.Text.Lazy.Builder     as TB
 import qualified Data.Text.Lazy.Builder.Int as TB
+import           System.IO                  (hFlush, stdout)
 
 square :: Text -> Text
 square t = "[" <> t <> "] "
@@ -79,8 +82,14 @@ fmtMessageDefault msg = fmtRichMessageCustomDefault msg formatRichMessage
      <> thread
      <> msgText
 
+logByteStringStdoutFlush :: MonadIO m => LogAction m BS.ByteString
+logByteStringStdoutFlush = LogAction $ \c -> do
+  liftIO $ BS8.putStrLn c
+  -- quick fix for logs not showing up in docker logs problem
+  liftIO $ hFlush stdout
+
 defaultLogAction :: MonadIO m => LogAction m Message
 defaultLogAction = upgradeMessageAction defaultFieldMap $
-    cmapM (fmap encodeUtf8 . fmtMessageDefault) logByteStringStdout
+    cmapM (fmap encodeUtf8 . fmtMessageDefault) logByteStringStdoutFlush
 {-# INLINE defaultLogAction #-}
 {-# SPECIALIZE defaultLogAction :: LogAction IO Message #-}

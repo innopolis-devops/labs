@@ -57,7 +57,8 @@ services:
       - 3100
     ports:
       - "3100:3100"
-    command: -config.file=/etc/loki/loki-config.yaml
+    command:
+      - 'config.file=/etc/loki/loki-config.yaml'
     restart: unless-stopped
     labels:
       org.label-schema.group: "monitoring"

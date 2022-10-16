@@ -37,7 +37,6 @@ dependencies:
   - servant-prometheus
   - prometheus-client
   - co-log
-  - chronos
   - text
   - bytestring
 

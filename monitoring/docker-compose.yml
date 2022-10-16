@@ -1,0 +1,68 @@
+version: '3.7'
+
+x-logging:
+  &default-logging
+  driver: "json-file"
+  options:
+    max-size: "100m"
+    max-file: "10"
+    tag: "{{.ImageName}}|{{.Name}}"
+
+services:
+  app_python:
+    image: danmory/python_kremlin_chimes
+    ports:
+      - 8000:8000
+    logging: *default-logging
+  
+  app_go:
+    image: danmory/go_kremlin_chimes
+    ports:
+      - 8080:8080
+    logging: *default-logging
+
+  grafana:
+    image: grafana/grafana
+    container_name: monitoring.grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ${PWD}/grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+    restart: unless-stopped
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
+    logging: *default-logging
+
+  promtail:
+    image: grafana/promtail:2.6.1
+    container_name: monitoring.promtail
+    expose:
+      - 9080
+    ports:
+      - "9080:9080"
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - promtail-data:/var/lib/promtail/positions
+      - ${PWD}/promtail/promtail.yml:/etc/promtail/promtail.yml
+    command:
+      - '-config.file=/etc/promtail/promtail.yml'
+    restart: unless-stopped
+    logging: *default-logging
+
+  loki:
+    image: grafana/loki:2.6.1
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    restart: unless-stopped
+    logging: *default-logging
+
+volumes:
+  grafana-data: {}
+  loki-data: {}
+  promtail-data: {}

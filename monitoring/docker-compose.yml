@@ -1,11 +1,16 @@
 version: '3'
 
+networks:
+  loki:
+
 services:
 
   app_python:
     image: johndenkis/simple_python_app_v2:latest
     ports:
       - 5000:5000
+    networks:
+      - loki
     logging:
       driver: "json-file"
       options:
@@ -13,9 +18,12 @@ services:
         max-file: "10"
         tag: "{{.ImageName}}|{{.Name}}"
 
+
   grafana:
     image: grafana/grafana:latest
     container_name: monitoring.grafana
+    networks:
+      - loki
     volumes:
       - grafana-data:/var/lib/grafana
       - ${PWD}/grafana/provisioning:/etc/grafana/provisioning
@@ -34,6 +42,8 @@ services:
   promtail:
     image: grafana/promtail:2.6.1
     container_name: monitoring.promtail
+    networks:
+      - loki
     expose:
       - 9080
     ports:
@@ -51,6 +61,8 @@ services:
   loki:
     container_name: monitoring.loki
     image: grafana/loki:2.6.1
+    networks:
+      - loki
     expose:
       - 3100
     ports:

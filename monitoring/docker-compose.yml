@@ -1,16 +1,13 @@
 version: '3'
 
-networks:
-  loki:
-
 services:
 
   app_python:
     image: johndenkis/simple_python_app_v2:latest
+    expose:
+      - 5000
     ports:
       - 5000:5000
-    networks:
-      - loki
     logging:
       driver: "json-file"
       options:
@@ -22,11 +19,8 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: monitoring.grafana
-    networks:
-      - loki
     volumes:
-      - grafana-data:/var/lib/grafana
-      - ${PWD}/grafana/provisioning:/etc/grafana/provisioning
+      - ${PWD}/loki.yml:/etc/grafana/provisioning/datasources/datasource.yml
     environment:
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
       - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
@@ -42,8 +36,6 @@ services:
   promtail:
     image: grafana/promtail:2.6.1
     container_name: monitoring.promtail
-    networks:
-      - loki
     expose:
       - 9080
     ports:
@@ -51,7 +43,7 @@ services:
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - promtail-data:/var/lib/promtail/positions
-      - ${PWD}/promtail/promtail.yml:/etc/promtail/promtail.yml
+      - ${PWD}/promtail.yml:/etc/promtail/promtail.yml
     command:
       - '-config.file=/etc/promtail/promtail.yml'
     restart: unless-stopped
@@ -61,14 +53,10 @@ services:
   loki:
     container_name: monitoring.loki
     image: grafana/loki:2.6.1
-    networks:
-      - loki
     expose:
       - 3100
     ports:
       - "3100:3100"
-    volumes:
-      - loki-data:/tmp/loki/
     command: -config.file=/etc/loki/loki-config.yaml
     restart: unless-stopped
     labels:

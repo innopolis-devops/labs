@@ -34,21 +34,6 @@ services:
       - "80:80"
     <<: *common
 
-# You need to setup Loki + Grafana + Promtail first.
-#  promtail:
-#    image: grafana/promtail:2.6.1
-#    container_name: ap-promtail
-#    command:
-#      - -config.file=/etc/promtail/config.yaml
-#      - -config.expand-env=true
-#    environment:
-#      - APP_API_LOKI_URL
-#    volumes:
-#      - ./config/promtail-conf.yaml:/etc/promtail/config.yaml
-#      - logs:/var/log/app/
-#    <<: *common
-#    <<: *env
-
 volumes:
   logs:
   socket:

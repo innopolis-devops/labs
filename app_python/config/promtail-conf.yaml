@@ -20,7 +20,7 @@ scrape_configs:
 
     pipeline_stages:
       - regex:
-          expression: '^(?P<dt>\d+-\d+-\d+ \d+:\d+:\d+,\d+) \(?P<level>\w+\)\ \w+.(?P<module>\w+).(?P<endpoint>\w+).(?P<function>\w+): (?P<content>.*)$'
+          expression: '^(?P<dt>\d+-\d+-\d+ \d+:\d+:\d+,\d+)\s(?P<level>\w+)\s(?P<module>\w+):(?P<function>\w+):(?P<line>\d+)\s(?P<content>.*)$'
       - template:
           source: dt
           template: '{{ Replace .Value "," "." -1 }}'

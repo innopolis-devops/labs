@@ -23,3 +23,31 @@ services:
       - ./.docker/config.json:/config.json
     command: ap-api
     <<: *common
+
+  loki:
+    image: grafana/loki:2.6.1
+    container_name: ap-loki
+    command:
+      - -config.file=/etc/loki/local-config.yaml
+      - -config.expand-env=true
+    <<: *common
+
+  promtail:
+    image: grafana/promtail:2.6.1
+    container_name: ap-promtail
+    command:
+      - -config.file=/etc/promtail/config.yaml
+      - -config.expand-env=true
+    environment:
+      - APP_API_LOKI_URL=http://loki:3100/loki/api/v1/push
+    volumes:
+      - ./config/promtail-conf.yaml:/etc/promtail/config.yaml
+      - logs:/var/log/app/
+    <<: *common
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: ap-grafana
+    ports:
+      - "3000:3000"
+    <<: *common

@@ -1,6 +1,6 @@
 # Logging lab (graphana, loki, promtail)
 
-# HowToRun
+## HowToRun
 Run promtail, loki, graphana and your services with:
 ```
 docker-compose up -d
@@ -20,7 +20,7 @@ Also, you can check that datasource is connected correctly:
 
 If any error, check loki and promtail continer logs.
 
-# Part I: python app
+## Part I: python app
 
 ### Labels
 
@@ -37,7 +37,7 @@ We can filter by container_name and choose our python app:
 ![python_result](assets/python_result.jpg)
 
 
-# Part II: all containers logs + extra golang app
+## Part II: all containers logs + extra golang app
 
 ### All containers
 

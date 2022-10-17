@@ -1,0 +1,60 @@
+version: '3.3'
+services:
+  timeweb:
+    image: passkeyra/timeweb:latest
+    restart: unless-stopped
+
+  nginx:
+    build: ./nginx
+    image: nginx.timeweb
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+    env_file:
+      - ./grafana/config.monitoring
+    restart: unless-stopped
+
+  promtail:
+    image: grafana/promtail
+    expose:
+      - 9080
+    ports:
+      - "9080:9080"
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - promtail_data:/var/lib/promtail/positions
+      - ./promtail/promtail.yml:/etc/promtail/promtail.yml
+    command:
+      - '-config.file=/etc/promtail/promtail.yml'
+    restart: unless-stopped
+
+  loki:
+    image: grafana/loki
+    expose:
+      - 3100
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki/loki-config.yml:/etc/loki-config.yml
+      - loki_data:/loki
+    command: -config.file=/etc/loki-config.yml
+    restart: unless-stopped
+
+volumes:
+  grafana_data: {}
+  loki_data: {}
+  promtail_data: {}

@@ -6,18 +6,22 @@ terraform {
     }
   }
 }
+
 locals {
   path_app_purescript = abspath("${path.root}/../../app_purescript")
   path_app_python     = abspath("${path.root}/../../app_python")
 }
+
 resource "docker_image" "try_app_purescript" {
   keep_locally = false
   name         = "dademd/app_purescript:latest"
 }
+
 resource "docker_image" "try_app_python" {
   keep_locally = false
   name         = "dademd/app_python:latest"
 }
+
 resource "docker_container" "try_app_purescript" {
   env = [
     "HOST=${var.app_purescript.HOST}",
@@ -40,6 +44,7 @@ resource "docker_container" "try_app_purescript" {
     read_only      = false
   }
 }
+
 resource "docker_container" "try_app_python" {
   env = [
     "HOST=${var.app_python.HOST}",

@@ -39,5 +39,3 @@ meta
 
 # terraform outputs
 plan
-
-.env.json

@@ -95,15 +95,15 @@ let
       docker = import ./terraform/docker.nix { inherit pkgs system hcl-terraform; };
       yc = import ./terraform/yc.nix { inherit pkgs system hcl-terraform; };
       dirDocker = "terraform/docker";
-      dirYC = "terraform/yc";
+      dirYC = "terraform/yandex-cloud";
     in
     writeFiles [
       { expr = docker.tfvars; filePath = "${dirDocker}/terraform.tfvars"; }
       { expr = docker.variables; filePath = "${dirDocker}/variables.tf"; }
       { expr = docker.main; filePath = "${dirDocker}/main.tf"; }
-      # { hclExpr = yc.tfvars; filePath = "${dirYC}/terraform.tfvars"; }
-      # { hclExpr = yc.variables; filePath = "${dirYC}/variables.tf"; }
-      # { hclExpr = yc.main; filePath = "${dirYC}/main.tf"; }
+      { expr = yc.main; filePath = "${dirYC}/main.tf"; }
+      { expr = yc.tfvars; filePath = "${dirYC}/terraform.tfvars"; }
+      { expr = yc.variables; filePath = "${dirYC}/variables.tf"; }
     ];
   writeWorkflows =
     let

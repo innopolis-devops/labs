@@ -7,6 +7,7 @@ variable "app_purescript" {
     NAME        = optional(string, "renamed_app_purescript")
   })
 }
+
 variable "app_python" {
   type = object({
     DIR         = optional(string, "/app")

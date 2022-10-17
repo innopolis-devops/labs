@@ -1,4 +1,4 @@
-![](https://github.com/markovvn1/devops-labs/actions/workflows/terraform.yml/badge.svg?branch=lab6)
+![](https://github.com/markovvn1/devops-labs/actions/workflows/terraform.yml/badge.svg?branch=lab7)
 
 
 # Terraform reprot

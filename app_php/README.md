@@ -1,4 +1,4 @@
-![](https://github.com/markovvn1/devops-labs/actions/workflows/app_php.yml/badge.svg?branch=lab6)
+![](https://github.com/markovvn1/devops-labs/actions/workflows/app_php.yml/badge.svg?branch=lab7)
 
 
 <div align="center">
@@ -29,10 +29,10 @@ Before proceeding, make sure you have installed [Docker](https://docs.docker.com
    git clone https://github.com/Markovvn1/devops-labs.git && cd devops-labs
    ```
 
-2. Switch to lab6 branch and open project's directory:
+2. Switch to lab7 branch and open project's directory:
 
    ```bash
-   git checkout lab6 && cd app_php
+   git checkout lab7 && cd app_php
    ```
 
 3. Run the project using Docker:

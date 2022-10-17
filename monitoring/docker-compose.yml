@@ -13,6 +13,17 @@ services:
       options:
         tag: "{{.ImageName}}|{{.Name}}"
 
+  app_go:
+    image: johndenkis/simple_go_app_v2:latest
+    expose:
+      - 4000
+    ports:
+      - 3000:4000
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
   loki:
     container_name: monitoring.loki
     image: grafana/loki:2.6.1

@@ -12,6 +12,6 @@ and `app_php` can be gotten in appropriate tabs.
 
 ## Screenshot
 
-![app_python](https://github.com/ParfenovIgor/labs/tree/lab7/monitor/screenshots/1.png)
+![app_python](/monitor/screenshots/1.png)
 
-![app_php](https://github.com/ParfenovIgor/labs/tree/lab7/monitor/screenshots/2.png)
+![app_php](/monitor/screenshots/2.png)

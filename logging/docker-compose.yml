@@ -5,21 +5,6 @@ networks:
 
 services:
 
-  # Since the Loki containers are running as user 10001 and the mounted data volume is owned by root,
-  # Loki would not have permissions to create the directories.
-  # Therefore the init container changes permissions of the mounted directory.
-  # init:
-  #   image: grafana/loki:2.6.1
-  #   user: root
-  #   entrypoint:
-  #     - "chown"
-  #     - "10001:10001"
-  #     - "/loki"
-  #   volumes:
-  #     - ./loki:/loki
-  #   networks:
-  #     - loki
-
   grafana:
     image: grafana/grafana:9.1.6
     ports:
@@ -35,7 +20,6 @@ services:
       - loki
 
 
-  # for testing purposes only, disable in production
   web-app:
     image: e2xen/devops-pythonapp:latest
     volumes:
@@ -56,8 +40,6 @@ services:
 
   loki:
     image: grafana/loki:2.6.1
-    # volumes:
-    #   - ./config:/etc/loki/
     ports:
       - "3100"
       - "7946"

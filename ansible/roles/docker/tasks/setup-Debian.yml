@@ -1,4 +1,10 @@
 ---
+- name: Update apt packages
+  become: true
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400  # One day
+
 - name: Ensure old versions of Docker are not installed.
   package:
     name:

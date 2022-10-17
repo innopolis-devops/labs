@@ -8,4 +8,4 @@ web_app_image:
 web_app_port:
   external: 80
   internal: 5000
-web_app_path: "/opt/{{ app_name }}"
+web_app_path: "/opt/{{ web_app_name }}"

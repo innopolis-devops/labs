@@ -1,0 +1,14 @@
+- name: deploy java app
+  hosts: managed_nodes
+  remote_user: ubuntu
+  become: true
+  roles:
+    - web_app
+  vars:
+    web_app_name: app_java
+    web_app_image:
+      name: inforest/app_java
+      version: app_java
+    web_app_port:
+      external: 80
+      internal: 8080

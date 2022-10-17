@@ -12,6 +12,18 @@ services:
         max-file: "10"
         tag: "{{.ImageName}}|{{.Name}}"
 
+  app_java:
+    image: noneword/app_java
+    build: app_java
+    ports:
+      - 4568:8080
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+        tag: "{{.ImageName}}|{{.Name}}"
+
   loki:
     container_name: monitoring.loki
     image: grafana/loki:2.6.1

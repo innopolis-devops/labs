@@ -1,0 +1,76 @@
+version: "3.9"
+
+x-logging: &logging
+  driver: json-file
+  options:
+    tag: "{{.ImageName}}|{{.Name}}"
+    max-size: "300k"
+    max-file: "10"
+
+services:
+  grafana:
+    # image: grafana/grafana:9.1.8-ubuntu
+    image: grafana/grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ${PWD}/config/grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - VIRTUAL_HOST=grafana
+      - NETWORK_ACCESS=internal
+      - VIRTUAL_PORT=3000
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring
+    logging: *logging
+
+  promtail:
+    image: grafana/promtail:2.6.1
+    ports:
+      - "9080:9080"
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - promtail-data:/var/lib/promtail/positions
+      - ${PWD}/config/promtail/promtail.yml:/etc/promtail/promtail.yml:ro
+    command:
+      - "-config.file=/etc/promtail/promtail.yml"
+    restart: unless-stopped
+    networks:
+      - app_python
+      - monitoring
+    logging: *logging
+
+  loki:
+    image: grafana/loki:2.6.1
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki-data:/loki/
+      - ${PWD}/config/loki/loki-config.yml:/etc/loki-config.yml:ro
+    command: -config.file=/etc/loki-config.yml
+    restart: unless-stopped
+    networks:
+      - monitoring
+    logging: *logging
+
+  app_python:
+    image: nailyav/lab2:latest
+    ports:
+      - "5000:5000"
+    networks:
+      - app_python
+      - monitoring
+    logging: *logging
+
+networks:
+  app_python:
+  monitoring:
+
+volumes:
+  grafana-data:
+  loki-data:
+  promtail-data:

@@ -4,8 +4,6 @@ services:
 
   app_python:
     image: johndenkis/simple_python_app_v2:latest
-    expose:
-      - 5000
     ports:
       - 5000:5000
     logging:
@@ -15,10 +13,8 @@ services:
 
   app_go:
     image: johndenkis/simple_go_app_v2:latest
-    expose:
-      - 2222
     ports:
-      - 2222:2222
+      - 2222:5000
     logging:
       driver: "json-file"
       options:

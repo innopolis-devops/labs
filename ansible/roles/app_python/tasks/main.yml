@@ -1,0 +1,25 @@
+- name: Wipe the Application Directory
+  ansible.builtin.include_tasks: 01-wipe.yml
+  when: app_needs_wipe
+  tags: ["app_python", "app_python_wipe"]
+
+- name: Deploy the Application
+  block:
+  - name: Create a directory (if needed)
+    ansible.builtin.file:
+      path: "{{ app_base_dir }}"
+      state: directory
+      mode: "0755"
+  - name: Template the docker-compose.yml
+    ansible.builtin.template:
+      src: docker-compose.yml.j2
+      dest: "{{ app_base_dir }}/docker-compose.yml"
+      owner: root
+      group: root
+      mode: "0600"
+  - name: Start the service
+    ansible.builtin.docker_compose:
+      project_src: "{{ app_base_dir }}"
+      state: present
+      pull: true
+  tags: ["app_python"]

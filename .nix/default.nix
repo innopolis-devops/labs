@@ -11,6 +11,7 @@
 , easy-purescript-nix
 , python-tools
 , refmt
+, hcl-terraform
 }:
 let
   pkgs = nixpkgs.legacyPackages.${system};
@@ -47,14 +48,8 @@ let
     (import ./write-configs.nix
       {
         inherit
-          json2md
-          system
-          pkgs
-          commands
-          env2json
-          drv-tools
-          my-codium
-          refmt
+          json2md system pkgs commands hcl-terraform
+          env2json drv-tools my-codium refmt
           ;
       }
     );

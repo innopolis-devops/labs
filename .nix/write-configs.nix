@@ -6,30 +6,19 @@
 , env2json
 , my-codium
 , refmt
+, hcl-terraform
 }:
 let
   inherit (drv-tools.functions.${system})
-    mkShellApp
-    writeJSON
-    framedBrackets
-    mkBin
-    withLongDescription
-    ;
+    mkShellApp writeJSON framedBrackets mkBin
+    withLongDescription concatStringsNewline;
   inherit (my-codium.configs.${system})
-    settingsNix
-    ;
+    settingsNix;
   inherit (my-codium.functions.${system})
-    writeSettingsJSON
-    writeTasksJSON
-    ;
+    writeSettingsJSON writeTasksJSON;
   inherit (import ./data.nix)
-    commandNames
-    taskNames
-    appPurescript
-    appPython
-    DOCKER_PORT
-    HOST_PORT
-    ;
+    commandNames taskNames appPurescript
+    appPython DOCKER_PORT HOST_PORT;
   refmt_ = refmt.packages.${system}.default;
   # all scripts assume calling from the $PROJECT_ROOT
   writeDocs =
@@ -102,24 +91,20 @@ let
     };
   writeTerraform =
     let
-      dockerTF = "terraform/docker";
-      inherit (import terraform/docker/variables.nix { inherit pkgs; }) variablesTF tfvars mainTF;
-      mkTFPath = name: "${dockerTF}/${name}.tf";
-      targets =
-        concatMapStringsSep "\n" (x@{ tf, fileName }: "printf '${tf}' > ${mkTFPath fileName}") ([
-          { tf = variablesTF; fileName = "variables"; }
-          { tf = tfvars; fileName = "terraform.tfvars"; }
-          { tf = mainTF; fileName = "main"; }
-        ]);
+      inherit (hcl-terraform.functions.${system}) writeFiles;
+      docker = import ./terraform/docker.nix { inherit pkgs system hcl-terraform; };
+      yc = import ./terraform/yc.nix { inherit pkgs system hcl-terraform; };
+      dirDocker = "terraform/docker";
+      dirYC = "terraform/yc";
     in
-    mkShellApp {
-      text = ''
-        ${targets}
-        terraform fmt ${dockerTF}
-      '';
-      runtimeInputs = [ refmt_ pkgs.terraform ];
-      name = "write-terraform-docker";
-    };
+    writeFiles [
+      { expr = docker.tfvars; filePath = "${dirDocker}/terraform.tfvars"; }
+      { expr = docker.variables; filePath = "${dirDocker}/variables.tf"; }
+      { expr = docker.main; filePath = "${dirDocker}/main.tf"; }
+      # { hclExpr = yc.tfvars; filePath = "${dirYC}/terraform.tfvars"; }
+      # { hclExpr = yc.variables; filePath = "${dirYC}/variables.tf"; }
+      # { hclExpr = yc.main; filePath = "${dirYC}/main.tf"; }
+    ];
   writeWorkflows =
     let
       ciNix = import ./.github/ci.nix { inherit appPurescript appPython pkgs drv-tools system; };
@@ -149,5 +134,6 @@ in
     writeMarkdownlintConfig
     writeConfigs
     writeRootPyproject
-    writeTerraform;
+    writeTerraform
+    ;
 }

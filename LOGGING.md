@@ -1,0 +1,1 @@
+![Screenshot](https://github.com/DiazzzU/labs/blob/lab7/monitoring/image1.png)

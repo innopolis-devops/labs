@@ -12,7 +12,8 @@ final curentTimeProvider = Provider<AsyncValue<DateTime>>((ref) {
     // return DateTime.now();
     return tz.TZDateTime.now(zone);
   });
-
+  // ignore: avoid_print
+  print('current time is $time');
   return time;
 });
 

@@ -13,7 +13,6 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
       - ${PWD}/config/grafana/provisioning:/etc/grafana/provisioning
-      - ${PWD}/config/grafana/exported_dashboards:/exported_dashboards
     environment:
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
       - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}

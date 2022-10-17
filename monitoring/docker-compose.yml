@@ -14,7 +14,7 @@ services:
   app_go:
     image: johndenkis/simple_go_app_v2:latest
     ports:
-      - 2222:5000
+      - 8080:2222
     logging:
       driver: "json-file"
       options:

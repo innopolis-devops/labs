@@ -1,10 +1,6 @@
 name: Python package
 
-on:
-  push:
-    paths:
-      - "app_python/app_folder/**"
-      - ".github/workflows/CI.yml"
+on: [push]
 
 jobs:
   build:
@@ -24,6 +20,7 @@ jobs:
         run: |
           pip install pylint pytest
           pip install --upgrade pip poetry==1.1.11 && poetry config virtualenvs.create false
+          cd app_python
           poetry install
       - name: Lint with pylint
         run: |

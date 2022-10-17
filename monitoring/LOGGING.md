@@ -2,8 +2,8 @@
 
 Match timeweb proxy container logs:
 
-![](https://ibb.co/qgHCvNF)
+![](https://i.ibb.co/hdGcSB1/1.png)
 
 Filter by `GET /`:
 
-![](https://ibb.co/w7swpnM)
+![](https://i.ibb.co/f9vnr34/2.png)

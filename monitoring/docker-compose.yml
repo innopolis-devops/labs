@@ -28,6 +28,10 @@ services:
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -43,6 +47,10 @@ services:
     command: -config.file=/etc/promtail/promtail.yml
     labels:
       org.label-schema.group: "monitoring"
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
 
   grafana:
     image: grafana/grafana:latest
@@ -57,6 +65,10 @@ services:
       - 3000
     ports:
       - "3000:3000"
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
 
 volumes:
   promtail-data: {}

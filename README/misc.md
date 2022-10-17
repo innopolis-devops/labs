@@ -38,6 +38,8 @@ dream2nix.lib.makeFlakeOutputs {
 
 - Interactive diagrams of `/nix/store` - [nix-du](https://github.com/symphorien/nix-du)
 
+- can't un-ignore a file if its parent dir is ignored `.gitignore` - [SO](https://stackoverflow.com/a/5285539)
+
 ## Stuff I made along the way
 
 - [Tutorials and Notes](https://github.com/br4ch1st0chr0n3/the-little-things) (also on Nix)
@@ -61,3 +63,4 @@ dream2nix.lib.makeFlakeOutputs {
   ```terminal
   nix eval nix#checks.x86_64-linux --apply builtins.attrNames
   ```
+

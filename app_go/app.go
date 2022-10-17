@@ -21,7 +21,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-        port := "3001"
+        port := "2222"
         mux := http.NewServeMux()
         mux.HandleFunc("/", indexHandler)
         res := http.ListenAndServe(":"+port, mux)

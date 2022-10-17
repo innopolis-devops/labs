@@ -66,15 +66,15 @@ You can run the application using the docker:
 2. Run container:
 
    ```bash
-   docker run -p 3001:3001 johndenkis/simple_python_go
+   docker run -p 2222:2222 johndenkis/simple_python_go
    ```
 
 ## Usage
 
 There are two ways to see the web page:
 
-1. Enter the url inside the browser: <http://localhost:3001/>
-2. Run the command: `$ curl localhost:3001`
+1. Enter the url inside the browser: <http://localhost:2222/>
+2. Run the command: `$ curl localhost:2222`
    Then you will see the page with current time in Moscow.
 
 ## Unit tests

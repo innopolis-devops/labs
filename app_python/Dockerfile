@@ -17,4 +17,5 @@ USER app
 EXPOSE 8000
 COPY --chown=app:app msctime/ ./msctime/
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "msctime.app:app", "--reload"]
+ENTRYPOINT ["gunicorn", "msctime.app:app"]
+CMD ["--bind", "0.0.0.0:8000", "--reload"]

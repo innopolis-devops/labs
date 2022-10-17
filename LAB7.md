@@ -7,14 +7,14 @@ In this lab you need to get familiar with a logging stack - Promtail, Loki, Graf
 ### 10 points
 
 1. Read about the logging stack:
-
-    * https://grafana.com/go/webinar/loki-getting-started/
-    * https://grafana.com/docs/loki/latest/overview/
+   * https://grafana.com/go/webinar/loki-getting-started/
+   * https://grafana.com/docs/loki/latest/overview/
 
 2. Prepare a docker-compose ﬁle with the stack and your app.
 
-    * [examples of docker-compose](https://github.com/grafana/loki)
-    * [example of promtail conﬁguration](https://github.com/black-rosary/loki-nginx), but be smart
+   * [examples of docker-compose](https://github.com/grafana/loki)
+   * [example of promtail conﬁguration](https://github.com/black-rosary/loki-nginx), but be smart
+
 
 3. Test that it works, prepare a `LOGGING.md` report.
 4. Create a monitoring folder, put report, docker-compose.yml and conﬁg ﬁles inside.
@@ -28,4 +28,5 @@ In this lab you need to get familiar with a logging stack - Promtail, Loki, Graf
 
 1. Add your extra app to the `docker-compose.yml`.
 2. Conﬁgure stack to get logs from all containers from docker-compose.yml. Provide
+
    screenshots of your success in the report.

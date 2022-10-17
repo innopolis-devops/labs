@@ -1,0 +1,72 @@
+# https://docs.technotim.live/posts/grafana-loki/
+---
+version: "3"
+
+x-common-config:
+  &logging
+  logging:
+    driver: json-file
+    options:
+      tag: "{{.Name}}"
+      max-size: "100m"
+      max-file: "3"
+  mem_limit: "512M"
+
+services:
+  app:
+    <<: *logging
+    image: migorr/time-app-devops:latest
+    ports:
+      - "8080:8080"
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  grafana:
+    <<: *logging
+    image: grafana/grafana:latest
+    restart: always
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+    ports:
+      - "3000:3000"
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  loki:
+    <<: *logging
+    image: grafana/loki:2.5.0
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./config/loki:/etc/loki
+    restart: unless-stopped
+    command: -config.file=/etc/loki/loki-config.yml
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  promtail:
+    <<: *logging
+    image: grafana/promtail:2.5.0
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers # For containers
+      - promtail-data:/data
+      - ./config/promtail:/etc/promtail
+    # ports:
+    #   - "1514:1514" # this is only needed if you are going to send syslogs
+    restart: unless-stopped
+    command: -config.file=/etc/promtail/promtail-config.yml
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+volumes:
+  promtail-data:

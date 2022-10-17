@@ -16,9 +16,9 @@ services:
   app_go:
     image: johndenkis/simple_go_app_v2:latest
     expose:
-      - 4000
+      - 3001
     ports:
-      - 3000:4000
+      - 3001:3001
     logging:
       driver: "json-file"
       options:

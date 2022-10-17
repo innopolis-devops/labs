@@ -8,5 +8,5 @@ COPY . $PROJECT_DIR
 RUN adduser -S userapp
 USER userapp
 
-EXPOSE 3000
+EXPOSE 3001
 CMD [ "go", "run", "app.go" ]

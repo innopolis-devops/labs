@@ -11,8 +11,7 @@ It is simple!
 Just run with 3 commands above and then open your browser and go to:
 * App itself - http://localhost:8000
 * Grafana - http://localhost:3000
-* Loki - http://localhost:9080/targets
-* Promtail - http://localhost:3100/ready
+* Loki, Promtail - http://localhost:9080/targets
 
 And that is it!!! how simple was it, huh?
 

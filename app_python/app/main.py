@@ -4,7 +4,7 @@ import pytz
 import logging
 
 fmt = '%(asctime)s %(levelname)s [%(name)s] [%(funcName)s:%(lineno)s] %(message)s'
-logging.basicConfig(filename='log/main.log', encoding='utf-8', level=logging.DEBUG, format=fmt)
+logging.basicConfig(filename='./log/main.log', encoding='utf-8', level=logging.DEBUG, format=fmt)
 logger = logging.getLogger(__name__)
 
 app = FastAPI()

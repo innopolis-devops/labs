@@ -1,0 +1,3 @@
+monitoring_path: '/monitoring'
+monitoring_full_wipe: false
+monitoring_full_install: true

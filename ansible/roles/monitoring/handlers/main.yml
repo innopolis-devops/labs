@@ -1,0 +1,10 @@
+- name: Monitoring docker compose restart
+  become: true
+  listen: monitoring_docker_restart
+  community.docker.docker_compose:
+    project_src: '{{ monitoring_path }}'
+    build: true
+    recreate: smart
+    restarted: true
+    remove_orphans: true
+    state: present

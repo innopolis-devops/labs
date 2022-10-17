@@ -1,0 +1,8 @@
+- name: Monitoring role
+  tags: [monitoring]
+  become: true
+  block:
+    - name: Import 0-wipe.yml
+      ansible.builtin.import_tasks: 0-wipe.yml
+    - name: Import 1-install.yml
+      ansible.builtin.import_tasks: 1-install.yml

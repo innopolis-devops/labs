@@ -1,0 +1,3 @@
+dependencies:
+  - role: docker
+    allow_duplicates: false

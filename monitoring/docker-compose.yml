@@ -1,0 +1,48 @@
+version: '3.7'
+
+x-logging: &x-logging
+  logging:
+    driver: 'json-file'
+    options:
+      max-size: '100m'
+      max-file: '2'
+      tag: '{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}'
+
+services:
+  grafana:
+    <<: *x-logging
+    image: grafana/grafana:latest
+    restart: always
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+
+      # whoo needs secrets anyway ¯\_(ツ)_/¯
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+    ports:
+      - '3000:3000'
+
+  loki:
+    <<: *x-logging
+    image: grafana/loki:2.6.0
+    restart: always
+    command: -config.file=/etc/loki/local-config.yaml
+
+  promtail:
+    <<: *x-logging
+    restart: always
+    image: grafana/promtail:2.0.0
+    volumes:
+      - ./config/promtail.yml:/etc/promtail/promtail.yml:ro
+      - promtail-data:/data
+      - /var/lib/docker/containers/:/var/lib/docker/containers/:ro
+    command:
+      - -config.file=/etc/promtail/promtail.yml
+
+volumes:
+  grafana-data:
+  loki-data:
+  promtail-data:

@@ -1,0 +1,19 @@
+- name: Install monitoring
+  tags: [monitoring-install]
+  when: monitoring_full_install
+  block:
+    - name: Sync directory {{ monitoring_path }}
+      ansible.builtin.synchronize:
+        src: "../../../../monitoring/"
+        dest: '{{ monitoring_path }}'
+        checksum: true
+      notify:
+        - monitoring_docker_restart
+
+    - name: Pull images
+      community.docker.docker_compose:
+        project_src: '{{ monitoring_path }}'
+        pull: true
+        state: present
+      notify:
+        - monitoring_docker_restart

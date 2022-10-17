@@ -1,6 +1,16 @@
 version: '3.7'
+
+x-logging: &x-logging
+  logging:
+    driver: 'json-file'
+    options:
+      max-size: '100m'
+      max-file: '2'
+      tag: {% raw %}'{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}'{% endraw %}
+
 services:
   '{{ web_app_name }}':
+    <<: *x-logging
     image: '{{ web_app_image }}'
     container_name: '{{ web_app_name }}'
     restart: always

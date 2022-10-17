@@ -1,0 +1,5 @@
+- name: Monitoring
+  hosts: all
+  roles:
+    - name: monitoring
+      tags: [monitoring]

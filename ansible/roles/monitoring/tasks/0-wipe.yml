@@ -1,0 +1,26 @@
+- name: Wipe monitoring
+  tags: [monitoring-wipe]
+  when: monitoring_full_wipe
+  block:
+    - name: Check if docker-compose file exists
+      ansible.builtin.stat:
+        path: '{{ monitoring_path }}/docker-compose.yml'
+      register: monitoring_compose
+    - name: Check if monitoring directory exists
+      ansible.builtin.stat:
+        path: '{{ monitoring_path }}'
+      register: monitoring_compose_dir
+
+    - name: Docker Compose rm
+      when: monitoring_compose.stat.exists
+      community.docker.docker_compose:
+        project_src: '{{ monitoring_path }}'
+        state: absent
+        remove_orphans: true
+        remove_images: all
+        remove_volumes: true
+    - name: Rmdir {{ monitoring_path }}
+      when: monitoring_compose_dir.stat.exists
+      ansible.builtin.file:
+        path: '{{ monitoring_path }}'
+        state: absent

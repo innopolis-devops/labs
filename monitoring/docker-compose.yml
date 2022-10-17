@@ -1,0 +1,74 @@
+---
+version: "3"
+
+services:
+  app_python:
+    image: zyymee/moscow-time-web-app:latest
+    container_name: moscow_time
+    ports:
+      - "5000:5000"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        tag: "{{.ImageName}}"
+    networks:
+      - logging
+
+  grafana:
+    image: grafana/grafana:7.3.4
+    container_name: grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ${PWD}/grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - VIRTUAL_HOST=grafana
+      - NETWORK_ACCESS=internal
+      - VIRTUAL_PORT=3000
+    restart: unless-stopped
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
+    networks:
+      - logging
+
+  promtail:
+    image: grafana/promtail:2.5.0
+    container_name: promtail
+    expose:
+      - 9080
+    ports:
+      - "9080:9080"
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - promtail-data:/var/lib/promtail/positions
+      - ${PWD}/promtail/promtail.yaml:/etc/promtail/promtail.yaml
+    command:
+      - '-config.file=/etc/promtail/promtail.yaml'
+    restart: unless-stopped
+    networks:
+      - logging
+
+  loki:
+    container_name: loki
+    image: grafana/loki:2.5.0
+    expose:
+      - 3100
+    ports:
+      - "3100:3100"
+    restart: unless-stopped
+    networks:
+      - logging
+
+networks:
+  logging:
+    driver: default
+
+volumes:
+  grafana-data: {}
+  promtail-data: {}
+  loki-data: {}

@@ -1,6 +1,6 @@
 from flask import Flask
 
-from controllers import time_controller
+from .controllers import time_controller
 
 app = Flask(__name__)
 

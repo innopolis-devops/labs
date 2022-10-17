@@ -1,7 +1,7 @@
 import pytz
 from datetime import datetime
 
-from utils.consts import DATE_TIME_FORMAT
+DATE_TIME_FORMAT = '%Y-%m-%dT%H:%M:%S'
 
 
 def get_moscow_time() -> str:

@@ -14,7 +14,7 @@
 
 ## Python app logs
 
-![java](screenshots/java.png)
+![python](screenshots/python.png)
 
 ## Java app logs
 

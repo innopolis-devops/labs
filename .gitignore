@@ -6,7 +6,7 @@
 *.venv
 *.env/
 *.venv/
-/.env
+/app_python/.env
 /.env.dev
 *.virtualenv/
 *.ENV/

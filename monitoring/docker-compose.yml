@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  app_python:
+    image: tbektleuov/devopslabs:lab7
+    ports:
+      - 8000:8000
+    networks:
+      - app_python
+      - monitoring
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  loki:
+    image: grafana/loki:2.6.1
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki-data:/loki/
+      - ${PWD}/config/loki/loki-config.yml:/etc/loki-config.yml:ro
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - monitoring
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  promtail:
+    image: grafana/promtail:2.6.1
+    ports:
+      - "9080:9080"
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - promtail-data:/var/lib/promtail/positions
+      - ${PWD}/config/promtail/promtail.yml:/etc/promtail/promtail.yml:ro
+    command: -config.file=/etc/promtail/promtail.yaml
+    networks:
+      - app_python
+      - monitoring
+
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - ${PWD}/config/grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - VIRTUAL_HOST=grafana
+      - NETWORK_ACCESS=internal
+      - VIRTUAL_PORT=3000
+
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+networks:
+  app_python:
+  app_haskell:
+  monitoring:
+
+volumes:
+  grafana-data:
+  loki-data:
+  promtail-data:
+
+

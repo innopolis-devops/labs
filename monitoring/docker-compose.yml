@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+
+  app_python:
+    image: molberte/devops-labs:latest
+    restart: unless-stopped
+    ports:
+      - 8000:5000
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    networks:
+      - py_app_net
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  promtail:
+    container_name: promtail
+    image: grafana/promtail:2.6.1
+    volumes:
+      - /mnt/l/version-pack-data/community/docker:/var/lib/docker:ro
+      - ./promtail.yml:/etc/promtail/config.yaml:ro
+    command: -config.file=/etc/promtail/config.yaml
+    restart: unless-stopped
+    networks:
+      - py_app_net
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  loki:
+    container_name: loki
+    image: grafana/loki:2.6.1
+    ports:
+      - 3100:3100
+    command: -config.file=/etc/loki/local-config.yaml
+    restart: unless-stopped
+    networks:
+      - py_app_net
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+
+networks:
+  py_app_net:

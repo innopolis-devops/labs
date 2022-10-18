@@ -10,7 +10,7 @@
 
 ### Nix eDSL
 
-- Made a Nix [eDSL](https://github.com/br4ch1st0chr0n3/flakes/tree/main/hcl-terraform) that can be translated into [HCL](https://github.com/hashicorp/hclblob/main/hclsyntax/spec.md). Due to Nix's features, it's possible to generate multiple similar values from a single template. Now, it is possible to easily stick to DRY principle when producing Terraform code
+- Made a Nix [eDSL](https://github.com/br4ch1st0chr0n3/flakes/tree/main/terrafix) that can be translated into [HCL](https://github.com/hashicorp/hclblob/main/hclsyntax/spec.md). Due to Nix's features, it's possible to generate multiple similar values from a single template. Now, it is possible to easily stick to DRY principle when producing Terraform code
 
 ## Docker
 

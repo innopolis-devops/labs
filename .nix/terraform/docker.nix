@@ -1,5 +1,5 @@
-{ pkgs, system, hcl-terraform }:
-with (hcl-terraform.hcl.${system} { inherit pkgs; });
+{ pkgs, system, terrafix }:
+with (terrafix.hcl.${system} { inherit pkgs; });
 let
   inherit (import ../data.nix) appPurescript appPython;
   apps = [ appPurescript appPython ];

@@ -6,7 +6,7 @@
 , env2json
 , my-codium
 , refmt
-, hcl-terraform
+, terrafix
 }:
 let
   inherit (drv-tools.functions.${system})
@@ -91,11 +91,13 @@ let
     };
   writeTerraform =
     let
-      inherit (hcl-terraform.functions.${system}) writeFiles;
-      docker = import ./terraform/docker.nix { inherit pkgs system hcl-terraform; };
-      yc = import ./terraform/yc.nix { inherit pkgs system hcl-terraform; };
+      inherit (terrafix.functions.${system}) writeFiles;
+      docker = import ./terraform/docker.nix { inherit pkgs system terrafix; };
+      yc = import ./terraform/yc.nix { inherit pkgs system terrafix; };
+      github = import ./terraform/github.nix { inherit pkgs system terrafix; };
       dirDocker = "terraform/docker";
       dirYC = "terraform/yandex-cloud";
+      dirGithub = "terraform/github";
     in
     writeFiles [
       { expr = docker.tfvars; filePath = "${dirDocker}/terraform.tfvars"; }
@@ -104,7 +106,19 @@ let
       { expr = yc.main; filePath = "${dirYC}/main.tf"; }
       { expr = yc.tfvars; filePath = "${dirYC}/terraform.tfvars"; }
       { expr = yc.variables; filePath = "${dirYC}/variables.tf"; }
+      { expr = github.main; filePath = "${dirGithub}/main.tf"; }
+      { expr = github.tfvars; filePath = "${dirGithub}/terraform.tfvars"; }
+      { expr = github.variables; filePath = "${dirGithub}/variables.tf"; }
     ];
+  # writeTf2Nix = mkShellApp {
+  #   name = "write-tf2nix";
+  #   text =
+  #     let
+  #       dir = "terraform/github";
+  #       tf2nix = terrafix.functions.${system}.tf2nix "tf-github" [ "${dir}/main.tf" "${dir}/variables.tf" ];
+  #     in
+  #     ''${mkBin tf2nix}'';
+  # };
   writeWorkflows =
     let
       ciNix = import ./.github/ci.nix { inherit appPurescript appPython pkgs drv-tools system; };
@@ -135,5 +149,6 @@ in
     writeConfigs
     writeRootPyproject
     writeTerraform
+    # writeTf2Nix
     ;
 }

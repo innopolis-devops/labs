@@ -11,7 +11,7 @@
 , easy-purescript-nix
 , python-tools
 , refmt
-, hcl-terraform
+, terrafix
 }:
 let
   pkgs = nixpkgs.legacyPackages.${system};
@@ -48,7 +48,7 @@ let
     (import ./write-configs.nix
       {
         inherit
-          json2md system pkgs commands hcl-terraform
+          json2md system pkgs commands terrafix
           env2json drv-tools my-codium refmt
           ;
       }
@@ -127,20 +127,20 @@ let
   };
 
   devShells =
-    (mkDevShellsWithDefault
+    mkDevShellsWithDefault
       {
         shellHook = python-tools.snippets.${system}.activateVenv;
         # binaries that we need to test and can't yet include as a part of codium
         # if they get here, they will overwrite the stuff from codium
         buildInputs = [
-          (builtins.attrValues (scripts // flakesUtils // commands.apps))
+          (builtins.attrValues (scripts // configWriters // flakesUtils // commands.apps))
           pkgs.haskell-language-server
         ];
       }
       {
-        fish = { };
+        fish = { buildInputs = builtins.attrValues configWriters; };
       }
-    );
+  ;
 in
 {
   inherit devShells scripts codium flakesUtils flakesToggleRelativePaths_ configWriters desc commands;

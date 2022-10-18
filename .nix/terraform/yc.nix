@@ -1,5 +1,5 @@
-{ pkgs, system, hcl-terraform }:
-with (hcl-terraform.hcl.${system} { inherit pkgs; });
+{ pkgs, system, terrafix }:
+with (terrafix.hcl.${system} { inherit pkgs; });
 let
   inherit (builtins) toString;
   variables = mkVariables {

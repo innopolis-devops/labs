@@ -8,7 +8,6 @@ positions:
 
 clients:
   - url: http://loki:3100/loki/api/v1/push
-    tenant_id: test
 
 scrape_configs:
   - job_name: logger 
@@ -16,7 +15,7 @@ scrape_configs:
       - targets:
           - localhost
         labels:
-          job: logger
+          job: container-logger
           __path__: /var/lib/docker/containers/*/*.log
     pipeline_stages:
       - json:
@@ -29,8 +28,7 @@ scrape_configs:
           source: time
           format: "2022-10-16 12:01:02"
       - regex:
-          expression: ^(?P<product>([^|]+))\|(?P<container_name>([^|]+))$
+          expression: ^(?P<product>([^|]+))$
           source: "tag"
       - labels:
           product:
-          container_name:

@@ -1,10 +1,12 @@
 version: "3"
 
+x-logging:
+  &logs
+  options:
+    tag: "{{.Name}}"
+
 networks:
   loki:
-
-volumes:
-  logs:
 
 services:
   python_app:
@@ -20,9 +22,7 @@ services:
       timeout: 10s
     networks:
       - loki
-    logging:
-      options: 
-        tag: "{{.Name}}"
+    logging: *logs
 
   loki:
     image: grafana/loki:2.6.1
@@ -31,21 +31,21 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - loki
-    logging:
-      options: 
-        tag: "{{.Name}}"
+    logging: *logs
 
   promtail:
     image: grafana/promtail:2.6.1
     volumes:
       - ./promtail.yaml:/etc/promtail/config-test.yaml
-      - /var/lib/docker/containers:/var/lib/docker/containers
+      - /mnt/docker/version-pack-data/community/docker/containers:/var/lib/docker/containers
     command: -config.file=/etc/promtail/config-test.yaml
     networks:
       - loki
-    logging:
-      options: 
-        tag: "{{.Name}}"
+    depends_on:
+      - loki
+      - grafana
+      - python_app
+    logging: *logs
 
   grafana:
     image: grafana/grafana:latest
@@ -53,3 +53,4 @@ services:
       - "3000:3000"
     networks:
       - loki
+    logging: *logs

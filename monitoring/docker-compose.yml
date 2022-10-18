@@ -19,7 +19,7 @@ services:
       - "3100:3100"
     volumes:
       - loki-data:/loki/
-      - ${PWD}/config/loki/loki-config.yml:/etc/loki-config.yml:ro
+      - ${PWD}/config/loki/loki-config.yml:/etc/loki-config.yml
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - monitoring
@@ -33,9 +33,9 @@ services:
     ports:
       - "9080:9080"
     volumes:
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers
       - promtail-data:/var/lib/promtail/positions
-      - ${PWD}/config/promtail/promtail.yml:/etc/promtail/promtail.yml:ro
+      - ${PWD}/config/promtail/promtail.yml:/etc/promtail/promtail.yml
     command: -config.file=/etc/promtail/promtail.yaml
     networks:
       - app_python

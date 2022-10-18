@@ -1,0 +1,68 @@
+version: "3"
+
+# Based on https://github.com/black-rosary/loki-nginx/blob/master/promtail/promtail.yml
+# And https://github.com/black-rosary/loki-nginx/blob/master/docker-compose.yml
+x-logging:
+  &loki-logging
+  driver: "json-file"
+  options:
+    max-size: "100m"
+    max-file: "10"
+    tag: "{{.ImageName}}|{{.Name}}"
+
+
+# Based on https://github.com/grafana/loki/blob/main/production/docker-compose.yaml
+# And https://github.com/black-rosary/loki-nginx/blob/master/docker-compose.yml
+services:
+  app_python:
+    image: markovvn1/iu-devops:lab_python
+    ports:
+      - 8080:80
+    logging: *loki-logging
+    networks: [apps]
+
+  app_php:
+    image: markovvn1/iu-devops:lab_php
+    ports:
+      - 8081:80
+    logging: *loki-logging
+    networks: [apps]
+
+  loki:
+    image: grafana/loki:2.6.1
+    volumes:
+      - loki-data:/tmp/loki/
+    networks: [monitoring]
+    command: -config.file=/etc/loki/local-config.yaml
+    logging: *loki-logging
+
+  promtail:
+    image: grafana/promtail:2.6.1
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro  # To collect logs from containers
+      - promtail-data:/var/lib/promtail/positions
+      - ./configs/promtail.yml:/etc/promtail/config.yml
+    networks: [monitoring, apps]
+    command: -config.file=/etc/promtail/config.yml
+    logging: *loki-logging
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./configs/datasources:/etc/grafana/provisioning/datasources
+    networks: [monitoring]
+    logging: *loki-logging
+
+
+volumes:
+  grafana-data: {}
+  loki-data: {}
+  promtail-data: {}
+
+
+networks:
+  monitoring: {}
+  apps: {}

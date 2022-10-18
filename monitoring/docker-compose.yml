@@ -130,6 +130,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
+      - ./grafana:/etc/grafana/provisioning:ro
       - grafana:/var/lib/grafana
     networks:
       - loki

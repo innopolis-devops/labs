@@ -36,6 +36,8 @@ Installed the ones suggested in the lab task:
 - Loki: <https://grafana.com/grafana/dashboards/13407>
 - Prometheus: <https://grafana.com/grafana/dashboards/3662>
 
+I've also added Grafana provisionong config to add these dashboards automatically at startup.
+
 ### Loki dashboard
 
 ![Loki dashboard](https://i.imgur.com/T7yWeq7.png)

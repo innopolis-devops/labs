@@ -1,0 +1,15 @@
+- name: Wipe
+  block:
+  - name: Stop all services
+    community.docker.docker_compose:
+      project_src: "{{ app_base_path }}"
+      state: absent
+      remove_volumes: true
+    ignore_errors: true
+
+  - name: Remove app directory
+    ansible.builtin.file:
+      state: absent
+      path: "{{ app_base_path }}"
+
+  tags: ["app"]

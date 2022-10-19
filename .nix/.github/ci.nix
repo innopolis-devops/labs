@@ -26,13 +26,13 @@ let
   oss = [ ubuntu20 ubuntu22 ];
 
   expr = exp: "$" + "{{ ${builtins.toString exp} }}";
-  mkNamedSet = name: attrs@{ ... }: builtins.mapAttrs (name_: _: "${name}.${name_}") attrs;
-  mkNamedSets = attrs@{ ... }: builtins.mapAttrs mkNamedSet attrs;
+  mkAccessor = name: attrs@{ ... }: builtins.mapAttrs (name_: _: "${name}.${name_}") attrs;
+  mkAccessors = attrs@{ ... }: builtins.mapAttrs mkAccessor attrs;
   insertListIf = cond: list: if cond then list else [ ];
   inherit (pkgs.lib.attrsets) genAttrs;
   changed-files-app = app: "changed-files-${app}";
 
-  ns = mkNamedSets {
+  ns = mkAccessors {
     secrets = {
       SNYK_TOKEN = "";
       CACHIX_CACHE = "";
@@ -56,7 +56,7 @@ let
       };
     };
     installNix = {
-      uses = "cachix/install-nix-action@v17";
+      uses = "cachix/install-nix-action@v18";
       "with" = {
         extra_nix_config = extraNixConfig;
         install_url = installURL;
@@ -303,5 +303,5 @@ let
   };
 in
 {
-  inherit on jobs;
+  inherit on jobs name;
 }

@@ -11,7 +11,7 @@ let
     repo_name = b {
       description = "GitHub repo name";
       type = string;
-      default = "terraform-make-repo";
+      default = "terraform-repo";
     };
 
     repo_description = b {
@@ -64,12 +64,9 @@ let
         require_conversation_resolution = true;
         enforce_admins = true;
       };
-      resource.github_repository.terraform-devops = b {
-        name = "devops-labs";
-      };
     });
 in
 {
   inherit variables main;
-  tfvars = builtins.removeAttrs tfvars ["token"];
+  tfvars = builtins.removeAttrs tfvars ["repo_description" "repo_name" ];
 }

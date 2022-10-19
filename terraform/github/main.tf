@@ -33,7 +33,3 @@ resource "github_branch_protection" "default" {
   repository_id                   = github_repository.repo.id
   require_conversation_resolution = true
 }
-
-resource "github_repository" "terraform-devops" {
-  name = "devops-labs"
-}

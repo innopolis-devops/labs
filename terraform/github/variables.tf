@@ -6,7 +6,7 @@ variable "repo_description" {
 
 variable "repo_name" {
   type        = string
-  default     = "terraform-make-repo"
+  default     = "terraform-repo"
   description = "GitHub repo name"
 }
 

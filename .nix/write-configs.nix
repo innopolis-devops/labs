@@ -107,18 +107,8 @@ let
       { expr = yc.tfvars; filePath = "${dirYC}/terraform.tfvars"; }
       { expr = yc.variables; filePath = "${dirYC}/variables.tf"; }
       { expr = github.main; filePath = "${dirGithub}/main.tf"; }
-      { expr = github.tfvars; filePath = "${dirGithub}/terraform.tfvars"; }
       { expr = github.variables; filePath = "${dirGithub}/variables.tf"; }
     ];
-  # writeTf2Nix = mkShellApp {
-  #   name = "write-tf2nix";
-  #   text =
-  #     let
-  #       dir = "terraform/github";
-  #       tf2nix = terrafix.functions.${system}.tf2nix "tf-github" [ "${dir}/main.tf" "${dir}/variables.tf" ];
-  #     in
-  #     ''${mkBin tf2nix}'';
-  # };
   writeWorkflows =
     let
       ciNix = import ./.github/ci.nix { inherit appPurescript appPython pkgs drv-tools system; };

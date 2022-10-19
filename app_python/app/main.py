@@ -2,8 +2,13 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from WorldTimeAPI import service
 from datetime import datetime, timedelta
+from prometheus_fastapi_instrumentator import Instrumentator
 
 app = FastAPI()
+
+@app.on_event("startup")
+async def startup():
+    Instrumentator().instrument(app).expose(app)
 
 templates = Jinja2Templates(directory="templates")
 time_client = service.Client("timezone")

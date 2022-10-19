@@ -1,5 +1,18 @@
 version: "3"
 
+x-common: &common
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "10m"
+      max-file: "10"
+      tag: "{{.ImageName}}|{{.Name}}"
+  restart: unless-stopped
+  mem_limit: 100M
+
+volumes:
+  prometheus-data: {}
+
 networks:
   loki:
 
@@ -8,28 +21,18 @@ services:
     image: nihon/moscower:latest
     ports:
       - 80:8000
-    restart: always
     command: [ "--host", "0.0.0.0", "--port", "8000", "--log-level", "debug" ]
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100m"
-        max-file: "10"
-        tag: "{{.ImageName}}|{{.Name}}"
+    <<: *common
+    restart: always
 
   loki:
     image: grafana/loki:2.6.1
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
+    <<: *common
     networks:
       - loki
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100m"
-        max-file: "10"
-        tag: "{{.ImageName}}|{{.Name}}"
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -40,38 +43,31 @@ services:
     command: -config.file=/etc/promtail/config.yml
     networks:
       - loki
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100m"
-        max-file: "10"
-        tag: "{{.ImageName}}|{{.Name}}"
+    <<: *common
 
   grafana:
     image: grafana/grafana:latest
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
-    entrypoint:
-      - sh
-      - -euc
-      - |
-        mkdir -p /etc/grafana/provisioning/datasources
-        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
-        apiVersion: 1
-        datasources:
-          - name: Loki
-            type: loki
-            access: proxy
-            url: http://loki:3100
-        EOF
-        /run.sh
+    volumes:
+      - ${PWD}/grafana/provisioning:/etc/grafana/provisioning
     ports:
       - "3000:3000"
     networks:
       - loki
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100m"
-        max-file: "10"
-        tag: "{{.ImageName}}|{{.Name}}"
+    <<: *common
+
+  prometheus:
+    image: prom/prometheus:v2.39.1
+    volumes:
+      - ${PWD}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=14d'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - "9090:9090"
+    <<: *common

@@ -1,0 +1,53 @@
+name: ci
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      working_dir: app_python
+    strategy:
+      matrix:
+        python-version: ["3.7"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setting up the Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Dependencies installation
+        run: pip install -r ${{ env.working_dir }}/requirements.txt
+      - name: Lint Python
+        run: pylint server.py
+        continue-on-error: true
+      - name: Test Python code
+        run: cd Tests && pytest
+
+  production:
+    needs: [ "build" ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Login to Docker
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: app_python
+          file: app_python/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/app_python:latest
+      - name: Python with Snyk
+        uses: snyk/actions/python-3.8@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

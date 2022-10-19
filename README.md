@@ -25,6 +25,10 @@
 - [app_python](./app_python/PYTHON.md#unit-tests)
 - [app_purescript](./app_purescript/PURESCRIPT.md#unit-tests)
 
+### Terraform
+
+- [TF.md](./TF.md)
+
 ## Nix
 
 I used Nix to make a reproducible project environment. Now, the project ships with:

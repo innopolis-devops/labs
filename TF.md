@@ -3,20 +3,27 @@
 ## Best practices
 
 - Put the input variables into a separate file [variables.tf](https://developer.hashicorp.com/terraform/tutorials/configuration-language/variables#parameterize-your-configuration).
+  - Used `sensitive` field to hide values
 
-- Put the variable definitions into `.tfvars` files
+- Put the variable definitions into `.tfvars` files, gitignore them
 
 - Put the Terraform files into the Git VCS
 
 ### Nix eDSL
 
-- Made a Nix [eDSL](https://github.com/br4ch1st0chr0n3/flakes/tree/main/terrafix) that can be translated into [HCL](https://github.com/hashicorp/hclblob/main/hclsyntax/spec.md). Due to Nix's features, it's possible to generate multiple similar values from a single template. Now, it is possible to easily stick to DRY principle when producing Terraform code
+- Made a Nix [eDSL](https://github.com/br4ch1st0chr0n3/terrafix) which can be translated into [HCL](https://github.com/hashicorp/hclblob/main/hclsyntax/spec.md). Now, it's possible to generate Terraform files from DRY Nix code
+
+## Generated repository
+
+- [terraform-repo](https://github.com/br4ch1st0chr0n3/terraform-repo)
+  - with `squash` and `rebase` disabled
 
 ## Docker
 
 ### Outputs before changes
 
-`terraform show -no-color`:
+<details>
+    <summary>Spoiler: <code>terraform show -no-color</code></summary>
 
 ```nix
 # docker_container.app_purescript:
@@ -194,6 +201,8 @@ resource "docker_image" "app_python" {
 }
 ```
 
+</details>
+
 `terraform state list`
 
 ```nix
@@ -205,7 +214,8 @@ docker_image.try_app_python
 
 ### Diff of outputs after changes
 
-`terraform show -no-color`:
+<details>
+    <summary>Spoiler: <code>terraform show -no-color</code></summary>
 
 ```diff
 1,2c1,2
@@ -266,7 +276,9 @@ docker_image.try_app_python
 > resource "docker_image" "try_app_python" {
 ```
 
-`terraform state list`
+</details>
+
+`terraform state list`:
 
 ```diff
 1,4c1,4
@@ -289,7 +301,9 @@ docker_image.try_app_python
 
 ### Outputs before changes
 
-`terraform show -no-color`
+<details>
+    <summary>Spoiler: <code>terraform show -no-color</code></summary>
+
 
 ```nix
 # yandex_compute_instance.vm-1:
@@ -462,6 +476,8 @@ external_ip_address_vm_2 = "178.154.220.39"
 internal_ip_address_vm_1 = "192.168.10.10"
 internal_ip_address_vm_2 = "192.168.10.23"
 ```
+
+</details>
 
 `terraform state list`:
 

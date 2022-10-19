@@ -21,10 +21,10 @@ jobs:
       - name: Dependencies installation
         run: pip install -r ${{ env.working_dir }}/requirements.txt
       - name: Lint Python
-        run: pylint server.py
+        run: pylint ${{ env.working_dir }}/server.py
         continue-on-error: true
       - name: Test Python code
-        run: cd Tests && pytest
+        run: cd ${{ env.working_dir }}/Tests && pytest
 
   production:
     needs: [ "build" ]

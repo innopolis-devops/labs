@@ -1,4 +1,7 @@
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/PyCQA/pylint)
+[![workflow](https://github.com/NurbakZh/DevOps-Nurba/actions/workflows/ci.yaml/badge.svg)](https://github.com/NurbakZh/DevOps-Nurba/actions/workflows/ci.yaml)
+
+
 
 # Time web application
 

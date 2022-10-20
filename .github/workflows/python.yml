@@ -47,10 +47,10 @@ jobs:
         with:
           rules: '/.markdownlint.json'
 
-      - uses: hadolint/hadolint-action@v1.5.0
-        name: Dockerfile lint
-        with:
-          dockerfile: 'app_python/Dockerfile'
+      # - uses: hadolint/hadolint-action@v1.5.0
+      #   name: Dockerfile lint
+      #   with:
+      #     dockerfile: 'app_python/Dockerfile'
 
   test:
     timeout-minutes: 15

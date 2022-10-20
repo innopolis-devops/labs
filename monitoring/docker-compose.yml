@@ -1,10 +1,10 @@
 version: '3'
 services:
   app_python:
-    image: lymarenkolev/currenttime:latest
+    image: ghcr.io/sevenzing/currenttime:latest
     ports:
       - 4444:4444
-    command: ["--log-level", "debug"]
+    command: ["-b", "0.0.0.0:4444", "--log-level", "debug"]
     logging:
       driver: "json-file"
       options:
@@ -13,7 +13,7 @@ services:
         tag: "{{.ImageName}}|{{.Name}}"
 
   app_rust:
-    image: lymarenkolev/currenttime-rust:latest
+    image: ghcr.io/sevenzing/currenttime-rust:latest
     ports:
       - 4445:4444
     environment:
@@ -37,7 +37,10 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     restart: unless-stopped
     labels:
-      org.label-schema.group: "monitoring"  
+      org.label-schema.group: "monitoring" 
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=3 --spider http://localhost:3100/ready || exit 1"]
+
 
   promtail:
     image: grafana/promtail:${LOKI_VERSION:-2.6.1}
@@ -73,8 +76,27 @@ services:
       - "3000:3000"
     labels:
       org.label-schema.group: "monitoring"
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=3 --spider http://localhost:3000/api/health || exit 1"]
+
+  prometheus:
+    image: prom/prometheus:${PROMETHEUS_VERSION:-v2.39.1}
+    volumes:
+      - ${PWD}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=14d'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - "9090:9090"
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=3 --spider http://localhost:9090/-/healthy || exit 1"]
 
 volumes:
   grafana-data: {}
   loki-data: {}
   promtail-data: {}
+  prometheus-data: {}

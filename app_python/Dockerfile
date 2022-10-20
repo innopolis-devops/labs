@@ -8,8 +8,8 @@ ENV PROD=true \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
   PIP_DEFAULT_TIMEOUT=100
 
-RUN apt update && \
-  apt install -y wget && \
+RUN apt-get update && \
+  apt-get install -y wget && \
   python -m pip install --no-cache-dir poetry==1.2.0
 
 WORKDIR /app

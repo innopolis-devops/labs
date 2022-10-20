@@ -1,0 +1,5 @@
+- become: true
+  hosts: yacloud
+  remote_user: ubuntu
+  roles:
+    - docker

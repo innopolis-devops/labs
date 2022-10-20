@@ -135,6 +135,7 @@ let
         buildInputs = [
           (builtins.attrValues (scripts // configWriters // flakesUtils // commands.apps))
           pkgs.haskell-language-server
+          # pkgs.ansible
         ];
       }
       {

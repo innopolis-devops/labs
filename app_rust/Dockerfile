@@ -12,8 +12,21 @@ RUN cargo build --release \
 COPY ./ ./
 RUN cargo build --release
 
+
+FROM busybox AS wget
+
+ARG BUSYBOX_VERSION=1.31.0-i686-uclibc
+ADD https://busybox.net/downloads/binaries/$BUSYBOX_VERSION/busybox_WGET /wget
+RUN chmod a+x /wget
+
+
 # https://github.com/GoogleContainerTools/distroless/blob/main/examples/rust/Dockerfile
 FROM gcr.io/distroless/cc
+COPY --from=wget /wget /usr/bin/wget
+
+HEALTHCHECK --interval=1m --timeout=3s \
+  CMD wget --no-verbose --tries=3 --spider http://localhost:4444/health || exit 1
+
 USER nonroot
 
 COPY --from=build /build_app/target/release/currenttime /

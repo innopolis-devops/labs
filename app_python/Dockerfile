@@ -8,7 +8,9 @@ ENV PROD=true \
   PIP_DISABLE_PIP_VERSION_CHECK=on \
   PIP_DEFAULT_TIMEOUT=100
 
-RUN python -m pip install --no-cache-dir poetry==1.2.0
+RUN apt update && \
+  apt install -y wget && \
+  python -m pip install --no-cache-dir poetry==1.2.0
 
 WORKDIR /app
 COPY poetry.lock pyproject.toml /app/
@@ -23,5 +25,8 @@ COPY . /app
 
 RUN useradd -m appuser
 USER appuser
-ENTRYPOINT ["gunicorn", "src.wsgi:app"] 
+
+HEALTHCHECK --interval=5m --timeout=3s CMD wget --no-verbose --tries=3 --spider http://localhost:4444/health || exit 1
+
+ENTRYPOINT ["gunicorn", "src.wsgi:app"]
 CMD ["-b", "0.0.0.0:4444"]

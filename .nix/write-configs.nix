@@ -104,62 +104,62 @@ let
 
   # prepare directories and files
   # write ansible yaml files
-  writeAnsible =
-    let
-      inherit (pkgs.lib.strings) escapeShellArg;
-      inherit (pkgs.lib.lists) flatten unique;
-      inherit (pkgs.lib.attrsets) mapAttrsToList genAttrs;
-      inherit (pkgs.lib.generators) toYAML;
-      inherit (pkgs.lib.trivial) id;
-      inherit (builtins)
-        map dirOf toJSON hasAttr isString
-        isAttrs typeOf trace filter readFile;
-      ansibleDir = "ansible";
-      extensions = genAttrs [ "yml" "cfg" ] id;
-      ansibleExpressions = import ./ansible/ansible.nix extensions;
-      # String -> Set -> [...[{path, expression, extension}]...]
-      getLeaves = path: attrs@{ ... }:
-        assert isString path;
-        if hasAttr "__extension" attrs
-        then
-          [
-            {
-              inherit path;
-              expression = attrs.__expression;
-              extension = attrs.__extension;
-            }
-          ]
-        else
-          map
-            ({ path, attrs }: getLeaves path attrs)
-            (mapAttrsToList (name: value: { path = "${path}/${name}"; attrs = value; }) attrs);
-      leaves = flatten (getLeaves ansibleDir ansibleExpressions);
-      dirsToCreate = unique (map ({ path, ... }: dirOf path) leaves);
-      mkYaml = name: value: pkgs.runCommand name
-        {
-          nativeBuildInputs = [ pkgs.yq-go ];
-          value = builtins.toJSON value;
-          passAsFile = [ "value" ];
-        } ''yq -PM "$valuePath" > "$out"'';
+  # writeAnsible =
+  #   let
+  #     inherit (pkgs.lib.strings) escapeShellArg;
+  #     inherit (pkgs.lib.lists) flatten unique;
+  #     inherit (pkgs.lib.attrsets) mapAttrsToList genAttrs;
+  #     inherit (pkgs.lib.generators) toYAML;
+  #     inherit (pkgs.lib.trivial) id;
+  #     inherit (builtins)
+  #       map dirOf toJSON hasAttr isString
+  #       isAttrs typeOf trace filter readFile;
+  #     ansibleDir = "ansible";
+  #     extensions = genAttrs [ "yml" "cfg" ] id;
+  #     ansibleExpressions = import ./ansible/ansible.nix extensions;
+  #     # String -> Set -> [...[{path, expression, extension}]...]
+  #     getLeaves = path: attrs@{ ... }:
+  #       assert isString path;
+  #       if hasAttr "__extension" attrs
+  #       then
+  #         [
+  #           {
+  #             inherit path;
+  #             expression = attrs.__expression;
+  #             extension = attrs.__extension;
+  #           }
+  #         ]
+  #       else
+  #         map
+  #           ({ path, attrs }: getLeaves path attrs)
+  #           (mapAttrsToList (name: value: { path = "${path}/${name}"; attrs = value; }) attrs);
+  #     leaves = flatten (getLeaves ansibleDir ansibleExpressions);
+  #     dirsToCreate = unique (map ({ path, ... }: dirOf path) leaves);
+  #     mkYaml = name: value: pkgs.runCommand name
+  #       {
+  #         nativeBuildInputs = [ pkgs.yq-go ];
+  #         value = builtins.toJSON value;
+  #         passAsFile = [ "value" ];
+  #       } ''yq -PM "$valuePath" > "$out"'';
         
-      mkFile = { extension, expression, ... }:
-        escapeShellArg (
-          if extension == extensions.yml
-          then readFile (mkYaml "name" expression)
-          else if extension == extensions.cfg
-          then readFile ((pkgs.formats.toml { }).generate "name" expression)
-          else "unsupported extension ${typeOf extension}"
-        );
-    in
-    mkShellApp {
-      name = "write-ansible";
-      text = ''
-        ${concatMapStringsNewline (x: "mkdir -p ${x}") dirsToCreate}
-        ${concatMapStringsNewline (
-          x@{extension, expression, path}: ''printf "%s" ${mkFile x} > ${path}.${extension}'') leaves}
-      '';
-      runtimeInputs = [ pkgs.yq-go ];
-    };
+  #     mkFile = { extension, expression, ... }:
+  #       escapeShellArg (
+  #         if extension == extensions.yml
+  #         then readFile (mkYaml "name" expression)
+  #         else if extension == extensions.cfg
+  #         then readFile ((pkgs.formats.toml { }).generate "name" expression)
+  #         else "unsupported extension ${typeOf extension}"
+  #       );
+  #   in
+  #   mkShellApp {
+  #     name = "write-ansible";
+  #     text = ''
+  #       ${concatMapStringsNewline (x: "mkdir -p ${x}") dirsToCreate}
+  #       ${concatMapStringsNewline (
+  #         x@{extension, expression, path}: ''printf "%s" ${mkFile x} > ${path}.${extension}'') leaves}
+  #     '';
+  #     runtimeInputs = [ pkgs.yq-go ];
+  #   };
   writeWorkflows =
     let
       ciNix = import ./.github/ci.nix { inherit appPurescript appPython pkgs drv-tools system; };
@@ -200,7 +200,7 @@ in
     writeConfigs
     writeRootPyproject
     writeTerraform
-    writeAnsible
+    # writeAnsible
     # writeTf2Nix
     ;
 }

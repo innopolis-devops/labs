@@ -61,7 +61,7 @@ In this lab you need to get familiar with a CD tool - Ansible. Then use it to de
 7. Provide the output of the following command in the `ANSIBLE.md` file:
 
    ```sh
-   ansible-inventory -i <name_of_your_inventory_file>.yaml --list
+   ansile-inventory -i <name_of_your_inventory_file>.yaml --list
    ```
 
 [Tricks and Tips](https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html)

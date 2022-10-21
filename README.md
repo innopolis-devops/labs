@@ -1,8 +1,29 @@
-[![Caching](https://github.com/br4ch1st0chr0n3/devops-labs/actions/workflows/ci.yaml/badge.svg)](https://github.com/br4ch1st0chr0n3/devops-labs/actions/workflows/ci.yaml)
+[![CI](https://github.com/br4ch1st0chr0n3/devops-labs/actions/workflows/ci.yaml/badge.svg)](https://github.com/br4ch1st0chr0n3/devops-labs/actions/workflows/ci.yaml)
 
 # Time apps
 
 ## Descriptions
+
+### Ansible
+
+- [ANSIBLE.md](./ansible/ANSIBLE.md)
+
+### Terraform
+
+- [TF.md](./TF.md)
+
+### Unit tests
+
+- [app_python](./app_python/PYTHON.md#unit-tests)
+- [app_purescript](./app_purescript/PURESCRIPT.md#unit-tests)
+
+### CI
+
+- [CI.md](./CI.md)
+
+### Docker
+
+- [DOCKER.md](./DOCKER.md)
 
 ### app_python
 
@@ -11,23 +32,6 @@
 ### app_purescript
 
 - [PURESCRIPT.md](./app_purescript/PURESCRIPT.md)
-
-### Docker
-
-- [DOCKER.md](./DOCKER.md)
-
-### CI
-
-- [CI.md](./CI.md)
-
-### Unit tests
-
-- [app_python](./app_python/PYTHON.md#unit-tests)
-- [app_purescript](./app_purescript/PURESCRIPT.md#unit-tests)
-
-### Terraform
-
-- [TF.md](./TF.md)
 
 ## Nix
 

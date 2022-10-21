@@ -1,44 +1,52 @@
+---
 - name: Ensure old versions of Docker are not installed.
   package:
     name:
       - docker
       - docker-engine
     state: absent
-- apt:
+
+- name: Ensure dependencies are installed.
+  apt:
     name:
       - apt-transport-https
       - ca-certificates
     state: present
-  name: Ensure dependencies are installed.
-- apt:
+
+- name: Ensure additional dependencies are installed (on Ubuntu < 20.04 and any other systems).
+  apt:
     name: gnupg2
     state: present
-  name: Ensure additional dependencies are installed (on Ubuntu < 20.04 and any other systems).
   when: ansible_distribution != 'Ubuntu' or ansible_distribution_version is version('20.04', '<')
-- apt:
+
+- name: Ensure additional dependencies are installed (on Ubuntu >= 20.04).
+  apt:
     name: gnupg
     state: present
-  name: Ensure additional dependencies are installed (on Ubuntu >= 20.04).
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('20.04', '>=')
-- ansible.builtin.get_url:
+
+- name: Add Docker apt key.
+  ansible.builtin.get_url:
+    url: "{{ docker_apt_gpg_key }}"
     dest: /etc/apt/trusted.gpg.d/docker.asc
+    mode: '0644'
     force: true
-    mode: "0644"
-    url: '{{ docker_apt_gpg_key }}'
-  ignore_errors: '{{ docker_apt_ignore_key_error }}'
-  name: Add Docker apt key.
   register: add_repository_key
+  ignore_errors: "{{ docker_apt_ignore_key_error }}"
+
 - name: Ensure curl is present (on older systems without SNI).
   package: name=curl state=present
   when: add_repository_key is failed
-- args:
-    warn: false
-  name: Add Docker apt key (alternative for older systems without SNI).
-  shell: |
+
+- name: Add Docker apt key (alternative for older systems without SNI).
+  shell: >
     curl -sSL {{ docker_apt_gpg_key }} | apt-key add -
+  args:
+    warn: false
   when: add_repository_key is failed
-- apt_repository:
-    repo: '{{ docker_apt_repository }}'
+
+- name: Add Docker repository.
+  apt_repository:
+    repo: "{{ docker_apt_repository }}"
     state: present
     update_cache: true
-  name: Add Docker repository.

@@ -1,6 +1,7 @@
-- ignore_errors: '{{ ansible_check_mode }}'
-  name: restart docker
+---
+- name: restart docker
   service:
     name: docker
-    state: '{{ docker_restart_handler_state }}'
+    state: "{{ docker_restart_handler_state }}"
+  ignore_errors: "{{ ansible_check_mode }}"
   when: docker_service_manage | bool

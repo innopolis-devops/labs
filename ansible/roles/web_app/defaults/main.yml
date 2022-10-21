@@ -1,0 +1,12 @@
+---
+web_app_name: "app_python"
+web_app_image:
+  registry: "johndenkis"
+  name: "simple_python_app_v3"
+  tag: "latest"
+web_app_port:
+  internal: 5000
+  external: 5000
+web_app_full_wipe: false
+web_app_dir: "/opt/{{ web_app_name }}"
+

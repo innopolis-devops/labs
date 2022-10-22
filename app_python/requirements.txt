@@ -2,4 +2,5 @@ pytz==2022.2.1
 Flask==2.2.2
 pytest==7.1.0
 pylint==2.13.7
-py-healthcheck=1.10.1
+py-healthcheck==1.10.1
+prometheus-flask-exporter==0.20.3

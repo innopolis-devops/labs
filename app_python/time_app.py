@@ -3,8 +3,10 @@ from datetime import datetime
 import pytz
 from flask import Flask
 from healthcheck import HealthCheck
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 health = HealthCheck()
 

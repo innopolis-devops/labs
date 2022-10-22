@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prometheus_client/runtime_metrics.dart' as runtime_metrics;
 
 void main() {
+  // Register runtime metrics with the default metrics registry
+  runtime_metrics.register();
   runApp(const MyApp());
 }
 

@@ -11,7 +11,9 @@ services:
       driver: "json-file"
       options:
         max-size: "50m"
+        max-file: 5
         tag: "{{.ImageName}}"
+    mem_limit: "100m"
     networks:
       - logging
 
@@ -33,6 +35,13 @@ services:
       - 3000
     ports:
       - "3000:3000"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: 5
+        tag: "{{.ImageName}}"
+    mem_limit: "300m"
     networks:
       - logging
 
@@ -50,6 +59,13 @@ services:
     command:
       - '-config.file=/etc/promtail/promtail.yaml'
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: 5
+        tag: "{{.ImageName}}"
+    mem_limit: "300m"
     networks:
       - logging
 
@@ -61,14 +77,53 @@ services:
     ports:
       - "3100:3100"
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: 5
+        tag: "{{.ImageName}}"
+    mem_limit: "300m"
+    networks:
+      - logging
+
+  prometheus:
+    image: prom/prometheus:v2.39.1
+    container_name: prometheus
+    volumes:
+      - ${PWD}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=14d'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.wal-compression'
+      - '--storage.tsdb.max-block-duration=4h'
+      - '--storage.tsdb.wal-segment-size=60MB'
+      - '--storage.tsdb.allow-overlapping-blocks'
+      - '--query.max-samples=5000000'
+    restart: unless-stopped
+    expose:
+      - 9090
+    ports:
+      - "9090:9090"
+    logging:
+        driver: "json-file"
+        options:
+          max-file: 5
+          max-size: "50m"
+    mem_limit: 300m
     networks:
       - logging
 
 networks:
   logging:
-    driver: default
 
 volumes:
   grafana-data: {}
   promtail-data: {}
   loki-data: {}
+  prometheus-data: {}

@@ -3,7 +3,17 @@ version: "3"
 x-logging:
   &logs
   options:
+    max-size: "8m"
+    max-file: "4"
     tag: "{{.Name}}"
+
+x-healthcheck:
+  &healthcheck
+  test: echo "No test function provided" && exit 1 # is required to be overrided
+  interval: 60s
+  retries: 5
+  start_period: 20s
+  timeout: 10s
 
 networks:
   loki:
@@ -11,30 +21,34 @@ networks:
 services:
   python_app:
     image: andrew174194/msc_time_py:latest
+    mem_limit: 128m
     ports:
       - "80:5000"
     restart: always
     healthcheck:
+      << : *healthcheck
       test: wget --no-verbose --tries=1 --spider http://localhost:5000 || exit 1
-      interval: 60s
-      retries: 5
-      start_period: 20s
-      timeout: 10s
+
     networks:
       - loki
     logging: *logs
 
   loki:
     image: grafana/loki:2.6.1
+    mem_limit: 128m
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - loki
     logging: *logs
+    healthcheck:
+      << : *healthcheck
+      test: wget --no-verbose --tries=1 --spider http://localhost:3100 || exit 1
 
   promtail:
     image: grafana/promtail:2.6.1
+    mem_limit: 128m
     volumes:
       - ./promtail.yaml:/etc/promtail/config-test.yaml
       - /mnt/docker/version-pack-data/community/docker/containers:/var/lib/docker/containers
@@ -46,11 +60,33 @@ services:
       - grafana
       - python_app
     logging: *logs
+    healthcheck:
+      << : *healthcheck
+      test: timeout 1 bash -c 'cat < /dev/null > /dev/tcp/localhost/9080' || exit 1
 
   grafana:
     image: grafana/grafana:latest
+    mem_limit: 128m
     ports:
       - "3000:3000"
     networks:
       - loki
     logging: *logs
+    healthcheck:
+      << : *healthcheck
+      test: wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
+
+  prometheus:
+    image: prom/prometheus
+    mem_limit: 128m
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/config.yaml
+    command: --config.file=/etc/prometheus/config.yaml
+    networks:
+      - loki
+    logging: *logs
+    healthcheck:
+      << : *healthcheck
+      test: wget --no-verbose --tries=1 --spider http://localhost:9090 || exit 1

@@ -1,32 +1,38 @@
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint, request, Response
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from sys import version_info
-import time
 
 # for metrics
-startTime = time.time()
-responses = 0
+from prometheus_client import Counter, Histogram, generate_latest
+CONTENT_TYPE = str('text/plain; version=0.0.4; charset=utf-8')
+REQUEST_COUNT = Counter(
+    'request_count', 'App Request Count',
+    ['app_name', 'method', 'endpoint', 'http_status']
+)
 
 bp = Blueprint('app', __name__)
 
 @bp.route('/')
 def main():
     time_msc = datetime.now(ZoneInfo("Europe/Moscow")).time()
-    global responses
-    responses += 1
     return ("Moscow time: " +
         time_msc.isoformat(timespec='seconds') +
         "<br><br>(the time is actual for the last webpage load)")
 
-@bp.route('/stats')
+@bp.route('/metrics')
 def stats():
-    global responses, startTime
-    return f"Uptime: {int(time.time() - startTime)} sec.<br>Responces send: {responses}"
+    return Response(generate_latest(), mimetype=CONTENT_TYPE)
+
+# save metrics to Prometheus Client
+def save_metric(response):
+    REQUEST_COUNT.labels('py_app', request.method, request.path, response.status_code).inc()
+    return response
 
 def create_app(config=None):
     app = Flask(__name__)
     app.register_blueprint(bp)
+    app.after_request(save_metric)
     return app
 
 if __name__ == "__main__":

@@ -4,24 +4,27 @@ x-logging:
   &default-logging
   driver: "json-file"
   options:
-    max-size: "100m"
-    max-file: "10"
+    max-size: "100m" # for log rotation
+    max-file: "10"   # for log rotation
     tag: "{{.ImageName}}|{{.Name}}"
 
 services:
   app_python:
+    mem_limit: 200m
     image: danmory/python_kremlin_chimes
     ports:
       - 8000:8000
     logging: *default-logging
   
   app_go:
+    mem_limit: 200m
     image: danmory/go_kremlin_chimes
     ports:
       - 8080:8080
     logging: *default-logging
 
   grafana:
+    mem_limit: 200m
     image: grafana/grafana
     container_name: monitoring.grafana
     volumes:
@@ -37,8 +40,14 @@ services:
     ports:
       - "3000:3000"
     logging: *default-logging
+    healthcheck:
+      test: wget --no-verbose --spider http://localhost:3000/api/health || exit 1
+      interval: 10s
+      timeout: 2s
+      retries: 3
 
   promtail:
+    mem_limit: 200m
     image: grafana/promtail:2.6.1
     container_name: monitoring.promtail
     expose:
@@ -55,14 +64,44 @@ services:
     logging: *default-logging
 
   loki:
+    mem_limit: 200m
     image: grafana/loki:2.6.1
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
     restart: unless-stopped
     logging: *default-logging
+    healthcheck:
+      test: wget --no-verbose --spider http://localhost:3100/ready || exit 1
+      interval: 10s
+      timeout: 2s
+      retries: 3
+
+  prometheus:
+    mem_limit: 200m
+    image: prom/prometheus:v2.39.1
+    container_name: monitoring.prometheus
+    volumes:
+      - ${PWD}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+    restart: unless-stopped
+    expose:
+      - 9090
+    ports:
+      - "9090:9090"
+    healthcheck:
+      test: wget --no-verbose --spider http://localhost:9090/-/healthy || exit 1
+      interval: 10s
+      timeout: 2s
+      retries: 3
 
 volumes:
   grafana-data: {}
   loki-data: {}
   promtail-data: {}
+  prometheus-data: {}

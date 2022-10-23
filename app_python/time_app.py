@@ -2,6 +2,7 @@ from datetime import datetime
 
 import pytz
 from flask import Flask
+from flask import request
 from healthcheck import HealthCheck
 from prometheus_flask_exporter import PrometheusMetrics
 
@@ -38,3 +39,10 @@ health.add_check(app_available)
 
 # Add a flask route to expose information
 app.add_url_rule("/healthcheck", "healthcheck", view_func=lambda: health.run())
+
+metrics.register_default(
+    metrics.counter(
+        'by_path_counter', 'Request count by request paths',
+        labels={'path': lambda: request.path}
+    )
+)

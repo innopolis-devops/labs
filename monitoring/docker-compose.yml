@@ -3,6 +3,7 @@ services:
 
   app_python:
     image: mikhailmarch/time_application:latest
+    mem_limit: 150m
     expose:
       - 5000
     ports:
@@ -15,6 +16,7 @@ services:
 
   loki:
     image: grafana/loki:2.6.1
+    mem_limit: 150m
     expose:
       - 3100
     ports:
@@ -23,6 +25,7 @@ services:
 
   promtail:
     image: grafana/promtail:2.6.1
+    mem_limit: 150m
     expose:
       - 9080
     ports:
@@ -36,7 +39,8 @@ services:
       org.label-schema.group: "monitoring"
 
   prometheus:
-    image: prom/prometheus:${PROMETHEUS_VERSION:-v2.39.1}
+    image: prom/prometheus
+    mem_limit: 150m
     volumes:
       - ${PWD}/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus-data:/prometheus
@@ -50,6 +54,7 @@ services:
 
   grafana:
     image: grafana/grafana:latest
+    mem_limit: 150m
     volumes:
       - ${PWD}/datasources/loki.yml:/etc/grafana/provisioning/datasources/loki_ds.yml
       - ${PWD}/datasources/prometheus.yml:/etc/grafana/provisioning/datasources/prometheus_ds.yml

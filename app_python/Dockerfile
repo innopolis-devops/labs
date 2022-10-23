@@ -1,4 +1,7 @@
 FROM python:3.8-slim-buster
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=5000
+
 LABEL maintainer = 'm.martovitsky@innopolis.universit'
 
 WORKDIR /home/app

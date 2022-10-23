@@ -1,0 +1,86 @@
+{
+  "version": 4,
+  "terraform_version": "1.3.0",
+  "serial": 69,
+  "lineage": "0501468e-8f77-58f4-da49-98638bd3e31f",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "github_branch_default",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/integrations/github\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "branch": "main",
+            "id": "devops-lab-4",
+            "repository": "devops-lab-4"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "github_repository.repo"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "github_repository",
+      "name": "repo",
+      "provider": "provider[\"registry.terraform.io/integrations/github\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "allow_auto_merge": false,
+            "allow_merge_commit": true,
+            "allow_rebase_merge": true,
+            "allow_squash_merge": true,
+            "archive_on_destroy": null,
+            "archived": false,
+            "auto_init": true,
+            "default_branch": "master",
+            "delete_branch_on_merge": false,
+            "description": "Desc",
+            "etag": "W/\"e599b6176075e8b5e65c4a07dd8ccaa6d0d8d02c7ee6fecac5032da8b32e2f33\"",
+            "full_name": "emileyray/devops-labs",
+            "git_clone_url": "git://github.com/emileyray/devops-labs.git",
+            "gitignore_template": "VisualStudio",
+            "has_downloads": false,
+            "has_issues": true,
+            "has_projects": false,
+            "has_wiki": true,
+            "homepage_url": "",
+            "html_url": "https://github.com/emileyray/devops-labs",
+            "http_clone_url": "https://github.com/emileyray/devops-labs.git",
+            "id": "devops-labs",
+            "ignore_vulnerability_alerts_during_read": null,
+            "is_template": false,
+            "license_template": "mit",
+            "merge_commit_message": "PR_TITLE",
+            "merge_commit_title": "MERGE_MESSAGE",
+            "name": "devops-lab-4",
+            "node_id": "R_kgDOH74H6Q",
+            "pages": [],
+            "private": false,
+            "repo_id": 532547561,
+            "squash_merge_commit_message": "COMMIT_MESSAGES",
+            "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+            "ssh_clone_url": "git@github.com:emileyray/devops-labs.git",
+            "svn_url": "https://github.com/emileyray/devops-labs",
+            "template": [],
+            "topics": [],
+            "visibility": "public",
+            "vulnerability_alerts": false
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA=="
+        }
+      ]
+    }
+  ],
+  "check_results": []
+}

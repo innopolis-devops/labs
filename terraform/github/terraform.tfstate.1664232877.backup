@@ -1,0 +1,31 @@
+{
+  "version": 4,
+  "terraform_version": "1.3.0",
+  "serial": 52,
+  "lineage": "0501468e-8f77-58f4-da49-98638bd3e31f",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "github_branch_default",
+      "name": "main",
+      "provider": "provider[\"registry.terraform.io/integrations/github\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "branch": "main",
+            "id": "devops-lab-4",
+            "repository": "devops-lab-4"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "github_repository.repo"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}

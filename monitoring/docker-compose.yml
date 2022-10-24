@@ -29,6 +29,7 @@ services:
       - '--storage.tsdb.wal-segment-size=60MB'
       - '--storage.tsdb.allow-overlapping-blocks'
       - '--query.max-samples=5000000'
+    mem_limit: 250M
     restart: unless-stopped
     expose:
       - 9090
@@ -39,11 +40,11 @@ services:
     labels:
       org.label-schema.group: "monitoring"
     logging: *loki-logging
-#    healthcheck:
-#      test: [ "CMD", "wget", "-f", "http://localhost:9090/-/healthy" ]
-#      interval: 10s
-#      timeout: 5s
-#      start_period: 40s
+    healthcheck:
+      test: wget --no-verbose --tries=3 --spider 127.0.0.1:9090/-/healthy || exit 1
+      interval: 10s
+      timeout: 5s
+      start_period: 40s
 
   grafana:
     image: grafana/grafana:9.1.8
@@ -58,6 +59,7 @@ services:
       - VIRTUAL_HOST=monitoring.grafana
       - NETWORK_ACCESS=internal
       - VIRTUAL_PORT=3000
+    mem_limit: 250M
     restart: unless-stopped
     expose:
       - 3000
@@ -68,11 +70,11 @@ services:
     labels:
       org.label-schema.group: "monitoring"
     logging: *loki-logging
-#    healthcheck:
-#      test: [ "CMD", "curl", "-f", "http://localhost:3000/api/health" ]
-#      interval: 10s
-#      timeout: 5s
-#      start_period: 40s
+    healthcheck:
+      test: wget --no-verbose --tries=3 --spider 127.0.0.1:3000/api/health || exit 1
+      interval: 10s
+      timeout: 5s
+      start_period: 40s
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -87,17 +89,18 @@ services:
       - ./promtail/promtail.yml:/etc/promtail/promtail.yml
     command:
       - '-config.file=/etc/promtail/promtail.yml'
+    mem_limit: 250M
     restart: unless-stopped
     networks:
       - monitoring.network
     labels:
       org.label-schema.group: "monitoring"
     logging: *loki-logging
-#    healthcheck:
-#      test: [ "CMD", "curl", "-f", "http://localhost:3000/api/health" ]
-#      interval: 10s
-#      timeout: 5s
-#      start_period: 40s
+    healthcheck:
+      test: wget --no-verbose --tries=3 --spider 127.0.0.1:9080/api/health || exit 1
+      interval: 10s
+      timeout: 5s
+      start_period: 40s
 
   loki:
     container_name: monitoring.loki
@@ -109,55 +112,58 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
       - loki-data:/tmp/loki/
+    mem_limit: 250M
     restart: unless-stopped
     networks:
       - monitoring.network
     labels:
       org.label-schema.group: "monitoring"
     logging: *loki-logging
-#    healthcheck:
-#      test: [ "CMD", "curl", "-f", "http://localhost:3100/ready" ]
-#      interval: 10s
-#      timeout: 5s
-#      start_period: 40s
+    healthcheck:
+      test: wget --no-verbose --tries=3 --spider 127.0.0.1:3100/ready || exit 1
+      interval: 10s
+      timeout: 5s
+      start_period: 40s
 
   app_python:
-    container_name: app_python
+    container_name: app-python
     image: mcflydesigner/django-iu-lab:latest
     expose:
       - 8000
     ports:
       - "8000:8000"
+    mem_limit: 250M
     restart: unless-stopped
     logging: *loki-logging
     networks:
       - monitoring.network
     labels:
       org.label-schema.group: "monitoring"
-#    healthcheck:
-#      test: [ "CMD", "curl", "-f", "http://localhost:8000/healthcheck" ]
-#      interval: 10s
-#      timeout: 5s
-#      start_period: 40s
+    healthcheck:
+      test: wget --no-verbose --tries=3 --spider 127.0.0.1:8000/healthcheck || exit 1
+      interval: 10s
+      timeout: 5s
+      start_period: 40s
 
   app_java:
-    container_name: app_java
+    container_name: app-java
     image: mcflydesigner/spring-ui-lab:latest
     expose:
       - 8080
     ports:
       - "8080:8080"
+    mem_limit: 250M
     restart: unless-stopped
     logging: *loki-logging
     networks:
       - monitoring.network
     labels:
       org.label-schema.group: "monitoring"
-#    healthcheck:
-#      test: [ "CMD", "curl", "-f", "http://localhost:8080/healthcheck" ]
-#      interval: 10s
-#      timeout: 5s
-#      start_period: 40s
+    healthcheck:
+      test: wget --no-verbose --tries=3 --spider 127.0.0.1:8080/healthcheck || exit 1
+      interval: 10s
+      timeout: 5s
+      start_period: 40s
 
 networks:
   monitoring.network:

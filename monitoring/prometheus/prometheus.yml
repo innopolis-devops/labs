@@ -19,13 +19,13 @@ scrape_configs:
     static_configs:
       - targets: ['promtail:9080']
 
-  - job_name: 'app_python'
+  - job_name: 'app-python'
     scrape_interval: 10s
     static_configs:
-      - targets: ['app_python:8000']
+      - targets: ['app-python:8000']
 
-  - job_name: 'app_java'
+  - job_name: 'app-java'
     metrics_path: /actuator/prometheus
     scrape_interval: 10s
     static_configs:
-      - targets: ['app_java:8080']
+      - targets: ['app-java:8080']

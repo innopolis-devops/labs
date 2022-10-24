@@ -1,1 +1,1 @@
-![Screenshot](https://github.com/DiazzzU/labs/blob/lab7/monitoring/image1.png)
+![Screenshot](https://github.com/DiazzzU/labs/blob/lab7/monitoring/images/image1.png)

@@ -1,5 +1,4 @@
-
-version: '3'
+version: '3.7'
 
 x-logging:
   &default-logging
@@ -9,18 +8,31 @@ x-logging:
     max-file: "10"
     tag: "{{.ImageName}}|{{.Name}}"
 
+x-healthcheck: &healthcheck
+  interval: 5s
+  timeout: 10s
+  retries: 20
+
 services:
   app_python:
     image: kamilakhamidullina/devops_lab3:latest
+    mem_limit: 128m
     ports:
-      - 4444:4444
+      - 8000:8000
     logging: *default-logging
+    healthcheck:
+      <<: *healthcheck
+      test: [ "CMD", "curl", "-f", "http://localhost:8000/health" ]
 
-  app_javascript:
+  app_java:
     image: kamilakhamidullina/devops_lab2_bonus:latest
+    mem_limit: 256m
     ports:
       - 8888:8888
     logging: *default-logging
+    healthcheck:
+      <<: *healthcheck
+      test: [ "CMD", "curl", "-f", "http://localhost:8888/health" ]
 
 
   loki:
@@ -35,10 +47,14 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     restart: unless-stopped
     logging: *default-logging
+    healthcheck:
+      <<: *healthcheck
+      test: [ "CMD", "curl", "-f", "http://localhost:3100/ready" ]
 
   promtail:
     image: grafana/promtail:${LOKI_VERSION:-2.6.1}
     container_name: monitoring.promtail
+    mem_limit: 64m
     expose:
       - 9080
     ports:
@@ -46,18 +62,21 @@ services:
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - promtail-data:/var/lib/promtail/positions
-      - ${PWD}/promtail/promtail.yml:/etc/promtail/promtail.yml
+      - ./promtail.yml:/etc/promtail/promtail.yml
     command:
       - '-config.file=/etc/promtail/promtail.yml'
     restart: unless-stopped
     logging: *default-logging
-  
+    healthcheck:
+      <<: *healthcheck
+      test: [ "CMD", "curl", "-f", "http://localhost:9080/health" ]
+
   grafana:
     image: grafana/grafana:latest
     container_name: monitoring.grafana
     volumes:
       - grafana-data:/var/lib/grafana
-      - ${PWD}/grafana/provisioning/datasources/loki.yml:/etc/grafana/provisioning/datasources/loki.yml 
+      - ./grafana/:/etc/grafana/provisioning/
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
@@ -69,7 +88,37 @@ services:
       - "3000:3000"
     logging: *default-logging
 
+  prometheus:
+    image: prom/prometheus
+    container_name: monitoring.prometheus
+    mem_limit: 64m
+    expose:
+      - 9090
+    ports:
+      - "9090:9090"
+    volumes:
+      - ${PWD}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=14d'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.wal-compression'
+      - '--storage.tsdb.max-block-duration=4h'
+      - '--storage.tsdb.wal-segment-size=60MB'
+      - '--storage.tsdb.allow-overlapping-blocks'
+      - '--query.max-samples=5000000'
+    restart: unless-stopped
+    logging: *logging
+    healthcheck:
+      <<: *healthcheck
+      test: [ "CMD", "curl", "-f", "http://localhost:9090/-/healthy" ]
+
 volumes:
   grafana-data: {}
   loki-data: {}
   promtail-data: {}
+  prometheus-data: {}

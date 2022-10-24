@@ -1,8 +1,23 @@
 version: '3.3'
+
+x-logging: &x-logging
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "100m"
+      max-file: "10"
+      tag: "{{.ImageName}}|{{.Name}}"
+
 services:
   timeweb:
     image: passkeyra/timeweb:latest
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 100M
+    <<: *x-logging
 
   nginx:
     build: ./nginx
@@ -10,12 +25,12 @@ services:
     ports:
       - "80:80"
     restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100m"
-        max-file: "10"
-        tag: "{{.ImageName}}|{{.Name}}"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 100M
+    <<: *x-logging
 
   grafana:
     image: grafana/grafana
@@ -27,6 +42,33 @@ services:
     env_file:
       - ./grafana/config.monitoring
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 100M
+    <<: *x-logging
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9090:9090
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 100M
+    <<: *x-logging
+
 
   promtail:
     image: grafana/promtail
@@ -41,6 +83,12 @@ services:
     command:
       - '-config.file=/etc/promtail/promtail.yml'
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 100M
+    <<: *x-logging
 
   loki:
     image: grafana/loki
@@ -53,8 +101,15 @@ services:
       - loki_data:/loki
     command: -config.file=/etc/loki-config.yml
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 100M
+    <<: *x-logging
 
 volumes:
   grafana_data: {}
   loki_data: {}
   promtail_data: {}
+  prometheus_data: {}

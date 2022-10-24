@@ -1,0 +1,5 @@
+- name: Install docker
+  hosts: VM
+  become: true
+  roles:
+    - web_app

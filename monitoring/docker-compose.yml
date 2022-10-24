@@ -4,12 +4,17 @@ x-logging: &logging
   driver: json-file
   options:
     tag: "{{.ImageName}}|{{.Name}}"
-    max-size: "200k"
+    max-size: "5m"
     max-file: "10"
+
+x-healthcheck: &healthcheck
+  interval: 20s
+  timeout: 10s
 
 services:
   grafana:
     image: grafana/grafana:9.1.8-ubuntu
+    mem_limit: 100m
     volumes:
       - grafana-data:/var/lib/grafana
       - ${PWD}/config/grafana/provisioning:/etc/grafana/provisioning
@@ -26,9 +31,13 @@ services:
     networks:
       - monitoring
     logging: *logging
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --spider http://localhost:3000/api/health || exit 1"]
+      <<: *healthcheck
 
   promtail:
     image: grafana/promtail:2.6.1
+    mem_limit: 100m
     ports:
       - "9080:9080"
     volumes:
@@ -43,9 +52,13 @@ services:
       - app_python
       - monitoring
     logging: *logging
+    healthcheck:
+      test: ["CMD-SHELL", "timeout 5 bash -c 'cat < /dev/null > /dev/tcp/localhost/9080' || exit 1"]
+      <<: *healthcheck
 
   loki:
     image: grafana/loki:2.6.1
+    mem_limit: 100m
     ports:
       - "3100:3100"
     volumes:
@@ -56,18 +69,47 @@ services:
     networks:
       - monitoring
     logging: *logging
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --spider http://localhost:3100/ready || exit 1"]
+      <<: *healthcheck
+
+  prometheus:
+    image: prom/prometheus:v2.27.0
+    mem_limit: 100m
+    ports:
+      - "9090:9090"
+    volumes:
+      - ${PWD}/config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--log.level=debug'
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--query.lookback-delta=30s'
+    restart: unless-stopped
+    networks:
+      - app_python
+      - app_haskell
+      - monitoring
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --spider http://localhost:9090/-/healthy || exit 1"]
+      <<: *healthcheck
 
   app_python:
     image: grommash99/moscow-time-py:latest
+    mem_limit: 100m
     ports:
       - "8080:8080"
     networks:
       - app_python
       - monitoring
     logging: *logging
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --spider http://localhost:8080/health || exit 1"]
+      <<: *healthcheck
 
   app_haskell:
     image: grommash99/moscow-time-hs:latest
+    mem_limit: 100m
     ports:
       - "8082:8080"
       - "8081:8081"
@@ -75,6 +117,9 @@ services:
       - app_haskell
       - monitoring
     logging: *logging
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --spider http://localhost:8080/health || exit 1"]
+      <<: *healthcheck
 
 networks:
   app_python:
@@ -85,3 +130,4 @@ volumes:
   grafana-data:
   loki-data:
   promtail-data:
+  prometheus-data:

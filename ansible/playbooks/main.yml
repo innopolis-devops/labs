@@ -1,0 +1,5 @@
+- name: Prepare docker
+  hosts: VM1
+
+  roles:
+    - web_app

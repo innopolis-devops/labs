@@ -1,5 +1,5 @@
 server:
-  disable: true
+  http_listen_port: 9080
 
 positions:
   filename: /data/positions.yaml

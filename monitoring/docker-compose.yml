@@ -8,6 +8,13 @@ x-logging: &x-logging
       max-file: '2'
       tag: '{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}'
 
+x-healthcheck: &x-healthcheck
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 5s
+
+
 services:
   grafana:
     <<: *x-logging
@@ -15,7 +22,8 @@ services:
     restart: always
     volumes:
       - grafana-data:/var/lib/grafana
-      - ./config/grafana/provisioning:/etc/grafana/provisioning
+      - grafana-config:/etc/grafana
+      - ./config/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
 
@@ -25,11 +33,48 @@ services:
     ports:
       - '3000:3000'
 
+    healthcheck:
+      <<: *x-healthcheck
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 -O /dev/null http://localhost:3000/api/health || exit 1
+
+  prometheus:
+    <<: *x-logging
+    image: prom/prometheus:v2.39.1
+    restart: always
+    volumes:
+      - prometheus-data:/prometheus
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.enable-admin-api'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.retention.time=7d'
+    ports:
+      - '9090:9090'
+    healthcheck:
+      <<: *x-healthcheck
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 -O /dev/null http://localhost:9090/-/healthy || exit 1
   loki:
     <<: *x-logging
     image: grafana/loki:2.6.0
     restart: always
     command: -config.file=/etc/loki/local-config.yaml
+    expose:
+      - 3100
+    ports:
+      - '3100:3100'
+    healthcheck:
+      <<: *x-healthcheck
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 -O /dev/null http://localhost:3100/ready || exit 1
 
   promtail:
     <<: *x-logging
@@ -42,7 +87,15 @@ services:
     command:
       - -config.file=/etc/promtail/promtail.yml
 
+    healthcheck:
+      <<: *x-healthcheck
+      test:
+        - CMD-SHELL
+        - timeout 5 bash -c 'cat < /dev/null > /dev/tcp/localhost/9080' || exit 1
+
 volumes:
   grafana-data:
+  grafana-config:
   loki-data:
   promtail-data:
+  prometheus-data:

@@ -1,0 +1,6 @@
+*.md
+.DS_Store
+.idea/
+venv/
+__pycache__/
+tests/

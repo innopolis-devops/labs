@@ -1,0 +1,5 @@
+---
+- name: Install docker for yandex cloud machine
+  hosts: server
+  roles:
+    - docker

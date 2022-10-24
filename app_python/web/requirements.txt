@@ -15,3 +15,5 @@ pytz==2022.2.1
 tomli==2.0.1
 Werkzeug==2.2.2
 zipp==3.8.1
+prometheus-client==0.15.0
+prometheus-flask-exporter==0.20.3

@@ -3,8 +3,10 @@ from datetime import datetime
 
 from flask import Flask
 from flask import render_template
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 formatter = TimeFormatter('Europe/Moscow')
 formatter.format = '%H:%M:%S'

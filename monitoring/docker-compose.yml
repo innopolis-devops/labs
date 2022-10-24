@@ -9,7 +9,7 @@ x-logging: &logging
 
 services:
   grafana:
-    # image: grafana/grafana:9.1.8-ubuntu
+    mem_limit: 200m
     image: grafana/grafana
     volumes:
       - grafana-data:/var/lib/grafana
@@ -29,6 +29,7 @@ services:
     logging: *logging
 
   promtail:
+    mem_limit: 200m
     image: grafana/promtail:2.6.1
     ports:
       - "9080:9080"
@@ -45,6 +46,7 @@ services:
     logging: *logging
 
   loki:
+    mem_limit: 200m
     image: grafana/loki:2.6.1
     ports:
       - "3100:3100"
@@ -56,8 +58,26 @@ services:
     networks:
       - monitoring
     logging: *logging
+  
+  prometheus:
+    image: prom/prometheus:v2.27.0
+    mem_limit: 200m
+    ports:
+      - "9090:9090"
+    volumes:
+      - ${PWD}/config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--log.level=debug'
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--query.lookback-delta=30s'
+    restart: unless-stopped
+    networks:
+      - app_python
+      - monitoring
 
   app_python:
+    mem_limit: 200m
     image: nailyav/lab2:latest
     ports:
       - "5000:5000"
@@ -74,3 +94,4 @@ volumes:
   grafana-data:
   loki-data:
   promtail-data:
+  prometheus-data:

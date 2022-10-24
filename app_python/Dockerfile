@@ -16,5 +16,4 @@ RUN useradd -m appuser
 USER appuser
 
 EXPOSE 5000
-ENTRYPOINT [ "flask", "run" ]
-CMD ["--host", "0.0.0.0", "--port", "5000"]
+ENTRYPOINT [ "flask", "run", "--host=0.0.0.0", "--port=5000" ]

@@ -9,4 +9,4 @@ RUN adduser -S userapp
 USER userapp
 
 EXPOSE 2222
-CMD [ "go", "run", "app.go" ]
+ENTRYPOINT [ "go", "run", "app.go" ]

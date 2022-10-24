@@ -4,6 +4,7 @@ import (
         "fmt"
         "net/http"
         "time"
+         "github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func getTime(tz string) string{
@@ -24,6 +25,8 @@ func main() {
         port := "2222"
         mux := http.NewServeMux()
         mux.HandleFunc("/", indexHandler)
+        http.Handle("/metrics", promhttp.Handler())
+        http.ListenAndServe(":"+port, nil)
         res := http.ListenAndServe(":"+port, mux)
         if res != nil {
             _ = fmt.Errorf("Some error occured")

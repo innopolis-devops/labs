@@ -1,2 +1,3 @@
 Flask==2.2.2
 requests==2.27.1
+prometheus_flask_exporter==0.20.3

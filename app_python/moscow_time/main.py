@@ -1,8 +1,10 @@
-from flask import Flask
+from flask import Flask, request
 import requests
 import datetime
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 
 @app.route('/')
@@ -20,3 +22,9 @@ def index():
 
 if __name__ == "__main__":
     app.run()
+    metrics.register_default(
+        metrics.counter(
+            'by_path_counter', 'Request count by request paths',
+            labels={'path': lambda: request.path}
+        )
+    )

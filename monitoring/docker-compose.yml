@@ -1,16 +1,24 @@
 version: '3.9'
 
+x-logging:
+  &default-logging
+  driver: json-file
+  options:
+    tag: "{{.ImageName}}|{{.Name}}"
+    max-size: 10m
+    max-file: 3
+
 services:
 
   app_python:
     image: molberte/devops-labs:latest
     restart: unless-stopped
+    mem_limit: 200m
+    networks:
+      - py_app_net
     ports:
       - 8000:5000
-    logging:
-      driver: "json-file"
-      options:
-        tag: "{{.ImageName}}|{{.Name}}"
+    logging: *default-logging
 
   grafana:
     container_name: grafana
@@ -18,12 +26,13 @@ services:
     ports:
       - 3000:3000
     restart: unless-stopped
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+    volumes:
+      - ./grafana:/etc/grafana/provisioning:ro
     networks:
       - py_app_net
-    logging:
-      driver: "json-file"
-      options:
-        tag: "{{.ImageName}}|{{.Name}}"
+    logging: *default-logging
 
   promtail:
     container_name: promtail
@@ -33,12 +42,11 @@ services:
       - ./promtail.yml:/etc/promtail/config.yaml:ro
     command: -config.file=/etc/promtail/config.yaml
     restart: unless-stopped
+    ports:
+      - 9080:9080
     networks:
       - py_app_net
-    logging:
-      driver: "json-file"
-      options:
-        tag: "{{.ImageName}}|{{.Name}}"
+    logging: *default-logging
 
   loki:
     container_name: loki
@@ -49,11 +57,25 @@ services:
     restart: unless-stopped
     networks:
       - py_app_net
-    logging:
-      driver: "json-file"
-      options:
-        tag: "{{.ImageName}}|{{.Name}}"
+    logging: *default-logging
 
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:v2.27.0
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus:/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=7d
+    networks:
+      - py_app_net
+    logging: *default-logging
 
 networks:
   py_app_net:
+
+volumes:
+  prometheus:

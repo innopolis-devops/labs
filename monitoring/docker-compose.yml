@@ -14,8 +14,6 @@ services:
   loki:
     container_name: monitoring.loki
     image: grafana/loki:2.6.1
-    expose:
-      - 3100
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
@@ -27,8 +25,6 @@ services:
   promtail:
     image: grafana/promtail:2.6.1
     container_name: monitoring.promtail
-    expose:
-      - 9080
     ports:
       - "9080:9080"
     volumes:
@@ -52,8 +48,6 @@ services:
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
       - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
-    expose:
-      - 3000
     ports:
       - "3000:3000"
     logging:
@@ -61,5 +55,24 @@ services:
       options:
         tag: "{{.ImageName}}|{{.Name}}"
 
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ${PWD}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=14d'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - "9090:9090"
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=3 --spider http://localhost:9090/-/healthy || exit 1" ]
+
 volumes:
+  grafana-data: {}
+  loki-data: {}
   promtail-data: {}
+  prometheus-data: {}

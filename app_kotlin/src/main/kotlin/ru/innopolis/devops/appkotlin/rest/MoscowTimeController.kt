@@ -1,14 +1,12 @@
 package ru.innopolis.devops.appkotlin.rest
 
-import mu.KotlinLogging
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import ru.innopolis.devops.appkotlin.service.TimeService
-
-private val logger = KotlinLogging.logger {}
+import ru.innopolis.devops.appkotlin.startTime
 
 @RestController
 @RequestMapping("/")
@@ -19,9 +17,18 @@ class MoscowTimeController(
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     fun index(): String {
-        logger.info { "request GET `/`" }
+        println("request GET `/`")
         val res = service.showMoscowTime()
-        logger.info { "res = $res" }
+        println("res = $res")
         return res
+    }
+
+    @GetMapping("/metrics")
+    @ResponseStatus(HttpStatus.OK)
+    fun metrics(): String {
+        println("request GET `/metrics`")
+        val res = System.currentTimeMillis() - startTime
+        println("res = $res")
+        return res.toString()
     }
 }

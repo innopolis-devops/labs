@@ -22,3 +22,8 @@ async def get_msk_time():
 async def healthcheck():
     """Get healthcheck"""
     return Response(content='{"status":"UP"}', media_type="application/json")
+
+@app.get("/metrics")
+async def metrics():
+    """Get metrics"""
+    return Response(content='{"metrics":"Some metrics"}', media_type="application/json")

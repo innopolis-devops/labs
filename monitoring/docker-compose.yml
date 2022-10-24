@@ -4,8 +4,14 @@ x-logging: &logging
   driver: json-file
   options:
     tag: "{{.ImageName}}|{{.Name}}"
-    max-size: "200k"
+    max-size: "100m"
     max-file: "10"
+
+x-healthcheck: &healthcheck
+  interval: 24s
+  timeout: 12s
+  retries: 4
+  start_period: 10s
 
 services:
 
@@ -29,6 +35,7 @@ services:
 
   loki:
     image: grafana/loki:2.6.1
+    mem_limit: 200m
     expose:
       - 3100
     ports:
@@ -38,9 +45,13 @@ services:
     networks:
       - monitoring
     logging: *logging
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --spider http://localhost:3100/ready || exit 1" ]
+      <<: *healthcheck
 
   promtail:
     image: grafana/promtail:2.6.1
+    mem_limit: 200m
     expose:
       - 9080
     ports:
@@ -48,7 +59,7 @@ services:
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - promtail-data:/var/lib/promtail/positions
-      - ${PWD}/promtail.yml:/etc/promtail/promtail.yml
+      - ${PWD}/config/promtail.yml:/etc/promtail/promtail.yml
     command: -config.file=/etc/promtail/promtail.yml
     restart: unless-stopped
     labels:
@@ -58,13 +69,20 @@ services:
       - app_kotlin
       - monitoring
     logging: *logging
+    healthcheck:
+      test: [ "CMD-SHELL", "timeout 5 bash -c 'cat < /dev/null > /dev/tcp/localhost/9080' || exit 1" ]
+      <<: *healthcheck
 
   grafana:
     image: grafana/grafana:latest
+    mem_limit: 200m
     volumes:
-      - ${PWD}/loki.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ${PWD}/config/datasources/loki.yml:/etc/grafana/provisioning/datasources/loki_ds.yml
+      - ${PWD}/config/datasources/prometheus.yml:/etc/grafana/provisioning/datasources/prometheus_ds.yml
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
     expose:
       - 3000
     ports:
@@ -72,6 +90,32 @@ services:
     networks:
       - monitoring
     logging: *logging
+    healthcheck:
+       test: ["CMD-SHELL", "wget --no-verbose --spider http://localhost:3000/api/health || exit 1"]
+       <<: *healthcheck
+
+  prometheus:
+   image: prom/prometheus:v2.39.1
+   mem_limit: 200m
+   ports:
+     - "9090:9090"
+   volumes:
+     - prometheus-data:/prometheus
+     - ${PWD}/config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+   command:
+     - '--log.level=debug'
+     - '--config.file=/etc/prometheus/prometheus.yml'
+     - '--storage.tsdb.path=/prometheus'
+     - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+     - '--web.console.templates=/usr/share/prometheus/consoles'
+   restart: always
+   networks:
+     - app_python
+     - app_kotlin
+     - monitoring
+   healthcheck:
+     test: ["CMD-SHELL", "wget --no-verbose --spider http://localhost:9090/-/healthy || exit 1"]
+     <<: *healthcheck
 
 networks:
   app_python: { }
@@ -80,5 +124,7 @@ networks:
 
 volumes:
   grafana-data: { }
+  grafana-config: { }
   loki-data: { }
   promtail-data: { }
+  prometheus-data: { }

@@ -14,9 +14,15 @@ async def get_time(_: web.Request) -> web.Response:
     return web.Response(text=f"Time in Moscow is {t}")
 
 
+async def health(_: web.Request) -> web.Response:
+    logger.info("Health request")
+    return web.Response(text="Up")
+
+
 def make_app(app_name: str, up_metrics: bool):
     app = web.Application()
     if up_metrics:
         setup_metrics(app, app_name)
     app.add_routes([web.get("/", get_time)])
+    app.add_routes([web.get("/health", health)])
     return app

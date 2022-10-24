@@ -1,4 +1,5 @@
-{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DataKinds     #-}
+{-# LANGUAGE TypeOperators #-}
 
 module Api where
 
@@ -11,6 +12,7 @@ import           Servant.HTML.Lucid
 import           UnliftIO
 
 type Api = Get '[HTML] (Html ())
+      :<|> "health" :> Get '[HTML] (Html ())
 
 api :: Proxy Api
 api = Proxy
@@ -27,5 +29,10 @@ getTime = do
     fmtTime = formatTime defaultTimeLocale "%H:%M:%S"
     tz = TimeZone (3 * 60) False "Europe/Moscow"
 
+getHealth :: App (Html ())
+getHealth = do
+  logInfo "Health request"
+  pure $ toHtml ("Up" :: String)
+
 server :: ServerT Api App
-server = getTime
+server = getTime :<|> getHealth

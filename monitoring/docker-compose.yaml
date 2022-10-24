@@ -6,8 +6,8 @@ x-logging:
   &loki-logging
   driver: "json-file"
   options:
-    max-size: "100m"
-    max-file: "10"
+    max-size: "100m"  # Log rotation
+    max-file: "10"  # Number of old log files
     tag: "{{.ImageName}}|{{.Name}}"
 
 
@@ -18,15 +18,27 @@ services:
     image: markovvn1/iu-devops:lab_python
     ports:
       - 8080:80
-    logging: *loki-logging
     networks: [apps]
+    mem_limit: 2048m
+    logging: *loki-logging
 
   app_php:
     image: markovvn1/iu-devops:lab_php
     ports:
       - 8081:80
-    logging: *loki-logging
     networks: [apps]
+    mem_limit: 1024m
+    logging: *loki-logging
+
+  app_php_metrics:  # collect nginx metrics for app_php and prepare them for Prometheus
+    image: nginx/nginx-prometheus-exporter:0.11.0
+    environment:
+      - SCRAPE_URI=http://app_php:3333/nginx_status
+      - TELEMETRY_PATH=/metrics
+      - NGINX_RETRIES=10
+    networks: [monitoring, apps]
+    mem_limit: 128m
+    logging: *loki-logging
 
   loki:
     image: grafana/loki:2.6.1
@@ -34,6 +46,7 @@ services:
       - loki-data:/tmp/loki/
     networks: [monitoring]
     command: -config.file=/etc/loki/local-config.yaml
+    mem_limit: 1024m
     logging: *loki-logging
 
   promtail:
@@ -44,6 +57,7 @@ services:
       - promtail-data:/var/lib/promtail/positions
     networks: [monitoring, apps]
     command: -config.file=/etc/promtail/config.yml
+    mem_limit: 1024m
     logging: *loki-logging
 
   prometheus:
@@ -59,6 +73,7 @@ services:
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
     networks: [monitoring, apps]
+    mem_limit: 1024m
     logging: *loki-logging
 
   grafana:
@@ -69,6 +84,7 @@ services:
       - grafana-data:/var/lib/grafana
       - ./configs/datasources:/etc/grafana/provisioning/datasources
     networks: [monitoring]
+    mem_limit: 1024m
     logging: *loki-logging
 
 

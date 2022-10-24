@@ -4,6 +4,7 @@ services:
 
   app_python:
     image: glebsmetanin/moscow_time:latest
+    mem_limit: 150m
     ports:
       - 5000:5000
     logging:
@@ -14,6 +15,7 @@ services:
   loki:
     container_name: monitoring.loki
     image: grafana/loki:2.6.1
+    mem_limit: 150m
     expose:
       - 3100
     ports:
@@ -26,6 +28,7 @@ services:
 
   promtail:
     image: grafana/promtail:2.6.1
+    mem_limit: 150m
     container_name: monitoring.promtail
     expose:
       - 9080
@@ -45,23 +48,26 @@ services:
         tag: "{{.ImageName}}|{{.Name}}"
 
   prometheus:
-    image: grafana/prometheus:2.6.1
-    ports:
-      - "9090:9090"
+    image: prom/prometheus
+    mem_limit: 150m
     volumes:
-      - ${PWD}/prometheus.yml:/etc/prometheus/prometheus.yml
+      - './prometheus.yml:/etc/prometheus/prometheus.yml'
       - prometheus-data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - "9090:9090"
 
   grafana:
     image: grafana/grafana:latest
+    mem_limit: 150m
     container_name: monitoring.grafana
     volumes:
-      - './loki.yaml:/etc/grafana/provisioning/datasources/datasource.yaml'
+      - './datasources/loki.yaml:/etc/grafana/provisioning/datasources/loki_ds.yaml'
+      - './datasources/prometheus.yml:/etc/grafana/provisioning/datasources/prometheus_ds.yml'
     environment:
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
       - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}

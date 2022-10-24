@@ -1,0 +1,9 @@
+app_needs_wipe: false
+app_base_dir: "/opt/app"
+web:
+  image: igooorbb/inno-devops-webapp
+  internal_port: 5000
+nginx:
+  image: igooorbb/inno-devops-nginx
+  external_port: 1337
+  internal_port: 80

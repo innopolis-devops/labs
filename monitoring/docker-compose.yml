@@ -1,0 +1,63 @@
+version: '3.7'
+
+x-common-config:
+  &logging
+  logging:
+    driver: json-file
+    options:
+      max-size: "100m"
+      max-file: "10"
+      tag: "{{.ImageName}}|{{.Name}}"
+
+services:
+  web:
+    image: igooorbb/inno-devops-webapp
+    command: uwsgi --ini uwsgi.ini
+    expose:
+      - 5000
+  nginx:
+    <<: *logging
+    image: igooorbb/inno-devops-nginx
+    ports:
+      - 1337:80
+    depends_on:
+      - web
+
+  loki:
+    <<: *logging
+    image: grafana/loki:2.6.1
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+  
+  promtail:
+    <<: *logging
+    image: grafana/promtail:2.6.1
+    command: -config.file=/etc/promtail/promtail.yml
+    restart: unless-stopped
+    networks:
+      - loki
+    volumes:
+      - ./promtail.yml:/etc/promtail/promtail.yml
+      - promtail-data:/var/lib/promtail/positions
+      - /var/lib/docker/containers:/var/lib/docker/containers
+  
+  grafana:
+    <<: *logging
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - loki
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+
+networks:
+  loki:
+
+volumes:
+  promtail-data:
+  grafana-data:

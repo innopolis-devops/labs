@@ -19,3 +19,7 @@
     ![Python metrics](images/python_dashboard.png)
 
     ![Go metrics](images/go_dashboard.png)
+
+5. Healthchecks
+
+    ![Healthchecks](images/healthy.png)

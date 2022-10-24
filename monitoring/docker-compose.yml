@@ -62,6 +62,9 @@ services:
       - '-config.file=/etc/promtail/promtail.yml'
     restart: unless-stopped
     logging: *default-logging
+    healthcheck:
+      test: timeout 5 bash -c "</dev/tcp/localhost/9080" || exit 1
+      interval: 10s
 
   loki:
     mem_limit: 200m

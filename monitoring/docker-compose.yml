@@ -11,8 +11,13 @@ services:
         max-size: "100m"
         max-file: "10"
         tag: "{{.ImageName}}|{{.Name}}"
+    healthcheck:
+      test: wget --no-verbose --spider http://localhost:9090/-/healthy || exit 1
+      interval: 10s
+      timeout: 2s
+      retries: 3
 
-  app_java:
+  appJava:
     image: noneword/app_java
     build: app_java
     ports:
@@ -25,6 +30,7 @@ services:
         tag: "{{.ImageName}}|{{.Name}}"
 
   loki:
+    mem_limit: 200m
     container_name: monitoring.loki
     image: grafana/loki:2.6.1
     expose:
@@ -37,8 +43,14 @@ services:
     restart: unless-stopped
     labels:
       org.label-schema.group: "monitoring"
+    healthcheck:
+      test: wget --no-verbose --spider http://localhost:3100/ready || exit 1
+      interval: 10s
+      timeout: 2s
+      retries: 3
 
   promtail:
+    mem_limit: 200m
     image: grafana/promtail:2.6.1
     container_name: monitoring.promtail
     expose:
@@ -56,6 +68,7 @@ services:
       org.label-schema.group: "monitoring"
 
   grafana:
+    mem_limit: 200m
     image: grafana/grafana:latest
     container_name: monitoring.grafana
     volumes:
@@ -70,8 +83,38 @@ services:
       - 3000
     ports:
       - "3000:3000"
+    healthcheck:
+      test: wget --no-verbose --spider http://localhost:3000/api/health || exit 1
+      interval: 10s
+      timeout: 2s
+      retries: 3
+
+
+  prometheus:
+    mem_limit: 200m
+    image: prom/prometheus:v2.39.1
+    container_name: monitoring.prometheus
+    volumes:
+      - ${PWD}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+    restart: unless-stopped
+    expose:
+      - 9090
+    ports:
+      - "9090:9090"
+    healthcheck:
+      test: wget --no-verbose --spider http://localhost:9090/-/healthy || exit 1
+      interval: 10s
+      timeout: 2s
+      retries: 3
 
 volumes:
   grafana-data: { }
   loki-data: { }
   promtail-data: { }
+  prometheus-data: { }

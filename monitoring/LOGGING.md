@@ -11,7 +11,6 @@ After the containers start, you can check them on:
 - Flask App: [http://localhost:8080/](http://localhost:8080/)
 - Grafana: [http://localhost:3000/](http://localhost:3000/)
 - Loki: [http://localhost:3100/](http://localhost:3100/)
-- Loki: [http://localhost:3100/](http://localhost:3100/)
 
 You can also check Loki logs and status using:
 

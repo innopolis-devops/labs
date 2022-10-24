@@ -4,12 +4,12 @@ services:
     image: feydrauth/msctime:latest
     ports:
       - "8000:8000"
-    command: ["--log-level", "debug"]
+    command: ["-b", "0.0.0.0:8000", "--log-level", "debug"]
     logging:
       driver: "json-file"
       options:
-        max-size: "100m"
-        max-file: "10"
+        max-size: "10m"
+        max-file: "5"
         tag: "{{.ImageName}}|{{.Name}}"
 
   loki:
@@ -61,7 +61,24 @@ services:
     labels:
       org.label-schema.group: "monitoring"
 
+  prometheus:
+    image: prom/prometheus:v2.39.1
+    volumes:
+      - ${PWD:-.}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=14d'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - "9090:9090"
+    labels:
+      org.label-schema.group: "monitoring"
+
 volumes:
   grafana-data: {}
   loki-data: {}
   promtail-data: {}
+  prometheus-data: {}

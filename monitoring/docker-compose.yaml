@@ -1,0 +1,60 @@
+version: "3"
+
+x-logs: &logs
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "100m"
+      max-file: "10"
+      tag: "{{.ImageName}}|{{.Name}}"
+
+services:
+  app_python:
+    image: boggda1337/moscow_app:latest
+    restart: on-failure
+    ports:
+      - "8000:8000"
+    <<: *logs
+
+  loki:
+    image: grafana/loki:2.6.0
+    restart: on-failure
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+    <<: *logs
+
+  promtail:
+    image: grafana/promtail:2.6.0
+    restart: on-failure
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - promtail-data:/var/lib/promtail/positions
+      - ./promtail/promtail.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - loki
+    <<: *logs
+
+  grafana:
+    image: grafana/grafana:latest
+    restart: on-failure
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - grafana-data:/var/lib/grafana
+    networks:
+      - loki
+    <<: *logs
+
+networks:
+  loki:
+
+volumes:
+  grafana-data: {}
+  promtail-data: {}

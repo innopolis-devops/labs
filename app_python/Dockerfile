@@ -13,4 +13,4 @@ ENV APP_TMP_DATA=/tmp
 CMD ["flask", "run"]
 
 HEALTHCHECK --interval=1m --timeout=5s \
-  CMD wget http://127.0.0.1:5000/ || exit 1
+  CMD wget --spider http://127.0.0.1:5000/ || exit 1

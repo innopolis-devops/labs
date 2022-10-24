@@ -2,7 +2,7 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-include 'healthcheck.php';
+include 'healthz.php';
 include 'engine.php';
 
 if (isset($_POST["metrics"])) {
@@ -13,6 +13,7 @@ if (isset($_POST["metrics"])) {
 
     header('Content-type: ' . \Prometheus\RenderTextFormat::MIME_TYPE);
     echo $result;
+    die();
 }
 
 echo "<h1>Sum of two numbers</h1>";

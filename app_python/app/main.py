@@ -1,7 +1,7 @@
 """Server module."""
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from fastapi import Response
+from fastapi_healthcheck import HealthCheckFactory, healthCheckRoute
 from starlette_prometheus import metrics, PrometheusMiddleware
 # pylint: disable=import-error
 from view import html_response
@@ -9,6 +9,8 @@ from view import html_response
 from service import msk_time
 
 app = FastAPI()
+_healthChecks = HealthCheckFactory()
+app.add_api_route('/healthcheck', endpoint=healthCheckRoute(factory=_healthChecks))
 app.add_middleware(PrometheusMiddleware)
 app.add_route("/metrics", metrics)
 
@@ -19,9 +21,3 @@ async def get_msk_time():
     zone = "Moscow"
     time = msk_time()
     return html_response(zone, time)
-
-
-@app.get("/healthcheck")
-async def healthcheck():
-    """Get healthcheck"""
-    return Response(content='{"status":"UP"}', media_type="application/json")

@@ -15,7 +15,7 @@ const dirname = path.resolve() // because __dirname may or may not be declared
 // Static
 app.use(express.static('public'))
 app.use('/css', express.static(path.join(dirname, "public/css")))
-app.use('/img', express.static(path.join(dirname, "public/img")))
+app.use('/img_lab7', express.static(path.join(dirname, "public/img_lab7")))
 app.use('/js', express.static(path.join(dirname, "public/js")))
 
 // Templating

@@ -6,13 +6,24 @@ It is responsible for setting up and initialization of the whole thing
 Second responsibility is to provide routes (I will separate it when I find out how)
 """
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from datetime import datetime
 import yaml
-
+from prometheus_flask_exporter import PrometheusMetrics
+from healthcheck import HealthCheck
 from business_logic.time_logic import get_time
+
 
 app = Flask(__name__, static_folder='static')
 app.config["JSON_AS_ASCII"] = False
+metrics = PrometheusMetrics(app)
+
+
+health = HealthCheck()
+tstart = datetime.now()
+def availability():
+    return True, f"uptime for: {str((datetime.now() - tstart).days * 24)}"
+health.add_check(availability)
 
 
 @app.route('/')
@@ -28,5 +39,14 @@ def get_home_page():
 if __name__ == '__main__':
     with open("config.yml", "r", encoding="utf-8") as f:
         config = yaml.load(f, Loader=yaml.FullLoader)
+
     HOST = config["flask"]["host"]
     PORT = config["flask"]["port"]  # pylint: disable=invalid-name
+
+    app.add_url_rule("/healthcheck", "healthcheck", view_func=lambda: health.run())
+    metrics.register_default(
+        metrics.counter(
+            'by_path_counter', 'Request count by request paths',
+            labels={'path': lambda: request.path}
+        )
+    )

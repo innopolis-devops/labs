@@ -62,6 +62,9 @@ I've looked at multi-staging and believe it's unnecessary for a project this siz
 
 `docker run -p 8081:8081 -d wtiiim_app`
 
+[//]: # (docker run -p 8081:8081 -d wtiiim_app)
+[//]: # (docker push aladdinych/devops_labs)
+
 ### Build from docker hub:
 
 `docker pull aladdinych/devops_labs`

@@ -6,6 +6,7 @@ services:
     image: johndenkis/simple_python_app_v2:latest
     ports:
       - 5000:5000
+    command: ["-b", "0.0.0.0:5000", "--log-level", "debug"]
     logging:
       driver: "json-file"
       options:

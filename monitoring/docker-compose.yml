@@ -3,10 +3,10 @@ version: '3.9'
 services:
 
   app_python:
+    mem_limit: 200m
     image: johndenkis/simple_python_app_v2:latest
     ports:
       - 5000:5000
-#    command: ["-b", "0.0.0.0:5000", "--log-level", "debug"]
     logging:
       driver: "json-file"
       options:
@@ -15,10 +15,10 @@ services:
         tag: "{{.ImageName}}|{{.Name}}"
 
   app_go:
+    mem_limit: 200m
     image: johndenkis/simple_go_app_v2:latest
     ports:
       - 8080:2222
-    command: ["-b", "0.0.0.0:8080", "--log-level", "debug"]
     logging:
       driver: "json-file"
       options:
@@ -27,6 +27,7 @@ services:
         tag: "{{.ImageName}}|{{.Name}}"
 
   loki:
+    mem_limit: 200m
     container_name: monitoring.loki
     image: grafana/loki:2.6.1
     expose:
@@ -42,6 +43,7 @@ services:
         tag: "{{.ImageName}}|{{.Name}}"
 
   prometheus:
+    mem_limit: 200m
     container_name: monitoring.prometheus
     image: prom/prometheus:v2.39.1
     volumes:
@@ -59,6 +61,7 @@ services:
       org.label-schema.group: "monitoring"
 
   promtail:
+    mem_limit: 200m
     image: grafana/promtail:2.6.1
     container_name: monitoring.promtail
     expose:
@@ -80,6 +83,7 @@ services:
         tag: "{{.ImageName}}|{{.Name}}"
 
   grafana:
+    mem_limit: 200m
     image: grafana/grafana:latest
     container_name: monitoring.grafana
     volumes:

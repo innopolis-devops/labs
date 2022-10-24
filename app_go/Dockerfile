@@ -1,11 +1,12 @@
 FROM golang:1.16-alpine
 
 ENV PROJECT_DIR "/app"
-RUN mkdir -p $PROJECT_DIR && \
-    go mod tidy && \
-    go get github.com/prometheus/client_golang/prometheus/promhttp
+RUN mkdir -p $PROJECT_DIR
 WORKDIR $PROJECT_DIR
 COPY . $PROJECT_DIR
+
+RUN go mod tidy && \
+    go get github.com/prometheus/client_golang/prometheus/promhttp
 
 RUN adduser -S userapp
 USER userapp

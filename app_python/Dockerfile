@@ -26,7 +26,7 @@ COPY --chown=app_user:app_user . .
 RUN python manage.py flush --no-input
 RUN python manage.py migrate
 
-HEALTHCHECK --interval=5s --timeout=10s --retries=3 CMD curl -sS 127.0.0.1/healthcheck || exit 1
+HEALTHCHECK --interval=5s --timeout=10s --retries=3 CMD wget --no-verbose --tries=3 --spider 127.0.0.1:8000/healthcheck || exit 1
 
 EXPOSE 8000
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

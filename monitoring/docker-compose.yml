@@ -1,10 +1,11 @@
-version: '3'
+version: '2'
 
 services:
   app_python:
     image: yadariya/devops:latest
+    mem_limit: 128m
     ports:
-      - 8000:8000
+      - 8000:5000
     command: ["gunicorn",  "--bind",  "0.0.0.0:5000", "app:app", "--log-level", "debug"]
     logging:
       driver: "json-file"
@@ -15,7 +16,8 @@ services:
 
   loki:
     container_name: monitoring.loki
-    image: grafana/loki:${LOKI_VERSION:-2.6.1}
+    image: grafana/loki:2.6.1
+    mem_limit: 128m
     expose:
       - 3100
     ports:
@@ -26,9 +28,16 @@ services:
     restart: unless-stopped
     labels:
       org.label-schema.group: "monitoring"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+        tag: "{{.ImageName}}|{{.Name}}"
 
   promtail:
-    image: grafana/promtail:${LOKI_VERSION:-2.6.1}
+    image: grafana/promtail:2.6.1
+    mem_limit: 128m
     container_name: monitoring.promtail
     expose:
       - 9080
@@ -43,17 +52,24 @@ services:
     restart: unless-stopped
     labels:
       org.label-schema.group: "monitoring"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+        tag: "{{.ImageName}}|{{.Name}}"
 
   grafana:
     image: grafana/grafana:latest
+    mem_limit: 128m
     container_name: monitoring.grafana
     volumes:
       - grafana-data:/var/lib/grafana
       - ${PWD}/grafana/provisioning:/etc/grafana/provisioning
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
-      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
-      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
     restart: unless-stopped
     expose:
       - 3000
@@ -61,8 +77,40 @@ services:
       - "3000:3000"
     labels:
       org.label-schema.group: "monitoring"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  prometheus:
+    image: prom/prometheus:latest
+    mem_limit: 128m
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ${PWD}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    expose:
+      - 9090
+    ports:
+      - "9090:9090"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+        tag: "{{.ImageName}}|{{.Name}}"
 
 volumes:
+  prometheus-data: {}
   grafana-data: {}
   loki-data: {}
   promtail-data: {}

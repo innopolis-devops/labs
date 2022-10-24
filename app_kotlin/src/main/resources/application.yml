@@ -1,7 +1,12 @@
 management:
   endpoints:
     web:
+      exposure:
+        include:
+          - prometheus
       base-path: /
       path-mapping:
         health:
           healthcheck
+        prometheus:
+          metrics

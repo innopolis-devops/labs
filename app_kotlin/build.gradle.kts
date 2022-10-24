@@ -24,6 +24,7 @@ dependencies {
     implementation("org.yaml:snakeyaml:1.32")
     implementation("org.springframework.boot:spring-boot-starter-actuator:2.7.4")
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.2")
+    implementation("io.micrometer:micrometer-registry-prometheus:1.9.5")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

@@ -6,6 +6,8 @@ networks:
 services:
   app_python:
     image: alexdestdev/moscow_time:latest
+    container_name: moscow_time
+    mem_limit: 150m
     ports:
       - 5000:5000
     logging:
@@ -14,9 +16,12 @@ services:
         max-size: "100m"
         max-file: "10"
         tag: "{{.ImageName}}|{{.Name}}"
+    networks:
+        - loki
   loki:
     container_name: monitoring.loki
     image: grafana/loki:${LOKI_VERSION:-2.6.1}
+    mem_limit: 150m
     expose:
       - 3100
     ports:
@@ -25,11 +30,14 @@ services:
       - loki-data:/tmp/loki/
     command: -config.file=/etc/loki/local-config.yaml
     restart: unless-stopped
+    networks:
+        - loki
     labels:
       org.label-schema.group: "monitoring"  
 
   promtail:
     image: grafana/promtail:${LOKI_VERSION:-2.6.1}
+    mem_limit: 150m
     container_name: monitoring.promtail
     expose:
       - 9080
@@ -42,11 +50,29 @@ services:
     command:
       -config.file=/etc/promtail/promtail.yml
     restart: unless-stopped
+    networks:
+        - loki
     labels:
       org.label-schema.group: "monitoring"
 
+  prometheus:
+    image: prom/prometheus:latest
+    mem_limit: 150m
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - './configs/prometheus.yaml:/etc/prometheus/prometheus.yaml'
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+    ports:
+      - "9090:9090"
+    networks:
+        - loki
+
   grafana:
     image: grafana/grafana:latest
+    mem_limit: 150m
     container_name: monitoring.grafana
     volumes:
       - grafana-data:/var/lib/grafana
@@ -56,6 +82,8 @@ services:
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
       - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
     restart: unless-stopped
+    networks:
+        - loki
     expose:
       - 3000
     ports:
@@ -66,23 +94,6 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}"
-
-  prometheus:
-        image: prom/prometheus:latest
-        container_name: prometheus
-        restart: unless-stopped
-        volumes:
-          - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml
-        command:
-          - '--config.file=/etc/prometheus/prometheus.yml'
-          - '--storage.tsdb.path=/prometheus'
-          - '--web.console.libraries=/etc/prometheus/console_libraries'
-          - '--web.console.templates=/etc/prometheus/consoles'
-          - '--web.enable-lifecycle'
-        ports:
-          - "9080:9080"
-        networks:
-            - loki
 
 volumes:
   grafana-data: {}

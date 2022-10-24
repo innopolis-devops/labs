@@ -10,6 +10,7 @@ x-logs: &logs
 
 services:
   app_node:
+    mem_limit: 200m
     image: afonya2001/devops:latest
     ports:
       - 80:8080
@@ -17,6 +18,7 @@ services:
     <<: *logs
 
   loki:
+    mem_limit: 200m
     image: grafana/loki:2.6.1
     ports:
       - "3100:3100"
@@ -26,6 +28,7 @@ services:
     <<: *logs
 
   promtail:
+    mem_limit: 200m
     image: grafana/promtail:2.6.1
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
@@ -34,9 +37,38 @@ services:
     command: -config.file=/etc/promtail/config.yml
     networks:
       - loki
+    healthcheck:
+      test: wget --no-verbose --spider http://localhost:3100/ready || exit 1
+      interval: 10s
+      timeout: 2s
+      retries: 3
     <<: *logs
 
+  prometheus:
+    mem_limit: 200m
+    image: prom/prometheus:v2.39.1
+    restart: always
+    volumes:
+      - ./prometheus-data:/prometheus
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--web.enable-admin-api'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.retention.time=7d'
+    ports:
+      - '9090:9090'
+    healthcheck:
+      test: wget --no-verbose --spider http://localhost:9090/-/healthy || exit 1
+      interval: 10s
+      timeout: 2s
+      retries: 3
+
   grafana:
+    mem_limit: 200m
     image: grafana/grafana:latest
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning

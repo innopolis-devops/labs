@@ -18,7 +18,7 @@ services:
     image: johndenkis/simple_go_app_v2:latest
     ports:
       - 8080:2222
-#    command: ["-b", "0.0.0.0:8080", "--log-level", "debug"]
+    command: ["-b", "0.0.0.0:8080", "--log-level", "debug"]
     logging:
       driver: "json-file"
       options:

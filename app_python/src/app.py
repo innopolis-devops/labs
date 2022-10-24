@@ -3,6 +3,7 @@ Module providing function that renders the time web page.
 '''
 from flask import Flask, render_template
 from src.models.custom_time import Time
+from prometheus_flask_exporter import PrometheusMetrics
 
 
 def create_app():
@@ -10,6 +11,8 @@ def create_app():
     Function that creates instance of Flask
     '''
     app = Flask('Time', template_folder='../templates')
+    metrics = PrometheusMetrics(app)
+    
     app.static_folder = '../static'
     @app.route("/")
     def get_cur_time():

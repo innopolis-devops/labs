@@ -4,16 +4,22 @@ services:
 
   app_python:
     image: amina109/devops:latest
+    expose:
+      - 8000
     ports:
       - 8000:8000
     logging:
       driver: "json-file"
       options:
+        max-size: "10m"
+        max-file: "5"
         tag: "{{.ImageName}}|{{.Name}}"
 
   loki:
     container_name: monitoring.loki
     image: grafana/loki:2.6.1
+    volumes:
+      - loki-data:/tmp/loki/
     expose:
       - 3100
     ports:
@@ -34,7 +40,7 @@ services:
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - promtail-data:/var/lib/promtail/positions
-      - ${PWD}/promtail.yaml:/etc/promtail/promtail.yaml
+      - ${PWD}/promtail/promtail.yaml:/etc/promtail/promtail.yaml
     command: -config.file=/etc/promtail/promtail.yaml
     labels:
       org.label-schema.group: "monitoring"
@@ -47,7 +53,8 @@ services:
     image: grafana/grafana:latest
     container_name: monitoring.grafana
     volumes:
-      - ${PWD}/loki.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+      - grafana-data:/var/lib/grafana
+      - ${PWD}/grafana/provisioning:/etc/grafana/provisioning
     environment:
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
       - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
@@ -61,5 +68,29 @@ services:
       options:
         tag: "{{.ImageName}}|{{.Name}}"
 
+  prometheus:
+    image: prom/prometheus:${PROMETHEUS_VERSION:-v2.39.1}
+    volumes:
+      - ${PWD}/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=14d'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    expose:
+      - 9090
+    ports:
+      - "9090:9090"
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
 volumes:
+  loki-data: {}
   promtail-data: {}
+  grafana-data: {}
+  prometheus-data: {}
+

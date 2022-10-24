@@ -1,10 +1,12 @@
 """Creates a web app to show moscow time"""
 
 from datetime import datetime
-from flask import Flask
+from flask import Flask, request
 import pytz
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 
 def get_time(time_format, timezone=pytz.timezone('UTC')):
@@ -23,3 +25,11 @@ def get_moscow_time():
 def home():
     """Main page"""
     return f"The current time in Moscow is {get_moscow_time()}"
+
+
+metrics.register_default(
+    metrics.counter(
+        'by_path_counter', 'Request count by request paths',
+        labels={'path': lambda: request.path}
+    )
+)

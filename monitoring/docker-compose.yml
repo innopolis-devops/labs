@@ -3,6 +3,7 @@ services:
 
   app_python:
     image: emileyray/flask:latest
+    mem_limit: 100m
     ports:
       - 5000:5000
     logging:
@@ -12,6 +13,7 @@ services:
 
   loki:
     image: grafana/loki:2.6.1
+    mem_limit: 100m
     expose:
       - 3100
     ports:
@@ -20,6 +22,7 @@ services:
 
   promtail:
     image: grafana/promtail:2.6.1
+    mem_limit: 100m
     expose:
       - 9080
     ports:
@@ -27,15 +30,31 @@ services:
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - promtail-data:/var/lib/promtail/positions
-      - ${PWD}/promtail.yml:/etc/promtail/promtail.yml
+      - ./promtail.yml:/etc/promtail/promtail.yml
     command: -config.file=/etc/promtail/promtail.yml
     labels:
       org.label-schema.group: "monitoring"
 
+  prometheus:
+    image: prom/prometheus:${PROMETHEUS_VERSION:-v2.39.1}
+    mem_limit: 100m
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - "9090:9090"
+
   grafana:
     image: grafana/grafana:latest
+    mem_limit: 100m
     volumes:
-      - ${PWD}/loki.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ./datasources/loki.yml:/etc/grafana/provisioning/datasources/loki_ds.yml
+      - ./datasources/prometheus.yml:/etc/grafana/provisioning/datasources/prometheus_ds.yml
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
     expose:
@@ -45,3 +64,4 @@ services:
 
 volumes:
   promtail-data: {}
+  prometheus-data: {}

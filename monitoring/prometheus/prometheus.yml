@@ -7,13 +7,13 @@ scrape_configs:
     scrape_interval: 5s
     metrics_path: /metrics
     static_configs:
-      - targets: ['app_python:5000']
+      - targets: ['localhost:5000']
 
   - job_name: 'app_go'
     scrape_interval: 5s
     metrics_path: /metrics
     static_configs:
-      - targets: ['app_go:8080']
+      - targets: ['localhost:8080']
 
   - job_name: 'prometheus'
     scrape_interval: 10s

@@ -1,4 +1,6 @@
 FROM python:3.8-slim-buster
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=8081
 WORKDIR /app_python
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt

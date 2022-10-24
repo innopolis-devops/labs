@@ -3,6 +3,11 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import requests
 import datetime
+from starlette_prometheus import metrics, PrometheusMiddleware
+
+app = FastAPI()
+app.add_middleware(PrometheusMiddleware)
+app.add_route("/metrics", metrics)
 
 
 class MSK_time(BaseModel):
@@ -11,9 +16,6 @@ class MSK_time(BaseModel):
 
 class Message(BaseModel):
     message: str
-
-
-app = FastAPI()
 
 
 @app.get("/",

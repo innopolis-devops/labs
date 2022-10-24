@@ -14,6 +14,8 @@ services:
     restart: on-failure
     ports:
       - "8000:8000"
+    networks:
+      - loki
     <<: *logs
 
   prometheus:
@@ -34,6 +36,8 @@ services:
     ports:
       - "9090:9090"
     mem_limit: 200m
+    networks:
+      - loki
     <<: *logs
 
   loki:

@@ -1,6 +1,6 @@
 # Metrics
 
-####Let's check http://localhost:9090/targets to see that all of our targets are successfully started
+#### Let's check http://localhost:9090/targets to see that all of our targets are successfully started
 ![img.png](screenshots/img_metrics.png)
 
 #### Let's create a dashboard to take metrics from prometheus using this [JSON](https://grafana.com/grafana/dashboards/3662-prometheus-2-0-overview/).

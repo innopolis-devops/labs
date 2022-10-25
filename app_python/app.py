@@ -1,12 +1,19 @@
 from flask import Flask
 from datetime import datetime
 import pytz
+from prometheus_flask_exporter import PrometheusMetrics
 
 LOG_FILENAME = './access.log'
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 tz_Moscow = pytz.timezone("Europe/Moscow")
-
+metrics.register_default(
+    metrics.counter(
+        'by_path_counter', 'Request count by request paths',
+        labels={'path': lambda: request.path}
+    )
+)
 
 @app.route('/')
 def start():

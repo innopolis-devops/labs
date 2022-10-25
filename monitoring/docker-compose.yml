@@ -41,6 +41,8 @@ services:
         max-size: "10m"
         max-file: "10"
         tag: "{{.ImageName}}|{{.Name}}"
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=3 --spider http://localhost:3100/ready || exit 1" ]
 
   prometheus:
     mem_limit: 200m
@@ -59,6 +61,8 @@ services:
       - "9090:9090"
     labels:
       org.label-schema.group: "monitoring"
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=3 --spider http://localhost:9090/-/healthy || exit 1" ]
 
   promtail:
     mem_limit: 200m
@@ -102,6 +106,8 @@ services:
         max-size: "10m"
         max-file: "10"
         tag: "{{.ImageName}}|{{.Name}}"
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=3 --spider http://localhost:3000/api/health || exit 1" ]
 
 volumes:
   promtail-data: {}

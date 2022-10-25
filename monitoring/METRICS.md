@@ -21,13 +21,19 @@ Checking http://localhost:9090/targets
 
 ## Dashboards in Grafana (4 points)
 
-Dashboards in Grafana for Loki and Prometeheus looks like:
+Dashboard in Grafana for Loki:
 
-Also, we added log rotation and mem limits in the docker-compose.yml file.
+![loki_dashboard](assets/loki_dashboard.jpg)
+
+Dashboard in Grafana for Prometheus:
+
+![prometheus_dashboard](assets/prometheus_dashboard.jpg)
+
+Also, I added log rotation and mem limits in the docker-compose.yml file.
 
 ## Bonus task 
 
-We added next metrics to python app:
+I added next metrics to python and go app.
 
 
-We added healthchecks:
+Also healthchecks were added:

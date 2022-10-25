@@ -2,18 +2,19 @@
 Moscow time server
 """
 import os
+from prometheus_flask_exporter import PrometheusMetrics
 from datetime import datetime
 from pytz import timezone
 from flask import Flask, render_template
 
 FILE_NAME = "./files/time.txt"
 
-
 def create_app():
     """
     Create app function
     """
     flask_app = Flask(__name__, template_folder='./templates')
+    metrics = PrometheusMetrics(flask_app)
     zone = os.environ.get('TIMEZONE', 'Europe/Moscow')
     time_format = os.environ.get('TIME_FORMAT', '%H:%M:%S')
     zone = timezone(zone)

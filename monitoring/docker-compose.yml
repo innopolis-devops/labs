@@ -6,6 +6,7 @@ x-common-config:
   &logging
   logging:
     driver: json-file
+    # Log rotation and Mem limit
     options:
       tag: "{{.Name}}"
       max-size: "100m"

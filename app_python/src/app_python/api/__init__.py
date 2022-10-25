@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from app_python import settings
 
@@ -26,3 +27,8 @@ import app_python.api.exceptions
 from app_python.api.views import router
 
 app.include_router(router, prefix='/v1')
+
+
+@app.on_event('startup')
+async def startup():
+    Instrumentator().instrument(app).expose(app)

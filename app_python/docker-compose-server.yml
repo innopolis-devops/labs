@@ -1,6 +1,7 @@
 version: "3"
 
 x-common: &common
+  mem_limit: 512m
   restart: always
   logging:
     options:
@@ -8,21 +9,22 @@ x-common: &common
       max-file: "5"
 
 services:
-  watchtower:
-    image: ${AWS_ECR_SERVICE_URL}/watchtower:${TAG:-latest}
-    container_name: ap-watchtower
-    environment:
-      - WATCHTOWER_DEBUG=true
-      - WATCHTOWER_CLEANUP=true
-      - WATCHTOWER_POLL_INTERVAL=30
-      - WATCHTOWER_REVIVE_STOPPED=true
-      - WATCHTOWER_INCLUDE_STOPPED=true
-      - WATCHTOWER_ROLLING_RESTART=true
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./.docker/config.json:/config.json
-    command: ap-api
-    <<: *common
+# Since we use blue-green deployment.
+#  watchtower:
+#    image: ${AWS_ECR_SERVICE_URL}/watchtower:${TAG:-latest}
+#    container_name: ap-watchtower
+#    environment:
+#      - WATCHTOWER_DEBUG=true
+#      - WATCHTOWER_CLEANUP=true
+#      - WATCHTOWER_POLL_INTERVAL=30
+#      - WATCHTOWER_REVIVE_STOPPED=true
+#      - WATCHTOWER_INCLUDE_STOPPED=true
+#      - WATCHTOWER_ROLLING_RESTART=true
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#      - ./.docker/config.json:/config.json
+#    command: ap-api
+#    <<: *common
 
   loki:
     image: grafana/loki:2.6.1
@@ -31,6 +33,8 @@ services:
       - -config.file=/etc/loki/local-config.yaml
       - -config.expand-env=true
     <<: *common
+    healthcheck:
+      test: wget --no-verbose --tries=3 --spider http://localhost:3100/ready || exit 1
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -41,9 +45,11 @@ services:
     environment:
       - APP_API_LOKI_URL=http://loki:3100/loki/api/v1/push
     volumes:
-      - ./config/promtail-conf.yaml:/etc/promtail/config.yaml
+      - ./config/promtail-conf.yml:/etc/promtail/config.yaml
       - logs:/var/log/app/
     <<: *common
+    healthcheck:
+      test: timeout 1 bash -c 'cat < /dev/null > /dev/tcp/localhost/9080' || exit 1
 
   grafana:
     image: grafana/grafana:latest
@@ -51,3 +57,22 @@ services:
     ports:
       - "3000:3000"
     <<: *common
+    healthcheck:
+      test: wget --no-verbose --tries=3 --spider http://localhost:3000 || exit 1
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: ap-prometheus
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=14d
+      - --web.console.libraries=/usr/share/prometheus/console_libraries
+      - --web.console.templates=/usr/share/prometheus/consoles
+    ports:
+      - "9090:9090"
+    <<: *common
+    healthcheck:
+      test: wget --no-verbose --tries=3 --spider http://localhost:9090/-/healthy || exit 1

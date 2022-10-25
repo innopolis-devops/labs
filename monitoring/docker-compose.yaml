@@ -26,6 +26,7 @@ services:
       - gateway
     restart: always
     logging:
+      driver: "local"
       options:
         max-size: 20m
 
@@ -38,7 +39,6 @@ services:
       - "9095"
     volumes:
       - ./loki-config.yaml:/etc/loki/config.yaml
-      - ./grafana/provisioning:/etc/grafana/provisioning
     depends_on:
       - minio
     networks: &loki-dns
@@ -46,6 +46,7 @@ services:
         aliases:
           - loki
     logging:
+      driver: "local"
       options:
         max-size: 20m
 
@@ -63,6 +64,7 @@ services:
     networks:
       <<: *loki-dns
     logging:
+      driver: "local"
       options:
         max-size: 20m
 
@@ -77,6 +79,7 @@ services:
     networks:
       - loki
     logging:
+      driver: "local"
       options:
         max-size: 20m
 
@@ -101,40 +104,26 @@ services:
     networks:
       - loki
     logging:
+      driver: "local"
       options:
         max-size: 20m
 
   grafana:
     image: grafana/grafana:latest
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
     depends_on:
       - gateway
-    entrypoint:
-      - sh
-      - -euc
-      - |
-        mkdir -p /etc/grafana/provisioning/datasources
-        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
-        apiVersion: 1
-        datasources:
-          - name: Loki
-            type: loki
-            access: proxy
-            url: http://gateway:3100
-            jsonData:
-              httpHeaderName1: "X-Scope-OrgID"
-            secureJsonData:
-              httpHeaderValue1: "tenant1"
-        EOF
-        /run.sh
     ports:
       - "3000:3000"
     networks:
       - loki
     logging:
+      driver: "local"
       options:
         max-size: 20m
 
@@ -202,6 +191,7 @@ services:
     networks:
       - loki
     logging:
+      driver: "local"
       options:
         max-size: 20m
 
@@ -212,6 +202,7 @@ services:
     networks:
       - loki
     logging:
+      driver: "local"
       options:
         max-size: 20m
 
@@ -222,5 +213,6 @@ services:
     networks:
       - loki
     logging:
+      driver: "local"
       options:
         max-size: 20m

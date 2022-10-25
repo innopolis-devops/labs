@@ -15,7 +15,7 @@ To run everything on docker:
 
 ### Screenshot of `http://localhost:9090/target`
 
-![Prometheus targets](./images/prometheus.png)
+![Prometheus targets](./images/Prometheus.png)
 
 ### Loki dashboard
 

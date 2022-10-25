@@ -1,0 +1,5 @@
+- name: Deploy Python App
+  hosts: host
+  become: true
+  roles:
+    - app_python

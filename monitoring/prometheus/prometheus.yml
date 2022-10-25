@@ -7,11 +7,6 @@ scrape_configs:
     static_configs:
       - targets:
           - localhost:5050
-  
-  - job_name: app_swift
-    static_configs:
-      - targets:
-          - localhost:5051
 
   - job_name: promtail
     static_configs:

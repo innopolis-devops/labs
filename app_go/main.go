@@ -27,19 +27,19 @@ func prometheusHandler() gin.HandlerFunc {
 
 func SetUpRouter() *gin.Engine{
 	router := gin.Default()
-	prometheus.MustRegister(requestsCounter)
 	loc := time.FixedZone("MSK", 3*60*60)
 	router.GET("/", func(c *gin.Context) {
 	    requestsCounter.Inc()
 		c.String(http.StatusOK, time.Now().In(loc).String())
 	})
-	router.GET("/metrics", prometheusHandler())
 	return router
 }
 
 func main() {
 	gin.SetMode(gin.ReleaseMode)
+	prometheus.MustRegister(requestsCounter)
 	router := SetUpRouter()
+	router.GET("/metrics", prometheusHandler())
 	err := router.Run("0.0.0.0:8080")
 	if err != nil {
 		_ = fmt.Errorf("unexpected error")

@@ -10,6 +10,11 @@
 <img width="1000" src="https://user-images.githubusercontent.com/49106163/197655533-a1a53913-8455-48a3-bc8d-4502d6fdf12a.png"/>
 </p>
 
+- Check `/metrics`:
+<p float="left">
+<img width="1000" src="https://user-images.githubusercontent.com/49106163/197713332-57cc0537-2baa-45d2-8af2-111f0c8fb9fa.png"/>
+</p>
+
 - Check Targets :
 [http://localhost:9090/targets](http://localhost:9090/targets)
 <p float="left">

@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from datetime import datetime
 from pytz import timezone
+from prometheus_flask_exporter import PrometheusMetrics
 
 
 def make_app():
@@ -9,6 +10,7 @@ def make_app():
     Creates an instance of the Flask application.
     """
     app = Flask(__name__, template_folder="../templates")
+    metrics = PrometheusMetrics(app)
 
     @app.route('/', methods=['GET'])
     def index():

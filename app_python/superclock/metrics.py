@@ -5,7 +5,7 @@ from prometheus_fastapi_instrumentator.metrics import Info
 
 
 # Modified example from https://github.com/trallnag/prometheus-fastapi-instrumentator
-def http_requested_languages_total() -> Callable[[Info], None]:
+def http_requested_languages_total() -> Callable[[Info], None]:  # pragma: no cover
     METRIC = Counter(
         "http_requested_languages_total",
         "Number of times a certain language has been requested.",

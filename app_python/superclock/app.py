@@ -27,6 +27,4 @@ async def healthy() -> str:
 
 @app.on_event("startup")
 async def startup() -> None:
-    instrumentator = Instrumentator()
-    instrumentator.add(http_requested_languages_total()).instrument(app)
-    instrumentator.expose(app)
+    Instrumentator().add(http_requested_languages_total()).instrument(app).expose(app)

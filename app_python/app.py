@@ -65,6 +65,6 @@ def main_page():
     return template.render(time=get_current_moscow_time())
 
 
-@app.route('/metrics/')
+@app.route('/metrics')
 def metrics():
     return Response(prometheus_client.generate_latest(), mimetype=CONTENT_TYPE_LATEST)

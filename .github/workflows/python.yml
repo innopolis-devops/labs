@@ -107,7 +107,7 @@ jobs:
     needs: [linters]
     name: "Publish image"
     timeout-minutes: 20
-    if: ${{ needs.changes.outputs.python == 'true' }}
+    # if: ${{ needs.changes.outputs.python == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

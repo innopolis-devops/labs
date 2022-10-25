@@ -21,6 +21,7 @@ services:
     networks: [apps]
     mem_limit: 2048m
     logging: *loki-logging
+    # Already has a healthcheck (see Dockerfile)
 
   app_php:
     image: markovvn1/iu-devops:lab_php
@@ -29,6 +30,7 @@ services:
     networks: [apps]
     mem_limit: 1024m
     logging: *loki-logging
+    # Already has a healthcheck (see Dockerfile)
 
   app_php_metrics:  # collect nginx metrics for app_php and prepare them for Prometheus
     image: nginx/nginx-prometheus-exporter:0.11.0
@@ -39,6 +41,7 @@ services:
     networks: [monitoring, apps]
     mem_limit: 128m
     logging: *loki-logging
+    # Didn't find any way to check health. This docker contains only compiled golang program (there is even no bash or sh)
 
   loki:
     image: grafana/loki:2.6.1
@@ -48,6 +51,8 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     mem_limit: 1024m
     logging: *loki-logging
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=3 --spider http://localhost:3100/ready || exit 1"]
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -59,6 +64,8 @@ services:
     command: -config.file=/etc/promtail/config.yml
     mem_limit: 1024m
     logging: *loki-logging
+    healthcheck:
+      test: ["CMD-SHELL", "timeout 1 bash -c 'cat < /dev/null > /dev/tcp/127.0.0.1/9080' || exit 1"]
 
   prometheus:
     image: prom/prometheus:v2.39.1
@@ -75,6 +82,8 @@ services:
     networks: [monitoring, apps]
     mem_limit: 1024m
     logging: *loki-logging
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=3 --spider http://localhost:9090/-/healthy || exit 1"]
 
   grafana:
     image: grafana/grafana:9.2.1
@@ -86,6 +95,8 @@ services:
     networks: [monitoring]
     mem_limit: 1024m
     logging: *loki-logging
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/healthz || exit 1"]
 
 
 volumes:

@@ -52,13 +52,17 @@ WORKDIR /opt/app
 
 COPY --from=compile-image /opt/app/.venv /opt/app/.venv
 
-# Create non-root user
-RUN useradd -s /bin/bash python
+RUN set -ex \
+    && apt-get -qq update \
+    && apt-get -qq install wget \
+    && rm -rf /var/lib/apt/lists/* \
+    # Create non-root user
+    && useradd -s /bin/bash python
 
 USER python
 
 EXPOSE 80
 
-HEALTHCHECK --interval=5s --timeout=10s CMD curl --silent --fail http://localhost || exit 1
+HEALTHCHECK --interval=5s --timeout=10s CMD bash -c "[ \"`wget -T 1 --no-verbose -O - http://localhost/healthy`\" == \"ok\" ] || exit 1"
 
 ENTRYPOINT [".venv/bin/uvicorn", "--host", "0.0.0.0", "--port", "80", "superclock:app"]

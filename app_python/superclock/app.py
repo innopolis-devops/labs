@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from prometheus_fastapi_instrumentator import Instrumentator
 
+from .metrics import http_requested_languages_total
 from .project import PROJECT_PATH
 from .timezone_clock import TimezoneClock
 
@@ -19,6 +20,13 @@ async def home(request: Request) -> Response:
     return templates.TemplateResponse("index.html", {"request": request, "msktime": msk_clock.get_time_str()})
 
 
+@app.get("/healthy")
+async def healthy() -> str:
+    return "ok"
+
+
 @app.on_event("startup")
 async def startup() -> None:
-    Instrumentator().instrument(app).expose(app)
+    instrumentator = Instrumentator()
+    instrumentator.add(http_requested_languages_total()).instrument(app)
+    instrumentator.expose(app)

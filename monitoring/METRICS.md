@@ -14,3 +14,10 @@ _Prometheus_
 ![](https://i.imgur.com/QTIw9HO.png)
 _Loki_
 
+### Metrics for apps
+
+![](https://i.imgur.com/3YyWYF9.png)
+_app_python_
+
+![](https://i.imgur.com/bGMDjKW.png)
+_app_go_

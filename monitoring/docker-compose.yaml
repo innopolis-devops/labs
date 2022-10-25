@@ -29,6 +29,11 @@ services:
       driver: "local"
       options:
         max-size: 20m
+    healthcheck:
+      test: "curl -f http://localhost:9090/-/healthy"
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   read:
     image: grafana/loki:2.6.1
@@ -49,6 +54,11 @@ services:
       driver: "local"
       options:
         max-size: 20m
+    healthcheck:
+      test: "curl -f http://localhost:3100/metrics"
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   write:
     image: grafana/loki:2.6.1
@@ -67,6 +77,11 @@ services:
       driver: "local"
       options:
         max-size: 20m
+    healthcheck:
+      test: "curl -f http://localhost:3100/metrics"
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -82,6 +97,11 @@ services:
       driver: "local"
       options:
         max-size: 20m
+    healthcheck:
+      test: "curl -f http://localhost:9080/metrics"
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   minio:
     image: minio/minio
@@ -205,6 +225,11 @@ services:
       driver: "local"
       options:
         max-size: 20m
+    healthcheck:
+      test: "curl -f http://localhost:8000/metrics"
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   app_go:
     image: ilyakolomin/devops_app_go
@@ -216,3 +241,8 @@ services:
       driver: "local"
       options:
         max-size: 20m
+    healthcheck:
+      test: "curl -f http://localhost:8080/metrics"
+      interval: 5s
+      timeout: 5s
+      retries: 20

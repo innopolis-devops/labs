@@ -11,11 +11,11 @@ from prometheus_client import Counter, Histogram
 CONTENT_TYPE_LATEST = str('text/plain; version=0.0.4; charset=utf-8')
 
 REQUEST_COUNT = Counter(
-    'request_count', 'App Request Count',
-    ['app_name', 'method', 'endpoint', 'http_status']
+    'app_python_request_count', 'App Request Count',
+    ['app_python', 'method', 'endpoint', 'http_status']
 )
-REQUEST_LATENCY = Histogram('request_latency_seconds', 'Request latency',
-                            ['app_name', 'endpoint']
+REQUEST_LATENCY = Histogram('app_python_request_latency_seconds', 'Request latency',
+                            ['app_python', 'endpoint']
                             )
 
 env = Environment(
@@ -30,13 +30,13 @@ def start_timer():
 
 def stop_timer(response):
     resp_time = time.time() - request.start_time
-    REQUEST_LATENCY.labels('python_app', request.path).observe(resp_time)
+    REQUEST_LATENCY.labels('app_python', request.path).observe(resp_time)
     sys.stderr.write("Response time: %ss\n" % resp_time)
     return response
 
 
 def record_request_data(response):
-    REQUEST_COUNT.labels('python_app', request.method, request.path,
+    REQUEST_COUNT.labels('app_python', request.method, request.path,
                          response.status_code).inc()
     sys.stderr.write("Request path: %s Request method: %s Response status: %s\n" %
                      (request.path, request.method, response.status_code))

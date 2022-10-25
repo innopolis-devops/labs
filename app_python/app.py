@@ -2,10 +2,10 @@
 Moscow time server
 """
 import os
-from prometheus_flask_exporter import PrometheusMetrics
 from datetime import datetime
 from pytz import timezone
 from flask import Flask, render_template
+from prometheus_flask_exporter import PrometheusMetrics
 
 FILE_NAME = "./files/time.txt"
 

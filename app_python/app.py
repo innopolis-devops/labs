@@ -14,7 +14,7 @@ def create_app():
     Create app function
     """
     flask_app = Flask(__name__, template_folder='./templates')
-    metrics = PrometheusMetrics(flask_app)
+    metrics = PrometheusMetrics(flask_app) # pylint: disable=unused-variable
     zone = os.environ.get('TIMEZONE', 'Europe/Moscow')
     time_format = os.environ.get('TIME_FORMAT', '%H:%M:%S')
     zone = timezone(zone)

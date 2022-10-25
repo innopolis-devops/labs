@@ -1,6 +1,9 @@
 # Official Python runtime, used as the parent image
 FROM python:3.10-alpine
 
+ENV PROJECT_DIR "/app"
+ENV APP_USER "app"
+
 # Setting the working directory in the container to /app
 WORKDIR /app
 

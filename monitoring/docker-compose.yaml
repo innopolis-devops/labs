@@ -14,6 +14,8 @@ services:
         max-size: "10m"
         max-file: "5"
         tag: "{{.ImageName}}|{{.Name}}"
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=3 --spider http://localhost:8000/health || exit 1" ]
 
   loki:
     container_name: monitoring.loki

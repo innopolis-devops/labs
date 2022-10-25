@@ -1,7 +1,7 @@
 '''
 Module providing function that renders the time web page.
 '''
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from src.models.custom_time import Time
 from prometheus_flask_exporter import PrometheusMetrics
 
@@ -22,5 +22,8 @@ def create_app():
         time_app = Time(timezone_str='Europe/Moscow')
         return render_template('clock.html', date=time_app.date, time=time_app.time)
 
+    @app.route("/health")
+    def health():
+        return "200"
 
     return app

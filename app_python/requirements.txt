@@ -16,4 +16,5 @@ pytz==2022.4
 six==1.16.0
 tomli==2.0.1
 Werkzeug==2.2.2
-prometheus-flask-exporter
+prometheus-flask-exporter==0.20.3
+psycopg2-binary==2.9.4

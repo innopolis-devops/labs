@@ -33,7 +33,7 @@ Also, I added log rotation and mem limits in the docker-compose.yml file.
 
 ## Bonus task 
 
-I added next metrics to python and go app.
+I added health check for python and all other services
 
+![healthcheck](assets/healthcheck.jpg)
 
-Also healthchecks were added:

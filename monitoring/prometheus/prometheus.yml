@@ -1,0 +1,29 @@
+global:
+   scrape_interval: 5s
+
+scrape_configs:
+
+  - job_name: app_python
+    static_configs:
+      - targets:
+          - localhost:5050
+  
+  - job_name: app_swift
+    static_configs:
+      - targets:
+          - localhost:5051
+
+  - job_name: promtail
+    static_configs:
+      - targets:
+          - promtail:9080
+  
+  - job_name: loki
+    static_configs:
+      - targets:
+          - loki:3100
+  
+  - job_name: prometheus
+    static_configs:
+      - targets:
+          - localhost:9090

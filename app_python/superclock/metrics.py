@@ -1,6 +1,7 @@
 from typing import Callable
-from prometheus_fastapi_instrumentator.metrics import Info
+
 from prometheus_client import Counter
+from prometheus_fastapi_instrumentator.metrics import Info
 
 
 # Modified example from https://github.com/trallnag/prometheus-fastapi-instrumentator
@@ -8,7 +9,7 @@ def http_requested_languages_total() -> Callable[[Info], None]:
     METRIC = Counter(
         "http_requested_languages_total",
         "Number of times a certain language has been requested.",
-        labelnames=("langs",)
+        labelnames=("langs",),
     )
 
     def instrumentation(info: Info) -> None:  # Analyze all incoming requests

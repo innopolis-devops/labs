@@ -9,7 +9,7 @@ x-common-config:
     options:
       tag: "{{.Name}}"
       max-size: "100m"
-      max-file: "3"
+      max-file: "10"
   mem_limit: "512M"
 
 services:
@@ -33,6 +33,9 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
     ports:
       - "3000:3000"
+    volumes:
+      - ./config/loki:/etc/loki
+      - grafana-data:/data
     logging:
       driver: "json-file"
       options:
@@ -45,6 +48,7 @@ services:
       - "3100:3100"
     volumes:
       - ./config/loki:/etc/loki
+      - loki-data:/data
     restart: unless-stopped
     command: -config.file=/etc/loki/loki-config.yml
     logging:
@@ -68,5 +72,18 @@ services:
       options:
         tag: "{{.ImageName}}|{{.Name}}"
 
+  prometheus:
+    <<: *logging
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus:/etc/prometheus
+      - prometheus-data:/data
+    command: --config.file=/etc/prometheus/prometheus-config.yml
+
 volumes:
-  promtail-data:
+  prometheus-data: {}
+  grafana-data: {}
+  loki-data: {}
+  promtail-data: {}

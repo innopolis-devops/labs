@@ -21,6 +21,10 @@ def create_app():
         html = "<center>" + moscow_time + "</center>"
         return html
 
+    @app.route("/health")
+    def health():
+        return "200"
+
     return app
 
 

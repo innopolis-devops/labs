@@ -13,6 +13,9 @@ services:
         max-size: "10m"
         max-file: "10"
         tag: "{{.ImageName}}|{{.Name}}"
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=3 --spider http://localhost:5000/health || exit 1" ]
+
 
   app_go:
     mem_limit: 200m
@@ -85,6 +88,9 @@ services:
         max-size: "10m"
         max-file: "10"
         tag: "{{.ImageName}}|{{.Name}}"
+    healthcheck:
+      test: timeout 5 bash -c "</dev/tcp/localhost/9080" || exit 1
+      interval: 10s
 
   grafana:
     mem_limit: 200m

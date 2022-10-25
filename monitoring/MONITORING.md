@@ -6,7 +6,7 @@
 
 
 ## grafana
-implemented with [provisioning configs](https://github.com/molberte/innopolis-devops/blob/lab8/monitoring/grafana), so the datasources are added automatically, нойс
+implemented with [provisioning configs](https://github.com/molberte/devops_labs/blob/lab8/monitoring/grafana), so the datasources are added automatically, нойс
 
 ### loki2.0 global metrics
 ![image](https://user-images.githubusercontent.com/63815121/197652586-9b98a9c4-af72-4f33-9d71-e692b7feb9b4.png)

@@ -4,36 +4,67 @@ version: "3"
 networks:
   loki:
 
+volumes:
+    prometheus_data: {}
+
 services:
+  prometheus:
+    image: prom/prometheus:v2.36.2
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - "9090:9090"
+    networks:
+      - loki
+    depends_on:
+      - gateway
+    restart: always
+    logging:
+      options:
+        max-size: 20m
+
   read:
     image: grafana/loki:2.6.1
     command: "-config.file=/etc/loki/config.yaml -target=read"
     ports:
-      - 3101:3100
-      - 7946
-      - 9095
+      - "3101:3100"
+      - "7946"
+      - "9095"
     volumes:
       - ./loki-config.yaml:/etc/loki/config.yaml
+      - ./grafana/provisioning:/etc/grafana/provisioning
     depends_on:
       - minio
     networks: &loki-dns
       loki:
         aliases:
           - loki
+    logging:
+      options:
+        max-size: 20m
 
   write:
     image: grafana/loki:2.6.1
     command: "-config.file=/etc/loki/config.yaml -target=write"
     ports:
-      - 3102:3100
-      - 7946
-      - 9095
+      - "3102:3100"
+      - "7946"
+      - "9095"
     volumes:
       - ./loki-config.yaml:/etc/loki/config.yaml
     depends_on:
       - minio
     networks:
       <<: *loki-dns
+    logging:
+      options:
+        max-size: 20m
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -45,6 +76,9 @@ services:
       - gateway
     networks:
       - loki
+    logging:
+      options:
+        max-size: 20m
 
   minio:
     image: minio/minio
@@ -66,6 +100,9 @@ services:
       - ./.data/minio:/data
     networks:
       - loki
+    logging:
+      options:
+        max-size: 20m
 
   grafana:
     image: grafana/grafana:latest
@@ -97,6 +134,9 @@ services:
       - "3000:3000"
     networks:
       - loki
+    logging:
+      options:
+        max-size: 20m
 
   gateway:
     image: nginx:latest
@@ -161,6 +201,9 @@ services:
       - "3100:3100"
     networks:
       - loki
+    logging:
+      options:
+        max-size: 20m
 
   app_python:
     image: ilyakolomin/devops_app_python
@@ -168,6 +211,9 @@ services:
       - "8000:8000"
     networks:
       - loki
+    logging:
+      options:
+        max-size: 20m
 
   app_go:
     image: ilyakolomin/devops_app_go
@@ -175,3 +221,6 @@ services:
       - "8080:8080"
     networks:
       - loki
+    logging:
+      options:
+        max-size: 20m

@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 services:
 
   app_python:
@@ -7,7 +7,7 @@ services:
       - 8000
     ports:
       - 8000:8000
-#    command: ["--log-level", "debug"]
+    command: ["-b", "0.0.0.0:8000", --log-level", "debug"]
     logging:
       driver: json-file
       options:
@@ -32,6 +32,12 @@ services:
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
+    mem_limit: 300M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "1"
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -46,17 +52,56 @@ services:
     command: -config.file=/etc/promtail/promtail.yml
     labels:
       org.label-schema.group: "monitoring"
+    mem_limit: 300M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "1"
+    
 
   grafana:
     image: grafana/grafana:latest
     volumes:
-      - ${PWD}/loki.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ${PWD}/datasources/loki.yml:/etc/grafana/provisioning/datasources/loki_ds.yml
+      - ${PWD}/datasources/prometheus.yml:/etc/grafana/provisioning/datasources/prometheus_ds.yml
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
     expose:
       - 3000
     ports:
       - "3000:3000"
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=3 --spider http://localhost:3000/api/health || exit 1"]
+    mem_limit: 300M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "1"
+
+  prometheus:
+    image: prom/prometheus:${PROMETHEUS_VERSION:-v2.39.1}
+    volumes:
+      - ${PWD}/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=14d'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - "9090:9090"
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=3 --spider http://localhost:9090/-/healthy || exit 1"]
+    mem_limit: 300M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "1"
 
 volumes:
   promtail-data: {}
+  prometheus-data: {}

@@ -5,3 +5,14 @@ venv
 node_modules
 package-lock.json
 package.json
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+*.tfvars
+*.tfvars.json
+.terraformrc
+terraform.rc

@@ -1,0 +1,14 @@
+- hosts: vms
+  pre_tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+      become: true
+
+  roles:
+    - name: Deploy the docker container
+      role: deploy_docker
+      vars:
+        image_name: ntdesmond/iu-devops-python
+        internal_port: 8000
+        external_port: 80

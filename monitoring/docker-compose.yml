@@ -1,0 +1,155 @@
+version: '3.9'
+
+# Default logging for all containers.
+x-logging:
+  &default-logging
+  driver: json-file
+  options:
+    # Add the container name to the log file
+    tag: "{{.ImageName}}|{{.Name}}"
+    ## Log rotation
+    max-size: 10m
+    max-file: 3
+
+# Common healthcheck params
+x-healthcheck-params:
+  &healthcheck-params
+  interval: 1m
+  timeout: 10s
+
+networks:
+  python_app_network:
+  ts_app_network:
+  loki:
+
+
+volumes:
+  prometheus:
+  grafana:
+
+
+services:
+  # Python application
+  python_app:
+    image: ntdesmond/iu-devops-python
+    restart: always
+    mem_limit: 200m
+    depends_on:
+      - redis_python
+    ports:
+      - "8080:8000"
+    environment:
+      - REDIS_HOST=redis_python
+    networks:
+      - python_app_network
+      - loki
+    logging: *default-logging
+    healthcheck:
+      test: wget -nv -t1 --spider 'http://localhost:8000/status' || exit 1
+      <<: *healthcheck-params
+
+  
+  redis_python:
+    image: redis
+    mem_limit: 100m
+    restart: always
+    networks:
+      - python_app_network
+    logging: *default-logging
+    healthcheck:
+      test: redis-cli ping || exit 1
+      <<: *healthcheck-params
+      
+  # Typescript application
+  ts_app:
+    image: ntdesmond/iu-devops-ts
+    mem_limit: 100m
+    restart: always
+    depends_on:
+      - redis_ts
+    ports:
+      - "8081:3000"
+    environment:
+      - REDIS_URL=redis://redis_ts:6379
+    networks:
+      - ts_app_network
+      - loki
+    logging: *default-logging
+    healthcheck:
+      test: wget -nv -t1 --spider 'http://localhost:3000/status' || exit 1
+      <<: *healthcheck-params
+  
+  redis_ts:
+    image: redis
+    mem_limit: 100m
+    restart: always
+    networks:
+      - ts_app_network
+    logging: *default-logging
+    healthcheck:
+      test: redis-cli ping || exit 1
+      <<: *healthcheck-params
+
+  # Grafana Loki
+  loki:
+    image: grafana/loki:2.6.1
+    mem_limit: 100m
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+    logging: *default-logging
+    healthcheck:
+      test: wget -nv -t1 --spider 'http://localhost:3100/ready' || exit 1
+      <<: *healthcheck-params
+
+  promtail:
+    image: grafana/promtail:2.6.1
+    mem_limit: 100m
+    volumes:
+      # using /mnt/l since i use WSL
+      - /mnt/l/data/docker:/var/lib/docker:ro
+      - ./promtail.yml:/etc/promtail/config.yml:ro
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - loki
+    logging: *default-logging
+    healthcheck:
+      # At least they have Bash lol
+      test: ["CMD", "bash", "-c", "
+        exec 3<>/dev/tcp/localhost/9080 && \
+        echo -e 'GET /ready HTTP/1.0\n\n' >&3 && \
+        awk 'f;/^\r/{f=1}; $$0 ~ /HTTP\\/1.0 200/ {s=1}; END {exit !s}' <&3 || exit 1
+        "]
+      <<: *healthcheck-params
+
+  grafana:
+    image: grafana/grafana:latest
+    mem_limit: 100m
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana:/etc/grafana/provisioning:ro
+      - grafana:/var/lib/grafana
+    networks:
+      - loki
+    logging: *default-logging
+    healthcheck:
+      test: wget -nv -t1 --spider 'http://localhost:3000/health' || exit 1
+      <<: *healthcheck-params
+
+  prometheus:
+    image: prom/prometheus:v2.27.0
+    mem_limit: 100m
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus:/prometheus
+    command: [ '--log.level=debug', '--config.file=/etc/prometheus/prometheus.yml', '--query.lookback-delta=30s' ]
+    networks:
+      - loki
+    healthcheck:
+      test: wget -nv -t1 --spider 'http://localhost:9090/-/healthy' || exit 1
+      <<: *healthcheck-params

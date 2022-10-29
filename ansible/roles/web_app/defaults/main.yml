@@ -1,0 +1,9 @@
+web_app_base_path: "/opt/web_app"
+web_app_name: "python_app"
+web_app:
+  registry: "dademd"
+  image: "app_python"
+  tag: "latest"
+  port: 80
+  external_port: 5000
+web_app_full_wipe: false

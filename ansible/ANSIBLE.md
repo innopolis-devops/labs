@@ -110,3 +110,8 @@ ansible-inventory -i inventory/docker.yml --list
     }
 }
 ```
+
+## Additional paths
+
+- *vault-password-file* - stores a password from vault, gitignored
+- `vault` - stored in the playbook's folder, keeps sensitive variables

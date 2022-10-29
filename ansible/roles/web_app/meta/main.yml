@@ -1,0 +1,11 @@
+#dependencies:
+#  - docker
+#  - name: Install docker package for python
+#    role: geerlingguy.pip
+#    vars:
+#      pip_install_packages:
+#        - name: pip
+#          extra_args: "--upgrade"
+#        - name: docker
+#        - name: docker-compose
+#    become: true

@@ -1,9 +1,19 @@
-- name: Create Docker container
-  hosts: all
-  become: true
-  become_method: sudo
+- hosts: all
+  roles:
+    - name: Install Docker
+      role: geerlingguy.docker
+    - name: Install Docker package for Python
+      role: geerlingguy.pip
+      vars:
+        pip_install_packages:
+          - name: pip
+            extra_args: "--upgrade"
+          - name: docker
+          - name: docker-compose
+      become: true
+    - web_app
   vars_files:
     - vault
     - vars.yml
-  roles:
-    - docker
+  become_method: sudo
+  become: true

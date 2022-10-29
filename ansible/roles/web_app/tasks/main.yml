@@ -18,6 +18,14 @@
         owner: root
         group: root
         mode: "600"
+    
+    - name: Copy .env
+      ansible.builtin.copy:
+        src: ../resources/.env
+        dest: "{{ web_app_base_path }}/.env"
+        owner: root
+        group: root
+        mode: "600"
 
     - name: Run docker-compose services
       community.docker.docker_compose:

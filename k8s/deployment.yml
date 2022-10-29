@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moscow-time-web-app-deployment
+  labels:
+    app: moscow-time-web-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: moscow-time-web-app
+  template:
+    metadata:
+      labels:
+        app: moscow-time-web-app
+    spec:
+      containers:
+      - name: moscow-time-web-app
+        image: zyymee/moscow-time-web-app:latest
+        ports:
+        - containerPort: 5000

@@ -1,0 +1,8 @@
+.direnv
+.parcel-cache
+.spago
+dist
+min
+node_modules
+output
+.purs-repl

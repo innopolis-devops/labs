@@ -1,0 +1,9 @@
+all:
+  children:
+    docker:
+      hosts:
+        localhost:
+          ansible_user: '{{ ansible_user }}'
+          ansible_port: '{{ ansible_port }}'
+          ansible_connection: ssh
+          ansible_become_pass: '{{ ansible_become_pass }}'

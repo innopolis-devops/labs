@@ -1,6 +1,7 @@
 from aioredis import Redis
 from fastapi import FastAPI
 from fastapi.responses import PlainTextResponse
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from app.models import Status
 from app.services import TimeService
@@ -15,6 +16,8 @@ app = FastAPI()
 
 @app.on_event("startup")
 async def init_time_service():
+    Instrumentator().instrument(app).expose(app)
+
     # Avoid reaching any servers while testing
     if settings.run_env == RunEnv.TEST:
         return

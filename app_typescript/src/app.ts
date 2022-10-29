@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import allow_methods from './utils/allow_methods';
 import StatusService from './status';
 import TimeService from './time';
-
+import promBundle from 'express-prom-bundle';
 // Yay dependency injection!
 
 const create_app = (
@@ -33,8 +33,11 @@ const create_app = (
       );
   };
 
+  
+  const metricsMiddleware = promBundle({ includeMethod: true, includePath: true });
   const app = express();
   
+  app.use(metricsMiddleware);
   app
     .route('/')
     .get(show_time)

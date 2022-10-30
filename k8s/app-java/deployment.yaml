@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-java-deployment
+  labels:
+    app: app-java
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-java
+  template:
+    metadata:
+      labels:
+        app: app-java
+    spec:
+      containers:
+        - name: app-java
+          image: mcflydesigner/spring-ui-lab:latest
+          ports:
+            - containerPort: 8080
+              name: app-java-port

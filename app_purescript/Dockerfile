@@ -29,11 +29,13 @@ RUN chown codewarrior:codewarrior /app; \
     npm install; \
     spago install;
 
-COPY --chown=codewarrior:codewarrior src /app/
-
 RUN spago build;
 
-COPY --chown=codewarrior:codewarrior dev /app/
+COPY --chown=codewarrior:codewarrior src /app/src
+
+RUN spago build
+
+COPY --chown=codewarrior:codewarrior dev /app/dev
 
 EXPOSE $PORT
 

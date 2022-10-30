@@ -21,7 +21,7 @@
     
     - name: Copy .env
       ansible.builtin.copy:
-        src: ../resources/.env
+        src: ../resources/{{ web_app_name }}/.env
         dest: "{{ web_app_base_path }}/.env"
         owner: root
         group: root

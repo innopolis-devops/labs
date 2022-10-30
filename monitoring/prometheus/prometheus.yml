@@ -1,12 +1,12 @@
 global:
-   scrape_interval: 5s
+   scrape_interval: 3s
 
 scrape_configs:
 
   - job_name: app_python
     static_configs:
       - targets:
-          - localhost:5050
+          - host.docker.internal:5050
 
   - job_name: promtail
     static_configs:
@@ -21,4 +21,4 @@ scrape_configs:
   - job_name: prometheus
     static_configs:
       - targets:
-          - localhost:9090
+          - host.docker.internal:9090

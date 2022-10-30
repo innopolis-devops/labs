@@ -4,7 +4,7 @@ RUN useradd -u 8877 newuser
 USER newuser
 
 WORKDIR /
-COPY requirements.txt requirements.txt
+COPY app_python/requirements.txt requirements.txt
 
 USER root
 

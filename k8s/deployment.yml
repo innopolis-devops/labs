@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-python-deployment
+  labels:
+    app: time-webapp-python
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: time-webapp-python
+  template:
+    metadata:
+      labels:
+        app: time-webapp-python
+    spec:
+      containers:
+      - name: time-webapp-python
+        image: bragov4ik/time_rust_web_app:0.0.7
+        ports:
+        - containerPort: 8000

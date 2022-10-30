@@ -1,0 +1,3 @@
+plugin: yacloud_compute
+yacloud_clouds: "cloud-bragov4ik"
+yacloud_token_file: "yc_oauth.token"

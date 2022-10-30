@@ -4,7 +4,7 @@ RUN useradd -u 8877 newuser
 USER newuser
 
 WORKDIR /
-COPY app_python/requirements.txt requirements.txt
+COPY requirements.txt requirements.txt
 
 USER root
 
@@ -14,5 +14,7 @@ USER newuser
 
 WORKDIR /
 COPY . .
+
+ENV FLASK_APP=app.py
 
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]

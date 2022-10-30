@@ -185,7 +185,7 @@ service/ts-app-service       LoadBalancer   10.99.169.204    <pending>     3000:
 
 ### Theory task
 
-**Ingress** — a resource that handles external requests to the services in a cluster (s.g., HTTP). Depends on a running **Ingress controller** to work.
+**Ingress** — a resource that handles external requests to the services in a cluster (e.g., HTTP). Depends on a running **Ingress controller** to work.
 
 **Ingress controller** — a specific service that actually handles the requests according to the Ingress rules.
 

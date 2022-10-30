@@ -1,0 +1,12 @@
+---
+- name: Start web_app on yacloud
+  hosts: yacloud
+  remote_user: ubuntu
+  become: true
+  vars:
+    web_app_name: "app_rust"
+    web_app_image_name: currenttime-rust:v0.3.4
+    web_app_ports: "4445:4444"
+
+  roles:
+    - web_app

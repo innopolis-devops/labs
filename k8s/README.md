@@ -6,6 +6,7 @@
 - [Config files approach](#config-files-approach)
 - [Bonus part](#bonus-part)
   - [Second app](#run-the-second-app)
+  - [Theory task](#theory-task)
 
 ## Manual deployment
 
@@ -181,3 +182,15 @@ service/ts-app-service       LoadBalancer   10.99.169.204    <pending>     3000:
 #### Screenshot of the running app
 
 ![Second app running](https://i.imgur.com/ucyIIoE.png)
+
+### Theory task
+
+**Ingress** — a resource that handles external requests to the services in a cluster (s.g., HTTP). Depends on a running **Ingress controller** to work.
+
+**Ingress controller** — a specific service that actually handles the requests according to the Ingress rules.
+
+**StatefulSet** — an object that manages pods, assigning a unique id to them. Allows to perform ordered deployment, scaling, and updates.
+
+**DaemonSet** — a resource that ensures the nodes are running the same pods, which allows to perform the same task on multiple nodes at once, e.g., logging and monitoring.
+
+**PersistentVolumes** — volumes that do not depend on the pods that use them, i.e., they will persist if the pods get deleted.

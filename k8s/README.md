@@ -9,7 +9,7 @@
 
 ## Deploying Python app with the use of configuration files
 
-Configuration files for Python app are inside folder `./k8s/app-python`.
+Configuration files for Python app are inside folder `/k8s/app-python`.
 
 ### Output after running `kubectl get pods`:
 ![app-python-configuration-files-pods.png](./images/app-python-configuration-files-pods.png)
@@ -24,7 +24,7 @@ Screenshot from the browser:
 
 ## Deploying Java app with the use of configuration files
 
-Configuration files for Python app are inside folder `./k8s/app-java`.
+Configuration files for Java app are inside folder `/k8s/app-java`.
 
 ### Output after running `kubectl get pods`:
 ![app-java-configuration-files-pods.png](./images/app-java-configuration-files-pods.png)

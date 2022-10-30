@@ -7,10 +7,9 @@ services:
     environment:
       - PORT=${DOCKER_PORT}
       - HOST=${HOST}
-      - TZ=Europe/Amsterdam
     ports:
       - ${HOST_PORT}:${DOCKER_PORT}
-    # mount to have parcel watch this dir
+    # mount reflect local changes inside the container
     volumes:
       - .:/app
     image: ${DOCKER_HUB_USERNAME}/app_purescript:latest

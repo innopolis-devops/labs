@@ -13,7 +13,6 @@ services:
   web:
     <<: *logging
     image: igooorbb/inno-devops-webapp:latest
-    command: uwsgi --ini uwsgi.ini
     expose:
       - 5000
   nginx:

@@ -3,7 +3,6 @@ version: '3.7'
 services:
   web:
     image: igooorbb/inno-devops-webapp
-    command: uwsgi --ini uwsgi.ini
     expose:
       - 5000
   nginx:

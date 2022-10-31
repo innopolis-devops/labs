@@ -21,6 +21,9 @@ pod/app-python-766b59c777-rvnc6   1/1     Running   0          72s
 NAME                 TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
 service/app-python   LoadBalancer   10.98.63.245   <pending>     5000:30846/TCP   16s
 service/kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP          5m2s
+```
+
+4. `minikube service app-python`
 [nailya@nailya DevOps-labs]$ minikube service app-python
 |-----------|------------|-------------|---------------------------|
 | NAMESPACE |    NAME    | TARGET PORT |            URL            |
@@ -31,7 +34,7 @@ service/kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP        
 ```
 ![image](https://github.com/nailyav/DevOps-labs/blob/lab9/k8s/assets/Screenshot_manual.png)
 
-4. `kubectl delete deployment,svc app-python`
+5. `kubectl delete deployment,svc app-python`
 ```bash
 [nailya@nailya DevOps-labs]$ kubectl delete deployment,svc app-python
 deployment.apps "app-python" deleted

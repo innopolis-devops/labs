@@ -1,7 +1,7 @@
 version: '3.7'
 
 x-logging:
-  &loki-logging
+  &default-logging
   driver: "json-file"
   options:
     max-size: "100m"
@@ -21,8 +21,8 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
       - GF_USERS_ALLOW_SIGN_UP=false
       - VIRTUAL_HOST=monitoring.grafana
-      - NETWORK_ACCESS=internal
       - VIRTUAL_PORT=3000
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
     restart: unless-stopped
     expose:
       - 3000
@@ -32,7 +32,7 @@ services:
       - monitoring.network
     labels:
       org.label-schema.group: "monitoring"
-    logging: *loki-logging
+    logging: *default-logging
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -54,7 +54,7 @@ services:
       - app_java
     labels:
       org.label-schema.group: "monitoring"
-    logging: *loki-logging
+    logging: *default-logging
 
   loki:
     container_name: monitoring.loki
@@ -71,7 +71,27 @@ services:
       - monitoring.network
     labels:
       org.label-schema.group: "monitoring"
-    logging: *loki-logging
+    logging: *default-logging
+
+  prometheus:
+    image: prom/prometheus:v2.39.1
+    volumes:
+      - ${PWD}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    container_name: prometheus
+    hostname: prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --web.console.libraries=/etc/prometheus/console_libraries
+      - --web.console.templates=/etc/prometheus/consoles
+    ports:
+      - 9090:9090
+    restart: unless-stopped
+    environment:
+      TZ: "Europe/Moscow"
+    networks:
+      - default
 
   app_python:
     container_name: app_python
@@ -79,7 +99,7 @@ services:
     ports:
       - "5000:5000"
     restart: unless-stopped
-    logging: *loki-logging
+    logging: *default-logging
     networks:
       - app_python
 
@@ -89,7 +109,7 @@ services:
     ports:
       - "8080:8080"
     restart: unless-stopped
-    logging: *loki-logging
+    logging: *default-logging
     networks:
       - app_java
 
@@ -104,3 +124,4 @@ volumes:
   grafana-data: { }
   loki-data: { }
   promtail-data: { }
+  prometheus-data: { }

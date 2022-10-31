@@ -117,8 +117,6 @@ networks:
   app_python:
   app_java:
   monitoring.network:
-    ipam:
-      driver: default
 
 volumes:
   grafana-data: { }

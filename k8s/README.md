@@ -1,18 +1,18 @@
 # k8s
 ## Manual deploying of `app_python`
-1. 
+1. `kubectl create deployment app-python --image=nailyav/lab2:latest`
 ```bash
 [nailya@nailya DevOps-labs]$ kubectl create deployment app-python --image=nailyav/lab2:latest
 deployment.apps/app-python created
 ```
 
-2. 
+2. `kubectl expose deployment app-python --type=LoadBalancer --port=5000`
 ```bash
 [nailya@nailya DevOps-labs]$ kubectl expose deployment app-python --type=LoadBalancer --port=5000
 service/app-python exposed
 ```
 
-3. 
+3. `kubectl get pods,svc`
 ```bash
 [nailya@nailya DevOps-labs]$ kubectl get pods,svc
 NAME                              READY   STATUS    RESTARTS   AGE
@@ -31,7 +31,7 @@ service/kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP        
 ```
 ![image](https://github.com/nailyav/DevOps-labs/blob/lab9/k8s/assets/Screenshot_manual.png)
 
-4. 
+4. `kubectl delete deployment,svc app-python`
 ```bash
 [nailya@nailya DevOps-labs]$ kubectl delete deployment,svc app-python
 deployment.apps "app-python" deleted
@@ -39,14 +39,14 @@ service "app-python" deleted
 ```
 
 ## Deploying of `app_python` using config files
-1. 
+1. `kubectl apply -f k8s`
 ```bash
 [nailya@nailya DevOps-labs]$ kubectl apply -f k8s
 service/app-python-service created
 deployment.apps/app-python-deployment created
 ```
 
-2. 
+2. `kubectl get pods,svc`
 ```bash
 [nailya@nailya DevOps-labs]$ kubectl get pods,svc
 NAME                                        READY   STATUS    RESTARTS   AGE
@@ -59,7 +59,7 @@ service/app-python-service   LoadBalancer   10.98.90.62   <pending>     5000:300
 service/kubernetes           ClusterIP      10.96.0.1     <none>        443/TCP          11m
 ```
 
-3. 
+3. `minikube service --all`
 ```bash
 [nailya@nailya DevOps-labs]$ minikube service --all
 |-----------|--------------------|-------------|---------------------------|

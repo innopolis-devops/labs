@@ -1,0 +1,15 @@
+services:
+  web:
+    build:
+      context: ./
+    env_file:
+      - .env
+    environment:
+      - PORT=${DOCKER_PORT}
+      - HOST=${HOST}
+    ports:
+      - ${HOST_PORT}:${DOCKER_PORT}
+    # mount reflect local changes inside the container
+    volumes:
+      - .:/app
+    image: ${DOCKER_HUB_USERNAME}/app_purescript:latest

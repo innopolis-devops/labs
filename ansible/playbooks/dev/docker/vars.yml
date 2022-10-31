@@ -1,0 +1,4 @@
+ansible_port: 3000
+ansible_user: devops-admin
+PORT: 80
+HOST: 0.0.0.0

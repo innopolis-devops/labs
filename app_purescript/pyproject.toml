@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "app_purescript"
+version = "0.1.0"
+description = ""
+authors = ["Danila Danko <br4ch1st0chr0n3@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytest = "<7.0.0"
+pytest-selenium = "^4.0.0"
+selenium = "^4.5.0"
+pytest-base-url = "^2.0.0"
+requests = "^2.28.1"
+
+[tool.poetry.dev-dependencies]
+requests = "^2.28.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

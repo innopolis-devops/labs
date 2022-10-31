@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: py
+  labels:
+    app: py_time
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: py_time
+  template:
+    metadata:
+      labels:
+        app: py_time
+    spec:
+      containers:
+      - name: py
+        image: wat4er/inno_devops:python
+        ports:
+        - containerPort: 5000

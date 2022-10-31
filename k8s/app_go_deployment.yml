@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-go-deployment
+spec:
+  selector:
+    matchLabels:
+      app: app-go
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: app-go
+    spec:
+      containers:
+      - name: app-go
+        image: ilyakolomin/devops_app_go:latest
+        ports:
+        - containerPort: 8080
+          name: app-go-svc

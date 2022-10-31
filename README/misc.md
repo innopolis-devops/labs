@@ -64,3 +64,7 @@ dream2nix.lib.makeFlakeOutputs {
   nix eval nix#checks.x86_64-linux --apply builtins.attrNames
   ```
 
+## Ansible
+
+- If write 2 roles with `vars` in a step, they will both run. Example - 2 docker containers
+- If playbooks are in two separate steps, only 1 of them will run

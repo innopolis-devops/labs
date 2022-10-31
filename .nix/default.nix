@@ -134,7 +134,6 @@ let
         # if they get here, they will overwrite the stuff from codium
         buildInputs = [
           (builtins.attrValues (scripts // configWriters // flakesUtils // commands.apps))
-          pkgs.haskell-language-server
         ];
       }
       {

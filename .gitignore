@@ -13,3 +13,4 @@ destroy.tfplan
 config.auto.tfvars
 terraform.tfstate
 terraform.tfstate.backup
+minikube-linux-amd64

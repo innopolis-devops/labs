@@ -24,6 +24,7 @@ service/kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP        
 ```
 
 4. `minikube service app-python`
+```bash
 [nailya@nailya DevOps-labs]$ minikube service app-python
 |-----------|------------|-------------|---------------------------|
 | NAMESPACE |    NAME    | TARGET PORT |            URL            |

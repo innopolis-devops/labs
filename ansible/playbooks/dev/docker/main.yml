@@ -1,0 +1,21 @@
+- hosts: all
+  roles:
+    - name: Install Docker
+      role: geerlingguy.docker
+    - name: Install Docker package for Python
+      role: geerlingguy.pip
+      vars:
+        pip_install_packages:
+          - name: pip
+            extra_args: "--upgrade"
+          - name: docker
+          - name: docker-compose
+      become: true
+  vars_files:
+    - vault
+    - vars.yml
+  become_method: sudo
+  become: true
+
+- ansible.builtin.import_playbook: app_python/main.yml
+- ansible.builtin.import_playbook: app_purescript/main.yml

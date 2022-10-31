@@ -60,6 +60,11 @@ service/kubernetes        ClusterIP      10.96.0.1       <none>        443/TCP  
 | default   | exposer    |             | http://127.0.0.1:17875 |
 |-----------|------------|-------------|------------------------|
 ```
+## Screenshot time!!!
+
+![Screenshot 2022-10-31 at 15 47 04](https://user-images.githubusercontent.com/54911879/199011490-ec4b1b2e-b02c-4b92-b5c6-d9cea424a08c.png)
+
+I've deleted my pinned tabs so since this is private information! 💅
 
 ## Definitions
 

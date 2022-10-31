@@ -19,7 +19,7 @@ few manifests for your application.
     * [Overview](https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)
 
 4. Make your application accessible from outside the `Kubernetes` virtual network. Create a `Service` for it:
-    * [Example](https://kubernetes.io/docs/tutorials/hello-minikube/#create-a-service) - 
+    * [Example](https://kubernetes.io/docs/tutorials/hello-minikube/#create-a-service) -
     * [Overview](https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/)
 
 5. Create a `k8s` folder in your repository and create a `README.md` report inside, provide the output of

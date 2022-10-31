@@ -29,6 +29,7 @@ service/kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP        
 |-----------|------------|-------------|---------------------------|
 🎉  Opening service default/app-python in default browser...
 ```
+![image](https://github.com/nailyav/DevOps-labs/blob/lab9/k8s/assets/Screenshot_manual.png)
 
 4. 
 ```bash
@@ -74,3 +75,4 @@ service/kubernetes           ClusterIP      10.96.0.1     <none>        443/TCP 
 😿  service default/kubernetes has no node port
 🎉  Opening service default/app-python-service in default browser...
 ```
+![image](https://github.com/nailyav/DevOps-labs/blob/lab9/k8s/assets/Screenshot_config.png)

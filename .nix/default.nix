@@ -120,6 +120,16 @@ let
         longDescription = ''
           Lint ${dockerFile}s in ${concatStringsSep ", " dirs}'';
       };
+    monitor = {
+      name = "monitor";
+      text = ''
+        set -a
+        source .env
+        cd monitoring
+        source configs/datasources/.env
+        docker compose up
+      '';
+    };
   })
   // {
     inherit desc;

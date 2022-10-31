@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: app-haskell-deployment
+  labels:
+    app: app-haskell
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-haskell
+  template:
+    metadata:
+      labels:
+        app: app-haskell
+    spec:
+      containers:
+        - name: app-haskell
+          image: grommash99/moscow-time-hs:latest
+          ports:
+            - containerPort: 8080
+            - containerPort: 8081

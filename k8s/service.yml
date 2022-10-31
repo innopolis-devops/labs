@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: timeweb
+  labels:
+    app: timeweb
+spec:
+  selector:
+    app: timeweb
+  type: NodePort
+  ports:
+    - port: 50000
+      nodePort: 31337

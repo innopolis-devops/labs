@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timeweb-depl
+  labels:
+    app: timeweb
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: timeweb
+  template:
+    metadata:
+      labels:
+        app: timeweb
+    spec:
+      containers:
+      - name: timeweb
+        image: passkeyra/timeweb:latest
+        ports:
+        - containerPort: 50000

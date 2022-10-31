@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dart
+  labels:
+    app: dart_time
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dart_time
+  template:
+    metadata:
+      labels:
+        app: dart_time
+    spec:
+      containers:
+      - name: dart
+        image: wat4er/inno_devops:dart
+        ports:
+        - containerPort: 5050

@@ -17,20 +17,29 @@ NAME                  READY   STATUS    RESTARTS   AGE
 py-658bb98896-2ggcp   1/1     Running   0          2m50s
 ```
 
-## manifest
+## manifest with bonus
 
 ```bash
-kubectl get pods,svc      
-NAME                      READY   STATUS    RESTARTS   AGE
-pod/py-7c5b75df97-627m5   1/1     Running   0          21m
-pod/py-7c5b75df97-wqdgz   1/1     Running   0          21m
-pod/py-7c5b75df97-z8t7r   1/1     Running   0          21m
+kubectl get pods,svc         
+NAME                        READY   STATUS    RESTARTS   AGE
+pod/dart-575c87bcbf-hmflj   1/1     Running   0          91s
+pod/dart-575c87bcbf-xhh6c   1/1     Running   0          91s
+pod/dart-575c87bcbf-xr8r6   1/1     Running   0          91s
+pod/py-7c5b75df97-627m5     1/1     Running   0          26m
+pod/py-7c5b75df97-wqdgz     1/1     Running   0          26m
+pod/py-7c5b75df97-z8t7r     1/1     Running   0          26m
 
-NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-service/kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP        22m
-service/py-service   LoadBalancer   10.101.175.79   <pending>     80:31990/TCP   21m
+NAME                   TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/dart-service   LoadBalancer   10.107.225.56   <pending>     81:32587/TCP   91s
+service/kubernetes     ClusterIP      10.96.0.1       <none>        443/TCP        26m
+service/py-service     LoadBalancer   10.101.175.79   <pending>     80:31990/TCP   26m
 
-minikube service --all                                lab9 1 3 
+minikube service --all     
+|-----------|--------------|-------------|----------------------------|
+| NAMESPACE |     NAME     | TARGET PORT |            URL             |
+|-----------|--------------|-------------|----------------------------|
+| default   | dart-service |          81 | http://192.168.39.65:32587 |
+|-----------|--------------|-------------|----------------------------|
 |-----------|------------|-------------|--------------|
 | NAMESPACE |    NAME    | TARGET PORT |     URL      |
 |-----------|------------|-------------|--------------|
@@ -42,5 +51,14 @@ minikube service --all                                lab9 1 3 
 |-----------|------------|-------------|----------------------------|
 | default   | py-service |          80 | http://192.168.39.65:31990 |
 |-----------|------------|-------------|----------------------------|
+🎉  Opening service default/dart-service in default browser...
 🎉  Opening service default/py-service in default browser...
 ```
+
+## Screen shots
+
+dart:
+![](./1.png)
+
+python:
+![](./2.png)

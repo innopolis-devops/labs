@@ -7,9 +7,9 @@ In this lab i've used Kustomization to minimize for 2 apps boilerplate. Use `kub
 Before running the code you may need to change minikube config:
 
 ```yaml
-- driver: docker
-- memory: 8192
 - cpus: 16
+- driver: kvm2
+- memory: 8192
 ```
 
 ## Outputs

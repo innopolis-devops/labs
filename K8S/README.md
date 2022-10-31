@@ -32,18 +32,16 @@ The Outputs of running:
 The needed files in python_app dir:
 
 Output of: 
-``` kubectl get pods
-```
+- `kubectl get pods`
 
 ![pods_after.png](./images/pods_after.png)
 
-```kubectl get svc
-```
+- `kubectl get svc`
+
 ![svc_after.png](./images/svc_after.png)
 
 Output of:
-```minikube service --all
-```
+- `minikube service --all`
 
 ![results.png](./images/results.png)
 
@@ -55,19 +53,18 @@ Output of:
 
 The needed files in react_app dir:
 
-Output of: 
-``` kubectl get pods
-```
+Output of:  
 
-![pods_react .png](./images/pods_react .png)
+- `kubectl get pods`
 
-```kubectl get svc
-```
+![pods_react.png](./images/pods_react .png)
+
+- `kubectl get svc`
+
 ![svc_react.png](./images/svc_react.png)
 
 Output of:
-```minikube service --all
-```
+- `minikube service --all`
 
 ![results_react.png](./images/results_react.png)
 

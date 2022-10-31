@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wtiiim-js-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: wtiiim-js
+  ports:
+    - protocol: TCP
+      port: 8082
+      targetPort: 8082

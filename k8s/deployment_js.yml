@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wtiiim-js-deployment
+  labels:
+    app: wtiiim-js
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: wtiiim-js
+  template:
+    metadata:
+      labels:
+        app: wtiiim-js
+    spec:
+      containers:
+      - name: wtiiim-js
+        image: aladdinych/devops_labs_js:latest
+        ports:
+        - containerPort: 8082

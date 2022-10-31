@@ -1,0 +1,6 @@
+all:
+  hosts:
+    yacloud-vm:
+      ansible_host: 62.84.113.228
+      ansible_user: ubuntu
+      ansible_become: true

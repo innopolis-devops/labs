@@ -10,3 +10,8 @@ services:
     environment:
       - PORT=${DOCKER_PORT}
       - HOST=${HOST}
+    healthcheck:
+      test: curl -sS localhost:${DOCKER_PORT} || echo 1
+      interval: 5s
+      timeout: 10s
+      retries: 3

@@ -11,35 +11,11 @@
           - name: docker
           - name: docker-compose
       become: true
-    - name: app_python
-      role: web_app
-      vars: 
-        web_app_base_path: "/opt/web_app"
-        web_app_name: "app_python"
-        web_app:
-          registry: "dademd"
-          image: "app_python"
-          tag: "latest"
-          port: 80
-          external_port: 8002
-          host: "0.0.0.0"
-        web_app_full_wipe: false
-    - name: app_purescript
-      role: web_app
-      vars: 
-        web_app_base_path: "/opt/web_app"
-        web_app_name: "app_purescript"
-        web_app:
-          registry: "dademd"
-          image: "app_purescript"
-          tag: "latest"
-          port: 80
-          external_port: 8003
-          host: "0.0.0.0"
-        web_app_full_wipe: false
-    
   vars_files:
     - vault
     - vars.yml
   become_method: sudo
   become: true
+
+- ansible.builtin.import_playbook: app_python/main.yml
+- ansible.builtin.import_playbook: app_purescript/main.yml

@@ -1,19 +1,8 @@
 - hosts: all
   roles:
-    - name: Install Docker
-      role: geerlingguy.docker
-    - name: Install Docker package for Python
-      role: geerlingguy.pip
-      vars:
-        pip_install_packages:
-          - name: pip
-            extra_args: "--upgrade"
-          - name: docker
-          - name: docker-compose
-      become: true
-    - name: app_python
+    - name: app_python playbook
       role: web_app
-      vars: 
+      vars:
         web_app_base_path: "/opt/web_app"
         web_app_name: "app_python"
         web_app:
@@ -21,10 +10,9 @@
           image: "app_python"
           tag: "latest"
           port: 80
-          external_port: 8002
+          external_port: 8003
           host: "0.0.0.0"
-        web_app_full_wipe: false
-    
+        web_app_full_wipe: true
   vars_files:
     - ../vault
     - ../vars.yml

@@ -16,15 +16,19 @@ References: [Creating a deployment](https://kubernetes.io/docs/tutorials/hello-m
 ## 1.2 Results
 
 - `kubectl get deployments`
+
 ![](./images/deployments-manual.png)
 
 - `kubectl get svc`
+
 ![](./images/services-manual.png)
 
 - `minikube service --all`
+
 ![](./images/url-view-manual.png)
 
 - Browser screenshoot
+
 ![](./images/browser-manual.png)
 
 
@@ -39,15 +43,19 @@ References: [Creating a deployment](https://kubernetes.io/docs/tutorials/hello-m
 ## 2.2 Results
 
 - `kubectl get pods`
+
 ![](./images/pods-config.png)
 
 - `kubectl get svc`
+
 ![](./images/services-config.png)
 
 - `minikube service --all`
+
 ![](./images/url-view-config.png)
 
 - Browser screenshoot
+
 ![](./images/browser-config.png)
 
 

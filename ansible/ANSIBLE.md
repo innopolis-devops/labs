@@ -111,6 +111,79 @@ ansible-inventory -i inventory/docker.yml --list
 }
 ```
 
+## App playbooks outputs
+
+### app_python
+
+`ansible-playbook playbooks/dev/docker/app_python/main.yml`:
+
+```terminal
+PLAY [all] *********************************************************************************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************************************************************
+ok: [localhost]
+
+TASK [web_app : Include wipe task list] ****************************************************************************************************************
+included: /home/eyjafjallajokull/Desktop/devops-labs/ansible/roles/web_app/tasks/01-wipe.yml for localhost
+
+TASK [web_app : Wipe docker-compose services] **********************************************************************************************************
+changed: [localhost]
+
+TASK [web_app : Wipe a base path] **********************************************************************************************************************
+changed: [localhost]
+
+TASK [web_app : Create a directory if it does not exist] ***********************************************************************************************
+changed: [localhost]
+
+TASK [web_app : Template a file to /etc/file.conf] *****************************************************************************************************
+changed: [localhost]
+
+TASK [web_app : Copy .env] *****************************************************************************************************************************
+changed: [localhost]
+
+TASK [web_app : Run docker-compose services] ***********************************************************************************************************
+changed: [localhost]
+
+PLAY RECAP *********************************************************************************************************************************************
+localhost                  : ok=8    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
+
+### app_purescript
+
+`ansible-playbook playbooks/dev/docker/app_purescript/main.yml`
+
+```terminal
+PLAY [all] *********************************************************************************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************************************************************
+ok: [localhost]
+
+TASK [web_app : Include wipe task list] ****************************************************************************************************************
+included: /home/eyjafjallajokull/Desktop/devops-labs/ansible/roles/web_app/tasks/01-wipe.yml for localhost
+
+TASK [web_app : Wipe docker-compose services] **********************************************************************************************************
+changed: [localhost]
+
+TASK [web_app : Wipe a base path] **********************************************************************************************************************
+changed: [localhost]
+
+TASK [web_app : Create a directory if it does not exist] ***********************************************************************************************
+changed: [localhost]
+
+TASK [web_app : Template a file to /etc/file.conf] *****************************************************************************************************
+changed: [localhost]
+
+TASK [web_app : Copy .env] *****************************************************************************************************************************
+changed: [localhost]
+
+TASK [web_app : Run docker-compose services] ***********************************************************************************************************
+changed: [localhost]
+
+PLAY RECAP *********************************************************************************************************************************************
+localhost                  : ok=8    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
+```
+
+
 ## Additional paths
 
 - *vault-password-file* - stores a password from vault, gitignored

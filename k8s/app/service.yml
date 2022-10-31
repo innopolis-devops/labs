@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+spec:
+  # the correct label will be inserted by customization
+  selector: {}
+  ports:
+  - port: 80
+    targetPort: 8080

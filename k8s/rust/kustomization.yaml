@@ -1,0 +1,9 @@
+bases:
+  - ../app
+nameSuffix: -rust
+commonLabels:
+  app: app-rust
+images:
+  - name: kustomization-app-image
+    newName: chermnyx/inno-devops-rust
+    newTag: latest

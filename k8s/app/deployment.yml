@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 3
+  selector:
+    # the correct label will be inserted by customization
+    matchLabels: {}
+  template:
+    # the correct label will be inserted by customization
+    spec:
+      containers:
+        - name: app
+          image: kustomization-app-image
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
+          ports:
+            - containerPort: 8080

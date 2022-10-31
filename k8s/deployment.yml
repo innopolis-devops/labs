@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-time-app
+  labels:
+    app: time-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: time-app
+  template:
+    metadata:
+      labels:
+        app: time-app
+    spec:
+      containers:
+      - name: time-app
+        image: justmark0/devopsiu:latest
+        ports:
+        - containerPort: 8000

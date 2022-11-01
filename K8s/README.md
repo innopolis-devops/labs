@@ -4,18 +4,18 @@
 
 ### Running `kubectl get pods,svc`
 
-![Before](./images/BeforeConfig.png)
+![Before](./Images/BeforeConfig.png)
 
 ## After using config files
 
 ### Running `kubectl get pods,svc`
 
-![After](./images/AfterConfig.png)
+![After](./Images/AfterConfig.png)
 
 ### Running `minikube service --all`
 
-![After](./images/Services.png)
+![After](./Images/Services.png)
 
 ### Screenshot from browser
 
-![Browser Screenshot](./images/Browser.png)
+![Browser Screenshot](./Images/Browser.png)

@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: simple-go-app
-          image: johndenkis/simple_python_go_v2:latest
+          image: johndenkis/simple_go_app_v2:latest
           ports:
             - containerPort: 2222

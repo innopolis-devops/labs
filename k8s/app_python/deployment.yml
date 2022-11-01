@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-python-app-deployment
+  labels:
+    app: simple-python-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: simple-python-app
+  minReadySeconds: 3
+  template:
+    metadata:
+      labels:
+        app: simple-python-app
+    spec:
+      containers:
+        - name: simple-python-app
+          image: johndenkis/simple_python_app_v2:latest
+          ports:
+            - containerPort: 5000

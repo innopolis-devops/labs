@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-go-app-deployment
+  labels:
+    app: simple-go-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: simple-go-app
+  minReadySeconds: 3
+  template:
+    metadata:
+      labels:
+        app: simple-go-app
+    spec:
+      containers:
+        - name: simple-go-app
+          image: johndenkis/simple_python_go_v2:latest
+          ports:
+            - containerPort: 2222

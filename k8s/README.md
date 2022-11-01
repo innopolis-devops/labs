@@ -2,80 +2,127 @@
 
 ## Part I: python app
 
-### Manual deployment
-
-I installed k8s and there is the output of the following command:
+### Manual deployment (python)
 
 ```
-kubectl get pods,svc
+$ minikube start --kubernetes-version=v1.23.12
+...
+$ kubectl create deployment simple-python-app --image=johndenkis/simple_python_app_v2:latest 
+deployment.apps/simple-python-app created
+
+$ kubectl expose deployment simple-python-app --type=LoadBalancer --port=5000
+service/simple-python-app exposed
+
+$ kubectl get pods,svc
+NAME                                     READY   STATUS    RESTARTS   AGE
+pod/simple-python-app-68dbb78977-kpgvb   1/1     Running   0          2m4s
+
+NAME                        TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+service/kubernetes          ClusterIP      10.96.0.1       <none>        443/TCP          2m19s
+service/simple-python-app   LoadBalancer   10.106.118.18   <pending>     5000:31721/TCP   30s
+
+$minikube service simple-python-app                
+|-----------|-------------------|-------------|---------------------------|
+| NAMESPACE |       NAME        | TARGET PORT |            URL            |
+|-----------|-------------------|-------------|---------------------------|
+| default   | simple-python-app |        5000 | http://192.168.49.2:31721 |
+|-----------|-------------------|-------------|---------------------------|
+🎉  Opening service default/simple-python-app in default browser...
+➜   Opening in existing browser session.
+
+$ kubectl delete service simple-python-app
+service "simple-python-app" deleted
+$ kubectl delete deployment simple-python-app
+deployment.apps "simple-python-app" deleted
 ```
 
-```
+Result from browser at http://192.168.49.2:31721:
+
+![python_app](assets/python_app_man.jpg)
+
+### Manifest deployment (python)
 
 ```
+$ cd ./app_python
 
-### Manifest deployment
+$ kubectl apply -f .
+deployment.apps/simple-python-app-deployment created
+service/simple-python-app-service created
 
-After creating the files `service.yml` and `deployment.yml`:
+$ kubectl get pods,svc                    
+NAME                                               READY   STATUS    RESTARTS   AGE
+pod/simple-python-app-deployment-b4c87b497-bjz9v   1/1     Running   0          54s
+pod/simple-python-app-deployment-b4c87b497-pvnwq   1/1     Running   0          54s
+pod/simple-python-app-deployment-b4c87b497-wmgh6   1/1     Running   0          54s
 
+NAME                                TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+service/kubernetes                  ClusterIP      10.96.0.1       <none>        443/TCP          12m
+service/simple-python-app-service   LoadBalancer   10.109.26.231   <pending>     5000:31540/TCP   54s
+
+$ minikube service --all
+|-----------|------------|-------------|--------------|
+| NAMESPACE |    NAME    | TARGET PORT |     URL      |
+|-----------|------------|-------------|--------------|
+| default   | kubernetes |             | No node port |
+|-----------|------------|-------------|--------------|
+😿  service default/kubernetes has no node port
+|-----------|---------------------------|-------------|---------------------------|
+| NAMESPACE |           NAME            | TARGET PORT |            URL            |
+|-----------|---------------------------|-------------|---------------------------|
+| default   | simple-python-app-service |        5000 | http://192.168.49.2:31540 |
+|-----------|---------------------------|-------------|---------------------------|
+🎉  Opening service default/simple-python-app-service in default browser...
+➜   Opening in existing browser session.
 ```
-kubectl get pods,svc
-```
 
-```
+Result from the browser at http://192.168.49.2:31540:
 
-```
-
-```
-minikube service --all
-```
-
-```
-
-```
-
-Result from the browser:
-
+![python_app](assets/python_app.jpg)
 
 ## Part II: golang app (bonus)
 
-### Manual deployment
-
-I installed k8s and there is the output of the following command:
+### Manifest deployment (golang)
 
 ```
-kubectl get pods,svc
+$ cd ./app_go
+
+$ kubectl apply -f .                                
+deployment.apps/simple-go-app-deployment created
+service/simple-go-app-service created
+
+$ kubectl get pods,svc  
+NAME                                            READY   STATUS    RESTARTS   AGE
+pod/simple-go-app-deployment-68b65f9694-b6kms   1/1     Running   0          2m11s
+pod/simple-go-app-deployment-68b65f9694-pg2m5   1/1     Running   0          2m11s
+pod/simple-go-app-deployment-68b65f9694-w6gp6   1/1     Running   0          2m11s
+
+NAME                            TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+service/kubernetes              ClusterIP      10.96.0.1      <none>        443/TCP          28m
+service/simple-go-app-service   LoadBalancer   10.96.210.97   <pending>     2222:31937/TCP   2m11s
+
+$ minikube service --all
+|-----------|------------|-------------|--------------|
+| NAMESPACE |    NAME    | TARGET PORT |     URL      |
+|-----------|------------|-------------|--------------|
+| default   | kubernetes |             | No node port |
+|-----------|------------|-------------|--------------|
+😿  service default/kubernetes has no node port
+|-----------|-----------------------|-------------|---------------------------|
+| NAMESPACE |         NAME          | TARGET PORT |            URL            |
+|-----------|-----------------------|-------------|---------------------------|
+| default   | simple-go-app-service |        2222 | http://192.168.49.2:31937 |
+|-----------|-----------------------|-------------|---------------------------|
+🎉  Opening service default/simple-go-app-service in default browser...
+➜   Opening in existing browser session.
 ```
 
-```
+Result from the browser at http://192.168.49.2:31937:
 
-```
-
-### Manifest deployment
-
-After creating the files `service.yml` and `deployment.yml`:
-
-```
-kubectl get pods,svc
-```
-
-```
-
-```
-
-```
-minikube service --all
-```
-
-```
-
-```
-
-Result from the browser:
+![go_app](assets/go_app.jpg)
 
 ## Part III: description (bonus)
 
-* Ingress
+* Ingress 
 * Ingress controller
 * StatefulSet
 * DaemonSet

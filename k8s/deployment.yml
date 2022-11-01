@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-app
+  labels:
+    app: pink-time
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pink-time
+  template:
+    metadata:
+      labels:
+        app: pink-time
+    spec:
+      containers:
+      - name: pink-time
+        image: molberte/devops-labs:latest
+        ports:
+        - containerPort: 5000

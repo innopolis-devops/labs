@@ -1,6 +1,6 @@
 from os import cpu_count
 
-bind = 'unix:///tmp/app/app.sock'
+bind = ['unix:///tmp/app/app.sock', '0.0.0.0:8000']
 worker_class = 'uvicorn.workers.UvicornWorker'
 workers = cpu_count()
 if workers is None:

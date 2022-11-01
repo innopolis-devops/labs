@@ -1,4 +1,4 @@
-# knetes
+# k![image](https://user-images.githubusercontent.com/63815121/199133688-a53868f9-8cca-4182-b6f9-f99bd6d07d55.png)netes
 ### getting started
 1. install [`minicube`](https://minikube.sigs.k8s.io/docs/start/) and [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/) using any prefferable way
 2. `minikube start`
@@ -25,6 +25,7 @@ service/pink-time    LoadBalancer   10.111.180.223   <pending>     5000:30144/TC
 
 ### proof of work
 👏👏👏👏👏👏
+![image](https://user-images.githubusercontent.com/63815121/199133739-ae2f726b-4d84-479b-a4e0-d9fcab928f8a.png)
 
 👏👏👏👏👏👏
 
@@ -49,7 +50,7 @@ service/exposer      LoadBalancer   10.110.153.245   <pending>     80:31748/TCP 
 service/kubernetes   ClusterIP      10.96.0.1        <none>        443/TCP        85m
 ```
 
-4. ff
+4. `minikube service --all`
 ```shell
 >minikube service --all
 |-----------|---------|-------------|---------------------------|
@@ -74,7 +75,7 @@ service/kubernetes   ClusterIP      10.96.0.1        <none>        443/TCP      
 ```
 
 ### prrrororoooof offf workkk
-
+![image](https://user-images.githubusercontent.com/63815121/199133806-b2c96d79-8898-4b17-8689-7d61bef0fa9b.png)
 
 🥇🥇🥇🥇🥇
 

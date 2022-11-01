@@ -2,8 +2,6 @@
 
 ## Usage
 
-In this lab i've used Kustomization to minimize for 2 apps boilerplate. Use `kubectl apply -k python` or `kubectl apply -k rust` to deploy the project.
-
 Before running the code you may need to change minikube config:
 
 ```yaml
@@ -12,9 +10,60 @@ Before running the code you may need to change minikube config:
 - memory: 8192
 ```
 
+### Helm
+
+To deploy with Helm:
+
+1. Build the charts:
+
+   ```bash
+   cd k8s/app_helm
+   helm package package
+   ```
+
+2. Install the charts:
+
+   ```bash
+   helm install app-python webapp-0.1.0.tgz -f val_python.yml
+   helm install app-rust webapp-0.1.0.tgz -f val_rust.yml
+   ```
+
+### Kustomization
+
+In this lab i've used Kustomization to minimize for 2 apps boilerplate. Use `kubectl apply -k python` or `kubectl apply -k rust` to deploy the project.
+
 ## Outputs
 
-### `kubectl get pods,svc`
+### Helm Outputs
+
+#### `kubectl get pods,svc`
+
+```bash
+NAME                                     READY   STATUS    RESTARTS   AGE
+pod/app-python-webapp-54c498c88d-24pqx   1/1     Running   0          2m40s
+pod/app-python-webapp-54c498c88d-j56fh   1/1     Running   0          2m40s
+pod/app-python-webapp-54c498c88d-ksn25   1/1     Running   0          2m40s
+pod/app-rust-webapp-c8c4c4d88-h28ll      1/1     Running   0          2m40s
+pod/app-rust-webapp-c8c4c4d88-mbrkz      1/1     Running   0          2m40s
+pod/app-rust-webapp-c8c4c4d88-smknw      1/1     Running   0          2m40s
+
+NAME                        TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+service/app-python-webapp   LoadBalancer   10.98.212.14   <pending>     80:30952/TCP   2m40s
+service/app-rust-webapp     LoadBalancer   10.97.77.4     <pending>     80:30516/TCP   2m40s
+service/kubernetes          ClusterIP      10.96.0.1      <none>        443/TCP        8m38s
+```
+
+#### `helm list`
+
+```bash
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+app-python      default         1               2022-11-01 13:39:27.03822606 +0300 MSK  deployed        webapp-0.1.0    1.16.0
+app-rust        default         1               2022-11-01 13:39:27.219762776 +0300 MSK deployed        webapp-0.1.0    1.16.0
+```
+
+### Normal Outputs
+
+#### `kubectl get pods,svc`
 
 ```
 NAME                              READY   STATUS    RESTARTS   AGE
@@ -31,7 +80,7 @@ service/app-rust     ClusterIP   10.110.120.66   <none>        80/TCP    109s
 service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP   2m12s
 ```
 
-### `minikube service --all`
+#### `minikube service --all`
 
 ```
 |-----------|------------|-------------|--------------|
@@ -90,6 +139,14 @@ x-frame-options: SAMEORIGIN
 ![app_rust](image-1.png)
 
 ## Bonus task descriptions
+
+### Library Charts
+
+It is a chart that can be used as a library. For example, we can generate some additional containers (e.g. debug environment) or config maps with it and then use it as a dependency of other charts.
+
+### Umbrella charts
+
+It is like a meta-package for linux package repositories. It is a chart that have other components of our app listed as dependencies. If any of the dependencies fails to install, the umbrella will be failed and whole application will be rolled back.
 
 ### Ingress controller
 

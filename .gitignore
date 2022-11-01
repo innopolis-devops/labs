@@ -7,3 +7,4 @@ __pycache__
 /.env
 /ansible/tmp/*
 !/ansible/tmp/.gitkeep
+/k8s/app_helm/webapp-*.tgz

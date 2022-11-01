@@ -12,6 +12,8 @@ RUN adduser --disabled-login timeapp && chown -R timeapp /server
 
 USER timeapp
 
-EXPOSE 80
+EXPOSE 8080
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+WORKDIR /server/app
+
+CMD ["uvicorn", "main:fast_api", "--reload", "--host", "0.0.0.0", "--port", "8080"]

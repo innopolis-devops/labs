@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-php-deployment
+  labels:
+    app: app-php
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-php
+  template:
+    metadata:
+      labels:
+        app: app-php
+    spec:
+      containers:
+      - name: app-php
+        image: markovvn1/iu-devops:lab_php
+        ports:
+        - containerPort: 80

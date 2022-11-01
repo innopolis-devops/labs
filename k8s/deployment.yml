@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homa3030-app
+spec:
+  replicas: 3  
+  selector:
+    matchLabels:
+      app: homa3030-app
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: homa3030-app
+    spec:
+      containers:
+      - name: homa3030-app
+        image: homa3030/app_python
+        ports:
+        - containerPort: 8080

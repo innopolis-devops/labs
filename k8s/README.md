@@ -122,8 +122,8 @@ Result from the browser at http://192.168.49.2:31937:
 
 ## Part III: description (bonus)
 
-* Ingress 
-* Ingress controller
-* StatefulSet
-* DaemonSet
-* PersistentVolumes
+* Ingress - the rules for proxying traffic from an external source to services inside the k8s cluster.
+* Ingress controller - the implementation for the Ingress (for example, GCE and Nginx)
+* StatefulSet - resource used for managing deployment and scaling of pods of stateful apps
+* DaemonSet - resource that ensures the pod runs on all the nodes of the cluster; automatically adds and deletes the pod
+* PersistentVolumes - storage system that have a lifecycle independent of any individual pod

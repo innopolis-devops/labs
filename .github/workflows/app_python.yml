@@ -1,4 +1,5 @@
-name: app_python
+ame: app_python
+
 on:
   push:
     paths:
@@ -55,7 +56,8 @@ jobs:
         # Display the Python version being used
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
-        # Install the package using the setup.py
+        # Install pytest (you can use some other testing utility)
+
       - name: Install pytest
         run: |
           python -m pip install --upgrade pip
@@ -79,3 +81,4 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
+

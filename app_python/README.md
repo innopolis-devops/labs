@@ -1,3 +1,4 @@
+[![.github/workflows/app_python.yml](https://github.com/TalgatBektleuov/DevOpsLabs/actions/workflows/app_python.yml/badge.svg)](https://github.com/TalgatBektleuov/DevOpsLabs/actions/workflows/app_python.yml)
 # Date and Time Viewer Web App 
 ## Student: Bektleuov Talgat, CS-01
 # Overview and Usage

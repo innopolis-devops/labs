@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-lab-deployment
+  labels:
+    app: devops-lab
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: devops-lab
+  template:
+    metadata:
+      labels:
+        app: devops-lab
+    spec:
+      containers:
+      - name: devops-lab
+        image: sh1co/devopslab:latest
+        ports:
+        - containerPort: 5000

@@ -1,0 +1,8 @@
+app_python_base_dir: 'opt/app_python'
+app_python_name: 'app_python'
+app_python:
+  image: devops
+  tag: latest
+  registry: tasneemtoolba
+  external_port: 8080
+  internal_port: 8080

@@ -86,3 +86,33 @@ service/kubernetes    ClusterIP      10.96.0.1        <none>        443/TCP     
 ![](./images/file-config1.png)
 ## Screenshot from App2
 ![](./images/file-config2.png)
+
+
+# Explanation for Ingress, Ingress controller, StatefulSet, DaemonSet, PersistentVolumes
+
+## Ingress
+
+Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource.
+You must have an Ingress controller to satisfy an Ingress. 
+## Ingress controller
+In order for the Ingress resource to work, the cluster must have an ingress controller running.
+
+You may deploy any number of ingress controllers using ingress class within a cluster.
+
+## StatefulSets
+StatefulSet is the workload API object used to manage stateful applications.
+
+Manages the deployment and scaling of a set of Pods, and provides guarantees about the ordering and uniqueness of these Pods.
+
+## DaemonSet
+A DaemonSet ensures that all (or some) Nodes run a copy of a Pod. As nodes are added to the cluster, Pods are added to them. As nodes are removed from the cluster, those Pods are garbage collected. Deleting a DaemonSet will clean up the Pods it created.
+
+Some typical uses of a DaemonSet are:
+
+running a cluster storage daemon on every node 
+
+running a logs collection daemon on every node
+
+running a node monitoring daemon on every node
+## PersistentVolumes
+A PersistentVolume (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using Storage Classes. It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual Pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.

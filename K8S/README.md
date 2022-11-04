@@ -1,12 +1,42 @@
 # K8S
 
+# Lab 10
+
+## How to run:
+
+- clone the repo
+- move to the right dir by running: ` cd K8S`
+- run the following:
+```
+$ helm package helm-app
+
+$ helm install app-python helm-app-0.1.0.tgz -f helm-app/values.yaml
+
+```
+
+## Helm output:
+
+` kubectl get pods,svc`
+
+![helm_pods.png](./images/helm_pods.png)
+
+
+` helm list `
+
+![helm_list.png](./images/helm_list.png)
+
+
+
+# Lab 9
+
+
 In this lab, we are using Kubernetes for deploying locally our project!
 
 
 ## How to run:
 
 - clone the repo
-- move to the right dir by running: ``` cd K8S\python_app```
+- move to the right dir by running: ` cd K8S\python_app`
 - run the following:
 ```
 $ kubectl apply -f deployment.yml
@@ -21,8 +51,7 @@ $ minikube service --all
 ### Manually deploying Python app
 
 The Outputs of running:
-``` kubectl get pods,svc
-```
+` kubectl get pods,svc`
 
 ![manually.png](./images/manually.png)
 

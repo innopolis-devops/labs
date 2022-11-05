@@ -97,7 +97,7 @@ heml install app-java . -f ./app-java-values.yaml
 #### Output after running `kubectl get svc`:
 ![app-java-svc.png](./images/helm/app-java-svc.png)
 
-#### Output after running `minikube service app-python-app-helm`:
+#### Output after running `minikube service app-java-app-helm`:
 ![minikube-service-app-java.png](./images/helm/minikube-service-app-java.png)
 
 Screenshot from the browser:

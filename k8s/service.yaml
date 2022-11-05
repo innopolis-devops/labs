@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-python
+spec:
+  selector:
+    app: app-python
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-express
+spec:
+  selector:
+    app: app-express
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer

@@ -24,3 +24,7 @@ This resources needs for managing storages in clusters.
 ![image4](screens/helm-pods.png)
 ![image5](screens/health.png)
 ![image6](screens/helm-commands.png)
+## Bonus task
+- Library chart \ This type of chart was created for possibility to share snippets of chart code for different charts and not repeating it
+- Umbrella chart \ This type of chart for unite of charts from different parts of elements which should be placed for some reason in one chart
+

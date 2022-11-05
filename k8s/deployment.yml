@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: time-webapp-python
-        image: bragov4ik/time_rust_web_app:0.0.7
+        image: bragov4ik/time_web_app:0.0.7
         ports:
         - containerPort: 8000

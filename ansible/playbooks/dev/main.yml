@@ -1,0 +1,11 @@
+---
+- name: Deploy web app
+  hosts: yacloud
+  remote_user: ubuntu
+  become: true
+
+  vars:
+    web_app_image_name: currenttime:v0.3.4
+
+  roles:
+    - web_app

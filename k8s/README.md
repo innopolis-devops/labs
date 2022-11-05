@@ -18,3 +18,9 @@ It is object for managing stateful applications - manage their storages, guarant
 It created a copy of some defined Pod on all defined Nodes in cluster
 - PersistentVolumes \
 This resources needs for managing storages in clusters.
+
+# Helm
+## pods and svc results
+![image4](screens/helm-pods.png)
+![image5](screens/health.png)
+![image6](screens/helm-commands.png)

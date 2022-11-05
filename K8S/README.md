@@ -25,7 +25,10 @@ $ helm install app-python helm-app-0.1.0.tgz -f helm-app/values.yaml
 
 ![helm_list.png](./images/helm_list.png)
 
+### Workloads page in minikube Dashboard
 
+
+![dashboard.png](./images/dashboard.png)
 
 # Lab 9
 

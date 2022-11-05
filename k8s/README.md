@@ -31,3 +31,31 @@ service/msctime-service   ClusterIP   10.110.162.242   <none>        8000/TCP   
 
 From browser:
 ![img_2.png](screenshots/img_2.png)
+
+## Helm 
+
+### Run with Helm
+
+1. Build chart:
+
+   ```bash
+   cd k8s/app_python
+   helm package app-python
+   ```
+
+2. Install chart:
+
+   ```bash
+   helm install app-python ./app-python-0.1.0.tgz
+   ```
+
+### Outputs
+
+#### `minikube service app-python`
+![img.png](screenshots/img_3.png)
+
+#### `kubectl get pods,svc`
+![img_1.png](screenshots/img_1.png)
+
+#### `helm list`
+![img.png](screenshots/img_4.png)

@@ -75,3 +75,21 @@ are running on cluster nodes.
 
 PersistentVolumes is a volume provisioned by admins.
 They do not depend on lifecycle of individual pods.
+
+## Helm
+
+Workloads statuses:
+
+![Workloads](images/workloads.png)
+
+Output of ``minikube service <service_name>``:
+
+![Minikube service](images/helm-minikube-service.png)
+
+In browser:
+
+![Helm browser](images/helm-python-site.png)
+
+Output of ``kubectl get pods,svc``:
+
+![Helm pods,svc](images/helm-kubectl-info.png)

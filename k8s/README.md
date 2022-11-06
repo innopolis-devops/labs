@@ -62,3 +62,69 @@ dart:
 
 python:
 ![](./2.png)
+
+## Helm
+
+1. Build helm package:
+
+    ```bash
+    cd k8s
+    helm package helm/package  
+    ```
+
+2. Run py app:
+
+    ```bash
+    helm install py-app app-0.1.0.tgz 
+    ```
+
+3. Run dart app:
+
+    ```bash
+    helm install dart-app app-0.1.0.tgz --values helm/dart_values.yml
+    ```
+
+4. Results
+
+    ```bash
+    kubectl get pods,svc 
+    NAME                            READY   STATUS    RESTARTS   AGE
+    pod/dart-app-575c87bcbf-8hzgj   1/1     Running   0          42s
+    pod/dart-app-575c87bcbf-bcspd   1/1     Running   0          42s
+    pod/dart-app-575c87bcbf-md7h5   1/1     Running   0          42s
+    pod/py-app-7c5b75df97-lswdn     1/1     Running   0          30s
+    pod/py-app-7c5b75df97-qjzsw     1/1     Running   0          30s
+    pod/py-app-7c5b75df97-vw26f     1/1     Running   0          30s
+
+    NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+    service/dart-app     LoadBalancer   10.100.194.229   <pending>     81:32337/TCP   42s
+    service/kubernetes   ClusterIP      10.96.0.1        <none>        443/TCP        106m
+    service/py-app       LoadBalancer   10.101.61.62     <pending>     80:31334/TCP   30s
+    
+    minikube service --all
+    |-----------|----------|-------------|-----------------------------|
+    | NAMESPACE |   NAME   | TARGET PORT |             URL             |
+    |-----------|----------|-------------|-----------------------------|
+    | default   | dart-app |          81 | http://192.168.39.179:30357 |
+    |-----------|----------|-------------|-----------------------------|
+    |-----------|------------|-------------|--------------|
+    | NAMESPACE |    NAME    | TARGET PORT |     URL      |
+    |-----------|------------|-------------|--------------|
+    | default   | kubernetes |             | No node port |
+    |-----------|------------|-------------|--------------|
+    😿  service default/kubernetes has no node port
+    |-----------|--------|-------------|-----------------------------|
+    | NAMESPACE |  NAME  | TARGET PORT |             URL             |
+    |-----------|--------|-------------|-----------------------------|
+    | default   | py-app |          80 | http://192.168.39.179:30466 |
+    |-----------|--------|-------------|-----------------------------|
+    🎉  Opening service default/dart-app in default browser...
+    🎉  Opening service default/py-app in default browser...
+    ```
+
+5. Note
+    I could not provide `minikube dashboard` since I cannot troubleshoot it
+
+    ![](3.png)
+
+    ![](4.png)

@@ -1,0 +1,16 @@
+name: py
+lable: py_time
+replicaCount: 3
+
+image:
+  repository: wat4er/inno_devops
+  tag: python
+  pullPolicy: IfNotPresent
+  port: 5000
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  port: 80
+  targetPort: 5000

@@ -1,0 +1,10 @@
+name: dart
+lable: dart_time
+
+image:
+  tag: dart
+  port: 5050
+
+service:
+  port: 81
+  targetPort: 5050

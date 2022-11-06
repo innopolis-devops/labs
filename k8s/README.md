@@ -78,6 +78,12 @@ They do not depend on lifecycle of individual pods.
 
 ## Helm
 
+To use helm enter *k8s* directory and run:
+
+``$ helm install -f <values.yaml> ./helm-app/ --generate-name``
+
+### with Python app
+
 Workloads statuses:
 
 ![Workloads](images/workloads.png)
@@ -93,3 +99,36 @@ In browser:
 Output of ``kubectl get pods,svc``:
 
 ![Helm pods,svc](images/helm-kubectl-info.png)
+
+### with Go app
+
+Output of ``minikube service <service_name>``:
+
+![Minikube service](images/helm-go-minikube-service.png)
+
+In browser:
+
+![Helm browser](images/helm-go-browser.png)
+
+Output of ``kubectl get pods,svc``:
+
+![Helm pods,svc](images/helm-go-kubectl-svc-pods.png)
+
+### with Go + Python applications
+
+Output of ``kubectl get pods,svc``:
+
+![Helm pods,svc](images/helm-kubectl-both.png)
+
+Workload statuses:
+
+![Workload statuses](images/helm-workload-both.png)
+
+### Helm answers
+
+Library Charts - reusable chart definitions
+(like ordinary library in any programming language: you can just import it
+and use where needed).
+
+Umbrella charts - higher order charts with multiple charts inside
+which should be deployed as a single one.

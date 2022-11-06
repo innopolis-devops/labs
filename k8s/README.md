@@ -122,7 +122,7 @@ igor@debian:~/labs/k8s$ minikube service app-php-service
 * `DaemonSet` adds pods to nodes, and removes them, if nodes are removed.
 * `PersistentVolumes` is persistent storage in cluster, which doesn't depend on pods, which use it.
 
-# Heml
+# Helm
 
 ## app_python
 

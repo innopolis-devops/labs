@@ -1,44 +1,148 @@
 # Lab 10 (Kubernetes, Helm)
 
-## Preparation
-
-### Installing of helm chart
-
-We make sure that all services are healthy checking Workloads page in the minikube dashboard:
-
-
 ## Part I: python app
 
-We make sure that all services are healthy using the following command:
+Deployment: 
 
 ```
-minikube service your_service_name
+$ cd ./k8s/app_python
+
+$ helm create python-app-helm
+Creating python-app-helm
+
+$ helm package python-app-helm                            
+Successfully packaged chart and saved it to: /home/skywlkr/Innopolis_DevOps2022/app_python/python-app-helm-0.1.0.tgz
+
+$ helm install python-app-helm ./python-app-helm-0.1.0.tgz
+NAME: python-app-helm
+LAST DEPLOYED: Sun Nov  6 15:40:43 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+1. Get the application URL by running these commands:
+     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+           You can watch the status of by running 'kubectl get --namespace default svc -w python-app-helm'
+  export SERVICE_IP=$(kubectl get svc --namespace default python-app-helm --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
+  echo http://$SERVICE_IP:80
 ```
 
-Also, lets see the output of the next command:
+Result:
 
 ```
-kubectl get pods,svc
+$ helm list
+NAME             NAMESPACE  REVISION  UPDATED                                  STATUS    CHART                  APP VERSION
+python-app-helm  default    1         2022-11-06 15:40:43.595218976 +0300 MSK  deployed  python-app-helm-0.1.0  1.16.0
 ```
+
+```
+$ kubectl get pods,svc                  
+NAME                                   READY   STATUS    RESTARTS   AGE
+pod/python-app-helm-5b79c9f64f-6h98w   1/1     Running   0          127m
+
+NAME                      TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/kubernetes        ClusterIP      10.96.0.1        <none>        443/TCP        5d14h
+service/python-app-helm   LoadBalancer   10.111.205.221   <pending>     80:30012/TCP   127m
+```
+
+```
+$ minikube service python-app-helm
+|-----------|-----------------|-------------|---------------------------|
+| NAMESPACE |      NAME       | TARGET PORT |            URL            |
+|-----------|-----------------|-------------|---------------------------|
+| default   | python-app-helm | http/80     | http://192.168.49.2:30012 |
+|-----------|-----------------|-------------|---------------------------|
+🎉  Opening service default/python-app-helm in default browser...
+➜  app_python git:(lab10) ✗ Opening in existing browser session.
+```
+
+![python_app_helm](assets/python_app_helm.jpg)
+
+```
+$ minikube dashboard              
+🤔  Verifying dashboard health ...
+🚀  Launching proxy ...
+🤔  Verifying proxy health ...
+🎉  Opening http://127.0.0.1:44231/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/ in your default browser...
+Opening in existing browser session.
+```
+
+![python_app_helm_dashboard](assets/python_app_helm_dashboard.jpg)
 
 ## Part II: golang app (bonus)
 
-We make sure that all services are healthy using the following command:
+
+Deployment:
 
 ```
-minikube service your_service_name
+$ cd ./k8s/app_go
+
+$ helm create go-app-helm
+Creating go-app-helm
+
+$ helm package go-app-helm                                                  
+Successfully packaged chart and saved it to: /home/skywlkr/Innopolis_DevOps2022/k8s/app_go/go-app-helm-0.1.0.tgz
+
+$ helm install go-app-helm ./go-app-helm-0.1.0.tgz
+NAME: go-app-helm
+LAST DEPLOYED: Sun Nov  6 18:16:56 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+1. Get the application URL by running these commands:
+     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+           You can watch the status of by running 'kubectl get --namespace default svc -w go-app-helm'
+  export SERVICE_IP=$(kubectl get svc --namespace default go-app-helm --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
+  echo http://$SERVICE_IP:80
 ```
 
-Also, lets see the output of the next command:
+Result:
 
 ```
-kubectl get pods,svc
+$ helm list
+NAME         NAMESPACE  REVISION  UPDATED                                  STATUS    CHART              APP VERSION
+go-app-helm  default    1         2022-11-06 18:16:56.273819071 +0300 MSK  deployed  go-app-helm-0.1.0  1.16.0
 ```
+
+```
+$ kubectl get pods,svc                  
+NAME                               READY   STATUS    RESTARTS   AGE
+pod/go-app-helm-8598987cb4-bzrbd   1/1     Running   0          3m40s
+
+NAME                  TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/go-app-helm   LoadBalancer   10.104.63.126   <pending>     80:31862/TCP   3m40s
+service/kubernetes    ClusterIP      10.96.0.1       <none>        443/TCP        5d15h
+```
+
+```
+$ minikube service python-app-helm
+|-----------|-------------|-------------|---------------------------|
+| NAMESPACE |    NAME     | TARGET PORT |            URL            |
+|-----------|-------------|-------------|---------------------------|
+| default   | go-app-helm | http/80     | http://192.168.49.2:31862 |
+|-----------|-------------|-------------|---------------------------|
+🎉  Opening service default/go-app-helm in default browser...
+```
+
+![go_app_helm](assets/go_app_helm.jpg)
+
+```
+$ minikube dashboard                                   
+🤔  Verifying dashboard health ...
+🚀  Launching proxy ...
+🤔  Verifying proxy health ...
+🎉  Opening http://127.0.0.1:32879/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/ in your default browser...
+Opening in existing browser session.
+```
+
+![go_app_helm_dashboard](assets/go_app_helm_dashboard.jpg)
+
 
 ## Part III: description (bonus)
 
-* Library Charts - 
-* Umbrella charts - 
+* **Library Charts** is used when there is a lot of repetitions of code in many charts that can be simplified by using same template. This chart defines primitives which can be used in other charts.
+* **Umbrella charts** is global chart that can have multiple subcharts.
 
 ----------------------------------------
 

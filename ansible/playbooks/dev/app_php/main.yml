@@ -1,0 +1,18 @@
+- hosts: all
+  roles:
+    - web_app
+  become: true
+  
+  vars:
+    web_app:
+      name: "app_php"
+      image:
+        registry:   "igorparfenov"
+        name:       "devops_lab"
+        tag:        "app_php_latest"
+      ports:
+        internal: 80
+        external: 80
+      base_path: "/opt/app_php"
+      full_wipe: false
+

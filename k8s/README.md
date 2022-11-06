@@ -1,4 +1,4 @@
-# K8S
+# K8S - Lab 9
 
 ## Output of `kubectl get pods,svc` when creating by hand
 
@@ -50,4 +50,21 @@ service/moscow-time-web-app   LoadBalancer   10.97.123.31   <pending>     5000:3
 🎉  Opening service default/kubernetes in default browser...
 🎉  Opening service default/moscow-time-web-app in default browser...
 ❗  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
+```
+
+# K8S & Helm - Lab 10
+
+##  Helm Chart
+
+![Proof](./screenshots/dashboard.png)
+
+## `kubectl get pods, svc`
+
+```
+NAME                             READY   STATUS    RESTARTS   AGE
+pod/app-python-85b864c87-fc4sg   1/1     Running   0          104s
+
+NAME                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+service/app-python   ClusterIP   10.96.202.37   <none>        80/TCP    104s
+service/kubernetes   ClusterIP   10.96.0.1      <none>        443/TCP   7d19h
 ```

@@ -1,0 +1,5 @@
+container:
+  image: afonya2001/devops
+  port: 8080
+
+replicaCount: 3

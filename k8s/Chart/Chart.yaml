@@ -1,0 +1,10 @@
+apiVersion: v2
+name: HelmChart
+description: node-app helm chart
+type: application
+version: 0.0.1
+appVersion: "1.0.0"
+
+maintainers:
+  - name: Evgeny Afanasyev
+    email: afazhenya2001@gmail.com

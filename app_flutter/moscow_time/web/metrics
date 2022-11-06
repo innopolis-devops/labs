@@ -1,0 +1,6 @@
+# HELP UserCount value
+# TYPE logstash_audit_events_in untyped
+user_count{} 140
+# HELP lUserCountActive value
+# TYPE logstash_audit_events_out untyped
+user_count_active{} 23

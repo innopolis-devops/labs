@@ -1,0 +1,35 @@
+NAME                              READY   STATUS    RESTARTS   AGE
+pod/hello-node-857856f469-49xkt   1/1     Running   0          10m
+
+NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+service/hello-node   LoadBalancer   10.97.148.201   <pending>     5000:32322/TCP   9m38s
+service/kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          11m
+
+
+NAME                             READY   STATUS    RESTARTS   AGE
+pod/app-python-66df499bd-kg5cv   1/1     Running   0          52s
+pod/app-python-66df499bd-tkvdz   1/1     Running   0          55s
+pod/app-python-66df499bd-wjcxw   1/1     Running   0          49s
+
+NAME                      TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+service/kubernetes        ClusterIP   10.96.0.1      <none>        443/TCP    19m
+service/web-app-service   ClusterIP   10.111.61.89   <none>        1339/TCP   3m3s
+
+
+Name:                     web-app-service
+Namespace:                default
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app.kubernetes.io/name=hello-node
+Type:                     LoadBalancer
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.111.61.89
+IPs:                      10.111.61.89
+Port:                     <unset>  5000/TCP
+TargetPort:               5000/TCP
+NodePort:                 <unset>  30133/TCP
+Endpoints:                <none>
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>

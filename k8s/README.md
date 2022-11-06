@@ -1,3 +1,4 @@
+## Lab 9
 1. 
 ```bash 
 minikube start
@@ -65,3 +66,33 @@ output:
 ```
 result from my browser
 ![img.png](img.png)
+
+
+## Lab 10
+
+```bash 
+$ minikube service my-app-python
+|-----------|---------------|-------------|---------------------------|
+| NAMESPACE |     NAME      | TARGET PORT |            URL            |
+|-----------|---------------|-------------|---------------------------|
+| default   | my-app-python | http/80     | http://192.168.49.2:32320 |
+|-----------|---------------|-------------|---------------------------|
+🎉  Opening service default/my-app-python in default browser...
+$ Opening in existing browser session.
+mesa: for the --simplifycfg-sink-common option: may only occur zero or one times!
+mesa: for the --global-isel-abort option: may only occur zero or one times!
+mesa: for the --amdgpu-atomic-optimizations option: may only occur zero or one times!
+mesa: for the --structurizecfg-skip-uniform-regions option: may only occur zero or one times!
+```
+
+```bash
+$ kubectl get pods,svc
+NAME                                 READY   STATUS    RESTARTS   AGE
+pod/my-app-python-845d8dd596-tqkmq   1/1     Running   0          5m5s
+
+NAME                    TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/kubernetes      ClusterIP      10.96.0.1       <none>        443/TCP        45m
+service/my-app-python   LoadBalancer   10.104.73.105   <pending>     80:32320/TCP   5m6s
+```
+Dashboard:
+![img_1.png](img_1.png)

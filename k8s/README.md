@@ -123,3 +123,15 @@ http://192.168.49.2:31768
 Helm chart is installed the same way
 
 ![outputs](report_artifacts/helm_bonus_outputs.png)
+
+### Helm library charts
+
+They play basically the same role as libraries in common programming languages. They allow to move commonly repeated code into a separate entity that is imported or used by other charts.
+
+The library charts cannot be deployed themselves and thus can only be a dependency of another chart
+
+So in our case, it seems that python and rust charts are basically the same, they seem to only differ in values provided. Therefore, it makes sense to move most of the code into a library to follow DRY strategy and supply appropriate values to it.
+
+### Umbrella charts
+
+A chart that combines multiple other subcharts. They allow to deploy a complex application consisting of multiple components as a single unit (if it is needed for some reason). Difference with a chart with multiple libraries as dependencies is that it seems to gather full-fledged charts (that can be deployed on their own) rather than some helper code that can't be deployed by itself.

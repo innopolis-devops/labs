@@ -1,3 +1,47 @@
+# Lab 10 (Kubernetes, Helm)
+
+## Preparation
+
+### Installing of helm chart
+
+We make sure that all services are healthy checking Workloads page in the minikube dashboard:
+
+
+## Part I: python app
+
+We make sure that all services are healthy using the following command:
+
+```
+minikube service your_service_name
+```
+
+Also, lets see the output of the next command:
+
+```
+kubectl get pods,svc
+```
+
+## Part II: golang app (bonus)
+
+We make sure that all services are healthy using the following command:
+
+```
+minikube service your_service_name
+```
+
+Also, lets see the output of the next command:
+
+```
+kubectl get pods,svc
+```
+
+## Part III: description (bonus)
+
+* Library Charts - 
+* Umbrella charts - 
+
+----------------------------------------
+
 # Lab 9 (Kubernetes)
 
 ## Part I: python app

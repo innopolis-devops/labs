@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: time-application-node-deployment
+  labels:
+    app: time-application-node
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: time-application-node
+  template:
+    metadata:
+      labels:
+        app: time-application-node
+    spec:
+      containers:
+      - name: time-application-node
+        image: dablup/devops_labs:devops_labs
+        ports:
+        - containerPort: 5000

@@ -50,3 +50,35 @@ k8s % minikube service --all
 
 4)
 ![image](images/img.png)
+
+#Lab 10
+1) 
+```bash
+k8s % minikube service time-app
+|-----------|----------|-------------|---------------------------|
+| NAMESPACE |   NAME   | TARGET PORT |            URL            |
+|-----------|----------|-------------|---------------------------|
+| default   | time-app | http/5000   | http://192.168.49.2:31193 |
+|-----------|----------|-------------|---------------------------|
+🏃  Starting tunnel for service time-app.
+|-----------|----------|-------------|------------------------|
+| NAMESPACE |   NAME   | TARGET PORT |          URL           |
+|-----------|----------|-------------|------------------------|
+| default   | time-app |             | http://127.0.0.1:52815 |
+|-----------|----------|-------------|------------------------|
+🎉  Opening service default/time-app in default browser...
+❗  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
+```
+
+My service opened:
+![service](images/img_1.png)
+
+```bash
+k8s % kubectl get pods,svc
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/time-app-5d6bb85f87-dlt69   1/1     Running   0          67m
+
+NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+service/kubernetes   ClusterIP      10.96.0.1        <none>        443/TCP          7d1h
+service/time-app     LoadBalancer   10.107.217.170   <pending>     5000:31193/TCP   67m
+```

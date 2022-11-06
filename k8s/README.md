@@ -239,5 +239,5 @@ service/kubernetes           ClusterIP      10.96.0.1      <none>        443/TCP
 
 ## Theory questions
 
-`Library Charts` are charts used for storage shared definitions, which can be used in multiple charts for decreasing repetitions.
-`Umbrella Charts` are charts used for manipulating collections of charts as single units.
+* `Library Charts` are charts used for storage shared definitions, which can be used in multiple charts for decreasing repetitions.
+* `Umbrella Charts` are charts used for manipulating collections of charts as single units.

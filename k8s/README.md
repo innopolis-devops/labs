@@ -140,3 +140,106 @@ DaemonSet makes sure that all or some specified Nodes have a copy of a Pod. Usua
 ### PersistentVolumes
 
 PersistentVolumes are a way for developers to "claim" durable storage abstracted from realization and place of this storage.
+
+## Helm
+
+All commands run in `k8s` directory.
+
+### Deploying `app_python`
+
+```bash
+$ helm install ./app-python-chart/ --generate-name
+NAME: app-python-chart-1667751845
+LAST DEPLOYED: Sun Nov  6 19:24:05 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+1. Get the application URL by running these commands:
+     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+           You can watch the status of by running 'kubectl get --namespace default svc -w app-python-chart-1667751845'
+  export SERVICE_IP=$(kubectl get svc --namespace default app-python-chart-1667751845 --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
+  echo http://$SERVICE_IP:80
+```
+
+![helm_app_python_workload](.attachments/helm/workload-app-python.png)
+
+```bash
+$ minikube service app-python-chart-1667751845
+|-----------|-----------------------------|-------------|---------------------------|
+| NAMESPACE |            NAME             | TARGET PORT |            URL            |
+|-----------|-----------------------------|-------------|---------------------------|
+| default   | app-python-chart-1667751845 | http/80     | <http://192.168.49.2:32094> |
+|-----------|-----------------------------|-------------|---------------------------|
+🎉  Opening service default/app-python-chart-1667751845 in default browser...
+```
+
+![helm_app_python](.attachments/helm/app_python.png)
+
+```bash
+$ kubectl get pods,svc
+NAME                                               READY   STATUS    RESTARTS   AGE
+pod/app-python-chart-1667751845-5f964949f5-k9kmv   1/1     Running   0          3m54s
+
+NAME                                  TYPE           CLUSTER-IP    EXTERNAL-IP   PORT(S)        AGE
+service/app-python-chart-1667751845   LoadBalancer   10.96.8.213   <pending>     80:32094/TCP   3m54s
+service/kubernetes                    ClusterIP      10.96.0.1     <none>        443/TCP        10d
+```
+
+### Deploying `app_haskell`
+
+```bash
+$ helm install ./app-haskell-chart/ --generate-name
+NAME: app-haskell-chart-1667754181
+LAST DEPLOYED: Sun Nov  6 20:03:01 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+1. Get the application URL by running these commands:
+     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+           You can watch the status of by running 'kubectl get --namespace default svc -w app-haskell-chart-1667754181'
+  export SERVICE_IP=$(kubectl get svc --namespace default app-haskell-chart-1667754181 --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
+  echo http://$SERVICE_IP:80
+```
+
+![helm_app_haskell_workload](.attachments/helm/workload-app-haskell.png)
+
+```bash
+$ minikube service app-haskell-chart-1667754181
+|-----------|------------------------------|-------------|---------------------------|
+| NAMESPACE |             NAME             | TARGET PORT |            URL            |
+|-----------|------------------------------|-------------|---------------------------|
+| default   | app-haskell-chart-1667754181 | http/80     | http://192.168.49.2:30296 |
+|           |                              | metrics/81  | http://192.168.49.2:30628 |
+|-----------|------------------------------|-------------|---------------------------|
+[default app-haskell-chart-1667754181 http/80
+metrics/81 http://192.168.49.2:30296
+http://192.168.49.2:30628]
+```
+
+![helm_app_haskell](.attachments/helm/app_haskell.png)
+
+![helm_app_haskell_metrics](.attachments/helm/app_haskell_metrics.png)
+
+```bash
+$ kubectl get pods,svc
+NAME                                                READY   STATUS    RESTARTS   AGE
+pod/app-haskell-chart-1667754181-6b595dbc67-c59qc   1/1     Running   0          70s
+
+NAME                                   TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                     AGE
+service/app-haskell-chart-1667754181   LoadBalancer   10.98.188.177   <pending>     80:30296/TCP,81:30628/TCP   70s
+service/kubernetes                     ClusterIP      10.96.0.1       <none>        443/TCP                     10d
+```
+
+### Reading
+
+### Library Charts
+
+Library charts are charts, which can be reused by other charts.
+They like to libraries in programming languages.
+
+### Umbrella charts
+
+Umbrella charts provide grouping possibility, so that many charts could be
+grouped into one and deployed as one chart.

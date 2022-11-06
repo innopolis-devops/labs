@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-rust-deployment
+  labels:
+    app: app-rust
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-rust
+
+  minReadySeconds: 3
+
+  template:
+    metadata:
+      labels:
+        app: app-rust
+    spec:
+      containers:
+      - name: currenttime-rust
+        image: ghcr.io/sevenzing/currenttime-rust:latest
+        ports:
+        - containerPort: 4444

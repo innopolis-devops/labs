@@ -55,3 +55,22 @@ service/web-app-service   LoadBalancer   10.111.61.89     <pending>     5000:301
 ![image](img.png)
 
 ### P.S. I have done the cleanup of hello-node, but later recreated it to check the description, so the lab is done correctly
+
+## Lab 10
+
+### `kubectl get pods,svc`
+
+```bash
+kubectl get pods,svc
+NAME                              READY   STATUS    RESTARTS        AGE
+pod/app-python-54b6bff94-sbc56    1/1     Running   0               2m45s
+pod/hello-node-857856f469-cnn4h   1/1     Running   1 (8m31s ago)   6d19h
+
+NAME                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+service/app-python   ClusterIP   10.107.142.0   <none>        80/TCP    2m45s
+service/kubernetes   ClusterIP   10.96.0.1      <none>        443/TCP   6d20h
+```
+
+## Screenshot of the dashboard
+
+![dashboard](dashboard.png)

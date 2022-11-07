@@ -1,3 +1,5 @@
+# Lab #9: K8s
+
 ## Deployment via manual configuration
 
 Local deployment steps
@@ -140,3 +142,134 @@ Screenshot from browser
 - StatefulSet — manages applications guarantying a stateful (not changed whenever rescheduling happens) identity for a pod
 - DaemonSet — guarantees that a copy of a pod is created whenever a node is added
 - PersistentVolumes — a provisioned by the administrator or a storage class type of storage
+
+# Lab #10: Helm
+
+## Deploying app-python
+
+Following the provided example
+
+```text
+$ helm create app-python
+Creating app-python
+$ helm package app-python
+Successfully packaged chart and saved it to: /Users/kurmazov/labs/k8s/app-python-0.1.0.tgz
+$ helm install app-python ./app-python-0.1.0.tgz
+NAME: app-python
+LAST DEPLOYED: Mon Nov  7 22:36:47 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+1. Get the application URL by running these commands:
+     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+           You can watch the status of by running 'kubectl get --namespace default svc -w app-python'
+  export SERVICE_IP=$(kubectl get svc --namespace default app-python --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
+  echo http://$SERVICE_IP:80
+```
+
+Visiting minikube dashboard
+
+![](https://i.imgur.com/WdMKv5K.png)
+
+Running the service
+
+```text
+$ minikube service app-python
+|-----------|------------|-------------|---------------------------|
+| NAMESPACE |    NAME    | TARGET PORT |            URL            |
+|-----------|------------|-------------|---------------------------|
+| default   | app-python | http/80     | http://192.168.49.2:31245 |
+|-----------|------------|-------------|---------------------------|
+🏃  Starting tunnel for service app-python.
+|-----------|------------|-------------|------------------------|
+| NAMESPACE |    NAME    | TARGET PORT |          URL           |
+|-----------|------------|-------------|------------------------|
+| default   | app-python |             | http://127.0.0.1:62608 |
+|-----------|------------|-------------|------------------------|
+🎉  Opening service default/app-python in default browser...
+❗  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
+```
+
+Looking in browser
+
+![](https://i.imgur.com/HBp06i5.png)
+
+Checking pods and services
+
+```text
+$ kubectl get pods,svc
+NAME                              READY   STATUS    RESTARTS   AGE
+pod/app-python-5db5bc5cfb-7jrwc   1/1     Running   0          5m39s
+
+NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/app-python   LoadBalancer   10.107.74.169   <pending>     80:31245/TCP   5m40s
+service/kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP        33m
+```
+
+## [Bonus] Deploying app-rust
+
+Following the provided example
+
+```text
+$ helm create app-rust
+Creating app-rust
+$ helm package app-rust
+Successfully packaged chart and saved it to: /Users/kurmazov/labs/k8s/app-rust-0.1.0.tgz
+$ helm install app-rust ./app-rust-0.1.0.tgz
+NAME: app-rust
+LAST DEPLOYED: Mon Nov  7 23:57:20 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+1. Get the application URL by running these commands:
+     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+           You can watch the status of by running 'kubectl get --namespace default svc -w app-rust'
+  export SERVICE_IP=$(kubectl get svc --namespace default app-rust --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
+  echo http://$SERVICE_IP:80
+```
+
+Visiting minikube dashboard
+
+![](https://i.imgur.com/Uwa1zTP.png)
+
+Running the service
+
+```text
+$ minikube service app-rust
+|-----------|----------|-------------|---------------------------|
+| NAMESPACE |   NAME   | TARGET PORT |            URL            |
+|-----------|----------|-------------|---------------------------|
+| default   | app-rust | http/80     | http://192.168.49.2:30732 |
+|-----------|----------|-------------|---------------------------|
+🏃  Starting tunnel for service app-rust.
+|-----------|----------|-------------|------------------------|
+| NAMESPACE |   NAME   | TARGET PORT |          URL           |
+|-----------|----------|-------------|------------------------|
+| default   | app-rust |             | http://127.0.0.1:49289 |
+|-----------|----------|-------------|------------------------|
+🎉  Opening service default/app-rust in default browser...
+❗  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
+```
+
+Looking in browser
+
+![](https://i.imgur.com/enCrvRc.png)
+
+Checking pods and services
+
+```text
+$ kubectl get pods,svc
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/app-rust-58d8d488-tdnsh   1/1     Running   0          7m
+
+NAME                 TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+service/app-rust     LoadBalancer   10.98.79.229   <pending>     80:30732/TCP   7m
+service/kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP        10m
+```
+
+## [Bonus] Helm definitions
+
+- Library Charts — are used to share some common definitions across Helm templates — they are very helpful to avoid repetition in code
+- Umbrella Charts — describe a collection of k8s components as a Helm chart. Provide a way to deploy a collection of components atomically

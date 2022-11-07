@@ -80,3 +80,41 @@ References: [Creating a deployment](https://kubernetes.io/docs/tutorials/hello-m
 5. <u><b>PersistentVolumes</b></u>
 
     PV are used to provide persistent storage for the containerized applications. One of the most important functionalities of persistent volume is providing storage beyond the lifecycle of a pod.
+
+
+# Helm - Lab 10
+
+## 1.1 Steps
+
+1. Created a template using `helm create my-app`
+2. Updated `values.yaml` to use my own docker repository
+3. Updated `deployment.yml` to use port `8080`
+4. Installed helm chart using `helm install my-app . -f ./values.yaml`
+
+## 1.2 Results
+
+- `kubectl get pods`
+
+![](./images/pods-helm.png)
+
+- `kubectl get svc`
+
+![](./images/service-helm.png)
+
+- `minikube service my-app`
+
+![](./images/minikube-services-helm.png)
+
+- Browser screenshoot
+
+![](./images/browser-helm.png)
+
+## Part 3 (Bonus): Definitions
+
+1. <u><b>Library Charts:</b></u>
+
+    This is one type of Helm charts which contains chart definitions or primitives to be used by other helm charts. It was created to avoid/decrease chart definitions in templates which would be similar.
+
+2. <u><b>Umbrella charts:</b></u>
+
+    This is another type of chart that contains other sub-charts with the purpose of grouping them. This allows easy management and installtion of application's helm charts since each application might have it's helm chart.

@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  {{ web_app_name }}:
+    image: {{ web_app_image.name }}:{{ web_app_image.tag }}
+    container_name: {{ web_app_name }}
+    ports:
+      - "{{ web_app_port.external }}:{{ web_app_port.internal }}"
+    restart: always
+    healthcheck:
+       test:
+         - CMD-SHELL
+         - wget --no-verbose --tries=1 -O /dev/null http://localhost:{{ web_container_port }}/healthcheck || exit 1
+       interval: 1m30s
+       timeout: 10s
+       retries: 3
+       start_period: 5s

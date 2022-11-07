@@ -1,0 +1,22 @@
+#---
+#- name: Deploy Kotlin application
+#  hosts: server
+#  roles:
+#    - web_app
+
+- name: Deploy Kotlin application
+  hosts: all
+  roles:
+    - name: web_app
+      tags: [web_app_kotlin]
+      vars:
+        web_app_name: "app_kotlin"
+        web_app_path: "/opt/app_kotlin"
+        web_app_port:
+          internal: 8080
+          external: 8080
+        web_container_port: 8080
+        web_app_image:
+          name: "smorenapi/app_kotlin"
+          tag: "latest"
+          

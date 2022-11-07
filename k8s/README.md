@@ -40,3 +40,38 @@ Explanations
 cluster
 
 * PersistentVolumes - a piece of secured storage in a cluster
+
+## Lab 10
+
+
+``` bash
+helm install app-python . -f ./values.yaml
+```
+
+![console](/k8s/images/helm_install.png)
+
+
+```bash
+minikube dashboard
+```
+![console](/k8s/images/browser10.1.png)
+
+```bash
+kubectl get pods,svc
+```
+
+![console](/k8s/images/pods10.png)
+
+``` bash
+minikube service app-python
+```
+
+![console](/k8s/images/minikube_service.png)
+
+![console](/k8s/images/web10.2.png)
+
+
+## Bonus
+Library Chart - chart with definitions/premitives that can be used in other charts
+
+Umbrella Chart - a group of related subcharts composing one application/deployment

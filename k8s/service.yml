@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lab9
+spec:
+  selector:
+    app: lab9
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer

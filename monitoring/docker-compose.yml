@@ -117,7 +117,7 @@ volumes:
   grafana-data: {}
   loki-data: {}
   promtail-data: {}
-#  prometheus-data: {}
+  prometheus-data: {}
 
 
 

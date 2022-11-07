@@ -2,11 +2,21 @@
 
 ## Contents
 
+Lab 9:
+
 - [Manual deployment](#manual-deployment)
 - [Config files approach](#config-files-approach)
 - [Bonus part](#bonus-part)
   - [Second app](#run-the-second-app)
   - [Theory task](#theory-task)
+
+Lab 10:
+
+- [Helm](#helm)
+  - [Redis](#helm)
+  - [Python app](#python-app)
+  - [Typescript app (bonus)](#typescript-app-bonus)
+- [Theory task (bonus)](#bonus-theory)
 
 ## Manual deployment
 
@@ -194,3 +204,97 @@ service/ts-app-service       LoadBalancer   10.99.169.204    <pending>     3000:
 **DaemonSet** — a resource that ensures the nodes are running the same pods, which allows to perform the same task on multiple nodes at once, e.g., logging and monitoring.
 
 **PersistentVolumes** — volumes that do not depend on the pods that use them, i.e., they will persist if the pods get deleted.
+
+## Helm
+
+### Redis
+
+Since I complicated my apps with redis dependency, I had to setup Helm for redis first. See the chart in [`./helm/redis`](./helm/redis/) folder.
+
+```sh
+helm install redis --generate-name
+minikube dashboard
+```
+
+![Workloads](https://user-images.githubusercontent.com/29694249/200324953-d41cd9b6-9a86-4adb-a37a-e900b89a4a5b.png)
+
+### Python app
+
+Everything is fine, so proceeding with `python_app`. `redis` chart has to be added to the app chart dependencies:
+
+```yaml
+dependencies:
+  - name: redis
+    version: 0.1.0
+    repository: "file://../redis/"
+```
+
+Run `helm dep build python-app` to fetch the dependency to the chart folder.
+
+Redis service name has to be passed to the environment variable for the app in [`deployment.yaml`](./helm/python-app/templates/deployment.yaml):
+
+```yaml
+...
+env:
+  - name: REDIS_HOST
+    value: "{{ include "redis.fullname" .Subcharts.redis }}"
+  - name: REDIS_PORT
+    value: "6379"
+```
+
+After installing the chart with `helm install py-app python-app`, we can see the running deployments in the minikube dashboard:
+
+![Deployments](https://user-images.githubusercontent.com/29694249/200345701-fc0735f4-15e4-43d0-97fe-be9261126763.png)
+
+`kubectl get pods,svc` output:
+
+```text
+NAME                                    READY   STATUS    RESTARTS      AGE
+pod/py-app-python-app-fcfd57c95-wrl5g   1/1     Running   1 (14m ago)   15m
+pod/py-app-redis-7568c9bf5c-t6lbs       1/1     Running   0             15m
+
+NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/kubernetes          ClusterIP   10.96.0.1       <none>        443/TCP    9d
+service/py-app-python-app   ClusterIP   10.97.195.223   <none>        8000/TCP   15m
+service/py-app-redis        ClusterIP   10.110.14.62    <none>        6379/TCP   15m
+```
+
+`minikube service py-app-python-app` output and in-browser test:
+
+![App is running](https://user-images.githubusercontent.com/29694249/200346821-7ad65b1d-f103-436e-83e7-73a08b712066.png)
+
+### Typescript app (bonus)
+
+The chart for the TS app is similar to the python app chart. Find the chart files in [`./helm/ts-app/`](./helm/ts-app/) folder.
+
+```sh
+helm dep build ts-app
+helm install ts-app ts-app
+```
+
+`kubectl get pods,svc` output:
+
+```text
+NAME                                    READY   STATUS    RESTARTS       AGE
+pod/py-app-python-app-fcfd57c95-wrl5g   1/1     Running   1 (149m ago)   149m
+pod/py-app-redis-7568c9bf5c-t6lbs       1/1     Running   0              149m
+pod/ts-app-695768f889-wlv9s             1/1     Running   1 (3s ago)     7s
+pod/ts-app-redis-7fd8776cbc-nx6c8       1/1     Running   0              7s
+
+NAME                        TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+service/kubernetes          ClusterIP   10.96.0.1        <none>        443/TCP    9d
+service/py-app-python-app   ClusterIP   10.97.195.223    <none>        8000/TCP   149m
+service/py-app-redis        ClusterIP   10.110.14.62     <none>        6379/TCP   149m
+service/ts-app              ClusterIP   10.108.19.125    <none>        3000/TCP   7s
+service/ts-app-redis        ClusterIP   10.102.125.140   <none>        6379/TCP   7s
+```
+
+`minikube service ts-app` output and in-browser test:
+
+![image](https://user-images.githubusercontent.com/29694249/200376392-58fb3554-e52f-4ad3-a9f0-833b0b2a5884.png)
+
+## Bonus (theory)
+
+**Library charts** — charts that are not deployed. Instead they provide code definitions that simplify writing the templates for other charts.
+
+**Umbrella charts** — charts that combine multiple subcharts so that they function as a whole. An umbrella chart contains global configuration for the complex system built from the components provided by subcharts.

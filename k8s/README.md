@@ -1,4 +1,4 @@
-# Kubernetes
+# Lab 9 Kubernetes
 
 ## Creating Deployment and Services for the app
 
@@ -57,3 +57,50 @@
 - StatefulSet - set of pods
 - DaemonSet - pods controller and manager
 - PersistentVolumes - provisioned storage in cluster
+
+## Lab 10 Helm
+
+## Installing helm chart
+
+### ```helm install app-python . -f ./values.yaml```
+
+![install](/k8s/assets/install.png)
+
+### Workload from minikube dashboard
+
+![workload](/k8s/assets/workload.png)
+
+### ```kubectl get pods,svc```
+
+![out](/k8s/assets/pods%2C%20svc.png)
+
+### ```minikube service app-python```
+
+![terminal](/k8s/assets/terminal.png)
+
+![browser](/k8s/assets/browser10.png)
+
+## Bonus Task
+
+### ```helm install app-java . -f ./values.yaml``` for java
+
+![install](/k8s/assets/java-helm.png)
+
+### Workload from minikube dashboard for java
+
+![workload](/k8s/assets/workload-java.png)
+
+### ```kubectl get pods,svc``` for java
+
+![out](/k8s/assets/pods%2C%20svc%20java.png)
+
+### ```minikube service app-java```
+
+![terminal](/k8s/assets/termainal-java.png)
+
+![browser](/k8s/assets/browser10-java.png)
+
+### Explanations lab 10
+
+- Library Charts - chart with shared definition or primitives
+- Umbrella Charts - charts for grouping subcharts of one application or deployment

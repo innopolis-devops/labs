@@ -56,3 +56,23 @@ moscow-time-service   LoadBalancer   10.103.23.20   <pending>     5000:30074/TCP
 
 ## Screenshot from browser
 ![image](screenshots/browser_screenshot.png)
+
+# Helm
+## `kubectl get pods`
+
+```
+NAME                                         READY   STATUS    RESTARTS      AGE
+moscow-time-7d7b489975-q8mfz                 1/1     Running   0             2m22s
+moscow-time-app-deployment-fdb547d76-59284   1/1     Running   1 (16m ago)   6d6h
+moscow-time-app-deployment-fdb547d76-kmlg6   1/1     Running   1 (16m ago)   6d6h
+moscow-time-app-deployment-fdb547d76-tnbfv   1/1     Running   1 (16m ago)   6d6h
+```
+
+## `kubectl get svc`
+
+```
+NAME                  TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+kubernetes            ClusterIP      10.96.0.1      <none>        443/TCP          6d9h
+moscow-time           ClusterIP      10.102.1.96    <none>        5000/TCP         4m13s
+moscow-time-service   LoadBalancer   10.103.23.20   <pending>     5000:30074/TCP   6d6h
+```

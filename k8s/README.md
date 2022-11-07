@@ -9,6 +9,8 @@
 ![browser](__lab10_helm_figures__/run3replicas_helm_install.png)
 
 ![browser](__lab10_helm_figures__/services.png)
+![browser](__lab10_helm_figures__/services_chart.png)
+![browser](__lab10_helm_figures__/deployments.png)
 
 
 

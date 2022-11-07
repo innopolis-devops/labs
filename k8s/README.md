@@ -118,7 +118,7 @@ NOTES:
 🎉  Opening http://127.0.0.1:32947/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/ in your default browser...
 ```
 
-![image]()
+![image](https://github.com/nailyav/DevOps-labs/blob/lab10/k8s/assets/Screenshot_dashboard.PNG)
 
 
 4. Check it by `minikube service your_service_name` command
@@ -134,7 +134,7 @@ NOTES:
 
 ```
 
-![image]()
+![image](https://github.com/nailyav/DevOps-labs/blob/lab10/k8s/assets/Screenshot_service.PNG)
 
 
 5. Provide the output of `kubectl get pods,svc` command in the report

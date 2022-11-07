@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-app-deployment
+  labels:
+    app: ts-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ts-app
+  template:
+    metadata:
+      labels:
+        app: ts-app
+    spec:
+      containers:
+        - name: ts-app
+          image: ntdesmond/iu-devops-ts:latest
+          env:
+            - name: REDIS_URL
+              value: "redis://redis:6379"
+          ports:
+            - containerPort: 3000

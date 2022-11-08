@@ -45,3 +45,34 @@ $ minikube service --all
 
 ```
 ![Screenshot](https://storage.googleapis.com/devopsui/Screen%20Shot%202022-11-08%20at%2003.08.02.png)
+
+
+# Lab 10
+
+![Workloads](https://storage.googleapis.com/devopsui/Screen%20Shot%202022-11-08%20at%2003.36.59.png)
+
+```console
+$ minikube service helm-app-python
+|-----------|-----------------|-------------|--------------|
+| NAMESPACE |      NAME       | TARGET PORT |     URL      |
+|-----------|-----------------|-------------|--------------|
+| default   | helm-app-python |             | No node port |
+|-----------|-----------------|-------------|--------------|
+😿  service default/helm-app-python has no node port
+🏃  Starting tunnel for service helm-app-python.
+|-----------|-----------------|-------------|------------------------|
+| NAMESPACE |      NAME       | TARGET PORT |          URL           |
+|-----------|-----------------|-------------|------------------------|
+| default   | helm-app-python |             | http://127.0.0.1:50612 |
+|-----------|-----------------|-------------|------------------------|
+```
+
+```console
+$ kubectl get pods,svc
+NAME                                         READY   STATUS    RESTARTS        AGE
+pod/helm-app-python-7db5cb68c8-2wswq         1/1     Running   0               8m26s
+
+NAME                         TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+service/helm-app-python      ClusterIP      10.106.220.220   <none>        80/TCP           8m26s
+service/kubernetes           ClusterIP      10.96.0.1        <none>        443/TCP          71m
+```

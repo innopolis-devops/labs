@@ -128,14 +128,14 @@ service/pink-time    LoadBalancer   10.97.172.209   <pending>     80:32666/TCP  
 ```
 
 #### in-browser output:
+![image](https://user-images.githubusercontent.com/63815121/200444292-8ad44be8-ac1e-4359-84a3-3e0b5b904b42.png)
 
 
 #### `> minikube dashboard` output:
+![image](https://user-images.githubusercontent.com/63815121/200444333-f636c333-1a47-483f-a68d-58c49a586d8f.png)
 
-
-#### meanwhile `workloads` look pretty well:
-
-
+#### meanwhile `workloads` also look pretty well:
+![image](https://user-images.githubusercontent.com/63815121/200444363-e4608a53-53bd-4100-be81-613000a8de05.png)
 
 
 

@@ -114,4 +114,109 @@ reverse-proxy access, for instance nginx could be used.
 3. StatefulSet - manager of deployment and scaling of pods. Its main feature that it persist state of the set of pods in some storage.
 4. DaemonSet - makes nodes to run the copies of specific pod. Useful for running some logs/health-check/storage daemons on nodes to ensure 
 stability.
-5. PersistentVolumes - just volume to store some data. It is a resource like a node, but its lifecycle is independent of the associated pod. 
+5. PersistentVolumes - just volume to store some data. It is a resource like a node, but its lifecycle is independent of the associated pod.
+
+# Helm
+
+## Main part
+
+### Workloads page
+
+![](https://i.imgur.com/cC2dfAZ.png)
+
+### Terminal
+
+```shell
+❯ minikube service --all
+|-----------|------------|-------------|--------------|
+| NAMESPACE |    NAME    | TARGET PORT |     URL      |
+|-----------|------------|-------------|--------------|
+| default   | app-python |             | No node port |
+|-----------|------------|-------------|--------------|
+😿  service default/app-python has no node port
+|-----------|------------|-------------|--------------|
+| NAMESPACE |    NAME    | TARGET PORT |     URL      |
+|-----------|------------|-------------|--------------|
+| default   | kubernetes |             | No node port |
+|-----------|------------|-------------|--------------|
+😿  service default/kubernetes has no node port
+🏃  Starting tunnel for service app-python.
+🏃  Starting tunnel for service kubernetes.
+|-----------|------------|-------------|------------------------|
+| NAMESPACE |    NAME    | TARGET PORT |          URL           |
+|-----------|------------|-------------|------------------------|
+| default   | app-python |             | http://127.0.0.1:51004 |
+| default   | kubernetes |             | http://127.0.0.1:51014 |
+|-----------|------------|-------------|------------------------|
+🎉  Opening service default/app-python in default browser...
+🎉  Opening service default/kubernetes in default browser...
+❗  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
+```
+
+```shell
+❯ kubectl get pods,svc
+NAME                              READY   STATUS    RESTARTS   AGE
+pod/app-python-6bd5c4b7cf-fsfpf   1/1     Running   0          5m48s
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+service/app-python   ClusterIP   10.103.180.71   <none>        80/TCP    5m48s
+service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP   8m12s
+```
+
+## Bonus
+
+![](https://i.imgur.com/O1EXZCp.png)
+
+```shell
+❯ minikube service --all
+|-----------|--------|-------------|--------------|
+| NAMESPACE |  NAME  | TARGET PORT |     URL      |
+|-----------|--------|-------------|--------------|
+| default   | app-go |             | No node port |
+|-----------|--------|-------------|--------------|
+😿  service default/app-go has no node port
+|-----------|------------|-------------|--------------|
+| NAMESPACE |    NAME    | TARGET PORT |     URL      |
+|-----------|------------|-------------|--------------|
+| default   | app-python |             | No node port |
+|-----------|------------|-------------|--------------|
+😿  service default/app-python has no node port
+|-----------|------------|-------------|--------------|
+| NAMESPACE |    NAME    | TARGET PORT |     URL      |
+|-----------|------------|-------------|--------------|
+| default   | kubernetes |             | No node port |
+|-----------|------------|-------------|--------------|
+😿  service default/kubernetes has no node port
+🏃  Starting tunnel for service app-go.
+🏃  Starting tunnel for service app-python.
+🏃  Starting tunnel for service kubernetes.
+|-----------|------------|-------------|------------------------|
+| NAMESPACE |    NAME    | TARGET PORT |          URL           |
+|-----------|------------|-------------|------------------------|
+| default   | app-go     |             | http://127.0.0.1:51238 |
+| default   | app-python |             | http://127.0.0.1:51248 |
+| default   | kubernetes |             | http://127.0.0.1:51258 |
+|-----------|------------|-------------|------------------------|
+🎉  Opening service default/app-go in default browser...
+🎉  Opening service default/app-python in default browser...
+🎉  Opening service default/kubernetes in default browser...
+❗  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
+```
+
+```shell
+❯ kubectl get pods,svc
+NAME                              READY   STATUS    RESTARTS   AGE
+pod/app-go-d5d9dcf7f-4pwbw        1/1     Running   0          72s
+pod/app-python-6bd5c4b7cf-fsfpf   1/1     Running   0          13m
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+service/app-go       ClusterIP   10.101.159.39   <none>        80/TCP    72s
+service/app-python   ClusterIP   10.103.180.71   <none>        80/TCP    13m
+service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP   15m
+```
+
+### Theory
+
+`Library Chart` - the type of chart that used to share chart definitions to other charts in order to not repeat yourself. However, they do not provide templates, so that cannot be deployed.
+
+`Umbrella Chart` - a type of chart that accumulates other group of charts. Since charts could depend on each other, the chart that gathers other charts via its dependencies used to be called umbrella chart, and it usually does not have any other functionality except grouping and providing some configuration.

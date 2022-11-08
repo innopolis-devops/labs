@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-python-deployment
+  labels:
+    app: app-python
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-python
+
+  minReadySeconds: 3
+
+  template:
+    metadata:
+      labels:
+        app: app-python
+    spec:
+      containers:
+      - name: currenttime
+        image: diazzzu/devops:app_python
+        ports:
+        - containerPort: 4444

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "pink-time.fullname" . }}
+  labels:
+    {{- include "pink-time.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.out_port }}
+      targetPort: {{ .Values.service.container_port }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "pink-time.selectorLabels" . | nindent 4 }}

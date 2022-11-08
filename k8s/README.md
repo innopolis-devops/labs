@@ -1,4 +1,7 @@
 # k![image](https://user-images.githubusercontent.com/63815121/199133688-a53868f9-8cca-4182-b6f9-f99bd6d07d55.png)netes
+## 👍 [lab 09](#getting-started)
+## 👍 [lab 10](#helm)
+
 ### getting started
 1. install [`minicube`](https://minikube.sigs.k8s.io/docs/start/) and [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/) using any prefferable way
 2. `minikube start`
@@ -90,3 +93,58 @@ service/kubernetes   ClusterIP      10.96.0.1        <none>        443/TCP      
 **DaemonSet** - fella that guarantees that at least some nodes run a copy of a pod
 
 **PersistentVolumes** - stores some information required for pod similarly to docker volume
+
+## helm
+
+1. install [`helm`](https://helm.sh/docs/intro/install/)
+2. create a template with `helm create pink-time`
+3. change it a bit to match your configs
+
+####  `> minikube service pink-time` output:
+```shell
+|-----------|-----------|-------------|---------------------------|
+| NAMESPACE |   NAME    | TARGET PORT |            URL            |
+|-----------|-----------|-------------|---------------------------|
+| default   | pink-time |          80 | http://192.168.49.2:32666 |
+|-----------|-----------|-------------|---------------------------|
+* Starting tunnel for service pink-time.
+|-----------|-----------|-------------|------------------------|
+| NAMESPACE |   NAME    | TARGET PORT |          URL           |
+|-----------|-----------|-------------|------------------------|
+| default   | pink-time |             | http://127.0.0.1:63072 |
+|-----------|-----------|-------------|------------------------|
+```
+
+#### `> kubectl get pods,svc` output:
+```shell
+NAME                             READY   STATUS    RESTARTS   AGE
+pod/pink-time-569b8974f9-64577   1/1     Running   0          6m11s
+pod/pink-time-569b8974f9-8g64v   1/1     Running   0          6m11s
+pod/pink-time-569b8974f9-p58hp   1/1     Running   0          6m11s
+
+NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP        7d1h
+service/pink-time    LoadBalancer   10.97.172.209   <pending>     80:32666/TCP   6m2s
+```
+
+#### in-browser output:
+
+
+#### `> minikube dashboard` output:
+
+
+#### meanwhile `workloads` look pretty well:
+
+
+
+
+
+well done lab, thank you for following me and careful reading 🤗🤗🥰
+
+#### good luck with cleaning up!! 🎉🧽
+
+`helm uninstall pink-time` for helm
+
+`kubectl delete -f ./config/service.yaml` and `kubectl delete -f ./config/deployment.yaml` for service and deployment
+
+`minikube stop` or `minikube delete` for minikube

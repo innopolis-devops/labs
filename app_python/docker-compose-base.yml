@@ -1,0 +1,44 @@
+version: "3"
+
+x-env: &env
+  env_file:
+    - ./.env
+    - ./.env.priority
+
+x-common: &common
+  mem_limit: 512m
+  restart: always
+  logging:
+    options:
+      max-size: "10m"
+      max-file: "5"
+
+services:
+  api:
+    image: ${AWS_ECR_SERVICE_URL}/api:${TAG:-latest}
+    container_name: ap-api
+    command: bash -c "cd ./src && gunicorn --config gunicorn.conf.py app_python.api:app"
+    volumes:
+      - logs:/app/logs
+      - socket:/tmp/app
+    <<: *common
+    <<: *env
+    healthcheck:
+      test: curl http://nginx:80/v1/system/healthcheck || exit 1
+
+  nginx:
+    image: nginx
+    container_name: ap-nginx
+    volumes:
+      - socket:/tmp/app
+      - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./config/nginx/.htpasswd:/etc/nginx/.htpasswd
+    ports:
+      - "80:80"
+    <<: *common
+    healthcheck:
+      test: curl http://localhost:80/v1/system/healthcheck || exit 1
+
+volumes:
+  logs:
+  socket:

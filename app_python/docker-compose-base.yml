@@ -24,7 +24,7 @@ services:
     <<: *common
     <<: *env
     healthcheck:
-      test: curl http://nginx:80/v1/system/healthcheck || exit 1
+      test: curl http://nginx:80/v1/system/status || exit 1
 
   nginx:
     image: nginx

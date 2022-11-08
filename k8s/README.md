@@ -126,3 +126,46 @@ Delete:
 kubectl delete -f ./app_python/deployment.yml
 kubectl delete -f ./app_python/service.yml
 ```
+
+# Helm
+1. Create template via `helm create app-python`.
+2. Update `image` and `service` options in `values.yaml`
+3. Update ports, command and health checks config in templates.
+4. Create a package via `helm package app-python`.
+5. Run via `helm install app-python app-python-0.1.0.tgz`.
+6. Check dashboard
+![img.png](images/img_2.png)
+7. Check output of `kubectl get pods,svc`
+```shell
+(iu-devops-labs) f3line@kitty-2 iu-devops-labs % kubectl get pods,svc                        
+NAME                              READY   STATUS    RESTARTS   AGE
+pod/app-python-548c67b566-728hn   1/1     Running   0          55s
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+service/app-python   NodePort    10.99.152.229   <none>        8000:30999/TCP   55s
+service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP          7d2h
+```
+8. Check application.
+```shell
+(iu-devops-labs) f3line@kitty-2 iu-devops-labs % minikube service app-python       
+|-----------|------------|-------------|---------------------------|
+| NAMESPACE |    NAME    | TARGET PORT |            URL            |
+|-----------|------------|-------------|---------------------------|
+| default   | app-python |        8000 | http://192.168.49.2:30999 |
+|-----------|------------|-------------|---------------------------|
+🏃  Starting tunnel for service app-python.
+|-----------|------------|-------------|------------------------|
+| NAMESPACE |    NAME    | TARGET PORT |          URL           |
+|-----------|------------|-------------|------------------------|
+| default   | app-python |             | http://127.0.0.1:57198 |
+|-----------|------------|-------------|------------------------|
+🎉  Opening service default/app-python in default browser...
+❗  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
+```
+![img_1.png](images/img_3.png)
+
+9. Uninstall
+```shell
+(iu-devops-labs) f3line@kitty-2 k8s % helm uninstall app-python                   
+release "app-python" uninstalled
+```

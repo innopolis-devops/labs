@@ -59,6 +59,8 @@ The **Ingress controller** is usually a proxy service deployed in a cluster. Req
 
 # Helm
 
+Create a template:
+
 ```bash
 helm create helm-python
 ```
@@ -82,6 +84,7 @@ Install package:
 
 ```bash
 helm install app-python helm-python
+minikube service app-python-helm-python
 ```
 
 ![](.github/img9.png)
@@ -91,3 +94,48 @@ helm install app-python helm-python
 ![](.github/img11.png)
 
 ![](.github/img12.png)
+
+## php-app
+
+Create a template:
+
+```bash
+helm create helm-php
+```
+
+Change in `helm-python/values.yaml`:
+
+```yaml
+...
+image:
+  repository: markovvn1/iu-devops
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "lab_php"
+...
+service:
+  type: LoadBalancer
+  port: 80
+```
+
+Install package:
+
+```bash
+helm install app-php helm-php
+minikube service app-php-helm-php
+```
+
+![](.github/img13.png)
+
+![](.github/img14.png)
+
+![](.github/img15.png)
+
+![](.github/img16.png)
+
+### [Bonus] Helm definitions
+
+**Library charts** - type of Helm chart that allows code snippets to be shared between users, allowing reuse of templates already written.
+
+**Umbrella charts** - type of Helm chart that integrates several Kubernetes components into higher-order chart, allowing for simplified deployment or updating of complex applications by handling a collection of components as a single entity
+

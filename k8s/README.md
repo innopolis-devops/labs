@@ -57,3 +57,37 @@ The **Ingress controller** is usually a proxy service deployed in a cluster. Req
 
 **PersistentVolumes** is the unit of data storage where applications such as a database can store and work with their data. Several pods can use a single PersistentVolume.
 
+# Helm
+
+```bash
+helm create helm-python
+```
+
+Change in `helm-python/values.yaml`:
+
+```yaml
+...
+image:
+  repository: markovvn1/iu-devops
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "lab_python"
+...
+service:
+  type: LoadBalancer
+  port: 80
+```
+
+Install package:
+
+```bash
+helm install app-python helm-python
+```
+
+![](.github/img9.png)
+
+![](.github/img10.png)
+
+![](.github/img11.png)
+
+![](.github/img12.png)

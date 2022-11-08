@@ -13,9 +13,6 @@ x-common: &common
 volumes:
   prometheus-data: {}
 
-networks:
-  loki:
-
 services:
   app_python:
     image: nihon/moscower:latest
@@ -31,8 +28,6 @@ services:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
     <<: *common
-    networks:
-      - loki
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -41,8 +36,6 @@ services:
       - ${PWD}/data/promtail:/var/lib/promtail/positions
       - ${PWD}/promtail-config.yaml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/config.yml
-    networks:
-      - loki
     <<: *common
 
   grafana:
@@ -53,17 +46,15 @@ services:
       - ${PWD}/grafana/provisioning:/etc/grafana/provisioning
     ports:
       - "3000:3000"
-    networks:
-      - loki
     <<: *common
 
   prometheus:
     image: prom/prometheus:v2.39.1
     volumes:
-      - ${PWD}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ${PWD}/prometheus:/etc/prometheus
       - prometheus-data:/prometheus
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--config.file=/etc/prometheus/prometheus.yaml'
       - '--storage.tsdb.path=/prometheus'
       - '--storage.tsdb.retention.time=14d'
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'

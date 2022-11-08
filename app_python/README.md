@@ -1,4 +1,4 @@
-![](https://github.com/markovvn1/devops-labs/actions/workflows/app_python.yml/badge.svg?branch=lab9)
+![](https://github.com/markovvn1/devops-labs/actions/workflows/app_python.yml/badge.svg?branch=lab10)
 
 
 <div align="center">
@@ -26,10 +26,10 @@ Application is using [Prometheus FastAPI Instrumentator](https://github.com/tral
    git clone https://github.com/Markovvn1/devops-labs.git && cd devops-labs
    ```
 
-2. Switch to lab9 branch and open project's directory:
+2. Switch to lab10 branch and open project's directory:
 
    ```bash
-   git checkout lab9 && cd app_python
+   git checkout lab10 && cd app_python
    ```
 
 3. Configure virtual environment. Before proceeding, make sure you have installed [build-essential](https://packages.debian.org/en/sid/build-essential) (to be able to use `make` command) and python [venv module](https://docs.python.org/3/library/venv.html). This command should create the `.venv` folder with python virtual environment.

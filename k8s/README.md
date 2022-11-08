@@ -104,6 +104,9 @@ Start with `minikube dashboard`
 
 Here is an GUI representation of started instances. 
 
+![photo_2022-11-08 04 14 04](https://user-images.githubusercontent.com/54911879/200451056-e40166d9-ae4a-412d-90d5-34e49745f4a2.jpeg)
+
+
 Here is a `minikube service`:
 ```bash
 ❯ minikube service baka-1667868515
@@ -115,6 +118,7 @@ Here is a `minikube service`:
 🎉  Opening service default/baka-1667868515 in default browser...
 ```
 
+<img width="417" alt="Screenshot 2022-11-08 at 04 19 04" src="https://user-images.githubusercontent.com/54911879/200451243-f62a857b-74fb-442a-b313-303b0b90b92f.png">
 
 Here is a `kubectl get pods,svc`:
 ```bash

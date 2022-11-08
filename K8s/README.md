@@ -19,3 +19,9 @@
 ### Screenshot from browser
 
 ![Browser Screenshot](./Images/Browser.png)
+
+## Helm
+
+### Running `kubectl get pods,svc`
+
+![AfterHelm](./Images/AfterHelm.png)

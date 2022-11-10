@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-application-deployment
+  labels:
+    app: python-application
+spec:
+  replicas: 1
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: python-application
+  template:
+    metadata:
+      labels:
+        app: python-application
+    spec:
+      containers:
+      - name: python-application
+        image: whutao/app_python
+        ports:
+        - containerPort: 8080

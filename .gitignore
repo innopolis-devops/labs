@@ -3,3 +3,7 @@ venv
 
 key.json
 *_token
+
+kubectl
+kubectl.sha256
+minikube-linux-amd64

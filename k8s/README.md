@@ -115,4 +115,4 @@ service/kubernetes        ClusterIP      10.96.0.1      <none>        443/TCP   
 
 ```
 
-Also charts:
+Also charts are in directory k8s (screenshorts)

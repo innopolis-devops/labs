@@ -1,4 +1,4 @@
-# Lab 9
+# Lab 9 & 10
 ## HowToStart
 
 
@@ -98,3 +98,21 @@ service/kubernetes ClusterIP  10.96.0.1  <none>  443/TCP  29m
 
 🎉  Opening service default/exposer in default browser...
 ```
+
+## Helm 
+1. Run `helm create devops-time-app`
+2. Edit values.yaml
+3. `minikube service devops-time-app`
+4. Output of `kubectl get pods,svc`
+
+```
+NAME                                   READY   STATUS    RESTARTS   AGE
+pod/devops-time-app-75c9c67579-p65f8   1/1     Running   0          66s
+
+NAME                      TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+service/devops-time-app   LoadBalancer   10.98.44.114   <pending>     8000:32524/TCP   57s
+service/kubernetes        ClusterIP      10.96.0.1      <none>        443/TCP          22m
+
+```
+
+Also charts:

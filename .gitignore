@@ -11,3 +11,7 @@ venv
 .mypy_cache
 .idea
 .vscode
+
+grafana-data
+loki-data
+promtail-data

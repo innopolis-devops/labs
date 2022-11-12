@@ -1,37 +1,76 @@
-version: "3"
+version: "3.9"
 
-networks:
-    loki:
+x-logging: &logging
+  driver: json-file
+  options:
+    tag: "{{.ImageName}}|{{.Name}}"
+    max-size: "300k"
+    max-file: "10"
 
 services:
-    loki:
-        image: grafana/loki:2.4.0
-        volumes:
-            - /mnt/c/Users/amira/logSystems/loki:/etc/loki
-        ports:
-            - "3100:3100"
-        restart: unless-stopped
-        command: -config.file=/etc/loki/loki-config.yml
-        networks:
-            - loki
+  grafana:
+    # image: grafana/grafana:9.1.8-ubuntu
+    image: grafana/grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ${PWD}/config/grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - VIRTUAL_HOST=grafana
+      - NETWORK_ACCESS=internal
+      - VIRTUAL_PORT=3000
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring
+    logging: *logging
 
-    promtail:
-        image: grafana/promtail:2.4.0
-        volumes:
-            - /var/log:/var/log
-            - /mnt/c/Users/amira/logSystems/promtail:/etc/promtail
-        restart: unless-stopped
-        command: -config.file=/etc/promtail/promtail-config.yml
-        networks:
-            - loki
+  promtail:
+    image: grafana/promtail:2.6.1
+    ports:
+      - "9080:9080"
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - promtail-data:/var/lib/promtail/positions
+      - ${PWD}/config/promtail/promtail.yml:/etc/promtail/promtail.yml:ro
+    command:
+      - "-config.file=/etc/promtail/promtail.yml"
+    restart: unless-stopped
+    networks:
+      - app_python
+      - monitoring
+    logging: *logging
 
-    grafana:
-        image: grafana/grafana:latest
-        user: "1000"
-        volumes:
-            - /mnt/c/Users/amira/logSystems/grafana:/var/lib/grafana
-        ports:
-            - "3000:3000"
-        restart: unless-stopped
-        networks:
-            - loki
+  loki:
+    image: grafana/loki:2.6.1
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki-data:/loki/
+      - ${PWD}/config/loki/loki-config.yml:/etc/loki-config.yml:ro
+    command: -config.file=/etc/loki-config.yml
+    restart: unless-stopped
+    networks:
+      - monitoring
+    logging: *logging
+
+  app_python:
+    image: 254689393895236/clock-clock:v1.0.0
+    ports:
+      - "5000:5000"
+    networks:
+      - app_python
+      - monitoring
+    logging: *logging
+
+networks:
+  app_python:
+  monitoring:
+
+volumes:
+  grafana-data:
+  loki-data:
+  promtail-data:

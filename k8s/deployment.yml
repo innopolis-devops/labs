@@ -19,3 +19,10 @@ spec:
         image: zyymee/moscow-time-web-app:latest
         ports:
         - containerPort: 5000
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 50m
+          memory: 104Mi

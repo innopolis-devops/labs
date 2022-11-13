@@ -47,6 +47,17 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+          - name: MY_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: credentials
+                key: user
+          - name: MY_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: credentials
+                key: password
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

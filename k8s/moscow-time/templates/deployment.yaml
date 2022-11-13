@@ -29,6 +29,17 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
+          env:
+          - name: APP_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: moscow-time-credentials
+                key: password
+          - name: APP_LOGIN
+            valueFrom:
+              secretKeyRef:
+                name: moscow-time-credentials
+                key: login
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"

@@ -2,4 +2,13 @@ container:
   image: afonya2001/devops
   port: 8080
 
+resources:
+  limits:
+    cpu: 2.0
+    memory: 256Mi
+  requests:
+    cpu: 1.0
+    memory: 128Mi
+
 replicaCount: 3
+

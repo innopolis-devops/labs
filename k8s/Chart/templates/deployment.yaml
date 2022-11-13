@@ -15,5 +15,11 @@ spec:
       containers:
         - name: node-app-container-{{.Release.Name}}
           image: {{ .Values.container.image }}
+          env:
+            - name: MY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: credentials
+                  key: password
           ports:
             - containerPort: {{ .Values.container.port }}

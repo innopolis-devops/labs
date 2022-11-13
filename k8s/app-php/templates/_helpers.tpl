@@ -60,3 +60,16 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "app-php.environments" }}
+- name: MY_USER
+  valueFrom:
+    secretKeyRef:
+      name: {{ include "app-php.fullname" . }}-credentials
+      key: user
+- name: MY_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ include "app-php.fullname" . }}-credentials
+      key: password
+{{- end }}

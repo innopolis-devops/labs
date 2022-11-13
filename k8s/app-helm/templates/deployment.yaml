@@ -34,16 +34,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: credentials
-                  key: username
-            - name: PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: credentials
-                  key: password
+            {{- include "app-helm.envs" . | nindent 12 }}
           ports:
             - name: http
               containerPort: {{ .Values.container.containerPort }}

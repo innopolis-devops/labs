@@ -60,3 +60,22 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Setting env variables for deployment
+*/}}
+{{- define "app-helm.envs" -}}
+- name: USERNAME
+  valueFrom:
+    secretKeyRef:
+      name: credentials
+      key: username
+- name: PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: credentials
+      key: password
+- name: TEST_ENV
+  value: 'TEST_VALUE'
+{{- end }}
+

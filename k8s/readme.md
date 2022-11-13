@@ -32,7 +32,7 @@ minikube dashboard
 🤔  Verifying proxy health ...
 🎉  Opening http://127.0.0.1:37767/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/ in your default browser...
 ```
-
+On my vm ```minikube dashbooard``` does not worked and tips from stackoverflow did not help, so i borrowed me friends laptop with manjaro
 5.
 ```
 minikube service app-python-1667874133

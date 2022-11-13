@@ -1,0 +1,12 @@
+<!doctype html>
+<head>
+    <title>Hello from Vapor</title>
+</head>
+<html>
+    <main style="margin: 0 auto; width: 80%; text-align: center; margin-top:8em;">
+        #if(time):
+            <h1 style="font-family: Arial, Helvetica, sans-serif">🍏 Current Cupertino Time</h1>
+            <h2 style="font-family: 'Courier New', Courier, monospace;"">#(time)</h2>
+        #endif
+    </main>
+</html>

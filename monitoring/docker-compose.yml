@@ -1,0 +1,74 @@
+version: '3.7'
+
+x-common-config:
+  &logging
+  logging:
+    driver: json-file
+    options:
+      max-size: "100m"
+      max-file: "10"
+      tag: "{{.ImageName}}|{{.Name}}"
+
+services:
+  web:
+    <<: *logging
+    image: igooorbb/inno-devops-webapp:latest
+    expose:
+      - 5000
+  nginx:
+    <<: *logging
+    image: igooorbb/inno-devops-nginx:latest
+    ports:
+      - 1337:80
+    depends_on:
+      - web
+
+  loki:
+    <<: *logging
+    image: grafana/loki:2.6.1
+    command: -config.file=/etc/loki/local-config.yaml
+  
+  promtail:
+    <<: *logging
+    image: grafana/promtail:2.6.1
+    command: -config.file=/etc/promtail/promtail.yml
+    restart: unless-stopped
+    volumes:
+      - ./promtail.yml:/etc/promtail/promtail.yml
+      - promtail-data:/var/lib/promtail/positions
+      - /var/lib/docker/containers:/var/lib/docker/containers
+  
+  grafana:
+    <<: *logging
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - loki
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+
+  prometheus:
+    <<: *logging
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - "9090:9090"
+
+networks:
+  loki:
+
+volumes:
+  promtail-data:
+  grafana-data:
+  prometheus-data:

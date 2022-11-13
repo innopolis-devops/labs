@@ -1,0 +1,118 @@
+name: Python package
+
+on:
+  push:
+    branches:
+      - 'lab*'
+      - $default-branch
+    paths:
+      - 'app_python/**'
+      - '.github/workflows/python-package.yml'
+      - '.github/workflows/docker-release.yml'
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+
+  pull_request:
+    branches:
+      - $default-branch 
+    paths:
+      - 'app_python/**'
+      - '.github/workflows/python-package.yml'
+      - '.github/workflows/docker-release.yml'
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  lint:
+    # To avoid multiple runs on single commit
+    # It is still checked by push trigger, so no worries.
+    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Lint with black
+      uses: psf/black@stable
+      with:
+        options: "--check --verbose"
+        src: "app_python/src"
+    - name: Lint Dockerfile
+      uses: hadolint/hadolint-action@v1.5.0
+      with:
+        dockerfile: 'app_python/Dockerfile'
+
+  test:
+    # To avoid multiple runs on single commit
+    # It is still checked by push trigger, so no worries.
+    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        # Not explicitly choosing requirements so that we won't break
+        # everything if we change/restructure them it later
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements/*.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r app_python/requirements/test.txt
+    - name: Test with pytest
+      run: |
+        pytest
+  
+  security:
+    # To avoid multiple runs on single commit
+    # It is still checked by push trigger, so no worries.
+    if: "!(contains(github.head_ref, 'lab') == true && endsWith(github.base_ref, 'master'))"
+    needs: [test, lint]
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@master
+      - uses: snyk/actions/setup@master
+      - uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          # Not explicitly choosing requirements so that we won't break
+          # everything if we change/restructure them it later
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements/*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r app_python/requirements/prod.txt
+      - name: Snyk monitor
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        continue-on-error: true # To make sure that SARIF upload gets called
+        working-directory: ./app_python
+        run: snyk test --sarif-file-output=snyk.sarif
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: ./app_python/snyk.sarif
+          # Optional category for the results
+          # Used to differentiate multiple results for one commit
+          category: snyk-python-analysis
+  
+  docker-publish:
+    uses: ./.github/workflows/docker-release.yml
+    secrets: inherit
+    with:
+      docker_repo_name: time_web_app
+      project_folder: app_python

@@ -79,7 +79,6 @@ services:
       - ${PWD}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus-data:/prometheus
     container_name: prometheus
-    hostname: prometheus
     command:
       - --config.file=/etc/prometheus/prometheus.yml
       - --storage.tsdb.path=/prometheus
@@ -91,7 +90,9 @@ services:
     environment:
       TZ: "Europe/Moscow"
     networks:
-      - default
+      - app_python
+      - app_java
+      - monitoring.network
 
   app_python:
     container_name: app_python

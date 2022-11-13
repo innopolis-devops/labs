@@ -60,3 +60,16 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "time-web-app-rust.environments" }}
+- name: MY_USERNAME
+  valueFrom:
+    secretKeyRef:
+      name: {{ include "time-web-app-rust.fullname" . }}-credentials
+      key: user
+- name: MY_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ include "time-web-app-rust.fullname" . }}-credentials
+      key: password
+{{- end }}

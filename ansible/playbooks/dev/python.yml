@@ -1,0 +1,4 @@
+- name: App deployment
+  hosts: VM1
+  roles:
+    - web_app

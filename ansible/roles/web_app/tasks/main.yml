@@ -1,0 +1,27 @@
+- name: Include wipe if needed
+  ansible.builtin.include_tasks: 0-wipe.yml
+  when: web_app_full_wipe | bool
+  tags: ["time_app", "time_app_wipe"]
+
+- name: Deploy time app
+  block:
+  - name: Create a directory if it does not exist
+    ansible.builtin.file:
+      path: "{{ web_app_base_path }}"
+      state: directory
+      mode: '0755'
+
+  - name: Create docker compose
+    ansible.builtin.template:
+      src: docker-compose.yml
+      dest: "{{web_app_base_path}}/docker-compose.yml"
+      owner: root
+      group: root
+      mode: '600'
+
+  - name: Run docker compose services
+    community.docker.docker_compose:
+      project_src: "{{web_app_base_path}}"
+      state: present
+      pull: true
+  tags: ["time_app"]

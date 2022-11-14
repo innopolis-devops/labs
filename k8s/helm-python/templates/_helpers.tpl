@@ -60,3 +60,16 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "helm-python.env" }}
+- name: SECRET_NAME
+  valueFrom:
+    secretKeyRef:
+      name: helm-python-secret
+      key: name
+- name: SECRET_EMAIL
+  valueFrom:
+    secretKeyRef:
+      name: helm-python-secret
+      key: email
+{{- end }}

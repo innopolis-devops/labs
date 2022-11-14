@@ -34,6 +34,13 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ['python', '-m', 'poetry', 'run', 'uvicorn', 'server.app:app', '--host', '0.0.0.0']
+          env:
+            {{- include "app-python.envs" . | nindent 12 }}
+            - name: EXAMPLE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: example-secret
+                  key: key
           ports:
             - name: http
               containerPort: 8000

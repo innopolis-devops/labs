@@ -6,6 +6,16 @@ Expand the name of the chart.
 {{- end }}
 
 {{/*
+Define environmental variables
+*/}}
+{{- define "app-python.envs" -}}
+- name: TIMEZONE
+  value: {{ .Values.timezone }}
+- name: DUMMY_ENV
+  value: dummyEnv
+{{- end -}}
+
+{{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.

@@ -33,6 +33,19 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+             requests:
+                memory: "64Mi"
+                cpu: "250m"
+             limits:
+                memory: "128Mi"
+                cpu: "500m"
+          env:
+            - name: MY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "app-python.fullname" . }}-secret
+                  password:  {{ .Values.password | b64enc | quote }}
           ports:
             - name: http
               containerPort: 80

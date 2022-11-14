@@ -31,3 +31,6 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            {{- include "app_helm.env_password" . | nindent 12 }}
+            {{- include "app_helm.env_aboba" . | nindent 12 }}

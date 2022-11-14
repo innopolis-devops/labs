@@ -1,0 +1,5 @@
+---
+- name: Deploy application for yandex cloud machine
+  hosts: server
+  roles:
+    - web_app

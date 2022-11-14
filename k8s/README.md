@@ -114,7 +114,7 @@ python:
     |-----------|------------|-------------|--------------|
     😿  service default/kubernetes has no node port
     |-----------|--------|-------------|-----------------------------|
-    | NAMESPACE |  NAME  | TARGET PORT |             URL             |
+    | NAMESPACE |  NAME  | TARGET PORT |             URL             |https://github.com/innopolis-devops/labs/pull/585
     |-----------|--------|-------------|-----------------------------|
     | default   | py-app |          80 | http://192.168.39.179:30466 |
     |-----------|--------|-------------|-----------------------------|

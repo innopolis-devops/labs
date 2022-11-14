@@ -1,5 +1,6 @@
 name: py
 lable: py_time
+secrets_name: py.cred
 replicaCount: 3
 
 image:
@@ -14,3 +15,11 @@ fullnameOverride: ""
 service:
   port: 80
   targetPort: 5000
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 10m
+    memory: 128Mi

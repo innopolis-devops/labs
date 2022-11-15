@@ -169,3 +169,78 @@ service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP          
 (iu-devops-labs) f3line@kitty-2 k8s % helm uninstall app-python                   
 release "app-python" uninstalled
 ```
+
+# Resources requests & limits
+1. I've modified `./app-python/values.yaml` and set 250m/512Mi as limit and 100m/128Mi as request.
+2. After starting the service we can check it with `kubectl describe pod app-python`
+```shell
+(iu-devops-labs) f3line@kitty-2 k8s % kubectl describe pod app-python
+Name:             app-python-657ddc6b76-vzrnv
+Namespace:        default
+Priority:         0
+Service Account:  app-python
+Node:             minikube/192.168.49.2
+Start Time:       Tue, 15 Nov 2022 10:35:39 +0400
+Labels:           app.kubernetes.io/instance=app-python
+                  app.kubernetes.io/name=app-python
+                  pod-template-hash=657ddc6b76
+Annotations:      <none>
+Status:           Running
+IP:               172.17.0.3
+IPs:
+  IP:           172.17.0.3
+Controlled By:  ReplicaSet/app-python-657ddc6b76
+Containers:
+  app-python:
+    Container ID:  docker://01a92d6b3edef5372d0a857029496e198438d90e440bc8f460abd5b644e082a8
+    Image:         smthngslv/iu-devops-labs:latest
+    Image ID:      docker-pullable://553667903818.dkr.ecr.eu-north-1.amazonaws.com/app_python/api@sha256:bb10b835d8979b04c376bb8f8e7d3618e558f6d4b43149906d81d89fe8514906
+    Port:          8000/TCP
+    Host Port:     0/TCP
+    Command:
+      bash
+    Args:
+      -c
+      cd ./src && gunicorn --config gunicorn.conf.py app_python.api:app
+    State:          Running
+      Started:      Tue, 15 Nov 2022 10:35:40 +0400
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     250m
+      memory:  512Mi
+    Requests:
+      cpu:        100m
+      memory:     128Mi
+    Liveness:     http-get http://:8000/v1/system/status delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:8000/v1/system/status delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-d5jws (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kube-api-access-d5jws:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  88s                default-scheduler  Successfully assigned default/app-python-657ddc6b76-vzrnv to minikube
+  Normal   Pulled     88s                kubelet            Container image "smthngslv/iu-devops-labs:latest" already present on machine
+  Normal   Created    88s                kubelet            Created container app-python
+  Normal   Started    87s                kubelet            Started container app-python
+  Warning  Unhealthy  87s                kubelet            Readiness probe failed: Get "http://172.17.0.3:8000/v1/system/status": dial tcp 172.17.0.3:8000: connect: connection refused
+  Warning  Unhealthy  84s (x2 over 85s)  kubelet            Readiness probe failed: Get "http://172.17.0.3:8000/v1/system/status": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+```

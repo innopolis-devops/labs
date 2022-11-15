@@ -60,3 +60,12 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+{{ define "my_password_env" }}
+- name: MY_PASSWORD
+  valueFrom:
+  secretKeyRef:
+    name: {{ include "helm-app-python.fullname" . }}-cred
+    key: password
+{{- end }}

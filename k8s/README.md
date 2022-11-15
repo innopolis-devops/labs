@@ -1,6 +1,6 @@
 # Kubernetes
 
-## Lab 10
+## Lab 9
 
 ### Command line output
 
@@ -60,3 +60,65 @@ whutao@Romans-MacBook-Pro k8s % minikube service --all
 ### Website
 
 ![website](./screenshots/lab9_website.png)
+
+## Lab 10
+
+After creating helm configuration, we should build a package with 
+
+```commandLine
+whutao@Romans-MacBook-Pro k8s % helm package helm   
+```
+
+and install it using 
+
+```commandLine
+whutao@Romans-MacBook-Pro k8s % helm install helm-app-python-v1 ./helm-0.1.0.tgz 
+```
+
+The result of `minikube service --all`
+
+```commandLine
+whutao@Romans-MacBook-Pro ~ % minikube service --all
+|-----------|--------------------|-------------|---------------------------|
+| NAMESPACE |        NAME        | TARGET PORT |            URL            |
+|-----------|--------------------|-------------|---------------------------|
+| default   | helm-app-python-v1 | http/80     | http://192.168.49.2:32455 |
+|-----------|--------------------|-------------|---------------------------|
+|-----------|------------|-------------|--------------|
+| NAMESPACE |    NAME    | TARGET PORT |     URL      |
+|-----------|------------|-------------|--------------|
+| default   | kubernetes |             | No node port |
+|-----------|------------|-------------|--------------|
+😿  service default/kubernetes has no node port
+🏃  Starting tunnel for service helm-app-python-v1.
+🏃  Starting tunnel for service kubernetes.
+|-----------|--------------------|-------------|------------------------|
+| NAMESPACE |        NAME        | TARGET PORT |          URL           |
+|-----------|--------------------|-------------|------------------------|
+| default   | helm-app-python-v1 |             | http://127.0.0.1:50061 |
+| default   | kubernetes         |             | http://127.0.0.1:50065 |
+|-----------|--------------------|-------------|------------------------|
+🎉  Opening service default/helm-app-python-v1 in default browser...
+🎉  Opening service default/kubernetes in default browser...
+❗  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
+```
+
+The output of `kubectl get pods,svc  `
+
+```commandLine
+whutao@Romans-MacBook-Pro k8s % kubectl get pods,svc                                     
+NAME                                      READY   STATUS    RESTARTS   AGE
+pod/helm-app-python-v1-6bf7b89878-rt2cq   1/1     Running   0          17m
+
+NAME                         TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/helm-app-python-v1   LoadBalancer   10.102.93.30     <pending>     80:32455/TCP   17m
+service/kubernetes           ClusterIP      10.96.0.1        <none>        443/TCP        19m
+```
+
+Then we can check the minikube dashboard to verify that everything is OK.
+
+![chart](./screenshots/lab10_charts.png)
+
+Also we see that the IP address and port are valid.
+
+![ip](./screenshots/lab10_ip.png)

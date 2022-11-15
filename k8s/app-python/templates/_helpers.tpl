@@ -1,3 +1,8 @@
+{{- define "lab11.env" }}
+- name: COURSE
+  value: "Innopolis DevOps Course B19, 2022"
+{{- end }}
+
 {{/*
 Expand the name of the chart.
 */}}

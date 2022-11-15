@@ -1,5 +1,5 @@
 # k8s
-
+```
     /home/ease_/u/labs/k8s    lab11 !4 ?2  kubectl create secret generic easel-secret \
     --from-literal=username='ease_l' \
     --from-literal=password='ease_l'
@@ -71,4 +71,4 @@ app-python-deployment-9496bf59d-4fcv5   1/1     Running   0          111m
 
    /home/ease_/u/labs/k8s    lab11 !4 ?4  kubectl exec app-python-deployment-9496bf59d-4fcv5 -- printenv | grep MY_PASSWORD
 MY_PASSWORD=ease_l
-
+```

@@ -1,0 +1,6 @@
+---
+wipe: false
+path: /home/ubuntu/app
+repository: https://github.com/smthngslv/iu-devops-labs.git
+branch: PROD
+aws_region: eu-north-1

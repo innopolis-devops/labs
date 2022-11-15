@@ -1,0 +1,21 @@
+---
+- include_tasks: wipe.yml
+
+- name: Deploy app
+  block:
+    - name: Install Make and AWS CLI.
+      ansible.builtin.shell:
+        cmd: sudo apt-get update -y && sudo apt-get install -y make awscli
+
+    - name: Configure AWS CLI.
+      ansible.builtin.shell:
+        cmd: aws configure set region "{{aws_region}}"
+
+    - name: Clone repository
+      ansible.builtin.shell:
+        cmd: git clone -b "{{branch}}" "{{repository}}" "{{path}}"
+
+    - name: Start
+      ansible.builtin.shell:
+        cmd: make ecr_login prod
+        chdir: "{{path}}/app_python/"

@@ -4,9 +4,10 @@
   inputs = {
     nixpkgs_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/nixpkgs;
     flake-utils_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/flake-utils;
-    easy-purescript-nix_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/easy-purescript-nix;  
+    easy-purescript-nix_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/easy-purescript-nix;
     drv-tools.url = github:br4ch1st0chr0n3/flakes?dir=drv-tools;
     python-tools.url = github:br4ch1st0chr0n3/flakes?dir=language-tools/python;
+    my-devshell.url = github:br4ch1st0chr0n3/flakes?dir=devshell;
     nixpkgs.follows = "nixpkgs_/nixpkgs";
     flake-utils.follows = "flake-utils_/flake-utils";
     easy-purescript-nix.follows = "easy-purescript-nix_/easy-purescript-nix";
@@ -19,6 +20,7 @@
     , flake-utils
     , drv-tools
     , python-tools
+    , my-devshell
     , ...
     }:
       with flake-utils.lib;
@@ -27,9 +29,7 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
           inherit (drv-tools.functions.${system})
-            mkShellApp
             mkShellApps
-            mkDevShellsWithDefault
             ;
 
           tools = {
@@ -39,7 +39,7 @@
 
           psInputs = builtins.attrValues tools;
           scripts =
-            let build = ''npm i && spago install && npm run build''; in
+            let build = ''npm run build''; in
             mkShellApps
               {
                 run-start =
@@ -79,17 +79,32 @@
                   runtimeInputs = psInputs;
                 };
               };
+          devshell = my-devshell.devshell.${system};
           inherit (python-tools.snippets.${system}) activateVenv;
-          devShells = mkDevShellsWithDefault
-            {
-              buildInputs = builtins.attrValues scripts ++ [ pkgs.poetry ];
-              shellHook = ''
-                ${activateVenv}
-              '';
-            }
-            {
-              fish = { };
-            };
+          devShells.default = devshell.mkShell {
+            packages = builtins.attrValues scripts ++ [ pkgs.poetry ];
+            bash.extra = activateVenv;
+            commands = [
+              {
+                name = "${scripts.run-start.name}";
+                category = "scripts";
+                help = "start app";
+              }
+              {
+                name = "${scripts.test.name}";
+                category = "scripts";
+                help = "test app";
+              }
+              {
+                name = "${scripts.build.name}";
+                category = "scripts";
+                help = "build app";
+              }
+              {
+                name = "poetry";
+              }
+            ];
+          };
         in
         {
           inherit scripts;

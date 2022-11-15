@@ -60,3 +60,11 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+  environmental variables
+ */}}
+ {{- define "helm-app-python.envs" -}}
+ - name: SECRET
+   value: SECRET
+ {{- end -}}

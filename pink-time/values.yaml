@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: molberte/devops-labs
+  repository: nginx
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -37,9 +37,8 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: NodePort
-  container_port: 5000
-  out_port: 8080
+  type: ClusterIP
+  port: 80
 
 ingress:
   enabled: false

@@ -35,19 +35,8 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.container_port }}
+              containerPort: 80
               protocol: TCP
-          env:
-            - name: PINK_USER
-              valueFrom:
-                secretKeyRef:
-                  name: pink-secret
-                  key: user
-            - name: PINK_PASS
-              valueFrom:
-                secretKeyRef:
-                  name: pink-secret
-                  key: pass
           livenessProbe:
             httpGet:
               path: /

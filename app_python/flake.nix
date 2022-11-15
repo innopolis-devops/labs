@@ -8,6 +8,7 @@
     python-tools.url = github:br4ch1st0chr0n3/flakes?dir=language-tools/python;
     nixpkgs.follows = "nixpkgs_/nixpkgs";
     flake-utils.follows = "flake-utils_/flake-utils";
+    my-devshell.url = github:br4ch1st0chr0n3/flakes?dir=devshell;
   };
 
   outputs =
@@ -16,6 +17,7 @@
     , flake-utils
     , drv-tools
     , python-tools
+    , my-devshell
     , ...
     }:
       with flake-utils.lib;
@@ -70,19 +72,35 @@
               runtimeInputs = [ pkgs.poetry ];
             };
           };
+          devshell = my-devshell.devshell.${system};
         in
         {
           packages = scripts;
           inherit scripts;
-          devShells = mkDevShellsWithDefault
-            {
-              buildInputs = (builtins.attrValues scripts) ++ [ pkgs.poetry ];
-              shellHook = ''
-                ${activateVenv}
-              '';
-            }
-            { }
-          ;
+          devShells.default = devshell.mkShell {
+            packages = builtins.attrValues scripts ++ [ pkgs.poetry ];
+            bash.extra = activateVenv;
+            commands = [
+              {
+                name = "${scripts.run-start.name}";
+                category = "scripts";
+                help = "start app";
+              }
+              {
+                name = "${scripts.test.name}";
+                category = "scripts";
+                help = "test app";
+              }
+              {
+                name = "${scripts.lint.name}";
+                category = "scripts";
+                help = "lint Python code";
+              }
+              {
+                name = "poetry";
+              }
+            ];
+          };
         });
   nixConfig = {
     extra-substituters = [

@@ -47,6 +47,17 @@ spec:
               port: {{ .Values.service.container_port }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: APP_PYTHON_USER
+              valueFrom:
+                secretKeyRef:
+                  name: app-python-secret
+                  key: user
+            - name: APP_PYTHON_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: app-python-secret
+                  key: pass
           command: [ "bash" ]
           args: [ "-c", "cd ./src && gunicorn --config gunicorn.conf.py app_python.api:app" ]
       {{- with .Values.nodeSelector }}

@@ -1,52 +1,74 @@
 # k8s
 
-1. Install helm
-```
-sudo snap install helm --classic
-```
-2. Create chart
-```
-helm create app-python
-```
+    /home/ease_/u/labs/k8s    lab11 !4 ?2  kubectl create secret generic easel-secret \
+    --from-literal=username='ease_l' \
+    --from-literal=password='ease_l'
+secret/easel-secret created
+    /home/ease_/u/labs/k8s    lab11 !4 ?2  kubectl describe secret easel-secret             ✔  minikube ⎈
+Name:         easel-secret
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
 
-3. 
-```
-NAME: app-python-1667874133
-LAST DEPLOYED: Tue Nov  8 05:22:13 2022
-NAMESPACE: default
-STATUS: deployed
-REVISION: 1
-NOTES:
-1. Get the application URL by running these commands:
-     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
-           You can watch the status of by running 'kubectl get --namespace default svc -w app-python-1667874133'
-  export SERVICE_IP=$(kubectl get svc --namespace default app-python-1667874133 --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
-  echo http://$SERVICE_IP:80
-```
+Type:  Opaque
 
-4. 
-```
-minikube dashboard
-🤔  Verifying dashboard health ...
-🚀  Launching proxy ...
-🤔  Verifying proxy health ...
-🎉  Opening http://127.0.0.1:37767/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/ in your default browser...
-```
-On my vm ```minikube dashbooard``` does not worked and tips from stackoverflow did not help, so i borrowed my friend's laptop with manjaro
+Data
+====
+username:  6 bytes
+password:  6 bytes
+    /home/ease_/u/labs/k8s    lab11 !4 ?2   kubectl get secret easel-secret                 ✔  minikube ⎈
+NAME           TYPE     DATA   AGE
+easel-secret   Opaque   2      46s
+    /home/ease_/u/labs/k8s    lab11 !4 ?2  kubectl get secret easel-secret -o jsonpath='{.data}'
+{"password":"ZWFzZV9s","username":"ZWFzZV9s"}%                                                                          /home/ease_/u/labs/k8s    lab11 !4 ?2  kubectl get secret easel-secret --template={{.data.username}} | base64 -d
+ease_l%                                                                                                                 /home/ease_/u/labs/k8s    lab11 !4 ?2  helm plugin install https://github.com/jkroepke/helm-secrets --version v4.2.0
+Installed plugin: secrets
+    /home/ease_/u/labs/k8s    lab11 !4 ?2  gpg --gen-key                                         ✔  12s 
+gpg (GnuPG) 2.2.36; Copyright (C) 2022 g10 Code GmbH
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
 
-5.
-```
-minikube service app-python-1667874133
-```
+gpg: directory '/home/easel/.gnupg' created
+gpg: keybox '/home/easel/.gnupg/pubring.kbx' created
+Note: Use "gpg --full-generate-key" for a full featured key generation dialog.
 
-6.
-```
-kubectl get pods,svc
-NAME                                         READY   STATUS             RESTARTS   AGE
-pod/app-python-1667874133-6ff6cb5864-vv4vm   1/1     Running            0          15m
+GnuPG needs to construct a user ID to identify your key.
 
-NAME                            TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
-service/app-python-1667874133   LoadBalancer   10.108.197.215   <pending>     80:30690/TCP     15m
-service/app-python-service      LoadBalancer   10.98.90.62      <pending>     5000:30085/TCP   7d8h
-service/kubernetes              ClusterIP      10.96.0.1        <none>        443/TCP          7d8h
-```
+Real name: easel
+Email address: arina031120000@gmail.com
+You selected this USER-ID:
+    "easel <arina031120000@gmail.com>"
+
+Change (N)ame, (E)mail, or (O)kay/(Q)uit? o
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action (type on the keyboard, move the mouse, utilize the
+disks) during the prime generation; this gives the random number
+generator a better chance to gain enough entropy.
+gpg: /home/easel/.gnupg/trustdb.gpg: trustdb created
+gpg: directory '/home/easel/.gnupg/openpgp-revocs.d' created
+gpg: revocation certificate stored as '/home/easel/.gnupg/openpgp-revocs.d/9328CB4E8DD414481156EB07B07F3B85527721A2.rev'
+public and secret key created and signed.
+
+pub   rsa3072 2022-11-15 [SC] [expires: 2024-11-14]
+      9328CB4E8DD414481156EB07B07F3B85527721A2
+uid                      easel <arina031120000@gmail.com>
+sub   rsa3072 2022-11-15 [E] [expires: 2024-11-14]
+
+    /home/ease_/u/labs/k8s    lab11 !4 ?4  sops -p 9328CB4E8DD414481156EB07B07F3B85527721A2 secrets.yaml
+[PGP]    WARN[0000] Deprecation Warning: GPG key fetching from a keyserver within sops will be removed in a future version of sops. See https://github.com/mozilla/sops/issues/727 for more information.
+    /home/ease_/u/labs/k8s    lab11 !4 ?4  ls                                                 ✔  1m 38s 
+app-python      photo_2022-11-08_05-46-16.jpg  Screenshot_20221108_053620.png  secrets.yaml
+deployment.yml  readme.md                      scrren2.png                     service.yml
+
+    /home/ease_/u/labs/k8s    lab11 !4 ?4  kubectl get pods                               1 ✘  minikube ⎈
+NAME                                    READY   STATUS    RESTARTS   AGE
+app-python-deployment-9496bf59d-4fcv5   1/1     Running   0          111m
+
+
+   /home/ease_/u/labs/k8s    lab11 !4 ?4  kubectl exec app-python-deployment-9496bf59d-4fcv5 -- printenv | grep MY_PASSWORD
+MY_PASSWORD=ease_l
+

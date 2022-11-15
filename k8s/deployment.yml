@@ -1,11 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
-
 metadata:
-  name: app-python-deployment
+  name: app-python
   labels:
     app: app-python
-
 spec:
   replicas: 3
   selector:
@@ -17,7 +15,7 @@ spec:
         app: app-python
     spec:
       containers:
-        - name: app-python
-          image: easeln/app_python:latest
-          ports:
-            - containerPort: 8000
+      - name: app-python
+        image: easeln/dockerhub:app_python_v01
+        ports:
+        - containerPort: 80

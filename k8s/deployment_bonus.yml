@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-rust-deployment
+  labels:
+    app: time-webapp-rust
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: time-webapp-rust
+  template:
+    metadata:
+      labels:
+        app: time-webapp-rust
+    spec:
+      containers:
+      - name: time-webapp-rust
+        image: bragov4ik/time_rust_web_app:0.0.7
+        ports:
+        - containerPort: 8000

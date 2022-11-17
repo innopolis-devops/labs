@@ -13,6 +13,14 @@ pub fn render_time_page(timezone_name: &str, time: DateTime<FixedOffset>) -> Str
     format!("{} time: {}", timezone_name, time.format("%H:%M:%S"))
 }
 
+pub fn render_visits_page(visits: Vec<String>) -> String {
+    let mut result = format!("Total visits: {}\nEntries:\n", visits.len());
+    for entry in visits {
+        result += &format!("\t{}\n", entry);
+    }
+    return result;
+}
+
 #[derive(Error, Debug)]
 pub enum ParseError {
     #[error("required field \"{0}\" was not found")]

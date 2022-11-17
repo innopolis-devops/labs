@@ -4,6 +4,23 @@
 
 This application launches a web server that runs on port 8000 and responds with current time in UTC/GMT +3 timezone.
 
+## Endpoints
+
+### `/`
+Shows current time according to the server
+
+### `/status`
+
+Tests internal clock with other server, returns observed difference.
+
+### `/visits`
+
+List of recorded visits to `/` endpoint
+
+### `/metrics`
+
+Metrics formatted for Prometheus scraping
+
 ## Python implementation
 
 You can find implementation written in Python language in folder `app_python`. Also there is `PYTHON.md` file in the directory that lists some best practices used in the project and reasoning behind framework choice.

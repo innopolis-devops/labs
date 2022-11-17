@@ -1,14 +1,91 @@
 use chrono::Duration;
-use rocket::{get, http::Status, launch, routes};
+use log::{FileLog, Log};
+use rocket::{
+    futures::lock::Mutex, get, http::Status, launch, routes, tokio::fs::OpenOptions, State,
+};
 use rocket_prometheus::PrometheusMetrics;
 
-use utils::{get_local_time_moscow, get_remote_time_moscow, render_time_page, TimeRequestError};
+use serde::{de::DeserializeOwned, Serialize};
+use utils::{
+    get_local_time_moscow, get_remote_time_moscow, render_time_page, render_visits_page,
+    TimeRequestError,
+};
 
+mod config;
+mod log;
 mod utils;
 
+enum LogChoice<T> {
+    File(FileLog<T>),
+    Mock(log::Mock<T>),
+}
+
+impl<T> From<log::Mock<T>> for LogChoice<T> {
+    fn from(l: log::Mock<T>) -> Self {
+        LogChoice::Mock(l)
+    }
+}
+
+impl<T> From<FileLog<T>> for LogChoice<T> {
+    fn from(l: FileLog<T>) -> Self {
+        LogChoice::File(l)
+    }
+}
+
+#[async_trait::async_trait]
+impl<TEntry> Log<TEntry> for LogChoice<TEntry>
+where
+    TEntry: Serialize + DeserializeOwned + Clone + Send + Sync,
+{
+    async fn push(&mut self, entry: TEntry) -> log::Result<()> {
+        match self {
+            LogChoice::File(f) => f.push(entry).await,
+            LogChoice::Mock(m) => m.push(entry).await,
+        }
+    }
+
+    async fn as_vec(&mut self) -> log::Result<Vec<TEntry>> {
+        match self {
+            LogChoice::File(f) => f.as_vec().await,
+            LogChoice::Mock(m) => m.as_vec().await,
+        }
+    }
+    async fn len(&mut self) -> log::Result<usize> {
+        match self {
+            LogChoice::File(f) => f.len().await,
+            LogChoice::Mock(m) => m.len().await,
+        }
+    }
+}
+
 #[get("/")]
-fn index() -> String {
-    render_time_page("Moscow", get_local_time_moscow())
+async fn index(state: &State<Mutex<LogChoice<String>>>) -> String {
+    let time = get_local_time_moscow();
+    {
+        let mut state_locked = state.lock().await;
+        if let Err(e) = state_locked.push(time.format("%H:%M:%S").to_string()).await {
+            println!("WARN: Could not push to visitors list, {:?}", e);
+        }
+    }
+    render_time_page("Moscow", time)
+}
+
+#[get("/visits")]
+async fn visits(state: &State<Mutex<LogChoice<String>>>) -> (Status, String) {
+    let list = {
+        let mut state_locked = state.lock().await;
+        match state_locked.as_vec().await {
+            Ok(l) => l,
+            Err(e) => {
+                println!("WARN: Could not read visitors list, {:?}", e);
+                return (
+                    Status::InternalServerError,
+                    "InternalServerError".to_owned(),
+                );
+            }
+        }
+    };
+    (Status::Ok, render_visits_page(list))
 }
 
 #[get("/status")]
@@ -54,11 +131,27 @@ async fn status_check() -> (Status, String) {
 }
 
 #[launch]
-fn rocket() -> _ {
+async fn rocket() -> _ {
     let prometheus = PrometheusMetrics::new();
+    let config = config::Config::read_from_file_path("config.json")
+        .await
+        .unwrap_or_default();
+    let file = OpenOptions::new()
+        .read(true)
+        .write(true)
+        .create(true)
+        .open(config.visits_file_path)
+        .await
+        .unwrap();
+    let log: LogChoice<_> = FileLog::<String>::new(file)
+        .await
+        .expect("Could not open visits file")
+        .into();
+    // let log: LogChoice<_> = log::Mock::<String>::new().into();
     rocket::build()
+        .manage(Mutex::new(log))
         .attach(prometheus.clone())
-        .mount("/", routes![index, status_check])
+        .mount("/", routes![index, status_check, visits])
         .mount("/metrics", prometheus)
 }
 
@@ -70,7 +163,10 @@ mod tests {
     #[test]
     fn it_responds() {
         // Setting up
-        let rocket = rocket::build().mount("/", routes![index]);
+        let mock_log: LogChoice<_> = log::Mock::<String>::new().into();
+        let rocket = rocket::build()
+            .manage(Mutex::new(mock_log))
+            .mount("/", routes![index]);
         let client = Client::tracked(rocket).unwrap();
         let req = client.get("/");
 

@@ -9,7 +9,7 @@ import pprint
 
 class Config:
     # File to store data about visits to "/" endpoint
-    visits_file = "persistent/visits.json"
+    visits_file_path = "persistent/visits.json"
 
 
 config = Config()
@@ -72,11 +72,11 @@ def hello_world():
 
     # Create file if does not exist
     import os
-    f = os.open(config.visits_file, os.O_CREAT)
+    f = os.open(config.visits_file_path, os.O_CREAT)
     os.close(f)
 
     # Save page visit to file
-    with open(config.visits_file, "r+") as f:
+    with open(config.visits_file_path, "r+") as f:
         try:
             current_visits = json.load(f)
         except json.decoder.JSONDecodeError:
@@ -111,7 +111,7 @@ def status_check():
 def list_visits():
     config: Config = current_app.config["CONFIG"]
     try:
-        with open(config.visits_file, "r") as f:
+        with open(config.visits_file_path, "r") as f:
             v = json.load(f)
             result = "Total visits: " + str(v["total"]) + "<br>"
             result += "Entries:<br>"

@@ -6,12 +6,15 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+async-trait = "0.1.58"
 chrono = "0.4"
 reqwest = { version = "0.11", features = ["json"] }
 rocket = "0.5.0-rc.2"
 rocket_prometheus = "0.10.0-rc.3"
 serde = { version = "1.0.144", features = ["derive"]}
+serde_json = "1.0.85"
 thiserror = "1.0.37"
+tokio = "1.21.1"
 
 # Not fully supported by rocket yet, leave for now
 # tracing = "0.1.36"

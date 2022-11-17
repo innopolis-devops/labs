@@ -24,7 +24,9 @@ HEALTHCHECK --interval=1m --timeout=3s \
 RUN adduser nonroot -D -H && \
   chown -R nonroot ./ && \
   chmod 0700 ./ && \
-  chmod 0500 ./app_rust
+  chmod 0500 ./app_rust && \
+  mkdir persistent && touch persistent/visits.json && \
+  chown nonroot persistent/visits.json
 
 # This user is already included in the image (found through debug version)
 USER nonroot

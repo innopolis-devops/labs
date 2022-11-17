@@ -49,6 +49,14 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             {{ include "time-web-app-python.environments" . | nindent 12 }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config.json
+              subPath: config.json
+      volumes:    
+        - name: config-volume
+          configMap:
+            name: {{ include "time-web-app-python.fullname" . }}-config
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

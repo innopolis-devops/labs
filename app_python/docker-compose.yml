@@ -5,4 +5,8 @@ services:
     ports:
       - "81:8000"
     command: [ "-b", "0.0.0.0:8000", "--log-level", "debug" ]
-      
+    volumes:
+      - persistent-data:/app/persistent
+
+volumes:
+  persistent-data:

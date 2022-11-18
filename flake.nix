@@ -52,7 +52,7 @@
       packages = {
         default = codium;
         pushToCachix = flakesTools.pushToCachix;
-        updateLocks = flakesTools.update;
+        updateLocks = flakesTools.updateLocks;
         format = flakesTools.format;
       } // scripts // configWriters // commands.apps;
     });

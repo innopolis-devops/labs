@@ -192,7 +192,7 @@ mod tests {
 
         test_log(&mut log).await.unwrap();
     }
-    
+
     #[tokio::test]
     async fn test_mock_log() {
         let mut log = Mock::<String>::new();

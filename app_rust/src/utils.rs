@@ -18,7 +18,7 @@ pub fn render_visits_page(visits: Vec<String>) -> String {
     for entry in visits {
         result += &format!("\t{}\n", entry);
     }
-    return result;
+    result
 }
 
 #[derive(Error, Debug)]

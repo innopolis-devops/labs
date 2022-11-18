@@ -28,6 +28,7 @@ pub struct Mock<TEntry> {
 }
 
 impl<T> Mock<T> {
+    #[allow(dead_code)]
     pub fn new() -> Self {
         Self { data: vec![] }
     }
@@ -120,10 +121,26 @@ mod tests {
 
     use super::*;
 
+    async fn test_log<TLog>(log: &mut TLog) -> Result<()>
+    where
+        TLog: Log<String>,
+    {
+        let mut cur_log_vec = log.as_vec().await?;
+        let test_vec = vec!["a", "b", "cde", "🥴🫣🫠"];
+        for entry in test_vec {
+            let entry = entry.to_owned();
+            log.push(entry.clone()).await?;
+            cur_log_vec.push(entry);
+            assert_eq!(cur_log_vec, log.as_vec().await?);
+        }
+        Ok(())
+    }
+
     // Using persistent storage in tests is an antipattern, so I'll leave it ignored
     // If needed one can mock file and return the tests.
 
     // Basically enable for some time if needed, don't want to leave it on
+    #[ignore]
     #[tokio::test]
     async fn write_read_as_expected() {
         // Setting up
@@ -156,5 +173,30 @@ mod tests {
         let read_vec = log.read_whole_log().await.unwrap();
 
         assert_eq!(sample_vec2, read_vec);
+    }
+
+    #[ignore]
+    #[tokio::test]
+    async fn test_file_log() {
+        // Setting up
+        let file = OpenOptions::new()
+            .read(true)
+            .write(true)
+            .create(true)
+            .open("visits.json")
+            .await
+            .unwrap();
+
+        // Test
+        let mut log = FileLog::<String>::new(file).await.unwrap();
+
+        test_log(&mut log).await.unwrap();
+    }
+    
+    #[tokio::test]
+    async fn test_mock_log() {
+        let mut log = Mock::<String>::new();
+
+        test_log(&mut log).await.unwrap();
     }
 }

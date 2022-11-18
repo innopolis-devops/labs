@@ -15,6 +15,9 @@ mod config;
 mod log;
 mod utils;
 
+// Created because Rocket does not seem to support generics
+// for handlers.
+// https://github.com/SergioBenitez/Rocket/issues/408#issuecomment-1167912779
 enum LogChoice<T> {
     File(FileLog<T>),
     Mock(log::Mock<T>),

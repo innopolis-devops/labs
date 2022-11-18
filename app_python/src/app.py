@@ -7,6 +7,7 @@ import iso8601
 import json
 import pprint
 
+
 class Config:
     # File to store data about visits to "/" endpoint
     visits_file_path = "persistent/visits.json"
@@ -17,7 +18,11 @@ try:
     with open("config.json", "r") as conf_file:
         print("Reading config file")
         config_json = json.load(conf_file)
-    expected_fields = [a for a in dir(config) if not a.startswith('__') and not callable(getattr(config, a))]
+    expected_fields = [
+        a
+        for a in dir(config)
+        if not a.startswith("__") and not callable(getattr(config, a))
+    ]
     for f in expected_fields:
         if f in config_json:
             setattr(config, f, config_json[f])
@@ -72,6 +77,7 @@ def hello_world():
 
     # Create file if does not exist
     import os
+
     f = os.open(config.visits_file_path, os.O_CREAT)
     os.close(f)
 
@@ -82,15 +88,14 @@ def hello_world():
         except json.decoder.JSONDecodeError:
             current_visits = None
         f.seek(0)
-        if (current_visits is None
+        if (
+            current_visits is None
             or "list" not in current_visits
-            or "total" not in current_visits):
+            or "total" not in current_visits
+        ):
 
             # Initialize visits file contents
-            current_visits = {
-                "list": [],
-                "total": 0
-            }
+            current_visits = {"list": [], "total": 0}
         current_visits["list"].append(time_string)
         current_visits["total"] += 1
         json.dump(current_visits, f)
@@ -107,6 +112,7 @@ def status_check():
         app.logger.warn("Could not do status check: %s", e)
         return "Failed to perform status check", 503
 
+
 @app.route("/visits")
 def list_visits():
     config: Config = current_app.config["CONFIG"]
@@ -119,4 +125,4 @@ def list_visits():
                 result += str(entry) + "<br>"
             return result
     except (FileNotFoundError, json.decoder.JSONDecodeError):
-        return "No visits to \"/\" detected"
+        return 'No visits to "/" detected'

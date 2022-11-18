@@ -2,7 +2,7 @@
 
 ## Manual management
 
-```
+```bash
 $ kubectl get pod,svc
 NAME                                    READY   STATUS    RESTARTS   AGE
 pod/time-web-app-node-9c7bb6b94-px6t7   1/1     Running   0          10m
@@ -16,7 +16,7 @@ Minikube opened the service at `192.168.49.2:30120`, application is accessible t
 
 ## Manifest management
 
-```
+```bash
 $ kubectl get pods,svc
 NAME                                            READY   STATUS    RESTARTS        AGE
 pod/webapp-python-deployment-6b97f8c4c7-lccz4   1/1     Running   2 (6m56s ago)   8m13s
@@ -28,7 +28,7 @@ service/kubernetes                ClusterIP      10.96.0.1       <none>        4
 service/python-time-app-service   LoadBalancer   10.111.160.79   <pending>     80:32002/TCP   3m30s
 ```
 
-```
+```bash
 $ minikube service --all
 |-----------|------------|-------------|--------------|
 | NAMESPACE |    NAME    | TARGET PORT |     URL      |
@@ -50,10 +50,12 @@ browser screenshot:
 ## Own word explanations of different concept
 
 ### Ingress
+
 An entity that provides and controls external access to services running inside kubernetes cluster (they are usually not connected to the Internet).
 
 As mentioned in docs, it usually works with HTTP(S) connections.
 Some of its functionality is:
+
 * load balancing
 * providing external access to services
 * some ssl/tls related stuff
@@ -62,9 +64,11 @@ Some of its functionality is:
 For example, we may want to send requests to path `/aboba` to service `aboba-service` and `/popular-trendy-app` to more scaled `popular-service`.
 
 ### Ingress controller
+
 Makes ingress work. There are different controllers available, such as Nginx, one for amazon, one for google cloud (probably yandex cloud one also exists somewhere :P).
 
 ### StatefulSet
+
 Manages applications that have state.
 
 Deployments (ReplicaSets) are designed for stateless applications. It means that no matter which of the pods in the set receives the request, the answer should be the same. Also on pod restart no info is usually saved (for example, metric counters in our apps should be erased). Any state that they might have is separated from the pods and is located on a single shared volume (apparently called "PersistentVolumeClaim") and all pods access it to get or put some info.
@@ -74,16 +78,18 @@ However, StatefulSet associates a persistent data volume with each pod (thus pod
 An example I could think of is running distributed system nodes (nod k8s nodes, rather smth like blockchain clients). The state is far easier to save between restarts in order to not synchronize from the very beginning each time (for example, it may require expensive computations like preparing cache for validating new transactions/blocks/other stuff). Also since it's originally a distributed system, each node already works with local state, which is exactly what happens here.
 
 ### DaemonSet
+
 Seems similar to a stateful set. Runs a copy of specified pod on each node in the cluster. In the StatefulSet we control how many copies/pods do we have, which are distributed on pods optimally on the nodes according to kubernetes. It is needed when only one pod is needed for each node. Such pods may include some administrative programs (like clientful infrastructure management (Chef, according to quick google)) or monitoring tools for checking metrics for the (virtual) machine itself.
 
 ### PersistentVolumes
+
 Volume/storage resource whose lifetime exceedes lifetime of a pod (because persistent). Can be different.
 
 Not sure if it makes sense to go more in detail, volumes seem pretty clear.
 
-# Helm report
+## Helm report
 
-## Chart installation
+### Chart installation
 
 ```bash
 ~/Documents/Studying/devops/k8s$ helm package time-web-app-python
@@ -103,14 +109,14 @@ NOTES:
 
 ```
 
-## Service expose
+### Service expose
 
 ```bash
 ~$ minikube service time-web-app-python --url
 http://192.168.49.2:31768
 ```
 
-## Screenshots
+### Screenshots
 
 ![Dashboard](report_artifacts/helm_release_works.png)
 
@@ -118,13 +124,13 @@ http://192.168.49.2:31768
 
 ![Other outputs](report_artifacts/helm_other_outputs.png)
 
-## Bonus task
+### Bonus task
 
 Helm chart is installed the same way
 
 ![outputs](report_artifacts/helm_bonus_outputs.png)
 
-### Helm library charts
+#### Helm library charts
 
 They play basically the same role as libraries in common programming languages. They allow to move commonly repeated code into a separate entity that is imported or used by other charts.
 
@@ -132,6 +138,6 @@ The library charts cannot be deployed themselves and thus can only be a dependen
 
 So in our case, it seems that python and rust charts are basically the same, they seem to only differ in values provided. Therefore, it makes sense to move most of the code into a library to follow DRY strategy and supply appropriate values to it.
 
-### Umbrella charts
+#### Umbrella charts
 
 A chart that combines multiple other subcharts. They allow to deploy a complex application consisting of multiple components as a single unit (if it is needed for some reason). Difference with a chart with multiple libraries as dependencies is that it seems to gather full-fledged charts (that can be deployed on their own) rather than some helper code that can't be deployed by itself.

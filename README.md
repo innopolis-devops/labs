@@ -7,6 +7,7 @@ This application launches a web server that runs on port 8000 and responds with 
 ## Endpoints
 
 ### `/`
+
 Shows current time according to the server
 
 ### `/status`

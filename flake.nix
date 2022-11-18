@@ -1,23 +1,20 @@
 {
   inputs = {
     nixpkgs_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/nixpkgs;
+    nixpkgs.follows = "nixpkgs_/nixpkgs";
     flake-utils_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/flake-utils;
+    flake-utils.follows = "flake-utils_/flake-utils";
     drv-tools.url = github:br4ch1st0chr0n3/flakes?dir=drv-tools;
-    flake-tools.url = github:br4ch1st0chr0n3/flakes?dir=flake-tools;
+    flakes-tools.url = github:br4ch1st0chr0n3/flakes?dir=flakes-tools;
     terrafix.url = github:br4ch1st0chr0n3/terrafix;
     easy-purescript-nix_.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/easy-purescript-nix;
     python-tools.url = github:br4ch1st0chr0n3/flakes?dir=language-tools/python;
-    nixpkgs.follows = "nixpkgs_/nixpkgs";
-    flake-utils.follows = "flake-utils_/flake-utils";
     my-codium.url = github:br4ch1st0chr0n3/flakes?dir=codium;
+    my-devshell.url = github:br4ch1st0chr0n3/flakes?dir=devshell;
     env2json.url = github:br4ch1st0chr0n3/flakes?dir=env2json;
     json2md.url = github:br4ch1st0chr0n3/flakes?dir=json2md;
     easy-purescript-nix.url = github:br4ch1st0chr0n3/flakes?dir=source-flake/easy-purescript-nix;
-    refmt.url = github:br4ch1st0chr0n3/refmt/master;
-
-    # app-purescript.url = path:./app_purescript;
     app-python.url = "github:br4ch1st0chr0n3/devops-labs/lab3?dir=app_python";
-    # app-python.url = path:./app_python;
     app-purescript.url = "github:br4ch1st0chr0n3/devops-labs/lab3?dir=app_purescript";
   };
   outputs =
@@ -29,12 +26,12 @@
     , app-purescript
     , app-python
     , env2json
-    , flake-tools
+    , flakes-tools
     , easy-purescript-nix
     , drv-tools
     , python-tools
-    , refmt
     , terrafix
+    , my-devshell
     , ...
     }:
     flake-utils.lib.eachDefaultSystem (system:
@@ -45,20 +42,18 @@
 
       inherit (import ./.nix/default.nix {
         inherit nixpkgs system my-codium app-python app-purescript
-          rootDir json2md env2json drv-tools flake-tools easy-purescript-nix
-          python-tools refmt terrafix
+          rootDir json2md env2json drv-tools flakes-tools easy-purescript-nix
+          python-tools terrafix my-devshell
           ;
-      }) devShells scripts codium flakesUtils
-        flakesToggleRelativePaths_ configWriters commands;
+      }) devShells scripts codium flakesTools configWriters commands;
     in
     {
       devShells = devShells;
       packages = {
         default = codium;
-        pushToCachix = flakesUtils.flakesPushToCachix;
-        updateLocks = flakesUtils.flakesUpdate;
-        format = flakesUtils.flakesFormat;
-        togglePaths = flakesToggleRelativePaths_;
+        pushToCachix = flakesTools.pushToCachix;
+        updateLocks = flakesTools.update;
+        format = flakesTools.format;
       } // scripts // configWriters // commands.apps;
     });
 

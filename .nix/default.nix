@@ -7,11 +7,11 @@
 , app-purescript
 , rootDir
 , drv-tools
-, flake-tools
+, flakes-tools
 , easy-purescript-nix
 , python-tools
-, refmt
 , terrafix
+, my-devshell
 }:
 let
   pkgs = nixpkgs.legacyPackages.${system};
@@ -29,12 +29,8 @@ let
     mkBin
     framedBrackets
     ;
-  inherit (drv-tools.packages.${system})
-    desc
-    ;
-  inherit (flake-tools.functions.${system})
-    mkFlakesUtils
-    flakesToggleRelativePaths
+  inherit (flakes-tools.functions.${system})
+    mkFlakesTools
     ;
 
   inherit (import ./data.nix)
@@ -44,12 +40,14 @@ let
     langPython
     ;
 
+  inherit (builtins) map attrValues;
+
   configWriters =
     (import ./write-configs.nix
       {
         inherit
           json2md system pkgs commands terrafix
-          env2json drv-tools my-codium refmt
+          env2json drv-tools my-codium
           ;
       }
     );
@@ -63,17 +61,7 @@ let
   };
 
   dirs = [ appPurescript appPython ];
-  flakesUtils = mkFlakesUtils [ appPurescript appPython "." ];
-
-  flakesToggleRelativePaths_ =
-    let
-      appPython = "app-python";
-      appPurescript = "app-purescript";
-      toggleConfig = [
-        { "." = [ appPython appPurescript ]; }
-      ];
-    in
-    flakesToggleRelativePaths toggleConfig flakesUtils.flakesUpdate;
+  flakesTools = mkFlakesTools [ appPurescript appPython "." ];
 
   codium = mkCodium {
     extensions = {
@@ -82,9 +70,8 @@ let
     };
     runtimeDependencies = [
       (toList commands)
-      flakesToggleRelativePaths_
       (
-        builtins.attrValues (
+        attrValues (
           {
             inherit (pkgs)
               docker poetry direnv lorri inotify-tools
@@ -93,7 +80,7 @@ let
             inherit (pkgs.haskellPackages) hadolint;
           }
           //
-          flakesUtils
+          flakesTools
           //
           configWriters
         )
@@ -117,8 +104,7 @@ let
             (dir: '' ( printf "${framedBrackets "linting in ${dir}"}" ; hadolint ${dir}/${dockerFile});'')
             dirs
           }'';
-        longDescription = ''
-          Lint ${dockerFile}s in ${concatStringsSep ", " dirs}'';
+        longDescription = ''Lint ${dockerFile}s in ${concatStringsSep ", " dirs}'';
       };
     monitor = {
       name = "monitor";
@@ -129,28 +115,28 @@ let
         source configs/datasources/.env
         docker compose up
       '';
+      longDescription = "monitor via Prometheus";
     };
   })
   // {
-    inherit desc;
     createVenvs = python-tools.functions.${system}.createVenvs [ appPython appPurescript "." ];
   };
-
-  devShells =
-    mkDevShellsWithDefault
-      {
-        shellHook = python-tools.snippets.${system}.activateVenv;
-        # binaries that we need to test and can't yet include as a part of codium
-        # if they get here, they will overwrite the stuff from codium
-        buildInputs = [
-          (builtins.attrValues (scripts // configWriters // flakesUtils // commands.apps))
-        ];
-      }
-      {
-        fish = { buildInputs = builtins.attrValues configWriters; };
-      }
+  devshell = my-devshell.devshell.${system};
+  packages = (attrValues (scripts //  configWriters // flakesTools // commands.apps));
+  devShells.default = devshell.mkShell
+    {
+      packages = packages;
+      bash.extra = python-tools.snippets.${system}.activateVenv;
+      commands = map
+        (x: {
+          name = x.name + " ";
+          category = "scripts";
+          help = x.meta.description;
+        })
+        packages;
+    }
   ;
 in
 {
-  inherit devShells scripts codium flakesUtils flakesToggleRelativePaths_ configWriters desc commands;
+  inherit devShells scripts codium flakesTools configWriters commands;
 }

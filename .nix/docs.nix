@@ -13,6 +13,7 @@ let
   page = link "page";
   projectRoot = "$PROJECT_ROOT";
   projectRoot_ = "`${projectRoot}`";
+  vscodium_ = "`VSCodium`";
   dotenv = ".env";
 in
 [
@@ -20,9 +21,9 @@ in
   ''
     These docs are generated from [docs.nix](../.nix/docs.nix) via [json2md](https://github.com/IonicaBizau/json2md) 
     and formatted via [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2). 
-    The command to write the docs:
+    The command to write these docs:
 
-    ```terminal
+    ```console
     nix run .#writeDocs
     ```
   ''
@@ -53,49 +54,24 @@ in
     h3 = "Commands and Tasks";
   }
   ''
-    If Tasks don't work inside VSCodium, try them in an ordinary terminal. 
-    Open it in the ${projectRoot_} directory and explore the available commands (`packages`).
-    I added the descriptions to some of them
+    If Tasks don't work inside `VSCodium`, try commands in an ordinary terminal.
+    Start a devshell in the ${projectRoot_}:
   ''
   {
     code = {
-      "language" = "terminal";
-      "content" = ''
-        $ nix flake show
-        # may be not up to date
-        ...
-        └───packages
-          ...
-          └───x86_64-linux
-              ...
-              ├───createVenvs: package 'createVenvs'
-              ├───default: package 'codium'
-              ├───desc: package 'desc'
-              ├───format: package 'flakes-format'
-              ├───lintDockerfiles: package 'lintDockerfiles'
-              ├───pushToCachix: package 'flakes-push-to-cachix-in-each-dir'
-              ├───togglePaths: package 'flakes-toggle-relative-paths'
-              ├───updateLocks: package 'flakes-update-in-each-dir'
-              ├───writeConfigs: package 'write-configs'
-              ├───writeDocs: package 'write-docs-md'
-              ├───writeMarkdownlintConfig: package 'write-markdownlint-json'
-              ├───writeRootPyproject: package 'write-root-project'
-              ├───writeSettings: package 'write-settings-json'
-              └───writeTasks: package 'write-tasks-json'
-        $ nix run .#desc .#desc
-        ... description in Markdown ...
-        $ nix run .#desc .#writeTasks
-        ... description in Markdown ...
-      '';
+      language = ''console'';
+      content = ''nix develop'';
     };
   }
   ''
-    To make the commands from the next section available in your terminal, hit in the ${projectRoot_}:
-    ```sh
-    nix develop
-    ```
-    If you use VSCodium, they're bundled into it and should be available in its terminal
+    Open ${vscodium_}
   ''
+  {
+    code = {
+      language = ''console'';
+      content = ''nix develop'';
+    };
+  }
 ]
 ++
 (

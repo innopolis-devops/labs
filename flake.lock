@@ -340,7 +340,7 @@
           "nixpkgs_",
           "nixpkgs"
         ],
-        "nixpkgs_": "nixpkgs__23"
+        "nixpkgs_": "nixpkgs__22"
       },
       "locked": {
         "dir": "drv-tools",

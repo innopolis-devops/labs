@@ -7,6 +7,13 @@ x-logging: &logging
     max-size: "300k"
     max-file: "10"
 
+x-healthcheck: &healthcheck
+  test: echo "Nothing provided" && exit 1
+  interval: 60s
+  retries: 5
+  start_period: 20s
+  timeout: 10s
+
 services:
   grafana:
     # image: grafana/grafana:9.1.8-ubuntu
@@ -27,6 +34,9 @@ services:
     networks:
       - monitoring
     logging: *logging
+    healthcheck:
+      <<: *healthcheck
+      test: wget --no-verbose --spider http://localhost:3000 || exit 1
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -42,7 +52,14 @@ services:
     networks:
       - app_python
       - monitoring
+    depends_on:
+      - loki
+      - grafana
+      - app_python
     logging: *logging
+    healthcheck:
+      <<: *healthcheck
+      test: echo "soidet" e|| exit 1
 
   loki:
     image: grafana/loki:2.6.1
@@ -53,6 +70,9 @@ services:
       - ${PWD}/config/loki/loki-config.yml:/etc/loki-config.yml:ro
     command: -config.file=/etc/loki-config.yml
     restart: unless-stopped
+    healthcheck:
+      <<: *healthcheck
+      test: wget --no-verbose --spider http://localhost:3100 || exit 1
     networks:
       - monitoring
     logging: *logging
@@ -61,10 +81,29 @@ services:
     image: 254689393895236/clock-clock:v1.0.0
     ports:
       - "5000:5000"
+    restart: always
+    healthcheck:
+      << : *healthcheck
+      test: wget --no-verbose --spider http://localhost:5000 || exit 1
     networks:
       - app_python
       - monitoring
     logging: *logging
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ${PWD}/config/prometheus/prometheus.yaml:/etc/prometheus-config.yaml
+    command: --config.file=/etc/prometheus-config.yaml
+    networks:
+#      - app_python
+      - monitoring
+    logging: *logging
+    healthcheck:
+      <<: *healthcheck
+      test: wget --no-verbose --spider http://localhost:9090 || exit 1
 
 networks:
   app_python:

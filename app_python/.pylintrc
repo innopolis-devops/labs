@@ -156,7 +156,9 @@ disable=raw-checker-failed,
         use-symbolic-message-instead,
         missing-module-docstring,
         missing-function-docstring,
-        redefined-outer-name
+        too-few-public-methods,
+        consider-using-with,
+        invalid-name
 
 
 # Enable the message, report, category or checker with the given id(s). You can

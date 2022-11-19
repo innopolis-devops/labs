@@ -2,5 +2,10 @@ version: "3.9"
 services:
   web:
     build: .
+    volumes:
+      - persistent:/home/app/persistent
     ports:
       - "8000:8000"
+
+volumes:
+  persistent:

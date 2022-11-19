@@ -63,5 +63,11 @@ To run locally:
 2. Run
 
     ```bash
-    docker run -p 8000:8000 feydrauth/msctime
+    docker run -p 8000:8000 -v persistent:/home/app/persistent feydrauth/msctime
     ```
+
+### Build and run with `docker-compose`
+
+```bash
+docker-compose up
+```

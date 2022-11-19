@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clock-clock
+  labels:
+    app: clocker
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: clocker
+  template:
+    metadata:
+      labels:
+        app: clocker
+    spec:
+      containers:
+      - name: clocker
+        image: 254689393895236/clock-clock:v1.0.0
+        ports:
+        - containerPort: 5000

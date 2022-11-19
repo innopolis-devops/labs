@@ -1,21 +1,3 @@
-.DS_Store
-.pytest_cache/
-__pycache__/
-
-env
-venv
-.env
-.venv
-
-# IDE files
-.mypy_cache
-.idea
-.vscode
-
-grafana-data
-loki-data
-promtail-data
-
 # Patterns to ignore when building packages.
 # This supports shell glob matching, relative path matching, and
 # negation (prefixed with !). Only one pattern per line.

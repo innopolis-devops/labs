@@ -37,6 +37,17 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
+          env:
+            - name: TIME_USER
+              valueFrom:
+                secretKeyRef:
+                  name: time-secret
+                  key: user
+            - name: TIME_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: time-secret
+                  key: pass
           livenessProbe:
             httpGet:
               path: /

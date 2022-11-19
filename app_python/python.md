@@ -32,6 +32,11 @@ The following is a list of best practices for Python that are being followed in 
 - Parametrize when asserting the same behavior with various inputs and expected outputs (do not depend on global state).
 - Never manually create `Response` objects for tests.
 
+## Endpoints
+
+- `/`: Displays the current time in Moscow.
+- `/visits`: Displays the number of visits to the app.
+
 
 ### References
 - https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-python-and-flask-development-environment

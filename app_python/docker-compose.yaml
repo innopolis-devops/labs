@@ -4,3 +4,5 @@ services:
     image: mkhalil99/py_app
     ports: [8000:8000]
     restart: always
+    volumes:
+      - ./data/visits.json:/home/app/visits.json

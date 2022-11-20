@@ -5,3 +5,7 @@ services:
     build: .
     ports:
       - "2222:2222"
+    volumes:
+      - persistent:/app/persistent
+volumes:
+  persistent:

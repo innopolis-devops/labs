@@ -8,7 +8,11 @@ COPY . $PROJECT_DIR
 RUN go mod tidy && \
     go get github.com/prometheus/client_golang/prometheus/promhttp
 
-RUN adduser -S userapp
+RUN adduser -S userapp && \
+    mkdir /app/persistent && \
+    touch /app/persistent/visits.json && \
+    chown appuser /app/persistent/visits.json
+
 USER userapp
 
 EXPOSE 2222

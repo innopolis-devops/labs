@@ -1,6 +1,7 @@
 version: "3.3"
 services:
   web:
+    image: johndenkis/simple_go_app_v2
     build: .
     ports:
       - "2222:2222"

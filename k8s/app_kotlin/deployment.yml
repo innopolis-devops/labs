@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: app-kotlin-deployment
+  labels:
+    app: app-kotlin
+
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: app-kotlin
+  template:
+    metadata:
+      labels:
+        app: app-kotlin
+    spec:
+      containers:
+        - name: app-kotlin
+          image: smorenapi/app_kotlin:latest
+          ports:
+            - containerPort: 8080

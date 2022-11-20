@@ -1,4 +1,4 @@
-[![CI](https://github.com/br4ch1st0chr0n3/devops-labs/actions/workflows/ci.yaml/badge.svg)](https://github.com/br4ch1st0chr0n3/devops-labs/actions/workflows/ci.yaml)
+[![CI](https://github.com/deemp/devops-labs/actions/workflows/ci.yaml/badge.svg)](https://github.com/deemp/devops-labs/actions/workflows/ci.yaml)
 
 # Time apps
 
@@ -75,7 +75,7 @@ I used Nix to make a reproducible project environment. Now, the project ships wi
 1. Enter this project. When asked about substituters and keys, answer `y`. This is needed for Nix to use binary caches
 
 ```terminal
-git clone https://github.com/br4ch1st0chr0n3/devops-labs
+git clone https://github.com/deemp/devops-labs
 cd devops-labs
 git checkout lab3
 direnv allow
@@ -105,4 +105,4 @@ What I found out while working on this project - recorded [here](./README/misc.m
 
 ## Contact me
 
-- In case of any issues see my [GitHub profile](https://github.com/br4ch1st0chr0n3) for contact information
+- In case of any issues see my [GitHub profile](https://github.com/deemp) for contact information

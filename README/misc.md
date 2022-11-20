@@ -42,11 +42,11 @@ dream2nix.lib.makeFlakeOutputs {
 
 ## Stuff I made along the way
 
-- [Tutorials and Notes](https://github.com/br4ch1st0chr0n3/the-little-things) (also on Nix)
-- [flakes](https://github.com/br4ch1st0chr0n3/flakes) - library-monorepo with nix my flakes
-- [vscodium-extensions](https://github.com/br4ch1st0chr0n3/vscodium-extensions)
-  - customizable list of extensions - [here](https://github.com/br4ch1st0chr0n3/vscodium-extensions/tree/master)
-  - a larger list of extensions - [here](https://github.com/br4ch1st0chr0n3/vscodium-extensions/tree/fix-ci)
+- [Tutorials and Notes](https://github.com/deemp/the-little-things) (also on Nix)
+- [flakes](https://github.com/deemp/flakes) - library-monorepo with nix my flakes
+- [vscodium-extensions](https://github.com/deemp/vscodium-extensions)
+  - customizable list of extensions - [here](https://github.com/deemp/vscodium-extensions/tree/master)
+  - a larger list of extensions - [here](https://github.com/deemp/vscodium-extensions/tree/fix-ci)
 
 ## TODO
 

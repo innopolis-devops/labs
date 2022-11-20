@@ -11,11 +11,11 @@
 
 ### Nix eDSL
 
-- Made a Nix [eDSL](https://github.com/br4ch1st0chr0n3/terrafix) which can be translated into [HCL](https://github.com/hashicorp/hclblob/main/hclsyntax/spec.md). Now, it's possible to generate Terraform files from DRY Nix code
+- Made a Nix [eDSL](https://github.com/deemp/terrafix) which can be translated into [HCL](https://github.com/hashicorp/hclblob/main/hclsyntax/spec.md). Now, it's possible to generate Terraform files from DRY Nix code
 
 ## Generated repository
 
-- [terraform-repo](https://github.com/br4ch1st0chr0n3/terraform-repo)
+- [terraform-repo](https://github.com/deemp/terraform-repo)
   - with `squash` and `rebase` disabled
 
 ## Docker

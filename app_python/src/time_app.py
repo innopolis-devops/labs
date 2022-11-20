@@ -36,8 +36,12 @@ def application_available():
 
 
 def save_visit():
-    with open(VISITS_FILE_NAME, 'a') as f:
-        f.write(f"{str(datetime.now())}\n")
+    try:
+        with open(VISITS_FILE_NAME, 'a') as f:
+            f.write(f"{str(datetime.now())}\n")
+    except FileNotFoundError:
+        with open('.' + VISITS_FILE_NAME, 'a') as f:
+            f.write(f"{str(datetime.now())}\n")
 
 
 health.add_check(application_available())

@@ -80,6 +80,14 @@ The application written using two different technologies:
 
     ``$ pytest app_python``
 
+### [Python] - Endpoints
+
+1. / - Get Moscow Time
+
+2. /visits - Get Visitors IP addresses
+
+3. /metrics - Get metrics
+
 ## GO version of the application
 
 ### [GO] - Requirements
@@ -146,6 +154,14 @@ The application written using two different technologies:
 3. Run tests
 
     `` $ go test . ``
+
+### [GO] - Endpoints
+
+1. / - Get Moscow Time
+
+2. /visits - Get Visitors IP addresses
+
+3. /metrics - Get metrics
 
 ## Authors and contacts
 

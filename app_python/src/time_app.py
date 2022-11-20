@@ -11,15 +11,33 @@ health = HealthCheck()
 time_start = datetime.now()
 metrics.info('app_info', 'Application info', version='1.0.3')
 
+VISITS_FILE_NAME = '/app/saved_visits_time.txt'
+
 
 @app.route('/')
 def time():
     now = datetime.now()
+    save_visit()
     return "Current time is: " + now.strftime("%H:%M:%S")
+
+
+@app.route('/visits')
+def visits():
+    visits = []
+    with open(VISITS_FILE_NAME, 'r') as f:
+        lines = f.readlines()
+        for line in lines:
+            visits.append(line[:-2])
+    return visits
 
 
 def application_available():
     return True, "Up time " + str((datetime.now() - time_start).days * 24)
+
+
+def save_visit():
+    with open(VISITS_FILE_NAME, 'a') as f:
+        f.write(f"{str(datetime.now())}\n")
 
 
 health.add_check(application_available())

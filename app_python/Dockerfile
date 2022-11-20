@@ -2,6 +2,7 @@ FROM python:3.9-alpine
 
 # copy the requirements file into the image
 COPY ./requirements.txt /app/requirements.txt
+COPY ./saved_visits_time.txt /app/saved_visits_time.txt
 
 # switch working directory
 WORKDIR /app

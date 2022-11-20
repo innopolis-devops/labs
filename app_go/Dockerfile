@@ -11,7 +11,7 @@ RUN go mod tidy && \
 RUN adduser -S userapp && \
     mkdir /app/persistent && \
     touch /app/persistent/visits.json && \
-    chown appuser /app/persistent/visits.json
+    chown userapp /app/persistent/visits.json
 
 USER userapp
 

@@ -8,4 +8,4 @@ services:
     volumes:
       - persistent:/app/persistent
 volumes:
-  storage:
+  persistent:

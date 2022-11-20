@@ -40,7 +40,7 @@ def save_visit():
         with open(VISITS_FILE_NAME, 'a') as f:
             f.write(f"{str(datetime.now())}\n")
     except FileNotFoundError:
-        with open('.' + VISITS_FILE_NAME, 'a') as f:
+        with open('./src/' + VISITS_FILE_NAME, 'a') as f:
             f.write(f"{str(datetime.now())}\n")
 
 

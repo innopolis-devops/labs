@@ -20,6 +20,12 @@
 
 The project inside this folder is a simple python web application that shows current time in Moscow. The time is updated only when you update the page.
 
+* Access `http://127.0.0.1:5000/` main path to see the current time
+
+* Access `http://127.0.0.1:5000/visits` visits path to see the time when user access main path `/`
+
+* Access `http://127.0.0.1:5000/health` health check path to see the availability status of an app
+
 ### Built With
 
 * Python

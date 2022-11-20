@@ -12,7 +12,7 @@ RUN python -m pip install --upgrade pip  && \
 
 COPY . $PROJECT_DIR
 
-RUN useradd -m appuser && \
+RUN adduser --system --no-create-home appuser && \
     mkdir /app/persistent && \
     touch /app/persistent/visits.json && \
     chown appuser /app/persistent/visits.json && \

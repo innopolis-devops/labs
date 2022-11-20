@@ -41,7 +41,7 @@ spec:
                 key: password
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8001
               protocol: TCP
           # livenessProbe:
           #   httpGet:
@@ -53,6 +53,13 @@ spec:
           #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /files 
+      volumes:
+        - name: config-volume
+          configMap:
+            name: time-config
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

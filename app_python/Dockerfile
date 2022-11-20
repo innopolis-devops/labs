@@ -12,7 +12,11 @@ RUN python -m pip install --upgrade pip  && \
 
 COPY . $PROJECT_DIR
 
-RUN useradd -m appuser
+RUN useradd -m appuser && \
+    mkdir /app/persistent && \
+    touch /app/persistent/visits.json && \
+    chown appuser /app/persistent/visits.json && \
+
 USER appuser
 
 EXPOSE 5000

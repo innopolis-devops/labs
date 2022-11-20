@@ -26,6 +26,8 @@ The project inside this folder is a simple python web application that shows cur
 
 * Access `http://127.0.0.1:5000/health` health check path to see the availability status of an app
 
+* Access `http://127.0.0.1:5000/metrics` metrics path to see the prometheus metrics
+
 ### Built With
 
 * Python

@@ -10,6 +10,7 @@ COPY requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 COPY time_app.py time_app.py
+COPY visits.json visits.json
 
 EXPOSE 5000
 

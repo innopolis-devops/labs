@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  app_python:
+    build: .
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    volumes:
+      - ./data:/usr/src/app/data
+    healthcheck:
+      test: wget --no-verbose --tries=3 --spider 127.0.0.1:8000/healthcheck || exit 1
+      interval: 10s
+      timeout: 5s
+      start_period: 40s

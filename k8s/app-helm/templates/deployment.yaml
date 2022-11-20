@@ -49,6 +49,15 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: app-helm-config-volume
+              mountPath: /usr/src/app/config.json
+              subPath: config.json
+              readOnly: true
+      volumes:
+        - name: app-helm-config-volume
+          configMap:
+            name: app-helm-config
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

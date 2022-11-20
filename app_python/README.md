@@ -76,10 +76,15 @@ The CI/CD pipeline consists of the following jobs:
 * `security` - running Snyk
 * `docker-container` - creating docker image and pushing it to docker hub (run only iff 2 previous are successfully passed)
 
-## Monitoring
+## Endpoints
+### Monitoring
 
 Monitoring is performed with the use of Prometheus.
 
-URL: /metrics
+Main URL: `/metrics`
+Healthcheck URL: `/healthcheck`
 
-Healthcheck URL: /healthcheck
+## Visitors
+
+Increment visitors counter URL: `/`
+Get visitors counter URL: `/visits`

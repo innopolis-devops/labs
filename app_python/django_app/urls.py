@@ -20,4 +20,5 @@ urlpatterns = [
     path('healthcheck', healthcheck, name='healthcheck'),
     path('time/', include('timeapp.urls')),
     path('', include('django_prometheus.urls')),
+    path('', include('visitorsapp.urls')),
 ]

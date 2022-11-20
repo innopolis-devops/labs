@@ -14,7 +14,7 @@ func TestRightRequest(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	patch := monkey.Patch(time.Now, func() time.Time { return time.Date(2022, time.September, 1, 1, 1, 1, 1, time.UTC) })
 	defer patch.Unpatch()
-	r := CreateServer(time.UTC)
+	r := createServer(time.UTC)
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/", nil)
 	r.ServeHTTP(w, req)
@@ -28,7 +28,7 @@ func TestRightRequest(t *testing.T) {
 
 func TestWrongRequest(t *testing.T) {
 	gin.SetMode(gin.TestMode)
-	r := CreateServer(time.UTC)
+	r := createServer(time.UTC)
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/time", nil)
 	r.ServeHTTP(w, req)

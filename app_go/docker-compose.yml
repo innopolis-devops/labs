@@ -1,9 +1,11 @@
 version: "3.9"
 services:
   web:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "8080:8080"
     environment:
       - LOG_FILE=/var/log/visits/visits.log
     volumes:

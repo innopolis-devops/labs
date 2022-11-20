@@ -44,15 +44,28 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           livenessProbe:
+            # initialDelaySeconds: 5
             httpGet:
-              path: /
-              port: http
+              path: /health
+              port: {{ .Values.service.port }}
           readinessProbe:
+            # initialDelaySeconds: 5
             httpGet:
-              path: /
-              port: http
+              path: /health
+              port: {{ .Values.service.port }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config/config.json
+              subPath: config.json
+
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ include "app-python.fullname" . }}-config
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

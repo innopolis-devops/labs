@@ -32,6 +32,8 @@ To use the application, open the following URL in your browser:
 
 <http://localhost:1337>
 
+Everytime you visit main page, the time is logged to a file and you can check it using '/visits' route
+
 ## Docker
 
 I have used Docker from the start in this project. The `docker-compose.yml` points to remote brebuilt image. Refer to Usage and Build sections for more details.

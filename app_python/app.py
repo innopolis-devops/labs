@@ -3,7 +3,7 @@ import json
 from flask import Flask
 from datetime import datetime
 import pytz
-# from prometheus_flask_exporter import PrometheusMetrics
+from prometheus_flask_exporter import PrometheusMetrics
 from pathlib import Path
 import os
 
@@ -17,7 +17,7 @@ def get_time(tz, tf):
 
 def create_app():
     app = Flask(__name__)
-    # metrics = PrometheusMetrics(app)
+    metrics = PrometheusMetrics(app)
 
     config_path = "config.json"
     with open(config_path) as f:

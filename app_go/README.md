@@ -19,6 +19,12 @@
 
 The project inside this folder is a simple Golang web application that shows current time in Moscow. The time is updated only when you update the page.
 
+* Access `http://127.0.0.1:2222/` main path to see the current time
+
+* Access `http://127.0.0.1:2222/visits` visits path to see the time when user access main path `/`
+
+* Access `http://127.0.0.1:2222/metrics` metrics path to see the prometheus metrics
+
 ### Built With
 
 * Golang

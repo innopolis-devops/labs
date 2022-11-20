@@ -50,6 +50,15 @@ spec:
           env:            
             {{ include "my_password_env" . | nindent 12 }}
 
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config/config.json
+              subPath: config.json
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ include "helm-app-python.fullname" . }}-config
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

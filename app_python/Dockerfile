@@ -23,7 +23,11 @@ RUN python -m poetry config virtualenvs.create false \
 COPY . /app
 
 
-RUN useradd -m appuser
+
+RUN adduser --system --no-create-home appuser && \
+  mkdir /app/storage && \
+  touch /app/storage/visits.json && \
+  chown appuser /app/storage/visits.json
 USER appuser
 
 HEALTHCHECK --interval=5m --timeout=3s CMD wget --no-verbose --tries=3 --spider http://localhost:4444/health || exit 1

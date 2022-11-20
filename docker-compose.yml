@@ -3,10 +3,24 @@ services:
   app_python:
     image: lymarenkolev/currenttime:latest
     build: app_python
+    volumes:
+      - storage-python:/app/storage
+      - ${PWD}/config.json:/app/config.json
+    environment:
+      - CONFIG_FILE=/app/config.json
     ports:
       - 4444:4444
+    
   app_rust:
     image: lymarenkolev/currenttime-rust:latest
     build: app_rust
+    volumes:
+      - storage-rust:/app/storage
+      - ${PWD}/config.json:/app/config.json
     ports:
       - 4445:4444
+
+volumes:
+  storage-rust:
+  storage-python:
+  

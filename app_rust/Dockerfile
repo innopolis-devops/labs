@@ -28,8 +28,9 @@ HEALTHCHECK --interval=1m --timeout=3s \
   CMD wget --no-verbose --tries=3 --spider http://localhost:4444/health || exit 1
 
 USER nonroot
+WORKDIR /app
 
-COPY --from=build /build_app/target/release/currenttime /
+COPY --from=build /build_app/target/release/currenttime /app
 COPY templates ./templates
 COPY Rocket.toml ./Rocket.toml
 

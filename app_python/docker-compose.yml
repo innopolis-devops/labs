@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  web-app:
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - ./data:/code/data

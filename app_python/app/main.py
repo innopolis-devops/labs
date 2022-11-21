@@ -2,12 +2,14 @@ from datetime import datetime
 from fastapi import FastAPI, Request, Response
 import pytz
 import logging
+import os
 
 fmt = '%(asctime)s %(levelname)s [%(name)s] [%(funcName)s:%(lineno)s] %(message)s'
 logging.basicConfig(filename='./log/main.log', level=logging.DEBUG, format=fmt)
 logger = logging.getLogger(__name__)
 
-VISITS_FILE = 'visits.txt'
+os.makedirs('data', exist_ok=True)
+VISITS_FILE = 'data/visits.txt'
 
 app = FastAPI()
 

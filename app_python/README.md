@@ -27,5 +27,10 @@ If you want to make sure that your installation is completely functional, just r
 pytest
 ```
 *pytest is included in the requirements file
+
+## Application Routes
+- `/` - get current time
+- `/visits` - get times when the first route was accessed
+
 ## Contact
 Telegram: @wheatendinosaur

@@ -38,7 +38,8 @@ All you need to run the application is [Docker](https://docs.docker.com/engine/i
 
 In terms of usage, the single option is possible:
 
-- If you want to view the application, just open the address `127.0.0.1:1337` in your browser.
+- If you want to view Moscow Time, just open the address `127.0.0.1:1337` in your browser.
+- If you want to see a number of visitors, just open the `127.0.0.1:1337/visits` in your browser.
 
 ## Unit Tests
 

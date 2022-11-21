@@ -16,7 +16,7 @@ app = Flask(__name__, static_folder='static')
 app.config["JSON_AS_ASCII"] = False
 metrics = PrometheusMetrics(app)
 
-VISITS_FILENAME = '/app_python/saved_visits_time.txt'
+VISITS_FILENAME = '/app_python/visits.txt'
 
 health = HealthCheck()
 tstart = datetime.now()

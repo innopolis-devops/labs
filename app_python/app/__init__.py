@@ -1,4 +1,5 @@
 from datetime import datetime
+from pathlib import Path
 
 import pytz
 from fastapi import FastAPI
@@ -9,11 +10,33 @@ app = FastAPI()
 
 tz = pytz.timezone("Europe/Moscow")
 
+Path("./volume").mkdir(exist_ok=True)
+
 
 @app.get("/")
 def read_root():
+    try:
+        with open("./volume/visits", "r") as f:
+            visits = int(f.read())
+    except FileNotFoundError:
+        visits = 0
+
+    with open("./volume/visits", "w") as f:
+        print(visits + 1, file=f)
+
     time = datetime.now(tz)
     return PlainTextResponse(time.isoformat())
+
+
+@app.get("/visits")
+def read_visits():
+    try:
+        with open("./volume/visits", "r") as f:
+            visits = int(f.read())
+    except FileNotFoundError:
+        visits = 0
+
+    return PlainTextResponse(str(visits))
 
 
 @app.get("/healthcheck")

@@ -23,9 +23,13 @@ RUN cargo test && cargo build --release
 # image
 FROM busybox:1.35-musl
 
+WORKDIR /app
+
 RUN adduser -D user
-COPY --from=builder /app/target/release/app_rust /app_rust
-COPY ./Rocket.toml /Rocket.toml
+COPY --from=builder /app/target/release/app_rust /app/app_rust
+COPY ./Rocket.toml /app/Rocket.toml
+
+RUN chown user:user -R /app/
 USER user
 
-ENTRYPOINT [ "/app_rust" ]
+ENTRYPOINT [ "/app/app_rust" ]

@@ -1,9 +1,10 @@
+import json
 from datetime import datetime
 import time
 import sys
 
 import pytz
-from flask import Flask, request, Response
+from flask import Flask, request, Response, send_file
 from jinja2 import Environment, PackageLoader, select_autoescape
 import prometheus_client
 from prometheus_client import Counter, Histogram
@@ -62,9 +63,17 @@ def get_current_moscow_time() -> str:
 @app.route("/")
 def main_page():
     template = env.get_template("main_page.html.jinja")
-    return template.render(time=get_current_moscow_time())
+    cur_time = get_current_moscow_time()
+    with open("history.txt", "a+") as f:
+        print(f"timestamp: {cur_time}, user: {request.remote_user}", file=f)
+    return template.render(time=cur_time)
 
 
 @app.route('/metrics')
 def metrics():
     return Response(prometheus_client.generate_latest(), mimetype=CONTENT_TYPE_LATEST)
+
+
+@app.route('/visits')
+def visits():
+    return send_file("history.txt")

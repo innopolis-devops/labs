@@ -10,7 +10,7 @@ app = Flask(__name__)
 def moscow_time():
     dttm = datetime.datetime.now(pytz.timezone("Europe/Moscow"))
     time = f"{dttm.hour}:{dttm.minute}:{dttm.second}"
-    with open("/app/visits/visits.txt", "a+") as f:
+    with open("/home/app/visits/visits.txt", "a+") as f:
         f.write(f"{dttm.isoformat(timespec='seconds')} - {request.remote_addr}\n")
     return f"<h2>Moscow time: {time}</h2>"
 

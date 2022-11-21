@@ -33,6 +33,12 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /home/app/config.json
+              subPath: config.json
+            - name: visit-logs
+              mountPath: /home/app/data/
           env:
             - name: MY_PASS
               valueFrom:
@@ -65,3 +71,9 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
+      volumes:
+        - name: config-volume
+          configMap:
+            name: config-file
+        - name: visit-logs

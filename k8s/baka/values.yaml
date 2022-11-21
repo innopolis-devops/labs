@@ -6,9 +6,10 @@ replicaCount: 1
 
 image:
   repository: justmark0/devopsiu
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
+  date: "{{ .Release.Time.Seconds }}"
 
 container:
   containerPort: 8000

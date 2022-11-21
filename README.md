@@ -60,10 +60,15 @@ Before running the application, please install its prerequisites:
     pytest
     ```
 
-## Usage
+## Usage & endpoints
 Actually this app is useless, you can just google time :)
 
 But if you want to view time in Moscow in this web app, you can run app and open [http://localhost:8000/](http://localhost:8000/).
+#### / main page
+Shows current Moscow time.
+#### /visits page
+Every time someone visits the index page, server saves IP address of client and timespamp. 
+This file should be common for all processes, e.g. containers in cluster, and in the best case should handle race condition.
 
 
 ## CI

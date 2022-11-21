@@ -7,9 +7,14 @@ ENV FLASK_APP=msk_time/app.py
 RUN useradd -ms /bin/bash app
 WORKDIR /home/app
 
-RUN pip install --upgrade pip poetry==1.1.11 && poetry config virtualenvs.create false
+RUN pip install --upgrade pip poetry==1.1.11 && poetry config virtualenvs.create false \
+    mkdir /app/data && \
+    touch data/visits.txt && \
+    chown app data/visits.txt
+VOLUME /home/app/data
 COPY . .
 RUN poetry install --no-dev
+
 
 EXPOSE 8000
 USER app

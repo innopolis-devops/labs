@@ -34,6 +34,11 @@ Finally, the application will be up and running [here](http://127.0.0.1:8000)
 Application is covered with unit tests which are executed after each project update in VCS
 For this application only a single test is necessary to check the correctness of the program
 
+## Endpoints
+
+GET http://127.0.0.1:5000 - shows current time in Moscow
+GET http://127.0.0.1:5000/visits - returns all records for visiting previous endpoint
+
 ## CI pipeline
 
 Project is using CI workflow covering different aspects of application such as

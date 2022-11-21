@@ -21,14 +21,3 @@ jobs:
         with:
           files: |
             app_javascript/**
-  eslint:
-    name: Eslint
-    needs: check_changes
-    runs-on: [ubuntu-latest]
-    if: needs.check_changes.outputs.status == 'true'
-    steps:
-      - uses: actions/checkout@v2
-      - uses: reviewdog/action-eslint@v1
-        with:
-          reporter: github-pr-review
-          eslint_flags: 'src/'

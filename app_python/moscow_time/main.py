@@ -10,6 +10,9 @@ app = FastAPI()
 app.add_middleware(PrometheusMiddleware)
 app.add_route("/metrics", metrics)
 
+visits_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                           'volume/visits.json')
+
 
 class MSK_time(BaseModel):
     msk_time: str
@@ -21,17 +24,17 @@ class Message(BaseModel):
 
 @app.get("/visits")
 async def get_visits():
-    if not os.path.exists('volume/visits.json'):
-        open('volume/visits.json', 'w')
+    if not os.path.exists(visits_path):
+        open(visits_path, 'w')
 
     def iterfile():
-        with open("volume/visits.json", mode="r") as file:
+        with open(visits_path, mode="r") as file:
             yield from file
     return StreamingResponse(iterfile())
 
 
 async def write_time(time):
-    with open("volume/visits.json", "a") as file:
+    with open(visits_path, "a") as file:
         file.write(f"Accessed at: {time}\n")
 
 

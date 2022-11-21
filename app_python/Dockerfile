@@ -9,6 +9,7 @@ COPY --chown=python:python timeweb/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY --chown=python:python timeweb/timeweb.py timeweb/wsgi.py /app/
+RUN mkdir /data && chown python:python /data
 
 USER python
 

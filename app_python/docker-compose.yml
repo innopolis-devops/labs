@@ -1,0 +1,12 @@
+version: '3.4'
+services:
+  timeweb:
+    image: passkeyra/timeweb:latest
+    restart: unless-stopped
+    ports:
+      - '50000:50000'
+    volumes:
+      - data:/data
+
+volumes:
+  data: {}

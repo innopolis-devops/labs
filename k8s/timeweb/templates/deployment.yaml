@@ -53,6 +53,14 @@ spec:
               port: 50000
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config.json
+              subPath: config.json
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ include "timeweb.fullname" . }}-config
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -18,8 +18,12 @@ EXPOSE 8000
 # Copy the source code into the working directory
 COPY /app .
 
+VOLUME /data
+
 # Add and use non root user
-RUN adduser --system --no-create-home server
+RUN adduser --system --no-create-home server && \
+    chown server data/visits.json
+
 USER server
 
 # Set a command to run uvicorn server

@@ -33,6 +33,10 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config.json
+              subPath: config.json
           env:
             {{ include "helm-python.environments" . | nindent 12 }}
           ports:
@@ -61,3 +65,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
+      volumes:
+        - name: config-volume
+          configMap:
+            name: config-file

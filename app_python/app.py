@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 import pytz
@@ -35,6 +36,7 @@ async def health(_: web.Request) -> web.Response:
 
 
 def make_app(config: Config, up_metrics: bool):
+    os.makedirs(os.path.split(config.visits_file)[0], exist_ok=True)
     app = web.Application()
     if up_metrics:
         setup_metrics(app, config.app_name)

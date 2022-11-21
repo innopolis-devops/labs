@@ -1,0 +1,27 @@
+scrape_configs:
+  - job_name: 'app_python'
+    scrape_interval: 5s
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['app_python:5000']
+
+  - job_name: 'app_php'
+    scrape_interval: 5s
+    metrics_path: /metrics.php
+    static_configs:
+      - targets: ['app_php:80']
+
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'loki'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['loki:3100']
+
+  - job_name: 'promtail'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['promtail:9080']

@@ -49,6 +49,6 @@ file inside. Put some data in json format inside to check your success in the en
 
 1. Upgrade your bonus app in the same way, it must do something persistent.
 2. Read about `StatefulSet, Headless service, Persistent Volumes`. Describe how did you understand them, and why do we need them.
-    * https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
-    * https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
-    * https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+    * <https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/>
+    * <https://kubernetes.io/docs/concepts/services-networking/service/#headless-services>
+    * <https://kubernetes.io/docs/concepts/storage/persistent-volumes/>

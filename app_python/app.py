@@ -37,8 +37,8 @@ def create_app():
 
     @flask_app.route('/visits')
     def visits():
-        with open('data/visits.log', 'r') as f:
-            return f.read()
+        with open('data/visits.log', 'r') as file:
+            return file.read()
 
     return flask_app
 

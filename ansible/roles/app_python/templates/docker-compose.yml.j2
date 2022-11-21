@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  web:
+    image: {{ web.image }}
+    command: uwsgi --ini uwsgi.ini
+    expose:
+      - {{ web.internal_port }}
+  nginx:
+    image: {{ nginx.image }}
+    ports:
+      - {{ nginx.external_port }}:{{ nginx.internal_port }}
+    depends_on:
+      - web

@@ -36,9 +36,9 @@ spec:
           env:
           - name: MY_PASSWORD
             valueFrom:
-                secretKeyRef:
-                    name: credentials
-                    key: password
+              secretKeyRef:
+                  name: credentials
+                  key: password
           ports:
             - name: http
               containerPort: 80
@@ -60,7 +60,13 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "500m"
-            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: my-config
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -1,54 +1,54 @@
-# 11
+# 12
 
-## K8s secrets and resources
+## K8s ConfigMaps
+
+In this lab you will figure out how to manage non-confidential data in kubernetes.
 
 ### 10 points
 
-In this lab you will figure out how to manage sensitive data such as a password, a token, or a key in kubernetes. Then you will set up CPU and memory limits for your app.
+1. Read about `ConfigMaps` objects:
+    * [ConfigMaps](https://kubernetes.io/docs/concepts/configuration/configmap/)
 
-1. Create a secret in your cluster using `kubctl`.
+2. We tried env vars, so let's mount a config file to our container. Create a folder `files` with `config.json`
+file inside. Put some data in json format inside to check your success in the end.
 
-* [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
-* [Managing secrets](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret)
+3. Use helm and mount config.json:
 
-2. Verify and decode your secret, then create 11.md in the k8s folder and provide the output of the commands inside.
+    * Create a `configMap` manifest. Get data from your `config.json`, use `.Files.Get`.
+    * Then update your `deployment.yaml`. Add `Volumes` and `VolumeMounts`.
+    > [Example](https://carlos.mendible.com/2019/02/10/kubernetes-mount-file-pod-with-configmap/)
+    * Install your updated helm chart and test the result. Get pods: `kubectl get po`. Use the name of the pod to provide a proof of your success. Check your config map inside pod, example: - `kubectl exec demo-758cc4d7c4-cxnrn -- cat /config.json`.`.Files.Get`.
 
-3. So we'll skip configuration file for secret, let's use helm.
+4. Create 12.md in the k8s folder and provide the output of the commands inside.
 
-* You need to create `secrets.yaml` file in `templates` folder.
-* Create a `secret` object inside.
-* Add `env` field to your `Deployment`. Path that you will need: `spec.template.spec.containers.env.`
+5. You need to upgrade your application. For future labs your app must do something persistent. You can follow next steps or suggest any your logic.
 
-> [Helm secrets](https://www.youtube.com/watch?v=hRSlKRvYe1A)
+    1. Your application must write to a file the time when the root path `/` was accessed by the client.
+    2. It must have a new endpoint with path `/visits`.
+    3. Return the content via new endpoint, like you saw it for `/metrics`, but in any format.
+    4. Test it:
+        1. Update your `docker-compose.yml`.
+        2. Add a new volume for your file.
+        3. Test that it works.
+        4. Update your README.md for your application.
 
-* Update your helm deployment (instructions are present in the video). Get pods: `kubectl get po.` Use the name of the pod to provide a proof of your success. Check your secret inside pod, example: `kubectl exec demo- 5f898f5f4c-2gpnd -- printenv | grep MY_PASS.`
+6. Create a PR to the forked repo lab12 branch, ask your teammates to review it and review PRs of your teammates.
 
-4. Read about Resources management:
-
-* [Resource management](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
-
-5. Set up requests and limits for CPU and memory for your application and test that it works.
-
-6. Create a PR to the forked repo lab11 branch, ask your teammates to review it and review PRs of your teammates.
-
-7. Create a PR in your own repository from the lab11 branch to the lab10 one. It will help us with grading.
+7. Create a PR in your own repository from the lab12 branch to the lab11 one. It will help us with grading.
 
 ### List of requirements
 
-* proof of work with a secret in 11.md for the step 2
-* secrets.yaml
-* proof of work with  a secret in 11.md for the step 3
-* resource requests and limits for cpu and memory
+* `config.json` file in `files` folder
+* `configMap` that takes data from `config.json` using `.Files.Get`
+* `volume`s and `volumeMount`s exist in deployments.yml
+* `12.md` file with results of commands
 
 ## Bonus
 
 ### 2 points
 
-1. Add environment variables for your containers:
-
-* Read about it:
-
-* [K8s env vars](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
-
-* Update your helm chart with several environment variables, but use named templates, move them to `_helpers.tpl` file:
-* [Helm named templates](https://helm.sh/docs/chart_template_guide/named_templates/)
+1. Upgrade your bonus app in the same way, it must do something persistent.
+2. Read about `StatefulSet, Headless service, Persistent Volumes`. Describe how did you understand them, and why do we need them.
+    * https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
+    * https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
+    * https://kubernetes.io/docs/concepts/storage/persistent-volumes/

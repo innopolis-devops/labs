@@ -4,6 +4,8 @@ ARG JAR_FILE=target/*.jar
 
 WORKDIR /app_java
 
+COPY visits.json visits.json
+
 COPY ${JAR_FILE} app.jar
 
 EXPOSE 8080

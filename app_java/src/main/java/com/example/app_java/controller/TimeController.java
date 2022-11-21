@@ -16,7 +16,14 @@ public class TimeController {
     public String moscowTime(Model model) {
         var time = timeService.moscowTime();
         model.addAttribute("moscowTime", time);
+        timeService.logVisits();
         return "index";
+    }
+
+    @GetMapping("/visits")
+    public String displayVisits(Model model) {
+        model.addAttribute("records", timeService.getVisits());
+        return "records";
     }
 
 }

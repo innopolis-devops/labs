@@ -5,7 +5,7 @@ from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
 
 from .config import config
-from .utils import increment_visits, current_visits
+from .utils import current_visits, increment_visits
 
 tz = pytz.timezone(config.TIMEZONE)
 
@@ -20,4 +20,4 @@ async def get_current_time():
 
 @router.get('/visits', response_class=HTMLResponse)
 async def get_visits():
-    return f'<h1>Visits: {await current_visits()}'
+    return f'<h1>Visits: {await current_visits()}</h1>'

@@ -14,6 +14,8 @@ FROM python:3.10-slim AS build-image
 EXPOSE 8000
 
 RUN useradd --create-home appuser
+RUN mkdir /home/appuser/volume
+RUN chown appuser:appuser /home/appuser/volume
 USER appuser
 
 COPY --from=compile-image --chown=appuser /opt/venv /opt/venv

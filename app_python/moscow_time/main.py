@@ -1,8 +1,9 @@
 from fastapi import FastAPI, Response
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel
 import requests
 import datetime
+import os
 from starlette_prometheus import metrics, PrometheusMiddleware
 
 app = FastAPI()
@@ -17,6 +18,19 @@ class MSK_time(BaseModel):
 class Message(BaseModel):
     message: str
 
+
+@app.get("/visits")
+async def get_visits():
+    if not os.path.exists('volume/visits.json'): 
+        open('volume/visits.json', 'w')
+    def iterfile():  
+        with open("volume/visits.json", mode="r") as file:  
+            yield from file
+    return StreamingResponse(iterfile())
+
+async def write_time(time):
+    with open("volume/visits.json", "a") as file:
+        file.write(f"Accessed at: {time}\n")
 
 @app.get("/",
          summary="Get moscow time",
@@ -50,6 +64,7 @@ async def root(response: Response):
                                  hour=time_obj["hour"],
                                  minute=time_obj["minute"],
                                  second=time_obj["seconds"])
+        await write_time(time.strftime("%H:%M:%S"))
         return MSK_time(msk_time=time.strftime("%H:%M:%S %d.%m.%Y"))
     else:
         return JSONResponse(

@@ -75,6 +75,9 @@ Make sure docker is already installed.
     docker kill moscow_app
     ```
 
+## Visits logging
+You can get time of last visits by accessing the ```/visits``` endpoint.
+
 ## Implementation
 
 This simple web application was implemented using the FastAPI framework due to its simplicity and speed of development.

@@ -14,6 +14,21 @@ spec:
       labels:
         {{- include "app_helm.selectorLabels" . | nindent 8 }}
     spec:
+      volumes:
+        - name: {{ include "app_helm.fullname" . }}-config
+          configMap:
+            name: {{ include "app_helm.fullname" . }}-config
+        - name: {{ include "app_helm.fullname" . }}-volume
+          persistentVolumeClaim:
+            claimName: {{ include "app_helm.fullname" . }}-volume
+      initContainers:
+        - name: volume-mount-hack
+          image: busybox
+          command: ["sh", "-c", "chown -R 1000:1000 /app"]
+          volumeMounts:
+            - name: {{ include "app_helm.fullname" . }}-volume
+              mountPath: /app/volume
+
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image }}"
@@ -33,3 +48,8 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             {{- include "app_helm.env_aboba" . | nindent 12 }}
+          volumeMounts:
+            - name: {{ include "app_helm.fullname" . }}-config
+              mountPath: /app/config
+            - name: {{ include "app_helm.fullname" . }}-volume
+              mountPath: /app/volume

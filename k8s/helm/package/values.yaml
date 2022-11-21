@@ -1,6 +1,8 @@
 name: py
 lable: py_time
 secrets_name: py.cred
+cm_lable: py_cm
+pv_lable: py_pv
 replicaCount: 3
 
 image:
@@ -23,3 +25,6 @@ resources:
   requests:
     cpu: 10m
     memory: 128Mi
+
+persistence:
+  size: 64Mi

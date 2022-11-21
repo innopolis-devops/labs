@@ -1,6 +1,8 @@
 name: dart
 lable: dart_time
 secrets_name: dart.cred
+cm_lable: dart_cm
+pv_lable: dart_pv
 
 image:
   tag: dart

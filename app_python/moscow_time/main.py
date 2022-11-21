@@ -21,16 +21,19 @@ class Message(BaseModel):
 
 @app.get("/visits")
 async def get_visits():
-    if not os.path.exists('volume/visits.json'): 
+    if not os.path.exists('volume/visits.json'):
         open('volume/visits.json', 'w')
-    def iterfile():  
-        with open("volume/visits.json", mode="r") as file:  
+
+    def iterfile():
+        with open("volume/visits.json", mode="r") as file:
             yield from file
     return StreamingResponse(iterfile())
+
 
 async def write_time(time):
     with open("volume/visits.json", "a") as file:
         file.write(f"Accessed at: {time}\n")
+
 
 @app.get("/",
          summary="Get moscow time",

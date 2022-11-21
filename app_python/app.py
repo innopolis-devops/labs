@@ -1,4 +1,3 @@
-
 """
 Author: Timur Nugaev, BS19-SD01
 This module is the main module of the server
@@ -13,16 +12,39 @@ from prometheus_flask_exporter import PrometheusMetrics
 from healthcheck import HealthCheck
 from business_logic.time_logic import get_time
 
-
 app = Flask(__name__, static_folder='static')
 app.config["JSON_AS_ASCII"] = False
 metrics = PrometheusMetrics(app)
 
+VISITS_FILENAME = '/app_python/saved_visits_time.txt'
 
 health = HealthCheck()
 tstart = datetime.now()
+
+
 def availability():
     return True, f"uptime for: {str((datetime.now() - tstart).days * 24)}"
+
+
+@app.route('/visits')
+def get_visits():
+    v = []
+    with open(VISITS_FILENAME, 'r') as visits_file:
+        ls = visits_file.readlines()
+        for l in ls:
+            v.append(l[:-2])
+    return v
+
+
+def save_visit():
+    try:
+        with open(VISITS_FILENAME, 'a') as visits_file:
+            visits_file.write(f"{str(datetime.now())}\n")
+    except FileNotFoundError:
+        with open('.' + VISITS_FILENAME, 'a') as visits_file:
+            visits_file.write(f"{str(datetime.now())}\n")
+
+
 health.add_check(availability)
 
 
@@ -33,6 +55,7 @@ def get_home_page():
     dynamic data (time) in the timezone of Moscow.
     :return: rendered template for home page
     """
+    save_visit()
     return render_template('index.html', time_msk=get_time("Europe/Moscow"))
 
 

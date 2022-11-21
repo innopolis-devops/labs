@@ -29,7 +29,12 @@ WORKDIR /app
 COPY --from=build --chown=user:user /venv /venv
 COPY --chown=user:user . /app
 
-RUN apk add --no-cache curl=7.83.1-r3
+RUN apk add --no-cache curl=7.83.1-r3 && \
+    mkdir /app/data && \
+    touch data/visits.txt && \
+    chown user data/visits.txt
+
+VOLUME /app/data
 
 USER user
 

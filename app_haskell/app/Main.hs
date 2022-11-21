@@ -1,7 +1,9 @@
 module Main where
 
-import           Data.Default
-import           WebApp       (runWebApp)
+import           Config
+import           WebApp (runWebApp)
 
 main :: IO ()
-main = runWebApp def
+main = do
+  config <- readConfig
+  runWebApp config

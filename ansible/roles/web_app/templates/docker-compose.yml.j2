@@ -9,3 +9,8 @@ services:
       - "{{ p.external }}:{{ p.internal }}"
 {% endfor %}
     restart: always
+    volumes:
+      - {{ app.name }}-data:/app/data
+
+volumes:
+  {{ app.name }}-data:

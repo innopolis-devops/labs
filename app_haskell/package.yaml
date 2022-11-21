@@ -31,7 +31,6 @@ dependencies:
   - servant-lucid
   - lucid
   - warp
-  - data-default
   - unliftio
   - time
   - servant-prometheus
@@ -39,6 +38,7 @@ dependencies:
   - co-log
   - text
   - bytestring
+  - aeson
 
 library:
   source-dirs: src

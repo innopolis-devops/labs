@@ -25,9 +25,21 @@ def create_app():
         directory = os.path.dirname(FILE_NAME)
         if not os.path.exists(directory):
             os.makedirs(directory)
+        with open('data/visits.log', 'w') as f:
+            f.write(time)
         with open(FILE_NAME, "a", encoding='utf-8') as file:
             file.write(str(datetime.now(zone)) + '</br>')
         return render_template('index.html', timezone_name=zone, time=time)
+
+    @flask_app.route("/health")
+    def health():
+        return "OK"
+
+    @flask_app.route('/visits')
+    def visits():
+        with open('data/visits.log', 'r') as f:
+            return f.read()
+
     return flask_app
 
 

@@ -58,6 +58,13 @@ if __name__ == "__main__":
     app.run(port=<desired port> , debug=True)
 ```
 
+### 3.2 Lab 12: Adding new app endpoint
+
+The app is now configured with new end poin `/visits` that shows the time when the root path `/` was accessed by the client.
+
+![](./images/visits-endpoint.png)
+
+
 ## 4. Docker Containerization
 
 ### 4.1 Steps Followed to Create a Public Docker Image

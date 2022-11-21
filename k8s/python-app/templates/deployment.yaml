@@ -44,6 +44,16 @@ spec:
             - name: http
               containerPort: 8000
               protocol: TCP
+          volumeMounts:
+            - name: config-volume
+              mountPath: /home/appuser/config.json
+              subPath: config.json
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ include "python-app.fullname" . }}-config
 #          livenessProbe:
 #            httpGet:
 #              path: /
@@ -52,8 +62,6 @@ spec:
 #            httpGet:
 #              path: /
 #              port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

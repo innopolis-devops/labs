@@ -20,7 +20,7 @@ COPY --from=build /app/target/moscow-time-app-exe .
 RUN chmod 001 /app/moscow-time-app-exe
 
 RUN apt-get update && \
-    apt-get install -yqq --no-install-recommends curl=7.81.0-1ubuntu1.4 && \
+    apt-get install -yqq --no-install-recommends curl=7.81.0-1ubuntu1.6 && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir /app/data && \
     touch data/visits.txt && \

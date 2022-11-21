@@ -2,3 +2,4 @@
 Dockerfile
 .dockerignore
 venv/
+tests

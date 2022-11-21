@@ -7,7 +7,6 @@ import           App
 import           Colog
 import           Config
 import           Control.Monad.Reader
-import           Data.Foldable        (fold)
 import           Data.Time
 import           Lucid
 import           Servant

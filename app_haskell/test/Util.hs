@@ -16,8 +16,8 @@ withApp :: (Warp.Port -> IO ()) -> IO ()
 withApp action = do
   -- testWithApplication makes sure the action is executed after the server has
   -- started and is being properly shutdown.
-
   config_ <- readConfig
+  createVisitsDirectoryIfMissing config_
   let env = makeAppEnv config_
   let app = makeWebApp env
 

@@ -8,10 +8,12 @@
 module Config where
 
 import           Control.Exception
+import           Control.Monad        (unless)
 import           Data.Aeson
 import qualified Data.ByteString      as BS
 import qualified Data.ByteString.Lazy as BSL
 import           GHC.Generics         (Generic)
+import           System.Directory
 
 data Config
   = Config
@@ -46,3 +48,15 @@ readVisitsFile path = do
   case contents of
     Left (_ :: SomeException) -> pure Nothing
     Right contents'           -> pure $ decode $ BSL.fromStrict contents'
+
+createVisitsDirectoryIfMissing :: Config -> IO ()
+createVisitsDirectoryIfMissing config = do
+  let visits_dir = get_dir (visits_file config)
+  createDirectoryIfMissing' visits_dir
+  where
+    get_dir :: FilePath -> FilePath
+    get_dir = reverse . dropWhile (/= '/') . reverse
+
+    createDirectoryIfMissing' visits_dir = do
+      unless (null visits_dir) $
+        createDirectoryIfMissing True visits_dir

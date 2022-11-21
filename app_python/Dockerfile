@@ -4,9 +4,12 @@ RUN useradd -u 8877 newuser
 USER newuser
 
 WORKDIR /
-COPY app_python/requirements.txt requirements.txt
 
 USER root
+
+COPY app_python/requirements.txt requirements.txt
+
+COPY app_python/saved_visits.json saved_visits.json
 
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -14,6 +17,8 @@ USER newuser
 
 WORKDIR /
 COPY . .
+
+USER root
 
 ENV FLASK_APP=app.py
 

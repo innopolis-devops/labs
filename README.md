@@ -55,6 +55,11 @@ flask run
 
 ![app](/assets/app.jpg)
 
+The app also counts the number of visits of the website. They can be seen at <http://localhost:5000/visits>.
+Also all visits are wriiten to the saved_visits.json file.
+
+![visits](/assets/visits.png)
+
 ## Docker
 
 The application has a Dockerfile for simplified build.

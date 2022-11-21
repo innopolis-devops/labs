@@ -1,18 +1,17 @@
-import React from 'react';
 import "./App.css";
+import "./home"
+import "./visits"
 
-class App extends React.Component {
-  state={
-    curDT : new Date().toLocaleString(),
-  }
-  render(){
-    return (
-      <div className="App">
-        <h1> Current time in Moscow </h1>
-        <p>{this.state.curDT}</p>
-      </div>
-    );
-  }
+function App() {
+  return (
+      <Router>
+      <Navbar />
+      <Routes>
+          <Route exact path='/' element={<Home />} />
+          <Route path='/visits' element={<Visits/>} />
+      </Routes>
+      </Router>
+  );
 }
 
 export default App;

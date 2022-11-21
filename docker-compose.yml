@@ -1,11 +1,18 @@
 services:
   app_python:
     image: noneword/app_python
+    volumes:
+      - storage-python:/app/storage
     build: app_python
     ports:
       - 4567:8080
   app_java:
     image: noneword/app_java
+    volumes:
+      - storage-java:/app/storage
     build: app_java
     ports:
       - 4568:8080
+volumes:
+  storage-python:
+  storage-java:

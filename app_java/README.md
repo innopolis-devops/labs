@@ -38,6 +38,11 @@ Follow steps to stop:
 Follow step:
 1. Run `mvn test`
 
+### Visits
+After starting application:
+1. All visits with time are on file visits.json
+2. Using `/visits` endpoint, check all visits time
+
 ### Contact
 
 Email: g.kostarev@innopolis.university  

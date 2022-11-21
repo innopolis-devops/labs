@@ -16,15 +16,12 @@ In this lab you will figure out how to manage non-confidential data in kubernete
 
     * Create a `configMap` manifest. Get data from your `config.json`, use `.Files.Get`.
     * Then update your `deployment.yaml`. Add `Volumes` and `VolumeMounts`.
-   > [Example](https://carlos.mendible.com/2019/02/10/kubernetes-mount-file-pod-with-configmap/)
-    * Install your updated helm chart and test the result. Get pods: `kubectl get po`. Use the name of the pod to
-      provide a proof of your success. Check your config map inside pod, example:
-      - `kubectl exec demo-758cc4d7c4-cxnrn -- cat /config.json`.`.Files.Get`.
+    > [Example](https://carlos.mendible.com/2019/02/10/kubernetes-mount-file-pod-with-configmap/)
+    * Install your updated helm chart and test the result. Get pods: `kubectl get po`. Use the name of the pod to provide a proof of your success. Check your config map inside pod, example: - `kubectl exec demo-758cc4d7c4-cxnrn -- cat /config.json`.`.Files.Get`.
 
 4. Create 12.md in the k8s folder and provide the output of the commands inside.
 
-5. You need to upgrade your application. For future labs your app must do something persistent. You can follow next
-   steps or suggest any your logic.
+5. You need to upgrade your application. For future labs your app must do something persistent. You can follow next steps or suggest any your logic.
 
     1. Your application must write to a file the time when the root path `/` was accessed by the client.
     2. It must have a new endpoint with path `/visits`.

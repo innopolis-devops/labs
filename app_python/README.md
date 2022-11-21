@@ -10,6 +10,9 @@
     Just visit our amazing cutting-edge web-site. 
     With this application you will always know what time it is!
 
+    Also, you we will let you can now watch how many people in the world also know what time it is!
+    We keep track of analytical data and it is publically avaiable at `/visits`
+
     Built by time watchers for time watchers!
 
     P. S. This is an MVP, so you can only watch MSK time at the moment.
@@ -39,6 +42,10 @@ To see the web page, navigate to http://localhost:8081 in your browser
 
 If you want to change the ip address and/or the port, you can do it in `config.yml`:
 
+One of the new features is that you can see how much and when the home page has been accessed
+
+For that, navigate to `localhost:8081/visits`
+
 ![img_1.png](img_1.png)
 
 ## Docker
@@ -48,6 +55,8 @@ I containerized this application and uploaded the final image to the docker hub.
 The application runs on port 8081 (by default), so you should forward this port when running
 
 I've looked at multi-staging and believe it's unnecessary for a project this size.
+
+More on Docker in `DOCKER.md`
 
 ### Prerequisites:
 
@@ -63,6 +72,7 @@ I've looked at multi-staging and believe it's unnecessary for a project this siz
 `docker run -p 8081:8081 -d wtiiim_app`
 
 [//]: # (docker run -p 8081:8081 -d wtiiim_app)
+
 [//]: # (docker push aladdinych/devops_labs)
 
 ### Build from docker hub:
@@ -97,6 +107,24 @@ we're getting correct results for Chicago timezone as well.
 
 As we currently have only one route (home, '/'), we have only one test for one endpoint.
 This test checks if we successfully retrieved the home page.
+
+## Kubernetes
+
+Kubernetes deployments with and without charts.
+
+More about Kubernetes for this project is in `k8s/`
+
+## Monitoring
+
+Different monitoring, prometheus etc.
+
+More about Monitoring for this project is in `monitoring/`
+
+## Terraform
+
+Terraform best practices, docker etc.
+
+More about Terraform for this project is in `monitoring/`
 
 ## Contact
 

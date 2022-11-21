@@ -95,6 +95,10 @@ The GitHub Actions configuration used in this project has three jobs: Snyk, Buil
 
 The workflow is triggered only on changes in the ./app_rust directory or in the workflow configuration itself
 
+## Persistence
+
+Whenever somebody accesses the index route `/`, a counter increments. You can check the current counter value at `/visits` route
+
 ## Contacts
 
 * Telegram: @AKurmazov

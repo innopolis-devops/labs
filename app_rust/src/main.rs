@@ -18,6 +18,7 @@ mod utils;
 
 #[get("/")]
 fn index() -> Html<String> {
+    utils::increment_visits();
     let utc_now = chrono::Utc::now();
     let msc_now = utc_now
         .with_timezone(
@@ -25,6 +26,12 @@ fn index() -> Html<String> {
         .to_rfc3339();
 
     Html(format!("<h1>{}</h1>", msc_now))
+}
+
+#[get("/visits")]
+fn visits() -> Html<String> {
+    let _visits: u32 = utils::current_visits();
+    Html(format!("<h1>Visits: {}</h1>", _visits))
 }
 
 #[get("/health")]
@@ -37,7 +44,7 @@ fn rocket() -> rocket::Rocket {
     rocket::ignite()
         .attach(prometheus.clone())
         .mount("/metrics", prometheus)
-        .mount("/", routes![index, health])
+        .mount("/", routes![index, visits, health])
 }
 
 fn main() {

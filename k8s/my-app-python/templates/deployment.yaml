@@ -1,44 +1,44 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "my-app-python.fullname" . }}
+  name: { { include "my-app-python.fullname" . } }
   labels:
-    {{- include "my-app-python.labels" . | nindent 4 }}
+    { { - include "my-app-python.labels" . | nindent 4 } }
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  { { - if not .Values.autoscaling.enabled } }
+  replicas: { { .Values.replicaCount } }
+  { { - end } }
   selector:
     matchLabels:
-      {{- include "my-app-python.selectorLabels" . | nindent 6 }}
+      { { - include "my-app-python.selectorLabels" . | nindent 6 } }
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
+      { { - with .Values.podAnnotations } }
       annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        { { - toYaml . | nindent 8 } }
+      { { - end } }
       labels:
-        {{- include "my-app-python.selectorLabels" . | nindent 8 }}
+        { { - include "my-app-python.selectorLabels" . | nindent 8 } }
     spec:
-      {{- with .Values.imagePullSecrets }}
+      { { - with .Values.imagePullSecrets } }
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      serviceAccountName: {{ include "my-app-python.serviceAccountName" . }}
+        { { - toYaml . | nindent 8 } }
+      { { - end } }
+      serviceAccountName: { { include "my-app-python.serviceAccountName" . } }
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        { { - toYaml .Values.podSecurityContext | nindent 8 } }
       containers:
-        - name: {{ .Chart.Name }}
+        - name: { { .Chart.Name } }
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            { { - toYaml .Values.securityContext | nindent 12 } }
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: { { .Values.image.pullPolicy } }
           env:
-          - name: MY_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: credential
-                key: password
+            - name: MY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: credential
+                  key: password
           ports:
             - name: http
               containerPort: 5000
@@ -52,16 +52,24 @@ spec:
               path: /
               port: http
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
+            { { - toYaml .Values.resources | nindent 12 } }
+          volumeMounts:
+            - name: helm-app-config-volume
+              mountPath: /app/config.json
+              subPath: config.json
+      volumes:
+        - name: helm-app-config-volume
+          configMap:
+            name: helm-app-config
+      { { - with .Values.nodeSelector } }
       nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
+        { { - toYaml . | nindent 8 } }
+      { { - end } }
+      { { - with .Values.affinity } }
       affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
+        { { - toYaml . | nindent 8 } }
+      { { - end } }
+      { { - with .Values.tolerations } }
       tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        { { - toYaml . | nindent 8 } }
+      { { - end } }

@@ -2,6 +2,10 @@ version: '2'
 services:
   web:
     image: yadariya/devops:latest
+    volumes:
+      - storage-python:/app/data
     ports:
       - "1337:5000"
     restart: always
+volumes:
+  storage-python:

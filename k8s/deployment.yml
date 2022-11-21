@@ -15,7 +15,7 @@ spec:
         app: app-python
     spec:
       containers:
-      - name: app-python
-        image: yadariya/devops:latest
-        ports:
-        - containerPort: 5000
+        - name: app-python
+          image: yadariya/devops:latest
+          ports:
+            - containerPort: 5000

@@ -1,18 +1,26 @@
 ## Lab 9
-1. 
+
+1.
+
 ```bash 
 minikube start
 ```
-2. 
+
+2.
+
 ```bash 
 kubectl create deployment app-python --image=yadariya/devops:latest
 kubectl expose deployment app-python --type=LoadBalancer --port=8080
 ```
-3. 
+
+3.
+
 ```bash 
 kubectl get pods,svc
 ```
+
 output:
+
 ```bash
 NAME                              READY   STATUS    RESTARTS   AGE
 pod/app-python-5f84cfd997-flfd4   1/1     Running   0          10m
@@ -21,20 +29,28 @@ NAME                 TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        
 service/app-python   LoadBalancer   10.111.0.174   <pending>     8080:31235/TCP   9m17s
 service/kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP          16m
 ```
-4. for deleting deployment and service 
+
+4. for deleting deployment and service
+
 ```bash
 minikube delete
 ``` 
+
 5. for adding config files
+
 ```bash
 kubectl apply -f deployment.yml
 kubectl apply -f service.yml
 ```
-6. 
+
+6.
+
 ```bash 
 kubectl get pods,svc
 ```
+
 output:
+
 ```bash
 NAME                                         READY   STATUS    RESTARTS   AGE
 pod/app-python-deployment-7fc577c86b-7vdt7   1/1     Running   0          91s
@@ -45,11 +61,15 @@ NAME                         TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)
 service/app-python-service   LoadBalancer   10.108.67.39   <pending>     5000:31442/TCP   84s
 service/kubernetes           ClusterIP      10.96.0.1      <none>        443/TCP          107s
 ```
-7.  
+
+7.
+
 ```bash 
 minikube service --all
 ```
-output: 
+
+output:
+
 ```bash
 |-----------|--------------------|-------------|---------------------------|
 | NAMESPACE |        NAME        | TARGET PORT |            URL            |
@@ -64,9 +84,9 @@ output:
 😿  service default/kubernetes has no node port
 🎉  Opening service default/app-python-service in default browser...
 ```
+
 result from my browser
 ![img.png](img.png)
-
 
 ## Lab 10
 
@@ -94,5 +114,6 @@ NAME                    TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)    
 service/kubernetes      ClusterIP      10.96.0.1       <none>        443/TCP        45m
 service/my-app-python   LoadBalancer   10.104.73.105   <pending>     80:32320/TCP   5m6s
 ```
+
 Dashboard:
 ![img_1.png](img_1.png)

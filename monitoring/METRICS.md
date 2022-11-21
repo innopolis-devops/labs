@@ -1,7 +1,9 @@
-1. run 
+1. run
+
 ```bash 
 docker compose up
 ```
+
 2. go to [Link](http://localhost:9090/targets)
 
 ![img_1.png](img_1.png)
@@ -11,4 +13,4 @@ docker compose up
 ![img_2.png](img_2.png)
 
 4. dashboard #2
-![img_3.png](img_3.png)
+   ![img_3.png](img_3.png)

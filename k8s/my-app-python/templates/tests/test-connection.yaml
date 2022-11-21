@@ -3,13 +3,13 @@ kind: Pod
 metadata:
   name: "{{ include "my-app-python.fullname" . }}-test-connection"
   labels:
-    {{- include "my-app-python.labels" . | nindent 4 }}
+    { { - include "my-app-python.labels" . | nindent 4 } }
   annotations:
     "helm.sh/hook": test
 spec:
   containers:
     - name: wget
       image: busybox
-      command: ['wget']
-      args: ['{{ include "my-app-python.fullname" . }}:{{ .Values.service.port }}']
+      command: [ 'wget' ]
+      args: [ '{{ include "my-app-python.fullname" . }}:{{ .Values.service.port }}' ]
   restartPolicy: Never

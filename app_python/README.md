@@ -20,7 +20,7 @@ MoscowTimeDisplayer is simple web-application, which shows current time in Mosco
 3. cd app_python
 
 4. install required dependencies:
-`pip install -r requirements.txt`
+   `pip install -r requirements.txt`
 
 5. run the app
 
@@ -47,7 +47,8 @@ Image available on docker hub repository yadariya/devops
 
 ## :cyclone: Continuous integration
 
-I implement Continuous integration using GitHub Actions. I build application, do linting, run tests and build docker image.
+I implement Continuous integration using GitHub Actions. I build application, do linting, run tests and build docker
+image.
 The workflows located in `.github/workflows/` folder.
 
 ## :pencil: Contacts

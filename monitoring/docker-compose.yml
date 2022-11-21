@@ -6,7 +6,7 @@ services:
     mem_limit: 128m
     ports:
       - 8000:5000
-    command: ["gunicorn",  "--bind",  "0.0.0.0:5000", "app:app", "--log-level", "debug"]
+    command: [ "gunicorn",  "--bind",  "0.0.0.0:5000", "app:app", "--log-level", "debug" ]
     logging:
       driver: "json-file"
       options:
@@ -110,7 +110,7 @@ services:
         tag: "{{.ImageName}}|{{.Name}}"
 
 volumes:
-  prometheus-data: {}
-  grafana-data: {}
-  loki-data: {}
-  promtail-data: {}
+  prometheus-data: { }
+  grafana-data: { }
+  loki-data: { }
+  promtail-data: { }

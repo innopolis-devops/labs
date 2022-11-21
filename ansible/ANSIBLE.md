@@ -114,7 +114,8 @@ VM1                        : ok=10   changed=0    unreachable=0    failed=0    s
 
 Lab 6
 
-1. 
+1.
+
 ```bash
 ansible-playbook playbooks/dev/main.yaml --diff
 ```
@@ -257,7 +258,8 @@ PLAY RECAP *********************************************************************
 VM1                        : ok=16   changed=5    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0   
 ```
 
-2. 
+2.
+
 ```bash
 ansible-inventory -i inventory/inventory.yaml --list
 ```

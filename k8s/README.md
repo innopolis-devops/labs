@@ -45,3 +45,8 @@ minikube service --all
 
 ![Browser screenshot](./im1.png)
 
+## Helm
+
+![im1](./lab10_1.png)
+![im2](./lab10_2.png)
+![im3](./lab10_3.png)

@@ -45,5 +45,15 @@ To test the application first run `pip install -r requirements.txt`
 
 Then execute `pytest` inside the app_python folder and see the results
 
+## endpoints
+
+Everytime the main endpoint (/) is accessed the visit is written into visits.json file  
+
+/visits endpoint shows the total amount of visits and corresponding timestamps
+
+## visits
+
+File called visits.json contains all visits in json format 
+
 ## Contacts
 Any question? telegram me @mikhailh

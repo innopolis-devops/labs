@@ -39,7 +39,7 @@ spec:
               secretKeyRef:
                 name: credentials
                 key: password
-          {{ - include "lab11.env" . | nindent 10 }}
+          {{- include "lab11.env" . | nindent 10 }}
           ports:
             - name: http
               containerPort: 8080
@@ -54,6 +54,13 @@ spec:
 #              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: app-python-config
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

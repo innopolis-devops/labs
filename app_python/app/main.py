@@ -1,5 +1,5 @@
 from datetime import datetime
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response
 import pytz
 import logging
 
@@ -7,13 +7,31 @@ fmt = '%(asctime)s %(levelname)s [%(name)s] [%(funcName)s:%(lineno)s] %(message)
 logging.basicConfig(filename='./log/main.log', level=logging.DEBUG, format=fmt)
 logger = logging.getLogger(__name__)
 
+VISITS_FILE = 'visits.txt'
+
 app = FastAPI()
 
 
 @app.get("/")
 async def get_current_time(request: Request):
     ip = request.client.host
-    logger.info(f"Request from {ip}")
+    logger.info(f"Request time from {ip}")
 
     time_zone = pytz.timezone('Europe/Moscow')
-    return {"current_time": datetime.now(tz=time_zone)}
+    now = datetime.now(tz=time_zone)
+
+    with open(VISITS_FILE, 'a') as file:
+        file.write(str(now) + '\n')
+
+    return {"current_time": now}
+
+
+@app.get("/visits")
+async def get_visits(request: Request):
+    ip = request.client.host
+    logger.info(f"Request visits from {ip}")
+
+    with open(VISITS_FILE, 'r') as file:
+        visits = file.read()
+
+    return Response(content=visits, media_type='text/plain')

@@ -5,6 +5,7 @@ terraform.tfvars
 .terraform/
 .idea/
 logs/
+visits.txt
 
 ### Python ###
 # Byte-compiled / optimized / DLL files

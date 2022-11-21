@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -29,8 +30,25 @@ func SetUpRouter() *gin.Engine{
 	router := gin.Default()
 	loc := time.FixedZone("MSK", 3*60*60)
 	router.GET("/", func(c *gin.Context) {
+		f, err := os.OpenFile("history.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+		if err != nil {
+			panic(err)
+		}
+
+		defer func(f *os.File) {
+			_ = f.Close()
+		}(f)
+
+		curTime := time.Now().In(loc).String()
+
+		if _, err = f.WriteString(curTime + " " + c.ClientIP() + "\n"); err != nil {
+			panic(err)
+		}
 	    requestsCounter.Inc()
-		c.String(http.StatusOK, time.Now().In(loc).String())
+		c.String(http.StatusOK, curTime)
+	})
+	router.GET("/visits", func(context *gin.Context) {
+		context.File("history.txt")
 	})
 	return router
 }

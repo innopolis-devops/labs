@@ -16,26 +16,17 @@ spec:
         - name: node-app-container-{{.Release.Name}}
           image: {{ .Values.container.image }}
           env:
-            - name: TEST_VAL
-              valueFrom:
-                configMapKeyRef:
-                  key: testVal
-                  name: cm
             - name: MY_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: credentials
                   key: password
           volumeMounts:
-            - mountPath: "/config"
-              name: config
-              readOnly: true
+            - name: config-volume
+              mountPath: "/usr/src/app/config"
           ports:
             - containerPort: {{ .Values.container.port }}
       volumes:
-        - name: config
+        - name: config-volume
           configMap:
             name: cm
-            items:
-              - key: testVal
-                path: "testVal"

@@ -3,7 +3,8 @@ services:
   app_nodejs:
     build: './app_nodejs'
     volumes:
-      - ./app_nodejs:/usr/src/app
-      - /usr/src/app/node_modules
+      - storage:/usr/src/app/storage
     ports:
       - "0.0.0.0:8080:8080"
+volumes:
+  storage:

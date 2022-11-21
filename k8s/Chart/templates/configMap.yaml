@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: cm
 data:
-  testVal: "5"
-  config.ini: "My config!"
+  config.json: |-
+    {{- .Files.Get "files/config.json" | nindent 4 }}

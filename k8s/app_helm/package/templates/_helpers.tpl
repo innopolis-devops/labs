@@ -61,14 +61,6 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-{{- define "app_helm.env_password" }}
-- name: PASSWORD
-  valueFrom:
-    secretKeyRef:
-      name: {{ include "app_helm.fullname" . }}
-      key: password
-{{- end }}
-
 {{- define "app_helm.env_aboba" }}
 - name: ABOBA
   value: アボバ

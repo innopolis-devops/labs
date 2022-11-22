@@ -148,6 +148,14 @@ git checkout lab3
 
 1. Stop the app by using `Ctrl+C` in the terminal.
 
+### Endpoints
+
+1. `/` - root path, used to get current time in Moscow
+
+1. `/visits` - used to get the time when the root path `/` was accessed by the client
+
+1. `/metrics` - used to get metrics
+
 ## Unit Testing
 
 1. Make sure that you are in the application directory:

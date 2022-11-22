@@ -2,5 +2,10 @@ version: "3.10"
 services:
   web:
     build: app_python
+    image: amina109/devops
     ports:
       - "8000:8000"
+    volumes:
+      - volume:/app/src/volume
+volumes:
+  volume:

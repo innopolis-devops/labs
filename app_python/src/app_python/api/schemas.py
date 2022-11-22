@@ -47,3 +47,10 @@ class StatusResponse(FastPydanticBaseModel):
     """
 
     status: Literal['OK'] = Field(default='OK', title='Represent status of the service.')
+
+
+class VisitsResponse(FastPydanticBaseModel):
+    """
+    Represents API response.
+    """
+    visits: list[datetime] = Field(title='List of visits.')

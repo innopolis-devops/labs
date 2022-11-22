@@ -18,7 +18,8 @@ RUN groupadd devops && useradd devops -g devops
 WORKDIR /app
 
 # Logs and unix socket.
-RUN mkdir ./logs && chown devops:devops logs && mkdir -p /tmp/app && chown devops:devops /tmp/app
+RUN mkdir ./logs && chown devops:devops logs && mkdir -p /tmp/app && chown devops:devops /tmp/app && \
+    touch visits.log && chown devops:devops visits.log
 
 # Source.
 COPY ./src ./src

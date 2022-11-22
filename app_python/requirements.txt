@@ -10,3 +10,4 @@ orjson==3.7.12
 uvicorn[standard]==0.18.2
 gunicorn==20.1.0
 prometheus_fastapi_instrumentator==5.9.1
+aiofiles==22.1.0

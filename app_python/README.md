@@ -24,6 +24,10 @@ make local
 If you have any questions just ask them here --> https://smthngslv.t.me
 
 
+# Visits
+1. Add visit via `POST` on `http://localhost/v1/visits`.
+2. Get listing of visits via `GET` on `http://localhost/v1/visits`.
+
 # Makefile commands
 
 1. You can edit values in the variable section in the Makefile:

@@ -6,7 +6,7 @@ router = APIRouter(tags=['system'])
 
 
 @router.get(
-    '/status',
+    path='/status',
     description='Returns current system status.',
     response_model=StatusResponse
 )

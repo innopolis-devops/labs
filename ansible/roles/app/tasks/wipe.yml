@@ -1,0 +1,13 @@
+---
+- name: Remove docker container and volumes
+  tags: wipe
+  when: wipe
+  block:
+    - name: Wipe Docker
+      ansible.builtin.shell:
+        cmd: make down-v
+        chdir: "{{path}}/app_python/"
+
+    - name: Wipe Directory
+      ansible.builtin.shell:
+        cmd: rm -rf "{{path}}"

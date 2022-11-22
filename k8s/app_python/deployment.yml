@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-python-deployment
+  labels:
+    app: app-python
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-python
+  template:
+    metadata:
+      labels:
+        app: app-python
+    spec:
+      containers:
+        - name: ap-api
+          image: 553667903818.dkr.ecr.eu-north-1.amazonaws.com/app_python/api:prod
+          ports:
+            - containerPort: 8000
+          command: ["bash"]
+          args: ["-c", "cd ./src && gunicorn --config gunicorn.conf.py app_python.api:app"]
+      imagePullSecrets:
+        - name: eu-north-1-ecr-registry

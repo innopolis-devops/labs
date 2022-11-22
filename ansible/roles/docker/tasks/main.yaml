@@ -1,0 +1,27 @@
+---
+- name: Install Docker and Docker Compose.
+  block:
+    - name: Install Docker.
+      ansible.builtin.shell:
+        cmd: sudo apt-get update -y && sudo apt-get install -y docker.io wget curl
+
+    - name: Install Docker Compose
+      ansible.builtin.shell:
+        cmd: | 
+          # For docker plugins.
+          sudo mkdir -p /usr/local/lib/docker/cli-plugins
+          # Install docker compose.
+          sudo wget -qO /usr/local/lib/docker/cli-plugins/docker-compose https://github.com/docker/compose/releases/download/v2.9.0/docker-compose-linux-$(arch)
+          # Make file executable.
+          sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
+
+    - name: Configure Docker.
+      ansible.builtin.shell:
+        cmd: | 
+          # Enable docker service.
+          sudo systemctl enable docker
+          # Add user ubuntu to docker group.
+          sudo usermod -aG docker ubuntu
+
+    - name: Reset ssh connection to allow user changes to affect 'current login user'.
+      ansible.builtin.meta: reset_connection

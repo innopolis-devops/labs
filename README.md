@@ -37,6 +37,10 @@ To run from the master branch, follow the instructions below:
     flask run
     ```
 
+1. Application also shows number of visits and their time at [http://localhost:5000/visits](<http://localhost:5000/visits>): 
+
+![](/k8s/images/12browser.png)
+
 ## Contacts
 
 If you have any questions or ideas, write me in Telegram:

@@ -59,6 +59,17 @@ spec:
           #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+
+          volumeMounts:
+            - name: app-python-config-volume
+              mountPath: /home/app/config/config.json
+              subPath: config.json
+              readOnly: true
+      volumes:
+        - name: app-python-config-volume
+          configMap:
+            name: app-python-config
+            
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

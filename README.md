@@ -21,6 +21,7 @@ Application uses 'pytz' library to get Moscow timezone and then prints the forma
 1. Launch the app while the environment is activated using
    `python time.py`
 2. App wil be dispatched at http://127.0.0.1:5000
+3. There is /visits endpoint, it shows time of previous accesses to root endpoint.
 
 ## Unit testing 
 

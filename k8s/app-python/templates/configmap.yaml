@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-python-config
+data:
+  config.json: |-
+    {{ range .Files.Lines "files/config.json" }}{{ . }}{{ end }}

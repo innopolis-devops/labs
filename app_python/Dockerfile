@@ -1,19 +1,27 @@
 FROM python:3.9
 
-WORKDIR /server
+WORKDIR /home/app
 
-COPY ./requirements.txt /server/requirements.txt
+RUN adduser --disabled-login timeapp && chown -R timeapp /home
 
-RUN pip3 install --no-cache-dir --upgrade -r /server/requirements.txt
+COPY ./requirements.txt /home/app/requirements.txt
 
-COPY ./app /server/app
+RUN pip3 install --no-cache-dir --upgrade -r /home/app/requirements.txt
 
-RUN adduser --disabled-login timeapp && chown -R timeapp /server
+RUN mkdir /home/app/data && \
+    touch data/visits.txt && \
+    chown timeapp data/visits.txt
+
+COPY . .
+
+
 
 USER timeapp
 
+
+
+
+WORKDIR /home/app
+
+CMD ["uvicorn", "app.main:fast_api", "--reload", "--host", "0.0.0.0", "--port", "8080"]
 EXPOSE 8080
-
-WORKDIR /server/app
-
-CMD ["uvicorn", "main:fast_api", "--reload", "--host", "0.0.0.0", "--port", "8080"]

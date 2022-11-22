@@ -35,7 +35,6 @@ def create_app():
             os.makedirs(visits_dir)
         with open(VISITS_FILE, 'w', encoding='utf-8') as file:
             file.write(time)
-            
         return render_template('index.html', timezone_name=zone, time=time)
 
     @flask_app.route("/health")

@@ -32,13 +32,11 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          volumeMounts:
+          - name: config-volume
+            mountPath: /config.json
+            subPath: config.json
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-          - name: MY_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: my-pass
-                key: password
           ports:
           - containerPort: 5000
           # livenessProbe:
@@ -63,3 +61,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+      - name: config-volume
+        configMap:
+          name: app-python-configmap

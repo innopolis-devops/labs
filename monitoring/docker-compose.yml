@@ -85,6 +85,8 @@ services:
       - app_python
       - monitoring
     logging: *logging
+    volumes:
+      - app-python-data:/app/data
 
 networks:
   app_python:
@@ -95,3 +97,4 @@ volumes:
   loki-data:
   promtail-data:
   prometheus-data:
+  app-python-data:

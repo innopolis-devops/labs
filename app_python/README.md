@@ -18,6 +18,8 @@ The application is written using the [FastAPI](https://fastapi.tiangolo.com/) fr
 </div>
 Application is using [Prometheus FastAPI Instrumentator](https://github.com/trallnag/prometheus-fastapi-instrumentator) to collect metrics. All metrics available on `/metrics`.
 
+All visits to the home page are recorded in a file, which can be viewed on the page `/visits`.
+
 ## ⚡️ Quick start (for Linux only)
 
 1. Download the repository and change the current directory:

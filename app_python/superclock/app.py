@@ -34,7 +34,7 @@ async def home(request: Request) -> Response:
 
 
 @app.get("/visits")
-async def visits() -> List[str]:
+async def visits() -> List[VisitorInfo]:
     try:
         with open("visits.txt", "rb") as f:
             return [VisitorInfo.parse_raw(i) for i in f.read().split(b"\n")[:-1]]

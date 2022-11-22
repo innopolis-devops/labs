@@ -1,0 +1,7 @@
+---
+
+- name: Pull docker image
+  shell: docker pull simonwt/moscow-time-fastapi:latest
+
+- name: Run docker image
+  shell: docker run -d -p 8001:8001 simonwt/moscow-time-fastapi:latest 

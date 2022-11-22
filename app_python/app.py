@@ -8,6 +8,7 @@ from flask import Flask, render_template
 from prometheus_flask_exporter import PrometheusMetrics
 
 FILE_NAME = "./files/time.txt"
+VISITS_FILE = "./data/visits.log"
 
 def create_app():
     """
@@ -23,12 +24,18 @@ def create_app():
     def index():
         time = datetime.now(zone).strftime(time_format)
         directory = os.path.dirname(FILE_NAME)
+        visits_dir = os.path.dirname(VISITS_FILE)
+
         if not os.path.exists(directory):
             os.makedirs(directory)
-        with open('./data/visits.log', 'w', encoding='utf-8') as file:
-            file.write(time)
         with open(FILE_NAME, "a", encoding='utf-8') as file:
             file.write(str(datetime.now(zone)) + '</br>')
+
+        if not os.path.exists(visits_dir):
+            os.makedirs(visits_dir)
+        with open(VISITS_FILE, 'w', encoding='utf-8') as file:
+            file.write(time)
+            
         return render_template('index.html', timezone_name=zone, time=time)
 
     @flask_app.route("/health")

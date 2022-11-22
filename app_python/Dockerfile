@@ -20,6 +20,9 @@ COPY . .
 # Updating RWX access on time.txt file
 RUN chmod 777 /app/files/time.txt
 
+# Updating RWX access on visits.logs file
+RUN chmod 777 /app/data/visits.log
+
 # Unblocking port 5000 for the Flask app to run on
 EXPOSE 8080
 

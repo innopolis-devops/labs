@@ -18,6 +18,7 @@ The repository contains a docker container with simple php web application that 
 <div align="center">
   <img src=".github/web_demo.png" width="600px"/>
 </div>
+All visits to the home page are recorded in a file, which can be viewed on the page `/visits.php`.
 
 ## ⚡️ Quick start
 

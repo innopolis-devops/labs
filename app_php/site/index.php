@@ -3,6 +3,11 @@ $count = 0;
 if (isset($_GET['count']) && is_numeric($_GET['count'])) {
   $count = $_GET['count'];
 }
+
+$fp = fopen('/tmp/visits.txt', 'a+');
+fwrite($fp, time() . " - " . $_SERVER['REMOTE_ADDR'] . " - " . $count . "\n");
+fclose($fp);
+
 ?>
 
 <html>

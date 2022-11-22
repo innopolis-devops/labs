@@ -20,7 +20,7 @@
 
 ## About The Project
 
-A web application that gets you the current time in Moscow when you need it the most. Whenever you refresh the page you get the latest time in Moscow.
+A web application that gets you the current time in Moscow when you need it the most. Whenever you refresh the page you get the latest time in Moscow. And how many times you visited the application.
 
 ## Getting started
 
@@ -93,11 +93,14 @@ pytest run_tests.py
 
 ## Usage
 
-To use the app just open your browser then go to <http://127.0.0.1:5000/get_time>
+* To use the app just open your browser then go to <http://127.0.0.1:5000/get_time>
+
+* To see the number of times the app has been accessed <http://127.0.0.1:5000/visits>
 
 ## Roadmap
 
 * [x] Get time in Moscow
+* [x] Get number of times you opned it
 * [ ] Get weather in Moscow
 * [ ] Get directions to Moscow
 

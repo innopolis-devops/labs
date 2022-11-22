@@ -5,4 +5,4 @@ metadata:
   labels:
     {{- include "moscow-time.labels" . | nindent 4 }}
 data:
-  config.json: '{{ .Files.Get "/config.json" }}'
+  config.json: '{{ .Files.Get "files/config.json" }}'

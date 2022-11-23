@@ -23,6 +23,11 @@ def start():
         file.write(current_time + '\n')
     return f"<center>Today in Moscow {current_time}</center>"
 
+@app.route('/visits')
+def show_visits():
+    with open(LOG_FILENAME, 'r') as file:
+        return '<div>'.join(file.readlines())
+
 
 if __name__ == '__main__':
     app.run()

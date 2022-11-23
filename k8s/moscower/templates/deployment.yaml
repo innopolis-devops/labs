@@ -34,11 +34,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: MY_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "moscower.fullname" . }}-credentials
-                  key: password
+            {{ include "moscower.env" . | nident 12 }}
           ports:
             - name: http
               containerPort: {{ .Values.service.moscowerPort }}

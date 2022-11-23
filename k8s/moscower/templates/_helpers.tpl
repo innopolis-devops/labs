@@ -60,3 +60,11 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{ define "moscower.env" }}
+- name: MY_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ include "moscower.fullname" . }}-credentials
+      key: password
+{{- end }}

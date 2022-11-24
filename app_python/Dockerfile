@@ -3,6 +3,9 @@ FROM python:3.10-slim
 WORKDIR /app
 
 RUN ["adduser", "--system", "--group", "moscower"]
+RUN ["mkdir", "/storage"]
+RUN ["touch", "/storage/visits.json"]
+RUN ["chown", "moscower", "/storage/visits.json"]
 
 ENV USERNAME moscower
 USER ${USERNAME}
@@ -15,8 +18,8 @@ RUN ["pip", "install", "--no-cache-dir", "--upgrade", "-r", "/app/requirements.t
 COPY ./app /app/app
 COPY ./templates /app/templates
 
-HEALTHCHECK --interval=1m --timeout=3s \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:8000/ || exit 1
+# HEALTHCHECK --interval=1m --timeout=3s \
+#   CMD wget --no-verbose --tries=1 --spider http://localhost:8000/ || exit 1
 
 EXPOSE 8000
 

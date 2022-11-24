@@ -59,7 +59,7 @@ ingress:
 
 resources:
   limits:
-    cpu: 100m
+    cpu: 250m
     memory: 128Mi
   requests:
     cpu: 250m # use quarter of CPU

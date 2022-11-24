@@ -47,6 +47,14 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: time_app_config_volume
+              mountPath: /time_app/config.json
+              subPath: config.json
+      volumes:
+        - name: time_app_config_volume
+          configMap:
+            name: { { include "time_app.fullname" . } }-config
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

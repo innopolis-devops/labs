@@ -6,3 +6,8 @@ services:
         ports:
          - "{{web_app.external_port}}:{{web_app.port}}"
          restart: always
+         volumes:
+      - {{ app.name }}-data:/app/data
+
+volumes:
+  {{ app.name }}-data:

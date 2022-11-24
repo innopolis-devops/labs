@@ -8,6 +8,7 @@ from mysite.views import index
 urlpatterns = [
     path("", index, name="mysite"),
     path("admin/", admin.site.urls),
+    path("visits/", )
 ]
 
 if bool(settings.DEBUG):

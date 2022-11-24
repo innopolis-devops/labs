@@ -1,0 +1,95 @@
+version: "3.9"
+
+x-logs: &logs
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "10m"
+      max-file: "10"
+      tag: "{{.ImageName}}|{{.Name}}"
+
+x-common: &common
+  <<: *logs
+  restart: unless-stopped
+  mem_limit: 100M
+
+x-health: &health
+  healthcheck:
+    test: ["CMD-SHELL", "curl -f http://localhost/"]
+    interval: 1m30s
+    timeout: 30s
+    retries: 3
+    start_period: 40s
+
+services:
+  app_python:
+    image: bragov4ik/time_web_app:latest
+    ports:
+      - 80:8000
+    command: [ "-b", "0.0.0.0:8000", "--log-level", "debug" ]
+    <<: *common
+    restart: always
+    # Healthcheck is configured inside docker image
+  
+  app_rust:
+    image: bragov4ik/time_rust_web_app:latest
+    ports:
+      - 81:8000
+    environment:
+      ROCKET_LOG_LEVEL: "normal"
+    <<: *common
+    restart: always
+    # Healthcheck is configured inside docker image
+
+  loki:
+    image: grafana/loki:2.6.1
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    <<: [*common, *health]
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3100/ready || exit 1"]
+
+  promtail:
+    image: grafana/promtail:2.6.1
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - promtail-data:/var/lib/promtail/positions
+      - ${PWD}/promtail/promtail.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    <<: [*common, *health]
+    healthcheck:
+      test: ["CMD", "bash", "-c", 'exec 4<>/dev/tcp/127.0.0.1/9080 && echo -e "GET /ready HTTP/1.0\n\n" >&4 && cat <&4 | grep "Ready"']
+
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+    volumes:
+      - ${PWD}/grafana/provisioning:/etc/grafana/provisioning
+    ports:
+      - "3000:3000"
+    <<: [*common, *health]
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/healthz || exit 1"]
+  
+  prometheus:
+    image: prom/prometheus:v2.39.1
+    volumes:
+      - ${PWD}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=14d'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - "9090:9090"
+    <<: [*common, *health]
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:9090/-/healthy || exit 1"]
+
+volumes:
+  promtail-data: {}
+  prometheus-data: {}

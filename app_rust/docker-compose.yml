@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "80:8000"
+    volumes:
+      - persistent-data:/app/persistent
+
+volumes:
+  persistent-data:
+      

@@ -1,0 +1,18 @@
+---
+- name: Deploy app
+  hosts: yacloud
+  remote_user: ubuntu
+  # We install stuff, it requires root
+  become: true
+  vars:
+    web_app_name: "app_rust"
+    web_app_image:
+      registry: "bragov4ik"
+      name: "time_rust_web_app"
+      tag: "latest"
+    web_app_port:
+      internal: 8000
+      external: 81
+
+  roles:
+    - web_app

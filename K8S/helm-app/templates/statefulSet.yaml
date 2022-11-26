@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "helm-app.fullname" . }}
   labels:
@@ -55,11 +55,13 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: configmap-volume
-              mountPath: /config.json
+            - name: {{ .Values.volumes.config.name }}
+              mountPath: {{ .Values.volumes.config.mountPath }}
               subPath: config.json
+            - name: {{ .Values.volumes.persistent.name }}
+              mountPath: {{ .Values.volumes.persistent.mountPath }}
       volumes:
-        - name: configmap-volume
+        - name: {{ .Values.volumes.config.name }}
           configMap:
             name: {{ include "helm-app.fullname" . }}-config
       {{- with .Values.nodeSelector }}
@@ -72,5 +74,12 @@ spec:
       {{- end }}
       {{- with .Values.tolerations }}
       tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.persistent.name }}
+      {{- with .Values.volumes.persistent.spec }}
+      spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}

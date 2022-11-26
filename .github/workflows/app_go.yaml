@@ -92,7 +92,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: app_go
-          file: app_go/Dockerfile.multistage
+          file: app_go/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/go_kremlin_chimes:latest
           cache-from: type=local,src=/tmp/.buildx-cache

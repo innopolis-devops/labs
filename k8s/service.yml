@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: msctime-service
+spec:
+  selector:
+    app: web
+  type: NodePort
+  ports:
+    - targetPort: 8000
+      port: 8000

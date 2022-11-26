@@ -13,7 +13,9 @@ import (
 func TestRightRequest(t *testing.T) {
 	gin.SetMode(gin.TestMode)
 	patch := monkey.Patch(time.Now, func() time.Time { return time.Date(2022, time.September, 1, 1, 1, 1, 1, time.UTC) })
+	patch1 := monkey.Patch(writeVisitsMiddleware, func(ctx *gin.Context) {})
 	defer patch.Unpatch()
+	defer patch1.Unpatch()
 	r := createServer(time.UTC)
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/", nil)

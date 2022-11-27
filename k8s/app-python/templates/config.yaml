@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "app-python.fullname" . }}-config
-data:
-  config.json: |-
-    {{ .Files.Get "files/config.json" }}

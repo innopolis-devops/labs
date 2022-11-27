@@ -53,7 +53,7 @@ spec:
           volumeMounts:
             - name: {{ .Values.volumes.config.name }}
               mountPath: {{ .Values.volumes.config.mountPath }}
-              subPath: {{ .Values.volumes.config.subPath }}
+              subPath: config.json
             - name: {{ .Values.volumes.persistent.name }}
               mountPath: {{ .Values.volumes.persistent.mountPath }}
       volumes:

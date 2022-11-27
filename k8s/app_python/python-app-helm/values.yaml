@@ -86,8 +86,6 @@ volumes:
   config:
     name: config-volume
     mountPath: /app/config.json
-    subPath: config.json
-
   persistent:
     name: persistent-volume
     mountPath: /app/persistent

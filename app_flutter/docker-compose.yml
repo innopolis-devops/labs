@@ -1,0 +1,6 @@
+version: '2'
+services:
+  web:
+    image: glebosotov/inno-devops-labs-app-flutter:latest
+    ports:
+      - "1338:80"

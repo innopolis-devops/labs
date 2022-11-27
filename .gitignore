@@ -1,0 +1,7 @@
+lint
+venv_ansible
+.DS_Store
+*/__pycache__/
+devops.pem
+venv_ansible
+.vscode/settings.json

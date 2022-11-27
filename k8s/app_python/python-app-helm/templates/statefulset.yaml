@@ -51,11 +51,11 @@ spec:
           env:
             {{ include "python-app-helm.environments" . | nindent 12 }}
           volumeMounts:
-            - name: { { .Values.volumes.config.name } }
-              mountPath: { { .Values.volumes.config.mountPath } }
-              subPath: config.json
-            - name: { { .Values.volumes.persistent.name } }
-              mountPath: { { .Values.volumes.persistent.mountPath } }
+            - name: {{ .Values.volumes.config.name }}
+              mountPath: {{ .Values.volumes.config.mountPath }}
+              subPath: {{ .Values.volumes.config.subPath }}
+            - name: {{ .Values.volumes.persistent.name }}
+              mountPath: {{ .Values.volumes.persistent.mountPath }}
       volumes:
         - name: {{ .Values.volumes.config.name }}
           configMap:
@@ -74,8 +74,8 @@ spec:
       {{- end }}
   volumeClaimTemplates:
     - metadata:
-        name: { { .Values.volumes.persistent.name } }
-      { { - with .Values.volumes.persistent.spec } }
+        name: {{ .Values.volumes.persistent.name }}
+      {{- with .Values.volumes.persistent.spec }}
       spec:
-        { { - toYaml . | nindent 8 } }
-      { { - end } }
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

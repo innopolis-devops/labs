@@ -37,13 +37,10 @@ def save_data_to_json(data_string):
     config: Config = app.config["CONFIG"]
     # Create file if does not exist
     import os
-    cur_path = os.path.dirname(__file__)
-    new_path = os.path.relpath(config.visits_file, cur_path)
-    if not os.path.exists(config.visits_file):
-        with open(new_path, 'w'):
-            pass
+    f = os.open(config.visits_file, os.O_CREAT)
+    os.close(f)
     # Save page visit to file
-    with open(new_path, "r+") as f:
+    with open(config.visits_file, "r+") as f:
         try:
             current_visits = json.load(f)
         except json.decoder.JSONDecodeError:

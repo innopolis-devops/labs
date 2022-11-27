@@ -93,7 +93,6 @@ volumes:
     mountPath: /app/persistent
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClass: ""
       resources:
         requests:
           storage: 128Mi

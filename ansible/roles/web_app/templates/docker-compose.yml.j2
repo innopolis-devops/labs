@@ -1,0 +1,7 @@
+version: '2.0'
+services:
+    {{web_app_name}}:
+        image: "{{web_app.registry}}/{{web_app.image}}:{{web_app.tag}}"
+        container_name: {{web_app_name}}
+        ports:
+            - "{{web_app.internal_port}}:{{web_app.external_port}}"

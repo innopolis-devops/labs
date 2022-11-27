@@ -16,6 +16,9 @@ After that, just run `flask run` and you good to go.
 
 To get time in Moscow timezone, just send GET request to `http://localhost:5000/time/moscow`
 
+To record your visit, send GET request to `/` route
+To get all visits, send GET to `/visits` and receive array of visit times.
+
 ## Usage (Docker)
 
 If you want to run this app in Docker container, just use this:

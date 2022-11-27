@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 2
+serviceName: python-app-helm
 
 image:
   repository: johndenkis/simple_python_app_v2

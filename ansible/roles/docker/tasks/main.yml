@@ -1,0 +1,21 @@
+---
+- name: docker
+  tags: [docker]
+  become: true
+  block:
+    - name: Update apt repo and cache
+      apt:
+        update_cache=true
+      become: true
+    - name: Install Python pip
+      apt: 
+        name=python3-pip
+        state=latest
+    - name: Install docker sdk and docker-compose
+      pip:
+        name:
+          - docker
+          - docker-compose
+    - name: Install docker
+      import_role:
+        name: geerlingguy.docker 

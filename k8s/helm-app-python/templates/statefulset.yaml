@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "helm-app-python.fullname" . }}
   labels:
     {{- include "helm-app-python.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: "Parallel"
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -38,12 +39,14 @@ spec:
               containerPort: 4444
               protocol: TCP
           livenessProbe:
+            initialDelaySeconds: 30
             httpGet:
-              path: /
+              path: /health
               port: http
           readinessProbe:
+            initialDelaySeconds: 30
             httpGet:
-              path: /
+              path: /health
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -51,11 +54,13 @@ spec:
             {{ include "my_password_env" . | nindent 12 }}
 
           volumeMounts:
-            - name: config-volume
-              mountPath: /app/config/config.json
-              subPath: config.json
+            - name: {{ .Values.volumes.config.name }}
+              mountPath: {{ .Values.volumes.config.mountPath }}
+              subPath: {{ .Values.volumes.config.subPath }}
+            - name: {{ .Values.volumes.persistent.name }}
+              mountPath: {{ .Values.volumes.persistent.mountPath }}
       volumes:
-        - name: config-volume
+        - name: {{ .Values.volumes.config.name }}
           configMap:
             name: {{ include "helm-app-python.fullname" . }}-config
 
@@ -69,5 +74,13 @@ spec:
       {{- end }}
       {{- with .Values.tolerations }}
       tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.persistent.name }}
+      {{- with .Values.volumes.persistent.spec }}
+      spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}

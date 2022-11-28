@@ -2,7 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+replicaCount: 3
+podManagementPolicy: "Parallel"
 
 image:
   repository: akurmazov/server
@@ -85,3 +86,12 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+volumeClaimTemplates:
+  metadata:
+    name: www
+  spec:
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+        storage: 1Gi

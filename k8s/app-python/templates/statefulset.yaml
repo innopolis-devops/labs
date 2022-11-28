@@ -1,16 +1,18 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: {{ include "app-rust.fullname" . }}
+  name: {{ include "app-python.fullname" . }}
   labels:
-    {{- include "app-rust.labels" . | nindent 4 }}
+    {{- include "app-python.labels" . | nindent 4 }}
 spec:
+  serviceName: {{ include "app-python.fullname" . }}
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "app-rust.selectorLabels" . | nindent 6 }}
+      {{- include "app-python.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +20,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "app-rust.selectorLabels" . | nindent 8 }}
+        {{- include "app-python.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "app-rust.serviceAccountName" . }}
+      serviceAccountName: {{ include "app-python.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -33,6 +35,18 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ['python', '-m', 'poetry', 'run', 'uvicorn', 'server.app:app', '--host', '0.0.0.0']
+          env:
+            {{- include "app-python.envs" . | nindent 12 }}
+            - name: EXAMPLE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: example-secret
+                  key: key
+          volumeMounts:
+            - name: config
+              mountPath: /config.json
+              subPath: config.json
           ports:
             - name: http
               containerPort: 8000
@@ -47,6 +61,10 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: config
+          configMap:
+            name: app-python-configmap
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -59,3 +77,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumeClaimTemplates.metadata.name }}
+      spec:
+        {{- toYaml .Values.volumeClaimTemplates.spec | nindent 8 }}

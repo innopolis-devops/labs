@@ -14,3 +14,4 @@ config.auto.tfvars
 terraform.tfstate
 terraform.tfstate.backup
 minikube-linux-amd64
+app_*/data/visits.txt

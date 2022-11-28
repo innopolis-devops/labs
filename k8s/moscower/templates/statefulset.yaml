@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "moscower.fullname" . }}
   labels:
     {{- include "moscower.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: "Parallel"
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -38,7 +39,7 @@ spec:
           ports:
             - name: http
               containerPort: {{ .Values.service.moscowerPort }}
-              protocol: TCP
+              protocol: {{ .Values.service.protocol }}
           livenessProbe:
             httpGet:
               path: /
@@ -50,11 +51,11 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: config-volume
-              mountPath: /app/config.json
-              subPath: config.json
+            - name: {{ .Values.volumes.configuration.name }}
+              mountPath: {{ .Values.volumes.configuration.mountPath }}
+              subPath: {{ .Values.volumes.configuration.subPath }}
       volumes:
-        - name: config-volume
+        - name: {{ .Values.volumes.configuration.name }}
           configMap:
             name: {{ include "moscower.fullname" . }}-config
       {{- with .Values.nodeSelector }}
@@ -67,5 +68,12 @@ spec:
       {{- end }}
       {{- with .Values.tolerations }}
       tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.storage.name }}
+      {{- with .Values.volumes.storage.spec }}
+      spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}

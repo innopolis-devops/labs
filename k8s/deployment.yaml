@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: moscower
-        image: nihon/moscower:latest
+        image: nihon/moscower:persistent
         ports:
         - containerPort: 8000

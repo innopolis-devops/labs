@@ -1,13 +1,15 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "my-app.fullname" . }}
   labels:
     {{- include "my-app.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: Parallel
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  serviceName: {{ .Chart.Name }}
   selector:
     matchLabels:
       {{- include "my-app.selectorLabels" . | nindent 6 }}
@@ -43,16 +45,6 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-            initialDelaySeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-            initialDelaySeconds: 10
           resources:
             requests:
               memory: "64Mi"
@@ -61,12 +53,14 @@ spec:
               memory: "128Mi"
               cpu: "500m"
           volumeMounts:
-            - name: config-volume
-              mountPath: /config
+            - name: "{{ .Chart.Name }}-config-volume"
+              mountPath:  {{ .Values.mounts.config }}
+            - name: "{{ .Chart.Name }}-stateful-volume"
+              mountPath: {{ .Values.mounts.statefulset }}
       volumes:
-        - name: config-volume
+        - name: "{{ .Chart.Name }}-config-volume"
           configMap:
-            name: my-config
+            name: "{{ .Chart.Name }}-config"
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -79,3 +73,11 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: "{{ .Chart.Name }}-stateful-volume"
+      spec:
+        accessModes: [ "ReadWriteMany" ]
+        resources:
+          requests:
+            storage: {{ .Values.volume.storage | quote }}

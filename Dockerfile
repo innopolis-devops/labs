@@ -6,6 +6,6 @@ WORKDIR /code
 COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 COPY . /code/
-COPY ./files/config.yaml /config.yaml
-COPY ./files/config.json /config.json
+RUN mkdir /code/persistent
+RUN touch /code/persistent/visits.txt
 CMD ["python", "app_python/hw1/manage.py", "runserver", "0.0.0.0:80"]

@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lab13
+  labels:
+    app: lab13
+spec:
+  ports:
+  - port: 80
+    name: web
+  clusterIP: None
+  selector:
+    app: lab13
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web
+spec:
+  serviceName: "lab13"
+  replicas: 2
+  selector:
+    matchLabels:
+      app: lab13
+  template:
+    metadata:
+      labels:
+        app: lab13
+    spec:
+      containers:
+      - name: lab13
+        image: aldeeyar/lab13:latest
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: visits
+          mountPath: /code/persistent/
+  volumeClaimTemplates:
+  - metadata:
+      name: visits
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi

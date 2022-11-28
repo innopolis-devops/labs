@@ -1,10 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "go-app-helm.fullname" . }}
   labels:
     {{- include "go-app-helm.labels" . | nindent 4 }}
 spec:
+  serviceName: {{ .Values.serviceName }}
+  podManagementPolicy: "Parallel"
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -47,6 +49,18 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            { { include "go-app-helm.environments" . | nindent 12 } }
+          volumeMounts:
+            - name: { { .Values.volumes.config.name } }
+              mountPath: { { .Values.volumes.config.mountPath } }
+              subPath: config.json
+            - name: { { .Values.volumes.persistent.name } }
+              mountPath: { { .Values.volumes.persistent.mountPath } }
+      volumes:
+        - name: { { .Values.volumes.config.name } }
+          configMap:
+            name: { { include "go-app-helm.fullname" . } }-config
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -59,3 +73,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: { { .Values.volumes.persistent.name } }
+      { { - with .Values.volumes.persistent.spec } }
+      spec:
+        { { - toYaml . | nindent 8 } }
+      { { - end } }

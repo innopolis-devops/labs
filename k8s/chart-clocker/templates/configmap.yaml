@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: some_config
+  name: some-config
 data:
   config.json: |-
-    {{ .Files.Get :files/config.json" | indent 4 }}
+{{ .Files.Get "files/app_config.json" | indent 4 }}

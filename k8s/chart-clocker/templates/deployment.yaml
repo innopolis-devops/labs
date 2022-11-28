@@ -80,5 +80,5 @@ spec:
       volumes:
         - name: configi
           configMap:
-            name: config-file
+            name: some-config
         - name: logsy

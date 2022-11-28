@@ -1,4 +1,5 @@
 {
   "hello" :"world",
-  "success": true
+  "success": true,
+  "visits": "/app/config/visits.json"
 }

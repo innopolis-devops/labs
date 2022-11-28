@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ .Release.Name }}-deployment
 spec:
@@ -12,6 +12,7 @@ spec:
       labels:
         app:  node-app-{{ .Release.Name }}
     spec:
+      podManagementPolicy: "Parallel"
       containers:
         - name: node-app-container-{{.Release.Name}}
           image: {{ .Values.container.image }}
@@ -30,3 +31,10 @@ spec:
         - name: config-volume
           configMap:
             name: cm
+    volumeClaimTemplates:
+      - metadata:
+          name: { { .Values.volumes.persistent.name } }
+        { { - with .Values.volumes.persistent.spec } }
+        spec:
+          { { - toYaml . | nindent 8 } }
+        { { - end } }

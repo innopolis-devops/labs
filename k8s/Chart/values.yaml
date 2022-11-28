@@ -10,5 +10,21 @@ resources:
     cpu: 1.0
     memory: 128Mi
 
+
 replicaCount: 3
 
+volumes:
+  config:
+    name: config-volume
+    mountPath: /app/config.json
+    subPath: config.json
+
+  persistent:
+    name: persistent-volume
+    mountPath: /app/storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClass: ""
+      resources:
+        requests:
+          storage: 128Mi

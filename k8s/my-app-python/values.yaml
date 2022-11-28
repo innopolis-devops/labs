@@ -8,7 +8,7 @@ image:
   repository: yadariya/devops
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "v0.5.0"
 
 imagePullSecrets: [ ]
 nameOverride: ""
@@ -86,3 +86,19 @@ nodeSelector: { }
 tolerations: [ ]
 
 affinity: { }
+
+volumes:
+  config:
+    name: config-volume
+    mountPath: /app/config.json
+    subPath: config.json
+
+  persistent:
+    name: persistent-volume
+    mountPath: /app/storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClass: ""
+      resources:
+        requests:
+          storage: 128Mi

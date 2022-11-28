@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "timeweb.fullname" . }}
   labels:
@@ -8,6 +8,8 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  podManagementPolicy: 'Parallel'
+  serviceName: {{ .Values.serviceName }}
   selector:
     matchLabels:
       {{- include "timeweb.selectorLabels" . | nindent 6 }}
@@ -54,11 +56,13 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: config-volume
-              mountPath: /config.json
+            - name: {{ .Values.volumes.config.name }}
+              mountPath: {{ .Values.volumes.config.mountPath }}
               subPath: config.json
+            - name: {{ .Values.volumes.persistent.name }}
+              mountPath: {{ .Values.volumes.persistent.mountPath }}
       volumes:
-        - name: config-volume
+        - name: {{ .Values.volumes.config.name }}
           configMap:
             name: {{ include "timeweb.fullname" . }}-config
       {{- with .Values.nodeSelector }}
@@ -71,5 +75,12 @@ spec:
       {{- end }}
       {{- with .Values.tolerations }}
       tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.persistent.name }}
+      {{- with .Values.volumes.persistent.spec }}
+      spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}

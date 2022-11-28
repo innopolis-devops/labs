@@ -2,9 +2,8 @@ import pytz
 from datetime import datetime
 
 import flask
-from flask import Flask, render_template
-from markupsafe import escape
-
+from flask import Flask, render_template, request, copy_current_request_context
+from threading import Thread
 
 app = Flask(__name__)
 
@@ -45,25 +44,48 @@ class Clock:
 def show_moscow_time():
     moscow_clock = Clock("Europe/Moscow")
     moscow_time = moscow_clock.bring_time()
+
+    @copy_current_request_context
+    def save_logs(req: 'flask-request', res: str) -> None:
+        with open("/app/visits/visit.txt", "a+") as file:
+            file.write(str(req.remote_addr) + " " + str(res) + "\n")
+
+    try:
+        t = Thread(target=save_logs, args=(request, moscow_time))
+        t.start()
+    except Exception as err:
+        print(err)
     return render_template("index.html",
                            the_title="It is Moscow time",
                            the_time=moscow_time)
 
 
-@app.route("/<timezone>")
-def show_user_time(timezone="Europe/Moscow"):
-    timezone = timezone.replace("-", "/")
+@app.route('/visits')
+def show_visits():
     try:
-        user_clock = Clock(escape(timezone))
-    except InvalidTimezoneError as err:
-        return render_template("error.html",
-                               the_title="Probably you did smth wrong",
-                               error=err
-                               )
-    user_time = user_clock.bring_time()
-    return render_template("index.html",
-                           the_title=f"It is {timezone} time",
-                           the_time=user_time)
+        stats = []
+        with open("/app/visits/visit.txt") as file:
+            for line in file.readlines():
+                stats.append(line.split(' '))
+        titles = ('address', 'time')
+        return render_template('viewlog.html', the_title='View visits', the_row_titles=titles, the_data=stats)
+    except Exception as err:
+        print(err)
+    return 'Error'
+
+
+@app.route('/metrics')
+def show_metrics():
+    try:
+        stats = []
+        with open("/app/visits/visit.txt") as file:
+            for line in file.readlines():
+                stats.append(line.split(' '))
+        titles = ('address', 'time')
+        return render_template('viewlog.html', the_title='View visits', the_row_titles=titles, the_data=stats)
+    except Exception as err:
+        print(err)
+    return 'Error'
 
 
 if __name__ == "__main__":

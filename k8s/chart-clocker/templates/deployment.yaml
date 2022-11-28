@@ -33,6 +33,12 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: configi
+              mountPath: /app/config.json
+              subPath: config.json
+            - name: logsy
+              mountPath: /app/visits/
           env:
             - name: TOKEN
               valueFrom:
@@ -70,3 +76,9 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
+      volumes:
+        - name: configi
+          configMap:
+            name: config-file
+        - name: logsy

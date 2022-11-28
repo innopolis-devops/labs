@@ -1,0 +1,9 @@
+version: '3.1'
+services:
+    dashboard:
+        build: .
+        restart: always
+        ports:
+            - "5000:5000"
+        command: >
+            sh -c "flutter pub get && flutter run -d web-server --web-port 5000 --web-hostname 0.0.0.0"

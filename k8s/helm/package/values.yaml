@@ -1,6 +1,5 @@
 name: py
 lable: py_time
-secrets_name: py.cred
 cm_lable: py_cm
 pv_lable: py_pv
 replicaCount: 3

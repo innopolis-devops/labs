@@ -36,17 +36,6 @@ spec:
             - containerPort: {{ .Values.image.port }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          env:
-            - name: USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secrets_name }}
-                  key: username
-            - name: PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secrets_name }}
-                  key: password
           volumeMounts:
             - name: {{ include "package.fullname" . }}-config
               mountPath: /app/config

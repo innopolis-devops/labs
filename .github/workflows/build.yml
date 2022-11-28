@@ -33,7 +33,7 @@ jobs:
     steps:
       - name: Test with pytest
         run: |
-          pytest tests/
+          pytest test/
 
   build:
     runs-on: ubuntu-latest

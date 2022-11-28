@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "time_app.fullname" . }}-config
-  labels:
-    {{- include "time_app.labels" . | nindent 4 }}
-data:
-  config.json: |-
-    {{ .Files.Get "files/config.json" | nindent 4 }}

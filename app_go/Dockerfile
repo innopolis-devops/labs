@@ -1,5 +1,4 @@
-FROM golang:1.17-alpine3.16
-FROM alpine:3.11.3
+FROM golang:1.19-alpine
 
 ENV PROJECT_DIR "/app"
 RUN mkdir -p $PROJECT_DIR

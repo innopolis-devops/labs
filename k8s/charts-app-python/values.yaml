@@ -6,9 +6,11 @@ replicaCount: 2
 
 image:
   repository: smorenapi/app_python
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
+
+serviceName: app-python-service
 
 container:
   containerPort: 80
@@ -40,7 +42,7 @@ securityContext: { }
 # runAsUser: 1000
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 80
 
 ingress:
@@ -83,3 +85,13 @@ nodeSelector: { }
 tolerations: [ ]
 
 affinity: { }
+
+volume:
+  name: app-python-volume
+  mountPath: /app/data
+  spec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 128Mi

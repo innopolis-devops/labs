@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "moscow-time.fullname" . }}
   labels:
@@ -8,6 +8,7 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   selector:
     matchLabels:
       {{- include "moscow-time.selectorLabels" . | nindent 6 }}
@@ -51,6 +52,8 @@ spec:
             - name: config-volume
               mountPath: /app_python/config.json
               subPath: config.json
+            - name: {{ .Values.volumes.state.name }}
+              mountPath: {{ .Values.volumes.state.mountPath }}
       volumes:    
         - name: config-volume
           configMap:
@@ -67,3 +70,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.state.name }}
+      spec:
+        {{- toYaml .Values.volumes.state.spec | nindent 8 }}

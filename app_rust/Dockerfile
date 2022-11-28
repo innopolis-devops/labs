@@ -16,5 +16,3 @@ COPY Cargo.toml .
 # Copying the necessary project sources
 COPY Makefile .
 COPY /src src
-
-CMD ["cargo", "run"]

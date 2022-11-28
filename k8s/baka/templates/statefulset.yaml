@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "baka.fullname" . }}
   labels:
     {{- include "baka.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: "Parallel"
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -34,11 +35,11 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            - name: config-volume
-              mountPath: /home/app/config.json
-              subPath: config.json
-            - name: visit-logs
-              mountPath: /home/app/data/
+            - name: { { .Values.volumes.config.name } }
+              mountPath: { { .Values.volumes.config.mountPath } }
+              subPath: { { .Values.volumes.config.subPath } }
+            - name: { { .Values.volumes.persistent.name } }
+              mountPath: { { .Values.volumes.persistent.mountPath } }
           env:
             - name: MY_PASS
               valueFrom:
@@ -50,10 +51,12 @@ spec:
               containerPort: 80
               protocol: TCP
           livenessProbe:
+            initialDelaySeconds: 30
             httpGet:
               path: /
               port: http
           readinessProbe:
+            initialDelaySeconds: 30
             httpGet:
               path: /
               port: http
@@ -73,7 +76,14 @@ spec:
       {{- end }}
 
       volumes:
-        - name: config-volume
+        - name: {{ .Values.volumes.config.name }}
           configMap:
             name: config-file
-        - name: visit-logs
+
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.persistent.name }}
+      {{- with .Values.volumes.persistent.spec }}
+      spec:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

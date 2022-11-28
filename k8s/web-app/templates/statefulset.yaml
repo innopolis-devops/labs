@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "web-app.fullname" . }}
   labels:
@@ -8,6 +8,8 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  serviceName: {{ include "web-app.fullname" . }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   selector:
     matchLabels:
       {{- include "web-app.selectorLabels" . | nindent 6 }}
@@ -35,12 +37,12 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
             {{- toYaml .Values.volumeMounts | nindent 12 }}
-          env:
-            - name: MY_PASS
-              valueFrom:
-                secretKeyRef:
-                  name: mypassword
-                  key: MY_PASS
+#          env:
+#            - name: MY_PASS
+#              valueFrom:
+#                secretKeyRef:
+#                  name: mypassword
+#                  key: MY_PASS
           ports:
             - name: http
               containerPort: 80
@@ -71,3 +73,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  {{- with .Values.volumeClaimTemplates }}
+  volumeClaimTemplates:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}

@@ -18,6 +18,7 @@ data AppEnv
   = AppEnv
   { config    :: Config
   , logAction :: LogAction App Message
+  , fileMVar  :: MVar ()
   }
 
 newtype App a = App
@@ -37,11 +38,14 @@ instance HasLog AppEnv Message App where
 runApp :: AppEnv -> App a -> IO a
 runApp env app = runReaderT (unApp app) env
 
-makeAppEnv :: Config -> AppEnv
-makeAppEnv config_ = AppEnv
-  { config    = config_
-  , logAction = defaultLogAction
-  }
+makeAppEnv :: Config -> IO AppEnv
+makeAppEnv config_ = do
+  fileMVar_ <- newMVar ()
+  pure $ AppEnv
+    { config    = config_
+    , logAction = defaultLogAction
+    , fileMVar  = fileMVar_
+    }
 
 runHandler :: AppEnv -> App a -> Handler a
 runHandler env app = Handler . ExceptT . try $ runApp env app

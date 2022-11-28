@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "app-haskell-chart.fullname" . }}
   labels:
@@ -8,6 +8,8 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  serviceName: {{ .Values.serviceName }}
+  podManagementPolicy: Parallel
   selector:
     matchLabels:
       {{- include "app-haskell-chart.selectorLabels" . | nindent 6 }}
@@ -54,6 +56,8 @@ spec:
             - name: app-haskell-config-volume
               mountPath: /app/config.json
               subPath: config.json
+            - name: {{ .Values.volume.name }}
+              mountPath: {{ .Values.volume.mountPath }}
       volumes:
         - name: app-haskell-config-volume
           configMap:
@@ -70,3 +74,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volume.name }}
+      spec:
+        {{- toYaml .Values.volume.spec | nindent 8 }}

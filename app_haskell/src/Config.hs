@@ -20,7 +20,8 @@ data Config
   { port           :: Int
   , monitoringPort :: Int
   , timeout        :: Int
-  , visits_file    :: String }
+  , visits_file    :: String
+  }
 
 readConfig :: IO Config
 readConfig = do

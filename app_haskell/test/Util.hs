@@ -18,7 +18,7 @@ withApp action = do
   -- started and is being properly shutdown.
   config_ <- readConfig
   createVisitsDirectoryIfMissing config_
-  let env = makeAppEnv config_
+  env <- makeAppEnv config_
   let app = makeWebApp env
 
   Warp.testWithApplication (pure app) action

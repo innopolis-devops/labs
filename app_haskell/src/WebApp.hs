@@ -20,7 +20,7 @@ runWebApp config_@Config{..} = do
   let warpSettings = Warp.defaultSettings
                    & Warp.setPort port
                    & Warp.setTimeout timeout
-  let env = makeAppEnv config_
+  env <- makeAppEnv config_
 
   -- Allocate the counters necessary for all app endpoints.
   meters <- register $ SP.meters api

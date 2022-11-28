@@ -7,6 +7,7 @@ tmp
 target/
 temp/
 **/.pytest_cache
+app_*/data/visits.txt
 
 # IDEs
 .vscode

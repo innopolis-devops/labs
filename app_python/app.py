@@ -27,7 +27,8 @@ async def get_visits(request: web.Request) -> web.Response:
     logger.info("Visits request")
     with open(request.app["config"].visits_file, "r") as f:
         visits = f.read()
-    return web.Response(text=visits)
+    line_count = len(visits.splitlines())
+    return web.Response(text=f"Total visits: {line_count}\n\n{visits}")
 
 
 async def health(_: web.Request) -> web.Response:

@@ -6,7 +6,11 @@ module Api where
 import           App
 import           Colog
 import           Config
+import           Control.Concurrent.MVar
 import           Control.Monad.Reader
+import qualified Data.ByteString         as BS
+import qualified Data.Text               as T
+import qualified Data.Text.Encoding      as E
 import           Data.Time
 import           Lucid
 import           Servant
@@ -23,9 +27,11 @@ api = Proxy
 logVisit :: String -> App ()
 logVisit t = do
   visits_file_path <- asks (visits_file . config)
-  liftIO $ do
+  env <- ask
+  liftIO $ withMVar (fileMVar env) $ \_ -> do
     f <- openFile visits_file_path AppendMode
-    hPutStrLn f ("get_time: " <> t)
+    BS.hPutStr f (E.encodeUtf8 $ T.pack $ "get_time: " <> t <> "\n")
+    hClose f
 
 getTime :: App (Html ())
 getTime = do
@@ -50,8 +56,11 @@ getVisits :: App (Html ())
 getVisits = do
   logInfo "Visits request"
   visits_file_path <- asks (visits_file . config)
-  contents <- liftIO $ readFile visits_file_path
-  pure $ toHtml (contents :: String)
+  env <- ask
+  contents <- liftIO $ withMVar (fileMVar env) $ \_ -> do
+    T.unpack . E.decodeUtf8 <$> BS.readFile visits_file_path
+  let lineCount = length $ lines contents
+  pure $ toHtml ("Total visits: " <> show lineCount <> "\n\n" <> contents)
 
 server :: ServerT Api App
 server = getTime :<|> getHealth :<|> getVisits

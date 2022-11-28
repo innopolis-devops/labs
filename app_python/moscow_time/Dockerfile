@@ -17,7 +17,7 @@ USER newuser
 
 WORKDIR /
 COPY . .
-
+data
 USER root
 
 ENV FLASK_APP=app.py

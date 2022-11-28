@@ -1,10 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "app-helm.fullname" . }}
   labels:
     {{- include "app-helm.labels" . | nindent 4 }}
 spec:
+  serviceName: {{ include "app-helm.fullname" . }}
+  podManagementPolicy: "Parallel"
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -50,14 +52,16 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: app-helm-config-volume
-              mountPath: /usr/src/app/config.json
-              subPath: config.json
+            - name: {{ .Values.volumes.configMap.name }}
+              mountPath: {{ .Values.volumes.configMap.mountPath }}
+              subPath: {{ .Values.volumes.configMap.subPath }}
               readOnly: true
+            - name: {{ .Values.volumes.data.name }}
+              mountPath: {{ .Values.volumes.data.mountPath }}
       volumes:
-        - name: app-helm-config-volume
+        - name: {{ .Values.volumes.configMap.name }}
           configMap:
-            name: app-helm-config
+            name: {{ .Values.volumes.configMap.mapName }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -70,3 +74,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.data.name }}
+      spec:
+        {{- toYaml .Values.volumes.data.spec | nindent 8 }}

@@ -2,14 +2,31 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+volumes:
+
+  data:
+    name: app-helm-data-volume
+    mountPath: /usr/src/app/data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+
+  configMap:
+    name: app-helm-config-volume
+    mapName: app-helm-config
+    mountPath: usr/src/app/config.json
+    subPath: config.json
+
+replicaCount: 2
 
 container:
   containerPort: 8000
 
 image:
   repository: mcflydesigner/django-iu-lab
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 

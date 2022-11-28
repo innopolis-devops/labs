@@ -7,7 +7,7 @@ serviceName: python-app-helm
 
 image:
   repository: johndenkis/simple_python_app_v2
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 

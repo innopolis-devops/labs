@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: time-application-configmap
+  name: {{ include "time-application.fullname" . }}-configmap
   labels:
     {{- include "time-application.labels" . | nindent 4 }}
 data:

@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: clocker
-        image: 254689393895236/time-app-devops:latest
+        image: 254689393895236/clock-clock:v1.0.0
         ports:
         - containerPort: 5000

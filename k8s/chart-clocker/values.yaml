@@ -5,10 +5,10 @@
 replicaCount: 3
 
 image:
-  repository: "254689393895236/time-app-devops"
+  repository: "254689393895236/clock-clock"
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "v1.0.0"
 
 imagePullSecrets: []
 nameOverride: ""

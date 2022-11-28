@@ -10,7 +10,7 @@ number = 0
 hour = 0
 minute = 0
 second = 0
-VISITS_FILE = 'saved_visits.json'
+VISITS_FILE = '/home/app/persistent/saved_visits.json'
 
 @app.route('/')
 def index():

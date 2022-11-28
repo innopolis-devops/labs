@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "app-python.fullname" . }}
   labels:
@@ -8,6 +8,8 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  serviceName: {{ .Values.serviceName }}
+  podManagementPolicy: Parallel
   selector:
     matchLabels:
       {{- include "app-python.selectorLabels" . | nindent 6 }}
@@ -34,18 +36,6 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env: {{- include "app-python.env-vars" . | nindent 12 }}
-          # 
-          # - name: USERNAME
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: credentials
-          #       key: username
-          # - name: PASSWORD
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: credentials
-          #       key: password
-
           ports:
             - name: http
               containerPort: {{ .Values.container.containerPort }}
@@ -61,14 +51,15 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: app-python-config-volume
-              mountPath: /home/app/config/config.json
-              subPath: config.json
-              readOnly: true
+            - name: {{ .Values.volumes.config.name }}
+              mountPath: {{ .Values.volumes.config.mountPath }}
+              subPath: {{ .Values.volumes.config.subPath }}
+            - name: {{ .Values.volumes.persistent.name }}
+              mountPath: {{ .Values.volumes.persistent.mountPath }}
       volumes:
-        - name: app-python-config-volume
+        - name: {{ .Values.volumes.config.name }}
           configMap:
-            name: app-python-config
+            name: {{ .Values.volumes.config.configMap.name }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -79,5 +70,12 @@ spec:
       {{- end }}
       {{- with .Values.tolerations }}
       tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.persistent.name }}
+      {{- with .Values.volumes.persistent.spec }}
+      spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}

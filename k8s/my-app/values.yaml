@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+replicaCount: 2
 
 image:
   repository: migorr/time-app-devops
@@ -62,7 +62,7 @@ resources:
     memory: 256Mi
   requests:
     cpu: 100m
-    memory: 128Mi
+    memory: 512Mi
 
 autoscaling:
   enabled: false
@@ -76,3 +76,19 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+volumes:
+  config:
+    name: config-volume
+    mountPath: /app/config.json
+    subPath: config.json
+
+  persistent:
+    name: persistent-volume
+    mountPath: /app/storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClass: ""
+      resources:
+        requests:
+          storage: 128Mi

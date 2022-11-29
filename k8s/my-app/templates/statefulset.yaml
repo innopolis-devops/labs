@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "my-app.fullname" . }}
   labels:
     {{- include "my-app.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: "Parallel"
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -44,23 +45,27 @@ spec:
               containerPort: 8080
               protocol: TCP
           livenessProbe:
+            initialDelaySeconds: 30
             httpGet:
-              path: /
+              path: /health
               port: http
           readinessProbe:
+            initialDelaySeconds: 30
             httpGet:
-              path: /
+              path: /health
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: helm-app-config-volume
-              mountPath: /config.json
-              subPath: config.json
+            - name: {{ .Values.volumes.config.name }}
+              mountPath: {{ .Values.volumes.config.mountPath }}
+              subPath: {{ .Values.volumes.config.subPath }}
+            - name: {{ .Values.volumes.persistent.name }}
+              mountPath: {{ .Values.volumes.persistent.mountPath }}
       volumes:
-        - name: helm-app-config-volume
+        - name: {{ .Values.volumes.config.name }}
           configMap:
-            name: helm-app-config
+            name: {{ include "my-app.fullname" . }}-config
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -73,3 +78,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+    volumeClaimTemplates:
+      - metadata:
+          name: {{ .Values.volumes.persistent.name }}
+        {{- with .Values.volumes.persistent.spec }}
+        spec:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}

@@ -1,15 +1,19 @@
-FROM python:3.10-alpine
+# syntax=docker/dockerfile:1cat
+FROM python:3.8-slim-buster
 
-WORKDIR app
+WORKDIR /app
 
-# Install python requirements and creating admin for rootless container
-COPY app_python .
-RUN pip install --no-cache-dir -r requirements.txt && \
-    addgroup -S admins && \
-    adduser -S admin -G admins
+COPY requirements.txt requirements.txt
+
+RUN pip3 install -r requirements.txt
+
+COPY . .
+
+# Create user and set ownership and permissions as required
+RUN adduser --disabled-password --gecos "" admin && chown -R admin /app
 
 USER admin
 
 EXPOSE 5000
 
-CMD [ "python", "main.py"]
+ENTRYPOINT ["/app/entrypoint.sh"]

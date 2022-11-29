@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "python-app-helm.fullname" . }}
   labels:
     {{- include "python-app-helm.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -48,13 +49,15 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: config
-              mountPath: /app/config/config.json
-              subPath: config.json
+            - name: { { .Values.volumes.config.name } }
+              mountPath: { { .Values.volumes.config.mountPath } }
+              subPath: { { .Values.volumes.config.subPath } }
+            - name: { { .Values.volumes.state.name } }
+              mountPath: { { .Values.volumes.state.mountPath } }
       volumes:
-        - name: config
+        - name: {{ .Values.volumes.config.name }}
           configMap:
-            name: { { include "python-app-helm.fullname" . } }-config
+            name: {{ .Values.volumes.config.configMap.name }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -67,3 +70,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+    volumeClaimTemplates:
+      - metadata:
+          name: { { .Values.volumes.state.name } }
+        spec:
+          { { - toYaml .Values.volumes.state.spec | nindent 8 } }

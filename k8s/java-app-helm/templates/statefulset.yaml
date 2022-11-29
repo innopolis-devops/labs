@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "java-app-helm.fullname" . }}
   labels:
     {{- include "java-app-helm.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -51,8 +52,18 @@ spec:
             httpGet:
               path: /
               port: http
+          volumeMounts:
+            - name: { { .Values.volumes.config.name } }
+              mountPath: { { .Values.volumes.config.mountPath } }
+              subPath: { { .Values.volumes.config.subPath } }
+            - name: { { .Values.volumes.state.name } }
+              mountPath: { { .Values.volumes.state.mountPath } }
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: { { .Values.volumes.config.name } }
+          configMap:
+            name: { { .Values.volumes.config.configMap.name } }
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -65,3 +76,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+    volumeClaimTemplates:
+      - metadata:
+          name: { { .Values.volumes.state.name } }
+        spec:
+          { { - toYaml .Values.volumes.state.spec | nindent 8 } }

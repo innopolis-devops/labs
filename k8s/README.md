@@ -22,4 +22,6 @@ kubectl get pods,svc
 ```
 
 For me it was
+
 ![](img/get-pods.png)
+

@@ -81,8 +81,6 @@ tolerations: [ ]
 
 affinity: { }
 
-password: sf
-
 volumes:
   config:
     name: time-app-volume

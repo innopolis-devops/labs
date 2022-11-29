@@ -9,7 +9,7 @@ services:
     expose:
       - 5000
     volumes:
-      - ./web/data/visits.json:/opt/flask_app/visits.json
+      - ./web/data/visits.json:/home/flask/visits.json
   nginx:
     image: igooorbb/inno-devops-nginx
     build: nginx

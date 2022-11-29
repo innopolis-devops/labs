@@ -1,10 +1,14 @@
 FROM igooorbb/inno-devops-flask:2.2.2
 
-COPY app /opt/flask_app/app
-COPY requirements.txt /opt/flask_app/requirements.txt
-COPY uwsgi.ini /opt/flask_app/uwsgi.ini
+RUN useradd -u 8877 flask
+USER flask
 
-WORKDIR /opt/flask_app
+WORKDIR /home/flask
+
+COPY app app
+COPY requirements.txt requirements.txt
+COPY uwsgi.ini uwsgi.ini
+
 RUN pip install --no-cache-dir -r requirements.txt --src /usr/local/src
 
 CMD ["uwsgi", "--ini", "uwsgi.ini"]

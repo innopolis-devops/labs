@@ -19,7 +19,7 @@ WORKDIR /app
 
 # Logs and unix socket.
 RUN mkdir ./logs && chown devops:devops logs && mkdir -p /tmp/app && chown devops:devops /tmp/app && \
-    touch visits.log && chown devops:devops visits.log
+    mkdir storage && touch ./storage/visits.log && chown -R devops:devops storage
 
 # Source.
 COPY ./src ./src

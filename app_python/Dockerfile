@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:1cat
 FROM python:3.8-slim-buster
 
 WORKDIR /app
@@ -10,7 +9,8 @@ RUN pip3 install -r requirements.txt
 COPY . .
 
 # Create user and set ownership and permissions as required
-RUN adduser --disabled-password --gecos "" admin && chown -R admin /app
+RUN adduser --disabled-password --gecos "" admin && chown -R admin /app \
+    && mkdir visits && chown -R admin visits
 
 USER admin
 

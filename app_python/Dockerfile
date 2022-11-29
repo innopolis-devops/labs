@@ -4,11 +4,7 @@ WORKDIR /app
 
 COPY app_python .
 
-RUN pip install --no-cache-dir -r requirements.txt && \
-    addgroup admins && \
-    adduser admin admins
-
-USER admin
+RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 5000
 

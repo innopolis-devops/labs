@@ -4,8 +4,7 @@ WORKDIR /app
 
 COPY app_python .
 
-RUN adduser --disabled-password --gecos "" admin && chown -R admin /app && mkdir visits && chown -R admin visits \
-    && pip3 install -r requirements.txt
+RUN adduser --disabled-password --gecos "" admin && chown -R admin /app && pip3 install -r requirements.txt
 
 USER admin
 

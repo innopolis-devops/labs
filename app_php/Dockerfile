@@ -4,10 +4,16 @@ LABEL \
     maintainer="Vladimir Markov <Markovvn1@gmail.com>" \
     description="Web application that helps you to count rabbits"
 
-RUN rm -rf /var/www/html/*
+USER root
+
+RUN rm -rf /var/www/html/* \
+    && mkdir /storage \
+    && chmod 777 /storage
 
 COPY docker_files/nginx.conf /etc/nginx/nginx.conf
 COPY site/ /var/www/html/
+
+USER nobody
 
 EXPOSE 80
 

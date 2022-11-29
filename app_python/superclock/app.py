@@ -1,3 +1,4 @@
+import os
 from typing import List
 import datetime
 
@@ -12,6 +13,7 @@ from .metrics import http_requested_languages_total
 from .project import PROJECT_PATH
 from .timezone_clock import TimezoneClock
 
+os.makedirs("storage", exist_ok=True)
 app = FastAPI()
 app.mount("/static", StaticFiles(directory=PROJECT_PATH / "superclock/static"), name="static")
 templates = Jinja2Templates(directory=PROJECT_PATH / "superclock/templates")
@@ -27,7 +29,7 @@ class VisitorInfo(BaseModel):
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request) -> Response:
-    with open("visits.txt", "a+", encoding="utf8") as f:
+    with open("storage/visits.txt", "a+", encoding="utf8") as f:
         client = request.client.host if request.client is not None else None
         f.write(VisitorInfo(requested_page="/", client=client, time=msk_clock.get_datetime()).json() + "\n")
     return templates.TemplateResponse("index.html", {"request": request, "msktime": msk_clock.get_time_str()})
@@ -36,7 +38,7 @@ async def home(request: Request) -> Response:
 @app.get("/visits")
 async def visits() -> List[VisitorInfo]:
     try:
-        with open("visits.txt", "rb") as f:
+        with open("storage/visits.txt", "rb") as f:
             return [VisitorInfo.parse_raw(i) for i in f.read().split(b"\n")[:-1]]
     except FileNotFoundError:
         return []

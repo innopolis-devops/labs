@@ -1,0 +1,8 @@
+#cloud-config
+users:
+  - name: yarikswt
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8JDij4Rns4OKS1DgzLRekNRwwp6srhZHsqbdmfBrCRlTFZrdcGkXd7Mvxz0IYKS2WrP7C03h801YOozVKxmMuw2BS2tgsyuB5dM6i6fHoHa0Ge+WYAvwR+Ksb4uQDztftESMgTN7xAX/0AZQMjynzHidTC7RS6I3mX7hbXJbaeAlzUp+uWwKSXCfsXkL71/uE0oJXN2INGQ5K9DyuYSCkiV3vkgy9OWtFWaBF5MKDQ39BNJImoo9MA6K7wZHaBNQIeZE2YCkiuRGAANlznakk0F4G8mUo9KjXej+0ySQCSFq3uE1h5E5teWvr8hfqPaiGcZmjw0cec2RCcb7StBT3 yarikswt@MacBook-Pro.local

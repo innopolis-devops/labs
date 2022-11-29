@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "time-app.fullname" . }}
   labels:
     {{- include "time-app.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: "Parallel"
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -54,13 +55,15 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: time-app-volume
-              mountPath: /app_python/config.json
-              subPath: config.json
+            - name: {{ .Values.volumes.config.name }}
+              mountPath: {{ .Values.volumes.config.mountPath }}
+              subPath: {{ .Values.volumes.config.subPath }}
+            - name: {{ .Values.volumes.persistence.name }}
+              mountPath: {{ .Values.volumes.persistence.mountPath }}
       volumes:
-        - name: time-app-volume
+        - name: {{ .Values.volumes.config.name }}
           configMap:
-            name: time-app-configmap
+            name: {{ .Values.volumes.config.configMap.name }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -73,3 +76,9 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.persistence.name }}
+      spec:
+        {{- toYaml .Values.volumes.persistence.spec | nindent 8 }}

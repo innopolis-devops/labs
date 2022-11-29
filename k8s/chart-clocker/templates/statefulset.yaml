@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "chart-clocker.fullname" . }}
   labels:
     {{- include "chart-clocker.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: "Parallel"
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -37,8 +38,10 @@ spec:
             - name: configi
               mountPath: /app/config.json
               subPath: config.json
+            {{- if .Values.mountVisits.enabled }}
             - name: logsy
               mountPath: /app/visits/
+            {{- end}}
           env:
             - name: TOKEN
               valueFrom:
@@ -56,14 +59,18 @@ spec:
             - name: http
               containerPort: 5000
               protocol: TCP
+          {{- if .Values.healthcheck.enabled }}
           livenessProbe:
             httpGet:
               path: /
               port: http
+              periodSeconds: 90
           readinessProbe:
             httpGet:
               path: /
               port: http
+              periodSeconds: 90
+          {{- end}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -81,4 +88,6 @@ spec:
         - name: configi
           configMap:
             name: some-config
+        {{- if .Values.mountVisits.enabled}}
         - name: logsy
+        {{- end }}

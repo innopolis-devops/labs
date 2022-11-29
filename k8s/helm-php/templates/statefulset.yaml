@@ -1,10 +1,11 @@
 apiVersion: apps/v1
-kind: Deployment
+kind:  StatefulSet
 metadata:
   name: {{ include "helm-php.fullname" . }}
   labels:
     {{- include "helm-php.labels" . | nindent 4 }}
 spec:
+  podManagementPolicy: "Parallel"
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -33,6 +34,9 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: {{ .Values.volumes.storage.name }}
+              mountPath: {{ .Values.volumes.storage.mountPath }}
           ports:
             - name: http
               containerPort: 80
@@ -59,3 +63,9 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.storage.name }}
+      spec:
+        {{- toYaml .Values.volumes.storage.spec | nindent 8 }}

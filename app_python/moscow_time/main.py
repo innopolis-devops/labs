@@ -21,7 +21,7 @@ def moscow_time():
         time = f"{date.hour}:{date.minute}:{date.second}"
 
     with open(visits_file, 'a') as file:
-        file.write(date + ' ' + time + '\n')
+        file.write(time + '\n')
 
     return f"Moscow time: {time}"
 

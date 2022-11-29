@@ -1,0 +1,11 @@
+version: "3.10"
+services:
+  web:
+    build: app_python
+    image: easeln/dockerhub:app_python_v01
+    ports:
+      - "8000:8000"
+    volumes:
+      - volume:/app/moscow_time/volume
+volumes:
+  volume:

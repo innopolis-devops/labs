@@ -12,7 +12,7 @@ image:
 
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: "clock"
+fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -21,7 +21,7 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: "clock"
+  name: ""
 
 podAnnotations: {}
 
@@ -70,16 +70,19 @@ resources: {}
 
 autoscaling:
   enabled: false
-  minReplicas: 1
+  minReplicas: 2
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
 mountVisits:
-  enabled: false
+  enabled: true
 
 healthcheck:
   enabled: false
+
+turnParallel:
+  enabled: true
 
 nodeSelector: {}
 

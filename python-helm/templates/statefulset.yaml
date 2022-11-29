@@ -1,13 +1,14 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: StatefulSet
 metadata:
-  name: {{ include "python-helm.fullname" . }}
+  name: {{include "python-helm.fullname" .}}
   labels:
-    {{- include "python-helm.labels" . | nindent 4 }}
+    {{include "python-helm.labels" . | nindent 4}}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  serviceName: {{.Values.statefulSet.name}}
+  podManagementPolicy: Parallel
+  replicas: {{.Values.replicaCount}}
+
   selector:
     matchLabels:
       {{- include "python-helm.selectorLabels" . | nindent 6 }}
@@ -45,8 +46,6 @@ spec:
             httpGet:
               path: /
               port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: config-volume
               mountPath: /home/app/config.json
@@ -71,3 +70,11 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .Values.statefulSet.name }}
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: {{ .Values.statefulSet.storageSize }}

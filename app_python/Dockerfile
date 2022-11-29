@@ -8,12 +8,10 @@ RUN pip3 install -r requirements.txt
 
 COPY app_python .
 
-# Create user and set ownership and permissions as required
-RUN adduser --disabled-password --gecos "" admin && chown -R admin /app \
-    && mkdir visits && chown -R admin visits
+RUN adduser --disabled-password --gecos "" admin && chown -R admin /app && mkdir visits && chown -R admin visits
 
 USER admin
 
 EXPOSE 5000
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]

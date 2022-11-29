@@ -18,7 +18,7 @@ In this lab you will figure out how to manage stateful applications with provide
     * Fix all problems and deploy it.
     * Try to follow best practices and move some values to variables in `values.yml` meaningfully.
 
-3. Check and provide proof of your success:
+3. Check and provide proof Wof your success:
 
     * Create a `13.md` report.
     * Put an output of `kubectl get po,sts,svc,pvc` command to the `13.md` report.

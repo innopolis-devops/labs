@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "helm-python.fullname" . }}
   labels:
@@ -8,6 +8,7 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  podManagementPolicy: Parallel
   selector:
     matchLabels:
       {{- include "helm-python.selectorLabels" . | nindent 6 }}
@@ -50,13 +51,13 @@ spec:
           env:
             {{ include "helm-python.env" . | nindent 12 }}
           volumeMounts:
-            - name: config-volume
-              mountPath: /config.json
-              subPath: config.json
+            - name: {{ .Values.volumes.config.name }}
+              mountPath: {{ .Values.volumes.config.mountPath }}
+              subPath: {{ .Values.volumes.config.subPath }}
       volumes:
-        - name: config-volume
+        - name: {{ .Values.volumes.config.name }}
           configMap:
-            name: helm-python-config
+            name: {{ .Values.volumes.config.configMap.name }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -69,3 +70,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.persistent.name }}
+      spec:
+        {{- toYaml .Values.volumes.persistent.spec | nindent 8 }}

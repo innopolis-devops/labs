@@ -16,4 +16,4 @@ USER admin
 
 EXPOSE 5000
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]

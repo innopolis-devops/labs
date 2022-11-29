@@ -33,6 +33,10 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: pink-config-volume
+              mountPath: /app/config.json
+              subPath: config.json
           ports:
             - name: http
               containerPort: {{ .Values.service.container_port }}
@@ -59,6 +63,11 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
+      volumes:
+        - name: pink-config-volume
+          configMap:
+            name: pink-config
+        - name: visit-logs
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}

@@ -1,6 +1,8 @@
 # k![image](https://user-images.githubusercontent.com/63815121/199133688-a53868f9-8cca-4182-b6f9-f99bd6d07d55.png)netes
 ## 👍 [lab 09](#getting-started)
 ## 👍 [lab 10](#helm)
+## 👍 [lab 11](https://github.com/molberte/devops_labs/blob/lab11/k8s/11.md)
+## 👍 [lab 12](https://github.com/molberte/devops_labs/blob/lab12/k8s/12.md)
 
 ### getting started
 1. install [`minicube`](https://minikube.sigs.k8s.io/docs/start/) and [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/) using any prefferable way

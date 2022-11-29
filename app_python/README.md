@@ -1,4 +1,4 @@
-![](https://github.com/markovvn1/devops-labs/actions/workflows/app_python.yml/badge.svg?branch=lab12)
+![](https://github.com/markovvn1/devops-labs/actions/workflows/app_python.yml/badge.svg?branch=lab13)
 
 
 <div align="center">
@@ -28,10 +28,10 @@ All visits to the home page are recorded in a file, which can be viewed on the p
    git clone https://github.com/Markovvn1/devops-labs.git && cd devops-labs
    ```
 
-2. Switch to lab12 branch and open project's directory:
+2. Switch to lab13 branch and open project's directory:
 
    ```bash
-   git checkout lab12 && cd app_python
+   git checkout lab13 && cd app_python
    ```
 
 3. Configure virtual environment. Before proceeding, make sure you have installed [build-essential](https://packages.debian.org/en/sid/build-essential) (to be able to use `make` command) and python [venv module](https://docs.python.org/3/library/venv.html). This command should create the `.venv` folder with python virtual environment.

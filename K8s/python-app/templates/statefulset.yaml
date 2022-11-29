@@ -1,10 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "python-app.fullname" . }}
   labels:
     {{- include "python-app.labels" . | nindent 4 }}
 spec:
+  serviceName: {{ .Values.service.name }}
+  podManagementPolicy: "Parallel"
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -32,13 +34,11 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          volumeMounts:
-          - name: config-volume
-            mountPath: /config.json
-            subPath: config.json
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-          - containerPort: 5000
+            - name: http
+              containerPort: 5000
+              protocol: TCP
           # livenessProbe:
           #   httpGet:
           #     path: /
@@ -49,6 +49,9 @@ spec:
           #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          # volumeMounts:
+          #   - name: visits
+          #     mountPath: {{ .Values.image.dataDir }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -61,7 +64,12 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      volumes:
-      - name: config-volume
-        configMap:
-          name: app-python-configmap
+  # volumeClaimTemplates:
+  #   - metadata:
+  #       name: visits
+  #     spec:
+  #       accessModes:
+  #         - ReadWriteOnce
+  #       resources:
+  #         requests:
+  #           storage: 100M

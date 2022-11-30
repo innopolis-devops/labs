@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  {{ web_app_name }}:
+    image: {{ web_app.registry }}/{{ web_app.image }}:{{ web_app.tag }}
+    env_file:
+      - {{ web_app_base_path }}/.env
+    ports:
+     - ${HOST_PORT}:${DOCKER_PORT}
+    environment:
+      - PORT=${DOCKER_PORT}
+      - HOST=${HOST}
+    healthcheck:
+      test: curl -sS localhost:${DOCKER_PORT} || echo 1
+      interval: 5s
+      timeout: 10s
+      retries: 3

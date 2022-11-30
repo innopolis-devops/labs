@@ -1,0 +1,23 @@
+{
+  "name": "app_purescript",
+  "devDependencies": {
+    "dotenv-cli": "^6.0.0",
+    "esbuild": "0.15.9",
+    "parcel": "2.5.0",
+    "querystring-es3": "^0.2.1",
+    "url": "^0.11.0",
+    "x-var": "0.0.1",
+    "xhr2": "^0.2.1"
+  },
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "bin": {
+    "app_purescript": "dist/index.js"
+  },
+  "scripts": {
+    "build": "npm i && spago install && npm run bundle",
+    "prebundle": "rm -rf dist && mkdir dist && cp dev/* dist",
+    "bundle": "spago bundle-app --to dist/index.js --minify  ",
+    "start": "dotenv -f app.env run x-var parcel serve -p %PORT% --host %HOST% dev/index.html"
+  }
+}

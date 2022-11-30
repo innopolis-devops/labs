@@ -1,0 +1,104 @@
+version: "3"
+
+# Based on https://github.com/black-rosary/loki-nginx/blob/master/promtail/promtail.yml
+# And https://github.com/black-rosary/loki-nginx/blob/master/docker-compose.yml
+x-logging:
+  &loki-logging
+  driver: "json-file"
+  options:
+    max-size: "10m"
+    max-file: "10"
+    tag: "{{.ImageName}}|{{.Name}}"
+
+# Based on https://github.com/grafana/loki/blob/main/production/docker-compose.yaml
+# And https://github.com/black-rosary/loki-nginx/blob/master/docker-compose.yml
+services:
+  app_python:
+    image: ${DOCKER_HUB_USERNAME}/app_python:latest
+    env_file: ./configs/datasources/.env
+    environment:
+      - PORT=${DOCKER_PORT}
+      - HOST=${HOST}
+    ports:
+      - ${PYTHON_HOST_PORT}:${DOCKER_PORT}
+    logging: *loki-logging
+    networks: [ apps ]
+
+  app_purescript:
+    image: ${DOCKER_HUB_USERNAME}/app_purescript:latest
+    env_file: ./configs/datasources/.env
+    environment:
+      - PORT=${DOCKER_PORT}
+      - HOST=${HOST}
+    ports:
+      - ${PURESCRIPT_HOST_PORT}:${DOCKER_PORT}
+    logging: *loki-logging
+    networks: [ apps ]
+
+  loki:
+    image: grafana/loki:2.6.1
+    volumes:
+      - loki-data:/tmp/loki/
+    networks: [ monitoring ]
+    command: -config.file=/etc/loki/local-config.yaml
+    logging: *loki-logging
+
+  promtail:
+    image: grafana/promtail:2.6.1
+    volumes:
+      # To collect logs from containers
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - promtail-data:/var/lib/promtail/positions
+      - ./configs/promtail.yml:/etc/promtail/config.yml
+    ports:
+      - 9080:9080
+    networks: [ monitoring, apps ]
+    command: -config.file=/etc/promtail/config.yml
+    logging: *loki-logging
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./configs/datasources:/etc/grafana/provisioning/datasources
+    networks: [ monitoring ]
+    logging: *loki-logging
+  
+  prometheus:
+    image: prom/prometheus:latest
+    mem_limit: 128m
+    volumes:
+      - ./prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=14d'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    networks:
+      - monitoring
+    ports:
+      - 9090:9090
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget --no-verbose --tries=3 --spider http://localhost:9090/-/healthy || exit 1"
+        ]
+    logging: *loki-logging
+
+volumes:
+  grafana-data: {}
+  loki-data: {}
+  promtail-data: {}
+  # use a named volume to avoid permission errors
+  # https://stackoverflow.com/a/56827020
+  prometheus-data: {}
+
+networks:
+  monitoring: {}
+  apps: {}

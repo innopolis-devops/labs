@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-purescript-config
+  labels:
+    app: app-purescript
+data:
+  HOST: 0.0.0.0
+  PORT: "8000"

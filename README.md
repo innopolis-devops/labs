@@ -52,42 +52,32 @@ I used Nix to make a reproducible project environment. Now, the project ships wi
 
 ## Setup
 
-1. Install [Nix](https://nixos.org/download.html) (Single-user installation)
+1. Install [Nix](https://github.com/deemp/flakes/blob/main/README/NixPrerequisites.md#install-nix)
 
-  ```sh
-  sh <(curl -L https://nixos.org/nix/install) --no-daemon
-  ```
-
-1. Enable [flakes](https://nixos.wiki/wiki/Flakes#Permanent)
-
-1. Install `direnv`:
-   1. Actually install on your system
-      - by following the [docs](https://direnv.net/#basic-installation)
-      - or via
-
-        ```sh
-        nix profile install direnv
-        ```
-
-   1. Hook to your shell - step `2` from the docs
-
-1. Enter this project. When asked about substituters and keys, answer `y`. This is needed for Nix to use binary caches
+When prompted, answer `y`
 
 ```terminal
 git clone https://github.com/deemp/devops-labs
 cd devops-labs
-git checkout lab3
-nix run .#createVenvs
-nix run .#writeConfigs
-# to start VSCodium
-nix run .# .
+git checkout lab9
+nix develop
+create-venvs-in-each-dir
+write-configs
 ```
+
+1. It's more preferable to start `VSCodium` in a relevant directory with a flake.
+
+  ```sh
+  codium .
+  # or
+  codium app_purescript
+  ```
 
 1. `Command Palette`: `Ctrl` (`Cmd`) + `Shift` +`P`
 
 1. In case the wrong Python `.venv` is sourced, go to `Command Palette` -> `Python: Select Interpreter` -> `Python 3.10.6 ('.venv':poetry)` with `./.venv/bin/python`
 
-1. Try running a task `app_purescript: Run` (see the [section](./README.md#vscodium-tasks) below)
+1. Try running a task `app_purescript: Docker run` (see the [section](#available-actions) below)
 
 1. In case after building `app_purescript` you see the red error messages, go to `Command Palette` -> `Developer: Reload Window`
 

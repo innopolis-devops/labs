@@ -24,8 +24,8 @@ let
         dockerRun = "${app}: Docker run";
         dockerStop = "${app}: Docker stop";
         # TODO push a specific service name
-        dockerPush = "${app}: Push `${serviceNames.${lang}.web}` to Docker Hub";
-        dockerPull = "${app}: Pull `${serviceNames.${lang}.web}` from Docker Hub";
+        dockerPush = "${app}: Push '${serviceNames.${lang}.web}' to Docker Hub";
+        dockerPull = "${app}: Pull '${serviceNames.${lang}.web}' from Docker Hub";
       };
   };
   actionNames = {

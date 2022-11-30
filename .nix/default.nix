@@ -66,7 +66,11 @@ let
   codium = mkCodium {
     extensions = {
       inherit (extensions)
-        nix markdown purescript github misc docker python toml fish yaml terraform;
+        nix markdown purescript github misc docker python toml fish yaml 
+        kubernetes
+        # TODO enable terraform
+        # terraform
+        ;
     };
     runtimeDependencies = [
       (toList commands)
@@ -76,7 +80,7 @@ let
             inherit (pkgs)
               docker poetry direnv lorri inotify-tools
               rnix-lsp nixpkgs-fmt dhall-lsp-server
-              geckodriver;
+              geckodriver terraform terraform-ls;
             inherit (pkgs.haskellPackages) hadolint;
           }
           //
@@ -122,21 +126,24 @@ let
     createVenvs = python-tools.functions.${system}.createVenvs [ appPython appPurescript "." ];
   };
   devshell = my-devshell.devshell.${system};
-  packages = (attrValues (scripts //  configWriters // flakesTools // commands.apps));
-  devShells.default = devshell.mkShell
-    {
-      packages = packages;
-      bash.extra = python-tools.snippets.${system}.activateVenv;
-      commands = map
-        (x: {
-          name = x.name + " ";
-          category = "scripts";
-          help = x.meta.description;
-        })
-        packages;
-    }
+  packages =
+    scripts // configWriters // flakesTools // commands.apps //
+    { inherit codium; inherit (pkgs) terraform terraform-ls docker poetry; };
+  devShells.default = let packages_ = builtins.attrValues packages; in
+    devshell.mkShell
+      {
+        packages = packages_;
+        bash.extra = python-tools.snippets.${system}.activateVenv;
+        commands = map
+          (x: {
+            name = x.name + " ";
+            category = "scripts";
+            help = x.meta.description;
+          })
+          packages_;
+      }
   ;
 in
 {
-  inherit devShells scripts codium flakesTools configWriters commands;
+  inherit devShells packages flakesTools;
 }

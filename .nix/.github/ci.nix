@@ -239,7 +239,7 @@ let
       (app:
         let changed-files-app_ = changed-files-app app; in
         {
-          name = "Push ${app} to Docker Hub";
+          name = "Push '${app}' to Docker Hub";
           needs = [ changed-files-app_ ];
           "if" = "needs.${changed-files-app_}.outputs.${app} == 'true'";
           runs-on = ubuntu20;

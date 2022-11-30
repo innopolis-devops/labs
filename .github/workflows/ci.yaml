@@ -181,7 +181,7 @@ jobs:
           echo "List all the files that have changed: ${{ steps.changed-files.outputs.all_changed_files }}"
   push-to-docker-hub-app_purescript:
     if: needs.changed-files-app_purescript.outputs.app_purescript == 'true'
-    name: Push app_purescript to Docker Hub
+    name: Push 'app_purescript' to Docker Hub
     needs:
       - changed-files-app_purescript
     runs-on: ubuntu-20.04
@@ -210,7 +210,7 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app_purescript:latest
   push-to-docker-hub-app_python:
     if: needs.changed-files-app_python.outputs.app_python == 'true'
-    name: Push app_python to Docker Hub
+    name: Push 'app_python' to Docker Hub
     needs:
       - changed-files-app_python
     runs-on: ubuntu-20.04

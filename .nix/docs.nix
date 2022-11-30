@@ -43,10 +43,12 @@ in
   }
 
   ''
-    The commands below read from `${dotenv}` files both from app folders and from the ${projectRoot_}.
+    The commands below read from `${dotenv}` files both from the `app_...` folders and from the ${projectRoot_}.
     I checked them into the repo to ease the project demonstration. 
-    If you'd like to push to your [cachix](https://www.cachix.org/) cache or [Docker Hub](https://hub.docker.com/) repo, 
-    make sure to edit the `${projectRoot}/${dotenv}` to use locally the tasks depending on it.
+    If you'd like to push to your [cachix](https://www.cachix.org/) cache 
+    or [Docker Hub](https://hub.docker.com/) repo, 
+    make sure to edit the `${projectRoot}/${dotenv}`
+    to use locally the tasks that depend on it.
     Otherwise, you may supply these values as the environment variables 
     via the `set -a` - [trick](https://stackoverflow.com/a/45971167)
   ''

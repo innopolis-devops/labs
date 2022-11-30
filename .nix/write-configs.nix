@@ -11,7 +11,8 @@ let
   inherit (drv-tools.functions.${system})
     mkShellApp writeJSON framedBrackets mkBin
     withLongDescription concatStringsNewline
-    concatMapStringsNewline withMan indentStrings4;
+    concatMapStringsNewline withMan indentStrings4
+    mkBinName;
   man = drv-tools.configs.${system}.man;
   inherit (my-codium.configs.${system})
     settingsNix;
@@ -60,7 +61,7 @@ let
       '');
 
   writeMarkdownlintConfig = writeJSON "markdownlint" "./configs/.markdownlint.json" (import ./markdownlint-config.nix);
-  writeSettings = writeSettingsJSON (import ./settings.nix { inherit settingsNix; });
+  writeSettings = writeSettingsJSON (import ./settings.nix { inherit settingsNix pkgs mkBinName; });
   writeTasks = writeTasksJSON (import ./tasks.nix { inherit commands drv-tools system; });
   writeRootPyproject =
     let
@@ -80,7 +81,7 @@ let
           chmod +w ${rootTOML}
           python ${script} ${appPythonTOML} ${rootTOML}
           python ${script} ${appPurescriptTOML} ${rootTOML}
-          poetry update
+          poetry install
         '';
         description = "Copy the dependencies from app's `pyproject.toml`s";
       })

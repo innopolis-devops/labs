@@ -45,16 +45,14 @@
           rootDir json2md env2json drv-tools flakes-tools easy-purescript-nix
           python-tools terrafix my-devshell
           ;
-      }) devShells scripts codium flakesTools configWriters commands;
+      }) devShells flakesTools packages;
     in
     {
       devShells = devShells;
-      packages = {
-        default = codium;
+      packages = packages // {
         pushToCachix = flakesTools.pushToCachix;
         updateLocks = flakesTools.updateLocks;
-        format = flakesTools.format;
-      } // scripts // configWriters // commands.apps;
+      };
     });
 
   nixConfig = {

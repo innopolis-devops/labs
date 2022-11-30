@@ -6,7 +6,7 @@ What I learned while working on this repo
 
 - Sometimes, Firefox refuses to connect to a `Docker` container. In this case, one needs to open a new tab
 
-- VSCodium can't execute a command line `nix` if there is a dir called `nix` - [src](https://github.com/OmniSharp/omnisharp-vscode/pull/3372#issuecomment-546447471). That's why, I created `.nix` directories
+- VSCodium can't execute a command line `nix` if there is a dir called `nix` - [src](https://github.com/OmniSharp/omnisharp-vscode/pull/3372#issuecomment-546447471). That's why, I created `nix-files` directories
 
 - Environment variables aren't supported by `CMD` in `exec` mode - [src](https://docs.docker.com/engine/reference/builder/#cmd)
 

@@ -40,7 +40,7 @@
       app-purescript-pkgs = app-purescript.packages.${system};
       rootDir = ./.;
 
-      inherit (import ./.nix/default.nix {
+      inherit (import ./nix-files/default.nix {
         inherit nixpkgs system my-codium app-python app-purescript
           rootDir json2md env2json drv-tools flakes-tools easy-purescript-nix
           python-tools terrafix my-devshell

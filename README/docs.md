@@ -1,6 +1,6 @@
 # Available actions
 
-These docs are generated from [docs.nix](../.nix/docs.nix) via [json2md](https://github.com/IonicaBizau/json2md)
+These docs are generated from [docs.nix](../nix-files/docs.nix) via [json2md](https://github.com/IonicaBizau/json2md)
 and formatted via [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2).
 The command to write these docs:
 

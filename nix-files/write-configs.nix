@@ -116,7 +116,7 @@ let
 
   writeWorkflows =
     let
-      ciNix = import ./.github/ci.nix { inherit appPurescript appPython pkgs drv-tools system; };
+      ciNix = import ./github/ci.nix { inherit appPurescript appPython pkgs drv-tools system; };
       workflowsPath = ".github/workflows";
       ciJSON = "${workflowsPath}/ci-nix.json";
       ciYAML = "${workflowsPath}/ci.yaml";

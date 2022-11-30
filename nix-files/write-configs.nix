@@ -63,35 +63,6 @@ let
   writeMarkdownlintConfig = writeJSON "markdownlint" "./configs/.markdownlint.json" (import ./markdownlint-config.nix);
   writeSettings = writeSettingsJSON (import ./settings.nix { inherit settingsNix pkgs mkBinName; });
   writeTasks = writeTasksJSON (import ./tasks.nix { inherit commands drv-tools system; });
-  writeRootPyproject =
-    let
-      script = "./scripts/update-root-pyproject.py";
-      pyproject = "pyproject.toml";
-      appPythonTOML = "${appPython}/${pyproject}";
-      appPurescriptTOML = "${appPurescript}/${pyproject}";
-      rootTOML = "${pyproject}";
-      targets = [ appPython appPurescript ];
-      python = pkgs.python310.withPackages (x: with x; [ pkgs.python310Packages.tomlkit ]);
-    in
-    withMan
-      (mkShellApp {
-        runtimeInputs = [ pkgs.poetry python ];
-        name = "write-root-project";
-        text = ''
-          chmod +w ${rootTOML}
-          python ${script} ${appPythonTOML} ${rootTOML}
-          python ${script} ${appPurescriptTOML} ${rootTOML}
-          poetry install
-        '';
-        description = "Copy the dependencies from app's `pyproject.toml`s";
-      })
-      (x: ''
-        ${man.DESCRIPTION}
-        ${x.meta.description}.
-        This action is necessary for `Python` extensions to work correctly.
-
-        They should know which `Python` modules are among apps' dependencies
-      '');
 
   writeTerraform =
     let
@@ -150,9 +121,7 @@ let
       writeTasks
       writeDocs
       writeMarkdownlintConfig
-      writeRootPyproject
       writeWorkflows
-      # writeTerraform
     ]; in
     withMan
       (
@@ -177,7 +146,5 @@ in
     writeSettings
     writeMarkdownlintConfig
     writeConfigs
-    writeRootPyproject
-    # writeTerraform
     ;
 }

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-purescript-service
+  labels:
+    app: app-purescript
+spec:
+  selector:
+    app: app-purescript
+  ports:
+    - name: service-port
+      protocol: TCP
+      port: 8080
+      targetPort: server-port
+      nodePort: 30002
+  type: NodePort

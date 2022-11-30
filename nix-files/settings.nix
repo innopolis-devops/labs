@@ -12,6 +12,7 @@ in
     nix-ide
     workbench
     markdown-all-in-one
+    yaml
     ;
   add =
     let

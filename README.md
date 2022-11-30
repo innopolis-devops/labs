@@ -46,7 +46,6 @@ I used Nix to make a reproducible project environment. Now, the project ships wi
 - development shells
 - scripts
   - to generate the `docs`, `settings.json`, `tasks.json`, and workflow files
-  - to sync `venv`s of the root (`./`), `app_python`, and `app_purescript`
   - to start apps via their servers or in `Docker` containers
   - to lint files
   - to cache devshells and push them to [Cachix](https://www.cachix.org/) (a binary cache)
@@ -78,9 +77,6 @@ I used Nix to make a reproducible project environment. Now, the project ships wi
 git clone https://github.com/deemp/devops-labs
 cd devops-labs
 git checkout lab3
-direnv allow
-(cd app_purescript && direnv allow)
-(cd app_python && direnv allow)
 nix run .#createVenvs
 nix run .#writeConfigs
 # to start VSCodium

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-purescript-deployment
+  labels:
+    app: app-purescript
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-purescript
+  template:
+    metadata:
+      labels:
+        app: app-purescript
+    spec:
+      containers:
+        - name: app-purescript
+          image: deemp/app_purescript:latest
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+              name: server-port
+          envFrom:
+            - configMapRef:
+                name: app-purescript-config

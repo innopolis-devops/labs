@@ -41,6 +41,8 @@ let
     ;
 
   inherit (builtins) map attrValues;
+  devshell = my-devshell.devshell.${system};
+  inherit (my-devshell.functions.${system}) mkCommands;
 
   configWriters =
     (import ./write-configs.nix
@@ -63,10 +65,27 @@ let
   dirs = [ appPurescript appPython ];
   flakesTools = mkFlakesTools [ appPurescript appPython "." ];
 
+  codiumTools = attrValues ({
+    inherit (pkgs)
+      docker poetry direnv lorri
+      rnix-lsp nixpkgs-fmt dhall-lsp-server
+      geckodriver terraform terraform-ls
+      kubernetes minikube
+      ;
+    inherit (pkgs.haskellPackages) hadolint;
+  }
+  //
+  flakesTools
+  //
+  configWriters
+  //
+  commands.apps
+  );
+
   codium = mkCodium {
     extensions = {
       inherit (extensions)
-        nix markdown purescript github misc docker python toml fish yaml 
+        nix markdown purescript github misc docker python toml fish yaml
         kubernetes
         # TODO enable terraform
         # terraform
@@ -74,21 +93,7 @@ let
     };
     runtimeDependencies = [
       (toList commands)
-      (
-        attrValues (
-          {
-            inherit (pkgs)
-              docker poetry direnv lorri inotify-tools
-              rnix-lsp nixpkgs-fmt dhall-lsp-server
-              geckodriver terraform terraform-ls;
-            inherit (pkgs.haskellPackages) hadolint;
-          }
-          //
-          flakesTools
-          //
-          configWriters
-        )
-      )
+      codiumTools
     ];
   };
 
@@ -125,22 +130,13 @@ let
   // {
     createVenvs = python-tools.functions.${system}.createVenvs [ appPython appPurescript "." ];
   };
-  devshell = my-devshell.devshell.${system};
-  packages =
-    scripts // configWriters // flakesTools // commands.apps //
-    { inherit codium; inherit (pkgs) terraform terraform-ls docker poetry; };
-  devShells.default = let packages_ = builtins.attrValues packages; in
+  packages = codiumTools ++ [ codium ];
+  devShells.default =
     devshell.mkShell
       {
-        packages = packages_;
+        inherit packages;
         bash.extra = python-tools.snippets.${system}.activateVenv;
-        commands = map
-          (x: {
-            name = x.name + " ";
-            category = "scripts";
-            help = x.meta.description;
-          })
-          packages_;
+        commands = mkCommands "packages" packages;
       }
   ;
 in

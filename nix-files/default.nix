@@ -65,7 +65,7 @@ let
   dirs = [ appPurescript appPython ];
   flakesTools = mkFlakesTools [ appPurescript appPython "." ];
 
-  codiumTools = attrValues ({
+  codiumTools = {
     inherit (pkgs)
       docker poetry direnv lorri
       rnix-lsp nixpkgs-fmt dhall-lsp-server
@@ -80,7 +80,9 @@ let
   configWriters
   //
   commands.apps
-  );
+  //
+  scripts
+  ;
 
   codium = mkCodium {
     extensions = {
@@ -93,7 +95,7 @@ let
     };
     runtimeDependencies = [
       (toList commands)
-      codiumTools
+      (attrValues codiumTools)
     ];
   };
 
@@ -125,18 +127,19 @@ let
         docker compose up
       '';
       longDescription = "monitor via Prometheus";
+      runtimeInputs = [ pkgs.docker ];
     };
   })
   // {
-    createVenvs = python-tools.functions.${system}.createVenvs [ appPython appPurescript "." ];
+    createVenvs = python-tools.functions.${system}.createVenvs [ appPython appPurescript ];
   };
-  packages = codiumTools ++ [ codium ];
-  devShells.default =
+  packages = codiumTools // { inherit codium; };
+  devShells.default = let packages_ = attrValues packages; in
     devshell.mkShell
       {
-        inherit packages;
+        packages = packages_;
         bash.extra = python-tools.snippets.${system}.activateVenv;
-        commands = mkCommands "packages" packages;
+        commands = mkCommands "packages" packages_;
       }
   ;
 in

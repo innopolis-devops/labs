@@ -1,9 +1,8 @@
-version: '3.8'
+version: '3.3'
 
 services:
   app_python:
-    mem_limit: 200m
-    image: tbektleuov/devopslabs:lab7
+    image: tbektleuov/devops:latest
     ports:
       - 8000:8000
     networks:
@@ -15,11 +14,8 @@ services:
         max-size: "100m"
         max-file: "10"
         tag: "{{.ImageName}}|{{.Name}}"
-    volumes:
-      - time_app_data:/app/data
 
   loki:
-    mem_limit: 200m
     image: grafana/loki:2.6.1
     ports:
       - "3100:3100"
@@ -37,7 +33,6 @@ services:
         tag: "{{.ImageName}}|{{.Name}}"
 
   promtail:
-    mem_limit: 200m
     image: grafana/promtail:2.6.1
     ports:
       - "9080:9080"
@@ -58,7 +53,6 @@ services:
         tag: "{{.ImageName}}|{{.Name}}"
 
   grafana:
-    mem_limit: 200m
     image: grafana/grafana:latest
     volumes:
       - ${PWD}/config/grafana/provisioning:/etc/grafana/provisioning
@@ -81,35 +75,34 @@ services:
         max-size: "100m"
         max-file: "10"
         tag: "{{.ImageName}}|{{.Name}}"
-  prometheus:
-    mem_limit: 200m
-    image: prom/prometheus:v2.39.1
-    volumes:
-      - ${PWD}/config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus-data:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/etc/prometheus/console_libraries'
-      - '--web.console.templates=/etc/prometheus/consoles'
-      - '--storage.tsdb.retention.time=14d'
-      - '--web.enable-lifecycle'
-      - '--storage.tsdb.wal-compression'
-      - '--storage.tsdb.max-block-duration=4h'
-      - '--storage.tsdb.wal-segment-size=60MB'
-      - '--storage.tsdb.allow-overlapping-blocks'
-      - '--query.max-samples=5000000'
-    restart: unless-stopped
-    expose:
-      - 9090
-    ports:
-      - "9090:9090"
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100m"
-        max-file: "10"
-        tag: "{{.ImageName}}|{{.Name}}"
+#  prometheus:
+#    image: prom/prometheus:v2.39.1
+#    volumes:
+#      - ${PWD}/config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+#      - prometheus-data:/prometheus
+#    command:
+#      - '--config.file=/etc/prometheus/prometheus.yml'
+#      - '--storage.tsdb.path=/prometheus'
+#      - '--web.console.libraries=/etc/prometheus/console_libraries'
+#      - '--web.console.templates=/etc/prometheus/consoles'
+#      - '--storage.tsdb.retention.time=14d'
+#      - '--web.enable-lifecycle'
+#      - '--storage.tsdb.wal-compression'
+#      - '--storage.tsdb.max-block-duration=4h'
+#      - '--storage.tsdb.wal-segment-size=60MB'
+#      - '--storage.tsdb.allow-overlapping-blocks'
+#      - '--query.max-samples=5000000'
+#    restart: unless-stopped
+#    expose:
+#      - 9090
+#    ports:
+#      - "9090:9090"
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-size: "100m"
+#        max-file: "10"
+#        tag: "{{.ImageName}}|{{.Name}}"
 networks:
   app_python:
   app_haskell:

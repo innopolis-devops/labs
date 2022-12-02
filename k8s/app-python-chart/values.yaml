@@ -11,8 +11,8 @@ image:
   tag: "latest"
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+nameOverride: "app-python-chart"
+fullnameOverride: "app-python-chart"
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -37,7 +37,7 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 8080
   containerPort: 8000
   env:

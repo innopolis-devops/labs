@@ -1,6 +1,43 @@
 # Kubernetes
 
-## CLI deployment
+## Lab 10
+
+I edited the template for [deployment.yaml](app-python-chart/templates/deployment.yaml) to include env variables and a value for `containerPort` from the `Values` file.
+
+I checked the rendered configs.
+
+```sh
+helm install --debug --dry-run app-python-chart ./app-python-chart
+```
+
+After fixing the errors, I installed my chart.
+
+```sh
+helm install app-python-chart ./app-python-chart
+```
+
+I installed and checked my app in a `minikube` dashboard.
+
+![img](README/minikubeCLIDashboard.png)
+![img](README/minikubeDashboard.png)
+
+I changed the type of my service to `NodePort` and upgrdaded the chart.
+
+```sh
+helm upgrade app-python-chart ./app-python-chart
+```
+
+After that, I checked my service via `minikube`.
+
+![img](README/minikubeService.png)
+
+And I ran `kubectl get pods,svc`.
+
+![img](README/kubectlPodsSvc.png)
+
+## Lab 9
+
+### CLI deployment
 
 I deployed my image and inspected it via `minikube`.
 
@@ -33,7 +70,7 @@ kubectl delete deployment app-purescript-node
 kubectl delete service app-purescript-node
 ```
 
-## Deployment from configs
+### Deployment from configs
 
 I made config files in [app_python](./app_python) for `app_python` and started a cluster.
 
@@ -49,7 +86,7 @@ Next, I checked that the service is available in a browser.
 
 ![img](README/browser2.png)
 
-## Bonus
+### Bonus
 
 I adapted the configs for `app_purescript`, put them into [app_purescript](./app_purescript) and deployed.
 

@@ -1,0 +1,14 @@
+services:
+  web:
+    build:
+      context: ./
+    env_file:
+      - .env
+    environment:
+      - PORT=${DOCKER_PORT}
+      - HOST=${HOST}
+    ports:
+      - ${HOST_PORT}:${DOCKER_PORT}
+    volumes:
+      - .:/app
+    image: ${DOCKER_HUB_USERNAME}/app_python:latest

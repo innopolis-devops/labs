@@ -1,0 +1,7 @@
+# web_app_base_path: "/opt/web_app"
+# web_app_name: "app_python"
+# web_app:
+#   registry: "dademd"
+#   # image: "app_python"
+#   tag: "latest"
+# web_app_full_wipe: true

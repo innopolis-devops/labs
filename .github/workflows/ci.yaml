@@ -1,0 +1,246 @@
+jobs:
+  app-ci-app_purescript:
+    defaults:
+      run:
+        working-directory: app_purescript
+    if: needs.changed-files-app_purescript.outputs.app_purescript == 'true'
+    name: CI for app_purescript
+    needs:
+      - changed-files-app_purescript
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v18
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://hydra.iohk.io https://haskell-language-server.cachix.org https://deemp.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= deemp.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
+          install_url: https://releases.nixos.org/nix/nix-2.11.1/install
+      - name: Build app
+        run: nix run .#build
+      - continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        name: Run Snyk to check for vulnerabilities (Node.js)
+        uses: snyk/actions/node@master
+        with:
+          args: --all-projects
+      - name: Test
+        run: nix run .#test
+  app-ci-app_python:
+    defaults:
+      run:
+        working-directory: app_python
+    if: needs.changed-files-app_python.outputs.app_python == 'true'
+    name: CI for app_python
+    needs:
+      - changed-files-app_python
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v18
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://hydra.iohk.io https://haskell-language-server.cachix.org https://deemp.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= deemp.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
+          install_url: https://releases.nixos.org/nix/nix-2.11.1/install
+      - name: Linting
+        run: nix run .#lint
+      - continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        name: Run Snyk to check for vulnerabilities (Python)
+        uses: snyk/actions/python@master
+        with:
+          args: --all-projects
+      - name: Test
+        run: nix run .#test
+  caching-macos-11:
+    name: Caching on macos-11
+    runs-on: macos-11
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v18
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://hydra.iohk.io https://haskell-language-server.cachix.org https://deemp.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= deemp.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
+          install_url: https://releases.nixos.org/nix/nix-2.11.1/install
+      - name: Log in to Cachix
+        uses: cachix/cachix-action@v11
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: ${{ secrets.CACHIX_CACHE }}
+      - name: Cache flakes
+        run: CACHIX_CACHE=${{ secrets.CACHIX_CACHE }} nix run .#pushToCachix
+  caching-macos-12:
+    name: Caching on macos-12
+    runs-on: macos-12
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v18
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://hydra.iohk.io https://haskell-language-server.cachix.org https://deemp.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= deemp.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
+          install_url: https://releases.nixos.org/nix/nix-2.11.1/install
+      - name: Log in to Cachix
+        uses: cachix/cachix-action@v11
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: ${{ secrets.CACHIX_CACHE }}
+      - name: Cache flakes
+        run: CACHIX_CACHE=${{ secrets.CACHIX_CACHE }} nix run .#pushToCachix
+  caching-ubuntu-20:
+    name: Caching on ubuntu-20.04
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v18
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://hydra.iohk.io https://haskell-language-server.cachix.org https://deemp.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= deemp.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
+          install_url: https://releases.nixos.org/nix/nix-2.11.1/install
+      - name: Configure git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - name: Update locks
+        run: "git pull --rebase --autostash\nnix run .#updateLocks \ngit diff --exit-code || git commit -a -m 'action: update flake.lock-s'\ngit push\n\n"
+      - name: Log in to Cachix
+        uses: cachix/cachix-action@v11
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: ${{ secrets.CACHIX_CACHE }}
+      - name: Cache flakes
+        run: CACHIX_CACHE=${{ secrets.CACHIX_CACHE }} nix run .#pushToCachix
+  caching-ubuntu-22:
+    name: Caching on ubuntu-22.04
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v18
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://hydra.iohk.io https://haskell-language-server.cachix.org https://deemp.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= haskell-language-server.cachix.org-1:juFfHrwkOxqIOZShtC4YC1uT1bBcq2RSvC7OMKx0Nz8= deemp.cachix.org-1:o1FA93L5vL4LWi+jk2ECFk1L1rDlMoTH21R1FHtSKaU=
+          install_url: https://releases.nixos.org/nix/nix-2.11.1/install
+      - name: Log in to Cachix
+        uses: cachix/cachix-action@v11
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: ${{ secrets.CACHIX_CACHE }}
+      - name: Cache flakes
+        run: CACHIX_CACHE=${{ secrets.CACHIX_CACHE }} nix run .#pushToCachix
+  changed-files-app_purescript:
+    name: Check if app_purescript has any modified files
+    outputs:
+      app_purescript: ${{ steps.changed-files.outputs.any_modified }}
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - id: changed-files
+        name: Get changed files
+        uses: tj-actions/changed-files@v32
+        with:
+          files: app_purescript/**
+          sha: ${{ github.sha }}
+      - if: steps.changed-files.outputs.any_modified == 'true'
+        name: List changed files
+        run: |
+          echo "One or more files in the docs folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files.outputs.all_changed_files }}"
+  changed-files-app_python:
+    name: Check if app_python has any modified files
+    outputs:
+      app_python: ${{ steps.changed-files.outputs.any_modified }}
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - id: changed-files
+        name: Get changed files
+        uses: tj-actions/changed-files@v32
+        with:
+          files: app_python/**
+          sha: ${{ github.sha }}
+      - if: steps.changed-files.outputs.any_modified == 'true'
+        name: List changed files
+        run: |
+          echo "One or more files in the docs folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files.outputs.all_changed_files }}"
+  push-to-docker-hub-app_purescript:
+    if: needs.changed-files-app_purescript.outputs.app_purescript == 'true'
+    name: Push 'app_purescript' to Docker Hub
+    needs:
+      - changed-files-app_purescript
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Hadolint Action
+        uses: hadolint/hadolint-action@v2.0.0
+        with:
+          dockerfile: app_purescript/Dockerfile
+          no-fail: true
+          verbose: true
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          password: ${{ secrets.DOCKER_HUB_PAT }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      - env:
+          DOCKER_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: app_purescript
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app_purescript:latest
+  push-to-docker-hub-app_python:
+    if: needs.changed-files-app_python.outputs.app_python == 'true'
+    name: Push 'app_python' to Docker Hub
+    needs:
+      - changed-files-app_python
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Hadolint Action
+        uses: hadolint/hadolint-action@v2.0.0
+        with:
+          dockerfile: app_python/Dockerfile
+          no-fail: true
+          verbose: true
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          password: ${{ secrets.DOCKER_HUB_PAT }}
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+      - env:
+          DOCKER_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: app_python
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/app_python:latest
+name: Caching
+"on":
+  pull_request: {}
+  push: {}
+  schedule:
+    - cron: 0 0 * * *
+  workflow_dispatch: {}

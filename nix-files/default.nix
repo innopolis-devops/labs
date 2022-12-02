@@ -70,7 +70,7 @@ let
       docker poetry direnv lorri
       rnix-lsp nixpkgs-fmt dhall-lsp-server
       geckodriver terraform terraform-ls
-      kubernetes minikube
+      kubernetes minikube kubernetes-helm-wrapped
       ;
     inherit (pkgs.haskellPackages) hadolint;
   }
@@ -138,7 +138,6 @@ let
     devshell.mkShell
       {
         packages = packages_;
-        bash.extra = python-tools.snippets.${system}.activateVenv;
         commands = mkCommands "packages" packages_;
       }
   ;

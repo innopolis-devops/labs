@@ -48,8 +48,10 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
-            - PORT={{ .Values.service.env.PORT }}
-            - HOST={{ .Values.service.env.HOST }}
+            - name: PORT
+              value: {{ .Values.service.env.PORT | quote}}
+            - name: HOST
+              value: {{ .Values.service.env.HOST | quote}}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

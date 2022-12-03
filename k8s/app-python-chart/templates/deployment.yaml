@@ -52,6 +52,9 @@ spec:
               value: {{ .Values.service.env.PORT | quote}}
             - name: HOST
               value: {{ .Values.service.env.HOST | quote}}
+            - name: MY_PASS
+              value: {{ .Values.secret.MY_PASS | quote}}
+            
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

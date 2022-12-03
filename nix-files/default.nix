@@ -70,7 +70,8 @@ let
       docker poetry direnv lorri
       rnix-lsp nixpkgs-fmt dhall-lsp-server
       geckodriver terraform terraform-ls
-      kubernetes minikube kubernetes-helm-wrapped
+      kubernetes minikube kubernetes-helm
+      sops age
       ;
     inherit (pkgs.haskellPackages) hadolint;
   }
@@ -115,10 +116,10 @@ let
             (dir: '' ( printf "${framedBrackets "linting in ${dir}"}" ; hadolint ${dir}/${dockerFile});'')
             dirs
           }'';
+        description = ''Lint dockerfiles in given directories'';
         longDescription = ''Lint ${dockerFile}s in ${concatStringsSep ", " dirs}'';
       };
     monitor = {
-      name = "monitor";
       text = ''
         set -a
         source .env
@@ -126,17 +127,44 @@ let
         source configs/datasources/.env
         docker compose up
       '';
-      longDescription = "monitor via Prometheus";
+      description = "Monitor via Prometheus";
       runtimeInputs = [ pkgs.docker ];
+    };
+    installHelmPlugins = {
+      text = ''
+        printf "\n\ninstalling helm plugins into ${helmPluginsPath}\n\n"
+        ${setHelmPluginsPath}
+        set +e
+        helm plugin install https://github.com/databus23/helm-diff || echo "installed 'helm-diff'"
+        helm plugin install https://github.com/jkroepke/helm-secrets || echo "installed 'helm-secrets'"
+      '';
+      description = "Install Helm plugins";
+      runtimeInputs = [ pkgs.kubernetes-helm ];
     };
   })
   // {
     createVenvs = python-tools.functions.${system}.createVenvs [ appPython appPurescript ];
   };
+
+  helmPluginsPath = "helm/plugins";
+  setHelmEnv = ''
+    mkdir -p 
+
+    export HELM_PLUGINS=$PWD/${helmPluginsPath}
+    mkdir -p $HELM_PLUGINS
+    
+    export HELM_CONFIG_HOME=$PWD/helm/config
+    mkdir -p $HELM_CONFIG_HOME
+
+    # this is where to store the key file
+    # generated via age-keygen
+    mkdir -p ~/.config/sops/age
+  '';
   packages = codiumTools // { inherit codium; };
   devShells.default = let packages_ = attrValues packages; in
     devshell.mkShell
       {
+        bash.extra = setHelmEnv;
         packages = packages_;
         commands = mkCommands "packages" packages_;
       }

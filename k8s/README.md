@@ -96,6 +96,7 @@ I adapted the configs for `app_purescript`, put them into [app_purescript](./app
 
 ## References
 
+- [Using Helm](https://helm.sh/docs/intro/using_helm/)
 - `port`, `targetPort`, `nodePort` - [src](https://www.bmc.com/blogs/kubernetes-port-targetport-nodeport/)
   - `Port` exposes the Kubernetes service on the specified port within the cluster. Other pods within the cluster can communicate with this server on the specified port.
   - `targetPort` is the port on which the service will send requests to, that your pod will be listening on. Your application in the container will need to be listening on this port also.

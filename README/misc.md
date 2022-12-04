@@ -40,6 +40,8 @@ dream2nix.lib.makeFlakeOutputs {
 
 - can't un-ignore a file if its parent dir is ignored `.gitignore` - [SO](https://stackoverflow.com/a/5285539)
 
+- Get branch from `upstream` into fork - [src](https://stackoverflow.com/a/4410502)
+
 ## Stuff I made along the way
 
 - [Tutorials and Notes](https://github.com/deemp/the-little-things) (also on Nix)

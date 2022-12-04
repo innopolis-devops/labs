@@ -60,7 +60,7 @@ let
         ${x.meta.description}.
       '');
 
-  writeMarkdownlintConfig = writeJSON "markdownlint" "./configs/.markdownlint.json" (import ./markdownlint-config.nix);
+  writeMarkdownlintConfig = writeJSON "markdownlint" ".markdownlint.jsonc" (import ./markdownlint-config.nix);
   writeSettings = writeSettingsJSON (import ./settings.nix { inherit settingsNix pkgs mkBinName; });
   writeTasks = writeTasksJSON (import ./tasks.nix { inherit commands drv-tools system; });
 

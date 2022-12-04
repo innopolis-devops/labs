@@ -28,6 +28,7 @@ let
     mkDevShellsWithDefault
     mkBin
     framedBrackets
+    framedNewlines
     ;
   inherit (flakes-tools.functions.${system})
     mkFlakesTools
@@ -132,8 +133,8 @@ let
     };
     installHelmPlugins = {
       text = ''
-        printf "\n\ninstalling helm plugins into ${helmPluginsPath}\n\n"
-        ${setHelmPluginsPath}
+        printf "${framedNewlines "installing helm plugins into ${helmPluginsPath}"}"
+        ${setHelmEnv}
         set +e
         helm plugin install https://github.com/databus23/helm-diff || echo "installed 'helm-diff'"
         helm plugin install https://github.com/jkroepke/helm-secrets || echo "installed 'helm-secrets'"

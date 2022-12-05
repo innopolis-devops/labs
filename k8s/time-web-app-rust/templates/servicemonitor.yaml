@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "time-web-app-rust.fullname" . }}
+  labels:
+    {{- include "time-web-app-rust.labels" . | nindent 4 }}
+    release: prom-stack
+
+spec:
+  selector:
+    matchLabels:
+      {{- include "time-web-app-rust.selectorLabels" . | nindent 6 }}
+  endpoints:
+  - port: http

@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app.kubernetes.io/name: MyApp
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "lol" && sleep 3600']
+    volumeMounts:
+      - name: workdir-kek
+        mountPath: "/kek"
+  initContainers:
+  - name: init-1
+    image: busybox:1.28
+    command: ['sh', '-c', "echo 'KuBeR' > /kek/file"]
+    volumeMounts:
+      - name: workdir-kek
+        mountPath: "/kek"
+  - name: init-2
+    image: busybox:1.28
+    command: ['sh', '-c', "echo 'nEt' >> /kek/file"]
+    volumeMounts:
+      - name: workdir-kek
+        mountPath: "/kek"
+  - name: init-3
+    image: busybox:1.28
+    command: ['sh', '-c', "echo 'Es' >> /kek/file"]
+    volumeMounts:
+      - name: workdir-kek
+        mountPath: "/kek"
+
+  volumes:
+    - name: workdir-kek
+      emptyDir: {}

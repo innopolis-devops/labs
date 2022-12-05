@@ -1,0 +1,11 @@
+version: "3"
+services:
+  web:
+    image: migorr/time-app-devops:latest
+    volumes:
+      - app-storage:/app/data
+    ports:
+      - "8080:8080"
+    restart: always
+volumes:
+  app-storage:

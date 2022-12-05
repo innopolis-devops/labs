@@ -3,6 +3,7 @@ kind: ServiceMonitor
 metadata:
   name: {{ include "python-app-helm.fullname" . }}
   labels:
+    {{- include "python-app-helm.labels" . | nindent 4 }}
     release: service-bonus
 spec:
   selector:

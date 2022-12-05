@@ -1,0 +1,11 @@
+prometheus:
+  additionalServiceMonitors:
+    - name: app-python-service-monitor
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: app-python
+          app.kubernetes.io/name: app-python-chart
+      endpoints:
+        - port: http
+          interval: 10s
+          path: /metrics

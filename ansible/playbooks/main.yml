@@ -1,0 +1,4 @@
+- name: Create Docker
+  hosts: InnoDevOps
+  roles:
+    - app_python

@@ -1,0 +1,4 @@
+.build/
+.swiftpm/
+README.md
+LICENSE

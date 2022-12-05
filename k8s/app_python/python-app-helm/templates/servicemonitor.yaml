@@ -7,6 +7,6 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: {{- include "python-app-helm.fullname" . }}
+      {{- include "time-web-app-rust.selectorLabels" . | nindent 6 }}
   endpoints:
     - port: http

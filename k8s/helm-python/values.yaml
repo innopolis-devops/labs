@@ -4,6 +4,8 @@
 
 replicaCount: 3
 
+serviceName: "python-app"
+
 image:
   repository: markovvn1/iu-devops
   pullPolicy: Always

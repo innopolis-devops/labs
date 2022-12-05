@@ -8,6 +8,7 @@ spec:
   podManagementPolicy: "Parallel"
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  serviceName: {{ .Values.serviceName }}
   {{- end }}
   selector:
     matchLabels:

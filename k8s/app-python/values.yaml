@@ -4,6 +4,8 @@
 
 replicaCount: 2
 
+serviceName: "app-python"
+
 image:
   repository: kastrylia/current_moscow_time
   pullPolicy: Always

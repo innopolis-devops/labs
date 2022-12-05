@@ -56,10 +56,29 @@ spec:
               subPath: config.json
             - name: {{ .Values.volumes.persistent.name }}
               mountPath: {{ .Values.volumes.persistent.mountPath }}
+            - name: workdir-aboba
+              mountPath: /app/block-data
+      initContainers:
+        - name: download-file
+          image: busybox:1.28
+          command:
+            - wget
+            - "https://sora.api.subscan.io/api/scan/block" # sorascan doesn't respond :((( unreachable in Russia?
+            - "--header"
+            - "'Content-Type: apsoran/json'"
+            - "--post-data"
+            - "{\"block_hash\": \"0x7e4e32d0feafd4f9c9414b0be86373f9a1efa904809b683453a9af6856d38ad5\"}"
+            - "-O"
+            - "/work-dir-aboba/sora_mainnet_genesis_block.json" # hi :)
+          volumeMounts:
+            - name: workdir-aboba
+              mountPath: "/work-dir-aboba"
       volumes:    
         - name: {{ .Values.volumes.config.name }}
           configMap:
             name: {{ include "time-web-app-rust.fullname" . }}-config
+        - name: workdir-aboba
+          emptyDir: {}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

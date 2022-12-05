@@ -1,0 +1,7 @@
+all:
+  hosts:
+    server:
+      ansible_host: 51.250.86.162
+      ansible_user: dablup
+      ansible_ssh_private_key_file: ~/key.pem
+      ansible_become: true

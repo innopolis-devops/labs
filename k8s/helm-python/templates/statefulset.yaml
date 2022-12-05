@@ -9,6 +9,7 @@ spec:
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   podManagementPolicy: Parallel
+  serviceName: {{ .Values.serviceName }}
   selector:
     matchLabels:
       {{- include "helm-python.selectorLabels" . | nindent 6 }}

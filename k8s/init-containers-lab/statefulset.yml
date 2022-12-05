@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: init-containers-test
+spec:
+  selector:
+    matchLabels:
+      app: init-containers-test
+  serviceName: init-containers-test
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: init-containers-test
+    spec:
+      initContainers:
+      - name: init-1
+        image: busybox
+        command:
+          - sh
+          - -c
+          - |
+            set -eu
+            cd /www
+            wget 'https://raw.githubusercontent.com/innopolis-devops/labs/lab14/LAB14.md'
+
+        volumeMounts:
+          - mountPath: /www
+            name: www
+
+      - name: init-1-bonus
+        image: busybox
+        volumeMounts:
+          - mountPath: /www
+            name: www
+        command:
+          - sh
+          - -c
+          - |
+            set -eu
+            cd /www
+            echo 1 > 1.txt
+      - name: init-2-bonus
+        image: busybox
+        volumeMounts:
+          - mountPath: /www
+            name: www
+        command:
+          - sh
+          - -c
+          - |
+            set -eu
+            cd /www
+            echo 2 >> 1.txt
+      - name: init-3-bonus
+        image: busybox
+        volumeMounts:
+          - mountPath: /www
+            name: www
+        command:
+          - sh
+          - -c
+          - |
+            set -eu
+            cd /www
+            echo 3 >> 1.txt
+
+      containers:
+        - name: init-containers-test
+          image: k8s.gcr.io/nginx-slim:0.8
+          ports:
+            - containerPort: 80
+              name: web
+          volumeMounts:
+            - name: www
+              mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+    - metadata:
+        name: www
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi

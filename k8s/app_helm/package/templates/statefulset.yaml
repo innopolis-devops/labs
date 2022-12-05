@@ -9,12 +9,13 @@ spec:
     matchLabels:
       {{- include "app_helm.selectorLabels" . | nindent 6 }}
   replicas: {{ .Values.replicaCount }}
+  serviceName: {{ include "app_helm.fullname" . }}
   template:
     metadata:
       labels:
         {{- include "app_helm.selectorLabels" . | nindent 8 }}
     spec:
-      podManagementPolicy: Parallel
+      # podManagementPolicy: Parallel
       volumes:
         - name: {{ include "app_helm.fullname" . }}-config
           configMap:

@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "app_helm.fullname" . }}
+  labels:
+    # required to make PrometheusOperator discover this ServiceMonitor
+    release: kube-prometheus-stack
+    {{- include "app_helm.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "app_helm.selectorLabels" . | nindent 6 }}
+  endpoints:
+    - interval: 10s
+      port: http
+      path: /metrics

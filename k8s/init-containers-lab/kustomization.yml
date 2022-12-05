@@ -1,0 +1,4 @@
+namespace: init-containers
+resources:
+  - namespace.yml
+  - statefulset.yml

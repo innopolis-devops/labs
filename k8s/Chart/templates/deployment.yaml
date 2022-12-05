@@ -8,6 +8,18 @@ spec:
     matchLabels:
       app: node-app-{{ .Release.Name }}
   template:
+    initContainers:
+      - name: download
+        image: busybox:1.28
+        volumeMounts:
+          - name: node-app-workdir-volume
+            mountPath: /workdir
+      - name: hello1
+        image: busybox:1.28
+        volumeMounts:
+          - name: node-app-workdir-volume
+            mountPath: /workdir
+      dnsPolicy: Default
     metadata:
       labels:
         app:  node-app-{{ .Release.Name }}
@@ -38,3 +50,8 @@ spec:
         spec:
           { { - toYaml . | nindent 8 } }
         { { - end } }
+        accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 256Mi

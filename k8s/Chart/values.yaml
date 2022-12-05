@@ -10,6 +10,17 @@ resources:
     cpu: 1.0
     memory: 128Mi
 
+prometheus:
+  additionalServiceMonitors:
+    - name: node-app-service-monitor
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: node-app
+          app.kubernetes.io/name: node-app-chart
+      endpoints:
+        - port: http
+          interval: 10s
+          path: /metrics
 
 replicaCount: 3
 

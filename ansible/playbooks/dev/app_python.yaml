@@ -1,0 +1,21 @@
+---
+#- name: Deploy Python application
+#  hosts: server
+#  roles:
+#    - web_app
+
+- name: Deploy Python application
+  hosts: all
+  roles:
+    - name: web_app
+      tags: [web_app_python]
+      vars:
+        web_app_name: "app_python"
+        web_app_path: "/opt/app_python"
+        web_app_port:
+          internal: 8000
+          external: 8000
+        web_container_port: 8000
+        web_app_image:
+          name: "smorenapi/app_python"
+          tag: "latest"

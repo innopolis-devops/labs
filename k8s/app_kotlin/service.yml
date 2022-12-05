@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-kotlin-service
+spec:
+  selector:
+    app: app-kotlin
+  ports:
+    - protocol: TCP
+      port: 8080
+  type: LoadBalancer

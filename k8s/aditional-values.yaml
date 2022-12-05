@@ -1,0 +1,6 @@
+prometheus:
+  prometheusSpec:
+    additionalScrapeConfigs:
+        - job_name: 'app-python'
+          static_configs:
+            - targets: ['app-python:5000']

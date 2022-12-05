@@ -33,6 +33,8 @@ spec:
         - name: config-volume
           configMap:
             name: time-config
+        - name: workdir
+          emptyDir: {}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -58,11 +60,8 @@ spec:
               mountPath: /files 
             - name: {{ .Values.statefulSet.name }}
               mountPath: /app-python/
-      volumes:
-        - name: config-volume
-          configMap:
-            name: time-config
-
+            - name: workdir
+              mountPath: /workdir
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -75,6 +74,18 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      initContainers:
+      - name: demo
+        image: busybox
+        command:
+          - wget
+          - "-O"
+          - "/workdir/index.html"
+          - https://ya.ru
+        volumeMounts:
+          - name: workdir
+            mountPath: "/workdir"
+      dnsPolicy: Default
   volumeClaimTemplates:
   - metadata:
       name: {{ .Values.statefulSet.name }}

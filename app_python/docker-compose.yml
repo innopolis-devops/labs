@@ -1,0 +1,11 @@
+version: '2'
+services:
+  web:
+    image: glebosotov/inno-devops-labs-app-python:persistant
+    volumes:
+      - storage-python:/app/data
+    ports:
+      - "1337:5000"
+    restart: always
+volumes:
+  storage-python:

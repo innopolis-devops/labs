@@ -5,8 +5,9 @@ metadata:
   labels:
     app: {{ .Values.lable }}
 spec:
-  podManagementPolicy: "Parallel"
+  # podManagementPolicy: "Parallel"
   replicas: {{ .Values.replicaCount }}
+  serviceName: {{ .Values.serviceName }}
   selector:
     matchLabels:
       app: {{ .Values.lable }}
@@ -22,6 +23,8 @@ spec:
         - name: {{ include "package.fullname" . }}-volume
           persistentVolumeClaim:
             claimName: {{ include "package.fullname" . }}-volume
+        - name: a
+          emptyDir: {}
       initContainers:
         - name: volume-mount
           image: busybox
@@ -29,6 +32,17 @@ spec:
           volumeMounts:
             - name: {{ include "package.fullname" . }}-volume
               mountPath: /app/volume
+        - name: download-file
+          image: busybox:1.28
+          command:
+            - sh
+            - -c
+            - |
+              cd /app/a
+              wget https://github.com/innopolis-devops/labs/blob/lab14/LAB14.md 
+          volumeMounts:
+            - name: a
+              mountPath: "/app/a"
       containers:
         - name: {{ .Values.name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -42,6 +56,8 @@ spec:
               mountPath: /app/config
             - name: {{ include "package.fullname" . }}-volume
               mountPath: /app/volume
+            - name: a
+              mountPath: "/app/a"  
   volumeClaimTemplates:
     - metadata:
         name: {{ include "package.fullname" . }}-volume

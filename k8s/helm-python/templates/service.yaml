@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: {{ include "helm-python.fullname" . }}
   labels:
+    app: {{ include "helm-python.fullname" . }}
     {{- include "helm-python.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}

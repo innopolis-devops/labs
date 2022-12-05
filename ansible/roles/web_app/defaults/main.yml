@@ -1,0 +1,7 @@
+web_app_name: "app_python"
+web_app_image_name: "currenttime:latest"
+web_app_image: ghcr.io/sevenzing/{{ web_app_image_name }}
+web_app_ports: "4444:4444"
+web_app_full_wipe: false
+web_app_dir: "/opt/innopolis_devops_labs/{{ web_app_name }}"
+

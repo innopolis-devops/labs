@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-moscower
+  labels:
+    app: moscower
+spec:
+  replicas: 10 # >= 3
+  selector:
+    matchLabels:
+      app: moscower
+  template:
+    metadata:
+      labels:
+        app: moscower
+    spec:
+      containers:
+      - name: moscower
+        image: nihon/moscower:persistent
+        ports:
+        - containerPort: 8000

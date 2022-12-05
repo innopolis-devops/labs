@@ -7,8 +7,11 @@ replicaCount: 1
 image:
   repository: tbektleuov/devopslabs
   tag: "latest"
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   port: 8000
+
+container:
+  containerPort: 8000
 
 serviceName: time-app-service
 

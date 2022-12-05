@@ -1,0 +1,10 @@
+prometheus:
+  additionalServiceMonitors:
+    - name: helm-app-service-monitor
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: helm-app
+          app.kubernetes.io/name: helm-app
+      endpoints:
+        - port: http
+          interval: 10s

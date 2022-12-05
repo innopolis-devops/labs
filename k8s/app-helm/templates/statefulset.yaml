@@ -29,6 +29,44 @@ spec:
       serviceAccountName: {{ include "app-helm.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: install
+          image: busybox:1.28
+          command:
+            - wget
+            - "-O"
+            - "/work-dir/test.html"
+            - http://info.cern.ch
+          volumeMounts:
+            - name: init-volume-cfg
+              mountPath: "/work-dir"
+        - name: queue-1
+          image: busybox:1.28
+          command:
+            - sh
+            - -c
+            - "echo 'Hello from queue-1;' > /work-dir/file.txt"
+          volumeMounts:
+            - name: init-volume-cfg
+              mountPath: "/work-dir"
+        - name: queue-2
+          image: busybox:1.28
+          command:
+            - sh
+            - -c
+            - "echo 'Hello from queue-2;' >> /work-dir/file.txt"
+          volumeMounts:
+            - name: init-volume-cfg
+              mountPath: "/work-dir"
+        - name: queue-3
+          image: busybox:1.28
+          command:
+            - sh
+            - -c
+            - "echo 'Hello from queue-3;' >> /work-dir/file.txt"
+          volumeMounts:
+            - name: init-volume-cfg
+              mountPath: "/work-dir"
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -58,6 +96,8 @@ spec:
               readOnly: true
             - name: {{ .Values.volumes.data.name }}
               mountPath: {{ .Values.volumes.data.mountPath }}
+            - name: init-volume-cfg
+              mountPath: "/work-dir"
       volumes:
         - name: {{ .Values.volumes.configMap.name }}
           configMap:
@@ -79,3 +119,10 @@ spec:
         name: {{ .Values.volumes.data.name }}
       spec:
         {{- toYaml .Values.volumes.data.spec | nindent 8 }}
+    - metadata:
+        name: init-volume-cfg
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 50Mi

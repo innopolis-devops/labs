@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: init-containers
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: workdir
+          mountPath: /usr/share/nginx/html
+  initContainers:
+    - name: fetch
+      image: busybox:1.28
+      command:
+        - wget
+        - "-O"
+        - "/work-dir/index.html"
+        - http://info.cern.ch
+      volumeMounts:
+        - name: workdir
+          mountPath: "/work-dir"
+    - name: permissions
+      image: busybox:1.28
+      command:
+        - chmod
+        - "777"
+        - "/work-dir/index.html"
+      volumeMounts:
+        - name: workdir
+          mountPath: "/work-dir"
+    - name: override
+      image: busybox:1.28
+      command:
+        - mv
+        - "/work-dir/index.html"
+        - "/work-dir/index-new.html"
+      volumeMounts:
+        - name: workdir
+          mountPath: "/work-dir"
+  dnsPolicy: Default
+  volumes:
+    - name: workdir
+      emptyDir: {}

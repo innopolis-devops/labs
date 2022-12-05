@@ -82,3 +82,5 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+serviceName: "app-python-service"

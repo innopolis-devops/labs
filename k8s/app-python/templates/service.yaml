@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: {{ include "app-python.fullname" . }}
   labels:
+    app: {{ include "app-python.fullname" . }}
     {{- include "app-python.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}

@@ -8,6 +8,7 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  serviceName: {{ .Values.serviceName }}
   podManagementPolicy: {{ .Values.podManagementPolicy }}
   selector:
     matchLabels:

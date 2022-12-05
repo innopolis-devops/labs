@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: init-demo-bonus
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: workdir
+          mountPath: /bonus
+  # These containers are run during pod initialization
+  initContainers:
+    - name: step1
+      image: busybox:1.28
+      command: ['sh', '-c', "printf 'some data 1 \n' >> /work-dir/result.txt"]
+      volumeMounts:
+        - name: workdir
+          mountPath: "/work-dir"
+    - name: step2
+      image: busybox:1.28
+      command: ['sh', '-c', "printf 'some data 2 \n' >> /work-dir/result.txt"]
+      volumeMounts:
+        - name: workdir
+          mountPath: "/work-dir"
+    - name: step3
+      image: busybox:1.28
+      command: ['sh', '-c', "printf 'some data 3 \n' >> /work-dir/result.txt"]
+      volumeMounts:
+        - name: workdir
+          mountPath: "/work-dir"
+  dnsPolicy: Default
+  volumes:
+    - name: workdir
+      emptyDir: {}

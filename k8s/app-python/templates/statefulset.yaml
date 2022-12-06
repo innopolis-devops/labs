@@ -29,9 +29,18 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       volumes:
+        - name: app-python-init
+          emptyDir: {}
         - name: {{ .Values.volumes.config.name }}
           configMap:
             name: {{ .Values.volumes.config.name }}
+      initContainers:
+        - name: app-python-init
+          image: python:3.10
+          command: [ "curl", "--output", "/app/init/ip.txt", "https://2ip.ru/" ]
+          volumeMounts:
+            - name: app-python-init
+              mountPath: /app/init
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -66,6 +75,9 @@ spec:
                   name: app-python-secret
                   key: pass
           volumeMounts:
+            - name: app-python-init
+              mountPath: /app/init
+              readOnly: true
             - name: {{ .Values.volumes.config.name }}
               mountPath: {{ .Values.volumes.config.mountPath }}
               subPath: {{ .Values.volumes.config.subPath }}

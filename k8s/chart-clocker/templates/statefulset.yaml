@@ -5,9 +5,9 @@ metadata:
   labels:
     {{- include "chart-clocker.labels" . | nindent 4 }}
 spec:
-  {{ - if .Values.turnParallel.enabled }}
+  {{- if .Values.turnParallel.enabled }}
   podManagementPolicy: "Parallel"
-  {{ - end }}
+  {{- end }}
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}

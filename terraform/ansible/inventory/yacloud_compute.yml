@@ -1,0 +1,4 @@
+plugin: yacloud_compute
+yacloud_user: "debian"
+yacloud_token_storage: "env_var"
+yacloud_token: "YC_TOKEN"

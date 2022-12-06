@@ -1,0 +1,12 @@
+---
+web_app:
+  name: "app_python"
+  image:
+    registry:   "igorparfenov"
+    name:       "devops_lab"
+    tag:        "app_python_latest"
+  ports:
+    internal: 5000
+    external: 80
+  base_path: "/opt/app_python"
+  full_wipe: false

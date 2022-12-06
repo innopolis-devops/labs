@@ -87,6 +87,8 @@ tolerations: [ ]
 
 affinity: { }
 
+serviceName: "my-app-python-service"
+
 volumes:
   config:
     name: config-volume

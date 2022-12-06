@@ -21,6 +21,7 @@ spec:
         {{- include "app-python.selectorLabels" . | nindent 8 }}
     spec:
       podManagementPolicy: "Parallel"
+      serviceName: {{ .Values.serviceName }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

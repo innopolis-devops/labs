@@ -4,6 +4,8 @@
 
 replicaCount: 2
 
+serviceName: "time-app"
+
 image:
   repository: nginx
   pullPolicy: Always
@@ -80,6 +82,8 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+password: kek
 
 volumes:
   config:

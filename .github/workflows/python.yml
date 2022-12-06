@@ -1,0 +1,95 @@
+name: CI/CD
+
+on:
+  push:
+    paths:
+      - app_python/**
+      - .github/workflows/python.yml
+  pull_request:
+    branches:
+      - master
+      - lab*
+    paths:
+      - app_python/**
+      - .github/workflows/python.yml
+
+defaults:
+  run:
+    working-directory: ./app_python
+
+jobs:
+  test:
+    # Use ubuntu-20.04 LTS.
+    runs-on: ubuntu-20.04
+    steps:
+      # Setup python3.10, x64.
+      - uses: actions/checkout@v2
+      - name: Set up python3.10, x64
+        uses: actions/setup-python@v2
+        with:
+            python-version: '3.10'
+            architecture: 'x64'
+      - name: Install requirements
+        run: |
+          sudo apt-get update -y && sudo apt-get install make
+          pip install --no-cache-dir --upgrade pip setuptools wheel
+          pip install --no-cache-dir -r requirements.txt
+          pip install --no-cache-dir -r requirements-test.txt
+      - name: Lint
+        run: make lint
+      - name: Test
+        run: make test
+
+  build:
+    needs: test
+    if: ${{github.event_name == 'pull_request'}}
+    # Use ubuntu-20.04 LTS.
+    runs-on: ubuntu-20.04
+    steps:
+      # Setup python3.10, x64.
+      - uses: actions/checkout@v2
+      - name: Set up python3.10, x64
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+          architecture: 'x64'
+      - name: Install make and aws cli
+        run: sudo apt-get update -y && sudo apt-get install make awscli
+      - name: Setup AWS CLI
+        run: |
+          aws configure set aws_access_key_id ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws configure set aws_secret_access_key ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws configure set region ${{secrets.AWS_REGION}}
+      - name: Build
+        # Line with 'make pull-prod' can be added to enable caching and improve long buildings.
+        run: |
+          make ecr_login
+          make build-prod
+
+  push:
+    needs: build
+    # if: ${{github.ref == 'refs/heads/master'}}  # To be used in real production.
+    if: ${{github.event_name == 'pull_request'}}
+    # Use ubuntu-20.04 LTS.
+    runs-on: ubuntu-20.04
+    steps:
+      # Setup python3.10, x64.
+      - uses: actions/checkout@v2
+      - name: Set up python3.10, x64
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+          architecture: 'x64'
+      - name: Install make and aws cli
+        run: sudo apt-get update -y && sudo apt-get install make awscli
+      - name: Setup AWS CLI
+        run: |
+          aws configure set aws_access_key_id ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws configure set aws_secret_access_key ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws configure set region ${{secrets.AWS_REGION}}
+      - name: Build
+        run: |
+          make ecr_login
+          make build-prod
+      - name: Push
+        run: make push-prod

@@ -1,0 +1,13 @@
+# Codestyle.
+isort==5.*
+autoflake==1.*
+mypy==0.*
+flake8==4.*
+
+pydantic[dotenv,email]==1.9.1
+fastapi==0.79.0
+orjson==3.7.12
+uvicorn[standard]==0.18.2
+gunicorn==20.1.0
+prometheus_fastapi_instrumentator==5.9.1
+aiofiles==22.1.0

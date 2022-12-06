@@ -1,0 +1,8 @@
+[project]
+name = "PythonApp"
+
+[tool.isort]
+profile = "black"
+skip_glob = '**/migrations/**'
+line_length = 120
+length_sort = true

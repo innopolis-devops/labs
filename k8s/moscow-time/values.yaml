@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 2
-serviceName: moscow-time
+serviceName: "moscow-time-service"
 
 image:
   repository: alexdestdev/moscow_time

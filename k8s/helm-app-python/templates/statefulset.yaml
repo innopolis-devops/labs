@@ -59,10 +59,46 @@ spec:
               subPath: {{ .Values.volumes.config.subPath }}
             - name: {{ .Values.volumes.persistent.name }}
               mountPath: {{ .Values.volumes.persistent.mountPath }}
+            - name: static-files
+              mountPath: /static/files
+      initContainers:
+        # download image
+        - name: static-downloader
+          image: busybox:1.28
+          command:
+            - wget
+            - "-O"
+            - "/static/files/nft.png"
+            - "https://i.imgur.com/ZcE0TCd.png"
+          volumeMounts:
+            - name: static-files
+              mountPath: "/static/files"
+        # 3 init container in row for bonus task
+        - name: add-random-number-1
+          image: busybox:1.28
+          command: ['sh', '-c', "echo $RANDOM >> /static/files/random"]
+          volumeMounts:
+            - name: static-files
+              mountPath: "/static/files"
+        - name: add-random-number-2
+          image: busybox:1.28
+          command: ['sh', '-c', "echo $RANDOM >> /static/files/random"]
+          volumeMounts:
+            - name: static-files
+              mountPath: "/static/files"
+        - name: add-random-number-3
+          image: busybox:1.28
+          command: ['sh', '-c', "echo $RANDOM >> /static/files/random"]
+          volumeMounts:
+            - name: static-files
+              mountPath: "/static/files"
+
       volumes:
         - name: {{ .Values.volumes.config.name }}
           configMap:
             name: {{ include "helm-app-python.fullname" . }}-config
+        - name: static-files
+          emptyDir: {}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:

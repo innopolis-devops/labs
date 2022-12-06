@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: {{ include "moscow-time.fullname" . }}
   labels:
+    app: {{ include "app-python.fullname" . }}
     {{- include "moscow-time.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}

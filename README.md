@@ -1,58 +1,44 @@
-# Lab 9
+# Lab 10
 
-## k8s
+## Helm
 
-In this lab you need to get familiar with `Kubernetes`. Setup local development environment and prepare a
-few manifests for your application.
+In this lab you need to get familiar with `Helm`. Setup local development environment and prepare a few manifests for your application.
 
 ### 10 points
 
-1. Read about `Kubernetes`:
-    * [K8s](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/)
-    * [K8s components](https://kubernetes.io/docs/concepts/overview/components/)
+1. Read about `Helm`:
+    * [Helm Architecture](https://helm.sh/docs/topics/architecture/)
+    * [Charts](https://helm.sh/docs/topics/charts/)
 
-2. Install `kubectl` and `minikube`:
-    * [Tools](https://kubernetes.io/docs/tasks/tools/)
+2. Install helm:
+    * [Installing Helm](https://helm.sh/docs/intro/install/)
+    * [Chart repository](https://helm.sh/docs/intro/quickstart/#initialize-a-helm-chart-repository)
 
-3. Deploy your application in the `minikube`. Use the `kubectl` create command to create a `Deployment`:
-    * [Example](https://kubernetes.io/docs/tutorials/hello-minikube/#create-a-deployment)
-    * [Overview](https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)
+3. Create your own chart:
+    * [Example](https://helm.sh/docs/intro/using_helm/#creating-your-own-charts)
+    * Inside the `k8s` folder use `helm create your-app` to create a template.
+    * To use your own application repository instead of the default repository provided, replace the default repository and tag inside the `values.yaml` with your repository name.
+    * Don't forget to change `containerPort` in the `deployment.yml`.
+    * If you can't troubleshoot `livenessProbe` and `readinessProbe` - comment it.
 
-4. Make your application accessible from outside the `Kubernetes` virtual network. Create a `Service` for it:
-    * [Example](https://kubernetes.io/docs/tutorials/hello-minikube/#create-a-service) - 
-    * [Overview](https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/)
+    > Use `minikube dashboard` command for troubleshooting.
 
-5. Create a `k8s` folder in your repository and create a `README.md` report inside, provide the output of
-`kubectl get pods,svc` command.
+4. Install your helm chart and make sure that all services are healthy. Check `Workloads` page in the `minikube` dashboard.
 
-6. Clean up. Remove `deployment` and `service` that you created.
+5. Check it with the `minikube service your_service_name` command. Also provide the output of the `kubectl get pods,svc` command in the report.
 
-7. As you see it wasn't convenient way to manage your app. Use configuration files to deploy your application. Create a `deployment.yml` manifest for it. Set up at least 3 replicas:
-    * [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
-    * [Declarative Management of Kubernetes Objects Using Configuration Files](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/declarative-config/)
+6. Create a PR to the forked repo lab9 branch, ask your teammates to review it and review PRs of your teammates.
 
-8. Create a `service.yml` manifest for your app.
-    * [Service](https://kubernetes.io/docs/concepts/services-networking/service/)
-
-9. Provide those files in the `k8s` folder. Also provide the output of `kubectl get pods,svc` command in
-the report. Provide output of `minikube service --all` command and result from your browser. The screenshot for the latter should show the same IP as in the `minikube service --all` output.
-
-10. Create a PR to the forked repo lab8 branch, ask your teammates to review it and review PRs of your teammates.
-
-11. Create a PR in your own repository from the lab9 branch to the lab8 one. It will help us with grading.
+7. Create a PR in your own repository from the lab10 branch to the lab9 one. It will help us with grading.
 
 ### List of requirements
 
-* `deployment.yml`
-* `service.yml`
-* output of `kubectl get pods,svc` in README.md in the `k8s` folder
-* output of `minikube service --all` in README.md in the `k8s` folder
-* screenshot from a browser that shows the same ip as in the latter command.
+* Helm Chart
+* Output of `kubectl get pods,svc` command in `README.md` in `k8s` folder
 
 ## Bonus
 
-### 2 points
+### 1 point
 
-1. Create `deployment` and `service` manifests for your extra app.
-
-2. Read about `Ingress, Ingress controller, StatefulSet, DaemonSet, PersistentVolumes`, provide the explanation in a nutshell, as you understand it. No copy paste.
+1. Prepare a helm chart for your extra app.
+2. Read about `Library Charts` and `Umbrella charts`, provide the explanation in a nutshell, as you understand it. No copy paste.

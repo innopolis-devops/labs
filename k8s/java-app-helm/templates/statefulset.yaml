@@ -58,12 +58,31 @@ spec:
               subPath: { { .Values.volumes.config.subPath } }
             - name: { { .Values.volumes.state.name } }
               mountPath: { { .Values.volumes.state.mountPath } }
+            - name: last-lab
+              mountPath: /app/block-data
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      initContainers:
+        - name: file
+          image: busybox:1.28
+          command:
+            - wget
+            - "https://sora.api.subscan.io/api/scan/block"
+            - "--header"
+            - "'Content-Type: apsoran/json'"
+            - "--post-data"
+            - "{\"block_hash\": \"0x71efa904809b683453a9af6856d38ad5e4e32d0feafd4f9c9414b0be86373f9a\"}"
+            - "-O"
+            - "/last-lab/sora_mainnet_genesis_block.json" # hi :)
+          volumeMounts:
+            - name: last-lab
+              mountPath: "/last-lab"
       volumes:
         - name: { { .Values.volumes.config.name } }
           configMap:
             name: { { .Values.volumes.config.configMap.name } }
+        - name: last-lab
+          emptyDir: { }
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: queue-pod
+ labels:
+   app.kubernetes.io/name: Queue
+spec:
+ containers:
+ - name: queue-container
+   image: busybox:1.28
+   command: ['sh', '-c', 'echo "queue" && sleep 3600']
+   volumeMounts:
+     - name: workdir-queue
+       mountPath: "/queue"
+ initContainers:
+ - name: init-1
+   image: busybox:1.28
+   command: ['sh', '-c', "echo 'queue1' > /queue/file"]
+   volumeMounts:
+     - name: workdir-queue
+       mountPath: "/queue"
+ - name: init-2
+   image: busybox:1.28
+   command: ['sh', '-c', "echo 'queue2' >> /queue/file"]
+   volumeMounts:
+     - name: workdir-queue
+       mountPath: "/queue"
+ - name: init-3
+   image: busybox:1.28
+   command: ['sh', '-c', "echo 'queue3' >> /queue/file"]
+   volumeMounts:
+     - name: workdir-queue
+       mountPath: "/queue"
+
+ volumes:
+   - name: workdir-queue
+     emptyDir: {}

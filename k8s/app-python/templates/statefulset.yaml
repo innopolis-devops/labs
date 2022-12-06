@@ -1,0 +1,138 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "app-python.fullname" . }}
+  labels:
+    {{- include "app-python.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  serviceName: {{ .Values.serviceName }}
+  podManagementPolicy: Parallel
+  selector:
+    matchLabels:
+      {{- include "app-python.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "app-python.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "app-python.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: download
+          image: busybox:1.28
+          command:
+            - wget
+            - "-O"
+            - "/workdir/index.html"
+            - "http://info.cern.ch/"
+          volumeMounts:
+            - name: app-python-workdir-volume
+              mountPath: /workdir
+        - name: hello1
+          image: busybox:1.28
+          command:
+            - "sh"
+            - "-c"
+            - "echo 'Hello from init container 1' > /workdir/hello.txt"
+          volumeMounts:
+            - name: app-python-workdir-volume
+              mountPath: /workdir
+        - name: hello2
+          image: busybox:1.28
+          command:
+            - "sh"
+            - "-c"
+            - "echo 'Hello from init container 2' >> /workdir/hello.txt"
+          volumeMounts:
+            - name: app-python-workdir-volume
+              mountPath: /workdir
+        - name: hello3
+          image: busybox:1.28
+          command:
+            - "sh"
+            - "-c"
+            - "echo 'Hello from init container 3' >> /workdir/hello.txt"
+          volumeMounts:
+            - name: app-python-workdir-volume
+              mountPath: /workdir
+      dnsPolicy: Default
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.container.containerPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: MY_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: app-python-secret
+                  key: password
+            {{- include "python-app.env" . | nindent 12 }}
+          volumeMounts:
+            - name: app-python-config-volume
+              mountPath: /app/config.json
+              subPath: config.json
+            - name: {{ .Values.volume.name }}
+              mountPath: {{ .Values.volume.mountPath }}
+            - name: app-python-workdir-volume
+              mountPath: /workdir
+      volumes:
+        - name: app-python-config-volume
+          configMap:
+            name: {{ include "app-python.fullname" . }}-config
+        - name: app-python-workdir-volume
+          configMap:
+            name: {{ include "app-python.fullname" . }}-workdir
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volume.name }}
+      spec:
+        {{- toYaml .Values.volume.spec | nindent 8 }}
+
+    - metadata:
+        name: app-python-workdir-volume
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 256Mi

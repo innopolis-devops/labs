@@ -63,13 +63,13 @@ whutao@Romans-MacBook-Pro k8s % minikube service --all
 
 ## Lab 10
 
-After creating helm configuration, we should build a package with 
+After creating helm configuration, we should build a package with
 
 ```commandLine
 whutao@Romans-MacBook-Pro k8s % helm package helm   
 ```
 
-and install it using 
+and install it using
 
 ```commandLine
 whutao@Romans-MacBook-Pro k8s % helm install helm-app-python-v1 ./helm-0.1.0.tgz 
@@ -103,7 +103,7 @@ whutao@Romans-MacBook-Pro ~ % minikube service --all
 ❗  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
 ```
 
-The output of `kubectl get pods,svc  `
+The output of `kubectl get pods,svc`
 
 ```commandLine
 whutao@Romans-MacBook-Pro k8s % kubectl get pods,svc                                     

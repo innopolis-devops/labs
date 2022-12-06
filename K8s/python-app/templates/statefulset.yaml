@@ -49,6 +49,24 @@ spec:
           #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - name: workdir
+            mountPath: "/work-dir"
+      initContainers:
+      - name: install
+        image: busybox:1.28
+        command:
+        - wget
+        - "-O"
+        - "/work-dir/index.html"
+        - http://info.cern.ch
+        volumeMounts:
+        - name: workdir
+          mountPath: "/work-dir"
+      dnsPolicy: Default
+      volumes:
+      - name: workdir
+        emptyDir: {}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

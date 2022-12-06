@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "helm-app-java.fullname" . }}
+  labels:
+    {{- include "helm-app-java.labels" . | nindent 4 }}
+    release: prom-stack
+
+spec:
+  selector:
+    matchLabels:
+      {{- include "helm-app-java.selectorLabels" . | nindent 6 }}
+  endpoints:
+  - port: http

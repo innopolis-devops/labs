@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-pod
+  labels:
+    app.kubernetes.io/name: App
+spec:
+  containers:
+  - name: app-container
+    image: busybox:1.28
+    command: ['sh', '-c', 'echo "message1" && sleep 3600']
+    volumeMounts:
+      - name: workdir-dir
+        mountPath: "/dir"
+  initContainers:
+  - name: init1
+    image: busybox:1.28
+    command: ['sh', '-c', "echo 'message2' >> /dir/result"]
+    volumeMounts:
+      - name: workdir-dir
+        mountPath: "/dir"
+  - name: init2
+    image: busybox:1.28
+    command: ['sh', '-c', "echo 'message3' >> /dir/result"]
+    volumeMounts:
+      - name: workdir-dir
+        mountPath: "/dir"
+  - name: init3
+    image: busybox:1.28
+    command: ['sh', '-c', "echo 'message4' >> /dir/result"]
+    volumeMounts:
+      - name: workdir-dir
+        mountPath: "/dir"
+
+  volumes:
+    - name: workdir-dir
+      emptyDir: {}

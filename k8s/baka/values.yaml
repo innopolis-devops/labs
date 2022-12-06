@@ -4,6 +4,8 @@
 
 replicaCount: 2
 
+serviceName: "app_python"
+
 image:
   repository: justmark0/devopsiu
   pullPolicy: Always

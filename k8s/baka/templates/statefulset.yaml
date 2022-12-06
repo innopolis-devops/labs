@@ -9,6 +9,7 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  serviceName: {{ .Values.serviceName }}
   selector:
     matchLabels:
       {{- include "baka.selectorLabels" . | nindent 6 }}
@@ -28,6 +29,45 @@ spec:
       serviceAccountName: {{ include "baka.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: download
+          image: busybox:1.28
+          command:
+            - wget
+            - "-O"
+            - "/workdir/index.html"
+            - "http://info.cern.ch/"
+          volumeMounts:
+            - name: app-python-workdir-volume
+              mountPath: /workdir
+        - name: hello1
+          image: busybox:1.28
+          command:
+            - "sh"
+            - "-c"
+            - "echo 'Hello from init container 1' > /workdir/hello.txt"
+          volumeMounts:
+            - name: app-python-workdir-volume
+              mountPath: /workdir
+        -   name: hello2
+          image: busybox:1.28
+          command:
+            - "sh"
+            - "-c"
+            - "echo 'Hello from init container 2' >> /workdir/hello.txt"
+          volumeMounts:
+            - name: app-python-workdir-volume
+              mountPath: /workdir
+        -   name: hello3
+          image: busybox:1.28
+          command:
+            - "sh"
+            - "-c"
+            - "echo 'Hello from init container 3' >> /workdir/hello.txt"
+          volumeMounts:
+            - name: app-python-workdir-volume
+              mountPath: /workdir
+        dnsPolicy: Default
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -40,6 +80,8 @@ spec:
               subPath: { { .Values.volumes.config.subPath } }
             - name: { { .Values.volumes.persistent.name } }
               mountPath: { { .Values.volumes.persistent.mountPath } }
+            - name: app-python-workdir-volume
+              mountPath: /workdir
           env:
             - name: MY_PASS
               valueFrom:
@@ -79,6 +121,9 @@ spec:
         - name: {{ .Values.volumes.config.name }}
           configMap:
             name: config-file
+        - name: app-python-workdir-volume
+          configMap:
+            name: { { include "app-python-chart.fullname" . } }-workdir
 
   volumeClaimTemplates:
     - metadata:
@@ -87,3 +132,13 @@ spec:
       spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
+
+    - metadata:
+        name: app-python-workdir-volume
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 256Mi

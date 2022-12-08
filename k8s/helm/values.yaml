@@ -12,7 +12,7 @@ image:
 container:
   containerPort: 8080
 
-initialDelaySeconds: 10
+initialDelaySeconds: 20
 
 imagePullSecrets: []
 nameOverride: ""

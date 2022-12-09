@@ -3,38 +3,27 @@ name: ci
 on: [push]
 
 jobs:
-  check_python:
-    name: Check files
-    outputs:
-      run_job: ${{ steps.check_files.outputs.run_job }}
+  changes:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      python: ${{ steps.filter.outputs.python }}
+      javascript: ${{ steps.filter.outputs.javascript }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      # For pull requests it's not necessary to checkout the code
+      - uses: dorny/paths-filter@v2
+        id: filter
         with:
-          fetch-depth: 2
-      - name: check modified files
-        id: check_files
-        run: |
-          echo "=============== list modified files ==============="
-          git diff --name-only HEAD^ HEAD
+          filters: |
+            python:
+              - 'app_python/**'
+            frontend:
+              - 'app_javascript/**'
 
-          echo "========== check paths of modified files =========="
-          git diff --name-only HEAD^ HEAD &gt; files.txt
-          while IFS= read -r file
-          do
-            echo $file
-            if [[ $file != db/* ]]; then
-              echo "This modified file is not under the 'db' folder."
-              echo "::set-output name=run_job::false"
-              break
-            else
-              echo "::set-output name=run_job::true"
-            fi
-          done &lt; files.txt
   linting_and_testing_python:
-    needs: check_python
-    if: needs.check_python.outputs.run_job == 'true'
+    needs: changes
+    if: ${{ needs.changes.outputs.python == 'true' }}
     runs-on: ubuntu-latest
     env:
       working_dir: app_python
@@ -63,8 +52,8 @@ jobs:
         run: cd ${{ env.working_dir }} && pipenv run -v test
 
   push_to_registry_python:
-    needs: ["linting_and_testing_python", "check_python"]
-    if: needs.check_python.outputs.run_job == 'true'
+    needs: ["linting_and_testing_python", "changes"]
+    if: ${{ needs.changes.outputs.python == 'true' }}
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     env:
@@ -120,38 +109,9 @@ jobs:
           image-ref: ${{ env.REGISTRY }}/${{ github.event.repository.name }}:javascript
           format: "table"
 
-  check_javascript:
-    name: Check files
-    outputs:
-      run_job: ${{ steps.check_files.outputs.run_job }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
-      - name: check modified files
-        id: check_files
-        run: |
-          echo "=============== list modified files ==============="
-          git diff --name-only HEAD^ HEAD
-
-          echo "========== check paths of modified files =========="
-          git diff --name-only HEAD^ HEAD &gt; files.txt
-          while IFS= read -r file
-          do
-            echo $file
-            if [[ $file != app_javascript/* ]]; then
-              echo "This modified file is not under the 'app_javascript' folder."
-              echo "::set-output name=run_job::false"
-              break
-            else
-              echo "::set-output name=run_job::true"
-            fi
-          done &lt; files.txt
   linting_and_testing_javascript:
-    needs: check_javascript
-    if: needs.check_javascript.outputs.run_job == 'true'
+    needs: changes
+    if: ${{ needs.changes.outputs.javascript == 'true' }}
     runs-on: ubuntu-latest
     env:
       working_dir: app_javascript
@@ -171,8 +131,8 @@ jobs:
         run: cd ${{ env.working_dir }} && npm test
 
   push_to_registry_javascript:
-    needs: ["linting_and_testing_javascript", "check_javascript"]
-    if: needs.check_javascript.outputs.run_job == 'true'
+    needs: ["linting_and_testing_javascript", "changes"]
+    if: ${{ needs.changes.outputs.javascript == 'true' }}
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     env:

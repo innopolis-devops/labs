@@ -29,7 +29,7 @@ Run from docker hub:
 ## Unit tests
 Run application unit tests with:
 ```
-app_python/moscowtime/main_app.py test
+pytest
 ```
 
 ## Git Actions CI

@@ -39,6 +39,33 @@ To run from the master branch, follow the instructions below:
    uvicorn moscow_time.main:app --reload
    ```
 
+### Docker
+
+Before running the application, please install its prerequisites:
+
+- [Docker 20.10.21+](https://docs.docker.com/get-docker/)
+
+To run from the master branch, follow the instructions below:
+
+1. Clone web application repository locally.
+
+   ```bash
+   git clone https://github.com/k05m0navt/devops
+   ```
+
+2. [Optional] Build the image.
+
+   ```bash
+   cd app_python/
+   docker build -t k05m0navt/devops .
+   ```
+
+3. Run the container. Web app will open at [http://localhost:8000/](http://localhost:8000/).
+
+   ```
+   docker run -p 8000:8000 k05m0navt/devops
+   ```
+
 ### Javascript
 
 #### Local installation

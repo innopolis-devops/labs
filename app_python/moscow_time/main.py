@@ -36,7 +36,7 @@ async def get_moscow_time():
         </html>
     """
 
-    response = requests.get("http://worldtimeapi.org/api/timezone/Europe/Moscow")
+    response = requests.get("https://worldtimeapi.org/api/timezone/Europe/Moscow")
 
     if response.status_code == 200:
         date = datetime.strptime(response.json()["datetime"], "%Y-%m-%dT%H:%M:%S.%f%z")

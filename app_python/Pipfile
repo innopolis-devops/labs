@@ -8,8 +8,15 @@ fastapi = "*"
 requests = "*"
 black = "*"
 uvicorn = {extras = ["standard"], version = "*"}
+pytest = "*"
+flake8 = "*"
+httpx = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.9"
+
+[scripts]
+flake8 = "flake8"
+test = "pytest"

@@ -39,3 +39,10 @@
 ### Cons:
 
 1. Because FastAPI is relatively new, the community is small compared to other frameworks, and regardless of its detailed documentation, there is very little external educational materials.
+
+## Best practices for Unit tests:
+
+1. Unit tests are checking the functionality of one particular part of the program(e.g. function), so refactoring the code helps for unit testing.
+2. Make your unit test as small as possible, in a way that the minimum possible piece of code is involved. This way, when an error appears, you will be able to quickly assess where it originated.
+3. Parametrize your tests. Don't use the same test copy-pasted many times with different inputs. With Pytest you can reduce it to only one test.
+4. Try to use Test Driven Development in the project.

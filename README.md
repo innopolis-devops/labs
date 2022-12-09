@@ -2,6 +2,8 @@
 
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![CI](https://github.com/k05m0navt/labs/actions/workflows/ci.yml/badge.svg?style=for-the-badge)
 
 ## Overview
 

@@ -1,0 +1,9 @@
+body {
+  background-image: url("https://media.zicxa.com/3024446");
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  color: black;
+  font-size: 30px;
+}

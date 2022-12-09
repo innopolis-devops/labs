@@ -15,7 +15,7 @@ replicaCount: 3
 
 volumes:
   config:
-    name: config-volume
+    name: node-volume
     mountPath: /app/config.json
     subPath: config.json
 

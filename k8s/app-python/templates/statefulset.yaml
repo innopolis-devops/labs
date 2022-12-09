@@ -6,6 +6,7 @@ metadata:
     {{- include "app-python.labels" . | nindent 4 }}
 spec:
   serviceName: {{ .Values.serviceName }}
+  podManagementPolicy: "Parallel"
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -60,10 +61,25 @@ spec:
             subPath: config.json
           - name: visits
             mountPath: /app/visits
+            - name: init-container
+            mountPath: "/app/init-container"
+      initContainers:
+      - name: install
+        image: busybox
+        command:
+        - wget
+        - "-O"
+        - "/init-container/index.html"
+        - http://info.cern.ch
+        volumeMounts:
+        - name: init-container
+          mountPath: "/init-container"
       volumes:
       - name: config-volume
         configMap:
           name: app-config
+      - name: init-container
+        emptyDir: {}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

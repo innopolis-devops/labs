@@ -54,4 +54,4 @@ jobs:
           file: ./app_python/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/python_app_msk_time:${{ github.ref_name }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/python_app_msk_time:latest

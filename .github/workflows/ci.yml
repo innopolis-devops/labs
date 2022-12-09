@@ -51,6 +51,10 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          file: Dockerfile
+          cache: enabled
+          file: ./app_python/Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/python_app_msk_time:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/python_app_msk_time:${{ github.ref_name }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/python_app_msk_time:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/python_app_msk_time:buildcache,mode=max

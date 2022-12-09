@@ -39,7 +39,7 @@ jobs:
 
   push:
     name: Docker
-    needs: build
+    needs: test_and_lint
     runs-on: ubuntu-latest
 
     steps:

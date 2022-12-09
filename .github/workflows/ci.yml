@@ -55,6 +55,7 @@ jobs:
           file: ./app_python/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/python_app_msk_time:${{ github.ref_name }}
-          cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/python_app_msk_time:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/python_app_msk_time:buildcache,mode=max
+          tags: ${{ secrets.DOCKER_USERNAME }}/python_app_msk_time:${{ github.ref_name }}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/python_app_msk_time:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/python_app_msk_time:buildcache,mode=max
+          

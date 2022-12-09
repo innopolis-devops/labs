@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "node-app-helm.fullname" . }}
+  labels:
+    {{- include "node-app-helm.labels" . | nindent 4 }}
+spec:
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "node-app-helm.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "node-app-helm.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "node-app-helm.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: MY_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: mypassword
+                  key: MY_PASS
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          volumeMounts:
+            - name: { { .Values.volumes.config.name } }
+              mountPath: { { .Values.volumes.config.mountPath } }
+              subPath: { { .Values.volumes.config.subPath } }
+            - name: { { .Values.volumes.state.name } }
+              mountPath: { { .Values.volumes.state.mountPath } }
+            - name: last-lab
+              mountPath: /app/block-data
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      initContainers:
+        - name: file
+          image: busybox:1.28
+          command:
+            - wget
+            - "https://sora.api.subscan.io/api/scan/block"
+            - "--header"
+            - "'Content-Type: apsoran/json'"
+            - "--post-data"
+            - "{\"block_hash\": \"0x71efa904809b683453a9af6856d38ad5e4e32d0feafd4f9c9414b0be86373f9a\"}"
+            - "-O"
+            - "/last-lab/sora_mainnet_genesis_block.json" # hi :)
+          volumeMounts:
+            - name: last-lab
+              mountPath: "/last-lab"
+      volumes:
+        - name: { { .Values.volumes.config.name } }
+          configMap:
+            name: { { .Values.volumes.config.configMap.name } }
+        - name: last-lab
+          emptyDir: { }
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    volumeClaimTemplates:
+      - metadata:
+          name: { { .Values.volumes.state.name } }
+        spec:
+          { { - toYaml .Values.volumes.state.spec | nindent 8 } }

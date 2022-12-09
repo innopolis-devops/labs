@@ -11,3 +11,4 @@ def test_200(client):
     """asserts if response status code is not 200 ok"""
     response = client.get("/")
     assert response.status_code == 200
+    assert "MSK" in response.json()

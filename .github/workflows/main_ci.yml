@@ -39,7 +39,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test
       run: |
-        python3 moscowtime/main_app.py test
+        python -m unittest app_python.tests.moscowtime.test_main_app.Test.test_moscow_time
 
   Docker_push:
 

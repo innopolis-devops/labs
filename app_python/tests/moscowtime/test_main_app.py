@@ -1,3 +1,4 @@
+import unittest
 from datetime import datetime
 from unittest import TestCase
 
@@ -15,3 +16,7 @@ class Test(TestCase):
             self.assertEqual(moscow_time(),
                              f'Current time in Moscow: {formatted_time}'
                              )
+
+
+if __name__ == '__main__':
+    unittest.main()

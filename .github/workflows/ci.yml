@@ -3,7 +3,38 @@ name: ci
 on: [push]
 
 jobs:
-  linting_and_testing:
+  check_python:
+    name: Check files
+    outputs:
+      run_job: ${{ steps.check_files.outputs.run_job }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - name: check modified files
+        id: check_files
+        run: |
+          echo "=============== list modified files ==============="
+          git diff --name-only HEAD^ HEAD
+
+          echo "========== check paths of modified files =========="
+          git diff --name-only HEAD^ HEAD &gt; files.txt
+          while IFS= read -r file
+          do
+            echo $file
+            if [[ $file != db/* ]]; then
+              echo "This modified file is not under the 'db' folder."
+              echo "::set-output name=run_job::false"
+              break
+            else
+              echo "::set-output name=run_job::true"
+            fi
+          done &lt; files.txt
+  linting_and_testing_python:
+    needs: check_python
+    if: needs.check_python.outputs.run_job == 'true'
     runs-on: ubuntu-latest
     env:
       working_dir: app_python
@@ -31,8 +62,9 @@ jobs:
       - name: Test with pytest
         run: cd ${{ env.working_dir }} && pipenv run -v test
 
-  push_to_registry:
-    needs: ["linting_and_testing"]
+  push_to_registry_python:
+    needs: ["linting_and_testing_python", "check_python"]
+    if: needs.check_python.outputs.run_job == 'true'
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     env:
@@ -69,7 +101,7 @@ jobs:
           context: ./app_python
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ env.REGISTRY }}/${{ github.event.repository.name }}:latest
+          tags: ${{ env.REGISTRY }}/${{ github.event.repository.name }}:python
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
@@ -77,8 +109,111 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-      - name: Run Trivy vulnerability scanner
+      - name: Run Trivy vulnerability scanner python
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ env.REGISTRY }}/${{ github.event.repository.name }}:latest
+          image-ref: ${{ env.REGISTRY }}/${{ github.event.repository.name }}:python
           format: "table"
+      - name: Run Trivy vulnerability scanner javascript
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ github.event.repository.name }}:javascript
+          format: "table"
+
+  check_javascript:
+    name: Check files
+    outputs:
+      run_job: ${{ steps.check_files.outputs.run_job }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - name: check modified files
+        id: check_files
+        run: |
+          echo "=============== list modified files ==============="
+          git diff --name-only HEAD^ HEAD
+
+          echo "========== check paths of modified files =========="
+          git diff --name-only HEAD^ HEAD &gt; files.txt
+          while IFS= read -r file
+          do
+            echo $file
+            if [[ $file != app_javascript/* ]]; then
+              echo "This modified file is not under the 'app_javascript' folder."
+              echo "::set-output name=run_job::false"
+              break
+            else
+              echo "::set-output name=run_job::true"
+            fi
+          done &lt; files.txt
+  linting_and_testing_javascript:
+    needs: check_javascript
+    if: needs.check_javascript.outputs.run_job == 'true'
+    runs-on: ubuntu-latest
+    env:
+      working_dir: app_javascript
+    strategy:
+      matrix:
+        node-version: [16.18.1]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: cd ${{ env.working_dir }} && npm install
+        continue-on-error: true
+      - name: Test with mocha
+        run: cd ${{ env.working_dir }} && npm test
+
+  push_to_registry_javascript:
+    needs: ["linting_and_testing_javascript", "check_javascript"]
+    if: needs.check_javascript.outputs.run_job == 'true'
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    env:
+      REGISTRY: k05m0navt
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: ./app_javascript
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ github.event.repository.name }}:javascript
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache

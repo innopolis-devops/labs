@@ -14,3 +14,5 @@ app.get("/", (_, res) => {
 app.listen(PORT, () => {
   console.log(`Application listening on port ${PORT}!`);
 });
+
+module.exports = { app };

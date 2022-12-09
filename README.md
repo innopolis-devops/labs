@@ -68,6 +68,17 @@ To run from the master branch, follow the instructions below:
    docker run -p 8000:8000 k05m0navt/devops
    ```
 
+### Unit Testing
+
+1. Make sure that you are in the application directory:
+   ```bash
+   cd devops/app_python
+   ```
+2. Run the tests:
+   ```bash
+   pytest tests
+   ```
+
 ### Javascript
 
 #### Local installation
@@ -95,6 +106,17 @@ To run from the master branch, follow the instructions below:
 
    ```bash
    npm start
+   ```
+
+### Unit Testing
+
+1. Make sure that you are in the application directory:
+   ```bash
+   cd devops/app_javascript
+   ```
+2. Run the tests:
+   ```bash
+   npm test
    ```
 
 ## Contacts

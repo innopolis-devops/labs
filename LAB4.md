@@ -11,7 +11,7 @@
    > [Best practices](https://www.terraform.io/docs/cloud/guides/recommended-practices/index.html)
 2. Create a `terraform` folder for your workspaces.
 3. Create a `TF.md` inside the `terraform` folder.
-4. Follow [the Docker tutorial](https://learn.hashicorp.com/collections/terraform/docker-get-started) to build a Docker infrastructure using Terraform.
+4. Follow [the Docker tutorial](terraform ) to build a Docker infrastructure using Terraform.
    * Install it
    * Build Infrastructure
    * Provide the output of following commands in the `TF.md` file:

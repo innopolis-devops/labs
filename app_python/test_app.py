@@ -8,5 +8,6 @@ def client():
     return app.test_client()
 
 def test_200(client):
+    """asserts if response status code is not 200 ok"""
     response = client.get("/")
     assert response.status_code == 200

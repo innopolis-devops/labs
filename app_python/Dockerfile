@@ -8,4 +8,4 @@ RUN pip3 install -r requirements.txt --no-cache-dir
 COPY --chown=nurdaulet ./ /app
 
 USER nurdaulet
-ENTRYPOINT python3 main_app.py
+ENTRYPOINT python3 ./moscowtime/main_app.py

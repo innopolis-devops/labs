@@ -6,4 +6,4 @@ WORKDIR /app_python
 COPY requirements.txt /app_python/
 RUN pip install -r requirements.txt
 COPY . /app_python/
-ENTRYPOINT python3 ./moscowtime/main_app.py runserver
+ENTRYPOINT python ./moscowtime/main_app.py runserver

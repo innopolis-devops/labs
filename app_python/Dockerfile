@@ -1,11 +1,9 @@
-FROM python:3.10-slim
-
-RUN useradd nurdaulet
-WORKDIR /app_python/
-COPY --chown=nurdaulet ./requirements.txt /app_python/requirements.txt
-
-RUN pip3 install -r requirements.txt --no-cache-dir
-COPY --chown=nurdaulet ./ /app_python
-
-USER nurdaulet
-ENTRYPOINT python3 ./moscowtime/main_app.py
+FROM python:3
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH="/"
+WORKDIR /app_python
+COPY requirements.txt /app_python/
+RUN pip install -r requirements.txt
+COPY . /app_python/
+ENTRYPOINT python3 ./moscowtime/main_app.py runserver

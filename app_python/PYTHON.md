@@ -21,3 +21,12 @@ In flask:
 
 ## Linters
 I used Pylint and Markdownlint
+
+## Unit tests
+This app contains 1 test:
+- `test_moscow_time()` is a unit test for verifying that returned time is of Moscow
+
+Best practices:
+- Test directory structure has the same structure as of project
+- Keeping tests simple - they should test as isolated functionality as possible
+- Integrating testing into CI

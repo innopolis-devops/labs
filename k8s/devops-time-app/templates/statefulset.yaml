@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "devops-time-app.fullname" . }}
+  labels:
+    {{- include "devops-time-app.labels" . | nindent 4 }}
+spec:
+  podManagementPolicy: "Parallel"
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  serviceName: {{ .Values.serviceName }}
+  selector:
+    matchLabels:
+      {{- include "devops-time-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "devops-time-app.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "devops-time-app.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+	volumeMounts:
+             - name: {{ .Values.volumes.config.name }}
+              mountPath: {{ .Values.volumes.config.mountPath }}
+              subPath: config.json
+             - name: {{ .Values.volumes.persistent.name }}
+              mountPath: {{ .Values.volumes.persistent.mountPath }}
+	env:
+            - name: TIME_USER
+              valueFrom:
+                secretKeyRef:
+                  name: time-secret
+                  key: user
+            - name: TIME_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: time-secret
+                  key: pass
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: {{ .Values.volumes.config.name }}
+          configMap:
+            name: config-file
+        - name: visit-logs
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.persistent.name }}
+      {{- with .Values.volumes.persistent.spec }}
+      spec:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

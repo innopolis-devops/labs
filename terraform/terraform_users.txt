@@ -1,0 +1,8 @@
+#cloud-config
+users:
+  - name: tf_2
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9JNbij21zH6/VYYP8KZcfldt5Ca04hWst9H6DQioYRtsCrIUtEuzu43qVZ2sDQHuinvhuUDr9vVvcq0DcFoVkx6O7sZ0ys4ohUHwzuaj625pSYfg5PTFLu3Obfzv+rXlOHeEMewJyCv4WLilI0Pa4nkbVMno1RBHNeEQH7hyFt4kZoDOZKRJIbxnrVNs7k5qx+nbd1pvXIC0W2ZAigp7RzRTJqvPyjprM5b91S2pHOPpAYxdVhWOzaV/m5Fn0nruqraBOfIFIfm2K+gYxPgBL+qVBLCyBOft9s9iTdvOj7FgA4fj6BaTUpbtgNKiXFq0pjYeDLoP436dLnhUFh85QNGr7AUlUI/+MNjOY87qJifKD+i22j2R5wdnJOkukTb1nfEKMmficFf//dLEts3Cu+i3dXj5HQayW2tf+NaqUXS/nFe0LN6VqC3NpaEmvbp++541ExR2KPFAwmOfWLwVb2EZWYBfNAPEn1iuZszy4AfgT7P+BkzcgsAWkrA4ajyE= zyyme@zyyme

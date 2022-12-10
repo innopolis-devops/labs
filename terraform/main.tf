@@ -19,7 +19,7 @@ variable "container_name" {
 provider "docker" {}
 
 provider "yandex" {
-
+  service_account_key_file = "key.json"
   zone = "ru-central1-c"
 }
 

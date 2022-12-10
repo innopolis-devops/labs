@@ -3,14 +3,58 @@
 ## output of ansible-playbook
 
 ```
+TASK [geerlingguy.docker : Delete existing docker-compose version if it's different.] ****************************
+skipping: [35.78.91.181]
 
-PLAY [all] *************************************************************************************************************************************************************
+TASK [geerlingguy.docker : Install Docker Compose (if configured).] **********************************************
+skipping: [35.78.91.181]
 
-TASK [Gathering Facts] *************************************************************************************************************************************************
-fatal: [127.0.0.1]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 127.0.0.1 port 22: Connection refused", "unreachable": true}
+TASK [geerlingguy.docker : Get docker group info using getent.] **************************************************
+skipping: [35.78.91.181]
 
-PLAY RECAP *************************************************************************************************************************************************************
-127.0.0.1                  : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+TASK [geerlingguy.docker : Check if there are any users to add to the docker group.] *****************************
+
+TASK [geerlingguy.docker : include_tasks] ************************************************************************
+skipping: [35.78.91.181]
+
+PLAY [deploy webapp] *********************************************************************************************
+
+TASK [Gathering Facts] *******************************************************************************************
+ok: [35.78.91.181]
+
+TASK [geerlingguy.docker : Load OS-specific vars.] ***************************************************************
+ok: [35.78.91.181]
+
+TASK [geerlingguy.docker : include_tasks] ************************************************************************
+skipping: [35.78.91.181]
+
+TASK [geerlingguy.docker : include_tasks] ************************************************************************
+included: /Users/zyyme/Projects/IU/F22/devops/labs/ansible/roles/geerlingguy.docker/tasks/setup-Debian.yml for 35.78.91.181
+
+TASK [geerlingguy.docker : Ensure old versions of Docker are not installed.] *************************************
+ok: [35.78.91.181]
+
+TASK [geerlingguy.docker : Ensure dependencies are installed.] ***************************************************
+ok: [35.78.91.181]
+
+TASK [geerlingguy.docker : Ensure additional dependencies are installed (on Ubuntu < 20.04 and any other systems).] ***
+skipping: [35.78.91.181]
+
+TASK [geerlingguy.docker : Ensure additional dependencies are installed (on Ubuntu >= 20.04).] *******************
+ok: [35.78.91.181]
+
+TASK [geerlingguy.docker : Add Docker apt key.] ******************************************************************
+fatal: [35.78.91.181]: FAILED! => {"changed": false, "checksum_dest": null, "checksum_src": "f5b5bd1487cefc0c53c947e11ca202e86b33dbad", "dest": "/etc/apt/trusted.gpg.d/docker.asc", "elapsed": 0, "gid": 0, "group": "root", "mode": "0644", "msg": "Destination /etc/apt/trusted.gpg.d/docker.asc is not writable", "owner": "root", "size": 3817, "src": "/home/deployer/.ansible/tmp/ansible-tmp-1670670367.4297931-21405-225872713189815/tmpbw0dp0bs", "state": "file", "uid": 0, "url": "https://download.docker.com/linux/ubuntu/gpg"}
+...ignoring
+
+TASK [geerlingguy.docker : Ensure curl is present (on older systems without SNI).] *******************************
+ok: [35.78.91.181]
+
+TASK [geerlingguy.docker : Add Docker apt key (alternative for older systems without SNI).] **********************
+fatal: [35.78.91.181]: FAILED! => {"changed": true, "cmd": "curl -sSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -\n", "delta": "0:00:00.113792", "end": "2022-12-10 11:06:24.032696", "msg": "non-zero return code", "rc": 1, "start": "2022-12-10 11:06:23.918904", "stderr": "Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).\nE: This command can only be used by root.\ncurl: (23) Failed writing body", "stderr_lines": ["Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).", "E: This command can only be used by root.", "curl: (23) Failed writing body"], "stdout": "", "stdout_lines": []}
+
+PLAY RECAP *******************************************************************************************************
+35.78.91.181               : ok=21   changed=0    unreachable=0    failed=1    skipped=16   rescued=0    ignored=1   
 ```
 
 ## output of ansible-inventory
@@ -18,14 +62,20 @@ PLAY RECAP *********************************************************************
 ```
 {
     "_meta": {
-        "hostvars": {}
+        "hostvars": {
+            "35.78.91.181": {
+                "ansible_ssh_private_key_file": "~/id_terraform",
+                "ansible_user": "deployer"
+            }
+        }
     },
     "all": {
         "children": [
+            "deploy_servers",
             "ungrouped"
         ]
     },
-    "ungrouped": {
+    "deploy_servers": {
         "hosts": [
             "35.78.91.181"
         ]

@@ -1,2 +1,4 @@
 app_python/__pycache__
 app_python/.pytest_cache
+terraform/key.json
+terraform/.terraform

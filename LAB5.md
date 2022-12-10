@@ -55,7 +55,7 @@ In this lab you need to get familiar with a CD tool - Ansible. Then use it to de
 6. Run your playbook (deploy the role) and provide 50 last lines of the output of the your deployment command in it. Example:
 
    ```sh
-   ansible-playbook <path_to your_playbook> --diff
+   ansible-playbook <path_to your_playb3ook> --diff
    ```
 
 7. Provide the output of the following command in the `ANSIBLE.md` file:

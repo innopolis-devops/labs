@@ -1,4 +1,6 @@
 - name: Yandex Cloud ansible
-  hosts: vm
+  hosts: VM1
+  become: true
   roles:
-    - docker
+    - name: web_app
+      tags: [web_app]

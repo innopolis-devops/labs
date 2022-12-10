@@ -1,4 +1,3 @@
-
 ## Docker 
 ```sh
 timur@MacBook-Pro docker % terraform show 
@@ -181,3 +180,9 @@ yandex_compute_instance.vm-1
 yandex_vpc_network.network-1
 yandex_vpc_subnet.subnet-1
 ```
+
+## Best practicies
+- Follow a standard module structure.
+- Adopt a naming convention.
+- Use variables carefully.
+- Limit the use of custom scripts.

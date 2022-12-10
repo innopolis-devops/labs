@@ -1,0 +1,4 @@
+- name: Yandex Cloud ansible
+  hosts: vm
+  roles:
+    - docker

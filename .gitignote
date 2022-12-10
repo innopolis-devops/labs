@@ -1,0 +1,8 @@
+/node_modules
+/.pmp
+.pnp.js
+/coverage
+/build
+/.idea
+app_python/environment
+**/.terraform/*

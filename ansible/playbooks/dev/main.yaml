@@ -1,0 +1,6 @@
+- name: Yandex Cloud ansible
+  hosts: VM1
+  become: true
+  roles:
+    - name: web_app
+      tags: [web_app]

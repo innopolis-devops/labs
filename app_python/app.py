@@ -1,8 +1,10 @@
 from flask import Flask, render_template
 import datetime
+import requests
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
-
+metrics = PrometheusMetrics(app)
 
 @app.route('/')
 def show_moscow_time():
@@ -14,3 +16,9 @@ def show_moscow_time():
 
 if __name__ == '__main__':
     app.run()
+    metrics.register_default(
+        metrics.counter(
+            'by_path_counter', 'Request count by request paths',
+            labels={'path': lambda: request.path}
+        )
+    )

@@ -6,6 +6,7 @@ metadata:
     {{- include "helm.labels" . | nindent 4 }}
 spec:
   podManagementPolicy: "Parallel"
+  serviceName: "helm-app-python"
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}

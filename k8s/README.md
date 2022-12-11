@@ -1,4 +1,5 @@
-# Output of 'kubectl get pods,svc' on manual config 
+#Lab 9
+## Output of `kubectl get pods,svc` on manual config 
 
 ```
     NAME                                       READY   STATUS    RESTARTS      AGE
@@ -9,7 +10,7 @@ service/kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP        
 service/lab9         LoadBalancer   10.99.147.37   <pending>     8080:31572/TCP   8s
 ```
 
-# 'kubectl get pods,svc' with config files
+## output of `kubectl get pods,svc` with config files
 ```
     NAME                                       READY   STATUS    RESTARTS      AGE  
 pod/app-deployment-656cb6959-l9dmd         1/1     Running   0             5m56s
@@ -21,7 +22,7 @@ service/app-service   LoadBalancer   10.98.154.39   <pending>     8081:32614/TCP
 service/kubernetes    ClusterIP      10.96.0.1      <none>        443/TCP          15h
 ```
 
-# `minikube service --all`
+## output of `minikube service --all`
 ```
 |-----------|-------------|-------------|---------------------------|
 |-----------|-------------|-------------|---------------------------|
@@ -47,6 +48,6 @@ docker@127.0.0.1's password: |-----------|-------------|-------------|----------
 🎉  Opening service default/app-service in default browser...
 ❗  Because you are using a Docker driver on windows, the terminal needs to be open to run it.   
 ```
-# Screenshot from browser
+## Screenshot
 
 ![1](Screenshot_7.png)

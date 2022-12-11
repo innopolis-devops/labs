@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "moscow-time.fullname" . }}
   labels:
@@ -8,6 +8,8 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  serviceName: moscow-time-service
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   selector:
     matchLabels:
       {{- include "moscow-time.selectorLabels" . | nindent 6 }}
@@ -29,17 +31,6 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          env:
-          - name: APP_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: moscow-time-credentials
-                key: password
-          - name: APP_LOGIN
-            valueFrom:
-              secretKeyRef:
-                name: moscow-time-credentials
-                key: login
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -62,6 +53,8 @@ spec:
             - name: config-volume
               mountPath: /app_python/config.json
               subPath: config.json
+            - name: {{ .Values.volumes.state.name }}
+              mountPath: {{ .Values.volumes.state.mountPath }}
       volumes:    
         - name: config-volume
           configMap:
@@ -78,3 +71,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.state.name }}
+      spec:
+        {{- toYaml .Values.volumes.state.spec | nindent 8 }}

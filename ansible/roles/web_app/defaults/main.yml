@@ -1,0 +1,9 @@
+app_title: "app_python"
+ext_port: 80
+int_port: 8080
+docker_image:
+  reg: "romanza705"
+  name: "moscow_time"
+  tag: "latest"
+base_path: "/opt/web_app"
+web_app_full_wipe: true

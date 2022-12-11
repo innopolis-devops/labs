@@ -18,4 +18,4 @@ spec:
       - name: app
         image: romanza705/moscow_time:latest
         ports:
-        - containerPort: 5000
+        - containerPort: 8081

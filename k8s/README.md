@@ -1,4 +1,4 @@
-#Lab 9
+# Lab 9
 ## Output of `kubectl get pods,svc` on manual config 
 
 ```
@@ -51,3 +51,41 @@ docker@127.0.0.1's password: |-----------|-------------|-------------|----------
 ## Screenshot
 
 ![1](Screenshot_7.png)
+
+# Lab 10
+
+## `minikube service your_service_name` command
+
+```
+
+|-----------|------------|-------------|--------------|
+| NAMESPACE |    NAME    | TARGET PORT |     URL      |
+|-----------|------------|-------------|--------------|
+| default   | app-python |             | No node port |
+| default   | app-python |             | No node port |
+| default   | app-python |             | No node port |
+|-----------|------------|-------------|--------------|
+|-----------|------------|-------------|--------------|
+|-----------|------------|-------------|--------------|
+|-----------|------------|-------------|--------------|
+|-----------|------------|-------------|--------------|
+|-----------|------------|-------------|--------------|
+😿  service default/app-python has no node port
+🏃  Starting tunnel for service app-python.
+|-----------|------------|-------------|------------------------|
+| NAMESPACE |    NAME    | TARGET PORT |          URL           |
+|-----------|------------|-------------|------------------------|
+| default   | app-python |             | http://127.0.0.1:64562 |
+|-----------|------------|-------------|------------------------|
+```
+
+## `kubectl get pods,svc` command
+
+```
+    NAME                              READY   STATUS    RESTARTS   AGE
+pod/app-python-65bc8bc876-gnpxb   1/1     Running   0          6m1s
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+service/app-python   ClusterIP   10.109.99.104   <none>        80/TCP    7m28s
+service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP   7d2h
+```

@@ -1,4 +1,3 @@
-# Task 1
 ## Deploy
 
 ```

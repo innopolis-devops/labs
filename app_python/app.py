@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import datetime
 import requests
 from prometheus_flask_exporter import PrometheusMetrics

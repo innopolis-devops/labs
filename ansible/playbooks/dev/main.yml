@@ -1,8 +1,6 @@
 - hosts: all
-
-  vars:
-    pip_install_packages:
-      - name: docker
+  become: yes
 
   roles:
-    - geerlingguy.pip
+    - geerlingguy.docker
+    

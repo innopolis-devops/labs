@@ -1,7 +1,6 @@
-# Outputs without config file
+## output without config file
 
 ```
-> kubectl get pods,svc                                                                             [16:23:46]
 NAME                              READY   STATUS    RESTARTS   AGE
 pod/python-app-5f85575cc8-jvgp7   1/1     Running   0          17m
 pod/web-cdcb85ddc-2b4s6           1/1     Running   0          15m
@@ -12,10 +11,9 @@ service/python-app   LoadBalancer   10.97.158.83    <pending>     8080:30457/TCP
 service/web          NodePort       10.110.20.139   <none>        8080:32737/TCP   26m
 ```
 
-# Outputs with config file
+## output with config file
 
 ```
-> kubectl get pods,svc                                                                             [17:20:51]
 NAME                                 READY   STATUS    RESTARTS   AGE
 pod/app-deployment-dcc8bf8d8-fp7md   1/1     Running   0          12m
 pod/app-deployment-dcc8bf8d8-hlfc8   1/1     Running   0          12m
@@ -26,8 +24,7 @@ service/kubernetes   ClusterIP      10.96.0.1        <none>        443/TCP      
 service/python-app   LoadBalancer   10.106.138.236   <pending>     8000:30749/TCP   3s
 ```
 
-```
-> minikube service --all                                                                           [17:20:54]
+```                
 |-----------|------------|-------------|--------------|
 | NAMESPACE |    NAME    | TARGET PORT |     URL      |
 |-----------|------------|-------------|--------------|

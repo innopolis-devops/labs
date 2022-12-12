@@ -3,11 +3,9 @@ from django.test import TestCase
 
 from .. import utils
 
-full_datetime = '2020-04-30T12:48:54.398875+02:00'
-formatted_datetime = '12:48:54'
-
 
 class SuccessfulResponse:
+    full_datetime = '2020-04-30T12:48:54.398875+02:00'
     def __init__(self):
         self.status_code = 200
 
@@ -26,6 +24,7 @@ class FailedResponse:
 
 
 class TestUtils(TestCase):
+    formatted_datetime = '12:48:54'
     @patch("requests.get", return_value=SuccessfulResponse())
     def test_get_moscow_time_successful(self, mocked):
         self.assertEqual(utils.get_moscow_time(), formatted_datetime)

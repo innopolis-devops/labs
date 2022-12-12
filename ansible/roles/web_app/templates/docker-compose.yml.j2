@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  {{ web_app_name }}:
+    image: {{ web_app.image }}:{{ web_app.tag }}
+    restart: on-failure
+    ports:
+      - "{{ web_app.external_port }}:{{ web_app.internal_port }}"

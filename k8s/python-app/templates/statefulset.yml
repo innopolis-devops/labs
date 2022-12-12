@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "python-app.fullname" . }}
+  labels:
+    {{- include "python-app.labels" . | nindent 4 }}
+spec:
+  podManagementPolicy: "Parallel"
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  serviceName: {{ .Values.serviceName }}
+  selector:
+    matchLabels:
+      {{- include "python-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "python-app.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "python-app.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          env:
+            - name: MYSECRET
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: myprivatesecret
+
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          volumeMounts:
+            - name: {{ .Values.volumes.config.name }}
+              mountPath: {{ .Values.volumes.config.mountPath }}
+              subPath: config.json
+            - name: {{ .Values.volumes.persistent.name }}
+              mountPath: {{ .Values.volumes.persistent.mountPath }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: {{ .Values.volumes.config.name }}
+          configMap:
+            name: {{ include "python-app.fullname" . }}-config
+#          livenessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+#          readinessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.persistent.name }}
+      {{- with .Values.volumes.persistent.spec }}
+      spec:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

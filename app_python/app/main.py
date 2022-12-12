@@ -2,8 +2,13 @@ from fastapi import FastAPI, Request
 from datetime import datetime
 import pytz
 import os
+from starlette_prometheus import metrics, PrometheusMiddleware
 
 fast_api = FastAPI()
+
+
+fast_api.add_middleware(PrometheusMiddleware)
+fast_api.add_route("/metrics", metrics)
 
 
 @fast_api.get("/")

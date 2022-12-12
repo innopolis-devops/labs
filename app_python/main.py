@@ -5,7 +5,10 @@ import datetime
 app = FastAPI()
 
 
+def get_msk_time():
+    return datetime.datetime.now().astimezone(timezone("Europe/Moscow"))
+
+
 @app.get("/")
 def read_root():
-    time = datetime.datetime.now().astimezone(timezone("Europe/Moscow"))
-    return {"msktime": time.strftime("%H:%M:%S")}
+    return {"msktime": get_msk_time().strftime("%H:%M:%S")}

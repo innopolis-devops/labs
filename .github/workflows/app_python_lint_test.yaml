@@ -1,0 +1,30 @@
+name: app_python lint and test
+
+on:
+  push:
+    branches:
+      - lab3
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10"]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          cd app_python
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Lint with pylint
+        uses: quentinguidee/pep8-action@v1
+      - name: Test with unittest
+        run: |
+          cd app_python
+          python main_test.py

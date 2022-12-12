@@ -1,5 +1,9 @@
 # app_python
 
+[![lint_test](https://github.com/azazkamaz/tmp_inno_devops_labs/actions/workflows/app_python_lint_test.yaml/badge.svg)](https://github.com/azazkamaz/tmp_inno_devops_labs/actions/workflows/app_python_lint_test.yaml)
+[![docker](https://github.com/azazkamaz/tmp_inno_devops_labs/actions/workflows/app_python_docker.yaml/badge.svg)](https://github.com/azazkamaz/tmp_inno_devops_labs/actions/workflows/app_python_docker.yaml)
+[![snyk](https://github.com/azazkamaz/tmp_inno_devops_labs/actions/workflows/app_python_snyk.yaml/badge.svg)](https://github.com/azazkamaz/tmp_inno_devops_labs/actions/workflows/app_python_snyk.yaml)
+
 An application that shows current time in Europe/Moscow timezone
 
 ## Running
@@ -30,4 +34,11 @@ docker buildx build \
     --platform linux/arm64/v8,linux/amd64 \
     --tag azazkamaz/tmp_inno_devops_labs:app_python-latest \
     .
+```
+
+## Unit tests
+
+```bash
+# After installing dependencies (as in Running section)
+python main_test.py
 ```

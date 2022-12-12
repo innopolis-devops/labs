@@ -1,0 +1,5 @@
+Flask==2.2.2
+Jinja2==3.1.2
+pytz==2022.2.1
+pytest==6.2.4
+pylint==2.10.2

@@ -1,0 +1,14 @@
+- name: Wipe logic
+  block:
+  - name: Stop services
+    community.docker.docker_compose:
+      project_src: "{{ web_app_base_dir }}"
+      state: absent
+      remove_volumes: true
+    ignore_errors: true
+
+  - name: Remove directory
+    ansible.builtin.file:
+      state: absent
+      path: "{{ web_app_base_dir }}"
+  tags: ["web_app"]

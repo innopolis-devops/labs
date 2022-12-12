@@ -58,6 +58,19 @@ spec:
               subPath: { { .Values.volumes.config.subPath } }
             - name: { { .Values.volumes.persistent.name } }
               mountPath: { { .Values.volumes.persistent.mountPath } }
+            - name: static-files
+              mountPath: /static/files
+      initContainers:
+        - name: static-downloader
+          image: busybox:1.28
+          command:
+            - wget
+            - "-O"
+            - "/static/files/index.html"
+            - "https://www.google.com/"
+          volumeMounts:
+            - name: static-files
+              mountPath: "/static/files"
       volumes:
         - name: {{ .Values.volumes.config.name }}
           configMap:

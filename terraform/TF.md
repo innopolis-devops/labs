@@ -1,5 +1,14 @@
 # Terraform
 
+Node: actually I just put 3 files into one directory, this is made to make them easier to navigate. It's not really a good practice and requires copying somewhere to run
+
+## Best practices
+
+- `terraform fmt`/`terraform validate`/`terraform plan` before committing and deploying
+- Use env to authenticate providers (`GITHUB_TOKEN`, `YC_TOKEN`)
+- Destroying unused resources
+- Splitting outputs/provider/different things into different files. Not used here because it's small
+
 ## Docker
 
 `terraform show`:
@@ -326,4 +335,81 @@ external_ip = "158.160.51.29"
 `terraform output`:
 ```
 external_ip = "158.160.51.29"
+```
+
+## GitHub
+
+`terraform import github_repository.repo tmp_inno_devops_terraform`:
+```
+github_repository.repo: Importing from ID "tmp_inno_devops_terraform"...
+github_repository.repo: Import prepared!
+  Prepared github_repository for import
+github_repository.repo: Refreshing state... [id=tmp_inno_devops_terraform]
+
+Import successful!
+
+The resources that were imported are shown above. These resources are now in
+your Terraform state and will henceforth be managed by Terraform.
+```
+
+`terraform apply`:
+```
+github_repository.repo: Refreshing state... [id=tmp_inno_devops_terraform]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # github_branch_default.master will be created
+  + resource "github_branch_default" "master" {
+      + branch     = "master"
+      + id         = (known after apply)
+      + repository = "tmp_inno_devops_terraform"
+    }
+
+  # github_branch_protection.master will be created
+  + resource "github_branch_protection" "master" {
+      + allows_deletions                = false
+      + allows_force_pushes             = false
+      + blocks_creations                = false
+      + enforce_admins                  = false
+      + id                              = (known after apply)
+      + pattern                         = "master"
+      + repository_id                   = "R_kgDOImin6g"
+      + require_conversation_resolution = true
+      + require_signed_commits          = false
+      + required_linear_history         = false
+    }
+
+  # github_repository.repo will be updated in-place
+  ~ resource "github_repository" "repo" {
+      + description                 = "Temprorary repo for inno devops classes"
+      - has_downloads               = true -> null
+      - has_issues                  = true -> null
+      - has_projects                = true -> null
+      - has_wiki                    = true -> null
+        id                          = "tmp_inno_devops_terraform"
+        name                        = "tmp_inno_devops_terraform"
+      ~ visibility                  = "private" -> "public"
+        # (26 unchanged attributes hidden)
+    }
+
+Plan: 2 to add, 1 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+github_repository.repo: Modifying... [id=tmp_inno_devops_terraform]
+github_repository.repo: Modifications complete after 4s [id=tmp_inno_devops_terraform]
+github_branch_default.master: Creating...
+github_branch_protection.master: Creating...
+github_branch_default.master: Creation complete after 3s [id=tmp_inno_devops_terraform]
+github_branch_protection.master: Creation complete after 4s [id=BPR_kwDOImin6s4B50-w]
+
+Apply complete! Resources: 2 added, 1 changed, 0 destroyed.
 ```

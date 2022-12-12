@@ -1,15 +1,17 @@
 from flask import Flask, render_template, request
 import datetime
-import requests
 from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
 visits_path = './time_visit.txt'
 
+
 def write_visit(date):
     with open(visits_path, 'a') as visits_file:
         visits_file.write(f"{str(date)}\n")
+
+
 @app.route('/')
 def show_moscow_time():
     offset = datetime.timezone(datetime.timedelta(hours=3))
@@ -22,12 +24,13 @@ def show_moscow_time():
 
 @app.route('/visits')
 def visits():
-    visits= []
+    visits = []
     with open(visits_path, 'r') as visitsFile:
         lines = visitsFile.readlines()
         for line in lines:
             visits.append(line[:-2])
     return visits
+
 
 if __name__ == '__main__':
     app.run()

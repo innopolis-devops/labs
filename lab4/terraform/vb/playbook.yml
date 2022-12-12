@@ -1,0 +1,9 @@
+---
+ - hosts: all
+   gather_facts: yes
+   become: true
+   tasks:
+   - name: Setup app
+     copy:
+       src: ../app_python/
+       dest: /home/vagrant/app_python/run.sh

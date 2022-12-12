@@ -5,11 +5,11 @@ from .. import utils
 
 
 class SuccessfulResponse:
-    full_datetime = '2020-04-30T12:48:54.398875+02:00'
     def __init__(self):
         self.status_code = 200
 
     def json(self):
+        full_datetime = '2020-04-30T12:48:54.398875+02:00'
         return {
             "datetime": full_datetime,
         }
@@ -24,9 +24,9 @@ class FailedResponse:
 
 
 class TestUtils(TestCase):
-    formatted_datetime = '12:48:54'
     @patch("requests.get", return_value=SuccessfulResponse())
     def test_get_moscow_time_successful(self, mocked):
+        formatted_datetime = '12:48:54'
         self.assertEqual(utils.get_moscow_time(), formatted_datetime)
 
     @patch("requests.get", return_value=FailedResponse())

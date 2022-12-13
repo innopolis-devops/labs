@@ -17,8 +17,8 @@ ___
 
 Output of ```kubectl get pods,svc``` command::
 ___
-![browser](output3.png)
+![browser](images/output3.png)
 
 Output of ```minikube service app-chard``` command::
 ___
-![browser](output4.png)
+![browser](images/output4.png)

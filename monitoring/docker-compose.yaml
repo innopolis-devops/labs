@@ -1,0 +1,60 @@
+version: "3"
+
+networks:
+  loki:
+
+services:
+  loki:
+    image: grafana/loki:2.6.1
+    container_name: monitoring.loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  promtail:
+    image: grafana/promtail:2.6.1
+    container_name: monitoring.promtail
+    ports:
+      - "9080:9080"
+    volumes:
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - loki
+    labels:
+      org.label-schema.group: "monitoring"
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: monitoring.grafana
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
+    networks:
+      - loki
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  app_python:
+    image: ksev13/devops_forked:latest
+    ports:
+      - 8000:8000
+    networks:
+      - loki
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"

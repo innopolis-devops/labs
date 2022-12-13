@@ -4,17 +4,15 @@ terraform {
       source = "yandex-cloud/yandex"
     }
   }
+  required_version = ">= 0.13"
 }
 
 provider "yandex" {
-  //cloud_id  = var.cloud_id
-  //folder_id = var.folder_id
-  zone = var.zone
+  token     = "t1.9euelZqRy46Kls2ZipiLx5jNlMiRlO3rnpWazJfOzJzJkciRzZuTz4-XnIvl8_cKaz1j-e9MUQ0m_t3z90oZO2P570xRDSb-.Iu7RKuGie-6Vav8G7-ZSPy6Sb4RDm5Ol9TCvkyi7pjMPrA75vETllS-3cSkxro9mT2yKNWLxE-6esqlx1uTpAQ"
+  cloud_id  = var.cloud_id
+  folder_id = var.folder_id
+  zone      = var.zone
 }
-
-
-
-
 
 resource "yandex_compute_instance" "vm-1" {
   name = var.vm_name

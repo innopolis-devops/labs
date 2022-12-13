@@ -3,4 +3,4 @@
   hosts: all
   become: true
   roles: 
-    - /home/kseniya/DevOps/ansible/roles/geerlingguy.docker
+    - /home/kseniya/DevOps/ansible/roles/docker

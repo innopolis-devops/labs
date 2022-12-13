@@ -1,0 +1,7 @@
+- name: Install docker
+  hosts: danoneVM
+  become: true
+#  vars:
+#    web_app_full_wipe: true
+  roles:
+    - web_app

@@ -1,9 +1,9 @@
 web_app_dir: "opt/web_app"
 web_app_name: "app_python"
 web_app:
-  image: devops
+  image: devops_forked
   tag: latest
-  registry: KsEv13
+  registry: ksev13
   external_port: 8000
   internal_port: 8000
 web_app_full_wipe: false

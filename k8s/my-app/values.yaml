@@ -77,6 +77,8 @@ tolerations: []
 
 affinity: {}
 
+serviceName: "my-app-service"
+
 volumes:
   config:
     name: config-volume

@@ -1,0 +1,23 @@
+name: app_python snyk checks
+on:
+  push:
+    branches:
+      - lab3
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: Snyk
+    steps:
+      - uses: actions/checkout@v3
+      - uses: snyk/actions/setup@master
+      - name: Install dependencies
+        run: |
+          cd app_python
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Run Snyk to check for vulnerabilities
+        working-directory: app_python
+        run: snyk test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

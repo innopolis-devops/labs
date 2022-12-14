@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-python-deployment
+  namespace: lab9
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-python
+  template:
+    metadata:
+      labels:
+        app: app-python
+    spec:
+      containers:
+      - name: app-python
+        image: azazkamaz/tmp_inno_devops_labs:app_python-latest
+        ports:
+        - name: http
+          containerPort: 8080

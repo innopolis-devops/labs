@@ -1,0 +1,29 @@
+- name: Update apt cache & upgrade system
+  become: yes
+  apt:
+    update_cache: yes
+    upgrade: safe
+
+- name: Install basic packages
+  become: yes
+  apt:
+    name: [tmux, htop, mc, nano, git, snapd, python3, python3-pip]
+
+- name: Install python3 requirements
+  become: yes
+  pip:
+    executable: pip3
+    name: [docker, docker-compose]
+
+- name: Install docker
+  become: yes
+  community.general.snap:
+    name: docker
+    state: "{{ item }}"
+  loop:
+    - present
+    - enabled
+
+- name: Start docker
+  become: yes
+  shell: snap start --enable docker

@@ -1,0 +1,15 @@
+- name: Create deploy directory
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/app"
+    state: directory
+    
+- name: Template docker-compose.yml
+  template:
+    src: "./templates/docker-compose.yml.j2"
+    dest: "{{ ansible_user_dir }}/app/docker-compose.yml"
+
+- name: Start app_python
+  become: yes
+  community.docker.docker_compose:
+    project_src: "{{ ansible_user_dir }}/app"
+    state: present

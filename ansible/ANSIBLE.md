@@ -136,3 +136,61 @@ vps                        : ok=6    changed=5    unreachable=0    failed=0    s
     }
 }
 ```
+
+## Lab6
+
+### `ansible-playbook ./playbooks/dev/main.yml --diff`:
+```
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [vps]
+
+TASK [docker : Update apt cache & upgrade system] ******************************
+ok: [vps]
+
+TASK [docker : Install basic packages] *****************************************
+ok: [vps]
+
+TASK [docker : Install python3 requirements] ***********************************
+ok: [vps]
+
+TASK [docker : Install docker] *************************************************
+ok: [vps] => (item=present)
+ok: [vps] => (item=enabled)
+
+TASK [docker : Start docker] ***************************************************
+changed: [vps]
+
+TASK [app_python : Create deploy directory] ************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/home/user/app",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [vps]
+
+TASK [app_python : Template docker-compose.yml] ********************************
+--- before
++++ after: /Users/azazkamaz/.ansible/tmp/ansible-local-42901s1f0pdbo/tmpdypjn6qd/docker-compose.yml.j2
+@@ -0,0 +1,6 @@
++version: "3.9"
++services:
++  web:
++    image: azazkamaz/tmp_inno_devops_labs:app_python-latest
++    ports:
++      - "8080:8080"
+\ No newline at end of file
+
+changed: [vps]
+
+TASK [app_python : Start app_python] *******************************************
+changed: [vps]
+
+PLAY RECAP *********************************************************************
+vps                        : ok=9    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```

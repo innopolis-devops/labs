@@ -1,0 +1,7 @@
+--- 
+- name: Run app on yacloud
+  hosts: all
+  remote_user: ubuntu
+  become: true  
+  roles:
+    - web_app

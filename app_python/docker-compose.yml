@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  web:
+    image: azazkamaz/tmp_inno_devops_labs:app_python-latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - data:/app/volume
+volumes:
+  data:

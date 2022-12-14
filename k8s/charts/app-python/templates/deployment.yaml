@@ -60,6 +60,10 @@ spec:
                   name: mysecret
                   key: password
                   optional: false
+          volumeMounts:
+            - name: config
+              mountPath: "/config"
+              readOnly: true
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -72,3 +76,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "app_python.fullname" . }}

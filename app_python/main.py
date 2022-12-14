@@ -3,6 +3,7 @@ from pytz import timezone
 import datetime
 
 app = FastAPI()
+mem = "mem"
 
 
 def get_msk_time():
@@ -12,3 +13,10 @@ def get_msk_time():
 @app.get("/")
 def read_root():
     return {"msktime": get_msk_time().strftime("%H:%M:%S")}
+
+
+@app.post("/outofmemory")
+def read_root():
+    global mem
+    mem = mem * 2
+    return {"length": len(mem)}

@@ -81,3 +81,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+secrets:
+  username: username
+  password: password

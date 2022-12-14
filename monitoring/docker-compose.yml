@@ -7,12 +7,22 @@ x-logging: &default-logging
     max-file: "10"
     tag: "{{.ImageName}}|{{.Name}}"
 
+x-deploy: &default-deploy
+  resources:
+    limits:
+      cpus: '0.50'
+      memory: 512M
+    reservations:
+      cpus: '0.25'
+      memory: 128M
+
 services:
   app_python:
     image: azazkamaz/tmp_inno_devops_labs:app_python-latest
     ports:
       - 8080:8080
     logging: *default-logging
+    deploy: *default-deploy
 
   grafana:
     image: grafana/grafana:9.3.1
@@ -27,6 +37,7 @@ services:
     ports:
       - 3000:3000
     logging: *default-logging
+    deploy: *default-deploy
 
   promtail:
     image: grafana/promtail:2.7.1
@@ -39,6 +50,7 @@ services:
     ports:
       - 9080:9080
     logging: *default-logging
+    deploy: *default-deploy
 
   loki:
     image: grafana/loki:2.7.1
@@ -47,8 +59,26 @@ services:
     ports:
       - 3100:3100
     logging: *default-logging
+    deploy: *default-deploy
+
+  prometheus:
+    image: prom/prometheus:v2.40.6
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=5d'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - "9090:9090"
+    logging: *default-logging
+    deploy: *default-deploy
 
 volumes:
   grafana-data:
   loki-data:
   promtail-data:
+  prometheus-data:

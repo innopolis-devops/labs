@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "app_python.fullname" . }}
   labels:
@@ -8,6 +8,7 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   selector:
     matchLabels:
       {{- include "app_python.selectorLabels" . | nindent 6 }}
@@ -39,11 +40,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /visits
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /visits
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -64,6 +65,9 @@ spec:
             - name: config
               mountPath: "/config"
               readOnly: true
+            - name: volume
+              mountPath: "/app/volume"
+              readOnly: false
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -80,3 +84,11 @@ spec:
         - name: config
           configMap:
             name: {{ include "app_python.fullname" . }}
+  volumeClaimTemplates:
+    - metadata:
+        name: volume
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Mi

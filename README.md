@@ -147,7 +147,7 @@ the following command in the VS Code Terminal:
 
     Upd: the requirements will be installed with the use of the Docker.
 
-1. Run the app.py by "Run code" and see the result at 127.0.0.1, port 5000.
+1. Run the app.py by "Run code" and see the result at 127.0.0.1, port 8000.
 If the port is already taken, you can change it manually.
 Or you can use the Live Server in VSCode and run the app
 by opening it with the Live Server.

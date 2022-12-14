@@ -1,4 +1,4 @@
-version: "3"
+version: "3.9"
 
 networks:
   loki:
@@ -23,7 +23,9 @@ services:
     ports:
       - "9080:9080"
     volumes:
-      - /var/log:/var/log
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - promtail-data:/var/lib/promtail/positions
+      - ${PWD}/promtail/promtail.yaml:/etc/promtail/promtail.yaml
     command: -config.file=/etc/promtail/config.yml
     networks:
       - loki
@@ -37,6 +39,13 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: monitoring.grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ${PWD}/grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
     expose:
       - 3000
     ports:
@@ -50,6 +59,8 @@ services:
 
   app_python:
     image: ksev13/devops_forked:latest
+    expose:
+      - 8000
     ports:
       - 8000:8000
     networks:
@@ -58,3 +69,31 @@ services:
       driver: "json-file"
       options:
         tag: "{{.ImageName}}|{{.Name}}"
+      healthcheck:
+        test: [ "CMD-SHELL", "wget --no-verbose --tries=3 --spider http://localhost:8000/health || exit 1" ]
+
+  prometheus:
+    image: prom/prometheus:${PROMETHEUS_VERSION:-v2.39.1}
+    volumes:
+      - ${PWD}/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=14d'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    expose:
+      - 9090
+    ports:
+      - "9090:9090"
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+volumes:
+  loki-data: {}
+  promtail-data: {}
+  grafana-data: {}
+  prometheus-data: {}

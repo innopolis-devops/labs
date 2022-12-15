@@ -1,0 +1,4 @@
+virtualmachines:
+  hosts:
+    vm01:
+      ansible_host: 172.22.250.244

@@ -1,6 +1,6 @@
 ---
 - name: Delete container and image
-    tags: wipe
+    tags: ["run", "wipe"]
     block:
       - name: Stop a container
         docker_container:

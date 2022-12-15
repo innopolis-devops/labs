@@ -1,7 +1,7 @@
 - name: Docker
   hosts: virtualmachines
   roles:
-    - role: '../../roles/geerlingguy.docker'
-    - role: '../../roles/docker_deploy'
+    - role: geerlingguy.docker
+    - role: docker_deploy
 
   

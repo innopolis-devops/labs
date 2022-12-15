@@ -1,2 +1,2 @@
 ---
-# defaults file for docker_deploy
+full_wipe: app_full_wipe

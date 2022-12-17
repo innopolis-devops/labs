@@ -58,7 +58,7 @@ services:
         tag: "{{.ImageName}}|{{.Name}}"
 
   app_python:
-    image: ksev13/devops_forked:latest
+    image: 13/devops_forked:latest
     expose:
       - 8000
     ports:

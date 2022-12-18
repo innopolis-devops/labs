@@ -110,3 +110,101 @@ few manifests for your application.
 **DaemonSet** creates a guarantee that a certain sub will run on the specified nodes of the cluster.
 
 **PersistentVolumes** is analogous to the Kubernetes' physical or virtual machines on which application containers are deployed and run.
+
+# Lab 10
+
+## Helm
+
+1. I installed helm by following [this tutorial](https://helm.sh/docs/intro/install/):
+    ```bash
+    curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+    sudo apt-get install apt-transport-https --yes
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+    sudo apt-get update
+    sudo apt-get install helm```
+
+1. Inside the `k8s` folder I used `helm create` in order to create a template for the chart:
+    ```sh
+    cd k8s
+    helm create app-python
+    ```
+
+1. To use my own application repository instead of the default repository provided, I replaced the default `repository name` and `tag` inside the `values.yaml` with my values.
+
+1. Also, I changed `containerPort` in the `deployment.yml`.
+
+1. After that, I packaged the chart up for distribution:
+    `helm package app-python`
+
+1. And that chart can now easily be installed by:
+    `helm install app-python .//app-python-0.1.0.tgz`
+
+1. The result:
+
+    ```sh
+    NAME: app-python
+    LAST DEPLOYED: Sun Dec 18 02:43:31 2022
+    NAMESPACE: default
+    STATUS: deployed
+    REVISION: 1
+    NOTES:
+    1. Get the application URL by running these commands:
+        NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+            You can watch the status of by running 'kubectl get --namespace default svc -w app-python'
+    export SERVICE_IP=$(kubectl get svc --namespace default app-python --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
+    echo http://$SERVICE_IP:80
+    ```
+
+1. Result of `minikube dashboard` command for troubleshooting:
+
+    ```sh
+    🤔  Verifying dashboard health ...
+    🚀  Launching proxy ...
+    🤔  Verifying proxy health ...
+    🎉  Opening http://127.0.0.1:51708/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/ in your default browser...
+    ```
+
+    ![dashboard](../images/dashboard.png)
+
+1. I checked this task with `minikube service app-python`:
+
+    ```sh
+    |-----------|------------|-------------|---------------------------|
+    | NAMESPACE |    NAME    | TARGET PORT |            URL            |
+    |-----------|------------|-------------|---------------------------|
+    | default   | app-python | http/80     | http://192.168.49.2:30298 |
+    |-----------|------------|-------------|---------------------------|
+    🏃  Starting tunnel for service app-python.
+    |-----------|------------|-------------|------------------------|
+    | NAMESPACE |    NAME    | TARGET PORT |          URL           |
+    |-----------|------------|-------------|------------------------|
+    | default   | app-python |             | http://127.0.0.1:52053 |
+    |-----------|------------|-------------|------------------------|
+    🎉  Opening service default/app-python in default browser...
+    ❗  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
+    ```
+
+    ![browser](../images/demo3.png)
+
+1. The output of `kubectl get pods,svc` command:
+
+    ```sh
+    NAME                                         READY   STATUS    RESTARTS        AGE
+    pod/app-python-849ff67fc8-mpt45              1/1     Running   1 (4m11s ago)   10m
+    pod/app-python-deployment-575dcb886f-4mpb2   1/1     Running   1 (4m10s ago)   20h
+    pod/app-python-deployment-575dcb886f-qdbt7   1/1     Running   1 (4m10s ago)   20h
+    pod/app-python-deployment-575dcb886f-qgdrs   1/1     Running   1 (4m10s ago)   20h
+    NAME                         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+    service/app-python           LoadBalancer   10.107.53.172   <pending>     80:30298/TCP   10m
+    service/app-python-service   LoadBalancer   10.102.34.62    <pending>     80:30545/TCP   20h
+    service/kubernetes           ClusterIP      10.96.0.1       <none>        443/TCP        20h
+    ```
+
+## Bonus
+
+### `Library Charts` and `Umbrella charts` in a nutshell.
+
+
+`Library Charts` are ready-made charts templates (files inside some directory) with primitives and definitions that can be used in the code, avoiding repetitive code fragments. This happens since they can be used by Helm templates in other charts.
+
+`Umbrella charts` are used to create charts of charts; it is a powerful technique for establishing several components as one. 

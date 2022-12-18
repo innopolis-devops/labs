@@ -60,3 +60,11 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "app-python.env_vars" -}}
+- name: MY_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: credentials
+      key: password
+{{- end }} 

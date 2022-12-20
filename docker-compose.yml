@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  web:
+    image: ksev13/devops_forked
+    build: app_python
+    ports:
+      - 8000:8000
+    volumes:
+        - volume:/app/src/volume
+        

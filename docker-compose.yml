@@ -1,10 +1,11 @@
 version: '3.4'
 
 services:
-  apppython:
-    image: apppython
-    build: 
-      context: .
-      dockerfile: ./Dockerfile
+  web:
+    image: ksev13/devops_forked
+    build: app_python
     ports:
-      - 5002:5002
+      - 8000:8000
+    volumes:
+        - volume:/app/src/volume
+        

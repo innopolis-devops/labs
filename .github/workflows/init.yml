@@ -31,7 +31,7 @@ jobs:
         run: |
           pytest
   pushToDoker:
-      needs: ["building"]
+      needs: ["build"]
       name: docker push
       runs-on: ubuntu-latest
       steps:

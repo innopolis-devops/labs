@@ -22,7 +22,7 @@ This project is a website that will show the current time in Moscow
 
 ## Workflow Status badge
 
-![example event parameter](<https://github.com/KsEv13> / devops_forked/actions/workflows/main.yml/badge.svg?event=push)
+![example event parameter](<https://github.com/KsEv13/devops_forked/actions/workflows/main.yml/badge.svg?event=push>)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project

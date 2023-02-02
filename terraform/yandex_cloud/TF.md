@@ -1,6 +1,6 @@
 ## terraform show
 
-`
+```
 PS E:\Projects\Temp\terraform\yandex_cloud> terraform show
 # yandex_compute_instance.default:
 resource "yandex_compute_instance" "default" {
@@ -104,11 +104,11 @@ PS E:\Projects\Temp\terraform\yandex_cloud> terraform state list
 yandex_compute_instance.default
 yandex_vpc_network.network-1
 yandex_vpc_subnet.subnet-1
-`
+```
 
 # Change Infrastructure
 
-`
+```
 PS E:\Projects\Temp\terraform\yandex_cloud> terraform apply
 yandex_vpc_network.network-1: Refreshing state... [id=enp5jkbv8k3jmhu14gfo]
 yandex_vpc_subnet.subnet-1: Refreshing state... [id=e9bhrb7ku4fqnfjgfm2a]
@@ -130,12 +130,12 @@ Terraform will perform the following actions:
     }
 
 Plan: 0 to add, 1 to change, 0 to destroy.
-`
+```
 
 ## terraform output
 
-`
+```
 PS E:\Projects\Temp\terraform\yandex_cloud> terraform output
 cores_number = 2
 vm_mem = 4
-`
+```

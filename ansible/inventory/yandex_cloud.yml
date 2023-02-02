@@ -1,0 +1,7 @@
+all:
+  hosts:
+    vm:
+      ansible_host: 158.160.46.145
+      ansible_user: tiny0wizard
+      ansible_ssh_private_key_file: /mnt/c/users/tiny wizard/id_tw
+      ansible_become: true

@@ -1,5 +1,5 @@
 ## terraform show
-`
+```
 # docker_container.app_python:
 resource "docker_container" "app_python" {
     attach                                      = false
@@ -82,11 +82,11 @@ image_id = "sha256:baff6d59d580e2150d02b38c4ae98a89f84c971af648d377fcf875a0ab860
 `
 docker_container.app_python
 docker_image.app_python
-`
+```
 
 # Infrastructure Change
 
-`
+```
 docker_image.app_python: Refreshing state... [id=sha256:baff6d59d580e2150d02b38c4ae98a89f84c971af648d377fcf875a0ab8607a0tiny0wizard/app_python:latest]
 docker_container.app_python: Refreshing state... [id=6bd28ae4a30d9082527704933c8903d84892a79de278ce8c1329b9c074e42744]
 
@@ -187,11 +187,11 @@ Outputs:
 
 container_id = "d8b0677a9f7f36e04d48f3986538fa2b925fb53b3b6d9f8d76f06e88f08819b0"
 image_id = "sha256:baff6d59d580e2150d02b38c4ae98a89f84c971af648d377fcf875a0ab8607a0tiny0wizard/app_python:latest"
-`
+```
 
 ## terraform output
-`
+```
 PS E:\Projects\Temp\terraform\docker> terraform output
 container_id = "d8b0677a9f7f36e04d48f3986538fa2b925fb53b3b6d9f8d76f06e88f08819b0"
 image_id = "sha256:baff6d59d580e2150d02b38c4ae98a89f84c971af648d377fcf875a0ab8607a0tiny0wizard/app_python:latest"
-`
+```

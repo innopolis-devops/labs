@@ -1,3 +1,3 @@
-![Docker](/monitoring/screenshots/docker.png?raw=true "Title")
+![Docker](/monitoring/screenshots/docker.png?raw=true "Docker")
 
-![Docker](/monitoring/screenshots/grafana.png?raw=true "Title")
+![Grafana](/monitoring/screenshots/grafana.png?raw=true "Grafana")

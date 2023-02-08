@@ -1,6 +1,9 @@
-FROM python:3
-WORKDIR /usr/src/app
-COPY requirements.txt ./
+FROM python:3.9
+COPY ./app_python
+WORKDIR /app_python
+
 RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-CMD [ "python", "./app.py" ]
+ENTRYPOINT ["python"]
+CMD [ "/app.py" ]
+
+EXPOSE 5000

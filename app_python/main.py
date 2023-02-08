@@ -1,6 +1,6 @@
-from datetime import datetime
 from flask import Flask
-import pytz
+
+import time_utils
 
 app = Flask(__name__)
 
@@ -21,4 +21,4 @@ def default_page():
             <h1>Current time in Moscow: {}</h1>
         </body>
     </html>
-    """.format(get_time("Europe/Moscow"))
+    """.format(time_utils.get_time_in_moscow())

@@ -58,3 +58,4 @@ jobs:
             tags: ${{ secrets.MY_DOCKERHUB_USERNAME }}/moscow_time:latest
             cache-from: type=registry,ref=${{ secrets.MY_DOCKERHUB_USERNAME }}/kekops:lab2image
             cache-to: type=registry,ref=${{ secrets.MY_DOCKERHUB_USERNAME }}/kekops:lab2image,mode=max
+            

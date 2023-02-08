@@ -30,7 +30,7 @@ This is a simple app showing current time in Moscow (UTC+3) without any extra fe
 > EXPOSE 5000
 
 2) run image using `docker build . -f Dockerfile.txt command`
-![](https://imageup.ru/img234/4200293/11111.png)](https://imageup.ru/img234/4200293/11111.png.html)
+![](https://imageup.ru/img234/4200293/11111.png)
 3) create account on docker hub
 4) making right tag
 ![](https://imageup.ru/img299/4200311/2222.png)

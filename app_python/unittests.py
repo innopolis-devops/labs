@@ -5,6 +5,7 @@ import time_utils
 
 class TestTimeApp(unittest.TestCase):
 
+    # test time localization does not apply LMT
     def test_get_timezone(self):
         date = datetime(2000, 1, 1, 0, 0)
         datetime1 = time_utils.get_timezone("Europe", "Moscow").localize(date)
@@ -12,6 +13,7 @@ class TestTimeApp(unittest.TestCase):
         self.assertEqual(datetime2, datetime1)
         self.assertNotEqual(time_utils.get_timezone("Europe", "Moscow"), time_utils.get_timezone("Europe", "Kirov"))
 
+    # test time correct formatting
     def test_format_time(self):
         self.assertEqual(time_utils.format_time(datetime.fromtimestamp(1331856982)), "03:16:22")
 

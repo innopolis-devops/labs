@@ -2,12 +2,7 @@ from flask import Flask
 
 import time_utils
 
-app = Flask(__name__)
-
-def get_time(timezone):
-    tz = pytz.timezone(timezone)
-    return datetime.now(tz).strftime("%H:%M:%S")
-
+# index page callback
 @app.route("/")
 def default_page():
     return """
@@ -22,3 +17,7 @@ def default_page():
         </body>
     </html>
     """.format(time_utils.get_time_in_moscow())
+
+# flask server entry point
+if __name__ == "__main__":
+    app = Flask(__name__)

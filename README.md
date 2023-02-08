@@ -30,11 +30,12 @@ Install a Flask framework and pytz library using:
 
 ## Usage
 To run the application, use the flask command:
-
-```flask --app app_python/main run```
+```ps
+flask --app app_python/main run
+```
 
 It will launch the server and show something like:
-```
+```ps
  * Serving Flask app 'app_python/main'
  * Debug mode: off
  * Running on http://127.0.0.1:5000
@@ -50,4 +51,11 @@ Also, an image can be found on Docker Hub [repo](https://hub.docker.com/r/tonyde
 ```ps
 docker pull tonydecva180xn/devops
 docker run -p 5000:5000 tonydecva180xn/devops:lab-2
+```
+
+
+## Unit tests
+Unit test for time request present in `app_python/unittests.py` and can be run locally with:
+```ps
+python app_python/unittests.py
 ```

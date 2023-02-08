@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="81c5a1ae-0697-4fbe-a849-d0972072ff00" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app_python/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/app_python/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_python/PYTHON.md" beforeDir="false" afterPath="$PROJECT_DIR$/app_python/PYTHON.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app_python/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_python/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app_python/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app_python/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_python/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_python/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,13 +37,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/lera-/OneDrive/Документы/GitHub/labs_devops"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/lera-/OneDrive/Документы/GitHub/labs_devops&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

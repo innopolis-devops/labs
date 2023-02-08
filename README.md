@@ -1,15 +1,5 @@
 # Flask app python
 
-Flask is a lightweight Web Server Gateway Interface (WSGI) web application framework.
-I use Flask because:
->   1) The Flask framework is easy to understand, that is why it is best for beginners. (And I am a beginner in usage of frameworks)
-> 2) It is very flexible and easy.
->  3) Testing 
-
-BTW, Flask has disadvantages: 
-> 1) Scale: if you are trying to serve multiple requests, it will take more time.
-> 2) Modules: some issues on security
-
 ### About app:
 This is a simple app showing current time in Moscow (UTC+3) without any extra features. Just time.
 
@@ -37,3 +27,9 @@ This is a simple app showing current time in Moscow (UTC+3) without any extra fe
 5) push the image to hub using `docker push geralizz/kekops:lab2image` command, where `geralizz\kekops` is a repo name and `lab2image` is a tag
 6) make sure it works
 ![](https://imageup.ru/img8/4200316/333.png)
+
+### Unit tests
+
+1) install all what is listed in `requirements.txt`
+2) run test using `pytest -v`
+

@@ -59,3 +59,9 @@ Unit test for time request present in `app_python/unittests.py` and can be run l
 ```ps
 python app_python/unittests.py
 ```
+
+
+## GitHub Actions
+Static analysis using `flake8`, testing using python `unittest` framework and publishing into Docker Hub is done automatically using GitHub Actions.
+
+![badge](https://github.com/tonydecva180xn/devops-labs/actions/workflows/main.yaml/badge.svg)

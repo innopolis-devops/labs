@@ -41,3 +41,13 @@ It will launch the server and show something like:
 Press CTRL+C to quit
 ```
 Server provides you with a local IP address to the server that can open in your browser and test the app.
+
+
+## Docker
+App can be placed into a Docker container. Use `docker build -t time-app app_python` to create a Docker image and `docker run -p 5000:5000 time-app` to run the image.
+
+Also, an image can be found on Docker Hub [repo](https://hub.docker.com/r/tonydecva180xn/devops) with the `lab-2` tag. To run it locally use:
+```ps
+docker pull tonydecva180xn/devops
+docker run -p 5000:5000 tonydecva180xn/devops:lab-2
+```

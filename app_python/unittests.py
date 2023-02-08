@@ -3,6 +3,7 @@ import unittest
 
 import time_utils
 
+
 class TestTimeApp(unittest.TestCase):
 
     # test time localization does not apply LMT
@@ -16,6 +17,7 @@ class TestTimeApp(unittest.TestCase):
     # test time correct formatting
     def test_format_time(self):
         self.assertEqual(time_utils.format_time(datetime.fromtimestamp(1331856982)), "03:16:22")
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -2,6 +2,10 @@ from flask import Flask
 
 import time_utils
 
+# flask server entry point
+app = Flask(__name__)
+
+
 # index page callback
 @app.route("/")
 def default_page():
@@ -17,7 +21,3 @@ def default_page():
         </body>
     </html>
     """.format(time_utils.get_time_in_moscow())
-
-# flask server entry point
-if __name__ == "__main__":
-    app = Flask(__name__)

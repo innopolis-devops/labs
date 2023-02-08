@@ -36,4 +36,4 @@ This is a simple app showing current time in Moscow (UTC+3) without any extra fe
 ![](https://imageup.ru/img299/4200311/2222.png)
 5) push the image to hub using `docker push geralizz/kekops:lab2image` command, where `geralizz\kekops` is a repo name and `lab2image` is a tag
 6) make sure it works
-![](https://imageup.ru/img8/4200316/333.png)](https://imageup.ru/img8/4200316/333.png.html)
+![](https://imageup.ru/img8/4200316/333.png)

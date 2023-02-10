@@ -1,3 +1,5 @@
+## Docker tutorial
+
 The result of `terraform show`
 
 ```ps
@@ -179,4 +181,187 @@ Output variables:
 ```ps
 Δ .\terraform.exe -chdir=terraform output
 container_id = "ace8aa13fb38a081451fb0c66b29bd977357906d66a55a147cfcec5167ec1968"
+```
+
+## For Yandex Cloud with Terraform:
+Followed [tutorial](https://cloud.yandex.ru/docs/tutorials/infrastructure-management/terraform-quickstart). Basically, created 2 VM inside virtual network.
+
+```ps
+Δ .\terraform.exe -chdir=terraform/YandexCloud show
+# yandex_compute_instance.vm-1:
+resource "yandex_compute_instance" "vm-1" {
+    created_at                = "2023-02-10T17:33:24Z"
+    folder_id                 = "b1g2sm14kf3ioeaohipu"
+    fqdn                      = "fhmp6eu21m8jtahreo42.auto.internal"
+    id                        = "fhmp6eu21m8jtahreo42"
+    metadata                  = {
+        "ssh-keys" = <<-EOT
+            ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL9q+AOi1JR1rgtDBfBp7D1kZjESSPn+4eJCEGrq8gO1 admin@SENTIA
+        EOT
+    }
+    name                      = "terraform1"
+    network_acceleration_type = "standard"
+    platform_id               = "standard-v1"
+    status                    = "running"
+    zone                      = "ru-central1-a"
+
+    boot_disk {
+        auto_delete = true
+        device_name = "fhmj7onfinl4v568tein"
+        disk_id     = "fhmj7onfinl4v568tein"
+        mode        = "READ_WRITE"
+
+        initialize_params {
+            block_size = 4096
+            image_id   = "fd81d2d9ifd50gmvc03g"
+            size       = 2
+            type       = "network-hdd"
+        }
+    }
+
+    metadata_options {
+        aws_v1_http_endpoint = 1
+        aws_v1_http_token    = 2
+        gce_http_endpoint    = 1
+        gce_http_token       = 1
+    }
+
+    network_interface {
+        index              = 0
+        ip_address         = "192.168.10.29"
+        ipv4               = true
+        ipv6               = false
+        mac_address        = "d0:0d:19:33:bc:20"
+        nat                = true
+        nat_ip_address     = "51.250.65.227"
+        nat_ip_version     = "IPV4"
+        security_group_ids = []
+        subnet_id          = "e9bhop1j7irgam9jca4g"
+    }
+
+    placement_policy {
+        host_affinity_rules = []
+    }
+
+    resources {
+        core_fraction = 100
+        cores         = 2
+        gpus          = 0
+        memory        = 2
+    }
+
+    scheduling_policy {
+        preemptible = false
+    }
+}
+
+# yandex_compute_instance.vm-2:
+resource "yandex_compute_instance" "vm-2" {
+    created_at                = "2023-02-10T17:33:24Z"
+    folder_id                 = "b1g2sm14kf3ioeaohipu"
+    fqdn                      = "fhmffccp9k6rva7963pi.auto.internal"
+    id                        = "fhmffccp9k6rva7963pi"
+    metadata                  = {
+        "ssh-keys" = <<-EOT
+            ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL9q+AOi1JR1rgtDBfBp7D1kZjESSPn+4eJCEGrq8gO1 admin@SENTIA
+        EOT
+    }
+    name                      = "terraform2"
+    network_acceleration_type = "standard"
+    platform_id               = "standard-v1"
+    status                    = "running"
+    zone                      = "ru-central1-a"
+
+    boot_disk {
+        auto_delete = true
+        device_name = "fhm24r2ocdchpd8hirm4"
+        disk_id     = "fhm24r2ocdchpd8hirm4"
+        mode        = "READ_WRITE"
+
+        initialize_params {
+            block_size = 4096
+            image_id   = "fd81d2d9ifd50gmvc03g"
+            size       = 2
+            type       = "network-hdd"
+        }
+    }
+
+    metadata_options {
+        aws_v1_http_endpoint = 1
+        aws_v1_http_token    = 2
+        gce_http_endpoint    = 1
+        gce_http_token       = 1
+    }
+
+    network_interface {
+        index              = 0
+        ip_address         = "192.168.10.30"
+        ipv4               = true
+        ipv6               = false
+        mac_address        = "d0:0d:f7:b1:99:4d"
+        nat                = true
+        nat_ip_address     = "51.250.76.209"
+        nat_ip_version     = "IPV4"
+        security_group_ids = []
+        subnet_id          = "e9bhop1j7irgam9jca4g"
+    }
+
+    placement_policy {
+        host_affinity_rules = []
+    }
+
+    resources {
+        core_fraction = 100
+        cores         = 4
+        gpus          = 0
+        memory        = 4
+    }
+
+    scheduling_policy {
+        preemptible = false
+    }
+}
+
+# yandex_vpc_network.network-1:
+resource "yandex_vpc_network" "network-1" {
+    created_at = "2023-02-10T17:28:34Z"
+    folder_id  = "b1g2sm14kf3ioeaohipu"
+    id         = "enpmbhgvdh5f7ts1iem2"
+    labels     = {}
+    name       = "network1"
+    subnet_ids = [
+        "e9bhop1j7irgam9jca4g",
+    ]
+}
+
+# yandex_vpc_subnet.subnet-1:
+resource "yandex_vpc_subnet" "subnet-1" {
+    created_at     = "2023-02-10T17:28:36Z"
+    folder_id      = "b1g2sm14kf3ioeaohipu"
+    id             = "e9bhop1j7irgam9jca4g"
+    labels         = {}
+    name           = "subnet1"
+    network_id     = "enpmbhgvdh5f7ts1iem2"
+    v4_cidr_blocks = [
+        "192.168.10.0/24",
+    ]
+    v6_cidr_blocks = []
+    zone           = "ru-central1-a"
+}
+
+
+Outputs:
+
+external_ip_address_vm_1 = "51.250.65.227"
+external_ip_address_vm_2 = "51.250.76.209"
+internal_ip_address_vm_1 = "192.168.10.29"
+internal_ip_address_vm_2 = "192.168.10.30"
+```
+Result of `terraform state list` command:
+```ps
+Δ .\terraform.exe -chdir=terraform/YandexCloud state list
+yandex_compute_instance.vm-1
+yandex_compute_instance.vm-2
+yandex_vpc_network.network-1
+yandex_vpc_subnet.subnet-1
 ```

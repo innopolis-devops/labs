@@ -1,0 +1,9 @@
+app_title: "app_python"
+ext_port: 80
+int_port: 5000
+docker_image:
+  reg: "tiny0wizard"
+  name: "app_python"
+  tag: "latest"
+base_path: "/opt/web_app"
+web_app_full_wipe: true

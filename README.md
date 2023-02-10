@@ -27,4 +27,4 @@ Docker part of the workflow log-ins to Docker Hub, sets up a Docker Buildx, buil
 
 ## Visits
 
-Go to http://localhost:5000/ to see the number fo visits to the main page
+Go to http://localhost:5000/ to see the number of visits to the main page

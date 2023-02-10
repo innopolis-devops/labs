@@ -11,7 +11,7 @@ App wil be dispatched at http://127.0.0.1:5000
 ## Docker
 Install Docker
 
-Run `docker run -p 5000:5000 -d tiny0wizard/time-app:latest`
+Run `docker run -p 5000:5000 -d tiny0wizard/app_vists:latest`
 
 Go to http://localhost:5000/
 

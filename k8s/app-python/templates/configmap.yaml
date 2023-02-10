@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-python-configmap
+  labels:
+    {{- include "app-python.labels" . | nindent 4 }}
+data:
+  config.json: |-
+    {{ .Files.Get "files/config.json" | nindent 4 }}

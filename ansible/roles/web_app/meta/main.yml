@@ -1,0 +1,2 @@
+---
+dependencies: [ansible_role_docker]

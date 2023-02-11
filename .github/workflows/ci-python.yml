@@ -43,6 +43,7 @@ jobs:
         - name: Run Snyk to check for vulnerabilities
           working-directory: app_python
           continue-on-error: true
+          run: snyk test
           env:
             SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         - name: Login to Docker Hub

@@ -1,0 +1,4 @@
+- name: geralizzvm
+  hosts: geralizzvm
+  roles:
+    - docker

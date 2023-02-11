@@ -1,9 +1,6 @@
 name: Build, lint and test python Moscow Time app, then push docker image to DockerHub
 
-on:
-  push:
-    paths:
-      - app_python/**
+on: ['push']
 
 permissions:
   contents: read

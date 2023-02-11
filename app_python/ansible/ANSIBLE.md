@@ -1,9 +1,8 @@
 # Ansible
 
-geralizz@DESKTOP-QGAMLUK:~/labs_devops/app_python/ansible$ ansible-playbook -i inventory/default_yandex.yaml playbooks/dev/main.yaml --diff
-
+`geralizz@DESKTOP-QGAMLUK:~/labs_devops/app_python/ansible$ ansible-playbook -i inventory/default_yandex.yaml playbooks/dev/main.yaml --diff`
+```
 PLAY [geralizzvm] ***************************************************************************************************************************************************************************************************************************
-
 TASK [Gathering Facts] **********************************************************************************************************************************************************************************************************************
 ok: [geralizzvm]
 
@@ -57,7 +56,6 @@ skipping: [geralizzvm]
 
 TASK [docker : Configure Docker daemon options.] ********************************************************************************************************************************************************************************************
 skipping: [geralizzvm]
-
 TASK [docker : Ensure Docker is started and enabled at boot.] *******************************************************************************************************************************************************************************
 ok: [geralizzvm]
 
@@ -65,35 +63,27 @@ TASK [docker : Ensure handlers are notified now to avoid firewall conflicts.] **
 
 TASK [docker : include_tasks] ***************************************************************************************************************************************************************************************************************
 included: /home/geralizz/labs_devops/app_python/ansible/roles/docker/tasks/docker-compose.yml for geralizzvm
-
 TASK [docker : Check current docker-compose version.] ***************************************************************************************************************************************************************************************
 ok: [geralizzvm]
-
 TASK [docker : set_fact] ********************************************************************************************************************************************************************************************************************
 skipping: [geralizzvm]
-
 TASK [docker : Delete existing docker-compose version if it's different.] *******************************************************************************************************************************************************************
 skipping: [geralizzvm]
-
 TASK [docker : Install Docker Compose (if configured).] *************************************************************************************************************************************************************************************
 changed: [geralizzvm]
-
 TASK [docker : Get docker group info using getent.] *****************************************************************************************************************************************************************************************
 skipping: [geralizzvm]
-
 TASK [docker : Check if there are any users to add to the docker group.] ********************************************************************************************************************************************************************
 skipping: [geralizzvm]
-
 TASK [docker : include_tasks] ***************************************************************************************************************************************************************************************************************
 skipping: [geralizzvm]
-
 PLAY RECAP **********************************************************************************************************************************************************************************************************************************
 geralizzvm                 : ok=13   changed=1    unreachable=0    failed=0    skipped=14   rescued=0    ignored=0
-
-
+```
 ## another one
 
-geralizz@DESKTOP-QGAMLUK:~/labs_devops/app_python/ansible$ ansible-inventory -i inventory/default_yandex.yaml --list
+`geralizz@DESKTOP-QGAMLUK:~/labs_devops/app_python/ansible$ ansible-inventory -i inventory/default_yandex.yaml --list`
+```
 {
     "_meta": {
         "hostvars": {
@@ -115,3 +105,4 @@ geralizz@DESKTOP-QGAMLUK:~/labs_devops/app_python/ansible$ ansible-inventory -i 
         ]
     }
 }
+```

@@ -1,0 +1,5 @@
+- name: web_app
+  hosts: vm
+  roles:
+    - name: web_app
+      tags: [web_app]

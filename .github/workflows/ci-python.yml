@@ -40,7 +40,7 @@ jobs:
         - name: Test with pytest
           run: pytest
         - uses: snyk/actions/setup@master
-        - name: Run Snyk to check for vulnerabilities
+        - name: Run Snyk test
           working-directory: app_python
           continue-on-error: true
           run: snyk test

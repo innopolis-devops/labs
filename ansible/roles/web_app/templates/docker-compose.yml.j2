@@ -1,0 +1,7 @@
+services:
+  {{ app_name }}:
+    image: {{ docker_image.username }}/{{ docker_image.image }}:{{ docker_image.tag }}
+    container_name: {{ app_name }}
+    ports:
+      - "{{ docker_ports.external }}:{{ docker_ports.internal }}"
+    restart: always

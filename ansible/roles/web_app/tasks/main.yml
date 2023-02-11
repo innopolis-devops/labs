@@ -11,7 +11,7 @@
 
     - name: Install Docker-compose
       ansible.builtin.template:
-        src: docker-compose.yml
+        src: docker-compose.yml.j2
         dest: "{{ base_path }}/docker-compose.yml"
 
     - name: Run app via docker-compose

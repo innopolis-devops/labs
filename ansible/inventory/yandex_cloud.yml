@@ -3,3 +3,5 @@ all:
     vm:
       ansible_host: 51.250.80.12
       ansible_user: draeston
+      ansible_ssh_private_key_file: ~/.ssh/id_rsa
+      ansible_become: true

@@ -2,7 +2,7 @@ FROM python:3.10.7-slim-buster
 
 WORKDIR /app
 
-COPY requirements.txt app.py PYTHON.md README.md .
+COPY requirements.txt app.py PYTHON.md README.md ./
 
 RUN pip3 install -r requirements.txt
 

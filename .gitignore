@@ -1,1 +1,2 @@
 app_python/venv/*
+app_python/__pycache__/*

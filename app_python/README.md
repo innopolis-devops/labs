@@ -51,5 +51,12 @@ To build an image and run container there are following steps:
 
 You can get image from my [Docker Hub repo](https://hub.docker.com/layers/draeston/moscow_time/latest/images/sha256:ff7ab12d9eb6934b9f7465ea13d53a294468cbf3008472efecc83cc29abbdd11)
 
+# Unit test
+To run tests use the following command after installing dependencies
+```pytest```
+
+# Continous Integration
+Workflow ```ci-python``` ensures that there is no linter or test failures, and run snyk to check for vulnerabilities
+
 # Contact
 Contact me in Telegram if you have any questions: @NiosZ

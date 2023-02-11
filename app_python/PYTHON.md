@@ -22,3 +22,13 @@ This framework is completely suitable for my educational purposes
 
 ## Linter
 I installed linter so I can keep my code clean, ensure it's a valid Python code and follow recommended Python-code style. I used flake8 and flake8 plugin for markdown.
+
+## Unit tests
+For unit tests I used simple but powerful Python framework pytest. 
+There are tests for application itself as well as for the format of the provided datetime string.
+Best practices I applied:
+- Tests are fast
+- Tests don't depend on any external services or APIs
+- Tests are written in details, so it is easy to understand them
+
+Additionally, I followed Flask [documentation](https://flask.palletsprojects.com/en/2.2.x/testing/) for testing.

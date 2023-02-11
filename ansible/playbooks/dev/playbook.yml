@@ -1,0 +1,5 @@
+- name: Install Docker On VM1
+  hosts: bobamachine
+  become: true
+  roles:
+    - ansible_role_docker

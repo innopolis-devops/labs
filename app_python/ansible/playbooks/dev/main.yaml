@@ -1,4 +1,12 @@
 - name: geralizzvm
   hosts: geralizzvm
   roles:
-    - docker
+    - name: docker
+      vars:
+      pip_install_packages:
+        - name: pip
+          extra_args: "--upgrade"
+        - name: docker
+        - name: docker-compose
+      become: true
+    - web_app

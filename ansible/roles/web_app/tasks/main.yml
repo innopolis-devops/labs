@@ -1,0 +1,21 @@
+- include_tasks: wipe.yml
+
+- name: Deploy application
+  tags: web-app
+  block:
+    - name: Ensure destination folder exists
+      file:
+        path: "{{ base_path }}"
+        state: directory
+        mode: '0755'
+
+    - name: Install Docker-compose
+      ansible.builtin.template:
+        src: docker-compose.yml
+        dest: "{{ base_path }}/docker-compose.yml"
+
+    - name: Run app via docker-compose
+      community.docker.docker_compose:
+        project_src: "{{ base_path }}"
+        state: present
+        pull: true

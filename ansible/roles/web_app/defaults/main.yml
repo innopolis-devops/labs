@@ -1,0 +1,10 @@
+app_name: "default-container"
+docker_ports:
+  external: 3000
+  internal: 3000
+docker_image:
+  username: "draeston"
+  image: "devops_app"
+  tag: "latest"
+base_path: "/app_python"
+web_app_full_wipe: true

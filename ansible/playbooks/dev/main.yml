@@ -1,4 +1,4 @@
 - name: main
   hosts: all
   roles:
-    - docker
+    - web_app

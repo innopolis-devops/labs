@@ -3,13 +3,23 @@
   tags: wipe
   when: web_app_full_wipe
   block:
+    - name: Check docker-compose
+      ansible.builtin.stat:
+        path: '{{ base_path }}/docker-compose.yml'
+      register: web_app_compose
+    - name: Check directory
+      ansible.builtin.stat:
+        path: '{{ base_path }}'
+      register: web_app_dir
+
     - name: Stop docker-compose
+      when: web_app_compose.stat.exists
       community.docker.docker_compose:
         project_src: "{{ base_path }}"
         state: absent
         remove_volumes: true
-
     - name: Delete folder
+      when: web_app_dir.stat.exists
       file:
         path: "{{ base_path }}"
         state: absent

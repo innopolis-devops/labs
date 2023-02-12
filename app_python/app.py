@@ -20,16 +20,15 @@ def get_visits():
         file.write("")
         file.close()
     file = open("visits_count", "r")
-    file.close()
-    file = open("visits_count", "w")
+    
     visits = str(file.read())
     file.close()
     return visits
 
 def add_visit():
     visits = get_visits()
-    file = open("visits_count", "r")
     visits += datetime.now(tz).strftime('%d-%m-%Y %H:%M:%S') + '\n'
+    file = open("visits_count", "w")
     file.write(str(visits))
     file.close()
     

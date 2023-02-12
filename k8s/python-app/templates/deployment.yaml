@@ -37,6 +37,12 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          env:
+            - name: MY_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: secret-funnyjoke
+                  key: value-funnyjoke
           # livenessProbe:
           #  httpGet:
           #   path: /status

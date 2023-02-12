@@ -15,11 +15,11 @@ def hello():
 
 @app.route('/visits')
 def get_visits():
-    if not os.path.isfile("visits_count"):
-        file = open("visits_count", "w")
+    if not os.path.isfile("visits_data"):
+        file = open("visits_data", "w")
         file.write("")
         file.close()
-    file = open("visits_count", "r")
+    file = open("visits_data", "r")
     visits = str(file.read())
     file.close()
     return visits
@@ -27,7 +27,7 @@ def get_visits():
 def add_visit():
     visits = get_visits()
     visits += datetime.now(tz).strftime('%d-%m-%Y %H:%M:%S') + '\n'
-    file = open("visits_count", "w")
+    file = open("visits_data", "w")
     file.write(str(visits))
     file.close()
     

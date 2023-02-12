@@ -58,6 +58,14 @@ spec:
             requests:
               memory: "{{ .Values.resources.requests.memory }}"
               cpu: "{{ .Values.resources.requests.cpu }}"
+          volumeMounts:
+                - name: app-volume
+                  mountPath: /config.json
+                  subPath: config.json
+      volumes:
+        - name: app-volume
+          configMap:
+            name: app-configmap
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

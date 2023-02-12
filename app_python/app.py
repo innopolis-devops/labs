@@ -26,7 +26,7 @@ def get_visits():
 
 def add_visit():
     visits = get_visits()
-    visits += datetime.now(tz).strftime('%d-%m-%Y %H:%M:%S') + '\n'
+    visits += datetime.now(tz).strftime('%d-%m-%Y %H:%M:%S') + '; \n'
     file = open("visits_data", "w")
     file.write(str(visits))
     file.close()

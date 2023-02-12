@@ -1,6 +1,6 @@
 # Terraform
 ## With Docker
-I followed a series of ![guides](https://developer.hashicorp.com/terraform/tutorials/docker-get-started)
+I followed a series of [guides](https://developer.hashicorp.com/terraform/tutorials/docker-get-started)
 
 ### Initial
 
@@ -342,7 +342,7 @@ ip_address = "172.17.0.2"
 
 ## With cloud
 
-I used Yandex cloud form this ![guide](https://cloud.yandex.ru/docs/tutorials/infrastructure-management/terraform-quickstart)
+I used Yandex cloud form this [guide](https://cloud.yandex.ru/docs/tutorials/infrastructure-management/terraform-quickstart)
 
 I used Ubuntu 18.04 LTS image from Yandex Marketplace with id: `fd8irfoscugmpsoanefh`
 

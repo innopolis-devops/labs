@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   name: moscow-time
   labels:
-    app: moscow-time
+    app: mostime
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: moscow-time
+      app: mostime
   template:
     metadata:
       labels:
-        app: moscow-time
+        app: mostime
     spec:
       containers:
-      - name: moscow-time
+      - name: mostime
         image: geralizz/moscow_time:latest
         ports:
         - containerPort: 80

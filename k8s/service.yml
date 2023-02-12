@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: exposer
   labels:
-    app: moscow-time
+    app: mostime
 spec:
   selector:
-    app: moscow-time
+    app: mostime
   ports:
     - protocol: TCP
       port: 8080

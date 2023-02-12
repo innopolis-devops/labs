@@ -52,7 +52,12 @@ spec:
           #    path: /status
           #    port: http
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            limits:
+                memory: "{{ .Values.resources.limits.memory }}"
+                cpu: "{{ .Values.resources.limits.cpu }}"
+              requests:
+                memory: "{{ .Values.resources.requests.memory }}"
+                cpu: "{{ .Values.resources.requests.cpu }}"
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

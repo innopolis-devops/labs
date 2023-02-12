@@ -4,6 +4,13 @@ x-logging: &logging
   driver: json-file
   options:
     tag: "{{.ImageName}}|{{.Name}}"
+    max-size: 100m
+    max-file: 10
+
+x-healthcheck-params:
+  &healthcheck
+  interval: 1m
+  timeout: 10s
 
 services:
 
@@ -15,6 +22,9 @@ services:
       - app_python
       - loki
     logging: *logging
+    healthcheck:
+      test: wget -nv -t1 --spider 'http://localhost:8080/status' || exit 1
+      <<: *healthcheck
 
   loki:
     image: grafana/loki:2.6.1
@@ -22,10 +32,13 @@ services:
       - 3100
     ports:
       - "3100:3100"
-    command: -config.file=/etc/loki/local-config.yaml
+    command: --config.file=/etc/loki/local-config.yaml
     networks:
       - loki
     logging: *logging
+    healthcheck:
+      test: wget -nv -t1 --spider 'http://localhost:3100/ready' || exit 1
+      <<: *healthcheck
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -34,11 +47,14 @@ services:
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - ./promtail.yml:/etc/promtail/promtail.yml
-    command: -config.file=/etc/promtail/promtail.yml
+    command: --config.file=/etc/promtail/promtail.yml
     networks:
       - app_python
       - loki
     logging: *logging
+    healthcheck:
+      test: CMD-SHELL timeout 5 bash -c 'cat < /dev/null > /dev/tcp/localhost/9080' || exit 1
+      <<: *healthcheck
 
   grafana:
     image: grafana/grafana:latest
@@ -49,6 +65,26 @@ services:
     networks:
       - loki
     logging: *logging
+    healthcheck:
+      test: wget -nv -t1 --spider 'http://localhost:3000/health' || exit 1
+      <<: *healthcheck
+
+  prometheus:
+    image: prom/prometheus:v2.27.0
+    ports:
+      - 9090:9090
+    expose:
+      - 9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command: --config.file=/etc/prometheus/prometheus.yml
+    networks:
+      - loki
+      - app_python
+    logging: *logging
+    healthcheck:
+      test: wget -nv -t1 --spider 'http://localhost:9090/-/healthy' || exit 1
+      <<: *healthcheck
 
 networks:
   app_python:

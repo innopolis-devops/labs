@@ -20,7 +20,6 @@ def get_visits():
         file.write("")
         file.close()
     file = open("visits_count", "r")
-    
     visits = str(file.read())
     file.close()
     return visits
@@ -34,4 +33,4 @@ def add_visit():
     
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='127.0.0.1', debug=True)

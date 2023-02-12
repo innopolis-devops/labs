@@ -20,6 +20,8 @@ def get_visits():
         file.write("")
         file.close()
     file = open("visits_count", "r")
+    file.close()
+    file = open("visits_count", "w")
     visits = str(file.read())
     file.close()
     return visits

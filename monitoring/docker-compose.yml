@@ -4,8 +4,8 @@ x-logging: &logging
   driver: json-file
   options:
     tag: "{{.ImageName}}|{{.Name}}"
-    max-size: 100m
-    max-file: 10
+    max-size: 20m
+    max-file: 5
 
 x-healthcheck-params:
   &healthcheck
@@ -16,6 +16,7 @@ services:
 
   app_python:
     image: draeston/devops_app:latest
+    mem_limit: 250m
     ports:
       - "8080:3000"
     networks:
@@ -28,6 +29,7 @@ services:
 
   loki:
     image: grafana/loki:2.6.1
+    mem_limit: 100m
     expose:
       - 3100
     ports:
@@ -42,6 +44,7 @@ services:
 
   promtail:
     image: grafana/promtail:2.6.1
+    mem_limit: 100m
     ports:
       - "9080:9080"
     volumes:
@@ -58,6 +61,7 @@ services:
 
   grafana:
     image: grafana/grafana:latest
+    mem_limit: 100m
     volumes:
       - ./loki.yml:/etc/grafana/provisioning/datasources/datasource.yml
     ports:
@@ -71,6 +75,7 @@ services:
 
   prometheus:
     image: prom/prometheus:v2.27.0
+    mem_limit: 100m
     ports:
       - 9090:9090
     expose:

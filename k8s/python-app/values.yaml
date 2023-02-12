@@ -2,7 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+replicaCount: 3
+podManagementPolicy: "Parallel"
 
 image:
   repository: "draeston/devops_app"
@@ -36,9 +37,19 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+volumeClaimTemplates:
+  metadata:
+    name: app-volume
+  spec:
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+        storage: 1Gi
+
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 80
+  targetPort: 3000
 
 ingress:
   enabled: false

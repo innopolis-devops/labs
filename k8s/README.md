@@ -1,4 +1,5 @@
-# Manual approach
+# Lab 9
+## Manual approach
 
 ```
 pod/python-app-869dc76fc7-tkj7t   1/1     Running   0          45s
@@ -8,7 +9,7 @@ service/kubernetes   ClusterIP      10.96.0.1        <none>        443/TCP      
 service/python-app   LoadBalancer   10.106.114.165   <pending>     8080:30398/TCP   16s
 ```
 
-# Config approach
+## Config approach
 
 ```
 NAME                                         READY   STATUS    RESTARTS   AGE
@@ -48,3 +49,35 @@ service/python-app   LoadBalancer   10.108.134.239   <pending>     8080:31471/TC
 
 ![Screenshot](screenshot.png)
 
+# Lab 10
+
+![Dashboard](dashboard.png)
+
+```
+minikube service helm-app-python-app
+|-----------|---------------------|-------------|--------------|
+| NAMESPACE |        NAME         | TARGET PORT |     URL      |
+|-----------|---------------------|-------------|--------------|
+| default   | helm-app-python-app |             | No node port |
+|-----------|---------------------|-------------|--------------|
+😿  service default/helm-app-python-app has no node port
+🏃  Starting tunnel for service helm-app-python-app.
+|-----------|---------------------|-------------|------------------------|
+| NAMESPACE |        NAME         | TARGET PORT |          URL           |
+|-----------|---------------------|-------------|------------------------|
+| default   | helm-app-python-app |             | http://127.0.0.1:55850 |
+|-----------|---------------------|-------------|------------------------|
+🎉  Opening service default/helm-app-python-app in default browser...
+❗  Because you are using a Docker driver on windows, the terminal needs to be open to run it.
+```
+
+```
+kubectl get pods,svc    
+ 
+NAME                                      READY   STATUS    RESTARTS   AGE
+pod/helm-app-python-app-769877748-8xgfl   1/1     Running   0          4m10s
+
+NAME                          TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+service/helm-app-python-app   ClusterIP   10.96.77.245   <none>        80/TCP    4m10s
+service/kubernetes            ClusterIP   10.96.0.1      <none>        443/TCP   51m
+```

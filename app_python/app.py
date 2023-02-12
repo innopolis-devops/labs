@@ -9,6 +9,7 @@ tz = timezone('Europe/Moscow')
 
 @app.route('/')
 def hello():
+    add_visit()
     return 'Now in Moscow: ' + datetime.now(tz).strftime('%d-%m-%Y %H:%M:%S')
 
 
@@ -18,14 +19,14 @@ def get_visits():
         file = open("visits_count", "rw")
         file.write("")
         file.close()
-    file = open("visits.data", "r")
+    file = open("visits_count", "r")
     visits = str(file.read())
     file.close()
     return visits
 
-def add_viist():
+def add_visit():
     visits = get_visits()
-    file = open("visits.data", "r")
+    file = open("visits_count", "r")
     visits += datetime.now(tz).strftime('%d-%m-%Y %H:%M:%S') + '\n'
     file.write(str(visits))
     file.close()

@@ -1,6 +1,6 @@
 # Simple Moscow Time Getter
 
-!Build and test status](https://github.com/draeston/labs/actions/workflows/init.yml/badge.svg)
+![Build and test status](https://github.com/draeston/labs/actions/workflows/init.yml/badge.svg)
 
 ## A Python web-application for getting Moscow time
 

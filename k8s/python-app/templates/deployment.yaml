@@ -42,7 +42,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: jokes-secret
-                  key: jokes-value
+                  key: funnyjoke
           # livenessProbe:
           #  httpGet:
           #   path: /status

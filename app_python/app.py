@@ -9,7 +9,3 @@ app = Flask(__name__)
 def hello():
     tz = timezone('Europe/Moscow')
     return 'Now in Moscow: ' + datetime.now(tz).strftime('%d-%m-%Y %H:%M:%S')
-
-@app.route('/metrics')
-def metrics():
-    return 'Alright'

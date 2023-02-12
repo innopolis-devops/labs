@@ -31,3 +31,6 @@ def add_visit():
     file.write(str(visits))
     file.close()
     
+
+if __name__ == '__main__':
+    app.run(debug=True)

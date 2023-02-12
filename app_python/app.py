@@ -16,7 +16,7 @@ def hello():
 @app.route('/visits')
 def get_visits():
     if not os.path.isfile("visits_count"):
-        file = open("visits_count", "rw")
+        file = open("visits_count", "w")
         file.write("")
         file.close()
     file = open("visits_count", "r")

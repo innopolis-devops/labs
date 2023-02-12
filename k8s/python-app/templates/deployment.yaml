@@ -41,8 +41,8 @@ spec:
             - name: MY_PASS
               valueFrom:
                 secretKeyRef:
-                  name: secret-funnyjoke
-                  key: value-funnyjoke
+                  name: jokes-secret
+                  key: jokes-value
           # livenessProbe:
           #  httpGet:
           #   path: /status

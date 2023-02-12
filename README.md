@@ -1,66 +1,50 @@
-# Labs
+# Simple Moscow Time Getter
+## A Python web-application for getting Moscow time
 
-## Introduction
+# Install
+## Prerequisites
+* Python 3
 
-Welcome to DevOps course labs. All labs are practical and will be built on each other. You will implement simple application, containerize it, implement simple tests, prepare an infrastructure and CI/CD processes, collect metrics, logs, etc.
+## Steps
+1. Clone the repository and go into the <repository_name>/app_python directory
+2. Create virtual environment: 
 
-## Architecture
+```python -m venv venv```
 
-This repository contains a master branch with introduction and one branch with instructions for each lab.
+3. Activate the virtual environment using commands: 
+  
+```venv\Scripts\activate.bat``` for Windows; 
+   
+```source venv/bin/activate``` for Linux/MacOS
 
-## Rules
+4. Install dependencies:
 
-Each labs requires the participant to finish all previous labs, therefore **participants are required to submit each lab and get at least 6/10 points for each lab to pass the course**.
+```pip install -r requirements.txt```
 
-Grading is based on PRs with your solution to the corresponding branch of this repository. This repository is read-only for all participants, therefore to be able to create a pull request, a participant should fork this repository to his own workspace and solve the lab there. It is recommended to build a solution of a lab N upon a solution of lab N-1, so choose workflow in your fork of this repository wisely. Structure of your repository will not affect your grade, only state of your repository from which the PR is created will be checked and graded (state after last commit in your PR on corresponding lab).
+5. Run application: 
 
-### Recommended workflow
+```python moscow_time.py```
 
-#### For the first lab
+Application will be accessed on http://localhost:8080/
 
-1. Fork this repository.
-2. Checkout to lab1 branch.
-3. Complete lab1 tasks.
-4. Push the code to your repository.
-5. Create a PR to the lab1 branch on this repository from your fork's lab1 branch.
-6. Create an archive with the current version of your code and submit a zip file to Moodle.
-7. Create a team with with your classmates, 6 people max.
-8. Each student must review PRs of all teammates.
-9. Wait for your grade.
+# Docker
 
-## Grading
+Using Docker containerization we can make sure that application is isolated from unnecessary environment that can affect performance and functionality of the application.
 
-### Points distribution for the course
+So, I wrote Dockerfile that is used to create images from which you can then run Docker containers.
 
-```
-70 - labs
-20 - final exam
-10 - attendance on lectures
-```
+What Dockerfile does?
 
-### Grade ranges
+Docker make container of your app, so all dependencies will be only in the container and result of work u can see only on some port
 
-```
-[90;100] - A
-[75;90)  - B
-[60;75)  - C
-[0;60)   - D
-```
+1. Run
+```docker build .```
 
-### Labs grading
+2. Then find your newly created image in list of Docker images
+```docker images```
 
-Each lab is marked out of 10. All labs have a set of main tasks and a set of extra tasks.
+3. Then run container via the following command
+```docker run -d -p 3000:3000 <image_id>:lab-3```
 
-Completing main tasks correctly will give you 10 points out of 10. Completing extra tasks correctly will give you some additional points, depends on the bonus task difficulty. Your points for main and extra tasks will be summed up and will help you to get a better grade.
-
-If you finish all bonus tasks correctly the **permission to skip the exam will be granted to you + 10 extra points**. If you finish not all of them you will must pass the exam, but it can save you from the exam's failure.
-
-## Deadlines and labs distribution
-
-Participants have 2 new labs every week simultaneously and 1 week to submit solutions. Moodle will contain presentations and deadlines.
-
-You are required to submit a zip file with your source code to corresponding assignment in moodle. This is required for the university as a proof of work.
-
-## Submission policy
-
-**Submitting results after the deadline will result in maximum of 6 points for the corresponding lab. As stated before, all labs must be submitted to pass the course.**
+# Contact
+My telegram: @wardenlow

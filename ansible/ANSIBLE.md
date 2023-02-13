@@ -1,6 +1,6 @@
 ## Commands outputs
 ```
-ansible-playbook playbooks/dev/main.yml --diff
+$ ansible-playbook playbooks/dev/main.yml --diff
 
 PLAY [main] ************************************************************************************************************
 

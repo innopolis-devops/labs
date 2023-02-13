@@ -96,7 +96,7 @@ the code: added the docstring at the beginning
 and placed "from datetime import datetime"
 before "from flask import Flask".  
 
-![Markdownlinter](images/pylint9.0.png)  
+![Markdownlinter](../images/pylint9.0.png)  
 
 The correction process of such error led to the
 contradiction with flake8, so I disabled the
@@ -106,7 +106,7 @@ to be specified, since its only function in
 this program has the functionality described in
 the formulated purpouse of the app.  
 
-![Markdownlinter](images/pylint10.0.png)
+![Markdownlinter](../images/pylint10.0.png)
 
 ## Linters for Markdown
 
@@ -116,7 +116,7 @@ It is highly ranked for
 the formatting in the
 [following article](https://earthly.dev/blog/markdown-lint)):  
 
-![Markdownlinter](images/markdownlinter.png)
+![Markdownlinter](../images/markdownlinter.png)
 
 * **textdown**  
 
@@ -126,7 +126,7 @@ the spelling, grammar and clarity errors.
 As the screenshot shows, all of the problems
 were fixed before the Lab submission.  
 
-![Markdownlinter](images/textdown.png)
+![Markdownlinter](../images/textdown.png)
 
 ## Linter for yaml (Configuration for CI)
 
@@ -141,7 +141,7 @@ If the app is not responding in 20 seconds, the timeout exception
 is raised.  
 As it is shown on the picture below, all of the tests were successfully passed.
 
-![Tests](images/tests.png)
+![Tests](../images/tests.png)
 
 ### Best practices for Unit Tests
 

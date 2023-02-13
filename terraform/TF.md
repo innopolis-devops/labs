@@ -1,5 +1,5 @@
 # Docker
-Initial state
+## Initial state
 ```
 terraform show
 
@@ -83,7 +83,7 @@ docker_container.nginx
 docker_image.nginx
 ```
 
-Changes
+## Applying changes
 ```
 Terraform will perform the following actions:
 

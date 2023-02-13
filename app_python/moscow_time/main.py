@@ -3,8 +3,18 @@ from datetime import datetime
 import requests
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+from fastapi_health import health
+from starlette_exporter import PrometheusMiddleware, handle_metrics
+
+
+def is_healthy():
+    return True
+
 
 app = FastAPI()
+
+app.add_middleware(PrometheusMiddleware)
+app.add_route("/metrics", handle_metrics)
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -49,3 +59,6 @@ async def get_moscow_time():
         return HTMLResponse(
             content=error_content % (style % (background_image), error), status_code=404
         )
+
+
+app.add_api_route("/health", health([is_healthy]))

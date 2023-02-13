@@ -11,6 +11,8 @@ uvicorn = {extras = ["standard"], version = "*"}
 pytest = "*"
 flake8 = "*"
 httpx = "*"
+fastapi-health = "*"
+starlette-exporter = "*"
 
 [dev-packages]
 

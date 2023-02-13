@@ -9,3 +9,7 @@ key.json
 *.tfstate*
 
 ansible/**/docker-compose.yml
+
+kubectl
+kubectl.sha256
+minikube-linux-amd64

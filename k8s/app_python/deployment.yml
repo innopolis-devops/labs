@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-server-deployment
+  labels:
+    app: flask-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flask-server
+  template:
+    metadata:
+      labels:
+        app: flask-server
+    spec:
+      containers:
+        - name: flask-server
+          image: sokratmillman/flask_app:latest
+          ports:
+            - containerPort: 5000
+          imagePullPolicy: IfNotPresent

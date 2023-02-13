@@ -15,7 +15,7 @@ spec:
         app: mostime
     spec:
       containers:
-      - name: mostime
+      - name: moscow-time
         image: geralizz/moscow_time:latest
         ports:
         - containerPort: 80

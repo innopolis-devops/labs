@@ -89,7 +89,8 @@ yandex                     : ok=13   changed=0    unreachable=0    failed=0    s
 ```
 
 ```
-ansible-inventory -i yandex_cloud.yml --list
+$ ansible-inventory -i yandex_cloud.yml --list
+
 {
     "_meta": {
         "hostvars": {

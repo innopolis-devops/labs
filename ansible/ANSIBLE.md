@@ -234,3 +234,149 @@ The output of the `ansible-inventory -i inventory/yacloud_compute.yml --list`
 ```
 
 Then, I connected to the VM via SSH and checked that docker and docker-compose are indeed installed
+
+## Lab 6
+
+Output of the `ansible-playbook playbooks/yacloud/app_python/main.yml --diff` command
+
+```text
+PLAY [Deploy app_python] ********************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************
+ok: [lab-vm]
+
+TASK [docker : include_tasks] ***************************************************************************************
+included: /Users/k05m0navt/Programming/Innopolis/DevOps/labs/ansible/roles/docker/tasks/setup_debian.yml for lab-vm
+
+TASK [docker : Ensure old versions of Docker are not installed.] ****************************************************
+ok: [lab-vm]
+
+TASK [docker : Ensure dependencies are installed.] ******************************************************************
+ok: [lab-vm]
+
+TASK [docker : Ensure additional dependencies are installed (on Ubuntu >= 20.04).] **********************************
+skipping: [lab-vm]
+
+TASK [docker : Add Docker apt key.] *********************************************************************************
+ok: [lab-vm]
+
+TASK [docker : Ensure curl is present (on older systems without SNI).] **********************************************
+skipping: [lab-vm]
+
+TASK [docker : Add Docker apt key (alternative for older systems without SNI).] *************************************
+skipping: [lab-vm]
+
+TASK [docker : Add Docker repository.] ******************************************************************************
+ok: [lab-vm]
+
+TASK [docker : include_tasks] ***************************************************************************************
+included: /Users/k05m0navt/Programming/Innopolis/DevOps/labs/ansible/roles/docker/tasks/install_docker.yml for lab-vm
+
+TASK [docker : Install Docker packages (with downgrade option).] ****************************************************
+ok: [lab-vm]
+
+TASK [docker : Install docker-compose plugin.] **********************************************************************
+skipping: [lab-vm]
+
+TASK [docker : Install docker-compose-plugin (with downgrade option).] **********************************************
+skipping: [lab-vm]
+
+TASK [docker : Ensure /etc/docker/ directory exists.] ***************************************************************
+skipping: [lab-vm]
+
+TASK [docker : Configure Docker daemon options.] ********************************************************************
+skipping: [lab-vm]
+
+TASK [docker : Ensure Docker is started and enabled at boot.] *******************************************************
+ok: [lab-vm]
+
+TASK [docker : Ensure handlers are notified now to avoid firewall conflicts.] ***************************************
+
+TASK [docker : include_tasks] ***************************************************************************************
+included: /Users/k05m0navt/Programming/Innopolis/DevOps/labs/ansible/roles/docker/tasks/install_compose.yml for lab-vm
+
+TASK [docker : Check current docker-compose version.] ***************************************************************
+ok: [lab-vm]
+
+TASK [docker : set_fact] ********************************************************************************************
+ok: [lab-vm]
+
+TASK [docker : Delete existing docker-compose version if it's different.] *******************************************
+skipping: [lab-vm]
+
+TASK [docker : Install Docker Compose (if configured).] *************************************************************
+skipping: [lab-vm]
+
+TASK [docker : Get docker group info using getent.] *****************************************************************
+skipping: [lab-vm]
+
+TASK [docker : Check if there are any users to add to the docker group.] ********************************************
+skipping: [lab-vm]
+
+TASK [docker : include_tasks] ***************************************************************************************
+skipping: [lab-vm]
+
+TASK [web_app : Wipe] ***********************************************************************************************
+skipping: [lab-vm]
+
+TASK [web_app : Initialize working dir] *****************************************************************************
+ok: [lab-vm]
+
+TASK [web_app : Move docker-compose template to remote] *************************************************************
+--- before: /opt/app/docker-compose.yml
++++ after: /Users/k05m0navt/.ansible/tmp/ansible-local-29648zew_gzpu/tmpat_y_v1b/docker-compose.yml.j2
+@@ -2,7 +2,7 @@
+
+ services:
+   server:
+-    image: k05m0navt/devops:python
++    image: k05m0navt/devops:python-amd64
+     command: --host 0.0.0.0 --port 8000
+     ports:
+       - 8000:8000
+\ No newline at end of file
+
+changed: [lab-vm]
+
+TASK [web_app : Install pip] ****************************************************************************************
+ok: [lab-vm]
+
+TASK [web_app : Install python docker-compose module] ***************************************************************
+ok: [lab-vm]
+
+TASK [web_app : Start with docker-compose] **************************************************************************
+changed: [lab-vm]
+
+PLAY RECAP **********************************************************************************************************
+lab-vm                     : ok=17   changed=2    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0
+```
+
+Output of the `curl http://62.84.115.115:8000/` command
+
+```text
+<html>
+            <head>
+                <title>Moscow Time</title>
+            </head>
+            <body style="background-image: url(https://media.zicxa.com/3024446); display: flex; justify-content: center; text-align: center; flex-direction: column; color: black; font-size: 30px;">
+                <h1>Moscow time</h1>
+                <h1> 8:2:4 </h1>
+            </body>
+        </html>
+    %
+```
+
+Output of the `ansible-playbook playbooks/yacloud/app_python/main.yml --tags wipe --diff` command
+
+```text
+PLAY [Deploy app_python] ********************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************
+ok: [lab-vm]
+
+TASK [web_app : Wipe] ***********************************************************************************************
+skipping: [lab-vm]
+
+PLAY RECAP **********************************************************************************************************
+lab-vm                     : ok=1    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+```

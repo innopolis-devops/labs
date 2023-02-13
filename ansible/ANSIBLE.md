@@ -1,4 +1,4 @@
-# Ansible
+# Ansible lab 5
 
 ## Playbook
 
@@ -114,3 +114,60 @@ Checking inventory with `ansible-inventory -i <name_of_your_inventory_file>.yaml
 }
 ```
 
+# Ansible lab 6
+
+Last 50 lines of `ansible-playbook playbooks/yc/main.yml --diff`:
+
+```
+...
+
+TASK [docker : Configure Docker daemon options.] ***************************************************************************************************************************************
+skipping: [localhost]
+
+TASK [docker : Ensure Docker is started and enabled at boot.] **************************************************************************************************************************
+ok: [localhost]
+
+TASK [docker : include_tasks] **********************************************************************************************************************************************************
+included: /home/sokratmillman/IU/devcourse/labs/ansible/roles/docker/tasks/install_compose.yml for localhost
+
+TASK [docker : Check current docker-compose version.] **********************************************************************************************************************************
+ok: [localhost]
+
+TASK [docker : set_fact] ***************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [docker : Delete existing docker-compose version if it's different.] **************************************************************************************************************
+skipping: [localhost]
+
+TASK [docker : Install Docker Compose (if configured).] ********************************************************************************************************************************
+skipping: [localhost]
+
+TASK [docker : Install docker-compose plugin.] *****************************************************************************************************************************************
+skipping: [localhost]
+
+TASK [docker : Install docker-compose-plugin (with downgrade option).] *****************************************************************************************************************
+skipping: [localhost]
+
+TASK [docker : Ensure handlers are notified now to avoid firewall conflicts.] **********************************************************************************************************
+
+TASK [docker : Get docker group info using getent.] ************************************************************************************************************************************
+skipping: [localhost]
+
+TASK [docker : Check if there are any users to add to the docker group.] ***************************************************************************************************************
+skipping: [localhost]
+
+TASK [docker : include_tasks] **********************************************************************************************************************************************************
+skipping: [localhost]
+
+TASK [python_app : Create a directory if it does not exist] ****************************************************************************************************************************
+ok: [localhost]
+
+TASK [python_app : Move template to dest] **********************************************************************************************************************************************
+ok: [localhost]
+
+TASK [python_app : Run docker-compose] *************************************************************************************************************************************************
+ok: [localhost]
+
+PLAY RECAP *****************************************************************************************************************************************************************************
+localhost                  : ok=26   changed=0    unreachable=0    failed=0    skipped=26   rescued=0    ignored=0   
+```

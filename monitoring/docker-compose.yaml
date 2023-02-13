@@ -9,7 +9,7 @@ x-logging: &loki-logging
 
 services:
   app_python:
-    image: dannones/python-docker:latest
+    image: nurbakzh/app_python:latest
     ports:
       - 5001:5000
     logging: *loki-logging
@@ -31,6 +31,8 @@ services:
     labels:
       org.label-schema.group: "monitoring"
     logging: *loki-logging
+    networks:
+      - network
 
   promtail:
     image: grafana/promtail:2.6.1
@@ -46,6 +48,8 @@ services:
     command:
       - '-config.file=/etc/promtail/promtail.yml'
     logging: *loki-logging
+    networks:
+      - network
 
   loki:
     image: grafana/loki:2.6.1
@@ -55,6 +59,25 @@ services:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
     logging: *loki-logging
+    networks:
+      - network
+
+  prometheus:
+    image: prom/prometheus
+    container_name: monitoring.prometheus
+    expose:
+      - 9090
+    ports:
+      - "9090:9090"
+    volumes:
+      - ${PWD}/prometheus/prometheus.yaml:/etc/prometheus-config.yaml
+    command: --config.file=/etc/prometheus-config.yaml
+    logging: *loki-logging
+    networks:
+      - network
+
+networks:
+  network:
 
 volumes:
   grafana-data: {}

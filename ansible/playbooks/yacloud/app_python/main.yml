@@ -1,0 +1,13 @@
+---
+- name: Deploy app_python
+  hosts: yacloud
+  remote_user: ubuntu
+  become: true
+  vars:
+    image_registry: k05m0navt
+    image_name: devops
+    image_tag: python-amd64
+    command: --host 0.0.0.0 --port 8000
+
+  roles:
+    - web_app

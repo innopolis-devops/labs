@@ -1,0 +1,19 @@
+---
+- name: Wipe
+  tags: ["run", "wipe"]
+  block:
+    - name: Stop all services
+      docker_compose:
+        project_src: "{{ path }}"
+        build: false
+        stopped: true
+
+    - name: Tear down existing services
+      docker_compose:
+        project_src: "{{ path }}"
+        state: absent
+
+    - name: Wipe working dir
+      file:
+        path: "{{ path }}"
+        state: absent

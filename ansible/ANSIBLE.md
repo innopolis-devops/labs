@@ -1,7 +1,8 @@
 # Lab 5
 
+## Commands outputs
 ```
-ansible-playbook playbooks/dev/main.yml --diff
+$ ansible-playbook playbooks/dev/main.yml --diff
 
 PLAY [main] ************************************************************************************************************
 
@@ -90,7 +91,8 @@ yandex                     : ok=13   changed=0    unreachable=0    failed=0    s
 ```
 
 ```
-ansible-inventory -i yandex_cloud.yml --list
+$ ansible-inventory -i yandex_cloud.yml --list
+
 {
     "_meta": {
         "hostvars": {
@@ -115,8 +117,10 @@ ansible-inventory -i yandex_cloud.yml --list
 ```
 
 # Lab 6
+
+## Commands outputs
 ```
-ansible-playbook playbooks/dev/main.yml --diff
+$ ansible-playbook playbooks/dev/main.yml --diff
 
 PLAY [main] ************************************************************************************************************
 

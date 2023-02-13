@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: app-python
-        image: dannones/python-docker:latest
+        image: nurbakzh/app_python:latest
         ports:
         - containerPort: 5000
 

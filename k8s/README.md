@@ -90,6 +90,6 @@ NAME                                      READY   STATUS    RESTARTS   AGE
 pod/helm-app-python-app-769877748-8xgfl   1/1     Running   0          4m10s
 
 NAME                          TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
-service/helm-app-python-app   LoadBalancer   10.96.77.245   <pending>     80/TCP    4m10s
+service/helm-app-python-app   ClusterIP      10.96.77.245   <none>        80/TCP    4m10s
 service/kubernetes            ClusterIP      10.96.0.1      <none>        443/TCP   51m
 ```

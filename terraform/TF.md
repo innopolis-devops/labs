@@ -170,7 +170,7 @@ image_id = "sha256:3f8a00f137a0d2c8a2163a09901e28e2471999fde4efc2f9570b91f1c30ac
 
 # Yandex Cloud
 
-Initial state
+## Initial state
 
 ```
 terraform show 
@@ -295,7 +295,7 @@ yandex_vpc_network.network-1
 yandex_vpc_subnet.default
 ```
 
-Changes
+## Applying changes
 ```
   # yandex_compute_instance.default must be replaced
 -/+ resource "yandex_compute_instance" "default" {

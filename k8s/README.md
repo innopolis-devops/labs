@@ -82,3 +82,82 @@ Here are screenshots:
 
 ![](/k8s/screenshots/output.png)
 ![](/k8s/screenshots/Screenshot.png)
+
+# LAB 10
+
+I installed Helm from script, changed tag and name of the repository, type of service in `values.yml` and port in `deployment.yaml` though it retrieves its value from env variable.
+
+Then I mistook output for advice.
+
+Then
+
+```
+sokratmillman@sokratmillman:~/IU/devcourse/labs/k8s$ helm create helm-app
+Creating helm-app
+sokratmillman@sokratmillman:~/IU/devcourse/labs/k8s$ helm package helm-app
+Successfully packaged chart and saved it to: /home/sokratmillman/IU/devcourse/labs/k8s/helm-app-0.1.0.tgz
+sokratmillman@sokratmillman:~/IU/devcourse/labs/k8s$ helm install helm-app ./helm-app-0.1.0.tgz 
+NAME: helm-app
+LAST DEPLOYED: Mon Feb 13 16:13:42 2023
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+1. Get the application URL by running these commands:
+     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+           You can watch the status of by running 'kubectl get --namespace default svc -w helm-app'
+  export SERVICE_IP=$(kubectl get svc --namespace default helm-app --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
+  echo http://$SERVICE_IP:80
+sokratmillman@sokratmillman:~/IU/devcourse/labs/k8s$ export SERVICE_IP=$(kubectl get svc --namespace default helm-app --template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}")
+error: error executing template "{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}": template: output:1:10: executing "output" at <index .status.loadBalancer.ingress 0>: error calling index: index of untyped nil
+sokratmillman@sokratmillman:~/IU/devcourse/labs/k8s$ minikube dashboard
+🤔  Verifying dashboard health ...
+🚀  Launching proxy ...
+🤔  Verifying proxy health ...
+🎉  Opening http://127.0.0.1:46273/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/ in your default browser...
+Found ffmpeg: /opt/yandex/browser-beta/libffmpeg.so
+        avcodec: 3877988
+        avformat: 3874916
+        avutil: 3744870
+Ffmpeg version is OK! Let's use it.
+[225058:225058:0213/161534.363941:ERROR:isolated_origin_util.cc(74)] Ignoring port number in isolated origin: chrome://custo
+Opening in existing browser session.
+```
+
+** Dashboard **
+
+Everythin seems healthy
+![](/k8s/helm/1.png)
+![](/k8s/helm/2.png)
+
+** Output of `minikube service helm-app`: **
+
+```
+sokratmillman@sokratmillman:~/IU/devcourse/labs/k8s$ minikube service helm-app
+|-----------|----------|-------------|---------------------------|
+| NAMESPACE |   NAME   | TARGET PORT |            URL            |
+|-----------|----------|-------------|---------------------------|
+| default   | helm-app | http/80     | http://192.168.49.2:32713 |
+|-----------|----------|-------------|---------------------------|
+🎉  Opening service default/helm-app in default browser...
+sokratmillman@sokratmillman:~/IU/devcourse/labs/k8s$ Found ffmpeg: /opt/yandex/browser-beta/libffmpeg.so
+        avcodec: 3877988
+        avformat: 3874916
+        avutil: 3744870
+Ffmpeg version is OK! Let's use it.
+[234076:234076:0213/162547.571651:ERROR:isolated_origin_util.cc(74)] Ignoring port number in isolated origin: chrome://custo
+Opening in existing browser session.
+```
+opened on http://192.168.49.2:32713.
+
+And list of pods/services reduced as after completing previous lab I deleted everything except kubernetes itself.
+
+```
+sokratmillman@sokratmillman:~/IU/devcourse/labs/k8s$ kubectl get pods,svc
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/helm-app-6c479559d7-c8f6v   1/1     Running   0          13m
+
+NAME                 TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+service/helm-app     LoadBalancer   10.103.1.112   <pending>     80:32713/TCP   13m
+service/kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP        115m
+```

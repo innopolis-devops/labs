@@ -8,3 +8,5 @@ max-file: 5
 ```
 - Added memory limits to the services
 - Added healthchecks to the services
+
+Also, I'm gathering metrics from services in the ```docker-compose.yml``` file

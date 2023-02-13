@@ -1,0 +1,6 @@
+Flask==2.1.2
+pylint==2.15.0
+pytz
+pytest
+requests
+mdformat

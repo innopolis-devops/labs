@@ -1,3 +1,4 @@
+## Commands outputs
 ```
 ansible-playbook playbooks/dev/main.yml --diff
 

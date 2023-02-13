@@ -8,4 +8,4 @@ key.json
 
 *.tfstate*
 
-docker-compose.yml
+ansible/**/docker-compose.yml

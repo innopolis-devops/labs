@@ -1,6 +1,9 @@
 # Manual approach
 
 ```
+$ kubectl get pods,svc
+
+NAME                              READY   STATUS    RESTARTS   AGE
 pod/python-app-869dc76fc7-tkj7t   1/1     Running   0          45s
 
 NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
@@ -11,6 +14,8 @@ service/python-app   LoadBalancer   10.106.114.165   <pending>     8080:30398/TC
 # Config approach
 
 ```
+$ kubectl get pods,svc
+
 NAME                                         READY   STATUS    RESTARTS   AGE
 pod/python-app-deployment-7dd784648c-9mg78   1/1     Running   0          75s
 pod/python-app-deployment-7dd784648c-jldvb   1/1     Running   0          75s
@@ -22,6 +27,8 @@ service/python-app   LoadBalancer   10.108.134.239   <pending>     8080:31471/TC
 ```
 
 ```
+$ minikube service --all
+
 |-----------|------------|-------------|--------------|
 | NAMESPACE |    NAME    | TARGET PORT |     URL      |
 |-----------|------------|-------------|--------------|
@@ -45,6 +52,8 @@ service/python-app   LoadBalancer   10.108.134.239   <pending>     8080:31471/TC
 🎉  Opening service default/python-app in default browser...
 ❗  Because you are using a Docker driver on windows, the terminal needs to be open to run it.
 ```
+
+## Screenshot
 
 ![Screenshot](screenshot.png)
 

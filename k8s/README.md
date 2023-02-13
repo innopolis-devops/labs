@@ -1,7 +1,10 @@
 # Lab 9
-## Manual approach
+# Manual approach
 
 ```
+$ kubectl get pods,svc
+
+NAME                              READY   STATUS    RESTARTS   AGE
 pod/python-app-869dc76fc7-tkj7t   1/1     Running   0          45s
 
 NAME                 TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
@@ -9,9 +12,11 @@ service/kubernetes   ClusterIP      10.96.0.1        <none>        443/TCP      
 service/python-app   LoadBalancer   10.106.114.165   <pending>     8080:30398/TCP   16s
 ```
 
-## Config approach
+# Config approach
 
 ```
+$ kubectl get pods,svc
+
 NAME                                         READY   STATUS    RESTARTS   AGE
 pod/python-app-deployment-7dd784648c-9mg78   1/1     Running   0          75s
 pod/python-app-deployment-7dd784648c-jldvb   1/1     Running   0          75s
@@ -23,6 +28,8 @@ service/python-app   LoadBalancer   10.108.134.239   <pending>     8080:31471/TC
 ```
 
 ```
+$ minikube service --all
+
 |-----------|------------|-------------|--------------|
 | NAMESPACE |    NAME    | TARGET PORT |     URL      |
 |-----------|------------|-------------|--------------|
@@ -47,14 +54,19 @@ service/python-app   LoadBalancer   10.108.134.239   <pending>     8080:31471/TC
 ❗  Because you are using a Docker driver on windows, the terminal needs to be open to run it.
 ```
 
+## Screenshot
+
 ![Screenshot](screenshot.png)
 
 # Lab 10
+## Dashboard
 
 ![Dashboard](dashboard.png)
 
+## Commands outputs
 ```
-minikube service helm-app-python-app
+$ minikube service helm-app-python-app
+
 |-----------|---------------------|-------------|--------------|
 | NAMESPACE |        NAME         | TARGET PORT |     URL      |
 |-----------|---------------------|-------------|--------------|
@@ -72,12 +84,12 @@ minikube service helm-app-python-app
 ```
 
 ```
-kubectl get pods,svc    
+$ kubectl get pods,svc    
  
 NAME                                      READY   STATUS    RESTARTS   AGE
 pod/helm-app-python-app-769877748-8xgfl   1/1     Running   0          4m10s
 
-NAME                          TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
-service/helm-app-python-app   ClusterIP   10.96.77.245   <none>        80/TCP    4m10s
-service/kubernetes            ClusterIP   10.96.0.1      <none>        443/TCP   51m
+NAME                          TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+service/helm-app-python-app   LoadBalancer   10.96.77.245   <pending>     80/TCP    4m10s
+service/kubernetes            ClusterIP      10.96.0.1      <none>        443/TCP   51m
 ```

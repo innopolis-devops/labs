@@ -1,0 +1,15 @@
+**/__pycache__
+app_python/.pytest_cache
+app_python/env
+
+key.json
+
+**/.terraform/
+
+*.tfstate*
+
+ansible/**/docker-compose.yml
+
+kubectl
+kubectl.sha256
+minikube-linux-amd64

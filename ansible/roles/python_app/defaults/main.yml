@@ -1,0 +1,10 @@
+---
+base_path: "app_python"
+python_app_service: "python_app"
+ports:
+  internal: 5000
+  external: 5000
+docker_image:
+  user: "sokratmillman"
+  image_name: "flask_app"
+  tag: "latest"

@@ -1,0 +1,78 @@
+version: "3"
+
+networks:
+  loki:
+
+services:
+  app_python:
+    image: sokratmillman/flask_app:latest
+    expose:
+      - 5000
+    ports:
+      - 5000:5000
+    networks:
+      - loki
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  loki:
+    image: grafana/loki:2.7.0
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki-data:/tmp/loki/
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+
+  promtail:
+    image: grafana/promtail:2.7.0
+    ports:
+      - "9080:9080"
+    volumes:
+      - promtail-data:/var/lib/promtail/positions
+      - ${PWD}/promtail/promtail-config.yml:/etc/promtail/promtail-config.yml
+    command: -config.file=/etc/promtail/promtail-config.yml
+    restart: unless-stopped
+    networks:
+      - loki
+
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ${PWD}/grafana/provisioning:/etc/grafana/provisioning
+    ports:
+      - "3000:3000"
+    networks:
+      - loki
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    expose:
+      - 9090
+    ports:
+      - "9090:9090"
+    networks:
+      - loki
+
+volumes:
+  grafana-data: {}
+  loki-data: {}
+  promtail-data: {}
+  prometheus-data: {}

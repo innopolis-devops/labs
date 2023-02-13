@@ -1,0 +1,7 @@
+---
+- name: Prepare docker
+  hosts: localhost
+  connection: local
+  become: true
+  roles:
+    - docker

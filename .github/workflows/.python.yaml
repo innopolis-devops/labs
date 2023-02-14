@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'app_python/**'
-      - '.github/workflows/app_python.yaml'
+      - '.github/workflows/.python.yaml'
 
 defaults:
   run:

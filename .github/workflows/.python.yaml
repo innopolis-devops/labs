@@ -22,65 +22,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: install flake8
-        run: |
-          pip install flake8
-          pip install flake8-docstrings
-          pip install flake8-import-order
-          pip install flake8-quotes
-          pip install flake8-rst-docstrings
-          pip install flake8-builtins
-          pip install flake8-comprehensions
-          pip install flake8-logging-format
-          pip install flake8-eradicate
-          pip install flake8-bugbear
-          pip install flake8-annotations
-          pip install flake8-annotations-complexity
-          pip install flake8-bandit
-          pip install flake8-black
-          pip install flake8-blind-except
-          pip install flake8-broken-line
-          pip install flake8-coding
-          pip install flake8-commas
-          pip install flake8-comprehensions
-          pip install flake8-debugger
-          pip install flake8-docstrings
-          pip install flake8-eradicate
-          pip install flake8-executable
-          pip install flake8-expression-complexity
-          pip install flake8-logging-format
-          pip install flake8-pep3101
-          pip install flake8-polyfill
-          pip install flake8-print
-          pip install flake8-quotes
-          pip install flake8-rst-docstrings
-          pip install flake8-string-format
-          pip install flake8-todo
-          pip install flake8-type-annotations
-          pip install flake8-use-fstring
-          pip install flake8-variables-names
-          pip install flake8-requirements
-          pip install flake8-2020
-          pip install flake8-bugbear
-          pip install flake8-builtins
-          pip install flake8-annotations
-          pip install flake8-annotations-complexity
-          pip install flake8-bandit
-          pip install flake8-black
-          pip install flake8-blind-except
-          pip install flake8-broken-line
-          pip install flake8-coding
-          pip install flake8-commas
-          pip install flake8-comprehensions
-          pip install flake8-debugger
-          pip install flake8-docstrings
-          pip install flake8-eradicate
-          pip install flake
+      - name: Install flake8
+        run: pip install flake8
 
-      - name: Lint with flake8
-        run: |
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Run flake8
+        uses: suo/flake8-github-action@releases/v1
+        with:
+          checkName: 'build'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Test with pytest
         run: |
           pytest

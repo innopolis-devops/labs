@@ -30,6 +30,10 @@ defines the 5000 port, as the application itself listens to it.
 
 The entrypoint is set to `flask run --host=0.0.0.0`, so the flask application inside runs the Flask development server.
 
+## Unit tests
+There is a single unit test, which checks the correct response of the application. It uses `flask.testing` package for 
+http client and `pytest` for running the test.
+
 ## Contribution
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 Please make sure to update tests as appropriate.

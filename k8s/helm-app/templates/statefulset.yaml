@@ -9,6 +9,7 @@ spec:
   replicas: 2
   {{- end }}
   podManagementPolicy: "Parallel"
+  serviceName: helmapp
   selector:
     matchLabels:
       {{- include "helm-app.selectorLabels" . | nindent 6 }}

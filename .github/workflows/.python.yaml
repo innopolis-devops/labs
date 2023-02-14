@@ -14,7 +14,6 @@ jobs:
   build:
     timeout-minutes: 15
     runs-on: ubuntu-latest
-    needs: [docs, code]
     steps:
       - uses: actions/checkout@v3
 

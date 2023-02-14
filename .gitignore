@@ -22,3 +22,5 @@
 db
 bin/
 venv
+.pytest_cache
+__pycache__

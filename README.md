@@ -80,6 +80,11 @@ I wrote only one unit test for now using `pytest` for now.
 
 More information is placed in `app_python/PYTHON.md`.
 
+
+## Metric
+
+Time of visits can be retrieved on `localhost:5000/visits` after the app is run.
+
 ## Contact
 
 University mail: ma.stepanov@innopolis.university

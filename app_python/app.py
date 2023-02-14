@@ -5,6 +5,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
+VOLUME="volume/visits.txt"
 
 @app.route("/")
 def show_moscow_time():
@@ -21,4 +22,14 @@ def show_moscow_time():
     # construct result HTML soup and return it
     time_string = f"{hours}:{minutes}:{seconds}"
     html = f"<center style='font-size: 60px;'>{time_string}</center>"
+    with open(VOLUME, 'a') as f:
+        f.write(time_string)
+        f.write('\n')
     return html
+    
+
+@app.route("/visits")
+def visits():
+    with open(VOLUME, 'r') as f:
+        visits = f.readlines()
+    return '\n'.join(visits)

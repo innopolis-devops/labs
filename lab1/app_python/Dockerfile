@@ -7,6 +7,10 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
+# ensure that timezone is set to UTC
+RUN apk add tzdata
+ENV TZ=UTC
+
 ENV FLASK_APP=app.py
 
 EXPOSE 5000

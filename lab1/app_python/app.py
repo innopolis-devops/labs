@@ -1,5 +1,4 @@
-from datetime import datetime
-from pytz import timezone
+from datetime import datetime, timezone, timedelta
 from flask import render_template_string
 
 from flask import Flask
@@ -21,10 +20,13 @@ PAGE_SOURCE = '''
 
 @app.route('/')
 def show_time():
-    tm = datetime.now()
-    # convert to moscow
-    tm = tm.astimezone(timezone('Europe/Moscow'))
-    return render_template_string(PAGE_SOURCE, time=tm.strftime('%H:%M:%S'))
+    """
+    Returns page with current time in UTC+3 (Europe/Moscow)
+    :return: rendered page
+    """
+    offset = timedelta(hours=3)
+    tm = datetime.now(tz=timezone(offset)).strftime('%H:%M:%S')
+    return render_template_string(PAGE_SOURCE, time=tm)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
 Flask==2.2.2
 freezegun==1.2.2
+prometheus_flask_exporter==0.21.0
 pytest==7.2.1
-pytz==2022.4

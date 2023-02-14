@@ -1,9 +1,13 @@
 from datetime import datetime, timezone, timedelta
-from flask import render_template_string
+from flask import render_template_string, request
+from prometheus_flask_exporter import PrometheusMetrics
 
 from flask import Flask
 
 app = Flask(__name__)
+
+metrics = PrometheusMetrics(app)
+metrics.info('app_info', 'Application info', version='0.1.0')
 
 PAGE_SOURCE = '''
 <!DOCTYPE html>
@@ -19,6 +23,10 @@ PAGE_SOURCE = '''
 
 
 @app.route('/')
+@metrics.counter('requests_total', 'Total requests', labels={
+    'method': lambda: request.method,
+    'endpoint': lambda: request.endpoint
+})
 def show_time():
     """
     Returns page with current time in UTC+3 (Europe/Moscow)

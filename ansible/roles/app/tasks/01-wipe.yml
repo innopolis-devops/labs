@@ -1,0 +1,15 @@
+- name: wipe app
+  block:
+    - name: stop services
+      community.docker.docker_compose:
+        project_src: "{{ app_path }}"
+        state: absent
+    - name: remove app
+      file:
+        path: "{{ app_path }}"
+        state: absent
+    - name: remove app image
+      docker_image:
+        name: "{{ app_image.name }}"
+        state: absent
+  tags: wipe

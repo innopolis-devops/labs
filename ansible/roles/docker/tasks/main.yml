@@ -47,6 +47,20 @@
   ignore_errors: "{{ ansible_check_mode }}"
   when: "docker_install_compose_plugin | bool == true and ansible_version.full is version_compare('2.12', '>=') and ansible_os_family in ['RedHat', 'Debian']"
 
+- name: install python
+  package:
+    name: python3
+    state: present
+
+- name: install pip
+  apt: name=python3-pip state=present
+
+- name: install docker python packages
+  pip:
+    name:
+    - docker
+    - "docker-compose"
+
 - name: Ensure /etc/docker/ directory exists.
   file:
     path: /etc/docker

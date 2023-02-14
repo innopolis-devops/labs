@@ -1,0 +1,29 @@
+- name: wipe app
+  ansible.builtin.import_tasks: 01-wipe.yml
+  when: app_full_wipe | bool == true
+  tags:
+    - wipe
+    - deploy
+- name: deploy app
+  tags:
+    - deploy
+  block:
+    - name: start docker
+      service:
+        name: docker
+        state: started
+    - name: create app dir
+      ansible.builtin.file:
+          path: "{{ app_path }}"
+          state: directory
+
+    - name: build docker-compose template
+      ansible.builtin.template:
+          src: docker-compose.yml.j2
+          dest: "{{ app_path }}/docker-compose.yml"
+
+    - name: start services
+      community.docker.docker_compose:
+        project_src: "{{ app_path }}"
+        state: present
+        pull: true

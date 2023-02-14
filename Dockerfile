@@ -15,4 +15,6 @@ ENV FLASK_APP=app.py
 
 EXPOSE 5000
 
+HEALTHCHECK --interval=10s --timeout=10s --retries=2 CMD curl -sS 127.0.0.1:5000 || exit 1
+
 CMD ["flask", "run", "--host=0.0.0.0"]

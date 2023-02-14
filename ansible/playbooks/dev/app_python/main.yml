@@ -1,0 +1,7 @@
+- name: Deploy Python Web application
+  hosts: yacloud
+  remote_user: ubuntu
+  become: true
+
+  roles:
+    - app

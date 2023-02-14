@@ -1,0 +1,9 @@
+app_full_wipe : false
+app_name: innodevops
+app_image:
+  name: semior/innodevops
+  version: latest
+app_port:
+  external: 80
+  internal: 5000
+app_path: "/opt/{{ app_name }}"

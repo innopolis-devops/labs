@@ -2,8 +2,8 @@ FROM python:3.9-alpine
 
 WORKDIR /app
 
-COPY app.py .
-COPY requirements.txt .
+COPY app_python/app.py .
+COPY app_python/requirements.txt .
 
 RUN pip install -r requirements.txt
 

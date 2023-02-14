@@ -1,0 +1,8 @@
+---
+- name: Prepare Docker
+  hosts: vm1
+  remote_user: ubuntu
+  become: true
+
+  roles:
+    - docker

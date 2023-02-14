@@ -1,0 +1,14 @@
+version: '3'
+services:
+  app_python:
+    image: sokratmillman/flask_app:latest
+    build: app_python
+    volumes:
+      - volume-python:/app/volume
+    expose:
+      - 5000
+    ports:
+      - 5000:5000
+
+volumes:
+  volume-python:

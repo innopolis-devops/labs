@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: sokratmillman/flask_app
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
@@ -76,3 +76,19 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+volumes:
+  config:
+    name: volumemount
+    mountPath: /config.json
+    subPath: config.json
+    configMap:
+      name: devops-map
+  persistent:
+    name: persistent-volumemount
+    mountPath: /app/volume
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 128Mi

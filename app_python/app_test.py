@@ -6,12 +6,10 @@ from app import app
 client: FlaskClient = app.test_client()
 
 
-# freeze time to 2020-01-01 00:00:00
 @pytest.fixture(autouse=True)
 def freeze_time(monkeypatch):
     from freezegun import freeze_time
-
-    with freeze_time('2020-01-01 00:00:00', tz_offset=0):
+    with freeze_time('2020-01-01 00:00:00'):
         yield
 
 
@@ -22,7 +20,7 @@ EXPECTED_RESPONSE = b'''
     <title>Lab 1</title>
 </head>
 <body>
-    <h1>Current time: 00:00:00</h1>
+    <h1>Current time: 03:00:00</h1>
 </body>
 </html>'''
 

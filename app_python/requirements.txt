@@ -1,2 +1,4 @@
 Flask==2.2.2
-pytz==2022.7.1
+freezegun==1.2.2
+pytest==7.2.1
+pytz==2022.4

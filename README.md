@@ -23,7 +23,6 @@ flask run --host=127.0.0.1 --port=4000
 
 Go to `http://127.0.0.1:4000` web page to see the result
 
-
 ## Getting Started with Docker ##
 
 1. Install Docker

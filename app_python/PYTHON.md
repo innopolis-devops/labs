@@ -23,7 +23,6 @@ I decided to use Flask framework, because of following pros:
 
 I use **Flake8** linter for Python and **markdownlint** for a Markdown
 
-
 # Unit tests #
 
 I have only one unit test. I followed several best practices:

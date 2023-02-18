@@ -35,7 +35,7 @@ Go to `http://127.0.0.1:4000` web page to see the result
 
 # Unit tests #
 
-I used ```pytest``` for running tests. I followed several best practices:
+I have only one unit test. I followed several best practices:
 
 * Clear test function name: The name of the test function, test_get_time, is clear and descriptive. It conveys the intent of the test and what it's testing.
 * Arrange-Act-Assert (AAA) structure: The test function follows the AAA structure, where we first set up the necessary objects (arrange), then perform the action being tested (act), and finally check the expected result (assert).

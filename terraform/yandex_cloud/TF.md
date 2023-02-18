@@ -14,7 +14,7 @@ resource "yandex_compute_instance" "default" {
     metadata                  = {
         "foo"      = "bar"
         "ssh-keys" = <<-EOT
-            debian:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6iPBC7qykufrgSh02rFPJkWcBaHCfy/tR/VDtpzoQel1+cQBb5M36+l/cePtg/3kCqYfjM/3OLQ3RH2pGM6udm6ngY1ZK6neilX2UBONwFsWHLfGw0aoOZ+Rp3OrcKb9xBTyuXmUhjXX5BBjPjdikKImBfPtwMPns1THeeZ+ZJz9f6F5rakWnlnwHfp9nCV84IWGP46zDOqIaNsM2DURyKjYdAbskNdS2JY+gLT4rXDocBzskkm/O442Lt40TBoybJkcGOXIn/8pF7AtB++8CXxLSrUffhciNNXAw632LoQ/gT7i2OU0MYE1x/Eow/2RYU5PgUFcshGjhqFN/k2g7 igor@debian
+            debian:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6iPBC7qykufrgSh02rFPJkWcBaHCfy/tR/VDtpzoQel1+cQBb5M36+l/cePtg/3kCqYfjM/3OLQ3RH2pGM6udm6ngY1ZK6neilX2UBONwFsWHLfGw0aoOZ+Rp3OrcKb9xBTyuXmUhjXX5BBjPjdikKImBfPtwMPns1THeeZ+ZJz9f6F5rakWnlnwHfp9nCV84IWGP46zDOqIaNsM2DURyKjYdAbskNdS2JY+gLT4rXDocBzskkm/O442Lt40TBoybJkcGOXIn/8pF7AtB++8CXxLSrUffhciNNXAw632LoQ/gT7i2OU0MYE1x/Eow/2RYU5PgUFcshGjhqFN/k2g7 erik@debian
         EOT
     }
     name                      = "terraform"

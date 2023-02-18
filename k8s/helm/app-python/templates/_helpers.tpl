@@ -60,3 +60,15 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "helm-app.env-vars" -}}
+- name: SECRET
+  valueFrom:
+    secretKeyRef:
+      name: credentials
+      key: secret
+- name: FIRST
+  value: first-secret
+- name: SECOND
+  value: second-secret
+{{- end }}

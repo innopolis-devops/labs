@@ -22,3 +22,16 @@ I decided to use Flask framework, because of following pros:
 # Linter #
 
 I use **Flake8** linter for Python and **markdownlint** for a Markdown
+
+
+# Unit tests #
+
+I have only one unit test. I followed several best practices:
+
+* Clear test function name: The name of the test function, test_get_time, is clear and descriptive. It conveys the intent of the test and what it's testing.
+* Arrange-Act-Assert (AAA) structure: The test function follows the AAA structure, where we first set up the necessary objects (arrange), then perform the action being tested (act), and finally check the expected result (assert).
+* Isolation of code under test: The test only tests the behavior of the get_time function and does not rely on any external resources or dependencies.
+* Use of test client: I use Flask's test client to simulate requests to our app, instead of making actual HTTP requests. This makes our tests faster and more reliable.
+* Use of assertions: I use assert statements to check that the actual results match our expected results. This makes it easy to identify when a test fails and what went wrong.
+
+Overall, these practices help make our tests more readable, maintainable, and reliable.

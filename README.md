@@ -22,3 +22,12 @@ flask run --host=127.0.0.1 --port=4000
 ## Check Results ##
 
 Go to `http://127.0.0.1:4000` web page to see the result
+
+
+## Getting Started with Docker ##
+
+1. Install Docker
+2. Pull image:
+```docker pull dapp7anyway/devops```
+3. Run container:
+```docker run -p 4000:4000 dapp7anyway/devops```

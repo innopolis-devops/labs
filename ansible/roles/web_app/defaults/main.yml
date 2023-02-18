@@ -1,0 +1,10 @@
+web_app_path: "app_python"
+web_app_service: "time_app"
+web_app_image:
+  user: tonydecva180xn
+  repo: devops
+  tag: lab-3
+
+web_app_port:
+  internal: 5000
+  external: 5000

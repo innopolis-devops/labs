@@ -10,7 +10,7 @@ I decided to use Flask framework, because of following pros:
 * Compatible: Flask is compatible with the latest technologies like Machine Learning, Cloud, etc.
 * Flexible and Scalable: Support WSGI templates that allow flexibility and scalability for web applications.
 * It comes with a built-in server and debugger.
-* Simple and adaptable configurations
+* Simple and adaptable configurations.
 
 # Best practices #
 

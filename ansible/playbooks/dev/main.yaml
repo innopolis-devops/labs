@@ -1,0 +1,4 @@
+- name: yandex_cloud
+  hosts: vm
+  roles:
+    - web_app

@@ -3,7 +3,7 @@
 ## terraform show
 
 ```
-erik@DESKTOP-I8RUIBG yandex_cloud % terraform show
+PS E:\terraform\yandex_cloud> yandex_cloud % terraform show
 # yandex_compute_instance.default:
 resource "yandex_compute_instance" "default" {
     allow_stopping_for_update = true
@@ -93,7 +93,7 @@ resource "yandex_vpc_subnet" "foo" {
 ## terraform state list
 
 ```
-erik@DESKTOP-I8RUIBG yandex_cloud % terraform state list
+PS E:\terraform\yandex_cloud> yandex_cloud % terraform state list
 yandex_compute_instance.default
 yandex_vpc_network.foo
 yandex_vpc_subnet.foo
@@ -102,7 +102,7 @@ yandex_vpc_subnet.foo
 ## Change Infrastructure
 
 ```
-erik@DESKTOP-I8RUIBG yandex_cloud % terraform apply
+PS E:\terraform\yandex_cloud> yandex_cloud % terraform apply
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with
 the following symbols:
   ~ update in-place

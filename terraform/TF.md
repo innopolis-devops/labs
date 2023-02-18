@@ -1,6 +1,7 @@
 # Docker #
 
-```PS C:\users\dappa\devops\devops\terraform\docker> terraform show
+```
+PS C:\users\dappa\devops\devops\terraform\docker> terraform show
 # docker_container.nginx:
 resource "docker_container" "nginx" {
     attach                                      = false
@@ -88,14 +89,16 @@ container_id = "3818426724b40edc05973fe49d4da570094cd1b836e7e41235c7a33dcd518d09
 image_id = "sha256:3f8a00f137a0d2c8a2163a09901e28e2471999fde4efc2f9570b91f1c30acf94nginx:latest"
 ```
 
-```PS C:\users\dappa\devops\devops\terraform\docker> terraform state list
+```
+PS C:\users\dappa\devops\devops\terraform\docker> terraform state list
 docker_container.nginx
 docker_image.nginx
 ```
 
 # Yandex Cloud / instead of AWS #
 
-```PS C:\users\dappa\devops\devops\terraform\yc> terraform show
+```
+PS C:\users\dappa\devops\devops\terraform\yc> terraform show
 # yandex_compute_instance.instance-1:
 resource "yandex_compute_instance" "instance-1" {
     created_at                = "2023-02-18T20:35:56Z"
@@ -182,10 +185,13 @@ resource "yandex_vpc_subnet" "subnet-1" {
     v6_cidr_blocks = []
     zone           = "ru-central1-a"
 }
-PS C:\users\dappa\devops\devops\terraform\yc>```
+PS C:\users\dappa\devops\devops\terraform\yc>
+```
 
 
-``` PS C:\users\dappa\devops\devops\terraform\yc> terraform state list
+```
+PS C:\users\dappa\devops\devops\terraform\yc> terraform state list
 yandex_compute_instance.instance-1
 yandex_vpc_network.network-1
-yandex_vpc_subnet.subnet-1 ```
+yandex_vpc_subnet.subnet-1
+```

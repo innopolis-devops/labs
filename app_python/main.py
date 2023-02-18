@@ -1,10 +1,11 @@
 from flask import Flask
+from prometheus_flask_exporter import PrometheusMetrics
 
 import time_utils
 
 # flask server entry point
 app = Flask(__name__)
-
+metrics = PrometheusMetrics(app)
 
 # index page callback
 @app.route("/")

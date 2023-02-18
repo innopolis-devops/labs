@@ -47,4 +47,4 @@ jobs:
           context: ./app_python
           file: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/app_python:lab-3
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/devops:latest

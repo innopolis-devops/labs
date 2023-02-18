@@ -44,7 +44,7 @@ Docker make container of your app, so all dependencies will be only in the conta
 ```docker images```
 
 3. Then run container via the following command
-```docker run -d -p 3000:3000 <image_id>:lab-3```
+```docker run -d -p 3000:3000 necesanov/devops:latest```
 
 # Contact
 My telegram: @wardenlow

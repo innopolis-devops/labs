@@ -85,13 +85,13 @@ resource "docker_image" "nginx" {
 Outputs:
 
 container_id = "3818426724b40edc05973fe49d4da570094cd1b836e7e41235c7a33dcd518d09"
-image_id = "sha256:3f8a00f137a0d2c8a2163a09901e28e2471999fde4efc2f9570b91f1c30acf94nginx:latest"```
+image_id = "sha256:3f8a00f137a0d2c8a2163a09901e28e2471999fde4efc2f9570b91f1c30acf94nginx:latest"
+```
 
-``` PS C:\users\dappa\devops\devops\terraform\docker> terraform state list
+```PS C:\users\dappa\devops\devops\terraform\docker> terraform state list
 docker_container.nginx
-docker_image.nginx```
-
----
+docker_image.nginx
+```
 
 # Yandex Cloud / instead of AWS #
 
@@ -183,6 +183,7 @@ resource "yandex_vpc_subnet" "subnet-1" {
     zone           = "ru-central1-a"
 }
 PS C:\users\dappa\devops\devops\terraform\yc>```
+
 
 ``` PS C:\users\dappa\devops\devops\terraform\yc> terraform state list
 yandex_compute_instance.instance-1

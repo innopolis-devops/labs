@@ -10,6 +10,7 @@ RUN pip install -r requirements.txt
 # ensure that timezone is set to UTC
 RUN apk add tzdata
 ENV TZ=UTC
+ENV VISITS_FILE=/app/visits.txt
 
 ENV FLASK_APP=app.py
 

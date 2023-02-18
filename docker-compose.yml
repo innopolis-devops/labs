@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:5000"
+    environment:
+      - LOG_FILE=/var/log/visits/visits.log
+    volumes:
+      - data:/var/log/visits/
+volumes:
+  data:

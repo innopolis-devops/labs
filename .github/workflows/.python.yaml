@@ -33,5 +33,7 @@ jobs:
           path: "app_python"
 
       - name: Test with pytest
+        env:
+          VISITS_FILE: ${{ github.workspace }}/app_python/visits.txt
         run: |
           pytest

@@ -2,6 +2,7 @@ version: '3.9'
 services:
   app_python:
     image: necesanov/devops:latest
+    mem_limit: 100m
     ports:
       - 5000:5000
     logging:
@@ -11,6 +12,7 @@ services:
 
   loki:
     image: grafana/loki:2.6.1
+    mem_limit: 100m
     expose:
       - 3100
     ports:
@@ -19,6 +21,7 @@ services:
 
   promtail:
     image: grafana/promtail:2.6.1
+    mem_limit: 100m
     expose:
       - 9080
     ports:
@@ -33,8 +36,10 @@ services:
 
   grafana:
     image: grafana/grafana:latest
+    mem_limit: 100m
     volumes:
       - ./loki.yml:/etc/grafana/provisioning/datasources/datasource.yml
+      - ./datasources/prometheus.yml:/etc/grafana/provisioning/datasources/prometheus_ds.yml
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
     expose:
@@ -42,5 +47,20 @@ services:
     ports:
       - "3000:3000"
 
+  prometheus:
+    image: prom/prometheus:${PROMETHEUS_VERSION:-v2.39.1}
+    mem_limit: 100m
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - "9090:9090"
+
 volumes:
   promtail-data: {}
+  prometheus-data: {}

@@ -1,0 +1,28 @@
+---
+- name: Deploy Time App
+  block:
+
+  - name: Create directory for app
+    ansible.builtin.file:
+      path: "{{ web_app_path }}"
+      state: directory
+      mode: '0700'
+
+  - name: Copy docker-compose script
+    ansible.builtin.template:
+      src: "docker-compose.yml.j2"
+      dest: "{{ web_app_path }}/docker-compose.yml"
+      mode: "600"
+
+  - name: Run docker-compose
+    community.docker.docker_compose:
+      project_src: "{{ web_app_path }}"
+      state: present
+      pull: true
+    register: output
+
+  - name: Display output
+    ansible.builtin.debug:
+      var: output
+
+  tags: ["web_app"]

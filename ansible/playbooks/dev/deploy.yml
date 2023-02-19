@@ -1,0 +1,5 @@
+- name: Deploy Time App
+  hosts: bobamachine
+  become: true
+  roles:
+    - web_app

@@ -43,11 +43,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: :5000/
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: :5000/
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -57,7 +57,42 @@ spec:
               subPath: {{ .Values.volumes.config.subPath }}
             - name: {{ .Values.volumes.state.name }}
               mountPath: {{ .Values.volumes.state.mountPath }}
+            - name: workdir
+              mountPath: /workdir
+      initContainers:
+        - name: install
+          image: busybox:1.28
+          command:
+            - wget
+            - "-O"
+            - "/workdir/test.html"
+            - http://info.cern.ch
+          volumeMounts:
+            - name: workdir
+              mountPath: /workdir
+        - name: comment-1
+          image: busybox:1.28
+          command:
+            - sh
+            - "-c"
+            - "echo '<-- COMMENT 1 -->' >> /workdir/test.html"
+          volumeMounts:
+            - name: workdir
+              mountPath: /workdir
+        - name: comment-2
+          image: busybox:1.28
+          command:
+            - sh
+            - "-c"
+            - "echo '<-- COMMENT 2 -->' >> /workdir/test.html"
+          volumeMounts:
+            - name: workdir
+              mountPath: /workdir
+      dnsPolicy: Default
       volumes:
+        - name: workdir
+          configMap:
+            name: workdir
         - name: {{ .Values.volumes.config.name }}
           configMap:
             name: {{ .Values.volumes.config.configMap.name }}
@@ -78,3 +113,11 @@ spec:
         name: {{ .Values.volumes.state.name }}
       spec:
         {{- toYaml .Values.volumes.state.spec | nindent 8 }}
+    - metadata:
+        name: workdir
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 128Mi

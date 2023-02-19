@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "app-python-chart.fullname" . }}
   labels:
@@ -7,6 +7,7 @@ metadata:
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   {{- end }}
   selector:
     matchLabels:
@@ -47,14 +48,6 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          volumeMounts:
-            - name: my-volume
-              mountPath: /config.json
-              subPath: config.json
-      volumes:
-        - name: my-volume
-          configMap:
-            name: app-python-config-map
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -67,3 +60,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumeClaimTemplates.metadata.name }}
+      spec:
+        {{- toYaml .Values.volumeClaimTemplates.spec | nindent 8 }}

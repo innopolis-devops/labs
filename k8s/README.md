@@ -42,7 +42,7 @@ docker@127.0.0.1's password: |-----------|-------------|-------------|----------
 |-----------|-------------|-------------|------------------------|
 |-----------|-------------|-------------|------------------------|
 |-----------|-------------|-------------|------------------------|
-| default   | app-service |             | http://127.0.0.1:49446 |
+| default   | app-service |             | http://127.0.0.1:50328 |
 |-----------|-------------|-------------|------------------------|
 🎉  Opening service default/app-service in default browser...
 ❗  Because you are using a Docker driver on windows, the terminal needs to be open to run it.   

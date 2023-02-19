@@ -13,6 +13,9 @@ VOLUME = "volume/visits.txt"
 @app.route("/")
 def get_time():
     moscow_time = datetime.now(pytz.timezone(time_zone)).strftime(time)
+    with open(VOLUME, 'a') as f:
+        f.write(moscow_time)
+        f.write('\n')
     return '<h1>' + moscow_time + '</h1>'
 
 

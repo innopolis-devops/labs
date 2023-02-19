@@ -9,7 +9,6 @@ ENV PATH="/app/env/bin:$PATH"
 
 RUN mkdir volume && \
     touch volume/visits.txt
-
 COPY ./requirements.txt ./requirements.txt
 RUN pip3 install --no-cache-dir -r ./requirements.txt
 

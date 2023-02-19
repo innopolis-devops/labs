@@ -80,3 +80,19 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+volumes:
+  config:
+    name: volumemount
+    mountPath: /config.json
+    subPath: config.json
+    configMap:
+      name: devops-map
+  persistent:
+    name: persistent-volumemount
+    mountPath: /app/volume
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 128Mi

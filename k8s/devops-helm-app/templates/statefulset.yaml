@@ -1,16 +1,17 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: {{ include "devops-helm-app.fullname" . }}
+  name: {{ include "helm-app.fullname" . }}
   labels:
-    {{- include "devops-helm-app.labels" . | nindent 4 }}
+    {{- include "helm-app.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
+  replicas: 2
   {{- end }}
+  podManagementPolicy: "Parallel"
   selector:
     matchLabels:
-      {{- include "devops-helm-app.selectorLabels" . | nindent 6 }}
+      {{- include "helm-app.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,24 +19,34 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "devops-helm-app.selectorLabels" . | nindent 8 }}
+        {{- include "helm-app.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "devops-helm-app.serviceAccountName" . }}
+      serviceAccountName: {{ include "helm-app.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: volumemount
+              mountPath: /config.json
+              subPath: config.json
+          env:
+            - name: DEVOPS_STUDENT
+              valueFrom:
+                secretKeyRef:
+                  name: credentials
+                  key: password
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: 4000
               protocol: TCP
           livenessProbe:
             httpGet:
@@ -46,7 +57,16 @@ spec:
               path: /
               port: http
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      volumes:
+        - name: {{ .Values.volumes.config.name }}
+          configMap:
+            name: {{ .Values.volumes.config.configMap.name }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -59,3 +79,9 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.persistent.name }}
+      spec:
+        {{- toYaml .Values.volumes.persistent.spec | nindent 8 }}

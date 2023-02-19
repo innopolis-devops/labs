@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-server-deployment
+  labels:
+    app: devops-server
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: devops-server
+  template:
+    metadata:
+      labels:
+        app: devops-server
+    spec:
+      containers:
+        - name: devops-server
+          image: dapp7anyway/devops:latest
+          ports:
+            - containerPort: 4000
+          imagePullPolicy: IfNotPresent

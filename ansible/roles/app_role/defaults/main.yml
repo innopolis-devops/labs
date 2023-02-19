@@ -1,0 +1,10 @@
+---
+base_path: "app_role"
+python_app_service: "python_app"
+ports:
+  internal: 4000
+  external: 4000
+docker_image:
+  user: "dapp7anyway"
+  image_name: "devops"
+  tag: "latest"

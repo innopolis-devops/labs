@@ -1,0 +1,13 @@
+datasources:
+  - name: Loki
+    type: loki
+    access: proxy
+    url: http://localhost:3100
+    jsonData:
+      maxLines: 1000
+      queryTimeout: 900
+      showContext: true
+      tail: true
+      customQueryParameters:
+        expr: '{app="my-console-app"}'
+    basicAuth: false

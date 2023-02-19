@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+
+  app_python:
+    image: dapp7anyway/devops:latest
+    restart: unless-stopped
+    ports:
+      - 40:4000
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{.ImageName}}|{{.Name}}"
+
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - ./promtail-config:/etc/promtail
+    command: -config.file=/etc/promtail/promtail.yml
+    ports:
+      - "9080:9080"
+
+  loki:
+    image: grafana/loki:latest
+    volumes:
+      - ./loki-config:/etc/loki
+    command: -config.file=/etc/loki/loki.yml
+    ports:
+      - "3100:3100"
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    volumes:
+      - ./grafana-config:/etc/grafana

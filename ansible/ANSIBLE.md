@@ -110,7 +110,7 @@ dapp-anyway@DESKTOP-H7HVR0O:/mnt/c/Users/dappa/devops/devops/ansible$ ansible-in
 50 last lines of the output of the deployment command `ansible-playbook playbooks/yc/main.yml --diff`
 
 
-...
+```
 TASK [../../roles/docker : Configure Docker daemon options.] ***************************************************************************************************************************************
 skipping: [127.0.0.1]
 
@@ -144,7 +144,7 @@ TASK [../../roles/docker : Get docker group info using getent.] ****************
 skipping: [127.0.0.1]
 
 TASK [../../roles/docker : Check if there are any users to add to the docker group.] ***************************************************************************************************************
-skipping: [127.0.0.1]
+skipping: [127.0.0.1]  
 
 TASK [../../roles/docker : include_tasks] **********************************************************************************************************************************************************
 skipping: [127.0.0.1]

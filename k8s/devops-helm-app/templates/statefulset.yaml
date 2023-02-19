@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "helm-app.fullname" . }}
+  name: {{ include "devops-helm-app.fullname" . }}
   labels:
-    {{- include "helm-app.labels" . | nindent 4 }}
+    {{- include "devops-helm-app.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: 2
@@ -11,7 +11,7 @@ spec:
   podManagementPolicy: "Parallel"
   selector:
     matchLabels:
-      {{- include "helm-app.selectorLabels" . | nindent 6 }}
+      {{- include "devops-helm-app.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -19,13 +19,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "helm-app.selectorLabels" . | nindent 8 }}
+        {{- include "devops-helm-app.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "helm-app.serviceAccountName" . }}
+      serviceAccountName: {{ include "devops-helm-app.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:

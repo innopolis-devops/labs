@@ -32,8 +32,8 @@ scrape_configs:
           - loki:3100
 ```
 
-![03](https://github.com/dapp-anyway/devops/blob/lab7/monitoring/screenshots/03.png)
+![03](https://github.com/dapp-anyway/devops/blob/lab8/monitoring/screenshots/03.png)
 
-![04](https://github.com/dapp-anyway/devops/blob/lab7/monitoring/screenshots/04.png)
+![04](https://github.com/dapp-anyway/devops/blob/lab8/monitoring/screenshots/04.png)
 
-![05](https://github.com/dapp-anyway/devops/blob/lab7/monitoring/screenshots/05.png)
+![05](https://github.com/dapp-anyway/devops/blob/lab8/monitoring/screenshots/05.png)

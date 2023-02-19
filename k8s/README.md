@@ -64,3 +64,21 @@ Running all services:
 
 Up and running:
 ![](screenshot.png)
+
+# Helm
+
+Minicube dashboard:
+![](screenshot1.png)
+
+Pods and services:
+```ps
+Δ kubectl get pods,svc
+NAME                                                 READY   STATUS    RESTARTS      AGE
+pod/app-python-chart-0-1676815739-655c9c5757-wz6nz   1/1     Running   0             11m
+pod/hello-minikube-77b6f68484-6tgkc                  1/1     Running   2 (15h ago)   17h
+
+NAME                                    TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+service/app-python-chart-0-1676815739   LoadBalancer   10.109.73.75     <pending>     5000:31384/TCP   11m
+service/hello-minikube                  NodePort       10.109.181.242   <none>        8080:30112/TCP   17h
+service/kubernetes                      ClusterIP      10.96.0.1        <none>        443/TCP          17h
+```

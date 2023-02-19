@@ -1,0 +1,72 @@
+version: "3"
+
+networks:
+  supernetwork:
+
+services:
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - supernetwork
+
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - ./configs/promtail.yaml:/etc/promtail/promtail.yml
+      - /var/lib/docker/containers:/var/lib/docker/containers
+    command: -config.file=/etc/promtail/config.yml
+    expose:
+      - 9080
+    ports:
+      - "9080:9080"
+    networks:
+      - supernetwork
+
+  grafana:
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true  
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - supernetwork
+    volumes:
+      - ./configs/datasources:/etc/grafana/provisioning/datasources
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./configs/prometheus.yaml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=14d'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.wal-compression'
+      - '--storage.tsdb.max-block-duration=4h'
+      - '--storage.tsdb.wal-segment-size=60MB'
+      - '--storage.tsdb.allow-overlapping-blocks'
+      - '--query.max-samples=5000000'
+    restart: unless-stopped
+    expose:
+      - 9090
+    ports:
+      - "9090:9090"
+    networks:
+      - supernetwork
+
+  app_python:
+    image: tonydecva180xn/devops:latest
+    ports:
+      - 5000:5000
+    networks:
+      - supernetwork
+
+volumes:
+  prometheus-data: {}

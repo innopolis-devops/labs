@@ -1,0 +1,5 @@
+virtualmachines:
+  hosts:
+    bobamachine:
+      ansible_host: 51.250.16.188
+      ansible_user: megaman

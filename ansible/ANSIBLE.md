@@ -1,6 +1,7 @@
 # Playbook #
 
-```dapp-anyway@DESKTOP-H7HVR0O:/mnt/c/Users/dappa/devops/devops/ansible$ ansible-playbook playbooks/dev/main.yml
+```
+dapp-anyway@DESKTOP-H7HVR0O:/mnt/c/Users/dappa/devops/devops/ansible$ ansible-playbook playbooks/dev/main.yml
 [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
 
 PLAY [Configure Docker] *****************************************************************************************************************
@@ -86,7 +87,8 @@ PLAY RECAP *********************************************************************
 
 # Inventory #
 
-```dapp-anyway@DESKTOP-H7HVR0O:/mnt/c/Users/dappa/devops/devops/ansible$ ansible-inventory -i default_aws_ec2.yaml --list
+```
+dapp-anyway@DESKTOP-H7HVR0O:/mnt/c/Users/dappa/devops/devops/ansible$ ansible-inventory -i default_aws_ec2.yaml --list  
 [WARNING]: Unable to parse /mnt/c/Users/dappa/devops/devops/ansible/default_aws_ec2.yaml as an inventory source
 [WARNING]: No inventory was parsed, only implicit localhost is available
 {

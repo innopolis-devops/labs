@@ -1,0 +1,88 @@
+version: "3"
+
+networks:
+  loki:
+  grafana:
+  promtail:
+  prometheus:
+
+services:
+
+  app_python:
+    image: dapp7anyway/devops:latest
+    restart: always
+    ports:
+      - 40:4000
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+        tag: "{{.ImageName}}|{{.Name}}"
+    networks:
+      - loki
+      - grafana
+      - promtail
+      - prometheus
+
+  prometheus:
+    image: prom/prometheus:latest
+    restart: always
+    volumes:
+      - ./prometheus-config:/etc/prometheus
+    command: -config.file=/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    networks:
+      - loki
+      - grafana
+      - promtail
+      - prometheus
+
+  promtail:
+    image: grafana/promtail:latest
+    restart: always
+    volumes:
+      - ./promtail-config:/etc/promtail
+    command: -config.file=/etc/promtail/promtail.yml
+    ports:
+      - "9080:9080"
+    networks:
+      - loki
+      - grafana
+      - promtail
+      - prometheus
+
+  loki:
+    image: grafana/loki:latest
+    restart: always
+    volumes:
+      - ./loki-config:/etc/loki
+    command: -config.file=/etc/loki/loki.yml
+    ports:
+      - "3100:3100"
+    networks:
+      - loki
+      - grafana
+      - promtail
+      - prometheus
+
+  grafana:
+    image: grafana/grafana:latest
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ${PWD}/grafana/provisioning:/etc/grafana/provisioning
+    networks:
+      - loki
+      - grafana
+      - promtail
+      - prometheus
+
+
+volumes:
+  grafana-data: {}
+  loki-data: {}
+  promtail-data: {}

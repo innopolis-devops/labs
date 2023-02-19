@@ -108,8 +108,8 @@ scrape_configs:
 
 Test the logging stack by running ```docker-compose up -d```
 
-![01](screenshots\01.png)
+![01](https://github.com/dapp-anyway/devops/blob/lab7/monitoring/screenshots/01.png)
 
 Сhecking if the container is working
 
-![02](screenshots\02.png)
+![02](https://github.com/dapp-anyway/devops/blob/lab7/monitoring/screenshots/02.png)

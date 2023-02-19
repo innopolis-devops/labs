@@ -1,0 +1,14 @@
+- name: yandexansible
+  hosts: localhost
+  connection: local
+  become: true
+  roles:
+    - name: "../../roles/docker"
+      pip_install_packages:
+        - name: pip
+          extra_args: 
+            "--upgrade"
+        - name: "../../roles/docker"
+        - name: docker-compose
+      become: true
+    - "../../roles/app_role"

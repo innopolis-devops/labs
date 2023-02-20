@@ -4,11 +4,12 @@ WORKDIR /app_python
 
 COPY . .
 
+RUN pip3 install -r requirements.txt
+
 ENV FLASK_RUN_HOST=0.0.0.0
 
 ENV FLASK_RUN_PORT=8081
 
-RUN pip3 install -r requirements.txt
 
 EXPOSE 3000
 

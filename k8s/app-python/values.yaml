@@ -5,7 +5,7 @@
 replicaCount: 2
 
 image:
-  repository: romanza705/moscow_time
+  repository: necesanov/devops
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"

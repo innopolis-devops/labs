@@ -4,6 +4,8 @@
 
 replicaCount: 2
 
+serviceName: "app-python"
+
 image:
   repository: necesanov/devops
   pullPolicy: Always

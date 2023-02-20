@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Moscow time</title>
+    <style>
+        .centralized{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .secondary{
+            font-size: 18px;
+            color: #ccc;
+        }
+
+        .primary{
+            font-size: 28px;
+            color: #000;
+        }
+        h1{
+            font-size: 36px;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+<div class="centralized">
+    <span class="secondary">{{ moscow_time }}</span>
+    <h1>Current Moscow time:</h1>
+    <span class="primary">{{ time }}</span>
+</div>
+
+</body>
+</html>
+
+

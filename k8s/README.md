@@ -1,6 +1,8 @@
 # K8S
 
-## Manual deployment
+## Lab 9
+
+### Manual deployment
 
 `kubectl get pods,svc`:
 
@@ -13,7 +15,7 @@ service/app-python   LoadBalancer   10.96.117.23   <pending>     8000:30720/TCP 
 service/kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP          83d
 ```
 
-## Deployment via configuration files
+### Deployment via configuration files
 
 `kubectl get pods,svc`:
 
@@ -56,3 +58,20 @@ service/kubernetes           ClusterIP      10.96.0.1     <none>        443/TCP 
 ```
 
 ![](https://i.imgur.com/0IznMe2.png)
+
+## Lab 10
+
+### Deploy app-python
+
+![](https://i.imgur.com/HSTpAyt.png)
+
+`kubectl get pods,svc`:
+
+```text
+NAME                             READY   STATUS    RESTARTS   AGE
+pod/app-python-597c89787-t9cqm   1/1     Running   0          4m59s
+
+NAME                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+service/app-python   ClusterIP   10.96.39.221   <none>        80/TCP    4m59s
+service/kubernetes   ClusterIP   10.96.0.1      <none>        443/TCP   83d
+```

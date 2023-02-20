@@ -41,6 +41,12 @@ spec:
               "--port",
               "8000",
             ]
+          env:
+            - name: EXAMPLE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: example-secret
+                  key: secret
           ports:
             - name: http
               containerPort: 8000

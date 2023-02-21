@@ -13,6 +13,7 @@ flake8 = "*"
 httpx = "*"
 fastapi-health = "*"
 starlette-exporter = "*"
+pathlib = "*"
 
 [dev-packages]
 

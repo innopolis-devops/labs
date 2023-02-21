@@ -119,6 +119,10 @@ To run from the master branch, follow the instructions below:
    npm test
    ```
 
+## Persistence
+
+Whenever somebody accesses the index route `/`, a counter increments. You can check the current counter value at `/visits` route
+
 ## Contacts
 
 If you have any questions or ideas, write me in [Telegram](https://telegram.org): [@k05m0navt](https://t.me/k05m0navt/)

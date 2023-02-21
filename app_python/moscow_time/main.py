@@ -6,6 +6,8 @@ from fastapi.responses import HTMLResponse
 from fastapi_health import health
 from starlette_exporter import PrometheusMiddleware, handle_metrics
 
+from .utils import current_visits, increment_visits
+
 
 def is_healthy():
     return True
@@ -18,6 +20,7 @@ app.add_route("/metrics", handle_metrics)
 
 
 @app.get("/", response_class=HTMLResponse)
+@increment_visits
 async def get_moscow_time():
     background_image = "https://media.zicxa.com/3024446"
 
@@ -59,6 +62,13 @@ async def get_moscow_time():
         return HTMLResponse(
             content=error_content % (style % (background_image), error), status_code=404
         )
+
+
+@app.get("/visits", response_class=HTMLResponse)
+async def get_visits():
+    return HTMLResponse(
+        content=f"<h1>Visits: {await current_visits()}</h1>", status_code=200
+    )
 
 
 app.add_api_route("/health", health([is_healthy]))

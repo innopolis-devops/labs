@@ -1,0 +1,14 @@
+version: '3'
+services:
+  app_python:
+    image: timurbl/devops_labs:latest
+    build: app_python
+    volumes:
+      - volume-python:/app/volume
+    expose:
+      - 5050
+    ports:
+      - 5050:5050
+
+volumes:
+  volume-python:

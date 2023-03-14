@@ -1,0 +1,11 @@
+---
+app_name: "default_container"
+base_path: "app_python"
+python_app_service: "web_app"
+ports:
+  internal: 5000
+  external: 5000
+docker_image:
+  user: "timurbl"
+  image_name: "devops_labs"
+  tag: "latest"

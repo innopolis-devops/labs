@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "helm-app.fullname" . }}
   labels:
@@ -63,9 +63,9 @@ spec:
               memory: "128Mi"
               cpu: "500m"
       volumes:
-        - name: volumemount
+        - name: {{ .Values.volumes.config.name }}
           configMap:
-            name: devops-map
+            name: {{ .Values.volumes.config.configMap.name }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -78,3 +78,8 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ .Values.volumes.persistent.name }}
+      spec:
+        {{- toYaml .Values.volumes.persistent.spec | nindent 8 }}

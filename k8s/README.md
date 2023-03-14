@@ -51,3 +51,47 @@ service/kubernetes             ClusterIP      10.96.0.1      <none>        443/T
 
 8. Run `minikube service --all`
    ![](./images/1.png)
+
+# Helm
+
+1. Install Helm
+2. Run `helm create helm-app`
+3. Change containerPort and docker image
+4. Create helm chart and install it
+
+```
+helm package helm-app
+helm install helm-app ./helm-app-0.1.0.tgz
+```
+
+5. Run `minikube dashboard`
+   ![](./images/2.png)
+6. Output of `minikube service helm-app`
+
+```
+➜  k8s git:(lab10) ✗ minikube service helm-app
+|-----------|----------|-------------|--------------|
+| NAMESPACE |   NAME   | TARGET PORT |     URL      |
+|-----------|----------|-------------|--------------|
+| default   | helm-app |             | No node port |
+|-----------|----------|-------------|--------------|
+😿  service default/helm-app has no node port
+🏃  Starting tunnel for service helm-app.
+|-----------|----------|-------------|------------------------|
+| NAMESPACE |   NAME   | TARGET PORT |          URL           |
+|-----------|----------|-------------|------------------------|
+| default   | helm-app |             | http://127.0.0.1:53162 |
+|-----------|----------|-------------|------------------------|
+```
+
+7. Output of `kubectl get pods,svc`
+
+```
+➜  k8s git:(lab10) ✗ kubectl get pods,svc
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/helm-app-66467b4f6f-9cx62   1/1     Running   0          9s
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+service/helm-app     ClusterIP   10.110.63.173   <none>        80/TCP    9s
+service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP   40m
+```

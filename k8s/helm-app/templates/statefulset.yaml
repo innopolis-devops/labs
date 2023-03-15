@@ -8,6 +8,7 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  serviceName: helmapp
   selector:
     matchLabels:
       {{- include "helm-app.selectorLabels" . | nindent 6 }}

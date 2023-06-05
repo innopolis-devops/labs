@@ -1,8 +1,8 @@
-name: Python CI
+name: Python CI22
 
 on:
   push:
-    branches: [lab3]
+    branches: [lab34]
 
 jobs:
   build_test:

@@ -1,8 +1,8 @@
-name: Python CI22
+name: Python CI
 
 on:
   push:
-    branches: [lab34]
+    branches: [lab3]
 
 jobs:
   build_test:
@@ -18,7 +18,7 @@ jobs:
     - name: Upgrade Flask and Werkzeug
       run: pip install --upgrade Flask
     - name: Run unit tests
-      run: python3 test_main.py
+      run: python3 test_main
     - name: Cache dependencies
       uses: actions/cache@v2
       with:

@@ -18,14 +18,14 @@ jobs:
     - name: Upgrade Flask and Werkzeug
       run: pip install --upgrade Flask
     - name: Run unit tests
-      run: python3 test_main
+      run: python3 test_main.py
     - name: Cache dependencies
       uses: actions/cache@v2
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
         restore-keys: |
-          ${{ runner.os }}-pip-
+        ${{ runner.os }}-pip-
   deploy:
     needs: build_test
     runs-on: ubuntu-latest
@@ -47,3 +47,4 @@ jobs:
         context: .
         push: true
         tags: docker.io/haraphat01/moscowtime:tagname
+        

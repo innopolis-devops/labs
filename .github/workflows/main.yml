@@ -3,6 +3,9 @@ name: Python CI
 on:
   push:
     branches: [lab3]
+    paths:
+      - "app_python/**"
+      - ".github/workflows/main.yaml"
 
 jobs:
   build_test:
@@ -14,7 +17,7 @@ jobs:
       with:
         python-version: '3.10.7'
     - name: Install dependencies
-      run: pip install -r requirements.txt
+      run: pip install -r app_python/requirements.txt
     - name: Upgrade Flask and Werkzeug
       run: pip install --upgrade Flask
     - name: Run unit tests

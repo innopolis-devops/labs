@@ -21,7 +21,7 @@ jobs:
     - name: Upgrade Flask and Werkzeug
       run: pip install --upgrade Flask
     - name: Run unit tests
-      run: python3 test_main.py
+      run: python3 app_python/test_main.py
     - name: Cache dependencies
       uses: actions/cache@v2
       with:

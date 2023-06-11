@@ -60,3 +60,33 @@ I have also added Docker-related steps to our workflow to log in to a Docker reg
 
 By following these best practices and including a Git Actions CI workflow in your project, I can ensure that my application is thoroughly tested and working as expected.
 
+# Terraform AWS Example
+
+This Terraform configuration sets up an AWS infrastructure with a single EC2 instance running in the `us-west-2` region. The instance is tagged with the name "ExampleAppServerInstance".
+
+## Prerequisites
+
+- Terraform >= 1.2.0
+- AWS CLI
+- An AWS account with the necessary permissions
+
+## Configuration
+
+The `main.tf` file contains the following resources:
+
+1. **Terraform block**: Specifies the required providers and their versions.
+2. **AWS provider block**: Configures the AWS provider with the `us-west-2` region.
+3. **AWS instance resource**: Creates an EC2 instance with the specified AMI and instance type.
+
+
+## Usage
+
+1. Install Terraform and the AWS CLI.
+2. Configure your AWS credentials using `aws configure` or by setting the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables.
+3. Run `terraform init` to initialize the Terraform working directory.
+4. Run `terraform apply` to create the infrastructure. Confirm the changes when prompted.
+5. To destroy the infrastructure when you're done, run `terraform destroy`.
+
+## Customization
+
+You can customize the configuration by modifying the `main.tf` file. For example, you can change the instance type, region, or add additional resources as needed.

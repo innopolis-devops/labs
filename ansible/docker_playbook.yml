@@ -1,6 +1,0 @@
----
-- name: Deploy Docker role
-  hosts: all
-  become: true
-  roles:
-    - my_docker_role

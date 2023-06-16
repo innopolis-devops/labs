@@ -1,3 +1,0 @@
----
-# defaults file for docker
-docker_restart_handler: restart docker

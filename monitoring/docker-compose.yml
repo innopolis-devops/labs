@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  promtail:
+    image: grafana/promtail:2.2.1
+    volumes:
+      - ./promtail-config:/etc/promtail
+    command: -config.file=/etc/promtail/promtail-config.yaml
+
+  loki:
+    image: grafana/loki:2.2.1
+    volumes:
+      - ./loki-config:/etc/loki
+    command: -config.file=/etc/loki/local-config.yaml
+
+  grafana:
+    image: grafana/grafana:7.5.7
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana-data:/var/lib/grafana
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+
+  app:
+    build: .
+    ports:
+      - "8081:8081"
+    environment:
+      - LOGGING_ENDPOINT=http://loki:3100/loki/api/v1/push

@@ -1,0 +1,8 @@
+docker_image_name: myapp
+docker_image_tag: latest
+docker_username: myusername
+docker_password: mypassword
+docker_email: myemail@example.com
+app_path: /path/to/app
+http_proxy: http://proxy.example.com:8080
+https_proxy: http://proxy.example.com:8080

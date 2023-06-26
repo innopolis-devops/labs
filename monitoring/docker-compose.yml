@@ -1,0 +1,19 @@
+version: '3'
+services:
+  app:
+    build: ../app_python/main.py
+    ports:
+      - "5000:5000"
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - ./promtail:/etc/promtail
+    command: -config.file=/etc/promtail/config.yaml
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"

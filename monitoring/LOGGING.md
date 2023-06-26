@@ -54,7 +54,7 @@ This command started all the services defined in the docker-compose.yml file. I 
 
 Here are some screenshots of my success:
 
-- [Screenshot of my application running](monitoring/graffana.png)
+- ![Screenshot of my application running](monitoring/graffana.png)
 
 
 ## Conclusion

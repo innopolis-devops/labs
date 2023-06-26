@@ -4,6 +4,11 @@ services:
     build: ../app_python/main.py
     ports:
       - "5000:5000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
   loki:
     image: grafana/loki:latest
     ports:
@@ -17,3 +22,12 @@ services:
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
+  prometheus:
+    image: prom/prometheus:v2.30.3
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'

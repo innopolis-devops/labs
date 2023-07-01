@@ -1,0 +1,48 @@
+name: Python CI
+
+on:
+  push:
+    branches: [lab3]
+    paths:
+      - "app_python/**"
+      - ".github/workflows/main.yaml"
+
+jobs:
+  build_test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10.7'
+    - name: Install dependencies
+      run: pip install -r app_python/requirements.txt
+    - name: Upgrade Flask and Werkzeug
+      run: pip install --upgrade Flask
+    - name: Run unit tests
+      run: python3 app_python/test_main.py
+    
+  deploy:
+    needs: build_test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Log in to Docker registry
+      uses: docker/login-action@v1
+      with:
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: app_python/Dockerfile
+        push: true
+        tags: docker.io/haraphat01/moscowtime:tagname
+        

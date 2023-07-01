@@ -1,0 +1,30 @@
+- name: Login to Docker Hub
+  docker_login:
+    username: "{{ docker_username }}"
+    password: "{{ docker_password }}"
+    email: "{{ docker_email }}"
+
+- name: Pull Docker image
+  docker_image:
+    name: "{{ docker_image_name }}:{{ docker_image_tag }}"
+    source: pull
+
+- name: Stop and remove existing container
+  docker_container:
+    name: "{{ docker_image_name }}"
+    state: stopped
+    force_kill: yes
+    remove_volumes: yes
+    remove_image: yes
+  ignore_errors: yes
+
+- name: Run Docker container
+  docker_container:
+    name: "{{ docker_image_name }}"
+    image: "{{ docker_image_name }}:{{ docker_image_tag }}"
+    state: started
+    ports:
+      - "80:80"
+    env:
+      - "HTTP_PROXY={{ http_proxy }}"
+      - "HTTPS_PROXY={{ https_proxy }}"

@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "moscow_time.fullname" . }}
+  name: {{ include "moscow.fullname" . }}
   labels:
-    {{- include "moscow_time.labels" . | nindent 4 }}
+    {{- include "moscow.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "moscow_time.selectorLabels" . | nindent 6 }}
+      {{- include "moscow.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "moscow_time.selectorLabels" . | nindent 8 }}
+        {{- include "moscow.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "moscow_time.serviceAccountName" . }}
+      serviceAccountName: {{ include "moscow.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:

@@ -35,3 +35,14 @@ W0701 11:43:34.451733 1771362 main.go:291] Unable to resolve the current Docker 
 🎉  Opening service default/moscow in default browser...
 
 ![Screenshot](./k8s/screen.png)
+
+## kubectl get pods,svc
+NAME                           READY   STATUS             RESTARTS      AGE
+pod/moscow-c4bdbf657-42bdt     1/1     Running            0             36h
+pod/moscow-c4bdbf657-c5hl8     1/1     Running            0             36h
+pod/moscow-c4bdbf657-sqjjh     1/1     Running            0             36h
+pod/moscow1-85bdcdc774-w4557   0/1     CrashLoopBackOff   5 (38s ago)   4m18s
+
+NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+service/kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP    36h
+service/moscow1      ClusterIP   10.109.250.251   <none>        8081/TCP   4m19s

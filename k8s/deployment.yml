@@ -15,6 +15,7 @@ spec:
       containers:
       - name: moscow
         image: haraphat01/moscowtime
+      
         resources:
           limits:
             memory: "128Mi"

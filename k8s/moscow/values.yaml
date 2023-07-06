@@ -35,6 +35,8 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+# Port exposed by application container
+
 
 service:
   type: ClusterIP

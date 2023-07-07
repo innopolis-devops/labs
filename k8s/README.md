@@ -1,6 +1,9 @@
 ## kubectl get pods
-NAME                     READY   STATUS    RESTARTS        AGE
-moscow-6489c859b-v86nb   1/1     Running   1 (7m28s ago)   12m
+
+| Name | Ready | STATUS| RESTARTS | AGE |
+| -------- | -------- | -------- | -------- | -------- |
+| moscow-6489c859b-v86nb | 1/1  |  1  |  Running  | 12m |
+
 
 
 ## kubectl get svc
@@ -9,10 +12,14 @@ kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP          128m
 moscow       NodePort    10.106.170.135   <none>        8000:32134/TCP   5m28s
 
 ## kubectl get pods
-NAME                      READY   STATUS    RESTARTS        AGE
-moscow-78bccd8f65-b2s8h   1/1     Running   2 (3m7s ago)    3m36s
-moscow-78bccd8f65-fskbx   1/1     Running   1 (3m18s ago)   3m36s
-moscow-78bccd8f65-nlq6q   1/1     Running   1 (3m18s ago)   3m36s
+ | Name | Ready | STATUS| RESTARTS | AGE |
+| -------- | -------- | -------- | -------- | -------- |
+|moscow-78bccd8f65-b2s8h  | 1/1  | Running  | 2 (3m7s ago) | 3m36s |
+|moscow-78bccd8f65-fskbx   | 1/1  | Running | 1 (3m18s ago) | 3m36s |
+|moscow-78bccd8f65-nlq6q   | 1/1  | Running | 1 (3m18s ago) | 3m36s |
+
+
+
 
 ## kubectl get svc
 NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
@@ -37,11 +44,14 @@ W0701 11:43:34.451733 1771362 main.go:291] Unable to resolve the current Docker 
 ![Screenshot](./k8s/screen.png)
 
 ## kubectl get pods,svc
-NAME                           READY   STATUS             RESTARTS      AGE
-pod/moscow-c4bdbf657-42bdt     1/1     Running            0             36h
-pod/moscow-c4bdbf657-c5hl8     1/1     Running            0             36h
-pod/moscow-c4bdbf657-sqjjh     1/1     Running            0             36h
-pod/moscow1-85bdcdc774-w4557   0/1     CrashLoopBackOff   5 (38s ago)   4m18s
+
+ | Name | Ready | STATUS| RESTARTS | AGE |
+| -------- | -------- | -------- | -------- | -------- |
+|pod/moscow-c4bdbf657-42bdt   | 1/1  | Running  | 0 |36h|
+|pod/moscow-c4bdbf657-c5hl8   | 1/1  | Running |0 | 36h |
+|pod/moscow-c4bdbf657-sqjjh   | 1/1  | Running | 0 | 36h|
+|pod/moscow1-85bdcdc774-w4557  | 0/1  | CrashLoopBackOff |  5 (38s ago)|  4m18s |
+
 
 NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
 service/kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP    36h

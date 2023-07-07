@@ -87,6 +87,10 @@ The `main.tf` file contains the following resources:
 4. Run `terraform apply` to create the infrastructure. Confirm the changes when prompted.
 5. To destroy the infrastructure when you're done, run `terraform destroy`.
 
+## Endpoints
+
+- `/`: Returns the current time and logs the visit.
+- `/visits`: Returns the log of all visits.
 ## Customization
 
 You can customize the configuration by modifying the `main.tf` file. For example, you can change the instance type, region, or add additional resources as needed.

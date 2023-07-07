@@ -44,6 +44,10 @@ spec:
                 secretKeyRef:
                   name: moscow-secret
                   key: password
+              volumeMounts:
+                - name: config-volume
+                  mountPath: k8s/files/config.json
+                  subPath: config.json
           resources:
             limits:
               cpu: "1"
